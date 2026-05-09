@@ -1,13 +1,10 @@
-import os
-import json
 import requests
-from datetime import datetime, timedelta
+import json
+from datetime import datetime
+
 
 def fetch_stock_data(ticker: str) -> dict:
-    """
-    自動抓取股票基本數據與新聞
-    使用免費 API，不需要額外 Key
-    """
+    """Auto-fetch stock financial data from Yahoo Finance"""
     data = {
         "ticker": ticker,
         "fetched_at": datetime.now().isoformat(),
@@ -15,26 +12,25 @@ def fetch_stock_data(ticker: str) -> dict:
         "news": [],
         "summary": ""
     }
-    
-    # 1. Yahoo Finance 非官方 API（免費）
+
+    headers = {"User-Agent": "Mozilla/5.0"}
+
+    # Basic quote and financial summary
     try:
-        headers = {"User-Agent": "Mozilla/5.0"}
-        
-        # 基本報價與財務摘要
-        url = f"https://query1.finance.yahoo.com/v10/finance/quoteSummary/{ticker}"
+        url = "https://query1.finance.yahoo.com/v10/finance/quoteSummary/" + ticker
         params = {
-            "modules": "price,summaryDetail,financialData,defaultKeyStatistics,incomeStatementHistory,cashflowStatementHistory"
+            "modules": "price,summaryDetail,financialData,defaultKeyStatistics,incomeStatementHistory"
         }
         resp = requests.get(url, headers=headers, params=params, timeout=10)
-        
+
         if resp.status_code == 200:
             result = resp.json().get("quoteSummary", {}).get("result", [{}])[0]
-            
+
             price_data = result.get("price", {})
             financial_data = result.get("financialData", {})
             key_stats = result.get("defaultKeyStatistics", {})
             summary_detail = result.get("summaryDetail", {})
-            
+
             data["financials"] = {
                 "company_name": price_data.get("longName", ticker),
                 "current_price": price_data.get("regularMarketPrice", {}).get("raw", "N/A"),
@@ -57,80 +53,77 @@ def fetch_stock_data(ticker: str) -> dict:
                 "roa": financial_data.get("returnOnAssets", {}).get("fmt", "N/A"),
                 "short_ratio": key_stats.get("shortRatio", {}).get("fmt", "N/A"),
                 "shares_outstanding": key_stats.get("sharesOutstanding", {}).get("fmt", "N/A"),
-                "shares_change_pct": key_stats.get("sharesPercentSharesOut", {}).get("fmt", "N/A"),
             }
-            print(f"✅ 財務數據抓取成功: {data['financials']['company_name']}")
+            print("Yahoo Finance OK: " + data["financials"]["company_name"])
         else:
-            print(f"⚠️ Yahoo Finance 回應異常: {resp.status_code}")
-            
+            print("Yahoo Finance status: " + str(resp.status_code))
+
     except Exception as e:
-        print(f"⚠️ 財務數據抓取失敗: {e}")
-    
-    # 2. 抓最新新聞（Yahoo Finance 新聞）
+        print("Yahoo Finance failed: " + str(e))
+
+    # News
     try:
-        news_url = f"https://query1.finance.yahoo.com/v1/finance/search"
+        news_url = "https://query1.finance.yahoo.com/v1/finance/search"
         news_params = {"q": ticker, "newsCount": 10, "enableFuzzyQuery": False}
         news_resp = requests.get(news_url, headers=headers, params=news_params, timeout=10)
-        
+
         if news_resp.status_code == 200:
             news_items = news_resp.json().get("news", [])
             for item in news_items[:8]:
                 data["news"].append({
                     "title": item.get("title", ""),
                     "publisher": item.get("publisher", ""),
-                    "published": datetime.fromtimestamp(item.get("providerPublishTime", 0)).strftime("%Y-%m-%d")
+                    "published": datetime.fromtimestamp(
+                        item.get("providerPublishTime", 0)
+                    ).strftime("%Y-%m-%d")
                 })
-            print(f"✅ 新聞抓取成功: {len(data['news'])} 則")
+            print("News OK: " + str(len(data["news"])) + " items")
     except Exception as e:
-        print(f"⚠️ 新聞抓取失敗: {e}")
-    
-    # 3. 整合成大師可讀的文字摘要
+        print("News failed: " + str(e))
+
+    # Build summary text
     f = data["financials"]
-    news_text = "
-".join([f"- [{n['published']}] {n['title']} ({n['publisher']})") for n in data["news"]])
-    
-    data["summary"] = f"""
-## {f.get('company_name', ticker)} () 數據摘要
+    news_lines = []
+    for n in data["news"]:
+        news_lines.append("- [" + n["published"] + "] " + n["title"] + " (" + n["publisher"] + ")")
+    news_text = "\n".join(news_lines) if news_lines else "No news available"
 
-### 估值指標
-- 當前股價: {f.get('current_price')}
-- 市值: {f.get('market_cap')}
-- 52週高/低: {f.get('52w_high')} / {f.get('52w_low')}
-- 本益比 (P/E): {f.get('pe_ratio')} | 前瞻 P/E: {f.get('forward_pe')}
-- P/S 比: {f.get('ps_ratio')} | P/B 比: {f.get('pb_ratio')}
-- EV/EBITDA: {f.get('ev_ebitda')}
+    data["summary"] = (
+        "## " + f.get("company_name", ticker) + " ($" + ticker + ") Data Summary\n\n"
+        "### Valuation\n"
+        "- Price: " + str(f.get("current_price")) + "\n"
+        "- Market Cap: " + str(f.get("market_cap")) + "\n"
+        "- 52W High/Low: " + str(f.get("52w_high")) + " / " + str(f.get("52w_low")) + "\n"
+        "- P/E: " + str(f.get("pe_ratio")) + " | Fwd P/E: " + str(f.get("forward_pe")) + "\n"
+        "- P/S: " + str(f.get("ps_ratio")) + " | P/B: " + str(f.get("pb_ratio")) + "\n"
+        "- EV/EBITDA: " + str(f.get("ev_ebitda")) + "\n\n"
+        "### Profitability\n"
+        "- Gross Margin: " + str(f.get("gross_margin")) + "\n"
+        "- Operating Margin: " + str(f.get("operating_margin")) + "\n"
+        "- Net Margin: " + str(f.get("profit_margin")) + "\n"
+        "- ROE: " + str(f.get("roe")) + " | ROA: " + str(f.get("roa")) + "\n\n"
+        "### Growth & Cash Flow\n"
+        "- Revenue Growth YoY: " + str(f.get("revenue_growth")) + "\n"
+        "- Free Cash Flow: " + str(f.get("free_cashflow")) + "\n\n"
+        "### Balance Sheet\n"
+        "- Cash: " + str(f.get("cash")) + " | Total Debt: " + str(f.get("total_debt")) + "\n"
+        "- Shares Outstanding: " + str(f.get("shares_outstanding")) + "\n"
+        "- Short Ratio: " + str(f.get("short_ratio")) + "\n\n"
+        "### Recent News\n"
+        + news_text
+    )
 
-### 獲利能力
-- 毛利率: {f.get('gross_margin')}
-- 營業利潤率: {f.get('operating_margin')}
-- 淨利率: {f.get('profit_margin')}
-- ROE: {f.get('roe')} | ROA: {f.get('roa')}
-
-### 成長與現金流
-- 營收成長率 (YoY): {f.get('revenue_growth')}
-- 自由現金流: {f.get('free_cashflow')}
-
-### 資產負債
-- 現金: {f.get('cash')} | 總負債: {f.get('total_debt')}
-- 流通股數: {f.get('shares_outstanding')}
-- 放空比率: {f.get('short_ratio')}
-
-### 最新新聞 (近期)
-{news_text if news_text else "暫無新聞資料"}
-"""
-    
     return data
 
 
 def fetch_and_prepare(ticker: str) -> str:
-    """抓數據並回傳給分析師用的文字"""
-    print(f"🔍 正在抓取  數據...")
+    """Fetch data and return analysis-ready text"""
+    print("Fetching $" + ticker + " data...")
     data = fetch_stock_data(ticker)
     return data["summary"]
 
 
 if __name__ == "__main__":
     import sys
-    ticker = sys.argv[1] if len(sys.argv) > 1 else "SNDK"
-    summary = fetch_and_prepare(ticker)
-    print(summary)
+    t = sys.argv[1] if len(sys.argv) > 1 else "SNDK"
+    print(fetch_and_prepare(t))
