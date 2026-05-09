@@ -85,9 +85,27 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
         "- Be concise: max 600 words total"
     )
 
+    # Extract current price to anchor target prices
+    import re as _re
+    _price_match = _re.search(r"Current[^\n]*?\$?([0-9,]+\.?[0-9]*)", str(financial_text or "")[:800])
+    _price_note = ""
+    if _price_match:
+        _cp = _price_match.group(1).replace(",", "")
+        try:
+            _cp_float = float(_cp)
+            if _cp_float > 0.5:  # sanity check - skip tiny values
+                _price_note = (
+                    "\n\n⚠️ 重要：當前市場股價為 $" + _cp +
+                    "。目標價必須以此為基準，給出合理範圍（通常 ±70% 以內）。" +
+                    "例如若股價 $293，悲觀 $200、基準 $320、樂觀 $400。" +
+                    "請勿給出與市場價格相差 5 倍以上的目標價。"
+                )
+        except Exception:
+            pass
+
     user_prompt = (
-        "Analyze $" + ticker + " using " + persona["name"] + ".\n\n"
-        "Data:\n" + str(financial_text or "")[:4000] + str(market_section or "") + "\n\n"
+        "Analyze $" + str(ticker or "") + " using " + str(persona["name"] or "") + ".\n\n"
+        "Data:\n" + str(financial_text or "")[:4000] + str(market_section or "") + str(_price_note) + "\n\n"
         "Output format (required):\n"
         "**核心計算**\n[calculations with numbers]\n\n"
         "**指標評分**\n[pass/fail table]\n\n"
