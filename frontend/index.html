@@ -159,7 +159,12 @@
 
                 let reportMarkdown = '';
 
-                // 對比表（全模型時顯示在最前面）
+                // 市場情緒摘要（顯示在最前面）
+                if (data.market_summary && data.market_summary.trim()) {
+                    reportMarkdown += '## 📊 市場情緒指標\n' + data.market_summary + '\n\n---\n\n';
+                }
+
+                // 對比表（全模型時顯示）
                 if (data.comparison_table) {
                     reportMarkdown += data.comparison_table + '\n\n---\n\n';
                 }
