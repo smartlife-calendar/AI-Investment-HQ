@@ -200,6 +200,31 @@ def fetch_tw_stock_data(ticker: str) -> dict:
     flow_data = fetch_twse_foreign_flow(stock_id)
     result.update(flow_data)
 
+    # 5. FMP stable profile (market cap, beta, volume)
+    import os
+    fmp_key = os.environ.get("FMP_API_KEY", "")
+    if fmp_key:
+        try:
+            prof_resp = __import__("requests").get(
+                "https://financialmodelingprep.com/stable/profile",
+                params={"symbol": ticker, "apikey": fmp_key},
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=8
+            )
+            if prof_resp.status_code == 200 and prof_resp.text.strip():
+                profiles = prof_resp.json()
+                if isinstance(profiles, list) and profiles:
+                    p = profiles[0]
+                    result["company_name"] = result.get("company_name") or p.get("companyName", "")
+                    mc = p.get("marketCap", 0)
+                    if mc:
+                        result["market_cap_usd"] = f"${mc * 0.031 / 1e9:.1f}B"
+                        result["market_cap_twd"] = f"NT${mc/1e9:.0f}B"
+                    result["beta"] = str(round(p.get("beta", 0), 2)) if p.get("beta") else "N/A"
+                    print(f"FMP: {result.get('company_name')} MC={result.get('market_cap_usd')}")
+        except Exception as e:
+            print(f"FMP profile failed: {e}")
+
     return result
 
 
