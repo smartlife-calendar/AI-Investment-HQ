@@ -19,7 +19,7 @@ app.add_middleware(
 # === Rate Limiting ===
 # In-memory store: {ip: [timestamp, ...]}
 _rate_store: dict = defaultdict(list)
-RATE_LIMIT_FREE = 5      # requests per hour per IP (free tier)
+RATE_LIMIT_FREE = 50     # requests per hour per IP (raise for development)
 RATE_LIMIT_WINDOW = 3600  # 1 hour in seconds
 
 def check_rate_limit(ip: str, limit: int = RATE_LIMIT_FREE) -> tuple:
