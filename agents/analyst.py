@@ -190,107 +190,150 @@ def run_analysis(ticker: str, financial_text: str, personas: list = None, market
 
 def extract_prices(text: str, persona_id: str) -> dict:
     result = {"bear_price": None, "base_price": None, "bull_price": None, "rating": None, "persona_id": persona_id}
+    if not text:
+        return result
 
-    # Extract prices with multiple pattern attempts
+    # === PRICE EXTRACTION ===
+    # Match patterns like: 悲觀目標價: $250 or 悲觀目標價：$250 or 悲觀: $250 or Bear: $250
+    # Chinese colon ：and English colon : both handled, dollar sign optional
+    price_patterns = {
+        "bear": [
+            r"悲觀[目標價:：\s]*\$?([0-9,]+\.?[0-9]*)",
+            r"Bear[^$\d]*\$([0-9,]+\.?[0-9]*)",
+            r"悲觀情境[^\d$]*\$?([0-9,]+\.?[0-9]*)",
+        ],
+        "base": [
+            r"基準[目標價:：\s]*\$?([0-9,]+\.?[0-9]*)",
+            r"Base[^$\d]*\$([0-9,]+\.?[0-9]*)",
+            r"基準情境[^\d$]*\$?([0-9,]+\.?[0-9]*)",
+        ],
+        "bull": [
+            r"樂觀[目標價:：\s]*\$?([0-9,]+\.?[0-9]*)",
+            r"Bull[^$\d]*\$([0-9,]+\.?[0-9]*)",
+            r"樂觀情境[^\d$]*\$?([0-9,]+\.?[0-9]*)",
+        ],
+    }
+
     def find_price(patterns):
         for p in patterns:
             m = re.search(p, text, re.IGNORECASE)
             if m:
                 try:
-                    v = float(m.group(1))
+                    v = float(m.group(1).replace(",", ""))
                     if v > 0:
                         return v
                 except Exception:
                     pass
         return None
 
-    bear = find_price([
-        r"悲觀[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
-        r"Bear[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
-    ])
-    base = find_price([
-        r"基準[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
-        r"Base[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
-    ])
-    bull = find_price([
-        r"樂觀[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
-        r"Bull[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
-    ])
+    bear = find_price(price_patterns["bear"])
+    base = find_price(price_patterns["base"])
+    bull = find_price(price_patterns["bull"])
 
-    # Extract current market price for plausibility check
+    # === CURRENT PRICE EXTRACTION ===
     current_price = None
-    for cp_pat in [r"當前市場股價為 \$([0-9,]+\.?[0-9]*)", r"Current[^\n]{0,30}?\$([0-9]+\.?[0-9]*)"]:
+    for cp_pat in [
+        r"當前市場股價為 \$([0-9,]+\.?[0-9]*)",
+        r"Current[^\n]{0,40}\$([0-9]+\.?[0-9]*)",
+        r"現價[：: ]*NT?\$?([0-9,]+\.?[0-9]*)",
+    ]:
         cp_m = re.search(cp_pat, text[:2000])
         if cp_m:
             try:
-                current_price = float(cp_m.group(1).replace(",", ""))
-                if current_price > 0.5:
+                cp = float(cp_m.group(1).replace(",", ""))
+                if cp > 0.5:
+                    current_price = cp
                     break
             except Exception:
                 pass
 
-    # === VALIDATION & AUTO-FIX ===
-    # Value frameworks (Graham, Piotroski) intentionally show prices below market
-    # Only apply plausibility filter for growth/momentum frameworks
+    # === VALUE_FRAMEWORKS bypass plausibility check ===
     VALUE_FRAMEWORKS = {"benjamin_graham", "piotroski_fscore", "technical_analysis"}
     skip_plausibility = persona_id in VALUE_FRAMEWORKS
 
-    valid_prices = []
-    for v in [bear, base, bull]:
-        if v is None:
-            valid_prices.append(None)
-        elif skip_plausibility:
-            # For value frameworks: accept any positive price (even if below market)
-            valid_prices.append(v)
-        elif current_price and current_price > 1:
-            # Price must be within 10x of current price (for growth/momentum frameworks)
-            if 0.1 < v / current_price < 10:
-                valid_prices.append(v)
-            else:
-                valid_prices.append(None)
-        else:
-            valid_prices.append(v)
+    def is_plausible(v):
+        if v is None or v <= 0:
+            return False
+        if skip_plausibility:
+            return True
+        if current_price and current_price > 1:
+            return 0.1 < v / current_price < 10
+        return True
 
-    bear, base, bull = valid_prices
+    bear = bear if is_plausible(bear) else None
+    base = base if is_plausible(base) else None
+    bull = bull if is_plausible(bull) else None
 
-    # Ensure bear <= base <= bull order
+    # Auto-sort: ensure bear <= base <= bull
     non_null = sorted([p for p in [bear, base, bull] if p is not None])
     if len(non_null) == 3 and not (non_null[0] <= non_null[1] <= non_null[2]):
-        # Values exist but in wrong order - re-sort
         bear, base, bull = non_null[0], non_null[1], non_null[2]
     elif len(non_null) == 2:
-        # Missing one - estimate it
-        if bear is None and base is not None and bull is not None:
+        if base is None:
+            base = round((non_null[0] + non_null[1]) / 2, 1)
+        elif bear is None:
             bear = round(base * 0.8, 1)
-        elif bull is None and bear is not None and base is not None:
+        elif bull is None:
             bull = round(base * 1.2, 1)
-        elif base is None and bear is not None and bull is not None:
-            base = round((bear + bull) / 2, 1)
     elif len(non_null) == 1:
-        # Only one price - estimate range
         ref = non_null[0]
-        if base is None: base = ref
-        if bear is None: bear = round(ref * 0.8, 1)
-        if bull is None: bull = round(ref * 1.2, 1)
+        bear = bear or round(ref * 0.8, 1)
+        base = base or ref
+        bull = bull or round(ref * 1.2, 1)
 
     result["bear_price"] = bear
     result["base_price"] = base
     result["bull_price"] = bull
 
-    # Rating
-    rating_map = {
-        "Strong Buy": "強力買進", "強力買進": "強力買進",
-        "Buy": "買進", "買進": "買進",
-        "Hold": "觀望", "觀望": "觀望",
-        "Sell": "賣出", "賣出": "賣出",
-        "Strong Sell": "強力迴避", "強力迴避": "強力迴避",
-    }
-    for eng, chi in rating_map.items():
-        if eng in text:
-            result["rating"] = chi
-            break
+    # === RATING EXTRACTION ===
+    # Find the ACTUAL rating line (after 評級: or Rating:), not mentions in trigger conditions
+    rating = None
+    # Look for rating in the 估值結論 section specifically
+    valuation_section = ""
+    val_idx = text.find("估值結論")
+    if val_idx >= 0:
+        valuation_section = text[val_idx:val_idx + 1000]
+    else:
+        valuation_section = text[-1200:]  # Use last part if no section found
 
+    # Priority: find "評級: X" pattern (explicit rating declaration)
+    explicit_patterns = [
+        r"評級[：: ]*([強力買進觀望賣出迴避]+)",
+        r"\*\*評級[：: ]*([^*\n]+)\*\*",
+        r"Rating[：: ]*(Strong Buy|Buy|Hold|Sell|Strong Sell)",
+    ]
+    rating_map = {
+        "強力買進": "強力買進", "Strong Buy": "強力買進",
+        "買進": "買進", "Buy": "買進",
+        "觀望": "觀望", "Hold": "觀望",
+        "賣出": "賣出", "Sell": "賣出",
+        "強力迴避": "強力迴避", "Strong Sell": "強力迴避",
+        "迴避": "強力迴避",
+    }
+
+    for pat in explicit_patterns:
+        m = re.search(pat, valuation_section)
+        if m:
+            raw = m.group(1).strip()
+            for key, val in rating_map.items():
+                if key in raw:
+                    rating = val
+                    break
+            if rating:
+                break
+
+    # Fallback: search whole text but avoid trigger condition sections
+    if not rating:
+        # Remove trigger condition sections to avoid false matches
+        clean_text = re.sub(r"觸發條件.*", "", valuation_section, flags=re.DOTALL)
+        for key in ["強力買進", "買進", "觀望", "賣出", "強力迴避"]:
+            if key in clean_text:
+                rating = key
+                break
+
+    result["rating"] = rating
     return result
+
 
 def generate_comparison_table(ticker: str, results: dict) -> str:
     table = "## $" + str(ticker or "") + " 多框架估值對比表\n\n"
