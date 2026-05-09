@@ -190,11 +190,7 @@
                         reportMarkdown += analysis + '\n\n---\n\n';
 
                         count++;
-                        // 付費牆：免費用戶只看前兩個框架，Pro 看全部
-                        if (personaId === 'all' && count >= 2) {
-                            reportMarkdown += '\n\n';
-                            break;
-                        }
+                        // Show all frameworks for now (paywall to be added via login system later)
                     }
                 }
 
