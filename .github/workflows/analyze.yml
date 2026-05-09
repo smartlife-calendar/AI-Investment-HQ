@@ -4,16 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       ticker:
-        description: "股票代號 (例如: RDW, SMR, LITE)"
+        description: "股票代號 (例如: SNDK, RDW, LITE)"
         required: true
-        default: "RDW"
+        default: "SNDK"
       persona:
         description: "分析師 (dashu_veteran / bian_supplychain / all)"
         required: true
         default: "all"
       financial_text:
-        description: "貼上財報或分析文字"
-        required: true
+        description: "[選填] 貼上財報文字，空白則自動抓取"
+        required: false
+        default: ""
 
 jobs:
   analyze:
@@ -29,17 +30,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       
-      - name: Run analysis
+      - name: Run full pipeline
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TICKER: ${{ github.event.inputs.ticker }}
           PERSONA: ${{ github.event.inputs.persona }}
           FINANCIAL_TEXT: ${{ github.event.inputs.financial_text }}
-        run: python agents/run_analysis.py
+        run: python agents/full_pipeline.py
       
       - name: Upload report
         uses: actions/upload-artifact@v4
         with:
-          name: analysis-report-${{ github.event.inputs.ticker }}
+          name: report-${{ github.event.inputs.ticker }}-${{ github.run_number }}
           path: reports/
           retention-days: 30
