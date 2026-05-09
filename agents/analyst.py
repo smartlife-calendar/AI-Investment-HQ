@@ -117,20 +117,27 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
             pass
 
     user_prompt = (
-        "Analyze $" + str(ticker or "") + " using " + str(persona["name"] or "") + ".\n\n"
-        "Data:\n" + str(financial_text or "")[:4000] + str(market_section or "") + str(_price_note) + "\n\n"
-        "Output format (required):\n"
-        "**核心計算**\n[calculations with numbers]\n\n"
-        "**指標評分**\n[pass/fail table]\n\n"
-        "**主要風險**\n[top 3 risks]\n\n"
-        "**估值結論**\n"
+        "Analyze $" + str(ticker or "") + " using the " + str(persona.get("name","") or "") + " framework.\n\n"
+        "=== DATA ===\n" + str(financial_text or "")[:4000] + str(market_section or "") + str(_price_note) + "\n\n"
+        "=== REQUIRED OUTPUT (Traditional Chinese, ALL sections mandatory) ===\n\n"
+        "**分析框架：" + str(persona.get("name","") or "") + "**\n\n"
+        "**一、核心計算**\n"
+        "（逐一列出所有公式，顯示計算過程和具體數字）\n\n"
+        "**二、指標評分**\n"
+        "| 指標 | 數值 | 標準 | 評分 |\n|---|---|---|---|\n"
+        "（每個指標填入具體數值，✅通過 / ❌未通過 / ⚠️數據不足）\n\n"
+        "**三、市場情緒評估**\n"
+        "（根據VIX/利率/板塊ETF數據，說明當前市場情緒對本股的影響）\n\n"
+        "**四、主要風險**\n"
+        "（列出前3項風險，每項附具體數字佐證）\n\n"
+        "**五、估值結論**\n"
         "- 悲觀目標價: $___\n"
         "- 基準目標價: $___\n"
         "- 樂觀目標價: $___\n"
-        "- 評級: [強力買進/買進/觀望/賣出/強力迴避]\n"
-        "- 觸發條件: [what changes the rating]"
+        "- **評級: [強力買進/買進/觀望/賣出/強力迴避]**\n"
+        "- 升級觸發: ___\n"
+        "- 降級觸發: ___"
     )
-
     return system_prompt, user_prompt
 
 
