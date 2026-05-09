@@ -18,7 +18,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     print("Starting analysis for " + ticker)
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
-    combined_data = "# " + ticker + " Full Data Report\nGenerated: " + ts + "\n\n"
+    combined_data = "# " + str(ticker) + " Full Data Report\nGenerated: " + str(ts) + "\n\n"
     company_name = ticker
 
     # A: Yahoo Finance
@@ -74,7 +74,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
 
     # Manual supplement
     if manual_text and len(manual_text) > 50:
-        combined_data += "## Manual Supplement\n" + manual_text + "\n\n"
+        combined_data += "## Manual Supplement\n" + str(manual_text or "") + "\n\n"
 
     print("Total data: " + str(len(combined_data)) + " chars")
     print("Running parallel analysis...")
