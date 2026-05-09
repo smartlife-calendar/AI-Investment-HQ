@@ -141,38 +141,53 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             raw_gaap = all_facts.get("us-gaap", {})
             fx = 1.0
 
-        def latest(key, fallbacks=None):
-            """Get latest annual value from XBRL."""
+        def get_all_annual(key, fallbacks=None):
+            """Get all annual values sorted by date."""
             keys_to_try = [key] + (fallbacks or [])
             for k in keys_to_try:
-                data = raw_gaap.get(k, {}).get("units", {}).get("USD", [])
+                data = (raw_gaap.get(k, {}).get("units", {}).get("USD", []) or
+                        raw_gaap.get(k, {}).get("units", {}).get("TWD", []))
                 if not data:
-                    # Try TWD for IFRS
-                    data = raw_gaap.get(k, {}).get("units", {}).get("TWD", [])
-                if not data:
-                    data = raw_gaap.get(k, {}).get("units", {})
-                    if data:
-                        # Get first available currency
-                        first_currency = list(data.values())[0] if data else []
-                        data = first_currency
-                    else:
-                        data = []
-
-                # Prefer 10-K annual
-                annual = [x for x in data if x.get("form") == "10-K" and x.get("end", "") >= "2022-01-01"]
+                    units = raw_gaap.get(k, {}).get("units", {})
+                    if units:
+                        data = list(units.values())[0]
+                annual = [x for x in data if x.get("form") == "10-K" and x.get("end", "") >= "2021-01-01"]
                 if annual:
-                    v = sorted(annual, key=lambda x: x.get("end", ""))[-1].get("val")
-                    return v * fx if v and fx != 1.0 else v
+                    sorted_annual = sorted(annual, key=lambda x: x.get("end", ""))
+                    # Deduplicate by end date
+                    seen = {}
+                    for x in sorted_annual:
+                        seen[x.get("end","")] = x.get("val")
+                    return seen  # {date: value}
+            return {}
 
+        def latest(key, fallbacks=None):
+            """Get latest annual value from XBRL."""
+            all_vals = get_all_annual(key, fallbacks)
+            if not all_vals:
                 # Fall back to 10-Q single quarter
-                quarterly = [x for x in data if x.get("form") == "10-Q"
-                             and x.get("frame", "").startswith("CY20")
-                             and "Q" in x.get("frame", "")
-                             and x.get("end", "") >= "2022-01-01"]
-                if quarterly:
-                    v = sorted(quarterly, key=lambda x: x.get("end", ""))[-1].get("val")
-                    return v * fx if v and fx != 1.0 else v
-            return None
+                keys_to_try = [key] + (fallbacks or [])
+                for k in keys_to_try:
+                    data = raw_gaap.get(k, {}).get("units", {}).get("USD", [])
+                    quarterly = [x for x in data if x.get("form") == "10-Q"
+                                 and x.get("frame", "").startswith("CY20")
+                                 and "Q" in x.get("frame", "")
+                                 and x.get("end", "") >= "2022-01-01"]
+                    if quarterly:
+                        v = sorted(quarterly, key=lambda x: x.get("end", ""))[-1].get("val")
+                        return v * fx if v and fx != 1.0 else v
+                return None
+            latest_val = all_vals[sorted(all_vals.keys())[-1]]
+            return latest_val * fx if latest_val and fx != 1.0 else latest_val
+
+        def prev_year(key, fallbacks=None):
+            """Get second-to-last annual value (for YoY comparison)."""
+            all_vals = get_all_annual(key, fallbacks)
+            if len(all_vals) < 2:
+                return None
+            sorted_dates = sorted(all_vals.keys())
+            v = all_vals[sorted_dates[-2]]
+            return v * fx if v and fx != 1.0 else v
 
         def latest_shares():
             for k in ["CommonStockSharesOutstanding", "CommonStockSharesIssued"]:
@@ -184,11 +199,19 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
 
         rev = latest("Revenues", ["RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet"])
         gp = latest("GrossProfit")
+        # If GrossProfit not in XBRL, try Revenue - COGS
+        if not gp:
+            cogs = latest("CostOfGoodsSold") or latest("CostOfRevenue") or latest("CostOfGoodsAndServicesSold")
+            if cogs and rev:
+                gp = rev - cogs
         ni = latest("NetIncomeLoss")
         op = latest("OperatingIncomeLoss")
         assets = latest("Assets")
         liab = latest("Liabilities")
         cash = latest("CashAndCashEquivalentsAtCarryingValue")
+        # Current assets and liabilities
+        current_assets = latest("AssetsCurrent")
+        current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
         ocf = latest("NetCashProvidedByUsedInOperatingActivities")
@@ -198,6 +221,21 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         inventory = latest("InventoryNet")
         shares = latest_shares()
         fcf = (ocf - capex) if ocf and capex else None
+        
+        # Previous year values for YoY comparison (Piotroski F3, F5, F6, F7, F8, F9)
+        ni_prev = prev_year("NetIncomeLoss")
+        assets_prev = prev_year("Assets")
+        rev_prev = prev_year("Revenues", ["RevenueFromContractWithCustomerExcludingAssessedTax", "SalesRevenueNet"])
+        gp_prev = prev_year("GrossProfit")
+        if not gp_prev:
+            cogs_prev = (prev_year("CostOfGoodsSold") or prev_year("CostOfRevenue") or 
+                        prev_year("CostOfGoodsAndServicesSold"))
+            if cogs_prev and rev_prev:
+                gp_prev = rev_prev - cogs_prev
+        ltdebt_prev = prev_year("LongTermDebt")
+        current_assets_prev = prev_year("AssetsCurrent")
+        current_liab_prev = prev_year("LiabilitiesCurrent")
+        shares_prev = None  # Handled separately below
 
         if rev:
             result["revenue"] = fmt_num(rev)
@@ -245,6 +283,43 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 result["shares"] = f"{shares/1e9:.2f}B"
             else:
                 result["shares"] = f"{shares/1e6:.0f}M"
+        
+        # Current ratio
+        if current_assets and current_liab and current_liab > 0:
+            result["current_ratio"] = f"{current_assets/current_liab:.2f}x"
+            result["current_assets"] = fmt_num(current_assets)
+            result["current_liab"] = fmt_num(current_liab)
+        
+        # YoY data for Piotroski/trend analysis
+        if ni_prev and assets_prev and assets_prev > 0:
+            roa_curr = ni / assets if ni and assets else None
+            roa_prev = ni_prev / assets_prev
+            result["roa_prev"] = f"{roa_prev*100:.1f}%"
+            if roa_curr:
+                result["roa_yoy"] = "改善" if roa_curr > roa_prev else "下降"
+        if gp_prev and rev_prev and rev_prev > 0:
+            gm_prev = gp_prev / rev_prev
+            gm_curr = gp / rev if gp and rev else None
+            result["gross_margin_prev"] = f"{gm_prev*100:.1f}%"
+            if gm_curr:
+                result["gross_margin_yoy"] = "改善" if gm_curr > gm_prev else "下降"
+        if ltdebt_prev and assets_prev and assets_prev > 0 and assets and assets > 0:
+            dr_curr = (ltdebt or 0) / assets
+            dr_prev = ltdebt_prev / assets_prev
+            result["debt_ratio_prev"] = f"{dr_prev*100:.1f}%"
+            result["debt_ratio_yoy"] = "下降✅" if dr_curr < dr_prev else "上升❌"
+        if current_assets_prev and current_liab_prev and current_liab_prev > 0:
+            cr_prev = current_assets_prev / current_liab_prev
+            cr_curr = current_assets / current_liab if current_assets and current_liab else None
+            result["current_ratio_prev"] = f"{cr_prev:.2f}x"
+            if cr_curr:
+                result["current_ratio_yoy"] = "改善✅" if float(cr_curr[:-1]) > cr_prev else "下降❌"
+        if rev_prev and assets_prev and assets_prev > 0 and rev and assets:
+            at_curr = rev / assets
+            at_prev = rev_prev / assets_prev
+            result["asset_turnover"] = f"{at_curr:.3f}x"
+            result["asset_turnover_prev"] = f"{at_prev:.3f}x"
+            result["asset_turnover_yoy"] = "改善✅" if at_curr > at_prev else "下降❌"
 
         print(f"SEC XBRL OK: {len(result)} metrics (IFRS={is_ifrs})")
 
