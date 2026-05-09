@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 投資集團指揮中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .loader {
+            border-top-color: #3b82f6;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .markdown-body th, .markdown-body td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .markdown-body th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+    <div class="max-w-4xl mx-auto py-10 px-4">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">AI 投資集團 📊</h1>
+            <p class="text-gray-600">全方位多模型股市分析系統</p>
+        </header>
+
+        
+        <!-- Investment Disclaimer -->
+        <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+            <div class="flex items-start">
+                <span class="text-amber-500 text-xl mr-3">⚠️</span>
+                <div class="text-sm text-amber-800">
+                    <p class="font-semibold mb-1">投資風險警語 Investment Disclaimer</p>
+                    <p>本系統提供之分析報告僅供參考，不構成任何投資建議或勸誘。投資有風險，過去績效不代表未來表現。使用者應自行判斷並承擔投資損益責任。本報告不保證資料之完整性與準確性。</p>
+                    <p class="mt-1 text-xs text-amber-600">This analysis is for informational purposes only and does not constitute investment advice. Past performance does not guarantee future results.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Box -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">輸入股票代號 (Ticker)</h2>
+            <div class="flex gap-4">
+                <input type="text" id="tickerInput" placeholder="美股: SNDK, NVDA | 台股: 2330.TW, 2317.TW" 
+                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
+                
+                <select id="personaSelect" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                    <option value="financial_structure">財務結構分析</option>
+                    <option value="supply_chain_structure">供應鏈結構分析</option>
+                    <option value="benjamin_graham">Benjamin Graham (價值防禦)</option>
+                    <option value="peter_lynch">Peter Lynch (合理成長)</option>
+                    <option value="cathie_wood">Cathie Wood (破壞性創新)</option>
+                    <option value="piotroski_fscore">Piotroski (F-Score 量化)</option>
+                    <option value="all">【Pro】6 模型交叉對比 (對比表)</option>
+                </select>
+
+                <button onclick="analyzeStock()" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
+                    開始解析
+                </button>
+            </div>
+            <div id="errorMsg" class="hidden text-red-500 mt-3 text-sm">請輸入股票代號</div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingArea" class="hidden flex-col items-center justify-center py-12">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+            <p class="text-gray-600 text-lg font-medium">量化模型正在調閱資料並進行解構中...</p>
+            <p class="text-gray-400 text-sm mt-2">(同步爬取基本面、報表風險與市場情緒)</p>
+        </div>
+
+        <!-- Result Area -->
+        <div id="resultArea" class="hidden bg-white rounded-xl shadow-lg p-8">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold text-gray-800" id="resultTitle">報告產出</h3>
+                <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
+            </div>
+            
+            <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed markdown-body">
+                <!-- Report content goes here -->
+            </div>
+        </div>
+
+        <!-- Paywall/Upsell Banner (for free users) -->
+        <div id="paywallBanner" class="hidden mt-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-lg p-6 text-white text-center">
+            <h3 class="text-xl font-bold mb-2">想解鎖全視角分析嗎？</h3>
+            <p class="mb-4">升級至 Pro 方案，一鍵並行六大模型解析，並獲得 SEC 原始財報深度洞察。</p>
+            <button class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-2 px-6 rounded-full transition-colors">
+                解鎖 Pro 權限 ($19/月)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeStock() {
+            const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+            const personaSelect = document.getElementById('personaSelect');
+            const personaName = personaSelect.options[personaSelect.selectedIndex].text.split(' ')[0];
+            const personaId = personaSelect.value;
+
+            if (!ticker) {
+                document.getElementById('errorMsg').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('errorMsg').classList.add('hidden');
+            document.getElementById('resultArea').classList.add('hidden');
+            document.getElementById('paywallBanner').classList.add('hidden');
+            document.getElementById('loadingArea').classList.remove('hidden');
+            document.getElementById('loadingArea').classList.add('flex');
+
+            // API_BASE_URL: 部署後改為 Railway URL
+            // 例如 https://ai-investment-hq.railway.app
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+
+            try {
+                const response = await fetch(API_BASE_URL + '/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ticker: ticker,
+                        persona_id: personaId,
+                        manual_text: ''
+                    })
+                });
+
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'API error ' + response.status);
+                }
+
+                const data = await response.json();
+
+                document.getElementById('resultArea').classList.remove('hidden');
+                if (personaId === 'all') {
+                    document.getElementById('paywallBanner').classList.remove('hidden');
+                }
+
+                document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
+                document.getElementById('resultPersona').innerText = personaName + (personaId === 'all' ? ' 交叉對比' : ' 模型');
+
+                let reportMarkdown = '';
+
+                // 對比表（全模型時顯示在最前面）
+                if (data.comparison_table) {
+                    reportMarkdown += data.comparison_table + '\n\n---\n\n';
+                }
+
+                // 各框架完整分析
+                if (data.analyses) {
+                    let count = 0;
+                    for (const [pid, analysis] of Object.entries(data.analyses)) {
+                        const sr = data.structured_results || {};
+                        const pname = (sr[pid] && sr[pid].persona_name) ? sr[pid].persona_name : pid;
+                        const bear = (sr[pid] && sr[pid].bear_price) ? '$' + sr[pid].bear_price : 'N/A';
+                        const base = (sr[pid] && sr[pid].base_price) ? '$' + sr[pid].base_price : 'N/A';
+                        const bull = (sr[pid] && sr[pid].bull_price) ? '$' + sr[pid].bull_price : 'N/A';
+                        const rating = (sr[pid] && sr[pid].rating) ? sr[pid].rating : '';
+
+                        reportMarkdown += '## ' + pname;
+                        if (rating) reportMarkdown += '  ▸ 評級：**' + rating + '**';
+                        reportMarkdown += '\n';
+                        if (bear !== 'N/A') {
+                            reportMarkdown += '> 目標價：悲觀 ' + bear + ' | 基準 ' + base + ' | 樂觀 ' + bull + '\n\n';
+                        }
+                        reportMarkdown += analysis + '\n\n---\n\n';
+
+                        count++;
+                        // 付費牆：免費用戶只看前兩個框架，Pro 看全部
+                        if (personaId === 'all' && count >= 2) {
+                            reportMarkdown += '\n\n';
+                            break;
+                        }
+                    }
+                }
+
+                document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
+
+            } catch (error) {
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultTitle').innerText = '連線失敗';
+                document.getElementById('resultPersona').innerText = '';
+                document.getElementById('reportContent').innerHTML = marked.parse(
+                    '### ⚠️ 無法連線到分析伺服器\n\n' +
+                    '錯誤：' + error.message + '\n\n' +
+                    '**請確認：**\n' +
+                    '1. 後端 API 已部署到 Railway\n' +
+                    '2. `ANTHROPIC_API_KEY` 環境變數已設定\n' +
+                    '3. Repo 設為 Public 或 Railway 有讀取權限'
+                );
+            }
+        }
+    </script>
+
+        <!-- Footer Disclaimer -->
+        <footer class="text-center text-xs text-gray-400 mt-10 pb-6">
+            <p>© 2026 AI Investment HQ｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+            <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+        </footer>
+
+</body>
+</html>
+
