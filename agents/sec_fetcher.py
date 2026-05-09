@@ -61,7 +61,7 @@ def get_latest_filing_text(cik: str, form_type: str = "10-Q") -> str:
                 filing_date = filing_dates[i]
                 primary_doc = primary_docs[i]
 
-                print("Found " + form_type + ": " + filing_date)
+                print("Found " + str(form_type or "") + ": " + str(filing_date or ""))
 
                 doc_url = ("https://www.sec.gov/Archives/edgar/data/"
                            + str(int(cik)) + "/" + acc_num_clean + "/" + primary_doc)
@@ -114,7 +114,7 @@ def fetch_sec_filing(ticker: str, form_type: str = "10-Q") -> str:
         print("10-Q not found, trying 10-K...")
         text = get_latest_filing_text(cik, "10-K")
 
-    return text if text else "Unable to retrieve " + form_type + " for " + ticker
+    return text if text else "Unable to retrieve " + str(form_type or "") + " for " + str(ticker or "")
 
 
 if __name__ == "__main__":
