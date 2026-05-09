@@ -6,7 +6,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from data_fetcher import fetch_stock_data
-from tw_fetcher import fetch_tw_financials, fetch_tw_news, build_tw_summary, get_tw_stock_id
+from tw_fetcher import fetch_tw_stock_data, fetch_tw_news, build_tw_summary, get_tw_stock_id
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
 from fmp_fetcher import fetch_fmp_financials
@@ -28,7 +28,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     if is_taiwan:
         print("[A] Taiwan stock fetcher...")
         try:
-            tw_data = fetch_tw_financials(ticker)
+            tw_data = fetch_tw_stock_data(ticker)
             tw_news = fetch_tw_news(get_tw_stock_id(ticker))
             tw_summary = build_tw_summary(ticker, tw_data, tw_news)
             combined_data += tw_summary + "\n\n"
