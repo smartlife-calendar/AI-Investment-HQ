@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import concurrent.futures
 import anthropic
 
 
@@ -12,162 +13,123 @@ def load_persona(persona_id: str) -> dict:
     return next((p for p in personas if p["id"] == persona_id), None)
 
 
-def build_calculation_prompt(persona: dict, ticker: str, financial_text: str) -> tuple:
+def build_prompt(persona: dict, ticker: str, financial_text: str, market_context: str = "") -> tuple:
     calculation_specs = {
-        "financial_structure": {
-            "formulas": [
-                "FCF = Operating Cash Flow - CapEx",
-                "SBC% = Stock-Based Compensation / Total Revenue",
-                "Goodwill Ratio = Goodwill / Total Assets",
-                "Net Debt = Total Debt - Cash",
-                "EV/FCF = (Market Cap + Net Debt) / FCF",
-            ],
-        },
-        "supply_chain_structure": {
-            "formulas": [
-                "In-house Supply Rate = Self-made components / Total component needs",
-                "CapEx Intensity = CapEx / Revenue",
-                "Customer Concentration = Top 3 customers revenue %",
-                "Margin Gap = Non-GAAP Gross Margin - GAAP Gross Margin",
-            ],
-        },
-        "benjamin_graham": {
-            "formulas": [
-                "NCAV = Current Assets - Total Liabilities",
-                "Graham Number = sqrt(22.5 x EPS x Book Value Per Share)",
-                "Margin of Safety = (Graham Number - Current Price) / Graham Number",
-                "Current Ratio = Current Assets / Current Liabilities (needs > 2.0)",
-                "P/E < 15 AND P/B < 1.5 (or P/E x P/B < 22.5)",
-            ],
-        },
-        "peter_lynch": {
-            "formulas": [
-                "PEG = P/E / Earnings Growth Rate (PEG < 1.0 = undervalued)",
-                "Adjusted PEG = P/E / (Earnings Growth Rate + Dividend Yield)",
-                "Inventory Growth Rate vs Revenue Growth Rate",
-                "D/E = Total Debt / Shareholders Equity (< 0.8 preferred)",
-                "Lynch Fair Value = EPS x Fair P/E (Fair P/E = Earnings Growth Rate)",
-            ],
-        },
-        "cathie_wood": {
-            "formulas": [
-                "Revenue CAGR (3-year compound annual growth rate)",
-                "R&D / Revenue ratio (higher = more innovation investment)",
-                "Gross Margin trend (expanding quarter over quarter?)",
-                "TAM penetration: 5-year revenue projection under adoption scenario",
-                "5-year target market cap / current market cap = potential return multiple",
-            ],
-        },
-        "piotroski_fscore": {
-            "formulas": [
-                "F1: ROA > 0 (1 point)",
-                "F2: Operating Cash Flow CFO > 0 (1 point)",
-                "F3: ROA improved vs prior year (1 point)",
-                "F4: CFO > ROA - cash quality (1 point)",
-                "F5: Long-term debt ratio decreased (1 point)",
-                "F6: Current ratio improved (1 point)",
-                "F7: No share dilution issued (1 point)",
-                "F8: Gross margin improved (1 point)",
-                "F9: Asset turnover improved (1 point)",
-                "Total 0-9: 8-9 Strong, 5-7 Neutral, 0-4 Weak",
-            ],
-        },
+        "financial_structure": [
+            "FCF = Operating Cash Flow - CapEx (show numbers)",
+            "SBC% = Stock-Based Compensation / Revenue",
+            "Goodwill Ratio = (Goodwill + Intangibles) / Total Assets",
+            "Net Debt = Total Debt - Cash",
+            "EV/FCF = (Market Cap + Net Debt) / FCF",
+        ],
+        "supply_chain_structure": [
+            "In-house Supply Rate = Self-made / Total components needed",
+            "CapEx Intensity = CapEx / Revenue",
+            "Customer Concentration = Top 3 customers %",
+            "GAAP vs Non-GAAP Gross Margin gap",
+        ],
+        "benjamin_graham": [
+            "NCAV = Current Assets - Total Liabilities",
+            "Graham Number = sqrt(22.5 x EPS x BVPS)",
+            "Margin of Safety = (Graham Number - Price) / Graham Number x 100%",
+            "Current Ratio must be > 2.0",
+            "P/E x P/B must be < 22.5",
+        ],
+        "peter_lynch": [
+            "PEG = P/E / Earnings Growth Rate (< 1.0 is undervalued)",
+            "Lynch Fair Value = EPS x Earnings Growth Rate",
+            "D/E Ratio = Total Debt / Equity (< 0.8 preferred)",
+            "Inventory Growth vs Revenue Growth (inventory should not outpace revenue)",
+        ],
+        "cathie_wood": [
+            "Revenue CAGR (3-year compound annual growth)",
+            "R&D / Revenue ratio",
+            "Gross Margin expansion trend (QoQ)",
+            "5-year target price = current revenue x projected P/S at maturity",
+            "Potential return multiple = 5yr target / current price",
+        ],
+        "piotroski_fscore": [
+            "F1: ROA > 0 (+1)", "F2: CFO > 0 (+1)", "F3: ROA improved YoY (+1)",
+            "F4: CFO > Net Income (+1)", "F5: Debt ratio decreased (+1)",
+            "F6: Current ratio improved (+1)", "F7: No new shares issued (+1)",
+            "F8: Gross margin improved (+1)", "F9: Asset turnover improved (+1)",
+            "Total F-Score: 8-9=Strong, 5-7=Neutral, 0-4=Weak",
+        ],
+        "uncle_stock_notes": [
+            "Double Beat check: Did EPS AND Revenue both beat consensus?",
+            "OCF / Net Income conversion ratio (> 80% = high quality earnings)",
+            "Book-to-Bill Ratio (> 1.5 = strong, > 2.0 = sold out)",
+            "SBC% = SBC / Revenue (> 5% = red flag)",
+            "Goodwill + Intangibles / Total Assets (> 50% = red flag)",
+            "YoY share count change (> 15% = red flag)",
+            "Forward P/S vs industry peers",
+            "3-scenario DCF: Bear/Base/Bull with probability weights",
+        ],
     }
 
-    spec = calculation_specs.get(persona["id"], {})
-    formulas = "\n".join(spec.get("formulas", []))
-    framework_steps = "\n".join(persona.get("analysis_framework", []))
+    formulas = "\n".join(calculation_specs.get(persona["id"], []))
+    framework = "\n".join(persona.get("analysis_framework", []))
+    market_section = ""
+    if market_context:
+        market_section = "\n\nCurrent Market Context (use this in timing assessment):\n" + market_context
 
     system_prompt = (
         "You are a professional stock analyst using the " + persona["name"] + " framework.\n\n"
-        "Analysis framework steps:\n" + framework_steps + "\n\n"
-        "Core calculation formulas for this framework:\n" + formulas + "\n\n"
+        "Framework steps:\n" + framework + "\n\n"
+        "Required calculations (show work):\n" + formulas + "\n\n"
         "Rules:\n"
-        "- All indicators must show actual numerical values, not just descriptions like 'high' or 'good'\n"
-        "- If a value cannot be found in the data, mark as 'Data insufficient'\n"
-        "- Show calculation process (e.g.: FCF = $384M - $125M = $259M)\n"
-        "- Valuation conclusion must include specific price range in USD\n"
-        "- Write in Traditional Chinese (zh-TW)"
+        "- Show actual numbers in every calculation\n"
+        "- Mark each metric: pass / fail / insufficient data\n"
+        "- Give specific price targets in USD\n"
+        "- Write in Traditional Chinese (zh-TW)\n"
+        "- Be concise: max 600 words total"
     )
 
     user_prompt = (
-        "Please analyze $" + ticker + " using the " + persona["name"] + " framework.\n\n"
-        "Market data:\n" + financial_text + "\n\n"
-        "Execute in order:\n"
-        "1. Calculate all core formulas (show calculation process)\n"
-        "2. Mark each indicator pass/fail (pass / fail / insufficient data)\n"
-        "3. Red flag review (list any triggered)\n"
-        "4. Valuation conclusion:\n"
-        "   - Bear target price: $___\n"
-        "   - Base target price: $___\n"
-        "   - Bull target price: $___\n"
-        "5. Investment rating: [Strong Buy / Buy / Hold / Sell / Strong Sell]\n"
-        "6. Trigger conditions: what would change the rating"
+        "Analyze $" + ticker + " using " + persona["name"] + ".\n\n"
+        "Data:\n" + financial_text[:4000] + market_section + "\n\n"
+        "Output format (required):\n"
+        "**核心計算**\n[calculations with numbers]\n\n"
+        "**指標評分**\n[pass/fail table]\n\n"
+        "**主要風險**\n[top 3 risks]\n\n"
+        "**估值結論**\n"
+        "- 悲觀目標價: $___\n"
+        "- 基準目標價: $___\n"
+        "- 樂觀目標價: $___\n"
+        "- 評級: [強力買進/買進/觀望/賣出/強力迴避]\n"
+        "- 觸發條件: [what changes the rating]"
     )
 
     return system_prompt, user_prompt
 
 
-def analyze_stock(ticker: str, financial_text: str, persona_id: str) -> dict:
+def analyze_one(ticker: str, financial_text: str, persona_id: str, market_context: str = "") -> dict:
     persona = load_persona(persona_id)
     if not persona:
-        return {"error": "Persona not found: " + persona_id}
+        return {"error": "Persona not found: " + persona_id, "persona_id": persona_id}
 
-    system_prompt, user_prompt = build_calculation_prompt(persona, ticker, financial_text)
-
+    system_prompt, user_prompt = build_prompt(persona, ticker, financial_text, market_context)
     client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     message = client.messages.create(
         model="claude-sonnet-4-5",
-        max_tokens=3000,
+        max_tokens=1500,
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
     )
 
     raw_text = message.content[0].text
-    structured = extract_structured_output(raw_text, persona_id)
+    structured = extract_prices(raw_text, persona_id)
     structured["full_analysis"] = raw_text
     structured["persona_name"] = persona["name"]
-
     return structured
 
 
-def extract_structured_output(text: str, persona_id: str) -> dict:
-    result = {
-        "bear_price": None,
-        "base_price": None,
-        "bull_price": None,
-        "rating": None,
-        "persona_id": persona_id
-    }
-
-    bear_match = re.search(r"(?:Bear|悲觀)[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text, re.IGNORECASE)
-    base_match = re.search(r"(?:Base|基準)[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text, re.IGNORECASE)
-    bull_match = re.search(r"(?:Bull|樂觀)[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text, re.IGNORECASE)
-
-    if bear_match:
-        result["bear_price"] = float(bear_match.group(1))
-    if base_match:
-        result["base_price"] = float(base_match.group(1))
-    if bull_match:
-        result["bull_price"] = float(bull_match.group(1))
-
-    rating_map = {
-        "Strong Buy": "強力買進", "強力買進": "強力買進",
-        "Buy": "買進", "買進": "買進",
-        "Hold": "觀望", "觀望": "觀望",
-        "Sell": "賣出", "賣出": "賣出",
-        "Strong Sell": "強力迴避", "強力迴避": "強力迴避",
-    }
-    for eng, chi in rating_map.items():
-        if eng in text:
-            result["rating"] = chi
-            break
-
-    return result
+def analyze_stock(ticker: str, financial_text: str, persona_id: str, market_context: str = "") -> dict:
+    return analyze_one(ticker, financial_text, persona_id, market_context)
 
 
-def run_analysis(ticker: str, financial_text: str, personas: list = None) -> dict:
+def run_analysis(ticker: str, financial_text: str, personas: list = None, market_context: str = "") -> dict:
     if personas is None:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         config_path = os.path.join(base_dir, "..", "personas", "config.json")
@@ -176,38 +138,67 @@ def run_analysis(ticker: str, financial_text: str, personas: list = None) -> dic
         personas = [a["id"] for a in config["analysts"]]
 
     results = {}
-    for persona_id in personas:
-        print("Running framework: " + persona_id)
-        results[persona_id] = analyze_stock(ticker, financial_text, persona_id)
+
+    # Run all personas in PARALLEL (major speedup: 6x sequential -> ~1x parallel)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(personas)) as executor:
+        future_to_persona = {
+            executor.submit(analyze_one, ticker, financial_text, pid, market_context): pid
+            for pid in personas
+        }
+        for future in concurrent.futures.as_completed(future_to_persona):
+            pid = future_to_persona[future]
+            try:
+                results[pid] = future.result(timeout=90)
+                print("Done: " + pid)
+            except Exception as e:
+                results[pid] = {"error": str(e), "persona_id": pid, "persona_name": pid}
+                print("Failed: " + pid + " - " + str(e))
 
     return results
 
 
+def extract_prices(text: str, persona_id: str) -> dict:
+    result = {"bear_price": None, "base_price": None, "bull_price": None, "rating": None, "persona_id": persona_id}
+
+    bear = re.search(r"悲觀[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
+    base = re.search(r"基準[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
+    bull = re.search(r"樂觀[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
+
+    if bear:
+        result["bear_price"] = float(bear.group(1))
+    if base:
+        result["base_price"] = float(base.group(1))
+    if bull:
+        result["bull_price"] = float(bull.group(1))
+
+    for r in ["強力買進", "買進", "觀望", "賣出", "強力迴避"]:
+        if r in text:
+            result["rating"] = r
+            break
+
+    return result
+
+
 def generate_comparison_table(ticker: str, results: dict) -> str:
-    table = "## $" + ticker + " Multi-Framework Valuation Comparison\n\n"
-    table += "| 分析框架 | 悲觀目標價 | 基準目標價 | 樂觀目標價 | 投資評級 |\n"
+    table = "## $" + ticker + " 多框架估值對比表\n\n"
+    table += "| 分析框架 | 悲觀 | 基準 | 樂觀 | 評級 |\n"
     table += "|---|---|---|---|---|\n"
 
     base_prices = []
-    for persona_id, result in results.items():
-        if isinstance(result, dict) and "full_analysis" in result:
-            bear = "$" + str(result["bear_price"]) if result.get("bear_price") else "N/A"
-            base = "$" + str(result["base_price"]) if result.get("base_price") else "N/A"
-            bull = "$" + str(result["bull_price"]) if result.get("bull_price") else "N/A"
-            rating = result.get("rating", "N/A")
-            name = result.get("persona_name", persona_id)
-            table += "| " + name + " | " + bear + " | " + base + " | " + bull + " | " + rating + " |\n"
-            if result.get("base_price"):
-                base_prices.append(result["base_price"])
+    for pid, r in results.items():
+        if not isinstance(r, dict) or "full_analysis" not in r:
+            continue
+        bear = "$" + str(r["bear_price"]) if r.get("bear_price") else "—"
+        base = "$" + str(r["base_price"]) if r.get("base_price") else "—"
+        bull = "$" + str(r["bull_price"]) if r.get("bull_price") else "—"
+        rating = r.get("rating", "—")
+        name = r.get("persona_name", pid)
+        table += "| " + name + " | " + bear + " | " + base + " | " + bull + " | " + rating + " |\n"
+        if r.get("base_price"):
+            base_prices.append(r["base_price"])
 
     if base_prices:
-        consensus = sum(base_prices) / len(base_prices)
-        table += "\n**共識目標價（基準平均）: $" + str(round(consensus, 2)) + "**\n"
+        consensus = round(sum(base_prices) / len(base_prices), 2)
+        table += "\n**共識目標價（基準均值）: $" + str(consensus) + "**\n"
 
     return table
-
-
-if __name__ == "__main__":
-    sample = "Test financial data"
-    result = analyze_stock("SNDK", sample, "piotroski_fscore")
-    print(result.get("full_analysis", ""))
