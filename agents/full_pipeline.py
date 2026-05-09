@@ -6,6 +6,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from data_fetcher import fetch_stock_data
+from tw_fetcher import fetch_tw_financials, fetch_tw_news, build_tw_summary, get_tw_stock_id
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
 from fmp_fetcher import fetch_fmp_financials
@@ -21,15 +22,30 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     combined_data = "# " + str(ticker) + " Full Data Report\nGenerated: " + str(ts) + "\n\n"
     company_name = ticker
 
-    # A: Yahoo Finance
-    print("[A] Yahoo Finance...")
-    try:
-        stock_data = fetch_stock_data(ticker)
-        combined_data += (stock_data.get("summary") or "") + "\n\n"
-        company_name = stock_data["financials"].get("company_name") or ticker
-    except Exception as e:
-        print("Yahoo Finance failed: " + str(e))
-        combined_data += "## Financial Data\nUnavailable\n\n"
+    # A: Data fetching - Taiwan stocks use tw_fetcher, US stocks use data_fetcher
+    is_taiwan = ticker.endswith(".TW") or ticker.endswith(".TWO")
+    
+    if is_taiwan:
+        print("[A] Taiwan stock fetcher...")
+        try:
+            tw_data = fetch_tw_financials(ticker)
+            tw_news = fetch_tw_news(get_tw_stock_id(ticker))
+            tw_summary = build_tw_summary(ticker, tw_data, tw_news)
+            combined_data += tw_summary + "\n\n"
+            company_name = tw_data.get("company_name") or ticker
+            print("TW data OK: " + str(company_name))
+        except Exception as e:
+            print("TW fetcher failed: " + str(e))
+            combined_data += "## Taiwan Stock Data\nUnavailable: " + str(e) + "\n\n"
+    else:
+        print("[A] Yahoo Finance / SEC XBRL...")
+        try:
+            stock_data = fetch_stock_data(ticker)
+            combined_data += str(stock_data.get("summary") or "") + "\n\n"
+            company_name = stock_data["financials"].get("company_name") or ticker
+        except Exception as e:
+            print("Data fetch failed: " + str(e))
+            combined_data += "## Financial Data\nUnavailable\n\n"
 
     # B: FMP Detailed Financials
     print("[B] FMP Financials...")
