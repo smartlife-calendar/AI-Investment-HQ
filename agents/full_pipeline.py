@@ -25,7 +25,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     print("[A] Yahoo Finance...")
     try:
         stock_data = fetch_stock_data(ticker)
-        combined_data += stock_data["summary"] + "\n\n"
+        combined_data += (stock_data.get("summary") or "") + "\n\n"
         company_name = stock_data["financials"].get("company_name") or ticker
     except Exception as e:
         print("Yahoo Finance failed: " + str(e))
@@ -36,7 +36,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     try:
         fmp_text = fetch_fmp_financials(ticker)
         if fmp_text and len(fmp_text) > 100:
-            combined_data += fmp_text + "\n\n"
+            combined_data += (fmp_text or "") + "\n\n"
         else:
             combined_data += "## FMP: No detailed data available\n\n"
     except Exception as e:
@@ -47,7 +47,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     try:
         sec_text = fetch_sec_filing(ticker, "10-Q")
         if sec_text and len(sec_text) > 200:
-            combined_data += "## SEC 10-Q\n" + sec_text[:5000] + "\n\n"
+            combined_data += "## SEC 10-Q\n" + (sec_text or "")[:5000] + "\n\n"
         else:
             combined_data += "## SEC Filing: Not found\n\n"
     except Exception as e:
@@ -58,7 +58,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     try:
         news_text = search_stock_news(ticker, company_name)
         sentiment = analyze_news_sentiment(news_text, ticker)
-        combined_data += news_text + "\n" + sentiment + "\n\n"
+        combined_data += (news_text or "") + "\n" + (sentiment or "") + "\n\n"
     except Exception as e:
         print("News failed: " + str(e))
 
@@ -67,7 +67,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     market_context = ""
     try:
         market_context = fetch_market_context()
-        combined_data += market_context + "\n\n"
+        combined_data += (market_context or "") + "\n\n"
         print("Market context: " + str(len(market_context)) + " chars")
     except Exception as e:
         print("Market context failed: " + str(e))
