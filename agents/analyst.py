@@ -223,16 +223,24 @@ def extract_prices(text: str, persona_id: str) -> dict:
                 pass
 
     # === VALIDATION & AUTO-FIX ===
+    # Value frameworks (Graham, Piotroski) intentionally show prices below market
+    # Only apply plausibility filter for growth/momentum frameworks
+    VALUE_FRAMEWORKS = {"benjamin_graham", "piotroski_fscore"}
+    skip_plausibility = persona_id in VALUE_FRAMEWORKS
+
     valid_prices = []
     for v in [bear, base, bull]:
         if v is None:
             valid_prices.append(None)
+        elif skip_plausibility:
+            # For value frameworks: accept any positive price (even if below market)
+            valid_prices.append(v)
         elif current_price and current_price > 1:
-            # Price must be within 10x of current price
+            # Price must be within 10x of current price (for growth/momentum frameworks)
             if 0.1 < v / current_price < 10:
                 valid_prices.append(v)
             else:
-                valid_prices.append(None)  # Discard implausible
+                valid_prices.append(None)
         else:
             valid_prices.append(v)
 
