@@ -92,7 +92,12 @@ def fetch_sec_xbrl(cik: str) -> dict:
                     return None
                 return sorted(filtered, key=lambda x: x.get("end", ""))[-1].get("val")
             
-            rev = get_latest("Revenues")
+            # Revenue: try multiple XBRL keys (different companies use different standards)
+            rev = (get_latest("Revenues") or
+                   get_latest("RevenueFromContractWithCustomerExcludingAssessedTax") or
+                   get_latest("RevenueFromContractWithCustomerIncludingAssessedTax") or
+                   get_latest("SalesRevenueNet") or
+                   get_latest("SalesRevenueGoodsNet"))
             gp = get_latest("GrossProfit")
             ni = get_latest("NetIncomeLoss")
             op = get_latest("OperatingIncomeLoss")
