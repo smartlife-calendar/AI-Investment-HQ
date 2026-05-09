@@ -138,89 +138,9 @@
       "valuation_methods": [
         "Score 0-9"
       ]
-    },
-    {
-      "id": "uncle_stock_notes",
-      "name": "大叔股票筆記分析法",
-      "description": "從法說會文字解讀財務底層邏輯，用三情境DCF定價，好公司不等於好買點",
-      "source_files": [
-        "personas/sources/uncle_anet.md",
-        "personas/sources/uncle_nvts.md",
-        "personas/sources/uncle_rdw.md",
-        "personas/sources/uncle_rmbs.md",
-        "personas/sources/uncle_smr.md",
-        "personas/sources/uncle_ter.md",
-        "personas/sources/uncle_tmdx.md",
-        "personas/sources/uncle_vicr.md"
-      ],
-      "analysis_framework": [
-        "1. 營收成長來源解構：區分有機成長 vs 併購貢獻，拆解各業務部門YoY，確認成長品質（是本業動能還是一次性認列？）",
-        "2. 雙重超前 (Double Beat) 確認：確認EPS和營收是否同時超越市場共識，超過才算真正的強季報",
-        "3. 利潤率品質審查：Non-GAAP毛利率是否超60%？營業利益率趨勢是否擴張？排除SBC後的真實獲利能力",
-        "4. 現金流轉換率計算：OCF / Net Income比值，FCF Yield，確認賺到的是真金白銀而非紙上利潤",
-        "5. 資產負債表壓力測試：商譽+無形資產佔總資產比重、淨負債水位、現金runway（能撐幾季無營收）",
-        "6. 股本稀釋速度監控：流通股YoY增幅、ATM增發頻率、SBC佔營收比例，超過5%列警示",
-        "7. 法說會文字逆向工程：CEO/CFO的defensive talk識別（是否在為虧損辯護？）、IDIQ合約文字遊戲識別、管理層說詞與財報數字一致性檢查",
-        "8. 前瞻訂單能見度評估：Book-to-Bill Ratio（>1.5強烈看多，>2.0供不應求）、Backlog金額與消化速度、IDIQ vs Firm Order區分",
-        "9. 產業護城河分類：技術壁壘（IP/專利）、客戶黏著度（NPS/轉換成本）、供應鏈獨占性（唯一認證供應商）、先行者規模優勢",
-        "10. 機率加權三情境DCF：設定悲觀(25%) / 基準(50%) / 樂觀(25%)三情境，分別設定WACC、CAGR、終端成長率，計算每股內在價值區間"
-      ],
-      "priority_metrics": [
-        "Double Beat (EPS + Revenue vs Consensus)",
-        "Non-GAAP Gross Margin %",
-        "Non-GAAP Operating Margin %",
-        "FCF = OCF - CapEx",
-        "OCF / Net Income Conversion Rate",
-        "Book-to-Bill Ratio",
-        "Backlog Amount & Conversion Speed",
-        "Goodwill + Intangibles / Total Assets (< 30% safe)",
-        "SBC as % of Revenue (< 5% safe)",
-        "YoY Share Count Change (< 5% safe)",
-        "Forward P/S vs Industry Peers",
-        "Forward P/E vs Historical Average"
-      ],
-      "valuation_methods": [
-        "機率加權DCF (WACC 9-15%依風險調整, Terminal Growth 3-4%)",
-        "Forward P/S比較法 (與同業比較溢價合理性)",
-        "Forward P/E歷史分位數 (是否高於歷史均值2個標準差)",
-        "EV/FCF (FCF Yield反推合理市值)",
-        "EV/EBITDA (盈利企業適用)"
-      ],
-      "red_flags": [
-        "商譽+無形資產 > 50% 總資產（併購風險雷）",
-        "股本年增 > 15%（稀釋速度過快）",
-        "ATM持續市價發行新股（靠印票籌資而非本業賺錢）",
-        "FCF連續兩季為負但淨利為正（品質有問題）",
-        "IDIQ合約被作為實質營收對外宣傳（狩獵許可證謊言）",
-        "CFO防禦性辯護超過兩個問題（管理層信心不足）",
-        "P/S超過行業平均3倍以上（估值泡沫）",
-        "管理層說詞與財務數字出現矛盾"
-      ],
-      "buy_conditions": [
-        "營收年增率 > 20% 且為有機成長主導",
-        "Non-GAAP毛利率 > 40% 且持續擴張",
-        "FCF Yield > 3%（FCF/市值）",
-        "Book-to-Bill > 1.5（訂單能見度高）",
-        "好公司 + 市場因非基本面因素（總經、情緒）下跌到基準DCF以下才是買點"
-      ],
-      "sell_conditions": [
-        "P/S超過樂觀DCF情境定價（已透支未來）",
-        "Backlog轉化率連續兩季低於預期",
-        "毛利率QoQ下滑超過300bps（定價權喪失訊號）",
-        "管理層開始用TAM/大願景話術迴避具體時間表",
-        "Stock-based compensation暴增且沒有對應的營收成長"
-      ],
-      "signature_logic": [
-        "好公司不等於好買點，要把二者分開看",
-        "只看未來夢想的估值一旦現實檢驗，會有毀滅性下修",
-        "IDIQ是狩獵許可證不是實質訂單",
-        "現金流不轉正的成長股靠資本市場輸血，要設定艙位上限（建議單一標的 < 15%）",
-        "法說會裡管理層的用字遣詞比財報數字更能透露真實狀況",
-        "市場最危險的時候是所有人都相信夢想一定實現的時候"
-      ]
     }
   ],
-  "version": "3.0.0",
+  "version": "3.1.0",
   "updated": "2026-05-09",
   "note": "分析框架導向，包含集團自有結構分析與開源大師模型"
 }
