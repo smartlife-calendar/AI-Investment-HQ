@@ -67,7 +67,8 @@
                     <option value="peter_lynch">Peter Lynch (合理成長)</option>
                     <option value="cathie_wood">Cathie Wood (破壞性創新)</option>
                     <option value="piotroski_fscore">Piotroski (F-Score 量化)</option>
-                    <option value="all">【Pro】6 模型交叉對比 (對比表)</option>
+                    <option value="technical_analysis">技術面分析 (RSI+布林+MACD)</option>
+                    <option value="all">【Pro】全模型交叉對比 (對比表)</option>
                 </select>
 
                 <button onclick="analyzeStock()" 
@@ -155,7 +156,7 @@
                 }
 
                 document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
-                document.getElementById('resultPersona').innerText = personaName + (personaId === 'all' ? ' 交叉對比' : ' 模型');
+                document.getElementById('resultPersona').innerText = personaId === 'all' ? '全模型交叉對比' : personaName;
 
                 let reportMarkdown = '';
 
