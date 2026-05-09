@@ -28,7 +28,7 @@ def get_cik_from_ticker(ticker: str) -> str:
             for key, company in tickers_data.items():
                 if company.get("ticker", "").upper() == ticker_upper:
                     cik = str(company["cik_str"]).zfill(10)
-                    print("CIK found: " + cik + " (" + company["title"] + ")")
+                    print("CIK found: " + str(cik) + " (" + str(company.get("title","")) + ")")
                     return cik
     except Exception as e:
         print("CIK lookup failed: " + str(e))
@@ -91,7 +91,7 @@ def get_latest_filing_text(cik: str, form_type: str = "10-Q") -> str:
                     else:
                         extract = text
 
-                    return "## " + company_name + " - " + form_type + " (" + filing_date + ")\n\n" + extract
+                    return "## " + str(company_name or "Unknown") + " - " + str(form_type or "") + " (" + str(filing_date or "") + ")\n\n" + str(extract or "")
 
                 break
 
