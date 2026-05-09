@@ -138,9 +138,40 @@
       "valuation_methods": [
         "Score 0-9"
       ]
+    },
+    {
+      "id": "technical_analysis",
+      "name": "技術面分析",
+      "description": "RSI超買超賣 + 布林通道位置 + MACD動能 + 均線多空 + 成交量確認",
+      "analysis_framework": [
+        "1. RSI判讀：>70超買（考慮獲利了結）、<30超賣（可能逢低機會）、40-60中性",
+        "2. 布林通道：%B位置判斷壓力/支撐，帶寬判斷波動收斂/擴張",
+        "3. MACD動能：黃金交叉（買入訊號）、死亡交叉（賣出訊號）、柱狀圖方向",
+        "4. 均線系統：MA20短期動能、MA50中期趨勢、MA200長期方向、黃金/死亡排列",
+        "5. 成交量確認：放量突破（有效）、縮量突破（需謹慎）、量比判斷動能強弱",
+        "6. 整合判斷：技術面多空訊號加總，給出短中期進出場時機建議"
+      ],
+      "priority_metrics": [
+        "RSI(14)",
+        "Bollinger %B position",
+        "MACD Histogram direction",
+        "MA50 vs MA200 (Golden/Death cross)",
+        "Volume Ratio (5d vs 20d avg)"
+      ],
+      "valuation_methods": [
+        "技術目標價 = 支撐/壓力位",
+        "布林上下軌",
+        "均線位置"
+      ],
+      "red_flags": [
+        "RSI > 80（極度超買）",
+        "MACD死亡交叉後量能放大",
+        "股價跌破MA200且成交量放大",
+        "布林帶極度收窄後向下突破"
+      ]
     }
   ],
-  "version": "3.1.0",
+  "version": "3.2.0",
   "updated": "2026-05-09",
   "note": "分析框架導向，包含集團自有結構分析與開源大師模型"
 }
