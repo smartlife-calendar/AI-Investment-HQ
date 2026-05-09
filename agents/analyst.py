@@ -71,12 +71,12 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
     framework = "\n".join(persona.get("analysis_framework", []))
     market_section = ""
     if market_context:
-        market_section = "\n\nCurrent Market Context (use this in timing assessment):\n" + market_context
+        market_section = "\n\nCurrent Market Context (use this in timing assessment):\n" + str(market_context or "")
 
     system_prompt = (
         "You are a professional stock analyst using the " + persona["name"] + " framework.\n\n"
-        "Framework steps:\n" + framework + "\n\n"
-        "Required calculations (show work):\n" + formulas + "\n\n"
+        "Framework steps:\n" + str(framework or "") + "\n\n"
+        "Required calculations (show work):\n" + str(formulas or "") + "\n\n"
         "Rules:\n"
         "- Show actual numbers in every calculation\n"
         "- Mark each metric: pass / fail / insufficient data\n"
@@ -87,7 +87,7 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
 
     user_prompt = (
         "Analyze $" + ticker + " using " + persona["name"] + ".\n\n"
-        "Data:\n" + financial_text[:4000] + market_section + "\n\n"
+        "Data:\n" + str(financial_text or "")[:4000] + str(market_section or "") + "\n\n"
         "Output format (required):\n"
         "**核心計算**\n[calculations with numbers]\n\n"
         "**指標評分**\n[pass/fail table]\n\n"
@@ -180,7 +180,7 @@ def extract_prices(text: str, persona_id: str) -> dict:
 
 
 def generate_comparison_table(ticker: str, results: dict) -> str:
-    table = "## $" + ticker + " 多框架估值對比表\n\n"
+    table = "## $" + str(ticker or "") + " 多框架估值對比表\n\n"
     table += "| 分析框架 | 悲觀 | 基準 | 樂觀 | 評級 |\n"
     table += "|---|---|---|---|---|\n"
 
@@ -193,7 +193,7 @@ def generate_comparison_table(ticker: str, results: dict) -> str:
         bull = "$" + str(r["bull_price"]) if r.get("bull_price") else "—"
         rating = r.get("rating", "—")
         name = r.get("persona_name", pid)
-        table += "| " + name + " | " + bear + " | " + base + " | " + bull + " | " + rating + " |\n"
+        table += "| " + str(name or "N/A") + " | " + str(bear or "—") + " | " + str(base or "—") + " | " + str(bull or "—") + " | " + str(rating or "—") + " |\n"
         if r.get("base_price"):
             base_prices.append(r["base_price"])
 
