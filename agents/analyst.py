@@ -55,6 +55,13 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
             "F8: Gross margin improved (+1)", "F9: Asset turnover improved (+1)",
             "Total F-Score: 8-9=Strong, 5-7=Neutral, 0-4=Weak",
         ],
+        "technical_analysis": [
+            "RSI(14): >70超買 / <30超賣 / 40-60中性",
+            "布林通道%B: >0.8超買上軌 / <0.2超賣下軌",
+            "MACD: 黃金交叉(買) / 死亡交叉(賣) / 柱狀圖方向",
+            "均線: MA20/MA50/MA200位置 + 黃金/死亡排列",
+            "成交量: 量比>1.3放大 / <0.7萎縮 + 與價格背離判斷",
+        ],
         "uncle_stock_notes": [
             "Double Beat check: Did EPS AND Revenue both beat consensus?",
             "OCF / Net Income conversion ratio (> 80% = high quality earnings)",
@@ -225,7 +232,7 @@ def extract_prices(text: str, persona_id: str) -> dict:
     # === VALIDATION & AUTO-FIX ===
     # Value frameworks (Graham, Piotroski) intentionally show prices below market
     # Only apply plausibility filter for growth/momentum frameworks
-    VALUE_FRAMEWORKS = {"benjamin_graham", "piotroski_fscore"}
+    VALUE_FRAMEWORKS = {"benjamin_graham", "piotroski_fscore", "technical_analysis"}
     skip_plausibility = persona_id in VALUE_FRAMEWORKS
 
     valid_prices = []
