@@ -56,9 +56,53 @@
         "稀缺材料/設備只有少數供應商掌握"
       ],
       "valuation_methods": ["P/S with TAM expansion", "EV/Capacity", "Replacement Cost", "Sum-of-parts"]
+    },
+    {
+      "id": "benjamin_graham",
+      "name": "Benjamin Graham (價值防禦模型)",
+      "description": "尋找被市場錯殺、價格低於清算價值的公司。極度重視資產保護與安全邊際。",
+      "analysis_framework": [
+        "嚴格檢視流動比率、本益比、股價淨值比與 NCAV。"
+      ],
+      "priority_metrics": ["NCAV", "Current Ratio > 2.0", "P/E < 15", "P/B < 1.5"],
+      "red_flags": [],
+      "valuation_methods": ["NCAV"]
+    },
+    {
+      "id": "peter_lynch",
+      "name": "Peter Lynch (合理成長 GARP 模型)",
+      "description": "尋找隱形冠軍與快速成長股，但拒絕支付過高溢價。",
+      "analysis_framework": [
+        "關注營收與存貨的相對關係，以及本益成長比 (PEG)。"
+      ],
+      "priority_metrics": ["PEG Ratio < 1.0", "Inventory vs Revenue Growth", "Debt/Equity < 0.8"],
+      "red_flags": [],
+      "valuation_methods": ["PEG"]
+    },
+    {
+      "id": "cathie_wood",
+      "name": "Cathie Wood (破壞性創新模型)",
+      "description": "無視短期本益比與現金流，專注於技術顛覆力與潛在市場總額 (TAM) 的擴張。",
+      "analysis_framework": [
+        "重視研發投入與營收高成長。"
+      ],
+      "priority_metrics": ["Revenue CAGR > 20%", "R&D / Revenue", "Gross Margin Expansion", "TAM"],
+      "red_flags": [],
+      "valuation_methods": ["TAM expansion"]
+    },
+    {
+      "id": "piotroski_fscore",
+      "name": "Piotroski (F-Score 財務健康量化模型)",
+      "description": "不看股價，只看財報。透過 9 個二進位財務指標給公司打分數 (0-9分)。",
+      "analysis_framework": [
+        "判斷基本面趨勢與假帳風險。"
+      ],
+      "priority_metrics": ["ROA > 0", "CFO > 0", "CFO > ROA", "Long-term Debt Reduction", "Gross Margin Improvement"],
+      "red_flags": [],
+      "valuation_methods": ["Score 0-9"]
     }
   ],
-  "version": "2.0.0",
+  "version": "2.1.0",
   "updated": "2026-05-09",
-  "note": "分析框架導向，非語氣/人物設定"
+  "note": "分析框架導向，包含集團自有結構分析與開源大師模型"
 }

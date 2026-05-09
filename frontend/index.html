@@ -22,7 +22,7 @@
         <!-- Header -->
         <header class="text-center mb-10">
             <h1 class="text-4xl font-bold text-gray-900 mb-2">AI 投資集團 📊</h1>
-            <p class="text-gray-600">全方位多代理人股市分析系統</p>
+            <p class="text-gray-600">全方位多模型股市分析系統</p>
         </header>
 
         <!-- Search Box -->
@@ -33,8 +33,12 @@
                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
                 
                 <select id="personaSelect" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                    <option value="dashu_veteran">大叔 (基本面/財務防禦)</option>
-                    <option value="bian_supplychain">辺 (供應鏈/產能瓶頸)</option>
+                    <option value="financial_structure">財務結構分析 (原大叔防禦)</option>
+                    <option value="supply_chain_structure">供應鏈結構分析 (原辺邏輯)</option>
+                    <option value="benjamin_graham">Benjamin Graham (價值防禦)</option>
+                    <option value="peter_lynch">Peter Lynch (合理成長)</option>
+                    <option value="cathie_wood">Cathie Wood (破壞性創新)</option>
+                    <option value="piotroski_fscore">Piotroski (F-Score 量化)</option>
                 </select>
 
                 <button onclick="analyzeStock()" 
@@ -48,15 +52,15 @@
         <!-- Loading State -->
         <div id="loadingArea" class="hidden flex-col items-center justify-center py-12">
             <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-            <p class="text-gray-600 text-lg font-medium">大師正在調閱資料並進行深度解構中...</p>
-            <p class="text-gray-400 text-sm mt-2">(包含 Yahoo Finance 報價、SEC 財報風險掃描與即時新聞情緒)</p>
+            <p class="text-gray-600 text-lg font-medium">量化模型正在調閱資料並進行解構中...</p>
+            <p class="text-gray-400 text-sm mt-2">(同步爬取基本面、報表風險與市場情緒)</p>
         </div>
 
         <!-- Result Area -->
         <div id="resultArea" class="hidden bg-white rounded-xl shadow-lg p-8">
             <div class="flex justify-between items-center mb-6 border-b pb-4">
                 <h3 class="text-2xl font-bold text-gray-800" id="resultTitle">報告產出</h3>
-                <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">大叔</span>
+                <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
             </div>
             
             <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed">
@@ -66,8 +70,8 @@
 
         <!-- Paywall/Upsell Banner (for free users) -->
         <div id="paywallBanner" class="hidden mt-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-lg p-6 text-white text-center">
-            <h3 class="text-xl font-bold mb-2">想看另一位大師的觀點嗎？</h3>
-            <p class="mb-4">升級至 Pro 方案，解鎖「大叔」與「辺」的深度交叉辯論，並獲得無限次數 SEC 原始財報解讀。</p>
+            <h3 class="text-xl font-bold mb-2">想解鎖全視角分析嗎？</h3>
+            <p class="mb-4">升級至 Pro 方案，一鍵並行六大模型解析，並獲得 SEC 原始財報深度洞察。</p>
             <button class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-2 px-6 rounded-full transition-colors">
                 解鎖 Pro 權限 ($19/月)
             </button>
@@ -75,11 +79,10 @@
     </div>
 
     <script>
-        // Mock function connecting to the backend via GitHub Actions dispatch or API Server
         async function analyzeStock() {
             const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
-            const persona = document.getElementById('personaSelect').value;
-            const personaName = document.getElementById('personaSelect').options[document.getElementById('personaSelect').selectedIndex].text.split(' ')[0];
+            const personaSelect = document.getElementById('personaSelect');
+            const personaName = personaSelect.options[personaSelect.selectedIndex].text.split(' ')[0];
 
             if (!ticker) {
                 document.getElementById('errorMsg').classList.remove('hidden');
@@ -87,39 +90,32 @@
             }
             document.getElementById('errorMsg').classList.add('hidden');
 
-            // Hide results, show loading
             document.getElementById('resultArea').classList.add('hidden');
             document.getElementById('paywallBanner').classList.add('hidden');
             document.getElementById('loadingArea').classList.remove('hidden');
             document.getElementById('loadingArea').classList.add('flex');
-
-            // --- API 連接點 ---
-            // 實務上這裡會是 fetch('https://your-backend-api.com/analyze', { method: 'POST', ... })
-            // 或是觸發 n8n webhook
             
-            // 模擬後端處理時間 (3秒)
             setTimeout(() => {
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
                 
-                // Show results
                 document.getElementById('resultArea').classList.remove('hidden');
                 document.getElementById('paywallBanner').classList.remove('hidden');
                 
                 document.getElementById('resultTitle').innerText = `${ticker} - 深度解析報告`;
-                document.getElementById('resultPersona').innerText = personaName;
+                document.getElementById('resultPersona').innerText = personaName + " 模型";
                 
                 document.getElementById('reportContent').innerHTML = `
 <b>【資料採集完畢】</b>
-已同步抓取 Yahoo Finance 最新股價、SEC 預警資訊以及過去 48 小時 DuckDuckGo 關聯新聞。
+已同步抓取 Yahoo Finance 最新股價、SEC 財報與過去 48 小時關聯新聞。
 
-<b>【${personaName} 的分析】</b>
+<b>【${personaName} 模型的分析】</b>
 這是一份由後端 API (main_agent.py) 生成的報告內容佔位符。
-當前後端連線建立後，這裡將會顯示大師針對 ${ticker} 的直白、辛辣或具備供應鏈邏輯的深度解析。
+當前後端連線建立後，這裡將會顯示 ${personaName} 模型的標準化解析：
 
-* 估值模型分析
-* 潛在風險警告
-* 資金派發建議
+* 核心量化指標對齊與驗證
+* 模型專屬風險警告
+* 客觀投資決策建議
 
 請將後端伺服器 (n8n/Docker) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接！
                 `;
