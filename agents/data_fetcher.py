@@ -76,14 +76,29 @@ def fetch_sec_xbrl(cik: str) -> dict:
             raw = req.json().get("facts", {}).get("us-gaap", {})
             
             def get_latest(key, form_types=None):
+                """Get latest value - prefer annual (10-K) for consistency in ratio calculations"""
                 if form_types is None:
                     form_types = ["10-K", "10-Q"]
                 data = raw.get(key, {}).get("units", {}).get("USD", [])
-                filtered = [x for x in data if x.get("form") in form_types]
-                if not filtered:
-                    return None
-                latest = sorted(filtered, key=lambda x: x.get("end", ""))[-1]
-                return latest.get("val")
+                
+                # First try annual (10-K) - most consistent for ratios
+                annual = [x for x in data if x.get("form") == "10-K" and x.get("end","") >= "2022-01-01"]
+                if annual:
+                    return sorted(annual, key=lambda x: x.get("end",""))[-1].get("val")
+                
+                # Fall back to quarterly single-period entries (frame=CYxxxxQx)
+                quarterly = [x for x in data if x.get("form") == "10-Q" 
+                             and x.get("frame","").startswith("CY20")
+                             and "Q" in x.get("frame","")
+                             and x.get("end","") >= "2022-01-01"]
+                if quarterly:
+                    return sorted(quarterly, key=lambda x: x.get("end",""))[-1].get("val")
+                
+                # Last resort: any 10-Q
+                any_q = [x for x in data if x.get("form") in form_types and x.get("end","") >= "2022-01-01"]
+                if any_q:
+                    return sorted(any_q, key=lambda x: x.get("end",""))[-1].get("val")
+                return None
             
             def get_latest_shares(key):
                 data = raw.get(key, {}).get("units", {}).get("shares", [])
