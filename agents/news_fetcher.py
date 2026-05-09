@@ -53,9 +53,9 @@ def search_stock_news(ticker: str, company_name: str = "") -> str:
 
     # Build output
     if not all_news:
-        return "## $" + ticker + " News\nNo recent news available\n"
+        return "## $" + str(ticker or "") + " News\nNo recent news available\n"
 
-    lines = ["## $" + ticker + " Latest News\n"]
+    lines = ["## $" + str(ticker or "") + " Latest News\n"]
     for i, news in enumerate(all_news[:15], 1):
         line = str(i) + ". [" + news["source"] + "] " + news["title"]
         if news["date"]:
