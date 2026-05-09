@@ -9,6 +9,7 @@ from data_fetcher import fetch_stock_data
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
 from fmp_fetcher import fetch_fmp_financials
+from market_context_fetcher import fetch_market_context
 from analyst import run_analysis, generate_comparison_table
 
 
@@ -30,31 +31,27 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         print("Yahoo Finance failed: " + str(e))
         combined_data += "## Financial Data\nUnavailable\n\n"
 
-    # B: FMP Detailed Financials (FCF, SBC, Balance Sheet)
-    print("[B] Financial Modeling Prep...")
+    # B: FMP Detailed Financials
+    print("[B] FMP Financials...")
     try:
         fmp_text = fetch_fmp_financials(ticker)
         if fmp_text and len(fmp_text) > 100:
             combined_data += fmp_text + "\n\n"
-            print("FMP data added: " + str(len(fmp_text)) + " chars")
         else:
-            print("FMP: no data (demo key limitation or ticker not found)")
-            combined_data += "## FMP Financials\nNot available for this ticker with current API key\n\n"
+            combined_data += "## FMP: No detailed data available\n\n"
     except Exception as e:
         print("FMP failed: " + str(e))
-        combined_data += "## FMP Financials\nUnavailable\n\n"
 
     # C: SEC Filing
     print("[C] SEC EDGAR...")
     try:
         sec_text = fetch_sec_filing(ticker, "10-Q")
         if sec_text and len(sec_text) > 200:
-            combined_data += "## SEC 10-Q Filing\n" + sec_text[:6000] + "...\n\n"
+            combined_data += "## SEC 10-Q\n" + sec_text[:5000] + "\n\n"
         else:
-            combined_data += "## SEC Filing\nNo recent 10-Q found\n\n"
+            combined_data += "## SEC Filing: Not found\n\n"
     except Exception as e:
         print("SEC failed: " + str(e))
-        combined_data += "## SEC Filing\nUnavailable\n\n"
 
     # D: News
     print("[D] News...")
@@ -64,21 +61,31 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         combined_data += news_text + "\n" + sentiment + "\n\n"
     except Exception as e:
         print("News failed: " + str(e))
-        combined_data += "## News\nUnavailable\n\n"
+
+    # E: Market Context (NEW)
+    print("[E] Market Context...")
+    market_context = ""
+    try:
+        market_context = fetch_market_context()
+        combined_data += market_context + "\n\n"
+        print("Market context: " + str(len(market_context)) + " chars")
+    except Exception as e:
+        print("Market context failed: " + str(e))
 
     # Manual supplement
     if manual_text and len(manual_text) > 50:
-        combined_data += "## Manual Supplement (Earnings Call / Analysis)\n" + manual_text + "\n\n"
+        combined_data += "## Manual Supplement\n" + manual_text + "\n\n"
 
-    print("Data ready: " + str(len(combined_data)) + " chars")
-    print("Running analysis...")
+    print("Total data: " + str(len(combined_data)) + " chars")
+    print("Running parallel analysis...")
 
     if persona == "all":
         personas = None
     else:
         personas = [p.strip() for p in persona.split(",")]
 
-    results = run_analysis(ticker, combined_data, personas)
+    # Parallel execution
+    results = run_analysis(ticker, combined_data, personas, market_context)
     comparison_table = generate_comparison_table(ticker, results)
 
     os.makedirs("reports", exist_ok=True)
@@ -90,6 +97,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         "timestamp": timestamp,
         "raw_data_length": len(combined_data),
         "comparison_table": comparison_table,
+        "market_context": market_context,
         "analyses": {
             k: v.get("full_analysis", v) if isinstance(v, dict) else v
             for k, v in results.items()
@@ -102,27 +110,10 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     }
 
     json_path = "reports/" + ticker + "_" + timestamp + ".json"
-    txt_path = "reports/" + ticker + "_" + timestamp + ".txt"
-
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
-    with open(txt_path, "w", encoding="utf-8") as f:
-        f.write("# " + ticker + " (" + company_name + ") Analysis Report\n")
-        f.write("Generated: " + timestamp + "\n")
-        f.write("=" * 60 + "\n\n")
-        f.write(comparison_table + "\n")
-        f.write("=" * 60 + "\n\n")
-        for persona_id, result in results.items():
-            name = result.get("persona_name", persona_id) if isinstance(result, dict) else persona_id
-            analysis = result.get("full_analysis", result) if isinstance(result, dict) else result
-            f.write("## " + name + "\n\n")
-            f.write(str(analysis) + "\n\n")
-            f.write("-" * 40 + "\n\n")
-
-    print("Reports saved: " + txt_path)
-    print("\n" + comparison_table)
-
+    print("Done: " + json_path)
     return report
 
 
