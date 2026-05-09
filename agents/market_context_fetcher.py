@@ -108,7 +108,7 @@ def fetch_market_context() -> str:
             if resp.status_code == 200:
                 price = resp.json()["quoteSummary"]["result"][0]["price"]
                 chg = price.get("regularMarketChangePercent", {}).get("fmt", "N/A")
-                sector_lines.append("  - " + name + " (" + etf + "): " + str(chg))
+                sector_lines.append("  - " + str(name or "") + " (" + str(etf or "") + "): " + str(chg or "N/A"))
         except Exception:
             pass
 
