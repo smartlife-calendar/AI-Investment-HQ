@@ -184,24 +184,98 @@ def run_analysis(ticker: str, financial_text: str, personas: list = None, market
 def extract_prices(text: str, persona_id: str) -> dict:
     result = {"bear_price": None, "base_price": None, "bull_price": None, "rating": None, "persona_id": persona_id}
 
-    bear = re.search(r"悲觀[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
-    base = re.search(r"基準[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
-    bull = re.search(r"樂觀[^$\d]*\$?\s*([0-9]+\.?[0-9]*)", text)
+    # Extract prices with multiple pattern attempts
+    def find_price(patterns):
+        for p in patterns:
+            m = re.search(p, text, re.IGNORECASE)
+            if m:
+                try:
+                    v = float(m.group(1))
+                    if v > 0:
+                        return v
+                except Exception:
+                    pass
+        return None
 
-    if bear:
-        result["bear_price"] = float(bear.group(1))
-    if base:
-        result["base_price"] = float(base.group(1))
-    if bull:
-        result["bull_price"] = float(bull.group(1))
+    bear = find_price([
+        r"悲觀[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
+        r"Bear[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
+    ])
+    base = find_price([
+        r"基準[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
+        r"Base[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
+    ])
+    bull = find_price([
+        r"樂觀[目標價：: ]*\$?\s*([0-9]+\.?[0-9]*)",
+        r"Bull[^$\d]*\$\s*([0-9]+\.?[0-9]*)",
+    ])
 
-    for r in ["強力買進", "買進", "觀望", "賣出", "強力迴避"]:
-        if r in text:
-            result["rating"] = r
+    # Extract current market price for plausibility check
+    current_price = None
+    for cp_pat in [r"當前市場股價為 \$([0-9,]+\.?[0-9]*)", r"Current[^\n]{0,30}?\$([0-9]+\.?[0-9]*)"]:
+        cp_m = re.search(cp_pat, text[:2000])
+        if cp_m:
+            try:
+                current_price = float(cp_m.group(1).replace(",", ""))
+                if current_price > 0.5:
+                    break
+            except Exception:
+                pass
+
+    # === VALIDATION & AUTO-FIX ===
+    valid_prices = []
+    for v in [bear, base, bull]:
+        if v is None:
+            valid_prices.append(None)
+        elif current_price and current_price > 1:
+            # Price must be within 10x of current price
+            if 0.1 < v / current_price < 10:
+                valid_prices.append(v)
+            else:
+                valid_prices.append(None)  # Discard implausible
+        else:
+            valid_prices.append(v)
+
+    bear, base, bull = valid_prices
+
+    # Ensure bear <= base <= bull order
+    non_null = sorted([p for p in [bear, base, bull] if p is not None])
+    if len(non_null) == 3 and not (non_null[0] <= non_null[1] <= non_null[2]):
+        # Values exist but in wrong order - re-sort
+        bear, base, bull = non_null[0], non_null[1], non_null[2]
+    elif len(non_null) == 2:
+        # Missing one - estimate it
+        if bear is None and base is not None and bull is not None:
+            bear = round(base * 0.8, 1)
+        elif bull is None and bear is not None and base is not None:
+            bull = round(base * 1.2, 1)
+        elif base is None and bear is not None and bull is not None:
+            base = round((bear + bull) / 2, 1)
+    elif len(non_null) == 1:
+        # Only one price - estimate range
+        ref = non_null[0]
+        if base is None: base = ref
+        if bear is None: bear = round(ref * 0.8, 1)
+        if bull is None: bull = round(ref * 1.2, 1)
+
+    result["bear_price"] = bear
+    result["base_price"] = base
+    result["bull_price"] = bull
+
+    # Rating
+    rating_map = {
+        "Strong Buy": "強力買進", "強力買進": "強力買進",
+        "Buy": "買進", "買進": "買進",
+        "Hold": "觀望", "觀望": "觀望",
+        "Sell": "賣出", "賣出": "賣出",
+        "Strong Sell": "強力迴避", "強力迴避": "強力迴避",
+    }
+    for eng, chi in rating_map.items():
+        if eng in text:
+            result["rating"] = chi
             break
 
     return result
-
 
 def generate_comparison_table(ticker: str, results: dict) -> str:
     table = "## $" + str(ticker or "") + " 多框架估值對比表\n\n"
