@@ -87,19 +87,25 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
 
     # Extract current price to anchor target prices
     import re as _re
-    _price_match = _re.search(r"Current[^\n]*?\$?([0-9,]+\.?[0-9]*)", str(financial_text or "")[:800])
     _price_note = ""
-    if _price_match:
-        _cp = _price_match.group(1).replace(",", "")
+    # Try to find market price from data (look for "Current: $XXX" pattern)
+    _price_matches = _re.findall(r"Current[^\n]*?\$([0-9,]+\.?[0-9]*)", str(financial_text or "")[:1500])
+    for _cp_raw in _price_matches:
         try:
+            _cp = _cp_raw.replace(",", "")
             _cp_float = float(_cp)
-            if _cp_float > 0.5:  # sanity check - skip tiny values
+            # Must be a reasonable stock price (> $1 and < $100,000)
+            if 1.0 < _cp_float < 100000:
                 _price_note = (
-                    "\n\n⚠️ 重要：當前市場股價為 $" + _cp +
-                    "。目標價必須以此為基準，給出合理範圍（通常 ±70% 以內）。" +
-                    "例如若股價 $293，悲觀 $200、基準 $320、樂觀 $400。" +
-                    "請勿給出與市場價格相差 5 倍以上的目標價。"
+                    "\n\n⚠️ 當前市場股價為 $" + _cp + "。"
+                    "所有目標價（悲觀/基準/樂觀）必須以當前股價為基準。"
+                    "合理的目標價區間通常在當前價格的 50%-200% 之間。"
+                    "例如當前 $" + _cp + "，悲觀 $" + str(round(_cp_float * 0.7, 0)) + 
+                    "，基準 $" + str(round(_cp_float * 1.1, 0)) + 
+                    "，樂觀 $" + str(round(_cp_float * 1.4, 0)) + "（僅為範例，請基於分析給出合理數字）。"
+                    "禁止給出與市場價格相差10倍以上的目標價。"
                 )
+                break
         except Exception:
             pass
 
