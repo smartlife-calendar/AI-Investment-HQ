@@ -88,27 +88,32 @@ def fetch_stock_data(ticker: str) -> dict:
         news_lines.append("- [" + n["published"] + "] " + n["title"] + " (" + n["publisher"] + ")")
     news_text = "\n".join(news_lines) if news_lines else "No news available"
 
+    def _s(v):
+        return str(v) if v is not None else "N/A"
+
+    company_display = f.get("company_name") or ticker
+
     data["summary"] = (
-        "## " + f.get("company_name", ticker) + " ($" + ticker + ") Data Summary\n\n"
+        "## " + company_display + " ($" + ticker + ") Data Summary\n\n"
         "### Valuation\n"
-        "- Price: " + str(f.get("current_price")) + "\n"
-        "- Market Cap: " + str(f.get("market_cap")) + "\n"
-        "- 52W High/Low: " + str(f.get("52w_high")) + " / " + str(f.get("52w_low")) + "\n"
-        "- P/E: " + str(f.get("pe_ratio")) + " | Fwd P/E: " + str(f.get("forward_pe")) + "\n"
-        "- P/S: " + str(f.get("ps_ratio")) + " | P/B: " + str(f.get("pb_ratio")) + "\n"
-        "- EV/EBITDA: " + str(f.get("ev_ebitda")) + "\n\n"
+        "- Price: " + _s(f.get("current_price")) + "\n"
+        "- Market Cap: " + _s(f.get("market_cap")) + "\n"
+        "- 52W High/Low: " + _s(f.get("52w_high")) + " / " + _s(f.get("52w_low")) + "\n"
+        "- P/E: " + _s(f.get("pe_ratio")) + " | Fwd P/E: " + _s(f.get("forward_pe")) + "\n"
+        "- P/S: " + _s(f.get("ps_ratio")) + " | P/B: " + _s(f.get("pb_ratio")) + "\n"
+        "- EV/EBITDA: " + _s(f.get("ev_ebitda")) + "\n\n"
         "### Profitability\n"
-        "- Gross Margin: " + str(f.get("gross_margin")) + "\n"
-        "- Operating Margin: " + str(f.get("operating_margin")) + "\n"
-        "- Net Margin: " + str(f.get("profit_margin")) + "\n"
-        "- ROE: " + str(f.get("roe")) + " | ROA: " + str(f.get("roa")) + "\n\n"
+        "- Gross Margin: " + _s(f.get("gross_margin")) + "\n"
+        "- Operating Margin: " + _s(f.get("operating_margin")) + "\n"
+        "- Net Margin: " + _s(f.get("profit_margin")) + "\n"
+        "- ROE: " + _s(f.get("roe")) + " | ROA: " + _s(f.get("roa")) + "\n\n"
         "### Growth & Cash Flow\n"
-        "- Revenue Growth YoY: " + str(f.get("revenue_growth")) + "\n"
-        "- Free Cash Flow: " + str(f.get("free_cashflow")) + "\n\n"
+        "- Revenue Growth YoY: " + _s(f.get("revenue_growth")) + "\n"
+        "- Free Cash Flow: " + _s(f.get("free_cashflow")) + "\n\n"
         "### Balance Sheet\n"
-        "- Cash: " + str(f.get("cash")) + " | Total Debt: " + str(f.get("total_debt")) + "\n"
-        "- Shares Outstanding: " + str(f.get("shares_outstanding")) + "\n"
-        "- Short Ratio: " + str(f.get("short_ratio")) + "\n\n"
+        "- Cash: " + _s(f.get("cash")) + " | Total Debt: " + _s(f.get("total_debt")) + "\n"
+        "- Shares Outstanding: " + _s(f.get("shares_outstanding")) + "\n"
+        "- Short Ratio: " + _s(f.get("short_ratio")) + "\n\n"
         "### Recent News\n"
         + news_text
     )
