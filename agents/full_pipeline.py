@@ -8,30 +8,20 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_fetcher import fetch_stock_data
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
-from analyst import run_analysis
+from analyst import run_analysis, generate_comparison_table
 
 def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "") -> dict:
-    """
-    全自動三合一管道
-    A: Yahoo Finance 財務數據
-    B: SEC EDGAR 財報文字  
-    C: 多源新聞爬蟲
-    全部整合後交給大師分析
-    """
     ticker = ticker.upper().strip()
-    print(f"
-{'='*60}")
-    print(f"🚀 啟動 AI 大師分析: ")
-    print(f"{'='*60}
-")
+    print(f"Starting analysis for {ticker}")
     
-    combined_data = f"#  全方位數據報告
-生成時間: {datetime.now().strftime('%Y-%m-%d %H:%M')}
+    combined_data = f"# {ticker} Full Data Report
+Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
 "
+    company_name = ticker
     
-    # === A: Yahoo Finance 財務數據 ===
-    print("[A] 抓取 Yahoo Finance 財務數據...")
+    # A: Yahoo Finance
+    print("[A] Yahoo Finance...")
     try:
         stock_data = fetch_stock_data(ticker)
         combined_data += stock_data["summary"] + "
@@ -39,81 +29,71 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
 "
         company_name = stock_data["financials"].get("company_name", ticker)
     except Exception as e:
-        print(f"⚠️ Yahoo Finance 失敗: {e}")
-        company_name = ticker
-        combined_data += f"## 財務數據
-暫無 (抓取失敗)
+        print(f"Yahoo Finance failed: {e}")
+        combined_data += "## Financial Data
+Unavailable
 
 "
     
-    # === B: SEC 財報文字 ===
-    print("
-[B] 抓取 SEC EDGAR 財報...")
+    # B: SEC Filing
+    print("[B] SEC EDGAR...")
     try:
         sec_text = fetch_sec_filing(ticker, "10-Q")
         if sec_text and len(sec_text) > 200:
-            # 只取前 6000 字避免 token 超限
-            combined_data += "## SEC 財報摘要 (10-Q)
-"
-            combined_data += sec_text[:6000] + "...
+            combined_data += "## SEC 10-Q Filing
+" + sec_text[:6000] + "...
 
 "
         else:
-            combined_data += "## SEC 財報
-暫無最新 10-Q 資料
+            combined_data += "## SEC Filing
+No recent 10-Q found
 
 "
     except Exception as e:
-        print(f"⚠️ SEC 抓取失敗: {e}")
-        combined_data += "## SEC 財報
-暫無 (抓取失敗)
+        print(f"SEC failed: {e}")
+        combined_data += "## SEC Filing
+Unavailable
 
 "
     
-    # === C: 新聞爬蟲 ===
-    print("
-[C] 抓取最新新聞...")
+    # C: News
+    print("[C] News...")
     try:
         news_text = search_stock_news(ticker, company_name)
         sentiment = analyze_news_sentiment(news_text, ticker)
         combined_data += news_text + "
-"
-        combined_data += sentiment + "
+" + sentiment + "
 
 "
     except Exception as e:
-        print(f"⚠️ 新聞抓取失敗: {e}")
-        combined_data += "## 新聞
-暫無 (抓取失敗)
+        print(f"News failed: {e}")
+        combined_data += "## News
+Unavailable
 
 "
     
-    # === 如果有手動補充文字 ===
+    # Manual supplement
     if manual_text and len(manual_text) > 50:
-        combined_data += "## 手動補充資料 (法說會/分析文章)
-"
-        combined_data += manual_text + "
+        combined_data += "## Manual Supplement
+" + manual_text + "
 
 "
     
-    print(f"
-✅ 數據整合完成，共 {len(combined_data)} 字")
-    print(f"
-{'='*60}")
-    print("🧠 啟動大師分析引擎...")
-    print(f"{'='*60}
-")
+    print(f"Data ready: {len(combined_data)} chars")
+    print("Running analysis...")
     
-    # === 決定 personas ===
+    # Personas
     if persona == "all":
         personas = None
     else:
         personas = [p.strip() for p in persona.split(",")]
     
-    # === 執行大師分析 ===
     results = run_analysis(ticker, combined_data, personas)
     
-    # === 存報告 ===
+    # Comparison table
+    comparison_table = generate_comparison_table(ticker, results)
+    
+    # Save reports
     os.makedirs("reports", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
@@ -122,7 +102,11 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         "company": company_name,
         "timestamp": timestamp,
         "raw_data_length": len(combined_data),
-        "analyses": results
+        "comparison_table": comparison_table,
+        "analyses": {k: v.get("full_analysis", v) if isinstance(v, dict) else v 
+                      for k, v in results.items()},
+        "structured_results": {k: {kk: vv for kk, vv in v.items() if kk != "full_analysis"}
+                                 for k, v in results.items() if isinstance(v, dict)}
     }
     
     json_path = f"reports/{ticker}_{timestamp}.json"
@@ -132,46 +116,34 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         json.dump(report, f, ensure_ascii=False, indent=2)
     
     with open(txt_path, "w", encoding="utf-8") as f:
-        f.write(f"#  ({company_name}) 大師解析報告
+        f.write(f"# {ticker} ({company_name}) Analysis Report
 ")
-        f.write(f"生成時間: {timestamp}
-")
-        f.write("=" * 60 + "
-
-")
-        
-        f.write("## 原始數據摘要
-")
-        f.write(combined_data[:3000] + "...
-
+        f.write(f"Generated: {timestamp}
 ")
         f.write("=" * 60 + "
 
 ")
-        
-        for persona_id, analysis in results.items():
-            f.write(f"## 【{persona_id}】大師解析
+        f.write(comparison_table + "
+")
+        f.write("=" * 60 + "
 
 ")
-            f.write(analysis + "
+        for persona_id, result in results.items():
+            name = result.get("persona_name", persona_id) if isinstance(result, dict) else persona_id
+            analysis = result.get("full_analysis", result) if isinstance(result, dict) else result
+            f.write(f"## {name}
+
+")
+            f.write(str(analysis) + "
 
 ")
             f.write("-" * 40 + "
 
 ")
     
-    print(f"
-✅ 完成！報告已存至:")
-    print(f"   {txt_path}")
-    
-    # 印出結果
+    print(f"Reports saved: {txt_path}")
     print("
-" + "=" * 60)
-    for persona_id, analysis in results.items():
-        print(f"
-【{persona_id}】")
-        print("-" * 40)
-        print(analysis)
+" + comparison_table)
     
     return report
 
@@ -179,5 +151,4 @@ if __name__ == "__main__":
     ticker = os.environ.get("TICKER") or (sys.argv[1] if len(sys.argv) > 1 else "SNDK")
     persona = os.environ.get("PERSONA", "all")
     manual_text = os.environ.get("FINANCIAL_TEXT", "")
-    
     full_auto_pipeline(ticker, persona, manual_text)
