@@ -17,7 +17,7 @@ def fetch_market_context() -> str:
         resp = requests.get(url, headers=headers, params=params, timeout=8)
         if resp.status_code == 200:
             price = resp.json()["quoteSummary"]["result"][0]["price"]
-            vix = price.get("regularMarketPrice", {}).get("raw", "N/A")
+            vix = price.get("regularMarketPrice", {}).get("raw") or "N/A"
             vix_change = price.get("regularMarketChangePercent", {}).get("fmt", "N/A")
             level = "極度恐慌 (買入機會)" if isinstance(vix, (int, float)) and vix > 30 else \
                     "恐慌" if isinstance(vix, (int, float)) and vix > 20 else "低恐慌 (謹慎)"
@@ -134,7 +134,7 @@ def fetch_market_context() -> str:
     context_lines.append("### 市場情緒綜合判斷")
     context_lines.append("（由分析框架根據以上數據自動判斷進出場時機）")
 
-    return "\n".join(context_lines)
+    return "\n".join(str(x) for x in context_lines)
 
 
 if __name__ == "__main__":
