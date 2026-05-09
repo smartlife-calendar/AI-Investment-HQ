@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 投資集團指揮中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         .loader {
             border-top-color: #3b82f6;
@@ -14,6 +15,20 @@
         @keyframes spinner {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .markdown-body th, .markdown-body td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .markdown-body th {
+            background-color: #f9fafb;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -39,6 +54,7 @@
                     <option value="peter_lynch">Peter Lynch (合理成長)</option>
                     <option value="cathie_wood">Cathie Wood (破壞性創新)</option>
                     <option value="piotroski_fscore">Piotroski (F-Score 量化)</option>
+                    <option value="all">【Pro】6 模型交叉對比 (對比表)</option>
                 </select>
 
                 <button onclick="analyzeStock()" 
@@ -63,7 +79,7 @@
                 <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
             </div>
             
-            <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed">
+            <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed markdown-body">
                 <!-- Report content goes here -->
             </div>
         </div>
@@ -83,6 +99,7 @@
             const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
             const personaSelect = document.getElementById('personaSelect');
             const personaName = personaSelect.options[personaSelect.selectedIndex].text.split(' ')[0];
+            const personaId = personaSelect.value;
 
             if (!ticker) {
                 document.getElementById('errorMsg').classList.remove('hidden');
@@ -103,22 +120,17 @@
                 document.getElementById('paywallBanner').classList.remove('hidden');
                 
                 document.getElementById('resultTitle').innerText = `${ticker} - 深度解析報告`;
-                document.getElementById('resultPersona').innerText = personaName + " 模型";
+                document.getElementById('resultPersona').innerText = personaName + (personaId === 'all' ? " 交叉對比" : " 模型");
                 
-                document.getElementById('reportContent').innerHTML = `
-<b>【資料採集完畢】</b>
-已同步抓取 Yahoo Finance 最新股價、SEC 財報與過去 48 小時關聯新聞。
-
-<b>【${personaName} 模型的分析】</b>
-這是一份由後端 API (main_agent.py) 生成的報告內容佔位符。
-當前後端連線建立後，這裡將會顯示 ${personaName} 模型的標準化解析：
-
-* 核心量化指標對齊與驗證
-* 模型專屬風險警告
-* 客觀投資決策建議
-
-請將後端伺服器 (n8n/Docker) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接！
-                `;
+                let mockMarkdown = `**【資料採集完畢】**\n已同步抓取 Yahoo Finance 最新股價、SEC 財報與過去 48 小時關聯新聞。\n\n`;
+                
+                if (personaId === 'all') {
+                    mockMarkdown += `### 📊 6 模型交叉對比表\n\n| 分析模型 | 核心指標檢核 | 紅燈警告 (Red Flags) | 估值 / 評級 |\n| :--- | :--- | :--- | :--- |\n| **財務結構分析** | FCF 為負，SBC 佔比 8% | 股本稀釋過快 | 觀望 (Wait) |\n| **供應鏈結構分析** | 內供率 15%，CapEx 激增 | 一線廠產能已滿 | 加碼 (Overweight) |\n| **Benjamin Graham** | P/B > 1.5，P/E > 15 | 無安全邊際 | 賣出 (Sell) |\n| **Peter Lynch** | PEG = 1.2，營收大於存貨 | 估值略高 | 持有 (Hold) |\n| **Cathie Wood** | 營收 CAGR > 20%，TAM 擴張 | 研發費用高昂 | 強烈買進 (Strong Buy) |\n| **Piotroski F-Score** | 5 / 9 (中性偏弱) | ROA 改善有限 | 觀望 (Wait) |\n\n> *請將後端伺服器 (n8n/Docker/GitHub Actions) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接，獲取真實 API 數據！*`;
+                } else {
+                    mockMarkdown += `**【${personaName} 模型的分析】**\n\n這是一份由後端 API (main_agent.py) 生成的報告內容佔位符。\n當前後端連線建立後，這裡將會顯示 ${personaName} 模型的標準化解析：\n\n* 核心量化指標對齊與驗證\n* 模型專屬風險警告\n* 客觀投資決策建議\n\n> *請將後端伺服器 (n8n/Docker/GitHub Actions) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接，獲取真實 API 數據！*`;
+                }
+                
+                document.getElementById('reportContent').innerHTML = marked.parse(mockMarkdown);
             }, 3000);
         }
     </script>
