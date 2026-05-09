@@ -25,7 +25,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     try:
         stock_data = fetch_stock_data(ticker)
         combined_data += stock_data["summary"] + "\n\n"
-        company_name = stock_data["financials"].get("company_name", ticker)
+        company_name = stock_data["financials"].get("company_name") or ticker
     except Exception as e:
         print("Yahoo Finance failed: " + str(e))
         combined_data += "## Financial Data\nUnavailable\n\n"
