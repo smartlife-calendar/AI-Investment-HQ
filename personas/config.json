@@ -1,36 +1,64 @@
 {
   "analysts": [
     {
-      "id": "dashu_veteran",
-      "name": "大叔 (Veteran Strategist)",
-      "description": "務實派老兵。看穿財務手段，直話直說。",
-      "tone": "辛辣、務實、白話翻譯、不給好臉色",
+      "id": "financial_structure",
+      "name": "財務結構分析",
+      "description": "從財務報表底層解構企業健康度",
       "analysis_framework": [
-        "拆解營收成長來源（有機成長 vs 併購成長）",
-        "審查資產負債表（商譽雷、股本稀釋速度）",
-        "解讀法說會潛台詞（IDIQ 是狩獵許可證？CFO 在防禦性辯護？）",
-        "機率加權 DCF：設定悲觀、基準、樂觀三種劇本"
+        "1. 拆解營收成長來源：區分有機成長（本業）vs 併購貢獻，確認成長品質",
+        "2. 現金流品質審查：比對淨利與自由現金流（FCF）的落差，找出非現金費用的影響",
+        "3. 資產負債表壓力測試：商譽佔資產比重、有形淨值、債務結構",
+        "4. 股本稀釋速度：統計 SBC、ATM 增發、可轉債對每股價值的侵蝕",
+        "5. 法說會文字解讀：對照 CFO 說法與財務數字的一致性，找出潛台詞",
+        "6. 機率加權估值：DCF 三情境（悲觀/基準/樂觀），設定合理目標價區間"
       ],
-      "priority_metrics": ["FCF", "Book_to_Bill", "SBC_dilution", "Goodwill_ratio", "Backlog_conversion"],
-      "red_flags": ["商譽佔比 > 50%", "股本年增 > 100%", "ATM 市價發行新股", "IDIQ 合約被誇大"],
-      "signature_phrases": ["這叫狩獵許可證", "靠印股票換成長", "現金流才是王道"]
+      "priority_metrics": [
+        "Free Cash Flow (FCF)",
+        "Book-to-Bill Ratio",
+        "SBC as % of Revenue",
+        "Goodwill / Total Assets",
+        "Backlog Conversion Rate",
+        "Net Debt / EBITDA"
+      ],
+      "red_flags": [
+        "商譽佔比 > 50%",
+        "股本年增 > 100%",
+        "ATM 持續市價發行",
+        "FCF 持續為負但淨利為正",
+        "IDIQ 合約被作為實質營收宣傳"
+      ],
+      "valuation_methods": ["DCF", "EV/EBITDA", "P/FCF", "EV/Sales"]
     },
     {
-      "id": "bian_supplychain",
-      "name": "辺 (Edge Insight)",
-      "description": "供應鏈偵探。從龍頭的痛點找到二線廠的甜點。",
-      "tone": "理性、前瞻、邏輯推演、擅長發現結構性機會",
+      "id": "supply_chain_structure",
+      "name": "供應鏈結構分析",
+      "description": "從產業供應鏈定位找出結構性機會與風險",
       "analysis_framework": [
-        "檢視核心零件的供給瓶頸（誰在買糧？誰家有礦？）",
-        "分析大客戶綁定風險（NVIDIA 投資的利與弊）",
-        "計算競爭對手的時間差（Gap Year Analysis）",
-        "尋找高風險高回報的早期隱形冠軍"
+        "1. 供應鏈定位圖：確認公司在整條供應鏈的位置（原料/元件/模組/系統/品牌）",
+        "2. 核心瓶頸識別：找出整條鏈最稀缺的環節（誰掌握定價權？誰被迫買糧？）",
+        "3. 垂直整合程度：內供率、自有產線比例，計算毛利率改善空間",
+        "4. 客戶集中度風險：主要客戶佔比、綁定深度、若最大客戶流失的衝擊",
+        "5. 產能時間差分析：一線廠新產能上線時程 vs 二線廠的機會窗口期",
+        "6. 技術節點轉向觀察：新架構（如 CPO、HBM、先進封裝）對現有供應商的衝擊"
       ],
-      "priority_metrics": ["In_house_supply_rate", "CapEx_timeline", "Bottleneck_shift", "GAAP_vs_NonGAAP_gap"],
-      "alpha_triggers": ["垂直整合優勢", "一線產能被鎖死", "技術節點轉向", "二線廠逆襲窗口"],
-      "signature_phrases": ["家裡有礦", "結構性售罄", "時間差是機會"]
+      "priority_metrics": [
+        "In-house Supply Rate (%)",
+        "CapEx as % of Revenue",
+        "Capacity Utilization Rate",
+        "Customer Concentration (Top 3 %)",
+        "Lead Time Trend",
+        "GAAP vs Non-GAAP Margin Gap"
+      ],
+      "alpha_triggers": [
+        "一線廠產能被大客戶鎖死，溢出需求流向二線",
+        "垂直整合計畫明確，內供率提升路徑清晰",
+        "新技術節點造成現有供應商優勢轉移",
+        "稀缺材料/設備只有少數供應商掌握"
+      ],
+      "valuation_methods": ["P/S with TAM expansion", "EV/Capacity", "Replacement Cost", "Sum-of-parts"]
     }
   ],
-  "version": "1.0.0",
-  "created": "2026-05-09"
+  "version": "2.0.0",
+  "updated": "2026-05-09",
+  "note": "分析框架導向，非語氣/人物設定"
 }
