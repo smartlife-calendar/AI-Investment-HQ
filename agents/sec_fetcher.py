@@ -4,8 +4,19 @@ import time
 from datetime import datetime
 
 
+# Known CIK overrides for newly listed / re-listed companies that may not appear
+# in the main company_tickers.json yet
+KNOWN_CIKS = {
+    "SNDK": "0002023554",  # Sandisk Corp (spin-off from WD, re-listed 2024)
+}
+
 def get_cik_from_ticker(ticker: str) -> str:
     """Convert ticker to SEC CIK number"""
+    ticker_upper = ticker.upper()
+    if ticker_upper in KNOWN_CIKS:
+        cik = KNOWN_CIKS[ticker_upper]
+        print("CIK from override table: " + cik + " (" + ticker_upper + ")")
+        return cik
     tickers_url = "https://www.sec.gov/files/company_tickers.json"
     headers = {"User-Agent": "AI-Investment-HQ research@example.com"}
 
