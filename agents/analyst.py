@@ -118,7 +118,7 @@ def analyze_stock(ticker: str, financial_text: str, persona_id: str) -> dict:
     client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     message = client.messages.create(
-        model="claude-opus-4-5",
+        model="claude-sonnet-4-5",
         max_tokens=3000,
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
