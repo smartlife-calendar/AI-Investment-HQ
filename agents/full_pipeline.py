@@ -8,14 +8,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_fetcher import fetch_stock_data
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
+from fmp_fetcher import fetch_fmp_financials
 from analyst import run_analysis, generate_comparison_table
 
 
 def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "") -> dict:
     ticker = ticker.upper().strip()
-    print(f"Starting analysis for {ticker}")
+    print("Starting analysis for " + ticker)
 
-    ts = datetime.now().strftime('%Y-%m-%d %H:%M')
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
     combined_data = "# " + ticker + " Full Data Report\nGenerated: " + ts + "\n\n"
     company_name = ticker
 
@@ -26,11 +27,25 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         combined_data += stock_data["summary"] + "\n\n"
         company_name = stock_data["financials"].get("company_name", ticker)
     except Exception as e:
-        print(f"Yahoo Finance failed: {e}")
+        print("Yahoo Finance failed: " + str(e))
         combined_data += "## Financial Data\nUnavailable\n\n"
 
-    # B: SEC Filing
-    print("[B] SEC EDGAR...")
+    # B: FMP Detailed Financials (FCF, SBC, Balance Sheet)
+    print("[B] Financial Modeling Prep...")
+    try:
+        fmp_text = fetch_fmp_financials(ticker)
+        if fmp_text and len(fmp_text) > 100:
+            combined_data += fmp_text + "\n\n"
+            print("FMP data added: " + str(len(fmp_text)) + " chars")
+        else:
+            print("FMP: no data (demo key limitation or ticker not found)")
+            combined_data += "## FMP Financials\nNot available for this ticker with current API key\n\n"
+    except Exception as e:
+        print("FMP failed: " + str(e))
+        combined_data += "## FMP Financials\nUnavailable\n\n"
+
+    # C: SEC Filing
+    print("[C] SEC EDGAR...")
     try:
         sec_text = fetch_sec_filing(ticker, "10-Q")
         if sec_text and len(sec_text) > 200:
@@ -38,38 +53,34 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         else:
             combined_data += "## SEC Filing\nNo recent 10-Q found\n\n"
     except Exception as e:
-        print(f"SEC failed: {e}")
+        print("SEC failed: " + str(e))
         combined_data += "## SEC Filing\nUnavailable\n\n"
 
-    # C: News
-    print("[C] News...")
+    # D: News
+    print("[D] News...")
     try:
         news_text = search_stock_news(ticker, company_name)
         sentiment = analyze_news_sentiment(news_text, ticker)
         combined_data += news_text + "\n" + sentiment + "\n\n"
     except Exception as e:
-        print(f"News failed: {e}")
+        print("News failed: " + str(e))
         combined_data += "## News\nUnavailable\n\n"
 
     # Manual supplement
     if manual_text and len(manual_text) > 50:
-        combined_data += "## Manual Supplement\n" + manual_text + "\n\n"
+        combined_data += "## Manual Supplement (Earnings Call / Analysis)\n" + manual_text + "\n\n"
 
-    print(f"Data ready: {len(combined_data)} chars")
+    print("Data ready: " + str(len(combined_data)) + " chars")
     print("Running analysis...")
 
-    # Personas
     if persona == "all":
         personas = None
     else:
         personas = [p.strip() for p in persona.split(",")]
 
     results = run_analysis(ticker, combined_data, personas)
-
-    # Comparison table
     comparison_table = generate_comparison_table(ticker, results)
 
-    # Save reports
     os.makedirs("reports", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -109,7 +120,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
             f.write(str(analysis) + "\n\n")
             f.write("-" * 40 + "\n\n")
 
-    print(f"Reports saved: {txt_path}")
+    print("Reports saved: " + txt_path)
     print("\n" + comparison_table)
 
     return report
