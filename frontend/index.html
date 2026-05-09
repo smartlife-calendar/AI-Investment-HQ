@@ -106,33 +106,98 @@
                 return;
             }
             document.getElementById('errorMsg').classList.add('hidden');
-
             document.getElementById('resultArea').classList.add('hidden');
             document.getElementById('paywallBanner').classList.add('hidden');
             document.getElementById('loadingArea').classList.remove('hidden');
             document.getElementById('loadingArea').classList.add('flex');
-            
-            setTimeout(() => {
+
+            // API_BASE_URL: 部署後改為 Railway URL
+            // 例如 https://ai-investment-hq.railway.app
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq.railway.app';
+
+            try {
+                const response = await fetch(API_BASE_URL + '/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ticker: ticker,
+                        persona_id: personaId,
+                        manual_text: ''
+                    })
+                });
+
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
-                
-                document.getElementById('resultArea').classList.remove('hidden');
-                document.getElementById('paywallBanner').classList.remove('hidden');
-                
-                document.getElementById('resultTitle').innerText = `${ticker} - 深度解析報告`;
-                document.getElementById('resultPersona').innerText = personaName + (personaId === 'all' ? " 交叉對比" : " 模型");
-                
-                let mockMarkdown = `**【資料採集完畢】**\n已同步抓取 Yahoo Finance 最新股價、SEC 財報與過去 48 小時關聯新聞。\n\n`;
-                
-                if (personaId === 'all') {
-                    mockMarkdown += `### 📊 6 模型交叉對比表\n\n| 分析模型 | 核心指標檢核 | 紅燈警告 (Red Flags) | 估值 / 評級 |\n| :--- | :--- | :--- | :--- |\n| **財務結構分析** | FCF 為負，SBC 佔比 8% | 股本稀釋過快 | 觀望 (Wait) |\n| **供應鏈結構分析** | 內供率 15%，CapEx 激增 | 一線廠產能已滿 | 加碼 (Overweight) |\n| **Benjamin Graham** | P/B > 1.5，P/E > 15 | 無安全邊際 | 賣出 (Sell) |\n| **Peter Lynch** | PEG = 1.2，營收大於存貨 | 估值略高 | 持有 (Hold) |\n| **Cathie Wood** | 營收 CAGR > 20%，TAM 擴張 | 研發費用高昂 | 強烈買進 (Strong Buy) |\n| **Piotroski F-Score** | 5 / 9 (中性偏弱) | ROA 改善有限 | 觀望 (Wait) |\n\n> *請將後端伺服器 (n8n/Docker/GitHub Actions) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接，獲取真實 API 數據！*`;
-                } else {
-                    mockMarkdown += `**【${personaName} 模型的分析】**\n\n這是一份由後端 API (main_agent.py) 生成的報告內容佔位符。\n當前後端連線建立後，這裡將會顯示 ${personaName} 模型的標準化解析：\n\n* 核心量化指標對齊與驗證\n* 模型專屬風險警告\n* 客觀投資決策建議\n\n> *請將後端伺服器 (n8n/Docker/GitHub Actions) 的 Webhook URL 填入 frontend/index.html 的 fetch 區塊即可完成串接，獲取真實 API 數據！*`;
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'API error ' + response.status);
                 }
-                
-                document.getElementById('reportContent').innerHTML = marked.parse(mockMarkdown);
-            }, 3000);
+
+                const data = await response.json();
+
+                document.getElementById('resultArea').classList.remove('hidden');
+                if (personaId === 'all') {
+                    document.getElementById('paywallBanner').classList.remove('hidden');
+                }
+
+                document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
+                document.getElementById('resultPersona').innerText = personaName + (personaId === 'all' ? ' 交叉對比' : ' 模型');
+
+                let reportMarkdown = '';
+
+                // 對比表（全模型時顯示在最前面）
+                if (data.comparison_table) {
+                    reportMarkdown += data.comparison_table + '\n\n---\n\n';
+                }
+
+                // 各框架完整分析
+                if (data.analyses) {
+                    let count = 0;
+                    for (const [pid, analysis] of Object.entries(data.analyses)) {
+                        const sr = data.structured_results || {};
+                        const pname = (sr[pid] && sr[pid].persona_name) ? sr[pid].persona_name : pid;
+                        const bear = (sr[pid] && sr[pid].bear_price) ? '$' + sr[pid].bear_price : 'N/A';
+                        const base = (sr[pid] && sr[pid].base_price) ? '$' + sr[pid].base_price : 'N/A';
+                        const bull = (sr[pid] && sr[pid].bull_price) ? '$' + sr[pid].bull_price : 'N/A';
+                        const rating = (sr[pid] && sr[pid].rating) ? sr[pid].rating : '';
+
+                        reportMarkdown += '## ' + pname;
+                        if (rating) reportMarkdown += '  ▸ 評級：**' + rating + '**';
+                        reportMarkdown += '\n';
+                        if (bear !== 'N/A') {
+                            reportMarkdown += '> 目標價：悲觀 ' + bear + ' | 基準 ' + base + ' | 樂觀 ' + bull + '\n\n';
+                        }
+                        reportMarkdown += analysis + '\n\n---\n\n';
+
+                        count++;
+                        // 付費牆：免費用戶只看前兩個框架，Pro 看全部
+                        if (personaId === 'all' && count >= 2) {
+                            reportMarkdown += '\n\n';
+                            break;
+                        }
+                    }
+                }
+
+                document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
+
+            } catch (error) {
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultTitle').innerText = '連線失敗';
+                document.getElementById('resultPersona').innerText = '';
+                document.getElementById('reportContent').innerHTML = marked.parse(
+                    '### ⚠️ 無法連線到分析伺服器\n\n' +
+                    '錯誤：' + error.message + '\n\n' +
+                    '**請確認：**\n' +
+                    '1. 後端 API 已部署到 Railway\n' +
+                    '2. `ANTHROPIC_API_KEY` 環境變數已設定\n' +
+                    '3. Repo 設為 Public 或 Railway 有讀取權限'
+                );
+            }
         }
     </script>
 </body>
 </html>
+
