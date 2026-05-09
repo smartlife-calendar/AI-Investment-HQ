@@ -34,20 +34,19 @@ def fetch_tw_price(ticker: str) -> dict:
         )
         if resp.status_code == 200:
             meta = resp.json().get("chart", {}).get("result", [{}])[0].get("meta", {})
-            result["price_twd"] = meta.get("regularMarketPrice")
-            result["high_52w_twd"] = meta.get("fiftyTwoWeekHigh")
-            result["low_52w_twd"] = meta.get("fiftyTwoWeekLow")
-            result["prev_close_twd"] = meta.get("chartPreviousClose")
-            result["currency"] = "TWD"
-            # Convert to USD
-            if result.get("price_twd"):
-                p = result["price_twd"]
-                result["price_usd"] = round(p * 0.031, 2)
-                if result.get("high_52w_twd"):
-                    result["high_52w_usd"] = round(result["high_52w_twd"] * 0.031, 2)
-                if result.get("low_52w_twd"):
-                    result["low_52w_usd"] = round(result["low_52w_twd"] * 0.031, 2)
-            print(f"TW price OK: NT${result['price_twd']}")
+            price = meta.get("regularMarketPrice")
+            currency = meta.get("currency", "TWD")
+            result["currency"] = currency
+            # Always store in native currency (TWD for .TW)
+            result["price"] = price
+            result["high_52w"] = meta.get("fiftyTwoWeekHigh")
+            result["low_52w"] = meta.get("fiftyTwoWeekLow")
+            result["prev_close"] = meta.get("chartPreviousClose")
+            # Aliases for TWD
+            result["price_twd"] = price
+            result["high_52w_twd"] = result["high_52w"]
+            result["low_52w_twd"] = result["low_52w"]
+            print(f"TW price OK: NT${price}")
     except Exception as e:
         print(f"TW price failed: {e}")
     return result
@@ -247,9 +246,9 @@ def build_tw_summary(ticker: str, data: dict, news: list = None) -> str:
         f"## {company} ({ticker}) - Taiwan Listed Stock",
         "",
         "### Price (TWD)",
-        f"- Current: NT${price_twd} (≈ US${price_usd})",
-        f"- 52W High: NT${safe(data.get('high_52w_twd'))} (US${safe(data.get('high_52w_usd'))})",
-        f"- 52W Low: NT${safe(data.get('low_52w_twd'))} (US${safe(data.get('low_52w_usd'))})",
+        f"- Current: NT${price_twd}",
+        f"- 52W High: NT${safe(data.get('high_52w_twd'))}",
+        f"- 52W Low: NT${safe(data.get('low_52w_twd'))}",
         "",
         "### Valuation (from TWSE)",
         f"- P/E Ratio: {safe(data.get('pe_ratio'))}x",
