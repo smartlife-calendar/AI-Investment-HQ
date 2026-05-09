@@ -117,6 +117,12 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     os.makedirs("reports", exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
+    # Format market context summary for display
+    market_summary = ""
+    if market_context:
+        lines = [l for l in market_context.split("\n") if l.strip() and not l.startswith("##")]
+        market_summary = "\n".join(lines[:15])  # First 15 meaningful lines
+
     report = {
         "ticker": ticker,
         "company": company_name,
@@ -124,6 +130,7 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         "raw_data_length": len(combined_data),
         "comparison_table": comparison_table,
         "market_context": market_context,
+        "market_summary": market_summary,
         "analyses": {
             k: v.get("full_analysis", v) if isinstance(v, dict) else v
             for k, v in results.items()
