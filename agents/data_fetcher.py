@@ -14,13 +14,20 @@ TICKER_CIK_OVERRIDE = {
     "INTC": "0000050863",
     "QCOM": "0000804328",
     "AVGO": "0001730168",
-    "TSM": "0001046570",
+    "TSM": "0001046179",   # TAIWAN SEMICONDUCTOR - IFRS+TWD
     "ANET": "0001313925",
     "TER": "0000097210",
     "RMBS": "0000917273",
     "VICR": "0000751629",
     "RDW": "0001819989",
+    "ASML": "0000937556",
 }
+
+# Companies that file 20-F and use IFRS (not US-GAAP)
+IFRS_COMPANIES = {"TSM", "ASML"}
+# Approximate FX rates to USD
+FX_TO_USD = {"TWD": 0.031, "EUR": 1.08, "GBP": 1.27}
+
 
 
 def _safe(v, default="N/A"):
@@ -61,7 +68,7 @@ def get_cik_for_ticker(ticker: str) -> str:
     return None
 
 
-def fetch_sec_xbrl(cik: str) -> dict:
+def fetch_sec_xbrl(cik: str, ticker: str = "") -> dict:
     """Fetch fundamental data from SEC XBRL - the most reliable free source"""
     facts = {}
     try:
@@ -73,7 +80,43 @@ def fetch_sec_xbrl(cik: str) -> dict:
             timeout=15
         )
         if req.status_code == 200:
-            raw = req.json().get("facts", {}).get("us-gaap", {})
+            all_facts = req.json().get("facts", {})
+            ticker_upper = (ticker or "").upper()
+            if ticker_upper in IFRS_COMPANIES:
+                ifrs_raw = all_facts.get("ifrs-full", {})
+                # Map IFRS keys to US-GAAP equivalents
+                raw = {}
+                ifrs_map = {
+                    "Revenues": "Revenue",
+                    "RevenueFromContractWithCustomerExcludingAssessedTax": "Revenue",
+                    "GrossProfit": "GrossProfit",
+                    "NetIncomeLoss": "ProfitLoss",
+                    "OperatingIncomeLoss": "ProfitFromOperations",
+                    "Assets": "Assets",
+                    "Liabilities": "Liabilities",
+                    "CashAndCashEquivalentsAtCarryingValue": "CashAndCashEquivalents",
+                    "LongTermDebt": "NoncurrentPortionOfLongtermBorrowings",
+                    "StockholdersEquity": "Equity",
+                    "NetCashProvidedByUsedInOperatingActivities": "CashFlowsFromUsedInOperatingActivities",
+                    "PaymentsToAcquirePropertyPlantAndEquipment": "PurchaseOfPropertyPlantAndEquipment",
+                    "ShareBasedCompensation": "ExpenseFromSharebasedPaymentTransactionsWithEmployees",
+                    "GoodwillAndIntangibleAssetsNet": "Goodwill",
+                    "InventoryNet": "Inventories",
+                }
+                for gaap_key, ifrs_key in ifrs_map.items():
+                    if ifrs_key in ifrs_raw:
+                        raw[gaap_key] = ifrs_raw[ifrs_key]
+                # Set FX rate for conversion
+                if ticker_upper == "TSM":
+                    fx_rate = FX_TO_USD.get("TWD", 0.031)
+                elif ticker_upper == "ASML":
+                    fx_rate = FX_TO_USD.get("EUR", 1.08)
+                else:
+                    fx_rate = 1.0
+                print("IFRS mode: " + ticker_upper + " fx=" + str(fx_rate))
+            else:
+                raw = all_facts.get("us-gaap", {})
+                fx_rate = 1.0
             
             def get_latest(key, form_types=None):
                 """Get latest value - prefer annual (10-K) for consistency in ratio calculations"""
@@ -132,6 +175,18 @@ def fetch_sec_xbrl(cik: str) -> dict:
                 fcf = ocf - capex
             else:
                 fcf = None
+            
+            # Apply FX conversion if needed (e.g. TSM reports in TWD)
+            if fx_rate != 1.0:
+                def _convert(v):
+                    return int(v * fx_rate) if v is not None else None
+                rev = _convert(rev); gp = _convert(gp); ni = _convert(ni)
+                op = _convert(op); assets = _convert(assets)
+                liabilities = _convert(liabilities); cash = _convert(cash)
+                ltdebt = _convert(ltdebt); equity = _convert(equity)
+                ocf = _convert(ocf); capex = _convert(capex)
+                sbc = _convert(sbc); goodwill = _convert(goodwill)
+                inventory = _convert(inventory); fcf = _convert(fcf)
             
             facts["revenue"] = _fmt_num(rev) if rev else None
             facts["gross_profit"] = _fmt_num(gp) if gp else None
@@ -260,7 +315,7 @@ def fetch_stock_data(ticker: str) -> dict:
     cik = get_cik_for_ticker(ticker)
     xbrl_data = {}
     if cik:
-        xbrl_data = fetch_sec_xbrl(cik)
+        xbrl_data = fetch_sec_xbrl(cik, ticker)
         data["financials"].update(xbrl_data)
     else:
         print("No CIK found for " + ticker)
