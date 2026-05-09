@@ -354,12 +354,12 @@ def fetch_stock_data(ticker: str) -> dict:
     news_text = "\n".join(news_lines) if news_lines else "No recent news"
     
     data["summary"] = (
-        "## " + company_name + " ($" + ticker + ") - Comprehensive Data\n\n"
+        "## " + _safe(company_name, ticker) + " ($" + str(ticker) + ") - Comprehensive Data\n\n"
         "### Price\n"
         "- Current: $" + _safe(price) + "\n"
         "- 52W High/Low: $" + _safe(f.get("52w_high")) + " / $" + _safe(f.get("52w_low")) + "\n"
-        "- Market Cap (est.): " + market_cap_str + "\n"
-        "- P/E (est.): " + pe_str + "\n\n"
+        "- Market Cap (est.): " + str(market_cap_str) + "\n"
+        "- P/E (est.): " + str(pe_str) + "\n\n"
         "### Income Statement (SEC XBRL - Latest)\n"
         "- Revenue: " + _safe(f.get("revenue")) + "\n"
         "- Gross Profit: " + _safe(f.get("gross_profit")) + " | Gross Margin: " + _safe(f.get("gross_margin")) + "\n"
