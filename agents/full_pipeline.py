@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from data_fetcher import fetch_stock_data
 from tw_fetcher import fetch_tw_stock_data, fetch_tw_news, build_tw_summary, get_tw_stock_id
+from technical_fetcher import analyze_technical
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
 from fmp_fetcher import fetch_fmp_financials
@@ -58,8 +59,17 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
     except Exception as e:
         print("FMP failed: " + str(e))
 
-    # C: SEC Filing
-    print("[C] SEC EDGAR...")
+    # C: Technical Analysis (RSI, Bollinger, MACD, MA, Volume)
+    print("[C] Technical Analysis...")
+    try:
+        tech_summary = analyze_technical(ticker)
+        combined_data += tech_summary + "\n\n"
+    except Exception as e:
+        print("Technical analysis failed: " + str(e))
+        combined_data += "## Technical Analysis\nUnavailable\n\n"
+
+    # D: SEC Filing
+    print("[D] SEC EDGAR...")
     try:
         sec_text = fetch_sec_filing(ticker, "10-Q")
         if sec_text and len(sec_text) > 200:
