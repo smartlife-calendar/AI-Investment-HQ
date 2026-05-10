@@ -68,7 +68,7 @@
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-semibold mb-4">輸入股票代號 (Ticker)</h2>
             <div class="flex gap-4">
-                <input type="text" id="tickerInput" placeholder="美股: SNDK, NVDA | 台股: 2330.TW, 2317.TW" 
+                <input type="text" id="tickerInput" placeholder="美股: SNDK, NVDA | 台股: 2330.TW, 2317.TW" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase" 
                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
                 
                 <select id="personaSelect" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
@@ -120,20 +120,116 @@
     </div>
 
     <script>
+        let macroData = null;
+
         async function loadMacro() {
             const panel = document.getElementById('macroPanel');
             const content = document.getElementById('macroContent');
             panel.classList.remove('hidden');
-            content.innerHTML = '<p class="text-gray-400">載入總體經濟數據...</p>';
+            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入總體經濟數據（約15秒）...</p>';
             
             const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
             try {
                 const resp = await fetch(API_BASE_URL + '/macro');
-                const data = await resp.json();
-                content.innerHTML = marked.parse(data.content || '無法取得數據');
+                macroData = await resp.json();
+                renderMacro(macroData);
             } catch (e) {
                 content.innerHTML = '<p class="text-red-500">載入失敗: ' + e.message + '</p>';
             }
+        }
+
+        function renderMacro(data) {
+            const content = document.getElementById('macroContent');
+            let html = '';
+
+            // Macro indicators
+            html += '<h3 class="font-semibold text-gray-700 mb-3">📊 宏觀指標</h3>';
+            html += '<div class="overflow-x-auto mb-6"><table class="w-full text-xs"><thead><tr class="bg-gray-50">';
+            html += '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>';
+            for (const m of (data.macro || [])) {
+                const perf = m.perf_52w;
+                const color = perf > 0 ? 'text-green-600' : perf < 0 ? 'text-red-600' : '';
+                html += `<tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 font-medium">${m.name}</td>
+                    <td class="p-2 text-right">${m.current}</td>
+                    <td class="p-2 text-right ${color}">${perf > 0 ? '+' : ''}${perf}%</td>
+                    <td class="p-2 text-right">${m.momentum || '—'}</td>
+                    <td class="p-2 text-gray-500 text-xs">${m.interpretation || '—'}</td>
+                </tr>`;
+            }
+            html += '</tbody></table></div>';
+
+            // Sector flows
+            html += '<h3 class="font-semibold text-gray-700 mb-3">🔄 板塊資金流動（點擊展開週對週分析）</h3>';
+            html += '<div class="space-y-1">';
+            for (let i = 0; i < (data.sectors || []).length; i++) {
+                const s = data.sectors[i];
+                const perf = s.perf_52w;
+                const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                
+                // Week-over-week bar for last 8 weeks
+                const weekBars = (s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                    const barColor = wow > 0 ? '#22c55e' : '#ef4444';
+                    const height = Math.min(Math.abs(wow) * 3, 30);
+                    return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:10px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
+                }).join('');
+                
+                const recent4 = s.recent_4w !== null ? `近4週: ${s.recent_4w > 0 ? '+' : ''}${s.recent_4w}%` : '';
+                const prior4 = s.prior_4w !== null ? `前4週: ${s.prior_4w > 0 ? '+' : ''}${s.prior_4w}%` : '';
+
+                html += `<div class="border rounded-lg ${color} overflow-hidden">
+                    <div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleSector(${i})">
+                        <div class="flex items-center gap-3">
+                            <span class="font-medium text-sm">${s.name}</span>
+                            <span class="text-xs text-gray-500">${s.etf}</span>
+                            <span class="text-xs">${s.flow}</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div style="height:32px;display:flex;align-items:flex-end">${weekBars}</div>
+                            <span class="text-xs text-gray-500">${s.momentum || ''}</span>
+                            <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                            <span class="text-xs text-gray-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
+                        <div class="flex gap-4 mb-2 text-gray-600">
+                            <span>💰 ${recent4}</span>
+                            <span>📊 ${prior4}</span>
+                            <span>📈 動能: ${s.momentum || 'N/A'}</span>
+                        </div>
+                        <table class="w-full text-xs border-collapse">
+                            <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
+                            ${(s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                                const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
+                                const accel = Math.abs(wow) > 2 ? '🔥' : Math.abs(wow) > 1 ? '→' : '·';
+                                return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${price.toFixed(2)}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
+                            }).join('')}
+                        </table>
+                    </div>
+                </div>`;
+            }
+            html += '</div>';
+
+            // Summary
+            const summary = data.summary || {};
+            if (summary.top_inflow) {
+                html += `<div class="mt-4 p-3 bg-green-50 rounded-lg text-xs">
+                    <strong>🟢 資金流入前3：</strong> ${summary.top_inflow.map(([n,p]) => `${n}(${p > 0 ? '+' : ''}${p}%)`).join(' | ')}
+                </div>`;
+            }
+            if (summary.top_outflow) {
+                html += `<div class="mt-2 p-3 bg-red-50 rounded-lg text-xs">
+                    <strong>🔴 資金流出前3：</strong> ${summary.top_outflow.map(([n,p]) => `${n}(${p > 0 ? '+' : ''}${p}%)`).join(' | ')}
+                </div>`;
+            }
+
+            content.innerHTML = html;
+        }
+
+        function toggleSector(i) {
+            const el = document.getElementById('sector-' + i);
+            el.classList.toggle('hidden');
         }
 
         async function analyzeStock() {
