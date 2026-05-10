@@ -413,41 +413,87 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 result["shares"] = f"{shares/1e6:.0f}M"
         
         # EPS: TTM (trailing twelve months) = sum of last 4 single quarters
-        # This is more market-relevant than annual 10-K EPS
         eps_single_q = [x for x in eps_data_list 
                         if x.get("form") == "10-Q" 
                         and x.get("frame","").startswith("CY20")
                         and "Q" in x.get("frame","")
-                        and x.get("end","") >= "2023-01-01"]
+                        and x.get("end","") >= "2022-01-01"]
         ttm_eps = None
-        if len(eps_single_q) >= 4:
-            last4_eps = sorted(eps_single_q, key=lambda x: x.get("end",""))[-4:]
-            ttm_eps = round(sum(x.get("val",0) for x in last4_eps) * fx, 2)
-        
-        # Most recent single quarter EPS
         latest_q_eps = None
         if eps_single_q:
-            lq = sorted(eps_single_q, key=lambda x: x.get("end",""))[-1]
-            latest_q_eps = round(lq.get("val",0) * fx, 2)
-        
-        if ttm_eps and ttm_eps != 0:
-            result["eps_ttm"] = str(ttm_eps)
-            result["eps_diluted"] = str(ttm_eps)  # Use TTM for P/E calculations
-        elif latest_q_eps:
-            result["eps_diluted"] = str(latest_q_eps)
-            result["eps_ttm"] = str(latest_q_eps)
+            sorted_eps = sorted(eps_single_q, key=lambda x: x.get("end",""))
+            latest_q_entry = sorted_eps[-1]
+            latest_q_eps = round(latest_q_entry.get("val",0) * fx, 2)
+            result["eps_latest_q"] = str(latest_q_eps)
+            result["eps_latest_q_period"] = latest_q_entry.get("frame","")
+            
+            if len(sorted_eps) >= 4:
+                last4_eps = sorted_eps[-4:]
+                ttm_eps = round(sum(x.get("val",0) for x in last4_eps) * fx, 2)
+                result["eps_ttm"] = str(ttm_eps)
+                result["eps_diluted"] = str(ttm_eps)
+                # Show components for transparency
+                result["eps_ttm_components"] = [
+                    {"quarter": x.get("frame",""), "eps": round(x.get("val",0)*fx, 2)}
+                    for x in last4_eps
+                ]
+            else:
+                result["eps_diluted"] = str(latest_q_eps)
+                result["eps_ttm"] = str(latest_q_eps)
         elif eps_val:
             result["eps_diluted"] = str(round(eps_val * fx, 2))
         elif ni and shares and shares > 0:
             result["eps_diluted"] = str(round((ni * fx) / shares, 2))
         
-        # TTM Revenue for forward P/S calculation
-        rev_single_q = [x for x in (raw_gaap.get("RevenueFromContractWithCustomerExcludingAssessedTax", {})
-                        .get("units",{}).get("USD",[]))
-                        if x.get("form")=="10-Q" and x.get("frame","").startswith("CY20") 
-                        and "Q" in x.get("frame","") and x.get("end","") >= "2023-01-01"]
-        if len(rev_single_q) >= 4:
-            last4_rev_q = sorted(rev_single_q, key=lambda x: x.get("end",""))[-4:]
+        # Latest quarterly GM (more relevant than annual for fast-growing companies)
+        gp_q_data = raw_gaap.get("GrossProfit",{}).get("units",{}).get("USD",[])
+        rev_q_data = (raw_gaap.get("RevenueFromContractWithCustomerExcludingAssessedTax",{})
+                     .get("units",{}).get("USD",[]))
+        gp_single_q = sorted([x for x in gp_q_data if x.get("form")=="10-Q" and "Q" in x.get("frame","") 
+                              and x.get("end","")>="2023-01-01"], key=lambda x: x.get("end",""))
+        rev_single_q_raw = sorted([x for x in rev_q_data if x.get("form")=="10-Q" and "Q" in x.get("frame","")
+                                  and x.get("end","")>="2023-01-01"], key=lambda x: x.get("end",""))
+        
+        # Build QoQ data (last 4 quarters)
+        if gp_single_q and rev_single_q_raw:
+            gp_by_frame = {x.get("frame",""):x.get("val",0) for x in gp_single_q}
+            rev_by_frame = {x.get("frame",""):x.get("val",0) for x in rev_single_q_raw}
+            common_frames = sorted(set(gp_by_frame.keys()) & set(rev_by_frame.keys()))[-5:]
+            
+            qoq_data = []
+            for i, frame in enumerate(common_frames):
+                r_val = rev_by_frame.get(frame, 0)
+                g_val = gp_by_frame.get(frame, 0)
+                gm_q = g_val/r_val*100 if r_val > 0 else 0
+                
+                # QoQ revenue change
+                qoq_rev = None
+                if i > 0:
+                    prev_frame = common_frames[i-1]
+                    prev_rev = rev_by_frame.get(prev_frame, 0)
+                    if prev_rev > 0:
+                        qoq_rev = round((r_val - prev_rev) / prev_rev * 100, 1)
+                
+                qoq_data.append({
+                    "quarter": frame,
+                    "revenue": fmt_num(r_val * fx) if r_val else "N/A",
+                    "gross_margin": f"{gm_q:.1f}%",
+                    "qoq_rev": f"{'+' if qoq_rev and qoq_rev >= 0 else ''}{qoq_rev}%" if qoq_rev is not None else "—"
+                })
+            
+            if qoq_data:
+                result["qoq_data"] = qoq_data
+                # Use LATEST quarterly GM (more current than annual)
+                latest_qoq = qoq_data[-1]
+                result["gross_margin_latest_q"] = latest_qoq["gross_margin"]
+                result["gross_margin_latest_q_period"] = latest_qoq["quarter"]
+                result["gross_margin_annual"] = result.get("gross_margin", "N/A")
+                # Update gross_margin to latest quarterly value for accuracy
+                result["gross_margin"] = latest_qoq["gross_margin"]
+        
+        # TTM Revenue
+        if len(rev_single_q_raw) >= 4:
+            last4_rev_q = rev_single_q_raw[-4:]
             ttm_rev = sum(x.get("val",0) for x in last4_rev_q) * fx
             if ttm_rev > 0:
                 result["revenue_ttm"] = fmt_num(ttm_rev)
