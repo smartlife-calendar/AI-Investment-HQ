@@ -178,8 +178,9 @@ MODEL_TIERS = {
     "sonnet": "claude-sonnet-4-5",
     "opus": "claude-opus-4-5",
 }
-# Opus for complex qualitative reasoning (value investing, innovation frameworks)
-OPUS_FRAMEWORKS = {"benjamin_graham", "cathie_wood"}
+# Opus for complex qualitative reasoning - only when data quality is LOW (<40%)
+# High data quality stocks can use Sonnet which is 3x faster
+OPUS_FRAMEWORKS = set()  # Disabled - use data_quality check instead for Opus
 # Haiku for structured scoring (fast, deterministic)
 HAIKU_FRAMEWORKS = {"piotroski_fscore", "technical_analysis"}
 
@@ -199,9 +200,12 @@ def assess_data_quality(text: str) -> int:
 
 def select_model(persona_id: str, data_quality: int) -> str:
     """Choose model: Haiku/Sonnet/Opus based on task complexity and data availability."""
+    # Check env override (Railway variable)
+    # Note: ANALYSIS_MODEL=claude-opus-4-5 in Railway slows all analysis to ~50s
+    # Remove or set to empty in Railway Variables to use tiered selection
     env_override = os.environ.get("ANALYSIS_MODEL", "")
-    if env_override and env_override in MODEL_TIERS.values():
-        return env_override
+    if env_override and env_override in MODEL_TIERS.values() and env_override != MODEL_TIERS["opus"]:
+        return env_override  # Only allow haiku/sonnet override, not opus (too slow)
     if persona_id in HAIKU_FRAMEWORKS and data_quality >= 70:
         return MODEL_TIERS["haiku"]   # Fast + cheap for structured scoring
     elif persona_id in OPUS_FRAMEWORKS or data_quality < 40:
