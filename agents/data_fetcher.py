@@ -30,6 +30,25 @@ IFRS_TICKERS = {"TSM", "ASML"}
 FX_USD = {"TWD": 0.031, "EUR": 1.08, "GBP": 1.27}
 
 
+
+# Industry/Sector benchmarks for when historical comparison is unavailable
+SECTOR_BENCHMARKS = {
+    "Semiconductor": {"gross_margin": 45, "ocf_margin": 25, "de_ratio": 0.5, "current_ratio": 2.5},
+    "NAND/Memory": {"gross_margin": 35, "ocf_margin": 20, "de_ratio": 0.6, "current_ratio": 2.0},
+    "Software": {"gross_margin": 70, "ocf_margin": 20, "de_ratio": 0.3, "current_ratio": 2.0},
+    "Cloud/AI": {"gross_margin": 55, "ocf_margin": 15, "de_ratio": 0.5, "current_ratio": 1.5},
+    "Default": {"gross_margin": 30, "ocf_margin": 10, "de_ratio": 1.0, "current_ratio": 1.5},
+}
+
+def get_sector_benchmark(ticker: str) -> dict:
+    """Return industry benchmark for comparison when historical data is missing."""
+    ticker = ticker.upper()
+    if ticker in ("MU", "SNDK", "NVTS", "LRCX", "AMAT", "KLAC"):
+        return SECTOR_BENCHMARKS["Semiconductor"]
+    if ticker in ("WDC",):
+        return SECTOR_BENCHMARKS["NAND/Memory"]
+    return SECTOR_BENCHMARKS["Default"]
+
 def safe(v, default="N/A"):
     """Always return a string, never None."""
     if v is None:
@@ -217,6 +236,31 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                         return seen
             return {}
 
+        def get_single_q_from_ytd(key):
+            """
+            Derive single-quarter value from YTD cumulative cash flow entries.
+            Cash flow 10-Q entries often lack frame=CYxxQx; they use frame="" (YTD).
+            Single quarter = current_YTD - prior_period_YTD
+            """
+            data = raw_gaap.get(key, {}).get("units", {}).get("USD", [])
+            ytd_entries = [x for x in data if x.get("form") == "10-Q" and x.get("frame","") == "" and x.get("end","") >= "2023-01-01"]
+            if not ytd_entries:
+                return None, None
+            # Sort by end date, get most recent
+            sorted_ytd = sorted(ytd_entries, key=lambda x: x.get("end",""))
+            latest_ytd = sorted_ytd[-1]
+            latest_end = latest_ytd.get("end","")
+            latest_val = latest_ytd.get("val", 0)
+            latest_filed = latest_ytd.get("filed","")[:7]  # YYYY-MM
+            # Find prior YTD (same fiscal year, earlier quarter)
+            prior_candidates = [x for x in sorted_ytd 
+                                if x.get("end","") < latest_end
+                                and x.get("filed","")[:7] >= str(int(latest_filed[:4])-1) + latest_filed[4:]]
+            if not prior_candidates:
+                return latest_val, latest_end  # First quarter = YTD is single quarter
+            prior = sorted(prior_candidates, key=lambda x: x.get("end",""))[-1]
+            return latest_val - prior.get("val", 0), latest_end
+
         def latest(key, fallbacks=None):
             """Get latest value from XBRL - 10-K preferred, recent 10-Q as fallback."""
             all_vals = get_all_annual(key, fallbacks)
@@ -259,8 +303,20 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
-        ocf = latest("NetCashProvidedByUsedInOperatingActivities")
-        capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
+        # For OCF/CapEx: try single-quarter derivation first (more accurate for new listings)
+        # Then fall back to get_all_annual for established companies
+        _ocf_q, _ocf_period = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
+        _capex_q, _capex_period = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
+        _annual_ocf = latest("NetCashProvidedByUsedInOperatingActivities")
+        _annual_capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
+        
+        # Use single-quarter if it's more recent than annual AND we're in 10-Q override mode
+        if use_10q_override and _ocf_q is not None:
+            ocf = _ocf_q
+            capex = _capex_q
+        else:
+            ocf = _annual_ocf
+            capex = _annual_capex
         sbc = latest("ShareBasedCompensation")
         goodwill = latest("GoodwillAndIntangibleAssetsNet")
         inventory = latest("InventoryNet")
