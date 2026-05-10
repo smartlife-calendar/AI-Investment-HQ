@@ -863,7 +863,7 @@ def fetch_stock_data(ticker: str) -> dict:
         f"- Current: {curr_sym}{price}",
         f"- 52W High/Low: {curr_sym}{safe(f.get('high_52w'))} / {curr_sym}{safe(f.get('low_52w'))}",
         f"- Market Cap: {mc_str}",
-        f"- P/E Ratio: {safe(f.get('pe_ratio'))} | EPS: {safe(f.get('eps'))}",
+        f"- P/E Ratio: {safe(f.get('pe_ratio'))} | EPS (TTM): ${safe(f.get('eps_ttm') or f.get('eps_diluted') or f.get('eps'))} | EPS (Latest Q): ${safe(f.get('eps_latest_q'))} {safe(f.get('eps_latest_q_period'))}",
         "",
         "### Income Statement (Annual)",
         f"- Revenue: {safe(f.get('revenue'))}",
@@ -885,7 +885,8 @@ def fetch_stock_data(ticker: str) -> dict:
         f"- Equity: {safe(f.get('equity'))}",
         f"- Goodwill+Intangibles: {safe(f.get('goodwill'))} ({safe(f.get('goodwill_ratio'))} of assets)",
         f"- Inventory: {safe(f.get('inventory'))}",
-        f"- Shares: {safe(f.get('shares'))}",
+        f"- Shares: {safe(f.get('shares'))} | EPS Growth YoY: {safe(f.get('eps_growth_yoy'))}",
+        f"- Forward EPS (annualized): ${safe(f.get('eps_forward_annualized'))}",
     ]
 
     if est_section:
