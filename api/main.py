@@ -319,6 +319,7 @@ async def analyze(req: AnalysisRequest, request: Request):
             "market_summary": result.get("market_summary", ""),
             "analyses": result.get("analyses", {}),
             "structured_results": result.get("structured_results", {}),
+            "current_price": result.get("current_price"),
             "raw_data_preview": "",
             "rate_limit_remaining": remaining,
             "from_cache": False,
