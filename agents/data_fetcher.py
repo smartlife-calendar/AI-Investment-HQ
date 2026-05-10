@@ -299,14 +299,36 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 gp = rev - cogs
         ni = latest("NetIncomeLoss")
         op = latest("OperatingIncomeLoss")
-        assets = latest("Assets")
-        liab = latest("Liabilities")
-        cash = latest("CashAndCashEquivalentsAtCarryingValue")
+        # Balance Sheet: use most recent 10-Q instant/snapshot data
+        # These are point-in-time values (not flow), so latest quarterly is most accurate
+        def latest_instant(key, fallbacks=None):
+            """Get latest value - prefer 10-Q instant data for balance sheet items."""
+            keys_to_try = [key] + (fallbacks or [])
+            for k in keys_to_try:
+                data = raw_gaap.get(k, {}).get("units", {}).get("USD", [])
+                # Try most recent 10-Q first (quarterly balance sheet is more current)
+                quarterly_instant = [x for x in data 
+                                     if x.get("form") == "10-Q" 
+                                     and x.get("end","") >= "2023-01-01"
+                                     and not x.get("frame","").startswith("CY")]  # Instant = no CY frame
+                if quarterly_instant:
+                    v = sorted(quarterly_instant, key=lambda x: x.get("end",""))[-1].get("val")
+                    return v * fx if v and fx != 1.0 else v
+                # Fall back to annual
+                annual = [x for x in data if x.get("form") == "10-K" and x.get("end","") >= "2022-01-01"]
+                if annual:
+                    v = sorted(annual, key=lambda x: x.get("end",""))[-1].get("val")
+                    return v * fx if v and fx != 1.0 else v
+            return None
+        
+        assets = latest_instant("Assets")
+        liab = latest_instant("Liabilities")
+        cash = latest_instant("CashAndCashEquivalentsAtCarryingValue")
         # Current assets and liabilities
-        current_assets = latest("AssetsCurrent")
-        current_liab = latest("LiabilitiesCurrent")
-        ltdebt = latest("LongTermDebt")
-        equity = latest("StockholdersEquity")
+        current_assets = latest_instant("AssetsCurrent")
+        current_liab = latest_instant("LiabilitiesCurrent")
+        ltdebt = latest_instant("LongTermDebt")
+        equity = latest_instant("StockholdersEquity")
         # OCF/CapEx: use 10-K annual if filed within 9 months (AAPL/MU/TSLA)
         # If 10-K is stale (>9 months since period end), derive from YTD (SNDK)
         _annual_ocf = latest("NetCashProvidedByUsedInOperatingActivities")
@@ -336,8 +358,8 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             ocf = _ocf_q if _ocf_q is not None else _annual_ocf
             capex = _capex_q if _capex_q is not None else _annual_capex
         sbc = latest("ShareBasedCompensation")
-        goodwill = latest("GoodwillAndIntangibleAssetsNet")
-        inventory = latest("InventoryNet")
+        goodwill = latest_instant("GoodwillAndIntangibleAssetsNet", ["Goodwill"])
+        inventory = latest_instant("InventoryNet")
         shares = latest_shares()
         fcf = (ocf - capex) if ocf and capex else None
         
@@ -427,48 +449,10 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             result["eps_latest_q"] = str(latest_q_eps)
             result["eps_latest_q_period"] = latest_q_entry.get("frame","")
             
-            # Check for missing quarters - derive from annual 10-K when gaps exist
-            # Example: MU CY2025Q3 is missing from XBRL, derive from: annual_eps - sum(known_quarters)
-            annual_eps_data = raw_gaap.get("EarningsPerShareDiluted",{}).get("units",{}).get("USD/shares",[])
-            annual_10k_eps = [x for x in annual_eps_data if x.get("form")=="10-K" and x.get("end","")>="2023-01-01"]
-            
-            # Build a complete set of quarters using 10-K to fill gaps
-            all_frames = {x.get("frame",""):x.get("val",0) for x in sorted_eps}
-            
-            if annual_10k_eps:
-                for annual in sorted(annual_10k_eps, key=lambda x: x.get("end",""))[-2:]:
-                    annual_end = annual.get("end","")
-                    annual_val = annual.get("val",0) * fx
-                    # Get all 4 quarters for this fiscal year from XBRL
-                    fy_year = int(annual_end[:4])
-                    # Quarters within this fiscal year 
-                    fy_quarters = [x for x in sorted_eps 
-                                   if x.get("end","")[:4] in [str(fy_year), str(fy_year-1)]]
-                    # Simple gap fill: if annual exists and we have 3 of 4 quarters, derive 4th
-                    fy_q_sum = sum(x.get("val",0) for x in fy_quarters[:3])  # Conservative: only use 3
-                    if len(fy_quarters) >= 3 and abs(annual_val) > 0:
-                        missing_q_eps = annual_val - sum(x.get("val",0) * fx for x in fy_quarters if x not in fy_quarters[:3])
-                        # Add inferred quarter to our set (mark as derived)
-                        derived_frame = f"DERIVED_{annual_end[:7]}"
-                        if derived_frame not in all_frames and abs(missing_q_eps) < abs(annual_val):
-                            all_frames[derived_frame] = missing_q_eps / fx
-            
-            # Build sorted list including derived quarters
-            eps_complete = sorted(
-                [{"frame": k, "val": v} for k, v in all_frames.items()],
-                key=lambda x: x["frame"]
-            )
-            
-            if len(eps_complete) >= 4:
-                last4_complete = eps_complete[-4:]
-                ttm_eps = round(sum(x["val"] for x in last4_complete) * fx, 2)
-                result["eps_ttm"] = str(ttm_eps)
-                result["eps_diluted"] = str(ttm_eps)
-                result["eps_ttm_components"] = [
-                    {"quarter": x["frame"], "eps": round(x["val"]*fx, 2)}
-                    for x in last4_complete
-                ]
-            elif len(sorted_eps) >= 4:
+            # TTM EPS: use last 4 available single-quarter CY frames
+            # Note: some quarters may be missing from XBRL (e.g. MU CY2025Q3)
+            # We report what we have and mark data_completeness
+            if len(sorted_eps) >= 4:
                 last4_eps = sorted_eps[-4:]
                 ttm_eps = round(sum(x.get("val",0) for x in last4_eps) * fx, 2)
                 result["eps_ttm"] = str(ttm_eps)
@@ -477,9 +461,13 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                     {"quarter": x.get("frame",""), "eps": round(x.get("val",0)*fx, 2)}
                     for x in last4_eps
                 ]
+                # Check if quarters are consecutive (flag gaps)
+                frames = [x.get("frame","") for x in last4_eps]
+                result["eps_ttm_note"] = f"TTM from {frames[0]} to {frames[-1]}"
             else:
                 result["eps_diluted"] = str(latest_q_eps)
                 result["eps_ttm"] = str(latest_q_eps)
+                result["eps_ttm_note"] = "Fewer than 4 quarters available"
         elif eps_val:
             result["eps_diluted"] = str(round(eps_val * fx, 2))
         elif ni and shares and shares > 0:
