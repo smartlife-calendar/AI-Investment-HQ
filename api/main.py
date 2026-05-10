@@ -88,14 +88,39 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.6.4", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.6.5", "model": "claude-opus-4-5"}
+
+
+@app.get("/tw-test/{ticker}")
+async def tw_test(ticker: str):
+    """Direct test of tw_fetcher for Taiwan stocks."""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
+        from tw_fetcher import fetch_tw_stock_data, build_tw_summary, fetch_tw_news, get_tw_stock_id
+        data = fetch_tw_stock_data(ticker)
+        return {
+            "ticker": ticker,
+            "raw_data": data,
+            "revenue": data.get("revenue"),
+            "gross_margin": data.get("gross_margin"),
+            "net_income": data.get("net_income"),
+            "eps": data.get("eps"),
+            "pe_ratio": data.get("pe_ratio"),
+            "pb_ratio": data.get("pb_ratio"),
+            "company_name": data.get("company_name"),
+            "keys": list(data.keys()),
+        }
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "trace": traceback.format_exc()[:1000]}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.6.4",
+        "version": "3.6.5",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
