@@ -303,20 +303,20 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
-        # For OCF/CapEx: try single-quarter derivation first (more accurate for new listings)
-        # Then fall back to get_all_annual for established companies
-        _ocf_q, _ocf_period = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
-        _capex_q, _capex_period = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
-        _annual_ocf = latest("NetCashProvidedByUsedInOperatingActivities")
-        _annual_capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
-        
-        # Use single-quarter if it's more recent than annual AND we're in 10-Q override mode
-        if use_10q_override and _ocf_q is not None:
-            ocf = _ocf_q
-            capex = _capex_q
-        else:
-            ocf = _annual_ocf
-            capex = _annual_capex
+        # OCF/CapEx: try annual first, then single-quarter derivation from YTD
+        # get_all_annual handles 8-month gap rule for SNDK-type companies
+        ocf = latest("NetCashProvidedByUsedInOperatingActivities")
+        capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
+        # For companies where 10-K is stale (>8 months gap) and OCF has no CY frame,
+        # derive from YTD difference
+        if ocf is None:
+            _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
+            if _ocf_q is not None:
+                ocf = _ocf_q
+        if capex is None:
+            _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
+            if _capex_q is not None:
+                capex = _capex_q
         sbc = latest("ShareBasedCompensation")
         goodwill = latest("GoodwillAndIntangibleAssetsNet")
         inventory = latest("InventoryNet")
