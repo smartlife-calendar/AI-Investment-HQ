@@ -80,6 +80,8 @@ TICKER_SECTOR_MAP = {
     "AAPL": "科技/軟體硬體", "CRM": "科技/軟體",
     # AI
     "ANET": "科技/AI基礎設施",
+    "AAOI": "科技/半導體設備",  # Applied Optoelectronics - fiber optics for AI data centers
+    "LITE": "科技/半導體",
     # Defense/Space
     "RDW": "國防/太空", "LMT": "國防/太空", "RTX": "國防/太空",
     # EV/Auto
