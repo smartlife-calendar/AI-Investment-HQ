@@ -148,9 +148,9 @@ def fetch_finmind(stock_id: str) -> dict:
         if assets: result["total_assets"] = fmt_b(assets)
         if liab: result["total_liabilities"] = fmt_b(liab)
         if equity: result["equity"] = fmt_b(equity)
-        if current_assets: result["current_assets"] = fmt_b(current_assets)
-        if current_liab: result["current_liab"] = fmt_b(current_liab)
-        if lt_debt: result["lt_debt"] = fmt_b(lt_debt)
+        # current_assets from balance sheet - already set above
+        # current_liab from balance sheet - already set above
+        # lt_debt from balance sheet - already set above
         if current_assets and current_liab and current_liab > 0:
             result["current_ratio"] = f"{current_assets/current_liab:.2f}x"
         # Net debt
