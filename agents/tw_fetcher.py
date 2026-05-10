@@ -83,6 +83,11 @@ def fetch_finmind(stock_id: str) -> dict:
     result = {}
     headers = {"User-Agent": "Mozilla/5.0"}
     base = "https://api.finmindtrade.com/api/v4/data"
+    # Initialize optional BS variables to None (may not be populated if BS section fails)
+    current_assets = None
+    current_liab = None
+    lt_debt = None
+    equity = None
 
     def get_dataset(dataset):
         try:
