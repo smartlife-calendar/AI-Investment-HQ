@@ -144,7 +144,9 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             fx = 1.0
 
         def get_all_annual(key, fallbacks=None):
-            """Get all annual values sorted by date."""
+            """Get all annual values sorted by date.
+            Priority: 10-K annual > latest 10-Q quarterly (for companies without recent 10-K)
+            """
             keys_to_try = [key] + (fallbacks or [])
             for k in keys_to_try:
                 data = (raw_gaap.get(k, {}).get("units", {}).get("USD", []) or
@@ -153,31 +155,36 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                     units = raw_gaap.get(k, {}).get("units", {})
                     if units:
                         data = list(units.values())[0]
+                
+                # First try 10-K annual filings
                 annual = [x for x in data if x.get("form") == "10-K" and x.get("end", "") >= "2021-01-01"]
                 if annual:
                     sorted_annual = sorted(annual, key=lambda x: x.get("end", ""))
-                    # Deduplicate by end date
                     seen = {}
                     for x in sorted_annual:
                         seen[x.get("end","")] = x.get("val")
-                    return seen  # {date: value}
+                    return seen
+                
+                # Fallback: use 10-Q data for companies like SNDK (new listing, no 10-K yet)
+                # Use single-quarter entries (frame=CY20xxQx) to avoid cumulative confusion
+                quarterly = [x for x in data 
+                             if x.get("form") == "10-Q" 
+                             and x.get("frame","").startswith("CY20")
+                             and "Q" in x.get("frame","")
+                             and x.get("end","") >= "2024-01-01"]
+                if quarterly:
+                    sorted_q = sorted(quarterly, key=lambda x: x.get("end",""))
+                    seen = {}
+                    for x in sorted_q:
+                        seen[x.get("end","")] = x.get("val")
+                    return seen
+                    
             return {}
 
         def latest(key, fallbacks=None):
-            """Get latest annual value from XBRL."""
+            """Get latest value from XBRL - 10-K preferred, recent 10-Q as fallback."""
             all_vals = get_all_annual(key, fallbacks)
             if not all_vals:
-                # Fall back to 10-Q single quarter
-                keys_to_try = [key] + (fallbacks or [])
-                for k in keys_to_try:
-                    data = raw_gaap.get(k, {}).get("units", {}).get("USD", [])
-                    quarterly = [x for x in data if x.get("form") == "10-Q"
-                                 and x.get("frame", "").startswith("CY20")
-                                 and "Q" in x.get("frame", "")
-                                 and x.get("end", "") >= "2022-01-01"]
-                    if quarterly:
-                        v = sorted(quarterly, key=lambda x: x.get("end", ""))[-1].get("val")
-                        return v * fx if v and fx != 1.0 else v
                 return None
             latest_val = all_vals[sorted(all_vals.keys())[-1]]
             return latest_val * fx if latest_val and fx != 1.0 else latest_val
