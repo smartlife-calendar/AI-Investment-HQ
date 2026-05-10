@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系統管理 - 全方位多模型股市分析系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full mx-4">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">🔧 系統管理</h1>
+        
+        <!-- Login -->
+        <div id="loginSection">
+            <label class="block text-sm font-medium text-gray-700 mb-2">管理員金鑰</label>
+            <input type="password" id="adminKey" class="w-full px-4 py-2 border rounded-lg mb-4" placeholder="輸入 ADMIN_KEY">
+            <button onclick="checkStatus()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                登入
+            </button>
+        </div>
+        
+        <!-- Admin Panel -->
+        <div id="adminPanel" class="hidden">
+            <div id="statusCard" class="p-4 rounded-lg mb-4 bg-green-50 border border-green-200">
+                <p class="font-medium text-green-800">系統狀態: <span id="statusText">載入中...</span></p>
+                <p class="text-sm text-gray-600 mt-1">版本: <span id="versionText">-</span></p>
+                <p class="text-sm text-gray-600">總查詢: <span id="queryText">-</span>次</p>
+                <p class="text-sm text-gray-600 mt-2">熱門股票:</p>
+                <div id="trendingList" class="text-xs text-gray-500 mt-1"></div>
+            </div>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">維修訊息</label>
+                <input type="text" id="maintMsg" value="系統升級中，預計5分鐘後恢復" class="w-full px-4 py-2 border rounded-lg text-sm">
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="enableMaintenance()" class="flex-1 bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 text-sm">
+                    🔧 開啟維修模式
+                </button>
+                <button onclick="disableMaintenance()" class="flex-1 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 text-sm">
+                    ✅ 關閉維修模式
+                </button>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <button onclick="refreshStatus()" class="text-blue-500 text-sm hover:underline">重新整理狀態</button>
+                <span class="text-gray-300 mx-2">|</span>
+                <a href="/" class="text-blue-500 text-sm hover:underline">返回主頁</a>
+            </div>
+        </div>
+        
+        <div id="message" class="mt-4 p-3 rounded-lg hidden"></div>
+    </div>
+    
+    <script>
+        const API = 'https://ai-investment-hq-production.up.railway.app';
+        let adminKey = '';
+        
+        async function checkStatus() {
+            adminKey = document.getElementById('adminKey').value;
+            if (!adminKey) { showMsg('請輸入管理員金鑰', 'error'); return; }
+            
+            try {
+                const resp = await fetch(API + '/admin/status', {
+                    headers: { 'X-Admin-Key': adminKey }
+                });
+                if (resp.status === 401) { showMsg('金鑰錯誤', 'error'); return; }
+                const data = await resp.json();
+                
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+                updateStatus(data);
+            } catch(e) {
+                showMsg('連線失敗: ' + e.message, 'error');
+            }
+        }
+        
+        function updateStatus(data) {
+            const isMaintenance = data.maintenance_env || data.maintenance_override;
+            const card = document.getElementById('statusCard');
+            card.className = 'p-4 rounded-lg mb-4 ' + (isMaintenance ? 'bg-yellow-50 border border-yellow-200' : 'bg-green-50 border border-green-200');
+            document.getElementById('statusText').textContent = isMaintenance ? '⚠️ 維修中' : '✅ 正常運行';
+            document.getElementById('statusText').className = isMaintenance ? 'text-yellow-600 font-bold' : 'text-green-600 font-bold';
+            document.getElementById('versionText').textContent = data.version || '-';
+            document.getElementById('queryText').textContent = data.total_queries || '0';
+            const trending = (data.trending || []).map(([t,c]) => t + '(' + c + ')').join(' · ');
+            document.getElementById('trendingList').textContent = trending || '無';
+        }
+        
+        async function refreshStatus() {
+            const resp = await fetch(API + '/admin/status', { headers: { 'X-Admin-Key': adminKey } });
+            updateStatus(await resp.json());
+        }
+        
+        async function enableMaintenance() {
+            const msg = document.getElementById('maintMsg').value;
+            const resp = await fetch(API + '/admin/maintenance', {
+                method: 'POST',
+                headers: { 'X-Admin-Key': adminKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ maintenance: true, message: msg })
+            });
+            const data = await resp.json();
+            showMsg('維修模式已開啟：' + data.message, 'warning');
+            await refreshStatus();
+        }
+        
+        async function disableMaintenance() {
+            const resp = await fetch(API + '/admin/maintenance', {
+                method: 'POST',
+                headers: { 'X-Admin-Key': adminKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ maintenance: false })
+            });
+            showMsg('維修模式已關閉，系統恢復正常', 'success');
+            await refreshStatus();
+        }
+        
+        function showMsg(msg, type) {
+            const el = document.getElementById('message');
+            el.classList.remove('hidden', 'bg-red-100', 'bg-yellow-100', 'bg-green-100', 'text-red-800', 'text-yellow-800', 'text-green-800');
+            const colors = { error: 'bg-red-100 text-red-800', warning: 'bg-yellow-100 text-yellow-800', success: 'bg-green-100 text-green-800' };
+            el.className = 'mt-4 p-3 rounded-lg ' + colors[type];
+            el.textContent = msg;
+        }
+        
+        // Auto-fill key from URL if present
+        const urlKey = new URLSearchParams(window.location.search).get('key');
+        if (urlKey) { document.getElementById('adminKey').value = urlKey; checkStatus(); }
+    </script>
+</body>
+</html>
