@@ -150,7 +150,7 @@ def analyze_one(ticker: str, financial_text: str, persona_id: str, market_contex
     client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     message = client.messages.create(
-        model="claude-sonnet-4-5",
+        model="claude-opus-4-5",
         max_tokens=1500,
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
