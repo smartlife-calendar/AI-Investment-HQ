@@ -364,26 +364,34 @@
             // Show ad for free users while loading
             document.getElementById('adBanner').classList.remove('hidden');
             
-            // Progress bar animation
-            let _elapsed = 0;
-            const _progressInterval = setInterval(() => {
-                _elapsed++;
-                const pct = Math.min(90, _elapsed * 3); // max 90% while loading
-                const bar = document.getElementById('progressBar');
-                const timer = document.getElementById('loadingTimer');
-                const msg = document.getElementById('loadingMsg');
-                const detail = document.getElementById('loadingDetail');
-                if (bar) bar.style.width = pct + '%';
-                if (timer) timer.textContent = _elapsed + 's';
-                if (_elapsed === 8 && msg) msg.textContent = '正在處理財務數據...'
-                if (_elapsed === 15 && msg) msg.textContent = 'AI分析框架運算中...'
-                if (_elapsed === 25 && msg) msg.textContent = '生成估值結論...'
-                if (_elapsed === 35 && detail) detail.textContent = '（大型股通常15-25秒，小型股可能需要更長時間）'
-            }, 1000);
+            // Progress bar animation - iOS-friendly version
+            const _startTime = Date.now();
+            let _lastElapsed = -1;
+            function _updateProgress() {
+                const _elapsed = Math.floor((Date.now() - _startTime) / 1000);
+                if (_elapsed !== _lastElapsed) {
+                    _lastElapsed = _elapsed;
+                    const pct = Math.min(90, _elapsed * 3);
+                    const bar = document.getElementById('progressBar');
+                    const timer = document.getElementById('loadingTimer');
+                    const msg = document.getElementById('loadingMsg');
+                    const detail = document.getElementById('loadingDetail');
+                    if (bar) bar.style.width = pct + '%';
+                    if (timer) timer.textContent = _elapsed + 's';
+                    if (_elapsed === 8 && msg) msg.textContent = '正在處理財務數據...'
+                    if (_elapsed === 15 && msg) msg.textContent = 'AI分析框架運算中...'
+                    if (_elapsed === 25 && msg) msg.textContent = '生成估值結論...'
+                    if (_elapsed === 35 && detail) detail.textContent = '（大型股通常15-25秒，小型股可能需要更長時間）'
+                }
+                if (window._progressRunning) requestAnimationFrame(_updateProgress);
+            }
+            window._progressRunning = true;
+            const _progressInterval = { _stop: () => { window._progressRunning = false; } };
+            requestAnimationFrame(_updateProgress);
             
             // 60 second timeout for mobile
             const _timeout = setTimeout(() => {
-                clearInterval(_progressInterval);
+                if (_progressInterval && _progressInterval._stop) _progressInterval._stop(); window._progressRunning = false;
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('resultArea').classList.remove('hidden');
                 document.getElementById('resultTitle').innerText = '分析超時';
@@ -418,7 +426,7 @@
 
                 // CRITICAL: clear the timeout and interval before handling response
                 if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
-                if (window._progressInterval) { clearInterval(window._progressInterval); window._progressInterval = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
                 
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
@@ -481,7 +489,7 @@
 
             } catch (error) {
                 if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
-                if (window._progressInterval) { clearInterval(window._progressInterval); window._progressInterval = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
                 document.getElementById('resultArea').classList.remove('hidden');
