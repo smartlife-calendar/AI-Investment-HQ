@@ -308,6 +308,17 @@
             } catch(e) {}
         }
 
+        // Load version on page load
+        (async () => {
+            try {
+                const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+                const resp = await fetch(API_BASE_URL + '/health');
+                const data = await resp.json();
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = 'v' + (data.version || '?') + ' | ' + (data.model || '').split(' ')[0];
+            } catch(e) {}
+        })();
+
         async function analyzeStock() {
             let ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
                 // Auto-append .TW for 4-digit Taiwan stock codes
@@ -330,6 +341,43 @@
             document.getElementById('loadingArea').classList.add('flex');
             // Show ad for free users while loading
             document.getElementById('adBanner').classList.remove('hidden');
+            
+            // Progress bar animation
+            let _elapsed = 0;
+            const _progressInterval = setInterval(() => {
+                _elapsed++;
+                const pct = Math.min(90, _elapsed * 3); // max 90% while loading
+                const bar = document.getElementById('progressBar');
+                const timer = document.getElementById('loadingTimer');
+                const msg = document.getElementById('loadingMsg');
+                const detail = document.getElementById('loadingDetail');
+                if (bar) bar.style.width = pct + '%';
+                if (timer) timer.textContent = _elapsed + 's';
+                if (_elapsed === 8 && msg) msg.textContent = '正在處理財務數據...'
+                if (_elapsed === 15 && msg) msg.textContent = 'AI分析框架運算中...'
+                if (_elapsed === 25 && msg) msg.textContent = '生成估值結論...'
+                if (_elapsed === 35 && detail) detail.textContent = '（大型股通常15-25秒，小型股可能需要更長時間）'
+            }, 1000);
+            
+            // 60 second timeout for mobile
+            const _timeout = setTimeout(() => {
+                clearInterval(_progressInterval);
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultTitle').innerText = '分析超時';
+                document.getElementById('reportContent').innerHTML = marked.parse(
+                    '### ⏱️ 分析時間過長\n\n' +
+                    '可能原因：\n' +
+                    '- 網路連線不穩定\n' +
+                    '- 伺服器繁忙（請稍後再試）\n' +
+                    '- 此股票數據需要更長時間處理\n\n' +
+                    '**建議：** 請重新嘗試，或改用單一分析框架（速度較快）'
+                );
+            }, 60000);
+            
+            // Store for cleanup
+            window._analysisTimeout = _timeout;
+            window._progressInterval = _progressInterval;
 
             // API_BASE_URL: 部署後改為 Railway URL
             // 例如 https://ai-investment-hq.railway.app
@@ -436,6 +484,7 @@
         <footer class="text-center text-xs text-gray-400 mt-10 pb-6">
             <p>© 2026 AI Investment HQ｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">正在載入版本...</p>
         </footer>
 
 </body>
