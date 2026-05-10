@@ -4,10 +4,11 @@ from pydantic import BaseModel
 from typing import Optional
 import os, sys, json, time
 from collections import defaultdict
+from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-app = FastAPI(title="AI Investment HQ API", version="2.0.0")
+app = FastAPI(title="AI Investment HQ API", version="3.2.4")
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,35 +18,77 @@ app.add_middleware(
 )
 
 # === Rate Limiting ===
-# In-memory store: {ip: [timestamp, ...]}
 _rate_store: dict = defaultdict(list)
-RATE_LIMIT_FREE = 50     # requests per hour per IP (raise for development)
-RATE_LIMIT_WINDOW = 3600  # 1 hour in seconds
+RATE_LIMIT = 50  # requests per hour per IP
 
-def check_rate_limit(ip: str, limit: int = RATE_LIMIT_FREE) -> tuple:
-    """Returns (allowed: bool, remaining: int, reset_in: int)"""
+def check_rate_limit(ip: str) -> tuple:
     now = time.time()
-    window_start = now - RATE_LIMIT_WINDOW
-    # Clean old entries
+    window_start = now - 3600
     _rate_store[ip] = [t for t in _rate_store[ip] if t > window_start]
     count = len(_rate_store[ip])
-    if count >= limit:
-        oldest = _rate_store[ip][0]
-        reset_in = int(oldest + RATE_LIMIT_WINDOW - now)
+    if count >= RATE_LIMIT:
+        reset_in = int(_rate_store[ip][0] + 3600 - now)
         return False, 0, reset_in
     _rate_store[ip].append(now)
-    return True, limit - count - 1, 0
+    return True, RATE_LIMIT - count - 1, 0
+
+# === Query Tracking (热门追踪) ===
+_query_counter: dict = defaultdict(int)  # {ticker: count}
+_query_history: list = []  # [{ticker, timestamp, persona}]
+
+def track_query(ticker: str, persona: str):
+    ticker = ticker.upper()
+    _query_counter[ticker] += 1
+    _query_history.append({
+        "ticker": ticker,
+        "persona": persona,
+        "timestamp": datetime.now().isoformat(),
+    })
+    # Keep only last 1000 queries
+    if len(_query_history) > 1000:
+        _query_history.pop(0)
+
+# === Data Cache ===
+# Cache: {ticker: {"data": {...}, "expires": timestamp, "version": str}}
+_data_cache: dict = {}
+
+# Cache TTL by data type
+CACHE_TTL = {
+    "price": 5 * 60,          # 5 min - stock prices change frequently
+    "financials": 24 * 3600,   # 24 hours - financial statements update quarterly
+    "analysis": 6 * 3600,      # 6 hours - full analysis (expensive to compute)
+    "market_context": 15 * 60, # 15 min - VIX/sentiment changes
+}
+
+def get_cached(ticker: str, persona: str) -> Optional[dict]:
+    key = f"{ticker}:{persona}"
+    if key in _data_cache:
+        entry = _data_cache[key]
+        if time.time() < entry["expires"]:
+            return entry["data"]
+        else:
+            del _data_cache[key]
+    return None
+
+def set_cache(ticker: str, persona: str, data: dict):
+    key = f"{ticker}:{persona}"
+    _data_cache[key] = {
+        "data": data,
+        "expires": time.time() + CACHE_TTL["analysis"],
+        "cached_at": datetime.now().isoformat(),
+    }
 
 
 class AnalysisRequest(BaseModel):
     ticker: str
     persona_id: Optional[str] = "all"
     manual_text: Optional[str] = ""
+    force_refresh: Optional[bool] = False  # bypass cache
 
 
 @app.get("/")
 def root():
-    return {"status": "ok", "message": "AI Investment HQ API v2.0"}
+    return {"status": "ok", "version": "3.2.4", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
@@ -56,30 +99,9 @@ def health():
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
+        "cache_entries": len(_data_cache),
+        "total_queries": sum(_query_counter.values()),
     }
-
-
-@app.get("/data-test/{ticker}")
-async def data_test(ticker: str):
-    """Diagnostic endpoint: see exactly what data we fetch for a ticker"""
-    try:
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
-        from data_fetcher import fetch_stock_data
-        data = fetch_stock_data(ticker.upper())
-        return {
-            "ticker": ticker.upper(),
-            "company": data.get("financials", {}).get("company_name", "N/A"),
-            "price": data.get("financials", {}).get("price"),
-            "revenue": data.get("financials", {}).get("revenue"),
-            "net_income": data.get("financials", {}).get("net_income"),
-            "gross_margin": data.get("financials", {}).get("gross_margin"),
-            "fcf": data.get("financials", {}).get("fcf"),
-            "summary_length": len(data.get("summary", "")),
-            "summary_preview": data.get("summary", "")[:500],
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Data test failed: {str(e)}")
 
 
 @app.get("/personas")
@@ -99,24 +121,85 @@ def list_personas():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/trending")
+def trending():
+    """Top queried tickers - potential smart money flow indicator"""
+    sorted_tickers = sorted(_query_counter.items(), key=lambda x: x[1], reverse=True)
+    recent_hour = [q["ticker"] for q in _query_history[-100:]
+                   if time.time() - time.mktime(
+                       datetime.fromisoformat(q["timestamp"]).timetuple()) < 3600]
+    from collections import Counter
+    recent_counts = Counter(recent_hour)
+    
+    return {
+        "all_time": [{"ticker": t, "queries": c} for t, c in sorted_tickers[:10]],
+        "last_hour": [{"ticker": t, "queries": c} for t, c in recent_counts.most_common(10)],
+        "note": "High query frequency may indicate institutional interest or news catalysts",
+    }
+
+
+@app.get("/data-test/{ticker}")
+async def data_test(ticker: str):
+    """Diagnostic: see what data we fetch for a ticker"""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
+        from data_fetcher import fetch_stock_data
+        data = fetch_stock_data(ticker.upper())
+        f = data.get("financials", {})
+        return {
+            "ticker": ticker.upper(),
+            "company": f.get("company_name"),
+            "price": f.get("price"),
+            "revenue": f.get("revenue"),
+            "net_income": f.get("net_income"),
+            "gross_margin": f.get("gross_margin"),
+            "fcf": f.get("fcf"),
+            "eps_diluted": f.get("eps_diluted"),
+            "de_ratio": f.get("de_ratio"),
+            "revenue_growth_yoy": f.get("revenue_growth_yoy"),
+            "summary_length": len(data.get("summary", "")),
+            "summary_preview": data.get("summary", "")[:600],
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Data test failed: {str(e)}")
+
+
+@app.get("/cache")
+def cache_status():
+    """Show cache contents and hit rates"""
+    now = time.time()
+    active = {k: {"expires_in": int(v["expires"] - now), "cached_at": v["cached_at"]}
+              for k, v in _data_cache.items() if v["expires"] > now}
+    return {"active_entries": len(active), "entries": active}
+
+
 @app.post("/analyze")
 async def analyze(req: AnalysisRequest, request: Request):
-    # Rate limiting
     client_ip = request.client.host if request.client else "unknown"
     allowed, remaining, reset_in = check_rate_limit(client_ip)
-
     if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail=f"Rate limit exceeded. {RATE_LIMIT_FREE} requests/hour. Try again in {reset_in}s."
-        )
+        raise HTTPException(status_code=429, detail=f"Rate limit exceeded. Try again in {reset_in}s.")
+
+    ticker_clean = req.ticker.upper().strip()
+    persona = req.persona_id or "all"
+    
+    # Track this query
+    track_query(ticker_clean, persona)
+    
+    # Check cache (unless force_refresh)
+    if not req.force_refresh:
+        cached = get_cached(ticker_clean, persona)
+        if cached:
+            cached["from_cache"] = True
+            cached["rate_limit_remaining"] = remaining
+            return cached
 
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
 
         from data_fetcher import validate_ticker
-        ticker_clean = req.ticker.upper().strip()
         valid, err_msg = validate_ticker(ticker_clean)
         if not valid:
             raise HTTPException(status_code=404, detail=err_msg or f"查無此代碼：{ticker_clean}")
@@ -124,20 +207,29 @@ async def analyze(req: AnalysisRequest, request: Request):
         from full_pipeline import full_auto_pipeline
         result = full_auto_pipeline(
             ticker=ticker_clean,
-            persona=req.persona_id or "all",
+            persona=persona,
             manual_text=req.manual_text or ""
         )
 
-        return {
-            "ticker": result.get("ticker", req.ticker),
-            "company": result.get("company", req.ticker),
+        response = {
+            "ticker": result.get("ticker", ticker_clean),
+            "company": result.get("company", ticker_clean),
             "timestamp": result.get("timestamp", ""),
             "comparison_table": result.get("comparison_table", ""),
+            "market_context": result.get("market_context", ""),
+            "market_summary": result.get("market_summary", ""),
             "analyses": result.get("analyses", {}),
             "structured_results": result.get("structured_results", {}),
             "raw_data_preview": "",
             "rate_limit_remaining": remaining,
+            "from_cache": False,
         }
+        
+        # Cache the result
+        set_cache(ticker_clean, persona, response)
+        return response
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"分析失敗: {str(e)}")
