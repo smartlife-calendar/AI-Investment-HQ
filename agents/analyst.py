@@ -338,7 +338,7 @@ def extract_prices(text: str, persona_id: str) -> dict:
                 pass
 
     # === VALUE_FRAMEWORKS bypass plausibility check ===
-    VALUE_FRAMEWORKS = {"benjamin_graham", "piotroski_fscore", "technical_analysis"}
+    VALUE_FRAMEWORKS = {"piotroski_fscore", "technical_analysis"}
     skip_plausibility = persona_id in VALUE_FRAMEWORKS
 
     def is_plausible(v):
