@@ -229,9 +229,11 @@ def analyze_one(ticker: str, financial_text: str, persona_id: str, market_contex
     _selected = select_model(persona_id, _dq)
     print(f"  [{persona_id}] model={_selected.split('-')[-2]} dq={_dq}")
     
+    # Token budget: Haiku is fast with <1500 tokens; Sonnet better for longer
+    _max_tokens = 1200 if _selected == MODEL_TIERS["haiku"] else 2500
     message = client.messages.create(
         model=_selected,
-        max_tokens=2500,  # Increased: 5-section format needs ~2000 tokens
+        max_tokens=_max_tokens,
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
     )
