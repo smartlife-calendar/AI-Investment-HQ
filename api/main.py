@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.6.1", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.6.2", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.6.1",
+        "version": "3.6.2",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -226,7 +226,7 @@ def cache_status():
 
 @app.get("/macro")
 async def macro_overview():
-    """Total economy + sector 52W capital flow + WoW momentum."""
+    """Total economy + broad sector + sub-sector 52W capital flow. Cached 15 min."""
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
@@ -234,6 +234,18 @@ async def macro_overview():
         return fetch_macro_overview()
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Macro data failed: {str(e)}")
+
+
+@app.get("/macro/ticker/{ticker}")
+async def ticker_sector_context(ticker: str):
+    """Get sector context for a specific ticker - which sector it belongs to and that sector's flow."""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
+        from macro_fetcher import get_ticker_sector_context
+        return get_ticker_sector_context(ticker.upper())
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Sector context failed: {str(e)}")
 
 
 @app.post("/analyze")
