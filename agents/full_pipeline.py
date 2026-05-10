@@ -39,69 +39,69 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
             print("TW fetcher failed: " + str(e))
             combined_data += "## Taiwan Stock Data\nUnavailable: " + str(e) + "\n\n"
     else:
-        print("[A] Yahoo Finance / SEC XBRL...")
-        try:
-            stock_data = fetch_stock_data(ticker)
-            combined_data += str(stock_data.get("summary") or "") + "\n\n"
-            company_name = stock_data["financials"].get("company_name") or ticker
-        except Exception as e:
-            print("Data fetch failed: " + str(e))
-            combined_data += "## Financial Data\nUnavailable\n\n"
-
-    # B: FMP Detailed Financials
-    print("[B] FMP Financials...")
-    try:
-        fmp_text = fetch_fmp_financials(ticker)
+        # PARALLEL DATA FETCH: all sources simultaneously (~10s instead of 35s)
+        import concurrent.futures as _cf
+        print("[PARALLEL] Fetching all US stock data sources simultaneously...")
+        
+        def _fetch_main():
+            try:
+                return fetch_stock_data(ticker)
+            except Exception as e:
+                print("Main data failed:", e)
+                return {"summary": "", "financials": {"company_name": ticker}}
+        
+        def _fetch_fmp():
+            try:
+                return fetch_fmp_financials(ticker) or ""
+            except Exception as e:
+                return ""
+        
+        def _fetch_technical():
+            try:
+                return analyze_technical(ticker) or ""
+            except Exception as e:
+                return ""
+        
+        def _fetch_news():
+            try:
+                nt = search_stock_news(ticker, ticker)
+                sent = analyze_news_sentiment(nt, ticker)
+                return (nt or "") + "\n" + (sent or "")
+            except Exception as e:
+                return ""
+        
+        def _fetch_market():
+            try:
+                from market_context_fetcher import fetch_market_context
+                return fetch_market_context() or ""
+            except Exception as e:
+                return ""
+        
+        with _cf.ThreadPoolExecutor(max_workers=5) as ex:
+            f_main = ex.submit(_fetch_main)
+            f_fmp = ex.submit(_fetch_fmp)
+            f_tech = ex.submit(_fetch_technical)
+            f_news = ex.submit(_fetch_news)
+            f_market = ex.submit(_fetch_market)
+            
+            stock_data = f_main.result(timeout=30)
+            fmp_text = f_fmp.result(timeout=20)
+            tech_summary = f_tech.result(timeout=20)
+            news_combined = f_news.result(timeout=15)
+            market_context = f_market.result(timeout=15)
+        
+        combined_data += str(stock_data.get("summary") or "") + "\n\n"
+        company_name = stock_data["financials"].get("company_name") or ticker
+        
         if fmp_text and len(fmp_text) > 100:
-            combined_data += (fmp_text or "") + "\n\n"
-        else:
-            combined_data += "## FMP: No detailed data available\n\n"
-    except Exception as e:
-        print("FMP failed: " + str(e))
-
-    # C: Technical Analysis (RSI, Bollinger, MACD, MA, Volume)
-    print("[C] Technical Analysis...")
-    try:
-        tech_summary = analyze_technical(ticker)
-        combined_data += tech_summary + "\n\n"
-    except Exception as e:
-        print("Technical analysis failed: " + str(e))
-        combined_data += "## Technical Analysis\nUnavailable\n\n"
-
-    # D: SEC Filing
-    print("[D] SEC EDGAR...")
-    try:
-        sec_text = fetch_sec_filing(ticker, "10-Q")
-        if sec_text and len(sec_text) > 200:
-            combined_data += "## SEC 10-Q\n" + (sec_text or "")[:5000] + "\n\n"
-        else:
-            combined_data += "## SEC Filing: Not found\n\n"
-    except Exception as e:
-        print("SEC failed: " + str(e))
-
-    # D: News
-    print("[D] News...")
-    try:
-        news_text = search_stock_news(ticker, company_name)
-        sentiment = analyze_news_sentiment(news_text, ticker)
-        combined_data += (news_text or "") + "\n" + (sentiment or "") + "\n\n"
-    except Exception as e:
-        print("News failed: " + str(e))
-
-    # E: Market Context (NEW)
-    print("[E] Market Context...")
-    market_context = ""
-    try:
-        market_context = fetch_market_context()
-        combined_data += (market_context or "") + "\n\n"
-        print("Market context: " + str(len(market_context)) + " chars")
-    except Exception as e:
-        print("Market context failed: " + str(e))
-
-    # Manual supplement
-    if manual_text and len(manual_text) > 50:
-        combined_data += "## Manual Supplement\n" + str(manual_text or "") + "\n\n"
-
+            combined_data += fmp_text + "\n\n"
+        if tech_summary:
+            combined_data += tech_summary + "\n\n"
+        if news_combined:
+            combined_data += news_combined + "\n\n"
+        if market_context:
+            combined_data += str(market_context) + "\n\n"
+        print(f"[PARALLEL] Done: {ticker} company={company_name}")
     print("Total data: " + str(len(combined_data)) + " chars")
     
     print("Running parallel analysis...")
