@@ -302,19 +302,21 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         # Balance Sheet: use most recent 10-Q instant/snapshot data
         # These are point-in-time values (not flow), so latest quarterly is most accurate
         def latest_instant(key, fallbacks=None):
-            """Get latest value - prefer 10-Q instant data for balance sheet items."""
+            """Get latest balance sheet value from most recent 10-Q.
+            Note: Balance sheet frames can be CY2026Q1I (Instant) or empty string.
+            Both are valid snapshot values - do NOT filter by frame for BS items.
+            """
             keys_to_try = [key] + (fallbacks or [])
             for k in keys_to_try:
                 data = raw_gaap.get(k, {}).get("units", {}).get("USD", [])
-                # Try most recent 10-Q first (quarterly balance sheet is more current)
-                quarterly_instant = [x for x in data 
-                                     if x.get("form") == "10-Q" 
-                                     and x.get("end","") >= "2023-01-01"
-                                     and not x.get("frame","").startswith("CY")]  # Instant = no CY frame
-                if quarterly_instant:
-                    v = sorted(quarterly_instant, key=lambda x: x.get("end",""))[-1].get("val")
+                # All 10-Q entries are valid BS snapshots (CY2026Q1I, CY2025Q3I, or frame="")
+                quarterly = [x for x in data 
+                             if x.get("form") == "10-Q" 
+                             and x.get("end","") >= "2023-01-01"]
+                if quarterly:
+                    v = sorted(quarterly, key=lambda x: x.get("end",""))[-1].get("val")
                     return v * fx if v and fx != 1.0 else v
-                # Fall back to annual
+                # Fall back to annual 10-K
                 annual = [x for x in data if x.get("form") == "10-K" and x.get("end","") >= "2022-01-01"]
                 if annual:
                     v = sorted(annual, key=lambda x: x.get("end",""))[-1].get("val")
