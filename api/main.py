@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.4.9", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.5.0", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.4.9",
+        "version": "3.5.0",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -214,6 +214,19 @@ def cache_status():
     active = {k: {"expires_in": int(v["expires"] - now), "cached_at": v["cached_at"]}
               for k, v in _data_cache.items() if v["expires"] > now}
     return {"active_entries": len(active), "entries": active}
+
+
+@app.get("/macro")
+async def macro_overview():
+    """Total economy + sector 52-week capital flow data."""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
+        from macro_fetcher import fetch_macro_overview
+        data = fetch_macro_overview()
+        return {"content": data, "generated_at": __import__("datetime").datetime.now().isoformat()}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Macro data failed: {str(e)}")
 
 
 @app.post("/analyze")
