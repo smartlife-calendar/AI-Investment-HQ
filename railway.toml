@@ -16,3 +16,5 @@ restartPolicyType = "ON_FAILURE"
 # v3.2.3 - fix 10K vs 10Q selection
 
 # Force v3.7.8 deploy
+
+# v3.8.0 force
