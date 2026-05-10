@@ -35,9 +35,21 @@
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <div class="max-w-4xl mx-auto py-10 px-4">
         <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-3xl font-bold text-gray-900 mb-0">全方位多模型股市分析系統</h1>
+        <header class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-3">全方位多模型股市分析系統</h1>
+            <button onclick="loadMacro()" class="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition">
+                📊 總體經濟 & 板塊資金流動
+            </button>
         </header>
+
+        <!-- Macro Panel -->
+        <div id="macroPanel" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">🌍 總體經濟 & 板塊52週資金流動</h2>
+                <button onclick="document.getElementById('macroPanel').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <div id="macroContent" class="text-sm text-gray-600">載入中...</div>
+        </div>
 
         
         <!-- Investment Disclaimer -->
@@ -108,6 +120,22 @@
     </div>
 
     <script>
+        async function loadMacro() {
+            const panel = document.getElementById('macroPanel');
+            const content = document.getElementById('macroContent');
+            panel.classList.remove('hidden');
+            content.innerHTML = '<p class="text-gray-400">載入總體經濟數據...</p>';
+            
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+            try {
+                const resp = await fetch(API_BASE_URL + '/macro');
+                const data = await resp.json();
+                content.innerHTML = marked.parse(data.content || '無法取得數據');
+            } catch (e) {
+                content.innerHTML = '<p class="text-red-500">載入失敗: ' + e.message + '</p>';
+            }
+        }
+
         async function analyzeStock() {
             const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
             const personaSelect = document.getElementById('personaSelect');
