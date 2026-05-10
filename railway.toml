@@ -8,3 +8,5 @@ healthcheckTimeout = 30
 restartPolicyType = "ON_FAILURE"
 
 # Force redeploy: v3.2.1 2026-05-10T02:05Z
+
+# v3.2.1b redeploy trigger
