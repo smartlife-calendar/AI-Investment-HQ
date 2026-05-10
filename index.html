@@ -199,16 +199,25 @@
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
                 document.getElementById('resultArea').classList.remove('hidden');
-                document.getElementById('resultTitle').innerText = '連線失敗';
+                // Check if it's a 404 (invalid ticker) or other error
+                const isNotFound = error.message && (error.message.includes('404') || error.message.includes('查無'));
+                document.getElementById('resultTitle').innerText = isNotFound ? '查無此股票代碼' : '連線失敗';
                 document.getElementById('resultPersona').innerText = '';
-                document.getElementById('reportContent').innerHTML = marked.parse(
-                    '### ⚠️ 無法連線到分析伺服器\n\n' +
-                    '錯誤：' + error.message + '\n\n' +
-                    '**請確認：**\n' +
-                    '1. 後端 API 已部署到 Railway\n' +
-                    '2. `ANTHROPIC_API_KEY` 環境變數已設定\n' +
-                    '3. Repo 設為 Public 或 Railway 有讀取權限'
-                );
+                if (isNotFound) {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ❌ 查無此代碼：' + ticker + '\n\n' +
+                        '請確認：\n' +
+                        '- 美股範例：`AAPL`、`GOOGL`、`TSLA`\n' +
+                        '- 台股範例：`2330.TW`、`2303.TW`\n' +
+                        '- 注意大小寫和格式是否正確'
+                    );
+                } else {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ⚠️ 無法連線到分析伺服器\n\n' +
+                        '錯誤：' + error.message + '\n\n' +
+                        '請稍後再試'
+                    );
+                }
             }
         }
     </script>
