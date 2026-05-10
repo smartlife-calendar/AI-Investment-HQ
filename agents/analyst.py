@@ -211,10 +211,8 @@ def select_model(persona_id: str, data_quality: int) -> str:
     # Ignore opus env override - use tiered selection instead
     if persona_id in HAIKU_FRAMEWORKS and data_quality >= 70:
         return MODEL_TIERS["haiku"]   # Fast + cheap for structured scoring
-    elif persona_id in OPUS_FRAMEWORKS or data_quality < 40:
-        return MODEL_TIERS["opus"]    # Best reasoning for complex frameworks or thin data
     else:
-        return MODEL_TIERS["sonnet"]  # Default: balanced
+        return MODEL_TIERS["sonnet"]  # Default: use Sonnet for speed (~10-15s vs Opus 50s+)
 
 
 def analyze_one(ticker: str, financial_text: str, persona_id: str, market_context: str = "") -> dict:
