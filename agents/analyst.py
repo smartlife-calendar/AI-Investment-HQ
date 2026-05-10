@@ -260,19 +260,20 @@ def extract_prices(text: str, persona_id: str) -> dict:
     # === PRICE EXTRACTION ===
     # Match patterns like: 悲觀目標價: $250 or 悲觀目標價：$250 or 悲觀: $250 or Bear: $250
     # Chinese colon ：and English colon : both handled, dollar sign optional
-    # Patterns handle all formats:
-    # "悲觀目標價：$210" / "悲觀目標價：**$210**" / "悲觀: $210" / "Bear: $210"
+    # Patterns: require 目標價 to avoid matching table rows or other uses of 悲觀/基準/樂觀
+    # "悲觀目標價: $235" / "悲觀目標價：**$235**" / "Bear: $235"
     price_patterns = {
         "bear": [
-            r"悲觀[^\n$]{0,20}\$([0-9,]+\.?[0-9]*)",
+            r"悲觀目標價[：:\s\*]*\$?([0-9,]+\.?[0-9]*)",
+            r"悲觀[^\n]*?\*\*\$([0-9,]+\.?[0-9]*)\*\*",
             r"Bear[^$\n]{0,20}\$([0-9,]+\.?[0-9]*)",
         ],
         "base": [
-            r"基準[^\n$]{0,20}\$([0-9,]+\.?[0-9]*)",
+            r"基準目標價[：:\s\*]*\$?([0-9,]+\.?[0-9]*)",
             r"Base[^$\n]{0,20}\$([0-9,]+\.?[0-9]*)",
         ],
         "bull": [
-            r"樂觀[^\n$]{0,20}\$([0-9,]+\.?[0-9]*)",
+            r"樂觀目標價[：:\s\*]*\$?([0-9,]+\.?[0-9]*)",
             r"Bull[^$\n]{0,20}\$([0-9,]+\.?[0-9]*)",
         ],
     }
