@@ -775,11 +775,41 @@ def fetch_stock_data(ticker: str) -> dict:
     price_data = get_price(ticker)
     f.update({k: v for k, v in price_data.items() if v is not None})
 
-    # 2. SEC XBRL (US stocks only)
+    # 2. SEC XBRL (US stocks) or FinMind/TWSE (Taiwan stocks)
     is_taiwan = ticker.endswith(".TW") or ticker.endswith(".TWO")
     cik = None if is_taiwan else get_cik(ticker)
 
-    if cik:
+    if is_taiwan:
+        # Taiwan stocks: use tw_fetcher for financials
+        print(f"[2] Taiwan stock - FinMind/TWSE...")
+        try:
+            from tw_fetcher import fetch_tw_stock_data, build_tw_summary, get_tw_stock_id
+            tw_result = fetch_tw_stock_data(ticker)
+            # Map tw_fetcher fields to data_fetcher standard fields
+            field_map = {
+                "revenue": "revenue", "gross_margin": "gross_margin",
+                "gross_profit": "gross_profit", "net_income": "net_income",
+                "net_margin": "net_margin", "operating_income": "operating_income",
+                "op_margin": "op_margin", "ocf": "ocf", "capex": "capex",
+                "fcf": "fcf", "cash": "cash", "equity": "equity",
+                "current_ratio": "current_ratio", "lt_debt": "long_term_debt",
+                "pe_ratio": "pe_ratio", "pb_ratio": "pb_ratio",
+                "dividend_yield": "dividend_yield", "eps": "eps_diluted",
+                "company_name": "company_name", "market_cap": "market_cap",
+                "sector": "sector", "industry": "industry",
+            }
+            for tw_key, std_key in field_map.items():
+                v = tw_result.get(tw_key)
+                if v and v != "N/A":
+                    f[std_key] = v
+            # Build summary
+            from tw_fetcher import fetch_tw_news
+            tw_news = fetch_tw_news(get_tw_stock_id(ticker))
+            data["summary"] = build_tw_summary(ticker, tw_result, tw_news)
+            print(f"TW data: {len([k for k,v in f.items() if v])} fields")
+        except Exception as e:
+            print(f"TW fetcher failed: {e}")
+    elif cik:
         print(f"[2] SEC XBRL CIK={cik}...")
         xbrl = get_sec_xbrl(cik, ticker)
         f.update(xbrl)
