@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.5.1", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.5.2", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.5.1",
+        "version": "3.5.2",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -193,6 +193,14 @@ async def data_test(ticker: str):
             "fcf": f.get("fcf"),
             "eps_ttm": f.get("eps_ttm"),
             "eps_diluted": f.get("eps_diluted"),
+            "eps_ttm": f.get("eps_ttm"),
+            "eps_latest_q": f.get("eps_latest_q"),
+            "eps_latest_q_period": f.get("eps_latest_q_period"),
+            "eps_ttm_components": f.get("eps_ttm_components"),
+            "gross_margin": f.get("gross_margin"),
+            "gross_margin_latest_q": f.get("gross_margin_latest_q"),
+            "gross_margin_annual": f.get("gross_margin_annual"),
+            "qoq_data": f.get("qoq_data"),
             "de_ratio": f.get("de_ratio"),
             "revenue_growth_yoy": f.get("revenue_growth_yoy"),
             "current_ratio": f.get("current_ratio"),
