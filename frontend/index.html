@@ -204,7 +204,7 @@
                             <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
                             ${(s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
                                 const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
-                                const accel = Math.abs(wow) > 2 ? '🔥' : Math.abs(wow) > 1 ? '→' : '·';
+                                const accel = wow > 3 ? '📈🔥' : wow > 1 ? '↑' : wow > -1 ? '→' : wow > -3 ? '↓' : '📉🔥';
                                 return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${price.toFixed(2)}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
                             }).join('')}
                         </table>
