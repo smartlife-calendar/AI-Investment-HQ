@@ -470,13 +470,13 @@
                         const bull = (sr[pid] && sr[pid].bull_price) ? '$' + sr[pid].bull_price : 'N/A';
                         const rating = (sr[pid] && sr[pid].rating) ? sr[pid].rating : '';
 
-                        reportMarkdown += '## ' + pname;
-                        if (rating) reportMarkdown += '  ▸ 評級：**' + rating + '**';
-                        reportMarkdown += '\n';
-                        if (bear !== 'N/A') {
-                            reportMarkdown += '> 目標價：悲觀 ' + bear + ' | 基準 ' + base + ' | 樂觀 ' + bull + '\n\n';
-                        }
-                        reportMarkdown += analysis + '\n\n---\n\n';
+                        const ratingEmoji = {'強力買進':'🚀','買進':'✅','觀望':'⚠️','賣出':'🔴','強力迴避':'❌'}[rating] || '📊';
+                        reportMarkdown += '\n\n---\n\n';
+                        reportMarkdown += '## ' + ratingEmoji + ' ' + pname + '\n';
+                        if (rating) reportMarkdown += '**評級：' + rating + '**';
+                        if (bear !== 'N/A') reportMarkdown += '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
+                        reportMarkdown += '\n\n';
+                        reportMarkdown += analysis + '\n';
 
                         count++;
                         // Show all frameworks for now (paywall to be added via login system later)
