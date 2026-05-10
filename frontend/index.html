@@ -416,6 +416,10 @@
                     })
                 });
 
+                // CRITICAL: clear the timeout and interval before handling response
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { clearInterval(window._progressInterval); window._progressInterval = null; }
+                
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
 
@@ -476,6 +480,8 @@
                 document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
 
             } catch (error) {
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { clearInterval(window._progressInterval); window._progressInterval = null; }
                 document.getElementById('loadingArea').classList.add('hidden');
                 document.getElementById('loadingArea').classList.remove('flex');
                 document.getElementById('resultArea').classList.remove('hidden');
