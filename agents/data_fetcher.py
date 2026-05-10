@@ -889,6 +889,24 @@ def fetch_stock_data(ticker: str) -> dict:
         f"- Forward EPS (annualized): ${safe(f.get('eps_forward_annualized'))}",
     ]
 
+    # Add quarterly revenue trend (for YoY Piotroski calculations)
+    qoq = f.get("qoq_data") or []
+    if qoq:
+        qoq_lines = ["", "### Quarterly Revenue & Gross Margin Trend (QoQ)"]
+        for q in qoq:
+            qoq_lines.append(f"- {q.get('quarter','')}: Revenue={q.get('revenue','')} | GM={q.get('gross_margin','')} | QoQ={q.get('qoq_rev','N/A')}")
+        lines.extend(qoq_lines)
+    
+    # Add YoY comparison data for Piotroski F3/F5/F6/F8/F9
+    yoy_lines = ["", "### YoY Comparison Data (for Piotroski F-Score)"]
+    yoy_lines.append(f"- Revenue Growth YoY: {safe(f.get('revenue_growth_yoy'))}")
+    yoy_lines.append(f"- EPS Growth YoY: {safe(f.get('eps_growth_yoy'))}")
+    yoy_lines.append(f"- Gross Margin (Annual): {safe(f.get('gross_margin_annual'))} vs Latest Q: {safe(f.get('gross_margin_latest_q'))}")
+    yoy_lines.append(f"- D/E Ratio (Current): {safe(f.get('de_ratio'))}")
+    yoy_lines.append(f"- Current Ratio: {safe(f.get('current_ratio'))}")
+    yoy_lines.append(f"- Revenue TTM: {safe(f.get('revenue_ttm'))} vs Annual: {safe(f.get('revenue'))}")
+    lines.extend(yoy_lines)
+
     if est_section:
         lines.append(est_section)
 
