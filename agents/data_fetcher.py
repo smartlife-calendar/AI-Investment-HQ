@@ -466,10 +466,16 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 # Check if quarters are consecutive (flag gaps)
                 frames = [x.get("frame","") for x in last4_eps]
                 result["eps_ttm_note"] = f"TTM from {frames[0]} to {frames[-1]}"
+                # Also compute Forward P/E using latest quarter annualized
+                # This is more accurate when TTM contains abnormal loss quarters
+                if latest_q_eps and latest_q_eps > 0:
+                    result["eps_forward_annualized"] = str(round(latest_q_eps * 4, 2))
             else:
                 result["eps_diluted"] = str(latest_q_eps)
                 result["eps_ttm"] = str(latest_q_eps)
                 result["eps_ttm_note"] = "Fewer than 4 quarters available"
+                if latest_q_eps and latest_q_eps > 0:
+                    result["eps_forward_annualized"] = str(round(latest_q_eps * 4, 2))
         elif eps_val:
             result["eps_diluted"] = str(round(eps_val * fx, 2))
         elif ni and shares and shares > 0:
