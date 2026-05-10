@@ -308,15 +308,31 @@
             } catch(e) {}
         }
 
-        // Load version on page load
+        // Load version and check maintenance on page load
         (async () => {
             try {
                 const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
-                const resp = await fetch(API_BASE_URL + '/health');
+                const resp = await fetch(API_BASE_URL + '/maintenance');
                 const data = await resp.json();
+                
+                if (data.maintenance) {
+                    // Show maintenance banner
+                    const banner = document.createElement('div');
+                    banner.className = 'fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-3 z-50 font-medium';
+                    banner.innerHTML = '🔧 系統維護中：' + data.message + ' | 請稍後重新整理';
+                    document.body.prepend(banner);
+                    document.getElementById('analyzeBtn') && (document.getElementById('analyzeBtn').disabled = true);
+                }
+                
+                // Show version
+                const healthResp = await fetch(API_BASE_URL + '/health');
+                const healthData = await healthResp.json();
                 const vEl = document.getElementById('versionDisplay');
-                if (vEl) vEl.textContent = 'v' + (data.version || '?') + ' | ' + (data.model || '').split(' ')[0];
-            } catch(e) {}
+                if (vEl) vEl.textContent = 'v' + (healthData.version || '?');
+            } catch(e) {
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = '版本資訊載入失敗';
+            }
         })();
 
         async function analyzeStock() {
