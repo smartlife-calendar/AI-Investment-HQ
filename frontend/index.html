@@ -97,8 +97,14 @@
         <!-- Loading State -->
         <div id="loadingArea" class="hidden flex-col items-center justify-center py-12">
             <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-            <p class="text-gray-600 text-lg font-medium">量化模型正在調閱資料並進行解構中...</p>
-            <p class="text-gray-400 text-sm mt-2">(同步爬取基本面、報表風險與市場情緒)</p>
+            <p class="text-gray-600 text-lg font-medium" id="loadingMsg">量化模型正在調閱資料並進行解構中...</p>
+            <p class="text-gray-400 text-sm mt-2" id="loadingDetail">(同步爬取基本面、報表風險與市場情緒)</p>
+            <div class="mt-4 w-56">
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="progressBar" class="bg-blue-500 h-1.5 rounded-full transition-all duration-1000" style="width: 5%"></div>
+                </div>
+                <p class="text-xs text-gray-400 mt-1 text-center" id="loadingTimer">0s</p>
+            </div>
         </div>
 
         <!-- Result Area -->
