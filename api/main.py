@@ -120,8 +120,8 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "3.7.7",
-        "model": "claude-opus-4-5",
+        "version": "3.7.8",
+        "model": "claude-sonnet-4-5 (tiered)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
         "cache_entries": len(_data_cache),
