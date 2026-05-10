@@ -252,6 +252,14 @@ def run_analysis(ticker: str, financial_text: str, personas: list = None, market
         config_path = os.path.join(base_dir, "..", "personas", "config.json")
         with open(config_path, "r", encoding="utf-8") as f:
             config = json.load(f)
+        # Default "all" = priority 1 only (faster, ~20s)
+        personas = [a["id"] for a in config["analysts"] if a.get("priority", 2) == 1]
+    elif personas == ["all_extended"]:
+        # Extended mode = all frameworks
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        config_path = os.path.join(base_dir, "..", "personas", "config.json")
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
         personas = [a["id"] for a in config["analysts"]]
 
     results = {}
