@@ -130,9 +130,67 @@ def fetch_market_context() -> str:
     except Exception:
         pass
 
+    # Fear & Greed Index (alternative.me - free, no key needed)
+    try:
+        fg_resp = requests.get(
+            "https://api.alternative.me/fng/?limit=4",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=6
+        )
+        if fg_resp.status_code == 200:
+            fg_data = fg_resp.json().get("data", [])
+            if fg_data:
+                current_fg = fg_data[0]
+                score = current_fg.get("value", "N/A")
+                rating = current_fg.get("value_classification", "N/A")
+                # Emoji indicator
+                if isinstance(score, str) and score.isdigit():
+                    s = int(score)
+                    emoji = "🔴" if s < 25 else "🟡" if s < 45 else "⚪" if s < 55 else "🟢" if s < 75 else "🟢🟢"
+                else:
+                    emoji = ""
+                context_lines.append("### 貪婪/恐懼指數 (Fear & Greed)")
+                context_lines.append(f"- 當前: {score}/100 - {rating} {emoji}")
+                # Historical comparison
+                if len(fg_data) >= 4:
+                    week_ago = fg_data[min(3, len(fg_data)-1)]
+                    context_lines.append(f"- 一週前: {week_ago.get('value', 'N/A')}/100 ({week_ago.get('value_classification', '')})")
+                if isinstance(score, str) and score.isdigit():
+                    s = int(score)
+                    if s < 25:
+                        context_lines.append("- 解讀: 極度恐懼 → 歷史上常為買入機會")
+                    elif s < 45:
+                        context_lines.append("- 解讀: 恐懼 → 市場謹慎，注意逢低機會")
+                    elif s < 55:
+                        context_lines.append("- 解讀: 中性 → 無明顯情緒偏向")
+                    elif s < 75:
+                        context_lines.append("- 解讀: 貪婪 → 市場樂觀，留意追高風險")
+                    else:
+                        context_lines.append("- 解讀: 極度貪婪 → 歷史上常為賣出訊號")
+                context_lines.append("")
+    except Exception as e:
+        context_lines.append(f"### 貪婪/恐懼指數: 無法取得\n")
+
+    # Trending tickers
+    try:
+        trend_resp = requests.get(
+            "https://query1.finance.yahoo.com/v1/finance/trending/US",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=6
+        )
+        if trend_resp.status_code == 200:
+            trending = trend_resp.json().get("finance", {}).get("result", [{}])[0].get("quotes", [])[:8]
+            stock_trending = [q.get("symbol","") for q in trending if "BTC" not in q.get("symbol","") and "-" not in q.get("symbol","")]
+            if stock_trending:
+                context_lines.append("### 市場熱門股 (Yahoo Trending)")
+                context_lines.append("- 今日熱門: " + ", ".join(stock_trending[:6]))
+                context_lines.append("")
+    except Exception as e:
+        pass
+
     # Summary scoring
     context_lines.append("### 市場情緒綜合判斷")
-    context_lines.append("（由分析框架根據以上數據自動判斷進出場時機）")
+    context_lines.append("（由分析框架根據VIX、貪婪指數、利率、板塊ETF數據自動判斷進出場時機）")
 
     return "\n".join(str(x) for x in context_lines)
 
