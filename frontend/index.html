@@ -211,8 +211,8 @@
                     </div>
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
                         <div class="flex gap-4 mb-2 text-gray-600">
-                            <span>💰 ${recent4}</span>
-                            <span>📊 ${prior4}</span>
+                            <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                            <span>📊 前4W: ${s.prior_4w !== null && s.prior_4w !== undefined ? (s.prior_4w > 0 ? '+' : '') + s.prior_4w + '%' : '計算中'}</span>
                             <span>📈 動能: ${s.momentum || 'N/A'}</span>
                         </div>
                         <table class="w-full text-xs border-collapse">
