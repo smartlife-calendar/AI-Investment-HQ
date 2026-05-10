@@ -90,9 +90,15 @@ async def analyze(req: AnalysisRequest, request: Request):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
 
+        from data_fetcher import validate_ticker
+        ticker_clean = req.ticker.upper().strip()
+        valid, err_msg = validate_ticker(ticker_clean)
+        if not valid:
+            raise HTTPException(status_code=404, detail=err_msg or f"查無此代碼：{ticker_clean}")
+
         from full_pipeline import full_auto_pipeline
         result = full_auto_pipeline(
-            ticker=req.ticker.upper().strip(),
+            ticker=ticker_clean,
             persona=req.persona_id or "all",
             manual_text=req.manual_text or ""
         )
