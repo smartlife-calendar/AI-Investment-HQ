@@ -141,6 +141,45 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
     return system_prompt, user_prompt
 
 
+
+# === Tiered Model Selection ===
+MODEL_TIERS = {
+    "haiku": "claude-haiku-4-5",
+    "sonnet": "claude-sonnet-4-5",
+    "opus": "claude-opus-4-5",
+}
+# Opus for complex qualitative reasoning (value investing, innovation frameworks)
+OPUS_FRAMEWORKS = {"benjamin_graham", "cathie_wood"}
+# Haiku for structured scoring (fast, deterministic)
+HAIKU_FRAMEWORKS = {"piotroski_fscore", "technical_analysis"}
+
+def assess_data_quality(text: str) -> int:
+    """Score 0-100: how much real financial data is available."""
+    import re
+    score = 0
+    if re.search(r"Revenue:.*\$[0-9]", text): score += 20
+    if re.search(r"Net Income:.*\$[0-9]", text): score += 20
+    if re.search(r"Gross Margin:.*[0-9]+%", text): score += 15
+    if re.search(r"(FCF|Free Cash Flow):.*\$[0-9]", text): score += 15
+    if re.search(r"P/E.*[0-9]+", text): score += 10
+    if re.search(r"EPS.*[0-9]+", text): score += 10
+    if "VIX" in text: score += 5
+    if re.search(r"Market Cap.*\$[0-9]", text): score += 5
+    return min(score, 100)
+
+def select_model(persona_id: str, data_quality: int) -> str:
+    """Choose model: Haiku/Sonnet/Opus based on task complexity and data availability."""
+    env_override = os.environ.get("ANALYSIS_MODEL", "")
+    if env_override and env_override in MODEL_TIERS.values():
+        return env_override
+    if persona_id in HAIKU_FRAMEWORKS and data_quality >= 70:
+        return MODEL_TIERS["haiku"]   # Fast + cheap for structured scoring
+    elif persona_id in OPUS_FRAMEWORKS or data_quality < 40:
+        return MODEL_TIERS["opus"]    # Best reasoning for complex frameworks or thin data
+    else:
+        return MODEL_TIERS["sonnet"]  # Default: balanced
+
+
 def analyze_one(ticker: str, financial_text: str, persona_id: str, market_context: str = "") -> dict:
     persona = load_persona(persona_id)
     if not persona:
