@@ -174,23 +174,27 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                                  and x.get("end","") >= "2023-01-01"]
                 latest_10q_date = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1].get("end","") if quarterly_10q else ""
                 
-                # Decision logic:
-                # - If 10-K exists AND was filed within 18 months → always prefer 10-K (MU, AAPL etc.)
-                # - If 10-K is OLDER than 18 months OR missing → use newest 10-Q (SNDK new listing)
-                # This prevents picking up cumulative multi-quarter 10-Q values instead of annual
+                # Decision: use 10-Q only if it's > 8 months newer than 10-K
+                # This handles: SNDK (9mo gap = new IPO needs 10-Q) vs MU/AAPL (6mo gap = use 10-K)
                 from datetime import datetime
-                cutoff_18mo = (datetime.now().year - 1) + "-" + datetime.now().strftime("%m-%d")
-                k10_is_recent = latest_10k_date >= cutoff_18mo if latest_10k_date else False
+                def _months_gap(d1, d2):
+                    try:
+                        dt1 = datetime.fromisoformat(d1); dt2 = datetime.fromisoformat(d2)
+                        return (dt2.year - dt1.year) * 12 + (dt2.month - dt1.month)
+                    except: return 0
                 
-                if k10_is_recent or (latest_10k_date and not (latest_10q_date > latest_10k_date and not k10_is_recent)):
-                    # Use 10-K (most cases: MU, AAPL, TSLA, GOOGL etc.)
+                gap_months = _months_gap(latest_10k_date, latest_10q_date) if (latest_10k_date and latest_10q_date) else 0
+                use_10q_override = (gap_months > 8) and (latest_10q_date > latest_10k_date)
+                
+                if latest_10k_date and not use_10q_override:
+                    # Standard case: use 10-K annual (MU, AAPL, TSLA, GOOGL etc.)
                     seen = {}
                     for x in sorted(annual_10k, key=lambda x: x.get("end","")):
                         seen[x.get("end","")] = x.get("val")
                     if seen:
                         return seen
-                elif latest_10q_date > latest_10k_date:
-                    # 10-Q is newer AND 10-K is stale - use 10-Q (e.g. SNDK just IPO'd)
+                elif use_10q_override:
+                    # 10-Q is >8 months newer - override with 10-Q (SNDK new listing scenario)
                     result = {}
                     if annual_10k:
                         for x in sorted(annual_10k, key=lambda x: x.get("end","")):
@@ -200,14 +204,8 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                         result[latest_q.get("end","")] = latest_q.get("val")
                     if result:
                         return result
-                elif latest_10k_date:
-                    # 10-K exists but older, no recent 10-Q either
-                    seen = {}
-                    for x in sorted(annual_10k, key=lambda x: x.get("end","")):
-                        seen[x.get("end","")] = x.get("val")
-                    return seen
                 else:
-                    # No 10-K at all - use quarterly
+                    # No 10-K - use quarterly
                     if quarterly_10q:
                         seen = {}
                         for x in sorted(quarterly_10q, key=lambda x: x.get("end","")):
