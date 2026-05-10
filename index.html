@@ -308,8 +308,14 @@
                         sectorHtml += `<span>${sc.sub_sector}: <span class="${sc2}">${sc.sub_perf_52w > 0 ? '+' : ''}${sc.sub_perf_52w}% 52W ${sc.sub_flow}</span> ${sc.sub_momentum}</span>`;
                     }
                     sectorHtml += `</div>`;
+                    // Remove existing sector info to avoid duplicates
+                    const existingSector = document.getElementById('sectorInfoCard');
+                    if (existingSector) existingSector.remove();
                     const titleEl = document.getElementById('resultTitle');
-                    titleEl.insertAdjacentHTML('afterend', sectorHtml);
+                    const wrapper = document.createElement('div');
+                    wrapper.id = 'sectorInfoCard';
+                    wrapper.innerHTML = sectorHtml;
+                    titleEl.insertAdjacentElement('afterend', wrapper);
                 }
             } catch(e) {}
         }
@@ -441,8 +447,14 @@
                     document.getElementById('paywallBanner').classList.remove('hidden');
                 }
 
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
+                const timeStr = now.toLocaleTimeString('zh-TW', {hour:'2-digit',minute:'2-digit'});
                 document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
-                document.getElementById('resultPersona').innerText = personaId === 'all' ? '全模型交叉對比' : personaName;
+                const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
+                const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
+                document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') ? '全模型交叉對比' : personaName;
+                document.getElementById('resultMeta').innerText = '搜尋時間：' + dateStr + ' ' + timeStr + priceNote;
                 
                 // Load sector context for this stock
                 loadTickerSector(ticker, API_BASE_URL);
@@ -513,6 +525,11 @@
             }
         }
     </script>
+
+        <!-- Ad Banner - non-intrusive horizontal strip -->
+        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center text-xs text-gray-400">
+            <span>廣告位 · 贊助商廣告</span>
+        </div>
 
         <!-- Footer Disclaimer -->
         <footer class="text-center text-xs text-gray-400 mt-10 pb-6">
