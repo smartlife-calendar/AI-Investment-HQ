@@ -427,12 +427,52 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             result["eps_latest_q"] = str(latest_q_eps)
             result["eps_latest_q_period"] = latest_q_entry.get("frame","")
             
-            if len(sorted_eps) >= 4:
+            # Check for missing quarters - derive from annual 10-K when gaps exist
+            # Example: MU CY2025Q3 is missing from XBRL, derive from: annual_eps - sum(known_quarters)
+            annual_eps_data = raw_gaap.get("EarningsPerShareDiluted",{}).get("units",{}).get("USD/shares",[])
+            annual_10k_eps = [x for x in annual_eps_data if x.get("form")=="10-K" and x.get("end","")>="2023-01-01"]
+            
+            # Build a complete set of quarters using 10-K to fill gaps
+            all_frames = {x.get("frame",""):x.get("val",0) for x in sorted_eps}
+            
+            if annual_10k_eps:
+                for annual in sorted(annual_10k_eps, key=lambda x: x.get("end",""))[-2:]:
+                    annual_end = annual.get("end","")
+                    annual_val = annual.get("val",0) * fx
+                    # Get all 4 quarters for this fiscal year from XBRL
+                    fy_year = int(annual_end[:4])
+                    # Quarters within this fiscal year 
+                    fy_quarters = [x for x in sorted_eps 
+                                   if x.get("end","")[:4] in [str(fy_year), str(fy_year-1)]]
+                    # Simple gap fill: if annual exists and we have 3 of 4 quarters, derive 4th
+                    fy_q_sum = sum(x.get("val",0) for x in fy_quarters[:3])  # Conservative: only use 3
+                    if len(fy_quarters) >= 3 and abs(annual_val) > 0:
+                        missing_q_eps = annual_val - sum(x.get("val",0) * fx for x in fy_quarters if x not in fy_quarters[:3])
+                        # Add inferred quarter to our set (mark as derived)
+                        derived_frame = f"DERIVED_{annual_end[:7]}"
+                        if derived_frame not in all_frames and abs(missing_q_eps) < abs(annual_val):
+                            all_frames[derived_frame] = missing_q_eps / fx
+            
+            # Build sorted list including derived quarters
+            eps_complete = sorted(
+                [{"frame": k, "val": v} for k, v in all_frames.items()],
+                key=lambda x: x["frame"]
+            )
+            
+            if len(eps_complete) >= 4:
+                last4_complete = eps_complete[-4:]
+                ttm_eps = round(sum(x["val"] for x in last4_complete) * fx, 2)
+                result["eps_ttm"] = str(ttm_eps)
+                result["eps_diluted"] = str(ttm_eps)
+                result["eps_ttm_components"] = [
+                    {"quarter": x["frame"], "eps": round(x["val"]*fx, 2)}
+                    for x in last4_complete
+                ]
+            elif len(sorted_eps) >= 4:
                 last4_eps = sorted_eps[-4:]
                 ttm_eps = round(sum(x.get("val",0) for x in last4_eps) * fx, 2)
                 result["eps_ttm"] = str(ttm_eps)
                 result["eps_diluted"] = str(ttm_eps)
-                # Show components for transparency
                 result["eps_ttm_components"] = [
                     {"quarter": x.get("frame",""), "eps": round(x.get("val",0)*fx, 2)}
                     for x in last4_eps
