@@ -96,12 +96,15 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
     result = {}
     try:
         cik_pad = cik.lstrip("0").zfill(10)
+        print(f"[XBRL] Fetching CIK {cik_pad} for {ticker}...")
         resp = requests.get(
             f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik_pad}.json",
             headers={"User-Agent": "AI-Investment-HQ research@example.com"},
             timeout=15
         )
+        print(f"[XBRL] Status: {resp.status_code}")
         if resp.status_code != 200:
+            print(f"[XBRL] Failed: HTTP {resp.status_code}")
             return result
 
         all_facts = resp.json().get("facts", {})
@@ -387,10 +390,14 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             result["asset_turnover_prev"] = f"{at_prev:.3f}x"
             result["asset_turnover_yoy"] = "改善✅" if at_curr > at_prev else "下降❌"
 
-        print(f"SEC XBRL OK: {len(result)} metrics (IFRS={is_ifrs})")
+        print(f"[XBRL] OK: {len(result)} metrics for {ticker} (IFRS={is_ifrs})")
+        if len(result) == 0:
+            print(f"[XBRL] WARNING: 0 metrics extracted! raw_gaap keys: {list(raw_gaap.keys())[:10]}")
 
     except Exception as e:
-        print(f"SEC XBRL failed: {e}")
+        import traceback
+        print(f"[XBRL] EXCEPTION for {ticker}: {e}")
+        print(traceback.format_exc()[:500])
     return result
 
 
