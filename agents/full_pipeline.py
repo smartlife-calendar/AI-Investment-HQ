@@ -140,7 +140,8 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
             k: {kk: vv for kk, vv in v.items() if kk != "full_analysis"}
             for k, v in results.items()
             if isinstance(v, dict)
-        }
+        },
+        "current_price": stock_data.get("financials", {}).get("price") if not is_tw else None,
     }
 
     json_path = "reports/" + ticker + "_" + timestamp + ".json"
