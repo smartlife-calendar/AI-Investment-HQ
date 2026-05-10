@@ -230,7 +230,7 @@ def analyze_one(ticker: str, financial_text: str, persona_id: str, market_contex
     
     message = client.messages.create(
         model=_selected,
-        max_tokens=1500,
+        max_tokens=2500,  # Increased: 5-section format needs ~2000 tokens
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
     )
