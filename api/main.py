@@ -52,9 +52,34 @@ def root():
 def health():
     return {
         "status": "healthy",
+        "version": "3.2.1",
+        "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
     }
+
+
+@app.get("/data-test/{ticker}")
+async def data_test(ticker: str):
+    """Diagnostic endpoint: see exactly what data we fetch for a ticker"""
+    try:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
+        from data_fetcher import fetch_stock_data
+        data = fetch_stock_data(ticker.upper())
+        return {
+            "ticker": ticker.upper(),
+            "company": data.get("financials", {}).get("company_name", "N/A"),
+            "price": data.get("financials", {}).get("price"),
+            "revenue": data.get("financials", {}).get("revenue"),
+            "net_income": data.get("financials", {}).get("net_income"),
+            "gross_margin": data.get("financials", {}).get("gross_margin"),
+            "fcf": data.get("financials", {}).get("fcf"),
+            "summary_length": len(data.get("summary", "")),
+            "summary_preview": data.get("summary", "")[:500],
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Data test failed: {str(e)}")
 
 
 @app.get("/personas")
