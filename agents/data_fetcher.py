@@ -307,20 +307,34 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
-        # OCF/CapEx: use 10-K annual FIRST (most reliable for established companies)
-        # Only fall back to YTD-derived single quarter when no 10-K exists
-        # This prevents AAPL/TSLA/MU getting wrong single-quarter values
+        # OCF/CapEx: use 10-K annual if filed within 9 months (AAPL/MU/TSLA)
+        # If 10-K is stale (>9 months since period end), derive from YTD (SNDK)
         _annual_ocf = latest("NetCashProvidedByUsedInOperatingActivities")
         _annual_capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
-        if _annual_ocf is not None:
-            ocf = _annual_ocf  # AAPL/MU/TSLA: use annual 10-K
+        
+        # Check age of annual 10-K data
+        _ocf_data = raw_gaap.get("NetCashProvidedByUsedInOperatingActivities",{}).get("units",{}).get("USD",[])
+        _k10_entries = [x for x in _ocf_data if x.get("form")=="10-K" and x.get("end","")>="2023-01-01"]
+        _k10_stale = False
+        if _k10_entries:
+            _k10_latest_end = sorted(_k10_entries, key=lambda x: x.get("end",""))[-1].get("end","")
+            try:
+                _k_date = datetime.fromisoformat(_k10_latest_end)
+                _k_age_mo = (datetime.now().year - _k_date.year)*12 + (datetime.now().month - _k_date.month)
+                _k10_stale = _k_age_mo > 9  # >9 months: 10-K is from more than a fiscal year ago
+            except Exception:
+                pass
+        
+        if _annual_ocf is not None and not _k10_stale:
+            # Recent 10-K: use annual (AAPL Sep 2025 = 8mo ago → use annual)
+            ocf = _annual_ocf
             capex = _annual_capex
         else:
-            # No 10-K for this metric: derive from YTD (SNDK scenario)
+            # Stale 10-K or missing: derive from YTD (SNDK Jun 2025 = 11mo ago)
             _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
             _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
-            ocf = _ocf_q
-            capex = _capex_q
+            ocf = _ocf_q if _ocf_q is not None else _annual_ocf
+            capex = _capex_q if _capex_q is not None else _annual_capex
         sbc = latest("ShareBasedCompensation")
         goodwill = latest("GoodwillAndIntangibleAssetsNet")
         inventory = latest("InventoryNet")
