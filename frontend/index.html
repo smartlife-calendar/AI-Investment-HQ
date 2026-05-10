@@ -214,6 +214,26 @@
                 </div>`;
             }
             html += '</div>';
+            
+            // Sub-sectors
+            if (data.sub_sectors && Object.keys(data.sub_sectors).length > 0) {
+                html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
+                for (const [group, subs] of Object.entries(data.sub_sectors)) {
+                    if (!subs || subs.length === 0) continue;
+                    const topSub = subs[0];
+                    const topColor = topSub.perf_52w > 0 ? 'text-green-600' : 'text-red-600';
+                    html += `<div class="mb-3">
+                        <div class="text-xs font-medium text-gray-500 mb-1">${group}</div>
+                        <div class="flex flex-wrap gap-2">`;
+                    for (const s of subs) {
+                        const pc = s.perf_52w > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                        html += `<span class="text-xs px-2 py-1 rounded-full ${pc} font-medium">
+                            ${s.name}(${s.etf}) ${s.perf_52w > 0 ? '+' : ''}${s.perf_52w}% ${s.flow}
+                        </span>`;
+                    }
+                    html += '</div></div>';
+                }
+            }
 
             // Summary
             const summary = data.summary || {};
@@ -234,6 +254,28 @@
         function toggleSector(i) {
             const el = document.getElementById('sector-' + i);
             el.classList.toggle('hidden');
+        }
+
+        async function loadTickerSector(ticker, apiBase) {
+            try {
+                const resp = await fetch(apiBase + '/macro/ticker/' + ticker);
+                const sc = await resp.json();
+                if (sc.sector && sc.sector !== '未知') {
+                    let sectorHtml = `<div class="mt-2 p-2 bg-blue-50 rounded-lg text-xs flex flex-wrap gap-3">
+                        <span>📌 板塊: <strong>${sc.sector}</strong></span>`;
+                    if (sc.broad_perf_52w !== null && sc.broad_perf_52w !== undefined) {
+                        const bc = sc.broad_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
+                        sectorHtml += `<span>${sc.broad_sector}: <span class="${bc}">${sc.broad_perf_52w > 0 ? '+' : ''}${sc.broad_perf_52w}% 52W ${sc.broad_flow}</span></span>`;
+                    }
+                    if (sc.sub_perf_52w !== null && sc.sub_perf_52w !== undefined && sc.sub_sector) {
+                        const sc2 = sc.sub_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
+                        sectorHtml += `<span>${sc.sub_sector}: <span class="${sc2}">${sc.sub_perf_52w > 0 ? '+' : ''}${sc.sub_perf_52w}% 52W ${sc.sub_flow}</span> ${sc.sub_momentum}</span>`;
+                    }
+                    sectorHtml += `</div>`;
+                    const titleEl = document.getElementById('resultTitle');
+                    titleEl.insertAdjacentHTML('afterend', sectorHtml);
+                }
+            } catch(e) {}
         }
 
         async function analyzeStock() {
@@ -284,6 +326,9 @@
 
                 document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
                 document.getElementById('resultPersona').innerText = personaId === 'all' ? '全模型交叉對比' : personaName;
+                
+                // Load sector context for this stock
+                loadTickerSector(ticker, API_BASE_URL);
 
                 let reportMarkdown = '';
 
