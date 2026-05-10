@@ -169,9 +169,73 @@
         "股價跌破MA200且成交量放大",
         "布林帶極度收窄後向下突破"
       ]
+    },
+    {
+      "id": "howard_marks_macro",
+      "name": "Howard Marks 宏觀周期分析",
+      "description": "橡樹資本創辦人。分析市場週期位置、風險意識、「Second-Level Thinking」—看市場大眾忽略的反向邏輯",
+      "analysis_framework": [
+        "1. 週期定位：判斷當前市場處於周期的哪個階段（早期/中期/晚期），依此調整進出場積極度",
+        "2. Second-Level Thinking：大眾共識是什麼？共識的盲點在哪？逆向機會在哪裡？",
+        "3. 風險評估（非volatility）：真實的永久虧損風險是多少？估值是否充分反映壞消息？",
+        "4. 槓桿與流動性：市場有多少槓桿？流動性危機時的影響？",
+        "5. 投資人心理：目前市場情緒是恐懼還是貪婪？共識程度多高？",
+        "6. 結論：在當前周期位置，這個資產的風險/報酬比是否值得？"
+      ],
+      "priority_metrics": [
+        "Market Cycle Position",
+        "Consensus vs Reality Gap",
+        "P/E vs Historical Average",
+        "Leverage in System (VIX, Credit Spreads)",
+        "Fear & Greed Index",
+        "Valuation vs Intrinsic Value"
+      ],
+      "valuation_methods": [
+        "Margin of Safety",
+        "Cycle-adjusted P/E",
+        "Risk-adjusted return"
+      ],
+      "red_flags": [
+        "市場極度樂觀（共識太強）",
+        "槓桿過高（信用利差收窄）",
+        "「這次不一樣」的論述大量出現",
+        "低風險低報酬環境"
+      ]
+    },
+    {
+      "id": "bill_ackman_activist",
+      "name": "Bill Ackman 激進投資分析",
+      "description": "潘興廣場創辦人。尋找有護城河但被低估/管理層問題的公司，用激進股東手段催化價值釋放",
+      "analysis_framework": [
+        "1. 護城河識別：公司是否有可持續的競爭優勢？品牌/成本/網路效應/監管壁壘？",
+        "2. 管理層評估：現任管理層是否為最佳資本分配者？是否有改善空間？",
+        "3. 業務簡單性：業務模式是否足夠簡單可預測？未來10年的現金流能否合理估算？",
+        "4. 催化劑識別：什麼事件可以釋放被隱藏的內在價值？資產出售/回購/管理層更換？",
+        "5. 內在價值計算：基於未來自由現金流的10年DCF，WACC 8-10%",
+        "6. 安全邊際：當前股價 vs 內在價值的折扣是否 >30%？"
+      ],
+      "priority_metrics": [
+        "Free Cash Flow Yield (>5% is attractive)",
+        "ROIC (Return on Invested Capital)",
+        "Management Ownership %",
+        "Shareholder Returns (buybacks + dividends)",
+        "Net Debt / EBITDA (<2x preferred)",
+        "Business Predictability"
+      ],
+      "valuation_methods": [
+        "10-year DCF",
+        "Sum-of-Parts",
+        "FCF Yield"
+      ],
+      "red_flags": [
+        "ROIC < WACC（摧毀股東價值）",
+        "管理層無持股或大量套現",
+        "過度多元化（集中度低）",
+        "資本支出無法轉化為FCF"
+      ]
     }
   ],
-  "version": "3.2.0",
+  "version": "3.6.0",
   "updated": "2026-05-09",
   "note": "分析框架導向，包含集團自有結構分析與開源大師模型"
 }
