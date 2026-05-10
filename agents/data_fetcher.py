@@ -196,39 +196,43 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                                  and x.get("end","") >= "2023-01-01"]
                 latest_10q_date = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1].get("end","") if quarterly_10q else ""
                 
-                # Decision: use 10-Q only if it's > 8 months newer than 10-K
-                # Simple string comparison: "2026-04" > "2025-07" = True means >9 months newer
-                # Threshold: if 10-Q is more than 8 months ahead, it means next fiscal year data
+                # Decision: is the 10-K data stale?
+                # Stale = 10-K period end was more than 10 months ago
+                # (handles companies like SNDK with June fiscal year end)
                 use_10q_override = False
-                if latest_10k_date and latest_10q_date and latest_10q_date > latest_10k_date:
-                    # Compare year-month portions
-                    k_ym = latest_10k_date[:7]  # "2025-06"
-                    q_ym = latest_10q_date[:7]  # "2026-04"
-                    k_yr, k_mo = int(k_ym[:4]), int(k_ym[5:])
-                    q_yr, q_mo = int(q_ym[:4]), int(q_ym[5:])
-                    gap_months = (q_yr - k_yr) * 12 + (q_mo - k_mo)
-                    use_10q_override = gap_months > 8
+                if latest_10k_date:
+                    try:
+                        from datetime import datetime as _dt
+                        _k_date = _dt.fromisoformat(latest_10k_date)
+                        _now = _dt.now()
+                        _k_age_months = (_now.year - _k_date.year)*12 + (_now.month - _k_date.month)
+                        use_10q_override = _k_age_months > 10
+                    except Exception:
+                        pass
                 
                 if latest_10k_date and not use_10q_override:
-                    # Standard case: use 10-K annual (MU, AAPL, TSLA, GOOGL etc.)
+                    # 10-K is recent: standard case (MU FY2025, AAPL FY2025, TSLA FY2025)
                     seen = {}
                     for x in sorted(annual_10k, key=lambda x: x.get("end","")):
                         seen[x.get("end","")] = x.get("val")
                     if seen:
                         return seen
-                elif use_10q_override:
-                    # 10-Q is >8 months newer - override with 10-Q (SNDK new listing scenario)
+                elif use_10q_override and quarterly_10q:
+                    # 10-K is stale (>10 months old): use most recent single-quarter 10-Q
                     result = {}
-                    if annual_10k:
-                        for x in sorted(annual_10k, key=lambda x: x.get("end","")):
-                            result[x.get("end","")] = x.get("val")
-                    if quarterly_10q:
-                        latest_q = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1]
-                        result[latest_q.get("end","")] = latest_q.get("val")
-                    if result:
-                        return result
+                    for x in sorted(annual_10k, key=lambda x: x.get("end","")):
+                        result[x.get("end","")] = x.get("val")
+                    latest_q = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1]
+                    result[latest_q.get("end","")] = latest_q.get("val")
+                    return result
+                elif latest_10k_date:
+                    # Stale 10-K but no single-quarter frames → use 10-K anyway
+                    seen = {}
+                    for x in sorted(annual_10k, key=lambda x: x.get("end","")):
+                        seen[x.get("end","")] = x.get("val")
+                    return seen
                 else:
-                    # No 10-K - use quarterly
+                    # No 10-K at all
                     if quarterly_10q:
                         seen = {}
                         for x in sorted(quarterly_10q, key=lambda x: x.get("end","")):
@@ -303,20 +307,13 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
-        # OCF/CapEx: try annual first, then single-quarter derivation from YTD
-        # get_all_annual handles 8-month gap rule for SNDK-type companies
-        ocf = latest("NetCashProvidedByUsedInOperatingActivities")
-        capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
-        # For companies where 10-K is stale (>8 months gap) and OCF has no CY frame,
-        # derive from YTD difference
-        if ocf is None:
-            _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
-            if _ocf_q is not None:
-                ocf = _ocf_q
-        if capex is None:
-            _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
-            if _capex_q is not None:
-                capex = _capex_q
+        # OCF/CapEx: prefer YTD-derived single quarter for accuracy
+        # Try YTD derivation first (most accurate for current period)
+        # Fall back to annual 10-K if no YTD data available
+        _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
+        _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
+        ocf = _ocf_q if _ocf_q is not None else latest("NetCashProvidedByUsedInOperatingActivities")
+        capex = _capex_q if _capex_q is not None else latest("PaymentsToAcquirePropertyPlantAndEquipment")
         sbc = latest("ShareBasedCompensation")
         goodwill = latest("GoodwillAndIntangibleAssetsNet")
         inventory = latest("InventoryNet")
