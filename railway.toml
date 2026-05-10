@@ -18,3 +18,5 @@ restartPolicyType = "ON_FAILURE"
 # Force v3.7.8 deploy
 
 # v3.8.0 force
+
+# v3.9.0 parallel fetch
