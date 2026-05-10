@@ -188,9 +188,89 @@ def fetch_market_context() -> str:
     except Exception as e:
         pass
 
-    # Summary scoring
-    context_lines.append("### 市場情緒綜合判斷")
-    context_lines.append("（由分析框架根據VIX、貪婪指數、利率、板塊ETF數據自動判斷進出場時機）")
+    # === MARKET SENTIMENT SCORING ===
+    # Compute an overall market sentiment score based on available indicators
+    sentiment_score = 0  # -100 (extreme fear) to +100 (extreme greed)
+    factors = []
+    
+    # Factor 1: Fear & Greed Index (most weight)
+    try:
+        fg_resp = requests.get("https://api.alternative.me/fng/?limit=1", headers=headers, timeout=5)
+        if fg_resp.status_code == 200:
+            fg_val = int(fg_resp.json().get("data",[{}])[0].get("value", 50))
+            fg_contribution = (fg_val - 50) * 0.6  # -30 to +30
+            sentiment_score += fg_contribution
+            factors.append(f"F&G:{fg_val}")
+    except Exception:
+        pass
+    
+    # Factor 2: VIX (inverse - high VIX = fear = low sentiment)
+    try:
+        vix_resp = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX",
+            headers=headers, params={"interval":"1d","range":"1d"}, timeout=5
+        )
+        if vix_resp.status_code == 200:
+            vix = vix_resp.json().get("chart",{}).get("result",[{}])[0].get("meta",{}).get("regularMarketPrice",20)
+            if vix < 15: vix_contribution = 20
+            elif vix < 20: vix_contribution = 10
+            elif vix < 25: vix_contribution = 0
+            elif vix < 30: vix_contribution = -15
+            else: vix_contribution = -30
+            sentiment_score += vix_contribution
+            factors.append(f"VIX:{round(vix,1)}")
+    except Exception:
+        pass
+    
+    # Factor 3: S&P 500 trend
+    try:
+        spx_resp = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC",
+            headers=headers, params={"interval":"1d","range":"5d"}, timeout=5
+        )
+        if spx_resp.status_code == 200:
+            meta = spx_resp.json().get("chart",{}).get("result",[{}])[0].get("meta",{})
+            price = meta.get("regularMarketPrice",0)
+            high52 = meta.get("fiftyTwoWeekHigh",price)
+            if high52 > 0:
+                from_high = (price - high52) / high52 * 100
+                if from_high > -3: spx_contribution = 20
+                elif from_high > -10: spx_contribution = 5
+                elif from_high > -20: spx_contribution = -10
+                else: spx_contribution = -20
+                sentiment_score += spx_contribution
+                factors.append(f"SPX:{round(from_high,1)}%fmHigh")
+    except Exception:
+        pass
+    
+    # Clamp to -100 to +100
+    sentiment_score = max(-100, min(100, int(sentiment_score)))
+    
+    # Determine label
+    if sentiment_score >= 50:
+        sentiment_label = "🟢 極度樂觀 (Extreme Greed)"
+        sentiment_action = "市場過熱，注意高估風險，考慮逢高減持"
+    elif sentiment_score >= 20:
+        sentiment_label = "🟢 樂觀 (Greed)"
+        sentiment_action = "市場情緒偏多，追高需謹慎"
+    elif sentiment_score >= -20:
+        sentiment_label = "⚪ 中性 (Neutral)"
+        sentiment_action = "市場情緒中性，依個股基本面決策"
+    elif sentiment_score >= -50:
+        sentiment_label = "🔴 悲觀 (Fear)"
+        sentiment_action = "市場情緒偏空，但可能存在逢低機會"
+    else:
+        sentiment_label = "🔴 極度悲觀 (Extreme Fear)"
+        sentiment_action = "市場恐慌，歷史上常為長期買入機會"
+    
+    context_lines.append("### 📊 市場情緒綜合評分")
+    context_lines.append(f"- 情緒分數: **{sentiment_score}/100** → {sentiment_label}")
+    context_lines.append(f"- 操作建議: {sentiment_action}")
+    context_lines.append(f"- 計算因子: {' | '.join(factors) if factors else '數據不足'}")
+    context_lines.append("")
+    context_lines.append("### 市場情緒說明")
+    context_lines.append("100=極度貪婪 | 0=中性 | -100=極度恐懼")
+    context_lines.append("分析框架應結合此情緒分數調整進出場建議的積極程度")
 
     return "\n".join(str(x) for x in context_lines)
 
