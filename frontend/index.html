@@ -178,8 +178,8 @@
             // Sector flows
             html += '<h3 class="font-semibold text-gray-700 mb-3">🔄 板塊資金流動（點擊展開週對週分析）</h3>';
             html += '<div class="space-y-1">';
-            for (let i = 0; i < (data.sectors || []).length; i++) {
-                const s = data.sectors[i];
+            for (let i = 0; i < (data.broad_sectors || data.sectors || []).length; i++) {
+                const s = (data.broad_sectors || data.sectors)[i];
                 const perf = s.perf_52w;
                 const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
                 const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
