@@ -52,7 +52,7 @@ def root():
 def health():
     return {
         "status": "healthy",
-        "version": "3.2.3",
+        "version": "3.2.4",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
