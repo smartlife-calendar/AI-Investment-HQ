@@ -6,3 +6,5 @@ startCommand = "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
 healthcheckPath = "/health"
 healthcheckTimeout = 30
 restartPolicyType = "ON_FAILURE"
+
+# Force redeploy: v3.2.1 2026-05-10T02:05Z
