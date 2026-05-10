@@ -88,7 +88,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.7.7", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.7.8", "model": "claude-sonnet-4-5 (tiered)"}
 
 
 @app.get("/tw-test/{ticker}")
