@@ -5,6 +5,9 @@ import concurrent.futures
 import anthropic
 
 
+from scorecard_engine import compute_scorecard, format_scorecard_text
+
+
 def load_persona(persona_id: str) -> dict:
     base_dir = os.path.dirname(os.path.abspath(__file__))
     config_path = os.path.join(base_dir, "..", "personas", "config.json")
@@ -116,9 +119,24 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
         except Exception:
             pass
 
+    # Compute deterministic scorecard BEFORE AI sees data
+    # This ensures consistent numbers regardless of model
+    try:
+        from data_fetcher import fetch_stock_data
+        _raw_data = fetch_stock_data(str(ticker or ""))
+        _sc = compute_scorecard(str(ticker or ""), _raw_data.get("financials", {}), 
+                                price=_raw_data.get("financials", {}).get("price"))
+        _scorecard_text = format_scorecard_text(_sc, str(ticker or ""), 
+                                                price=_raw_data.get("financials", {}).get("price"))
+    except Exception as _e:
+        _scorecard_text = ""
+        print(f"Scorecard engine error: {_e}")
+
     user_prompt = (
         "Analyze $" + str(ticker or "") + " using the " + str(persona.get("name","") or "") + " framework.\n\n"
-        "=== DATA ===\n" + str(financial_text or "")[:4000] + str(market_section or "") + str(_price_note) + "\n\n"
+        "=== PYTHON-CALCULATED SCORECARD (use these exact numbers - do not recalculate) ===\n" 
+        + str(_scorecard_text) + "\n\n"
+        "=== ADDITIONAL DATA ===\n" + str(financial_text or "")[:3000] + str(market_section or "") + str(_price_note) + "\n\n"
         "=== REQUIRED OUTPUT (Traditional Chinese, ALL sections mandatory) ===\n\n"
         "**分析框架：" + str(persona.get("name","") or "") + "**\n\n"
         "**一、核心計算**\n"
