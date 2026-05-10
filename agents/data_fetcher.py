@@ -268,9 +268,9 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         fcf = (ocf - capex) if ocf and capex else None
         
         # Additional metrics for Peter Lynch (PEG) and Graham (D/E)
-        eps_data_list = facts.get("EarningsPerShareDiluted", {}).get("units", {}).get("USD/shares", [])
+        eps_data_list = raw_gaap.get("EarningsPerShareDiluted", {}).get("units", {}).get("USD/shares", [])
         if not eps_data_list:
-            eps_data_list = facts.get("EarningsPerShareBasic", {}).get("units", {}).get("USD/shares", [])
+            eps_data_list = raw_gaap.get("EarningsPerShareBasic", {}).get("units", {}).get("USD/shares", [])
         eps_recent = [x for x in eps_data_list if x.get("form") in ["10-K","10-Q"] and x.get("end","") >= "2024-01-01"]
         eps_val = sorted(eps_recent, key=lambda x: x.get("end",""))[-1].get("val") if eps_recent else None
         
