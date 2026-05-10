@@ -31,13 +31,7 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
             "Customer Concentration = Top 3 customers %",
             "GAAP vs Non-GAAP Gross Margin gap",
         ],
-        "benjamin_graham": [
-            "NCAV = Current Assets - Total Liabilities",
-            "Graham Number = sqrt(22.5 x EPS x BVPS)",
-            "Margin of Safety = (Graham Number - Price) / Graham Number x 100%",
-            "Current Ratio must be > 2.0",
-            "P/E x P/B must be < 22.5",
-        ],
+
         "peter_lynch": [
             "PEG = P/E / Earnings Growth Rate (< 1.0 is undervalued)",
             "Lynch Fair Value = EPS x Earnings Growth Rate",
