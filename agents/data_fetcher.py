@@ -252,6 +252,13 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         shares = latest_shares()
         fcf = (ocf - capex) if ocf and capex else None
         
+        # Additional metrics for Peter Lynch (PEG) and Graham (D/E)
+        eps_data_list = facts.get("EarningsPerShareDiluted", {}).get("units", {}).get("USD/shares", [])
+        if not eps_data_list:
+            eps_data_list = facts.get("EarningsPerShareBasic", {}).get("units", {}).get("USD/shares", [])
+        eps_recent = [x for x in eps_data_list if x.get("form") in ["10-K","10-Q"] and x.get("end","") >= "2024-01-01"]
+        eps_val = sorted(eps_recent, key=lambda x: x.get("end",""))[-1].get("val") if eps_recent else None
+        
         # Previous year values for YoY comparison (Piotroski F3, F5, F6, F7, F8, F9)
         ni_prev = prev_year("NetIncomeLoss")
         assets_prev = prev_year("Assets")
@@ -313,6 +320,23 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 result["shares"] = f"{shares/1e9:.2f}B"
             else:
                 result["shares"] = f"{shares/1e6:.0f}M"
+        
+        # EPS (for PEG calculation)
+        if eps_val:
+            result["eps_diluted"] = str(round(eps_val * fx, 2))
+        elif ni and shares and shares > 0:
+            # Calculate EPS from Net Income / Shares
+            result["eps_diluted"] = str(round((ni * fx) / shares, 2))
+        
+        # D/E Ratio (for Graham/Lynch)
+        if ltdebt is not None and equity and equity > 0:
+            de = (ltdebt * fx) / (equity * fx)
+            result["de_ratio"] = str(round(de, 2)) + "x"
+        
+        # Revenue Growth YoY
+        if rev_prev and rev and rev_prev > 0:
+            rev_growth = (rev - rev_prev) / rev_prev * 100
+            result["revenue_growth_yoy"] = f"{'+' if rev_growth >= 0 else ''}{rev_growth:.1f}%"
         
         # Current ratio
         if current_assets and current_liab and current_liab > 0:
