@@ -307,13 +307,20 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
         current_liab = latest("LiabilitiesCurrent")
         ltdebt = latest("LongTermDebt")
         equity = latest("StockholdersEquity")
-        # OCF/CapEx: prefer YTD-derived single quarter for accuracy
-        # Try YTD derivation first (most accurate for current period)
-        # Fall back to annual 10-K if no YTD data available
-        _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
-        _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
-        ocf = _ocf_q if _ocf_q is not None else latest("NetCashProvidedByUsedInOperatingActivities")
-        capex = _capex_q if _capex_q is not None else latest("PaymentsToAcquirePropertyPlantAndEquipment")
+        # OCF/CapEx: use 10-K annual FIRST (most reliable for established companies)
+        # Only fall back to YTD-derived single quarter when no 10-K exists
+        # This prevents AAPL/TSLA/MU getting wrong single-quarter values
+        _annual_ocf = latest("NetCashProvidedByUsedInOperatingActivities")
+        _annual_capex = latest("PaymentsToAcquirePropertyPlantAndEquipment")
+        if _annual_ocf is not None:
+            ocf = _annual_ocf  # AAPL/MU/TSLA: use annual 10-K
+            capex = _annual_capex
+        else:
+            # No 10-K for this metric: derive from YTD (SNDK scenario)
+            _ocf_q, _ = get_single_q_from_ytd("NetCashProvidedByUsedInOperatingActivities")
+            _capex_q, _ = get_single_q_from_ytd("PaymentsToAcquirePropertyPlantAndEquipment")
+            ocf = _ocf_q
+            capex = _capex_q
         sbc = latest("ShareBasedCompensation")
         goodwill = latest("GoodwillAndIntangibleAssetsNet")
         inventory = latest("InventoryNet")
