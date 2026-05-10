@@ -174,10 +174,23 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                                  and x.get("end","") >= "2023-01-01"]
                 latest_10q_date = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1].get("end","") if quarterly_10q else ""
                 
-                # Decision: use whichever is MORE RECENT
-                if latest_10q_date > latest_10k_date:
-                    # 10-Q is newer (e.g. SNDK Q1 FY2026 > FY2025 10-K)
-                    # Use 10-Q as current, 10-K as prev_year
+                # Decision logic:
+                # - If 10-K exists AND was filed within 18 months → always prefer 10-K (MU, AAPL etc.)
+                # - If 10-K is OLDER than 18 months OR missing → use newest 10-Q (SNDK new listing)
+                # This prevents picking up cumulative multi-quarter 10-Q values instead of annual
+                from datetime import datetime
+                cutoff_18mo = (datetime.now().year - 1) + "-" + datetime.now().strftime("%m-%d")
+                k10_is_recent = latest_10k_date >= cutoff_18mo if latest_10k_date else False
+                
+                if k10_is_recent or (latest_10k_date and not (latest_10q_date > latest_10k_date and not k10_is_recent)):
+                    # Use 10-K (most cases: MU, AAPL, TSLA, GOOGL etc.)
+                    seen = {}
+                    for x in sorted(annual_10k, key=lambda x: x.get("end","")):
+                        seen[x.get("end","")] = x.get("val")
+                    if seen:
+                        return seen
+                elif latest_10q_date > latest_10k_date:
+                    # 10-Q is newer AND 10-K is stale - use 10-Q (e.g. SNDK just IPO'd)
                     result = {}
                     if annual_10k:
                         for x in sorted(annual_10k, key=lambda x: x.get("end","")):
@@ -188,7 +201,7 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                     if result:
                         return result
                 elif latest_10k_date:
-                    # 10-K is current (normal case)
+                    # 10-K exists but older, no recent 10-Q either
                     seen = {}
                     for x in sorted(annual_10k, key=lambda x: x.get("end","")):
                         seen[x.get("end","")] = x.get("val")
