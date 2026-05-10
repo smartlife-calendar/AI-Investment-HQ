@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.4.4", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.4.5", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.4.4",
+        "version": "3.4.5",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -185,12 +185,19 @@ async def data_test(ticker: str):
             "company": f.get("company_name"),
             "price": f.get("price"),
             "revenue": f.get("revenue"),
+            "revenue_ttm": f.get("revenue_ttm"),
             "net_income": f.get("net_income"),
             "gross_margin": f.get("gross_margin"),
+            "ocf": f.get("ocf"),
+            "capex": f.get("capex"),
             "fcf": f.get("fcf"),
+            "eps_ttm": f.get("eps_ttm"),
             "eps_diluted": f.get("eps_diluted"),
             "de_ratio": f.get("de_ratio"),
             "revenue_growth_yoy": f.get("revenue_growth_yoy"),
+            "current_ratio": f.get("current_ratio"),
+            "goodwill_ratio": f.get("goodwill_ratio"),
+            "sbc_pct": f.get("sbc_pct"),
             "financials_keys": list(f.keys()),
             "summary_length": len(data.get("summary", "")),
             "summary_preview": data.get("summary", "")[:600],
