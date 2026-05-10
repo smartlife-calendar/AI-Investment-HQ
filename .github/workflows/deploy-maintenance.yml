@@ -1,0 +1,37 @@
+name: Deploy with Maintenance Mode
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable Maintenance Mode
+        run: |
+          echo "Enabling maintenance mode..."
+          curl -s -X POST "${{ secrets.RAILWAY_API_URL }}/maintenance" \
+            -H "Authorization: Bearer ${{ secrets.RAILWAY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"maintenance": true, "message": "系統升級中，預計2分鐘後恢復"}' || true
+          echo "Maintenance mode enabled (or Railway API not configured)"
+
+      - name: Wait for Railway Deploy
+        run: |
+          echo "Waiting 90 seconds for Railway to deploy..."
+          sleep 90
+          
+      - name: Check Deployment
+        run: |
+          VERSION=$(curl -s https://ai-investment-hq-production.up.railway.app/health | python3 -c "import sys,json;print(json.load(sys.stdin).get('version','unknown'))" 2>/dev/null || echo "unknown")
+          echo "Deployed version: $VERSION"
+          
+      - name: Disable Maintenance Mode  
+        run: |
+          echo "Disabling maintenance mode..."
+          curl -s -X POST "${{ secrets.RAILWAY_API_URL }}/maintenance" \
+            -H "Authorization: Bearer ${{ secrets.RAILWAY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"maintenance": false}' || true
+          echo "Done - maintenance mode disabled"
