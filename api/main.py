@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.2.6", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.2.7", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.2.6",
+        "version": "3.2.7",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -144,11 +144,44 @@ async def data_test(ticker: str):
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, os.path.join(base_dir, "..", "agents"))
-        from data_fetcher import fetch_stock_data
-        data = fetch_stock_data(ticker.upper())
+        from data_fetcher import fetch_stock_data, get_cik, get_sec_xbrl, TICKER_CIK
+        
+        ticker_up = ticker.upper()
+        
+        # Test SEC connectivity directly
+        import requests as req_lib
+        sec_test = {"status": "untested", "cik": None, "xbrl_keys": 0}
+        try:
+            cik = TICKER_CIK.get(ticker_up) or get_cik(ticker_up)
+            sec_test["cik"] = cik
+            if cik:
+                cik_pad = cik.lstrip("0").zfill(10)
+                sec_resp = req_lib.get(
+                    f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik_pad}.json",
+                    headers={"User-Agent": "AI-Investment-HQ research@example.com"},
+                    timeout=15
+                )
+                sec_test["http_status"] = sec_resp.status_code
+                if sec_resp.status_code == 200:
+                    raw_gaap = sec_resp.json().get("facts", {}).get("us-gaap", {})
+                    sec_test["xbrl_keys"] = len(raw_gaap)
+                    sec_test["sample_keys"] = list(raw_gaap.keys())[:5]
+                    rev_data = raw_gaap.get("RevenueFromContractWithCustomerExcludingAssessedTax",{}).get("units",{}).get("USD",[])
+                    k10s = [x for x in rev_data if x.get("form")=="10-K" and x.get("end","")>="2024-01-01"]
+                    sec_test["revenue_10k_count"] = len(k10s)
+                    sec_test["status"] = "ok"
+                    if k10s:
+                        latest = sorted(k10s, key=lambda x: x.get("end",""))[-1]
+                        sec_test["revenue_latest"] = f"${latest.get('val',0)/1e9:.2f}B ({latest.get('end')})"
+        except Exception as e:
+            sec_test["error"] = str(e)[:100]
+        
+        # Full data fetch
+        data = fetch_stock_data(ticker_up)
         f = data.get("financials", {})
         return {
-            "ticker": ticker.upper(),
+            "ticker": ticker_up,
+            "sec_test": sec_test,
             "company": f.get("company_name"),
             "price": f.get("price"),
             "revenue": f.get("revenue"),
@@ -158,11 +191,13 @@ async def data_test(ticker: str):
             "eps_diluted": f.get("eps_diluted"),
             "de_ratio": f.get("de_ratio"),
             "revenue_growth_yoy": f.get("revenue_growth_yoy"),
+            "financials_keys": list(f.keys()),
             "summary_length": len(data.get("summary", "")),
             "summary_preview": data.get("summary", "")[:600],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Data test failed: {str(e)}")
+        import traceback
+        raise HTTPException(status_code=500, detail=f"Data test failed: {str(e)}\n{traceback.format_exc()[:500]}")
 
 
 @app.get("/cache")
