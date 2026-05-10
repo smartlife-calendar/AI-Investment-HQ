@@ -88,14 +88,14 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "3.6.0", "model": "claude-opus-4-5"}
+    return {"status": "ok", "version": "3.6.1", "model": "claude-opus-4-5"}
 
 
 @app.get("/health")
 def health():
     return {
         "status": "healthy",
-        "version": "3.6.0",
+        "version": "3.6.1",
         "model": "claude-opus-4-5",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
