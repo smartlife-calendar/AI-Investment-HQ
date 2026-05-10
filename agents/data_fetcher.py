@@ -434,6 +434,27 @@ def get_news(ticker: str, company: str = "") -> list:
     return news
 
 
+def validate_ticker(ticker: str) -> tuple:
+    """Validate ticker. Returns (valid: bool, error_msg: str or None)"""
+    try:
+        resp = requests.get(
+            "https://query1.finance.yahoo.com/v8/finance/chart/" + ticker,
+            headers={"User-Agent": "Mozilla/5.0"},
+            params={"interval": "1d", "range": "1d"},
+            timeout=8
+        )
+        if resp.status_code == 200:
+            chart = resp.json().get("chart", {})
+            result = chart.get("result")
+            if result and result[0].get("meta", {}).get("regularMarketPrice"):
+                return True, None
+            err = chart.get("error", {})
+            return False, "查無此代碼：" + ticker + "（" + err.get("description", "Not found") + "）"
+        return False, "查無此代碼：" + ticker
+    except Exception:
+        return True, None  # Network error - don't block
+
+
 def fetch_stock_data(ticker: str) -> dict:
     """Main entry point - fetch all available data for a stock ticker."""
     ticker = ticker.upper().strip()
