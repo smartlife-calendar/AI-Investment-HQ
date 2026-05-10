@@ -71,7 +71,7 @@
             <h2 class="text-xl font-semibold mb-3">輸入股票代號 (Ticker)</h2>
             <p id="marketDetected" class="text-xs text-gray-400 mb-2">輸入代號後自動偵測市場（美股/台股）</p>
             <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="tickerInput" placeholder="美股: NVDA | 台股: 2330.TW" oninput="this.value=this.value.toUpperCase();autoDetectMarket(this.value)" style="text-transform:uppercase" 
+                <input type="text" id="tickerInput" placeholder="美股: AAPL | NVDA | TSLA | MSFT" oninput="this.value=this.value.toUpperCase();autoDetectMarket(this.value)" style="text-transform:uppercase" 
                        class="w-full sm:flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
                 
                 <select id="personaSelect" class="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
@@ -535,7 +535,7 @@
         <footer class="text-center text-xs text-gray-400 mt-10 pb-6">
             <p>© 2026 AI Investment HQ｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">正在載入版本...</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.1.0</p>
         </footer>
 
 </body>
