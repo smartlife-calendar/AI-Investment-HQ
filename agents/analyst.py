@@ -119,18 +119,30 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
         except Exception:
             pass
 
-    # Compute deterministic scorecard BEFORE AI sees data
-    # This ensures consistent numbers regardless of model
+    # Compute deterministic scorecard from financial_text (already fetched, no re-fetch)
+    # Note: scorecard uses the financial data passed in, not fetch_stock_data again
     try:
-        from data_fetcher import fetch_stock_data
-        _raw_data = fetch_stock_data(str(ticker or ""))
-        _sc = compute_scorecard(str(ticker or ""), _raw_data.get("financials", {}), 
-                                price=_raw_data.get("financials", {}).get("price"))
-        _scorecard_text = format_scorecard_text(_sc, str(ticker or ""), 
-                                                price=_raw_data.get("financials", {}).get("price"))
+        # Extract price from financial_text
+        _price_for_sc = None
+        _price_match_sc = re.search(r"Current[^\n]{0,30}\$([0-9,]+\.?[0-9]*)", str(financial_text or "")[:800])
+        if _price_match_sc:
+            try: _price_for_sc = float(_price_match_sc.group(1).replace(",",""))
+            except: pass
+        # Build minimal financials dict from financial_text for scorecard
+        _f_sc = {}
+        for _k, _pattern in [
+            ("gross_margin", r"Gross Margin[：: ]*([0-9.]+)%"),
+            ("net_margin", r"Net Margin[：: ]*([0-9.]+)%"),
+            ("revenue", r"Revenue[：: ]*\$([0-9.]+[BMK]?)"),
+        ]:
+            _m = re.search(_pattern, str(financial_text or "")[:3000])
+            if _m: _f_sc[_k] = _m.group(1)
+        if _price_for_sc: _f_sc["price"] = _price_for_sc
+        _sc = compute_scorecard(str(ticker or ""), _f_sc, price=_price_for_sc)
+        _scorecard_text = format_scorecard_text(_sc, str(ticker or ""), price=_price_for_sc)
     except Exception as _e:
         _scorecard_text = ""
-        print(f"Scorecard engine error: {_e}")
+        print(f"Scorecard engine error (non-blocking): {_e}")
 
     user_prompt = (
         "Analyze $" + str(ticker or "") + " using the " + str(persona.get("name","") or "") + " framework.\n\n"
