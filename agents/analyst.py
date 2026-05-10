@@ -200,12 +200,15 @@ def assess_data_quality(text: str) -> int:
 
 def select_model(persona_id: str, data_quality: int) -> str:
     """Choose model: Haiku/Sonnet/Opus based on task complexity and data availability."""
-    # Check env override (Railway variable)
-    # Note: ANALYSIS_MODEL=claude-opus-4-5 in Railway slows all analysis to ~50s
-    # Remove or set to empty in Railway Variables to use tiered selection
+    # SPEED PROTECTION: Never use Opus from env override (too slow: 50s+)
+    # Set ANALYSIS_MODEL=claude-sonnet-4-5 in Railway to use Sonnet everywhere
+    # Or leave empty to use tiered selection (recommended)
     env_override = os.environ.get("ANALYSIS_MODEL", "")
-    if env_override and env_override in MODEL_TIERS.values() and env_override != MODEL_TIERS["opus"]:
-        return env_override  # Only allow haiku/sonnet override, not opus (too slow)
+    if env_override and env_override == MODEL_TIERS["haiku"]:
+        return MODEL_TIERS["haiku"]
+    if env_override and env_override == MODEL_TIERS["sonnet"]:
+        return MODEL_TIERS["sonnet"]
+    # Ignore opus env override - use tiered selection instead
     if persona_id in HAIKU_FRAMEWORKS and data_quality >= 70:
         return MODEL_TIERS["haiku"]   # Fast + cheap for structured scoring
     elif persona_id in OPUS_FRAMEWORKS or data_quality < 40:
