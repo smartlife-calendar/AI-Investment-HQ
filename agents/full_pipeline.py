@@ -8,7 +8,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_fetcher import fetch_stock_data
 from tw_fetcher import fetch_tw_stock_data, fetch_tw_news, build_tw_summary, get_tw_stock_id
 from technical_fetcher import analyze_technical
-from data_validator import validate_financial_data, validate_analysis_output
 from sec_fetcher import fetch_sec_filing
 from news_fetcher import search_stock_news, analyze_news_sentiment
 from fmp_fetcher import fetch_fmp_financials
@@ -104,27 +103,6 @@ def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "")
         combined_data += "## Manual Supplement\n" + str(manual_text or "") + "\n\n"
 
     print("Total data: " + str(len(combined_data)) + " chars")
-    
-    # === DATA QUALITY GATE ===
-    try:
-        stock_data_for_validation = {"financials": {}, "summary": combined_data}
-        if not is_taiwan:
-            from data_fetcher import fetch_stock_data
-            _vd = fetch_stock_data(ticker)
-            stock_data_for_validation = _vd
-        dq = validate_financial_data(ticker, stock_data_for_validation)
-        print("Data Quality: " + dq["summary"])
-        if dq["errors"]:
-            print("ERRORS: " + str(dq["errors"]))
-            combined_data += "\n## ⚠️ Data Quality Warnings\n"
-            for err in dq["errors"]:
-                combined_data += "- " + err + "\n"
-        if dq["warnings"]:
-            combined_data += "\n## Data Notes\n"
-            for w in dq["warnings"]:
-                combined_data += "- " + w + "\n"
-    except Exception as e:
-        print("Validator error (non-blocking): " + str(e))
     
     print("Running parallel analysis...")
 
