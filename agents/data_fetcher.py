@@ -144,41 +144,62 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             fx = 1.0
 
         def get_all_annual(key, fallbacks=None):
-            """Get all annual values sorted by date.
-            Priority: 10-K annual > latest 10-Q quarterly (for companies without recent 10-K)
+            """
+            Get financial values with ALWAYS-CURRENT-DATA principle:
+            1. If latest 10-Q is more recent than latest 10-K → use 10-Q as current
+            2. Otherwise use 10-K
+            This ensures companies like SNDK (FY ends June, reports Oct-Q after) 
+            always show the most recent reported figures.
             """
             keys_to_try = [key] + (fallbacks or [])
             for k in keys_to_try:
-                data = (raw_gaap.get(k, {}).get("units", {}).get("USD", []) or
-                        raw_gaap.get(k, {}).get("units", {}).get("TWD", []))
-                if not data:
+                raw_data = (raw_gaap.get(k, {}).get("units", {}).get("USD", []) or
+                            raw_gaap.get(k, {}).get("units", {}).get("TWD", []))
+                if not raw_data:
                     units = raw_gaap.get(k, {}).get("units", {})
                     if units:
-                        data = list(units.values())[0]
+                        raw_data = list(units.values())[0]
+                if not raw_data:
+                    continue
                 
-                # First try 10-K annual filings
-                annual = [x for x in data if x.get("form") == "10-K" and x.get("end", "") >= "2021-01-01"]
-                if annual:
-                    sorted_annual = sorted(annual, key=lambda x: x.get("end", ""))
+                # Get latest 10-K
+                annual_10k = [x for x in raw_data if x.get("form") == "10-K" and x.get("end","") >= "2020-01-01"]
+                latest_10k_date = sorted(annual_10k, key=lambda x: x.get("end",""))[-1].get("end","") if annual_10k else ""
+                
+                # Get latest 10-Q single-quarter entry
+                quarterly_10q = [x for x in raw_data 
+                                 if x.get("form") == "10-Q"
+                                 and x.get("frame","").startswith("CY20")
+                                 and "Q" in x.get("frame","")
+                                 and x.get("end","") >= "2023-01-01"]
+                latest_10q_date = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1].get("end","") if quarterly_10q else ""
+                
+                # Decision: use whichever is MORE RECENT
+                if latest_10q_date > latest_10k_date:
+                    # 10-Q is newer (e.g. SNDK Q1 FY2026 > FY2025 10-K)
+                    # Use 10-Q as current, 10-K as prev_year
+                    result = {}
+                    if annual_10k:
+                        for x in sorted(annual_10k, key=lambda x: x.get("end","")):
+                            result[x.get("end","")] = x.get("val")
+                    if quarterly_10q:
+                        latest_q = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1]
+                        result[latest_q.get("end","")] = latest_q.get("val")
+                    if result:
+                        return result
+                elif latest_10k_date:
+                    # 10-K is current (normal case)
                     seen = {}
-                    for x in sorted_annual:
+                    for x in sorted(annual_10k, key=lambda x: x.get("end","")):
                         seen[x.get("end","")] = x.get("val")
                     return seen
-                
-                # Fallback: use 10-Q data for companies like SNDK (new listing, no 10-K yet)
-                # Use single-quarter entries (frame=CY20xxQx) to avoid cumulative confusion
-                quarterly = [x for x in data 
-                             if x.get("form") == "10-Q" 
-                             and x.get("frame","").startswith("CY20")
-                             and "Q" in x.get("frame","")
-                             and x.get("end","") >= "2024-01-01"]
-                if quarterly:
-                    sorted_q = sorted(quarterly, key=lambda x: x.get("end",""))
-                    seen = {}
-                    for x in sorted_q:
-                        seen[x.get("end","")] = x.get("val")
-                    return seen
-                    
+                else:
+                    # No 10-K at all - use quarterly
+                    if quarterly_10q:
+                        seen = {}
+                        for x in sorted(quarterly_10q, key=lambda x: x.get("end","")):
+                            seen[x.get("end","")] = x.get("val")
+                        return seen
             return {}
 
         def latest(key, fallbacks=None):
