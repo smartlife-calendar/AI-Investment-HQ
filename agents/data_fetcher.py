@@ -175,16 +175,17 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
                 latest_10q_date = sorted(quarterly_10q, key=lambda x: x.get("end",""))[-1].get("end","") if quarterly_10q else ""
                 
                 # Decision: use 10-Q only if it's > 8 months newer than 10-K
-                # This handles: SNDK (9mo gap = new IPO needs 10-Q) vs MU/AAPL (6mo gap = use 10-K)
-                from datetime import datetime
-                def _months_gap(d1, d2):
-                    try:
-                        dt1 = datetime.fromisoformat(d1); dt2 = datetime.fromisoformat(d2)
-                        return (dt2.year - dt1.year) * 12 + (dt2.month - dt1.month)
-                    except: return 0
-                
-                gap_months = _months_gap(latest_10k_date, latest_10q_date) if (latest_10k_date and latest_10q_date) else 0
-                use_10q_override = (gap_months > 8) and (latest_10q_date > latest_10k_date)
+                # Simple string comparison: "2026-04" > "2025-07" = True means >9 months newer
+                # Threshold: if 10-Q is more than 8 months ahead, it means next fiscal year data
+                use_10q_override = False
+                if latest_10k_date and latest_10q_date and latest_10q_date > latest_10k_date:
+                    # Compare year-month portions
+                    k_ym = latest_10k_date[:7]  # "2025-06"
+                    q_ym = latest_10q_date[:7]  # "2026-04"
+                    k_yr, k_mo = int(k_ym[:4]), int(k_ym[5:])
+                    q_yr, q_mo = int(q_ym[:4]), int(q_ym[5:])
+                    gap_months = (q_yr - k_yr) * 12 + (q_mo - k_mo)
+                    use_10q_override = gap_months > 8
                 
                 if latest_10k_date and not use_10q_override:
                     # Standard case: use 10-K annual (MU, AAPL, TSLA, GOOGL etc.)
