@@ -138,6 +138,35 @@
     <script>
         let macroData = null;
 
+        // Market switching
+        let currentMarket = 'us';
+        
+        function switchMarket(market) {
+            currentMarket = market;
+            const usBtn = document.getElementById('tab-us');
+            const twBtn = document.getElementById('tab-tw');
+            const input = document.getElementById('tickerInput');
+            
+            if (market === 'us') {
+                usBtn.className = 'px-5 py-2 rounded-full text-sm font-medium transition-all bg-blue-600 text-white shadow';
+                twBtn.className = 'px-5 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200';
+                input.placeholder = '美股: NVDA, AAPL, MU, TSLA...';
+            } else {
+                twBtn.className = 'px-5 py-2 rounded-full text-sm font-medium transition-all bg-green-600 text-white shadow';
+                usBtn.className = 'px-5 py-2 rounded-full text-sm font-medium transition-all bg-gray-100 text-gray-600 hover:bg-gray-200';
+                input.placeholder = '台股: 2330, 2303, 2317... (自動加.TW)';
+            }
+        }
+        
+        function autoDetectMarket(val) {
+            const cleaned = val.replace('.TW','').replace('.TWO','');
+            if (/^[0-9]{4}$/.test(cleaned) || val.endsWith('.TW') || val.endsWith('.TWO')) {
+                if (currentMarket !== 'tw') switchMarket('tw');
+            } else if (val.length > 0 && /^[A-Z]/.test(val)) {
+                if (currentMarket !== 'us') switchMarket('us');
+            }
+        }
+
         async function loadMacro() {
             const panel = document.getElementById('macroPanel');
             const content = document.getElementById('macroContent');
@@ -211,8 +240,8 @@
                     </div>
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
                         <div class="flex gap-4 mb-2 text-gray-600">
-                            <span>💰 ${recent4}</span>
-                            <span>📊 ${prior4}</span>
+                            <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                            <span>📊 前4W: ${s.prior_4w !== null && s.prior_4w !== undefined ? (s.prior_4w > 0 ? '+' : '') + s.prior_4w + '%' : '計算中'}</span>
                             <span>📈 動能: ${s.momentum || 'N/A'}</span>
                         </div>
                         <table class="w-full text-xs border-collapse">
