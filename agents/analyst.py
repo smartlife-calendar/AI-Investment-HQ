@@ -225,8 +225,13 @@ def analyze_one(ticker: str, financial_text: str, persona_id: str, market_contex
     system_prompt, user_prompt = build_prompt(persona, ticker, financial_text, market_context)
     client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
+    # Use tiered model selection: Haiku(tech/piotroski), Sonnet(default), never Opus
+    _dq = assess_data_quality(str(financial_text or ""))
+    _selected = select_model(persona_id, _dq)
+    print(f"  [{persona_id}] model={_selected.split('-')[-2]} dq={_dq}")
+    
     message = client.messages.create(
-        model="claude-opus-4-5",
+        model=_selected,
         max_tokens=1500,
         system=system_prompt,
         messages=[{"role": "user", "content": user_prompt}]
