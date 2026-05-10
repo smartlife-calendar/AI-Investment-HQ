@@ -173,7 +173,7 @@
                 const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
                 
                 // Week-over-week bar for last 8 weeks
-                const weekBars = (s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                const weekBars = (s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
                     const barColor = wow > 0 ? '#22c55e' : '#ef4444';
                     const height = Math.min(Math.abs(wow) * 3, 30);
                     return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:10px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
@@ -204,7 +204,7 @@
                         </div>
                         <table class="w-full text-xs border-collapse">
                             <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
-                            ${(s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                            ${(s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
                                 const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
                                 const accel = wow > 3 ? '📈🔥' : wow > 1 ? '↑' : wow > -1 ? '→' : wow > -3 ? '↓' : '📉🔥';
                                 return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${price.toFixed(2)}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
