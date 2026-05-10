@@ -538,6 +538,54 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             rev_growth = (rev - rev_prev) / rev_prev * 100
             result["revenue_growth_yoy"] = f"{'+' if rev_growth >= 0 else ''}{rev_growth:.1f}%"
         
+        # EPS Growth YoY (for PEG calculation)
+        ni_prev_val = ni_prev
+        if ni and ni_prev_val and ni_prev_val != 0 and shares and shares > 0:
+            eps_curr = (ni * fx) / shares
+            eps_prev = (ni_prev_val * fx) / shares
+            if eps_prev != 0:
+                eps_growth_yoy = (eps_curr - eps_prev) / abs(eps_prev) * 100
+                result["eps_growth_yoy"] = f"{'+' if eps_growth_yoy >= 0 else ''}{eps_growth_yoy:.1f}%"
+                # PEG Ratio = P/E / EPS Growth Rate
+                price_val = None
+                try:
+                    price_val = float(str(result.get("price", "") or "").replace("$",""))
+                except Exception:
+                    pass
+                if price_val and eps_curr > 0 and eps_growth_yoy > 0:
+                    pe_curr = price_val / eps_curr
+                    peg = pe_curr / eps_growth_yoy
+                    result["peg_ratio"] = str(round(peg, 2)) + "x"
+                    result["pe_ratio_calc"] = str(round(pe_curr, 1)) + "x"
+        
+        # EV/EBITDA calculation
+        # EBITDA = Operating Income + D&A (approximation)
+        da_data = raw_gaap.get("DepreciationDepletionAndAmortization",{}).get("units",{}).get("USD",[])
+        da_annual = [x for x in da_data if x.get("form")=="10-K" and x.get("end","")>="2022-01-01"]
+        da_val = sorted(da_annual, key=lambda x: x.get("end",""))[-1].get("val") if da_annual else None
+        if op and da_val:
+            ebitda = (op + da_val) * fx
+            result["ebitda"] = fmt_num(ebitda)
+            if ebitda > 0:
+                # Need market cap for EV
+                try:
+                    price_val2 = float(str(result.get("price","") or "").replace("$",""))
+                    shares_num = shares  # raw number
+                    if price_val2 and shares_num:
+                        mktcap = price_val2 * shares_num
+                        net_d = (ltdebt or 0) - (cash or 0)
+                        ev = mktcap + net_d * fx
+                        result["ev_ebitda"] = str(round(ev/ebitda, 1)) + "x"
+                except Exception:
+                    pass
+        
+        # Rule of 40 (for tech/SaaS)
+        if rev_growth is not None and op and rev and rev > 0:
+            op_margin = op / rev * 100
+            rule_of_40 = rev_growth + op_margin
+            result["rule_of_40"] = str(round(rule_of_40, 1))
+            result["rule_of_40_status"] = "✅ 健康" if rule_of_40 >= 40 else "⚠️ 偏低"
+        
         # Current ratio
         if current_assets and current_liab and current_liab > 0:
             result["current_ratio"] = f"{current_assets/current_liab:.2f}x"
