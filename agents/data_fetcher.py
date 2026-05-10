@@ -375,10 +375,8 @@ def get_sec_xbrl(cik: str, ticker: str) -> dict:
             result["net_position"] = "Net Cash (no LT debt)"
         if equity:
             result["equity"] = fmt_num(equity)
-        if ocf:
-            result["ocf"] = fmt_num(ocf)
-        if capex:
-            result["capex"] = fmt_num(capex)
+        result["ocf"] = fmt_num(ocf) if ocf is not None else None
+        result["capex"] = fmt_num(capex) if capex is not None else None
         if fcf:
             result["fcf"] = fmt_num(fcf)
         if inventory:
