@@ -114,6 +114,12 @@
                     <span id="btnAnalyzeText">開始解析</span>
                 </button>
             </div>
+            <!-- Sample Report CTA for non-logged users -->
+            <div id="sampleCTA" class="mt-3 text-center text-sm text-gray-500">
+                <span>不確定值不值得嗎？ </span>
+                <button onclick="showSampleReport()" class="text-indigo-600 hover:underline font-medium">看範例分析報告</button>
+            </div>
+
             <div id="errorMsg" class="hidden text-red-500 mt-3 text-sm">請輸入股票代號</div>
         </div>
 
@@ -157,6 +163,61 @@
 
         // Market switching
 
+
+
+        function showSampleReport() {
+            // Show a pre-built sample analysis to entice login
+            const sampleMarkdown = `
+## ✅ 財務結構分析 ▸ 評級：**買進**
+> 目標價：悲觀 $245 | 基準 $330 | 樂觀 $410
+
+### 📊 估值結論
+| 情境 | 目標價 | 幅度 |
+|---|---|---|
+| 悲觀 | $245 | -16% |
+| 基準 | $330 | +12% |
+| 樂觀 | $410 | +40% |
+
+**評級: 買進**
+升級觸發: FCF Yield >4% | 降級觸發: 淨債務 >$60B
+
+### 核心指標
+| 指標 | 數值 | 評分 |
+|---|---|---|
+| FCF | $98.77B | ✅ Pass |
+| 毛利率 | 49.3% | ✅ Pass |
+| D/E | 0.78x | ✅ Pass |
+
+### 主要風險
+1. EV/FCF 43.9x 遠高於科技平均 25x
+2. 中國市場競爭加劇（華為壓縮市佔）
+3. AI 投資回報時程不明確
+
+---
+
+## 🔒 解鎖完整 7 框架分析
+*登入即可查看：Peter Lynch、Piotroski F-Score、技術面、Howard Marks 宏觀週期...*
+`;
+            document.getElementById('loadingArea').classList.add('hidden');
+            document.getElementById('resultArea').classList.remove('hidden');
+            document.getElementById('resultTitle').innerText = 'AAPL - 範例分析（財務結構）';
+            document.getElementById('resultPersona').innerText = '⚠️ 以下為範例，登入可分析任意股票';
+            
+            let fullHtml = marked.parse(sampleMarkdown);
+            // Add blur gate at bottom
+            fullHtml += \`<div class="mt-6 p-6 bg-gradient-to-b from-transparent to-white text-center rounded-xl border border-indigo-100">
+                <p class="font-bold text-gray-800 mb-2">🚀 登入即可分析任意美股</p>
+                <p class="text-gray-500 text-sm mb-4">免費帳號每月 3 次完整分析 · 無需信用卡</p>
+                <button onclick="signInWithGoogle()" class="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 mx-auto">
+                    <img src="https://www.google.com/favicon.ico" class="w-5 h-5"> Google 免費登入
+                </button>
+            </div>\`;
+            document.getElementById('reportContent').innerHTML = fullHtml;
+            
+            // Hide sample CTA once shown
+            const cta = document.getElementById('sampleCTA');
+            if (cta) cta.classList.add('hidden');
+        }
 
         // === i18n Language Support ===
         let _lang = localStorage.getItem('lang') || 'zh';
@@ -307,6 +368,16 @@
         }
 
         function updateAuthUI() {
+            // Show/hide sample CTA based on login state
+            const sampleCTA = document.getElementById('sampleCTA');
+            if (sampleCTA) {
+                if (_currentUser) {
+                    sampleCTA.classList.add('hidden');
+                } else {
+                    sampleCTA.classList.remove('hidden');
+                }
+            }
+
             const loginBtn = document.getElementById('loginBtn');
             const userInfo = document.getElementById('userInfo');
             const userEmail = document.getElementById('userEmail');
