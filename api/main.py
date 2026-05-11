@@ -67,7 +67,7 @@ def track_query(ticker: str, persona: str):
 
 
 SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
-SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "sb_publishable_w8vMvFjEdU6AcWquCd-NeA_Toq_FDkK")
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.G-Z1R_OoyqT_3AGQThzPaOdh-qhrBe8cD1acz-nV_QY")
 # Note: for production, set SUPABASE_SERVICE_KEY env var with the service_role key (not anon key)
 
 FREE_DAILY_LIMIT = 3  # Unregistered users: 3/day via IP
@@ -157,7 +157,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.2.2", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.2.3", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -189,7 +189,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.2.2",
+        "version": "4.2.3",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
