@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306345121020754"
+         crossorigin="anonymous"></script>
     <title>AI 投資集團指揮中心</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -134,6 +139,64 @@
         let macroData = null;
 
         // Market switching
+
+        // === Supabase Auth ===
+        const SUPABASE_URL = 'https://kggwnlevbxghmqpieoet.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_w8vMvFjEdU6AcWquCd-NeA_Toq_FDkK';
+        const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let _currentUser = null;
+        let _userCredits = 0;
+
+        async function initAuth() {
+            const { data: { session } } = await _sb.auth.getSession();
+            if (session) {
+                _currentUser = session.user;
+                await loadUserCredits();
+            }
+            updateAuthUI();
+
+            _sb.auth.onAuthStateChange(async (event, session) => {
+                _currentUser = session ? session.user : null;
+                if (_currentUser) await loadUserCredits();
+                updateAuthUI();
+            });
+        }
+
+        async function loadUserCredits() {
+            if (!_currentUser) return;
+            const { data } = await _sb.from('user_credits').select('credits').eq('user_id', _currentUser.id).single();
+            _userCredits = data ? data.credits : 0;
+            const el = document.getElementById('creditCount');
+            if (el) el.textContent = _userCredits + ' 次';
+        }
+
+        function updateAuthUI() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userEmail = document.getElementById('userEmail');
+            if (_currentUser) {
+                if (loginBtn) loginBtn.classList.add('hidden');
+                if (userInfo) userInfo.classList.remove('hidden');
+                if (userEmail) userEmail.textContent = _currentUser.email;
+            } else {
+                if (loginBtn) loginBtn.classList.remove('hidden');
+                if (userInfo) userInfo.classList.add('hidden');
+            }
+        }
+
+        async function signInWithGoogle() {
+            await _sb.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.href }
+            });
+        }
+
+        async function signOut() {
+            await _sb.auth.signOut();
+            _currentUser = null;
+            updateAuthUI();
+        }
+
         let currentMarket = 'us';
         
         function switchMarket(market) {
@@ -526,9 +589,15 @@
         }
     </script>
 
-        <!-- Ad Banner - non-intrusive horizontal strip -->
-        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center text-xs text-gray-400">
-            <span>廣告位 · 贊助商廣告</span>
+        <!-- Google AdSense Banner -->
+        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5306345121020754"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <!-- Footer Disclaimer -->
