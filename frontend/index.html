@@ -328,23 +328,56 @@
             }
             html += '</div>';
             
-            // Sub-sectors
+            // Sub-sectors - same row format as broad sectors
             if (data.sub_sectors && Object.keys(data.sub_sectors).length > 0) {
                 html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
+                let subIdx = 1000; // offset to avoid id collision with broad sectors
                 for (const [group, subs] of Object.entries(data.sub_sectors)) {
                     if (!subs || subs.length === 0) continue;
-                    const topSub = subs[0];
-                    const topColor = topSub.perf_52w > 0 ? 'text-green-600' : 'text-red-600';
-                    html += `<div class="mb-3">
-                        <div class="text-xs font-medium text-gray-500 mb-1">${group}</div>
-                        <div class="flex flex-wrap gap-2">`;
+                    html += `<div class="text-xs font-semibold text-gray-500 mt-4 mb-1 pl-1 border-l-2 border-indigo-300">${group}</div>`;
+                    html += '<div class="space-y-1">';
                     for (const s of subs) {
-                        const pc = s.perf_52w > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
-                        html += `<span class="text-xs px-2 py-1 rounded-full ${pc} font-medium">
-                            ${s.name}(${s.etf}) ${s.perf_52w > 0 ? '+' : ''}${s.perf_52w}% ${s.flow}
-                        </span>`;
+                        const perf = s.perf_52w;
+                        const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                        const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                        const weekBars = (s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                            const barColor = wow > 0 ? '#22c55e' : '#ef4444';
+                            const height = Math.min(Math.abs(wow) * 3, 30);
+                            return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:8px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
+                        }).join('');
+                        html += `<div class="border rounded-lg ${color} overflow-hidden">
+                            <div class="p-2.5 cursor-pointer flex items-center justify-between" onclick="toggleSector(${subIdx})">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-sm">${s.name}</span>
+                                    <span class="text-xs text-gray-400">${s.etf}</span>
+                                    <span class="text-xs">${s.flow || ''}</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div style="height:28px;display:flex;align-items:flex-end">${weekBars}</div>
+                                    <span class="text-xs text-gray-500">${s.momentum || ''}</span>
+                                    <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                                    <span class="text-xs text-gray-400">52W</span>
+                                    <span class="text-xs text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div id="sector-${subIdx}" class="hidden px-3 pb-3 text-xs">
+                                <div class="flex gap-4 mb-2 text-gray-600">
+                                    <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                                    <span>📈 動能: ${s.momentum || 'N/A'}</span>
+                                </div>
+                                <table class="w-full text-xs border-collapse">
+                                    <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
+                                    ${(s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                                        const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
+                                        const accel = wow > 3 ? '📈🔥' : wow > 1 ? '↑' : wow > -1 ? '→' : wow > -3 ? '↓' : '📉🔥';
+                                        return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${typeof price === 'number' ? price.toFixed(2) : price}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
+                                    }).join('')}
+                                </table>
+                            </div>
+                        </div>`;
+                        subIdx++;
                     }
-                    html += '</div></div>';
+                    html += '</div>';
                 }
             }
 
