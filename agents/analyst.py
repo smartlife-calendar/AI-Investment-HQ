@@ -16,7 +16,7 @@ def load_persona(persona_id: str) -> dict:
     return next((p for p in personas if p["id"] == persona_id), None)
 
 
-def build_prompt(persona: dict, ticker: str, financial_text: str, market_context: str = "") -> tuple:
+def build_prompt(persona: dict, ticker: str, financial_text: str, market_context: str = "", lang: str = "zh") -> tuple:
     calculation_specs = {
         "financial_structure": [
             "FCF = Operating Cash Flow - CapEx (show numbers)",
@@ -85,7 +85,7 @@ def build_prompt(persona: dict, ticker: str, financial_text: str, market_context
         "- Show actual numbers in every calculation\n"
         "- Mark each metric: pass / fail / insufficient data\n"
         "- Give specific price targets in USD\n"
-        "- Write in Traditional Chinese (zh-TW)\n"
+        "- Write in " + ("English" if lang == "en" else "Traditional Chinese (zh-TW)") + "\n"
         "- Be concise: max 600 words total"
     )
 
@@ -206,12 +206,12 @@ def select_model(persona_id: str, data_quality: int) -> str:
         return MODEL_TIERS["haiku"]
 
 
-def analyze_one(ticker: str, financial_text: str, persona_id: str, market_context: str = "") -> dict:
+def analyze_one(ticker: str, financial_text: str, persona_id: str, market_context: str = "", lang: str = "zh") -> dict:
     persona = load_persona(persona_id)
     if not persona:
         return {"error": "Persona not found: " + persona_id, "persona_id": persona_id}
 
-    system_prompt, user_prompt = build_prompt(persona, ticker, financial_text, market_context)
+    system_prompt, user_prompt = build_prompt(persona, ticker, financial_text, market_context, lang=lang)
     client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     # Use tiered model selection: Haiku(tech/piotroski), Sonnet(default), never Opus
@@ -239,7 +239,7 @@ def analyze_stock(ticker: str, financial_text: str, persona_id: str, market_cont
     return analyze_one(ticker, financial_text, persona_id, market_context)
 
 
-def run_analysis(ticker: str, financial_text: str, personas: list = None, market_context: str = "") -> dict:
+def run_analysis(ticker: str, financial_text: str, personas: list = None, market_context: str = "", lang: str = "zh") -> dict:
     if personas is None:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         config_path = os.path.join(base_dir, "..", "personas", "config.json")
@@ -260,7 +260,7 @@ def run_analysis(ticker: str, financial_text: str, personas: list = None, market
     # Run all personas in PARALLEL (major speedup: 6x sequential -> ~1x parallel)
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(personas)) as executor:
         future_to_persona = {
-            executor.submit(analyze_one, ticker, financial_text, pid, market_context): pid
+            executor.submit(analyze_one, ticker, financial_text, pid, market_context, lang): pid
             for pid in personas
         }
         for future in concurrent.futures.as_completed(future_to_persona):
