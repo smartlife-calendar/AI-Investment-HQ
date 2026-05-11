@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 import os, sys, json, time
-import requests
 from collections import defaultdict
 from datetime import datetime
 
@@ -20,34 +19,18 @@ app.add_middleware(
 
 # === Rate Limiting ===
 _rate_store: dict = defaultdict(list)
-RATE_LIMIT = 50  # requests per hour per IP (normal users)
+RATE_LIMIT = 50  # requests per hour per IP
 
-# === Admin / Whitelist (unlimited access) ===
-# Add your own IP here for unlimited use
-# Format: set of IPs or special token "ADMIN_TOKEN"
-ADMIN_TOKEN = "stockiq-admin-2026"  # Pass as X-Admin-Token header for unlimited
-LAUNCH_MODE = True  # During launch: all users get higher limits
-
-# Launch mode: 200 requests/hour instead of 50
-LAUNCH_RATE_LIMIT = 200
-
-def check_rate_limit(ip: str, admin_token: str = "") -> tuple:
-    # Admin token = unlimited
-    if admin_token == ADMIN_TOKEN:
-        return True, 9999, 0
-    
-    # Use higher limit during launch phase
-    limit = LAUNCH_RATE_LIMIT if LAUNCH_MODE else RATE_LIMIT
-    
+def check_rate_limit(ip: str) -> tuple:
     now = time.time()
     window_start = now - 3600
     _rate_store[ip] = [t for t in _rate_store[ip] if t > window_start]
     count = len(_rate_store[ip])
-    if count >= limit:
+    if count >= RATE_LIMIT:
         reset_in = int(_rate_store[ip][0] + 3600 - now)
         return False, 0, reset_in
     _rate_store[ip].append(now)
-    return True, limit - count - 1, 0
+    return True, RATE_LIMIT - count - 1, 0
 
 # === Query Tracking (热门追踪) ===
 _query_counter: dict = defaultdict(int)  # {ticker: count}
@@ -64,26 +47,6 @@ def track_query(ticker: str, persona: str):
     # Keep only last 1000 queries
     if len(_query_history) > 1000:
         _query_history.pop(0)
-
-
-
-
-# === Auth stubs (auth disabled - safe mode) ===
-SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
-SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
-FREE_DAILY_LIMIT = 3
-REGISTERED_FREE_CREDITS = 3
-
-def verify_jwt_and_get_credits(jwt_token: str) -> tuple:
-    """Stub - returns unlimited for now"""
-    return "user", 999
-
-def deduct_credit(user_id: str, jwt_token: str) -> bool:
-    """Stub - no-op for now"""
-    return True
-
-
-
 
 # === Data Cache ===
 # Cache: {ticker: {"data": {...}, "expires": timestamp, "version": str}}
@@ -126,7 +89,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.3.0", "model": "claude-haiku-4-5 (fast+auth)"}
+    return {"status": "ok", "version": "4.3.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -158,8 +121,8 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.3.0",
-        "model": "claude-haiku-4-5 (fast+auth)",
+        "version": "4.3.1",
+        "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
         "cache_entries": len(_data_cache),
@@ -312,29 +275,9 @@ async def ticker_sector_context(ticker: str):
 
 
 @app.post("/analyze")
-async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = Header(default=''), authorization: str = Header(default='')):
+async def analyze(req: AnalysisRequest, request: Request):
     client_ip = request.client.host if request.client else "unknown"
-    allowed, remaining, reset_in = check_rate_limit(client_ip, admin_token=x_admin_token)
-    
-    # JWT auth check (skip for admin token)
-    user_id = None
-    if x_admin_token != ADMIN_TOKEN:
-        jwt_token = authorization.replace("Bearer ", "") if authorization.startswith("Bearer ") else ""
-        if jwt_token:
-            user_id, user_credits = verify_jwt_and_get_credits(jwt_token)
-            if user_id is None:
-                raise HTTPException(status_code=401, detail="無效的登入憑證，請重新登入")
-            if user_credits <= 0:
-                raise HTTPException(status_code=403, detail="分析次數不足，請購買次數包")
-        else:
-            # No token: check IP-based daily limit (3/day)
-            ip_day_key = client_ip + "_" + str(int(time.time() // 86400))
-            ip_daily = _rate_store.get(ip_day_key, [])
-            ip_daily = [t for t in ip_daily if time.time() - t < 86400]
-            if len(ip_daily) >= FREE_DAILY_LIMIT:
-                raise HTTPException(status_code=401, detail="免費次數已用完，請登入以繼續使用")
-            ip_daily.append(time.time())
-            _rate_store[ip_day_key] = ip_daily
+    allowed, remaining, reset_in = check_rate_limit(client_ip)
     if not allowed:
         raise HTTPException(status_code=429, detail=f"Rate limit exceeded. Try again in {reset_in}s.")
 
@@ -385,10 +328,6 @@ async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = H
         
         # Cache the result
         set_cache(ticker_clean, persona, response)
-        
-        # Deduct credit for authenticated users (only if not from cache)
-        if user_id and not response.get("from_cache"):
-            deduct_credit(user_id, jwt_token)
         return response
 
     except HTTPException:
