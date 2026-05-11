@@ -41,6 +41,8 @@
     <div class="max-w-4xl mx-auto py-6 px-3 sm:px-4 sm:py-10">
         <!-- Auth Bar -->
         <div class="flex justify-end items-center mb-3 gap-3 text-sm">
+            <!-- Language Toggle -->
+            <button id="langToggleBtn" onclick="setLang(_lang === 'zh' ? 'en' : 'zh')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-sm font-medium">EN</button>
             <!-- Not logged in -->
             <button id="loginBtn" onclick="signInWithGoogle()" class="flex items-center gap-2 px-4 py-1.5 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 text-gray-700 font-medium">
                 <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> Google 登入
@@ -55,7 +57,7 @@
 
         <!-- Header -->
         <header class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-900 mb-3">全方位多模型股市分析系統</h1>
+            <h1 id="mainTitle" class="text-3xl font-bold text-gray-900 mb-3">全方位多模型股市分析系統</h1>
             <button onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
                 <span class="text-lg">📊</span>
                 <span>總體經濟 & 板塊資金流動</span>
@@ -153,6 +155,69 @@
         let macroData = null;
 
         // Market switching
+
+
+        // === i18n Language Support ===
+        let _lang = localStorage.getItem('lang') || 'zh';
+        const i18n = {
+            zh: {
+                title: '全方位多模型股市分析系統',
+                subtitle: '總體經濟 & 板塊資金流動',
+                inputLabel: '輸入美股代號 (Ticker)',
+                inputHint: '輸入美股代號（NYSE / NASDAQ）',
+                placeholder: '美股: AAPL | NVDA | TSLA | MSFT',
+                btnAnalyze: '開始解析',
+                btnMacro: '📊 總體經濟 & 板塊資金流動 LIVE',
+                loading: '量化模型正在調閱資料並進行解構中...',
+                selectLabel: '選擇分析框架',
+                loginBtn: 'Google 登入',
+                langToggle: 'EN',
+                disclaimer: '本平台分析報告僅供參考，不構成任何投資建議',
+            },
+            en: {
+                title: 'Multi-Model AI Stock Analysis',
+                subtitle: 'Macro Economy & Sector Fund Flow',
+                inputLabel: 'Enter US Stock Ticker',
+                inputHint: 'Supports NYSE / NASDAQ stocks',
+                placeholder: 'e.g. AAPL | NVDA | TSLA | MSFT',
+                btnAnalyze: 'Analyze',
+                btnMacro: '📊 Macro Economy & Sector Flows LIVE',
+                loading: 'AI models are fetching and analyzing data...',
+                selectLabel: 'Select Analysis Framework',
+                loginBtn: 'Sign in with Google',
+                langToggle: '中文',
+                disclaimer: 'Analysis reports are for informational purposes only and do not constitute investment advice.',
+            }
+        };
+
+        function setLang(lang) {
+            _lang = lang;
+            localStorage.setItem('lang', lang);
+            applyLang();
+        }
+
+        function applyLang() {
+            const t = i18n[_lang];
+            const els = {
+                'mainTitle': t.title,
+                'mainSubtitle': t.subtitle,
+                'inputLabel': t.inputLabel,
+                'inputHint': t.inputHint,
+                'btnAnalyze': t.btnAnalyze,
+                'langToggleBtn': t.langToggle,
+            };
+            for (const [id, text] of Object.entries(els)) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            }
+            const inp = document.getElementById('tickerInput');
+            if (inp) inp.placeholder = t.placeholder;
+            const loginBtn = document.getElementById('loginBtn');
+            if (loginBtn) {
+                const span = loginBtn.querySelector('span:last-child') || loginBtn;
+                // keep Google icon, update text
+            }
+        }
 
         // === Supabase Auth ===
         const SUPABASE_URL = 'https://kggwnlevbxghmqpieoet.supabase.co';
