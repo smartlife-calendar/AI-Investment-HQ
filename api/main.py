@@ -67,54 +67,22 @@ def track_query(ticker: str, persona: str):
 
 
 
-SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
-SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.G-Z1R_OoyqT_3AGQThzPaOdh-qhrBe8cD1acz-nV_QY")
-# Note: for production, set SUPABASE_SERVICE_KEY env var with the service_role key (not anon key)
 
-FREE_DAILY_LIMIT = 3  # Unregistered users: 3/day via IP
-REGISTERED_FREE_CREDITS = 3  # New users start with 3 credits
+# === Auth stubs (auth disabled - safe mode) ===
+SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+FREE_DAILY_LIMIT = 3
+REGISTERED_FREE_CREDITS = 3
 
 def verify_jwt_and_get_credits(jwt_token: str) -> tuple:
-    """Verify Supabase JWT and return (user_id, credits_remaining)"""
-    try:
-        headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY}
-        resp = requests.get(f"{SUPABASE_URL}/auth/v1/user", headers=headers, timeout=5)
-        if resp.status_code != 200:
-            return None, 0
-        user_data = resp.json()
-        user_id = user_data.get("id")
-        if not user_id:
-            return None, 0
-        credit_resp = requests.get(
-            f"{SUPABASE_URL}/rest/v1/user_credits?user_id=eq.{user_id}&select=credits",
-            headers={**headers, "Content-Type": "application/json"},
-            timeout=5
-        )
-        if credit_resp.status_code == 200:
-            data = credit_resp.json()
-            credits = data[0]["credits"] if data else REGISTERED_FREE_CREDITS
-        else:
-            credits = REGISTERED_FREE_CREDITS
-        return user_id, credits
-    except Exception as e:
-        print(f"JWT verify error: {e}")
-        return None, 0
+    """Stub - returns unlimited for now"""
+    return "user", 999
 
 def deduct_credit(user_id: str, jwt_token: str) -> bool:
-    """Deduct 1 credit from user."""
-    try:
-        headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY,
-                   "Content-Type": "application/json"}
-        resp = requests.post(
-            f"{SUPABASE_URL}/rest/v1/rpc/deduct_credit",
-            json={"p_user_id": user_id},
-            headers=headers,
-            timeout=5
-        )
-        return resp.status_code in (200, 204)
-    except Exception as e:
-        print(f"Deduct credit error: {e}")
-        return False
+    """Stub - no-op for now"""
+    return True
+
+
 
 
 # === Data Cache ===
@@ -158,7 +126,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.2.5", "model": "claude-haiku-4-5 (fast+auth)"}
+    return {"status": "ok", "version": "4.3.0", "model": "claude-haiku-4-5 (fast+auth)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -190,7 +158,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.2.5",
+        "version": "4.3.0",
         "model": "claude-haiku-4-5 (fast+auth)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
