@@ -586,6 +586,23 @@
         })();
 
         async function analyzeStock() {
+            // === AUTH GATE: require login for full analysis ===
+            const { data: { session } } = await _sb.auth.getSession();
+            if (!session) {
+                // Show login prompt instead of analyzing
+                const loginModal = document.getElementById('loginModal');
+                if (loginModal) {
+                    loginModal.classList.remove('hidden');
+                } else {
+                    // Fallback: trigger Google login
+                    if (confirm('請登入以使用分析功能（免費帳號每月 3 次）')) {
+                        await signInWithGoogle();
+                    }
+                }
+                return;
+            }
+            const _jwt = session.access_token;
+
             let ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
                 // Auto-append .TW for 4-digit Taiwan stock codes
                 if (currentMarket === 'tw' && /^[0-9]{4}$/.test(ticker)) {
@@ -658,7 +675,10 @@
             try {
                 const response = await fetch(API_BASE_URL + '/analyze', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + _jwt
+                    },
                     body: JSON.stringify({
                         ticker: ticker,
                         persona_id: personaId,
@@ -785,6 +805,22 @@
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.1.0</p>
         </footer>
+
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl">
+                <div class="text-4xl mb-4">📊</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">登入後開始分析</h3>
+                <p class="text-gray-500 text-sm mb-6">免費帳號每月 3 次完整分析<br>登入即送，無需信用卡</p>
+                <button onclick="signInWithGoogle(); document.getElementById('loginModal').classList.add('hidden')" 
+                    class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 font-medium text-gray-700 mb-3">
+                    <img src="https://www.google.com/favicon.ico" class="w-5 h-5"> 使用 Google 帳號登入
+                </button>
+                <button onclick="document.getElementById('loginModal').classList.add('hidden')" 
+                    class="text-gray-400 text-sm hover:text-gray-600">取消</button>
+            </div>
+        </div>
 
 </body>
 </html>
