@@ -52,7 +52,7 @@
             <div id="userInfo" style="display:none" class="flex items-center gap-3">
                 <span class="text-gray-500"><span id="creditLabel">餘額：</span><strong class="text-indigo-600" id="creditCount">0 次</strong></span>
                 <span id="userEmail" class="text-gray-600 text-xs max-w-32 truncate"></span>
-                <button id="logoutBtn" onclick="signOut()" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-xs">登出</button>
+                <button id="logoutBtn" onclick="signOut()" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg text-red-600 text-xs font-medium">⏻ 登出</button>
             </div>
         </div>
 
@@ -398,16 +398,20 @@
         }
 
         async function signOut() {
+            console.log('signOut called');
             try {
                 await _sb.auth.signOut();
-            } catch(e) {}
+                console.log('Supabase signOut done');
+            } catch(e) { console.log('signOut error:', e); }
             _currentUser = null;
             _userCredits = 0;
             const creditCount = document.getElementById('creditCount');
             if (creditCount) creditCount.textContent = '0 次';
             updateAuthUI();
-            // Hide any open result areas
-            document.getElementById('resultArea').classList.add('hidden');
+            const resultArea = document.getElementById('resultArea');
+            if (resultArea) resultArea.classList.add('hidden');
+            // Force page reload to clear all state
+            setTimeout(() => window.location.reload(), 500);
         }
 
         let currentMarket = 'us';
