@@ -158,7 +158,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.2.4", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.2.5", "model": "claude-haiku-4-5 (fast+auth)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -190,8 +190,8 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.2.4",
-        "model": "claude-haiku-4-5 (fast)",
+        "version": "4.2.5",
+        "model": "claude-haiku-4-5 (fast+auth)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
         "cache_entries": len(_data_cache),
