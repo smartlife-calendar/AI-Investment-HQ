@@ -320,9 +320,9 @@
         }
 
         async function signInWithGoogle() {
-            // Always redirect back to the production GitHub Pages URL (not localhost)
+            // Always redirect back to production domain
             const redirectTo = window.location.hostname === 'localhost' 
-                ? 'https://smartlife-calendar.github.io/AI-Investment-HQ/'
+                ? 'https://stockiq.tw/'
                 : window.location.origin + window.location.pathname;
             await _sb.auth.signInWithOAuth({
                 provider: 'google',
@@ -778,7 +778,7 @@
 
         <!-- Footer Disclaimer -->
         <footer class="text-center text-xs text-gray-400 mt-10 pb-6">
-            <p>© 2026 AI Investment HQ｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+            <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.1.0</p>
         </footer>
