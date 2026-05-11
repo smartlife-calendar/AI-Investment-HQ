@@ -84,11 +84,12 @@ class AnalysisRequest(BaseModel):
     persona_id: Optional[str] = "all"
     manual_text: Optional[str] = ""
     force_refresh: Optional[bool] = False  # bypass cache
+    lang: Optional[str] = "zh"  # "zh" = Traditional Chinese, "en" = English
 
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.1.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.1.2", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -120,7 +121,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.1.1",
+        "version": "4.1.2",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -308,7 +309,7 @@ async def analyze(req: AnalysisRequest, request: Request):
             ticker=ticker_clean,
             persona=persona,
             manual_text=req.manual_text or ""
-        )
+        , lang=req.lang)
 
         response = {
             "ticker": result.get("ticker", ticker_clean),
