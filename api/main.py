@@ -65,7 +65,6 @@ def track_query(ticker: str, persona: str):
         _query_history.pop(0)
 
 
-import httpx
 
 SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "sb_publishable_w8vMvFjEdU6AcWquCd-NeA_Toq_FDkK")
@@ -74,52 +73,44 @@ SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "sb_publishable_w8
 FREE_DAILY_LIMIT = 3  # Unregistered users: 3/day via IP
 REGISTERED_FREE_CREDITS = 3  # New users start with 3 credits
 
-async def verify_jwt_and_get_credits(jwt_token: str) -> tuple:
+def verify_jwt_and_get_credits(jwt_token: str) -> tuple:
     """Verify Supabase JWT and return (user_id, credits_remaining)"""
     try:
-        # Get user from JWT
         headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY}
-        async with httpx.AsyncClient() as client:
-            # Verify token by getting user
-            resp = await client.get(f"{SUPABASE_URL}/auth/v1/user", headers=headers, timeout=5)
-            if resp.status_code != 200:
-                return None, 0
-            user_data = resp.json()
-            user_id = user_data.get("id")
-            if not user_id:
-                return None, 0
-            
-            # Get credits
-            credit_resp = await client.get(
-                f"{SUPABASE_URL}/rest/v1/user_credits?user_id=eq.{user_id}&select=credits",
-                headers={**headers, "Content-Type": "application/json"},
-                timeout=5
-            )
-            if credit_resp.status_code == 200:
-                data = credit_resp.json()
-                credits = data[0]["credits"] if data else REGISTERED_FREE_CREDITS
-            else:
-                credits = REGISTERED_FREE_CREDITS
-            
-            return user_id, credits
+        resp = requests.get(f"{SUPABASE_URL}/auth/v1/user", headers=headers, timeout=5)
+        if resp.status_code != 200:
+            return None, 0
+        user_data = resp.json()
+        user_id = user_data.get("id")
+        if not user_id:
+            return None, 0
+        credit_resp = requests.get(
+            f"{SUPABASE_URL}/rest/v1/user_credits?user_id=eq.{user_id}&select=credits",
+            headers={**headers, "Content-Type": "application/json"},
+            timeout=5
+        )
+        if credit_resp.status_code == 200:
+            data = credit_resp.json()
+            credits = data[0]["credits"] if data else REGISTERED_FREE_CREDITS
+        else:
+            credits = REGISTERED_FREE_CREDITS
+        return user_id, credits
     except Exception as e:
         print(f"JWT verify error: {e}")
         return None, 0
 
-async def deduct_credit(user_id: str, jwt_token: str) -> bool:
-    """Deduct 1 credit from user. Returns True if successful."""
+def deduct_credit(user_id: str, jwt_token: str) -> bool:
+    """Deduct 1 credit from user."""
     try:
         headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY,
-                   "Content-Type": "application/json", "Prefer": "return=representation"}
-        async with httpx.AsyncClient() as client:
-            # Use RPC to atomically deduct credit
-            resp = await client.post(
-                f"{SUPABASE_URL}/rest/v1/rpc/deduct_credit",
-                json={"p_user_id": user_id},
-                headers=headers,
-                timeout=5
-            )
-            return resp.status_code in (200, 204)
+                   "Content-Type": "application/json"}
+        resp = requests.post(
+            f"{SUPABASE_URL}/rest/v1/rpc/deduct_credit",
+            json={"p_user_id": user_id},
+            headers=headers,
+            timeout=5
+        )
+        return resp.status_code in (200, 204)
     except Exception as e:
         print(f"Deduct credit error: {e}")
         return False
@@ -166,7 +157,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.2.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.2.2", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -198,7 +189,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.2.1",
+        "version": "4.2.2",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -361,7 +352,7 @@ async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = H
     if x_admin_token != ADMIN_TOKEN:
         jwt_token = authorization.replace("Bearer ", "") if authorization.startswith("Bearer ") else ""
         if jwt_token:
-            user_id, user_credits = await verify_jwt_and_get_credits(jwt_token)
+            user_id, user_credits = verify_jwt_and_get_credits(jwt_token)
             if user_id is None:
                 raise HTTPException(status_code=401, detail="無效的登入憑證，請重新登入")
             if user_credits <= 0:
@@ -428,7 +419,7 @@ async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = H
         
         # Deduct credit for authenticated users (only if not from cache)
         if user_id and not response.get("from_cache"):
-            await deduct_credit(user_id, jwt_token)
+            deduct_credit(user_id, jwt_token)
         return response
 
     except HTTPException:
