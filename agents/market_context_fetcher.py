@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 
 
-def fetch_market_context() -> str:
+def fetch_market_context(lang="zh") -> str:
     """
     Fetch real-time market context factors for timing assessment.
     All free, no API key required.
