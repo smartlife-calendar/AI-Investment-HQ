@@ -15,7 +15,7 @@ from market_context_fetcher import fetch_market_context
 from analyst import run_analysis, generate_comparison_table
 
 
-def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "") -> dict:
+def full_auto_pipeline(ticker: str, persona: str = "all", manual_text: str = "", lang: str = "zh") -> dict:
     ticker = ticker.upper().strip()
     print("Starting analysis for " + ticker)
 
