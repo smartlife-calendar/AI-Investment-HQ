@@ -662,7 +662,8 @@
                     body: JSON.stringify({
                         ticker: ticker,
                         persona_id: personaId,
-                        manual_text: ''
+                        manual_text: '',
+                        lang: _lang || 'zh'
                     })
                 });
 
@@ -688,7 +689,7 @@
                 const now = new Date();
                 const dateStr = now.toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
                 const timeStr = now.toLocaleTimeString('zh-TW', {hour:'2-digit',minute:'2-digit'});
-                document.getElementById('resultTitle').innerText = ticker + ' - 深度解析報告';
+                document.getElementById('resultTitle').innerText = ticker + ' - ' + (i18n[_lang || 'zh'].reportTitle || '深度解析報告');
                 const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
                 const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
                 document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') ? '全模型交叉對比' : personaName;
