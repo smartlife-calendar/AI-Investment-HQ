@@ -45,20 +45,20 @@
             <button id="langToggleBtn" onclick="setLang(_lang === 'zh' ? 'en' : 'zh')" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-sm font-medium">EN</button>
             <!-- Not logged in -->
             <button id="loginBtn" onclick="signInWithGoogle()" class="flex items-center gap-2 px-4 py-1.5 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 text-gray-700 font-medium">
-                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> Google 登入
+                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"><span id="loginText"> Google 登入</span>
             </button>
             <!-- Logged in -->
             <div id="userInfo" class="hidden flex items-center gap-3">
-                <span class="text-gray-500">餘額：<strong class="text-indigo-600" id="creditCount">0 次</strong></span>
+                <span class="text-gray-500"><span id="creditLabel">餘額：</span><strong class="text-indigo-600" id="creditCount">0 次</strong></span>
                 <span id="userEmail" class="text-gray-600 text-xs max-w-32 truncate"></span>
-                <button onclick="signOut()" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-xs">登出</button>
+                <button id="logoutBtn" onclick="signOut()" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-xs">登出</button>
             </div>
         </div>
 
         <!-- Header -->
         <header class="text-center mb-6">
             <h1 id="mainTitle" class="text-3xl font-bold text-gray-900 mb-3">全方位多模型股市分析系統</h1>
-            <button onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
+            <button id="macroBtn" onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
                 <span class="text-lg">📊</span>
                 <span>總體經濟 & 板塊資金流動</span>
                 <span class="text-xs bg-indigo-500 px-1.5 py-0.5 rounded-md">LIVE</span>
@@ -90,7 +90,7 @@
         <!-- Search Box -->
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-semibold mb-3">輸入股票代號 (Ticker)</h2>
-            <p id="marketDetected" class="text-xs text-gray-400 mb-2">輸入美股代號（NYSE / NASDAQ）</p>
+            <p id="marketDetected" class="text-xs text-gray-400 mb-2"><span id="inputHint">輸入美股代號（NYSE / NASDAQ）</span></p>
             <div class="flex flex-col sm:flex-row gap-3">
                 <input type="text" id="tickerInput" placeholder="美股: AAPL | NVDA | TSLA | MSFT" oninput="this.value=this.value.toUpperCase();autoDetectMarket(this.value)" style="text-transform:uppercase" 
                        class="w-full sm:flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
@@ -161,7 +161,7 @@
         let _lang = localStorage.getItem('lang') || 'zh';
         const i18n = {
             zh: {
-                title: '全方位多模型股市分析系統',
+                title: 'StockIQ｜全方位多模型股市分析',
                 subtitle: '總體經濟 & 板塊資金流動',
                 inputLabel: '輸入美股代號 (Ticker)',
                 inputHint: '輸入美股代號（NYSE / NASDAQ）',
@@ -173,20 +173,54 @@
                 loginBtn: 'Google 登入',
                 langToggle: 'EN',
                 disclaimer: '本平台分析報告僅供參考，不構成任何投資建議',
+                personas: {
+                    'financial_structure': '財務結構分析',
+                    'supply_chain_structure': '供應鏈結構分析',
+                    'peter_lynch': 'Peter Lynch GARP成長',
+                    'cathie_wood': 'Cathie Wood (破壞性創新)',
+                    'piotroski_fscore': 'Piotroski (F-Score 量化)',
+                    'technical_analysis': '技術面分析 (RSI+布林+MACD)',
+                    'howard_marks_macro': 'Howard Marks 宏觀週期',
+                    'all': '【標準】3框架快速對比 (~20秒)',
+                    'all_extended': '【Pro】全模型深度對比 (~55秒)',
+                },
+                credits: '次',
+                balance: '餘額：',
+                logout: '登出',
+                reportTitle: '深度解析報告',
+                searchTime: '搜尋時間：',
+                price: '股價',
             },
             en: {
-                title: 'Multi-Model AI Stock Analysis',
+                title: 'StockIQ｜Multi-Model AI Stock Analysis',
                 subtitle: 'Macro Economy & Sector Fund Flow',
-                inputLabel: 'Enter US Stock Ticker',
-                inputHint: 'Supports NYSE / NASDAQ stocks',
+                inputLabel: 'Enter Stock Ticker (US)',
+                inputHint: 'NYSE / NASDAQ stocks supported',
                 placeholder: 'e.g. AAPL | NVDA | TSLA | MSFT',
                 btnAnalyze: 'Analyze',
                 btnMacro: '📊 Macro Economy & Sector Flows LIVE',
                 loading: 'AI models are fetching and analyzing data...',
-                selectLabel: 'Select Analysis Framework',
+                selectLabel: 'Select Framework',
                 loginBtn: 'Sign in with Google',
                 langToggle: '中文',
-                disclaimer: 'Analysis reports are for informational purposes only and do not constitute investment advice.',
+                disclaimer: 'Reports are for informational purposes only and do not constitute investment advice.',
+                personas: {
+                    'financial_structure': 'Financial Structure Analysis',
+                    'supply_chain_structure': 'Supply Chain Analysis',
+                    'peter_lynch': 'Peter Lynch GARP Growth',
+                    'cathie_wood': 'Cathie Wood (Disruptive Innovation)',
+                    'piotroski_fscore': 'Piotroski F-Score',
+                    'technical_analysis': 'Technical Analysis (RSI+BB+MACD)',
+                    'howard_marks_macro': 'Howard Marks Macro Cycle',
+                    'all': '[Standard] 3-Framework Quick (~20s)',
+                    'all_extended': '[Pro] Full Model Deep Dive (~55s)',
+                },
+                credits: ' credits',
+                balance: 'Balance: ',
+                logout: 'Sign out',
+                reportTitle: 'Deep Analysis Report',
+                searchTime: 'Searched: ',
+                price: 'Price',
             }
         };
 
@@ -198,25 +232,47 @@
 
         function applyLang() {
             const t = i18n[_lang];
+            // Update simple text elements
             const els = {
                 'mainTitle': t.title,
-                'mainSubtitle': t.subtitle,
                 'inputLabel': t.inputLabel,
                 'inputHint': t.inputHint,
                 'btnAnalyze': t.btnAnalyze,
                 'langToggleBtn': t.langToggle,
+                'disclaimerText': t.disclaimer,
             };
             for (const [id, text] of Object.entries(els)) {
                 const el = document.getElementById(id);
                 if (el) el.textContent = text;
             }
+            // Placeholder
             const inp = document.getElementById('tickerInput');
             if (inp) inp.placeholder = t.placeholder;
-            const loginBtn = document.getElementById('loginBtn');
-            if (loginBtn) {
-                const span = loginBtn.querySelector('span:last-child') || loginBtn;
-                // keep Google icon, update text
+            // Macro button
+            const macroBtn = document.getElementById('macroBtn');
+            if (macroBtn) macroBtn.textContent = t.btnMacro;
+            // Loading message
+            const loadingMsg = document.getElementById('loadingMsg');
+            if (loadingMsg) loadingMsg.textContent = t.loading;
+            // Dropdown options - translate persona names
+            const select = document.getElementById('personaSelect');
+            if (select && t.personas) {
+                Array.from(select.options).forEach(opt => {
+                    if (t.personas[opt.value]) opt.text = t.personas[opt.value];
+                });
             }
+            // Credits display
+            const creditCount = document.getElementById('creditCount');
+            const creditLabel = document.getElementById('creditLabel');
+            if (creditLabel) creditLabel.textContent = t.balance;
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) logoutBtn.textContent = t.logout;
+            // Login button text
+            const loginText = document.getElementById('loginText');
+            if (loginText) loginText.textContent = t.loginBtn;
+            // HTML lang attr
+            document.documentElement.lang = _lang === 'zh' ? 'zh-TW' : 'en';
         }
 
         // === Supabase Auth ===
