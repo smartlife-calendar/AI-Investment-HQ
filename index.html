@@ -533,7 +533,7 @@
                 const sc = await resp.json();
                 if (sc.sector && sc.sector !== '未知') {
                     let sectorHtml = `<div class="mt-2 p-2 bg-blue-50 rounded-lg text-xs flex flex-wrap gap-3">
-                        <span>📌 板塊: <strong>${sc.sector}</strong></span>`;
+                        <span>📌 ${_lang === "en" ? "Sector" : "板塊"}: <strong>${sc.sector}</strong></span>`;
                     if (sc.broad_perf_52w !== null && sc.broad_perf_52w !== undefined) {
                         const bc = sc.broad_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
                         sectorHtml += `<span>${sc.broad_sector}: <span class="${bc}">${sc.broad_perf_52w > 0 ? '+' : ''}${sc.broad_perf_52w}% 52W ${sc.broad_flow}</span></span>`;
