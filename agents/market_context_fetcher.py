@@ -117,18 +117,7 @@ def fetch_market_context() -> str:
         context_lines.extend(sector_lines)
         context_lines.append("")
 
-    # 6. Put/Call Ratio (CBOE - scrape headline)
-    try:
-        resp = requests.get(
-            "https://query1.finance.yahoo.com/v10/finance/quoteSummary/%5EPCALL",
-            headers=headers, params={"modules": "price"}, timeout=5
-        )
-        # Fallback: note it's not easily available free
-        context_lines.append("### Put/Call Ratio")
-        context_lines.append("- 需要 CBOE 付費數據 (可用 VIX 作為替代指標)")
-        context_lines.append("")
-    except Exception:
-        pass
+    
 
     # Fear & Greed Index (alternative.me - free, no key needed)
     try:
