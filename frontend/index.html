@@ -651,7 +651,22 @@
                 const resp = await fetch(apiBase + '/macro/ticker/' + ticker);
                 const sc = await resp.json();
                 if (sc.sector && sc.sector !== '未知') {
-                    let sectorHtml = `<div class="mt-2 p-2 bg-blue-50 rounded-lg text-xs flex flex-wrap gap-3">
+                    let sectorHtml = '';
+                    if (_lang === 'en' && sc.sector) {
+                        const secMap = {'科技/軟體硬體':'Tech/Software&HW','科技':'Technology','醫療':'Healthcare',
+                            '金融':'Financials','能源':'Energy','消費':'Consumer','工業':'Industrials',
+                            '通訊':'Communication','公用':'Utilities','原材料':'Materials','房地產':'Real Estate'};
+                        for (const [zh, en] of Object.entries(secMap)) {
+                            if (sc.sector.includes(zh)) { sc.sector = sc.sector.replace(zh, en); }
+                            if (sc.broad_sector && sc.broad_sector.includes(zh)) { sc.broad_sector = sc.broad_sector.replace(zh, en); }
+                            if (sc.sub_sector && sc.sub_sector.includes(zh)) { sc.sub_sector = sc.sub_sector.replace(zh, en); }
+                        }
+                        if (sc.broad_flow) sc.broad_flow = sc.broad_flow==='流入'?'Inflow':sc.broad_flow==='流出'?'Outflow':sc.broad_flow;
+                        if (sc.sub_flow) sc.sub_flow = sc.sub_flow==='流入'?'Inflow':sc.sub_flow==='流出'?'Outflow':sc.sub_flow;
+                        if (sc.broad_momentum) sc.broad_momentum = sc.broad_momentum==='加速'?'Accelerating':sc.broad_momentum==='趨緩'?'Decelerating':sc.broad_momentum==='穩定'?'Stable':sc.broad_momentum;
+                        if (sc.sub_momentum) sc.sub_momentum = sc.sub_momentum==='加速'?'Accelerating':sc.sub_momentum==='趨緩'?'Decelerating':sc.sub_momentum==='穩定'?'Stable':sc.sub_momentum;
+                    }
+                    sectorHtml = `<div class="mt-2 p-2 bg-blue-50 rounded-lg text-xs flex flex-wrap gap-3">
                         <span>📌 ${_lang === "en" ? "Sector" : "板塊"}: <strong>${sc.sector}</strong></span>`;
                     if (sc.broad_perf_52w !== null && sc.broad_perf_52w !== undefined) {
                         const bc = sc.broad_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
@@ -703,6 +718,33 @@
                 if (vEl) vEl.textContent = '版本資訊載入失敗';
             }
         })();
+
+
+        function translateRating(rating, lang) {
+            if (lang !== 'en') return rating;
+            const map = {
+                '強力買進': 'Strong Buy', '買進': 'Buy', '觀望': 'Hold',
+                '賣出': 'Sell', '強力迴避': 'Strong Sell'
+            };
+            return map[rating] || rating;
+        }
+
+        function translatePersonaName(name, lang) {
+            if (lang !== 'en') return name;
+            const map = {
+                '財務結構分析': 'Financial Structure', '供應鏈結構分析': 'Supply Chain',
+                'Peter Lynch (合理成長 GARP 模型)': 'Peter Lynch GARP',
+                'Cathie Wood (破壞性創新模型)': 'Cathie Wood Innovation',
+                'Piotroski (F-Score 財務健康量化模型)': 'Piotroski F-Score',
+                '技術面分析': 'Technical Analysis',
+                'Howard Marks 宏觀周期分析': 'Howard Marks Macro',
+            };
+            // Partial match
+            for (const [zh, en] of Object.entries(map)) {
+                if (name.includes(zh.substring(0, 4))) return en;
+            }
+            return name;
+        }
 
         async function analyzeStock() {
             // === AUTH GATE: use _currentUser (set by Supabase onAuthStateChange) ===
@@ -836,7 +878,20 @@
 
                 // 對比表（全模型時顯示）
                 if (data.comparison_table) {
-                    reportMarkdown += data.comparison_table + '\n\n---\n\n';
+                    var ct = data.comparison_table;
+                    if (_lang === 'en') {
+                        ct = ct.replace(/分析框架/g,'Framework').replace(/悲觀/g,'Bear')
+                              .replace(/基準/g,'Base').replace(/樂觀/g,'Bull')
+                              .replace(/評級/g,'Rating').replace(/買進/g,'Buy')
+                              .replace(/觀望/g,'Hold').replace(/賣出/g,'Sell')
+                              .replace(/強力買進/g,'Strong Buy').replace(/強力迴避/g,'Strong Sell')
+                              .replace(/共識目標價（基準均值）/g,'Consensus Target (Base Avg)')
+                              .replace(/財務結構分析/g,'Financial Structure')
+                              .replace(/供應鏈結構分析/g,'Supply Chain')
+                              .replace(/技術面分析/g,'Technical Analysis')
+                              .replace(/宏觀周期分析/g,'Macro Cycle');
+                    }
+                    reportMarkdown += ct + '\n\n---\n\n';
                 }
 
                 // 各框架完整分析
@@ -852,9 +907,13 @@
 
                         const ratingEmoji = {'強力買進':'🚀','買進':'✅','觀望':'⚠️','賣出':'🔴','強力迴避':'❌'}[rating] || '📊';
                         reportMarkdown += '\n\n---\n\n';
-                        reportMarkdown += '## ' + ratingEmoji + ' ' + pname + '\n';
-                        if (rating) reportMarkdown += '**評級：' + rating + '**';
-                        if (bear !== 'N/A') reportMarkdown += '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
+                        const pnameDisplay = translatePersonaName(pname, _lang);
+                        const ratingDisplay = translateRating(rating, _lang);
+                        reportMarkdown += '## ' + ratingEmoji + ' ' + pnameDisplay + '\n';
+                        if (rating) reportMarkdown += (_lang==='en' ? '**Rating: ' : '**評級：') + ratingDisplay + '**';
+                        if (bear !== 'N/A') reportMarkdown += _lang==='en'
+                            ? '　｜　Target: Bear ' + bear + ' / Base ' + base + ' / Bull ' + bull
+                            : '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
                         reportMarkdown += '\n\n';
                         reportMarkdown += analysis + '\n';
 
