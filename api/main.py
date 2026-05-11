@@ -19,18 +19,34 @@ app.add_middleware(
 
 # === Rate Limiting ===
 _rate_store: dict = defaultdict(list)
-RATE_LIMIT = 50  # requests per hour per IP
+RATE_LIMIT = 50  # requests per hour per IP (normal users)
 
-def check_rate_limit(ip: str) -> tuple:
+# === Admin / Whitelist (unlimited access) ===
+# Add your own IP here for unlimited use
+# Format: set of IPs or special token "ADMIN_TOKEN"
+ADMIN_TOKEN = "stockiq-admin-2026"  # Pass as X-Admin-Token header for unlimited
+LAUNCH_MODE = True  # During launch: all users get higher limits
+
+# Launch mode: 200 requests/hour instead of 50
+LAUNCH_RATE_LIMIT = 200
+
+def check_rate_limit(ip: str, admin_token: str = "") -> tuple:
+    # Admin token = unlimited
+    if admin_token == ADMIN_TOKEN:
+        return True, 9999, 0
+    
+    # Use higher limit during launch phase
+    limit = LAUNCH_RATE_LIMIT if LAUNCH_MODE else RATE_LIMIT
+    
     now = time.time()
     window_start = now - 3600
     _rate_store[ip] = [t for t in _rate_store[ip] if t > window_start]
     count = len(_rate_store[ip])
-    if count >= RATE_LIMIT:
+    if count >= limit:
         reset_in = int(_rate_store[ip][0] + 3600 - now)
         return False, 0, reset_in
     _rate_store[ip].append(now)
-    return True, RATE_LIMIT - count - 1, 0
+    return True, limit - count - 1, 0
 
 # === Query Tracking (热门追踪) ===
 _query_counter: dict = defaultdict(int)  # {ticker: count}
@@ -89,7 +105,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.1.3", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.2.0", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -121,7 +137,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.1.3",
+        "version": "4.2.0",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -275,9 +291,9 @@ async def ticker_sector_context(ticker: str):
 
 
 @app.post("/analyze")
-async def analyze(req: AnalysisRequest, request: Request):
+async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = Header(default='')):
     client_ip = request.client.host if request.client else "unknown"
-    allowed, remaining, reset_in = check_rate_limit(client_ip)
+    allowed, remaining, reset_in = check_rate_limit(client_ip, admin_token=x_admin_token)
     if not allowed:
         raise HTTPException(status_code=429, detail=f"Rate limit exceeded. Try again in {reset_in}s.")
 
