@@ -328,6 +328,8 @@
             if (loginText) loginText.textContent = t.loginBtn;
             // HTML lang attr
             document.documentElement.lang = _lang === 'zh' ? 'zh-TW' : 'en';
+            const macroTitle = document.getElementById('macroSectionTitle');
+            if (macroTitle) macroTitle.textContent = _lang === 'en' ? '🌐 Macro Economy & 52W Sector Flows' : '🌐 總體經濟 & 板塊52週資金流動';
         }
 
         // === Supabase Auth ===
@@ -449,7 +451,7 @@
             let html = '';
 
             // Macro indicators
-            html += '<h3 class="font-semibold text-gray-700 mb-3">📊 宏觀指標</h3>';
+            html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '📊 Macro Indicators' : '📊 宏觀指標') + '</h3>';
             html += '<div class="overflow-x-auto mb-6"><table class="w-full text-xs"><thead><tr class="bg-gray-50">';
             html += '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>';
             for (const m of (data.macro || [])) {
@@ -466,7 +468,7 @@
             html += '</tbody></table></div>';
 
             // Sector flows
-            html += '<h3 class="font-semibold text-gray-700 mb-3">🔄 板塊資金流動（點擊展開週對週分析）</h3>';
+            html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '🔄 Sector Fund Flows (click for weekly detail)' : '🔄 板塊資金流動（點擊展開週對週分析）') + '</h3>';
             html += '<div class="space-y-1">';
             for (let i = 0; i < (data.broad_sectors || data.sectors || []).length; i++) {
                 const s = (data.broad_sectors || data.sectors)[i];
@@ -686,22 +688,12 @@
         })();
 
         async function analyzeStock() {
-            // === AUTH GATE: require login for full analysis ===
-            const { data: { session } } = await _sb.auth.getSession();
-            if (!session) {
-                // Show login prompt instead of analyzing
+            // === AUTH GATE: use _currentUser (set by Supabase onAuthStateChange) ===
+            if (!_currentUser) {
                 const loginModal = document.getElementById('loginModal');
-                if (loginModal) {
-                    loginModal.classList.remove('hidden');
-                } else {
-                    // Fallback: trigger Google login
-                    if (confirm('請登入以使用分析功能（免費帳號每月 3 次）')) {
-                        await signInWithGoogle();
-                    }
-                }
+                if (loginModal) loginModal.classList.remove('hidden');
                 return;
             }
-            const _jwt = session.access_token;
 
             let ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
                 // Auto-append .TW for 4-digit Taiwan stock codes
@@ -775,10 +767,7 @@
             try {
                 const response = await fetch(API_BASE_URL + '/analyze', {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + _jwt
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         ticker: ticker,
                         persona_id: personaId,
