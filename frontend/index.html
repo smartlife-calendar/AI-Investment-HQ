@@ -454,8 +454,42 @@
             }
             html += '</div>';
             
-            // Sub-sectors - same row format as broad sectors
+            // Sub-sectors - gated: requires login
             if (data.sub_sectors && Object.keys(data.sub_sectors).length > 0) {
+                if (!_currentUser) {
+                    // Not logged in: show teaser + gate
+                    html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
+                    html += '<div class="relative">';
+                    // Show first group blurred
+                    const firstGroup = Object.entries(data.sub_sectors)[0];
+                    if (firstGroup) {
+                        const [grp, subs] = firstGroup;
+                        html += `<div class="blur-sm pointer-events-none select-none text-xs font-semibold text-gray-500 mt-2 mb-1 pl-1 border-l-2 border-indigo-300">${grp}</div>`;
+                        html += '<div class="blur-sm pointer-events-none select-none space-y-1">';
+                        for (const s of (subs || []).slice(0, 3)) {
+                            const perf = s.perf_52w;
+                            const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                            const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                            html += `<div class="border rounded-lg ${color} p-2.5 flex items-center justify-between">
+                                <span class="font-medium text-sm">${s.name} <span class="text-xs text-gray-400">${s.etf}</span></span>
+                                <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}% 52W</span>
+                            </div>`;
+                        }
+                        html += '</div>';
+                    }
+                    html += `<div class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-80 rounded-xl">
+                        <div class="text-center p-6">
+                            <div class="text-3xl mb-2">🔓</div>
+                            <p class="font-bold text-gray-800 mb-1">子板塊細分追蹤</p>
+                            <p class="text-gray-500 text-sm mb-4">登入即可查看 ${Object.values(data.sub_sectors).flat().length} 支細分 ETF 的資金流向</p>
+                            <button onclick="signInWithGoogle()" class="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 mx-auto">
+                                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> 免費登入解鎖
+                            </button>
+                        </div>
+                    </div>`;
+                    html += '</div>';
+                } else {
+                // Logged in: show full sub-sectors
                 html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
                 let subIdx = 1000; // offset to avoid id collision with broad sectors
                 for (const [group, subs] of Object.entries(data.sub_sectors)) {
@@ -505,6 +539,7 @@
                     }
                     html += '</div>';
                 }
+                } // end logged-in else
             }
 
             // Summary
