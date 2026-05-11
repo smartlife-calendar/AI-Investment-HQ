@@ -110,7 +110,7 @@
 
                 <button onclick="analyzeStock()" 
                         class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
-                    開始解析
+                    <span id="btnAnalyzeText">開始解析</span>
                 </button>
             </div>
             <div id="errorMsg" class="hidden text-red-500 mt-3 text-sm">請輸入股票代號</div>
@@ -237,7 +237,7 @@
                 'mainTitle': t.title,
                 'inputLabel': t.inputLabel,
                 'inputHint': t.inputHint,
-                'btnAnalyze': t.btnAnalyze,
+                'btnAnalyzeText': t.btnAnalyze,
                 'langToggleBtn': t.langToggle,
                 'disclaimerText': t.disclaimer,
             };
@@ -692,9 +692,11 @@
                 document.getElementById('resultTitle').innerText = ticker + ' - ' + (i18n[_lang || 'zh'].reportTitle || '深度解析報告');
                 const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
                 const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
-                document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') ? '全模型交叉對比' : personaName;
+                document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') 
+                    ? (_lang === 'en' ? 'Full Model Analysis' : '全模型交叉對比') 
+                    : personaName;
                 const metaEl = document.getElementById('resultMeta');
-                if (metaEl) metaEl.innerText = '搜尋時間：' + dateStr + ' ' + timeStr + priceNote;
+                if (metaEl) metaEl.innerText = (_lang === 'en' ? 'Searched: ' : '搜尋時間：') + dateStr + ' ' + timeStr + priceNote;
                 
                 // Load sector context for this stock
                 loadTickerSector(ticker, API_BASE_URL);
@@ -703,7 +705,7 @@
 
                 // 市場情緒摘要（顯示在最前面）
                 if (data.market_summary && data.market_summary.trim()) {
-                    reportMarkdown += '## 📊 市場情緒指標\n' + data.market_summary + '\n\n---\n\n';
+                    reportMarkdown += '## 📊 ' + (_lang === 'en' ? 'Market Sentiment' : '市場情緒指標') + '\n' + data.market_summary + '\n\n---\n\n';
                 }
 
                 // 對比表（全模型時顯示）
