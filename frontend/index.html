@@ -49,7 +49,7 @@
                 <img src="https://www.google.com/favicon.ico" class="w-4 h-4"><span id="loginText"> Google 登入</span>
             </button>
             <!-- Logged in -->
-            <div id="userInfo" class="hidden flex items-center gap-3">
+            <div id="userInfo" style="display:none" class="flex items-center gap-3">
                 <span class="text-gray-500"><span id="creditLabel">餘額：</span><strong class="text-indigo-600" id="creditCount">0 次</strong></span>
                 <span id="userEmail" class="text-gray-600 text-xs max-w-32 truncate"></span>
                 <button id="logoutBtn" onclick="signOut()" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 text-xs">登出</button>
@@ -377,12 +377,12 @@
             const userInfo = document.getElementById('userInfo');
             const userEmail = document.getElementById('userEmail');
             if (_currentUser) {
-                if (loginBtn) loginBtn.classList.add('hidden');
-                if (userInfo) userInfo.classList.remove('hidden');
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'flex';
                 if (userEmail) userEmail.textContent = _currentUser.email;
             } else {
-                if (loginBtn) loginBtn.classList.remove('hidden');
-                if (userInfo) userInfo.classList.add('hidden');
+                if (loginBtn) loginBtn.style.display = '';
+                if (userInfo) userInfo.style.display = 'none';
             }
         }
 
@@ -398,9 +398,16 @@
         }
 
         async function signOut() {
-            await _sb.auth.signOut();
+            try {
+                await _sb.auth.signOut();
+            } catch(e) {}
             _currentUser = null;
+            _userCredits = 0;
+            const creditCount = document.getElementById('creditCount');
+            if (creditCount) creditCount.textContent = '0 次';
             updateAuthUI();
+            // Hide any open result areas
+            document.getElementById('resultArea').classList.add('hidden');
         }
 
         let currentMarket = 'us';
