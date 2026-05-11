@@ -199,9 +199,13 @@
         }
 
         async function signInWithGoogle() {
+            // Always redirect back to the production GitHub Pages URL (not localhost)
+            const redirectTo = window.location.hostname === 'localhost' 
+                ? 'https://smartlife-calendar.github.io/AI-Investment-HQ/'
+                : window.location.origin + window.location.pathname;
             await _sb.auth.signInWithOAuth({
                 provider: 'google',
-                options: { redirectTo: window.location.href }
+                options: { redirectTo: redirectTo }
             });
         }
 
@@ -567,7 +571,8 @@
                 const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
                 const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
                 document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') ? '全模型交叉對比' : personaName;
-                document.getElementById('resultMeta').innerText = '搜尋時間：' + dateStr + ' ' + timeStr + priceNote;
+                const metaEl = document.getElementById('resultMeta');
+                if (metaEl) metaEl.innerText = '搜尋時間：' + dateStr + ' ' + timeStr + priceNote;
                 
                 // Load sector context for this stock
                 loadTickerSector(ticker, API_BASE_URL);
