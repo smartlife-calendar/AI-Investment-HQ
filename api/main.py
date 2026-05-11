@@ -64,6 +64,67 @@ def track_query(ticker: str, persona: str):
     if len(_query_history) > 1000:
         _query_history.pop(0)
 
+
+import httpx
+
+SUPABASE_URL = "https://kggwnlevbxghmqpieoet.supabase.co"
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "sb_publishable_w8vMvFjEdU6AcWquCd-NeA_Toq_FDkK")
+# Note: for production, set SUPABASE_SERVICE_KEY env var with the service_role key (not anon key)
+
+FREE_DAILY_LIMIT = 3  # Unregistered users: 3/day via IP
+REGISTERED_FREE_CREDITS = 3  # New users start with 3 credits
+
+async def verify_jwt_and_get_credits(jwt_token: str) -> tuple:
+    """Verify Supabase JWT and return (user_id, credits_remaining)"""
+    try:
+        # Get user from JWT
+        headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY}
+        async with httpx.AsyncClient() as client:
+            # Verify token by getting user
+            resp = await client.get(f"{SUPABASE_URL}/auth/v1/user", headers=headers, timeout=5)
+            if resp.status_code != 200:
+                return None, 0
+            user_data = resp.json()
+            user_id = user_data.get("id")
+            if not user_id:
+                return None, 0
+            
+            # Get credits
+            credit_resp = await client.get(
+                f"{SUPABASE_URL}/rest/v1/user_credits?user_id=eq.{user_id}&select=credits",
+                headers={**headers, "Content-Type": "application/json"},
+                timeout=5
+            )
+            if credit_resp.status_code == 200:
+                data = credit_resp.json()
+                credits = data[0]["credits"] if data else REGISTERED_FREE_CREDITS
+            else:
+                credits = REGISTERED_FREE_CREDITS
+            
+            return user_id, credits
+    except Exception as e:
+        print(f"JWT verify error: {e}")
+        return None, 0
+
+async def deduct_credit(user_id: str, jwt_token: str) -> bool:
+    """Deduct 1 credit from user. Returns True if successful."""
+    try:
+        headers = {"Authorization": f"Bearer {jwt_token}", "apikey": SUPABASE_SERVICE_KEY,
+                   "Content-Type": "application/json", "Prefer": "return=representation"}
+        async with httpx.AsyncClient() as client:
+            # Use RPC to atomically deduct credit
+            resp = await client.post(
+                f"{SUPABASE_URL}/rest/v1/rpc/deduct_credit",
+                json={"p_user_id": user_id},
+                headers=headers,
+                timeout=5
+            )
+            return resp.status_code in (200, 204)
+    except Exception as e:
+        print(f"Deduct credit error: {e}")
+        return False
+
+
 # === Data Cache ===
 # Cache: {ticker: {"data": {...}, "expires": timestamp, "version": str}}
 _data_cache: dict = {}
@@ -105,7 +166,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.2.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.2.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -137,7 +198,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.2.0",
+        "version": "4.2.1",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -291,9 +352,29 @@ async def ticker_sector_context(ticker: str):
 
 
 @app.post("/analyze")
-async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = Header(default='')):
+async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = Header(default=''), authorization: str = Header(default='')):
     client_ip = request.client.host if request.client else "unknown"
     allowed, remaining, reset_in = check_rate_limit(client_ip, admin_token=x_admin_token)
+    
+    # JWT auth check (skip for admin token)
+    user_id = None
+    if x_admin_token != ADMIN_TOKEN:
+        jwt_token = authorization.replace("Bearer ", "") if authorization.startswith("Bearer ") else ""
+        if jwt_token:
+            user_id, user_credits = await verify_jwt_and_get_credits(jwt_token)
+            if user_id is None:
+                raise HTTPException(status_code=401, detail="無效的登入憑證，請重新登入")
+            if user_credits <= 0:
+                raise HTTPException(status_code=403, detail="分析次數不足，請購買次數包")
+        else:
+            # No token: check IP-based daily limit (3/day)
+            ip_day_key = client_ip + "_" + str(int(time.time() // 86400))
+            ip_daily = _rate_store.get(ip_day_key, [])
+            ip_daily = [t for t in ip_daily if time.time() - t < 86400]
+            if len(ip_daily) >= FREE_DAILY_LIMIT:
+                raise HTTPException(status_code=401, detail="免費次數已用完，請登入以繼續使用")
+            ip_daily.append(time.time())
+            _rate_store[ip_day_key] = ip_daily
     if not allowed:
         raise HTTPException(status_code=429, detail=f"Rate limit exceeded. Try again in {reset_in}s.")
 
@@ -344,6 +425,10 @@ async def analyze(req: AnalysisRequest, request: Request, x_admin_token: str = H
         
         # Cache the result
         set_cache(ticker_clean, persona, response)
+        
+        # Deduct credit for authenticated users (only if not from cache)
+        if user_id and not response.get("from_cache"):
+            await deduct_credit(user_id, jwt_token)
         return response
 
     except HTTPException:
