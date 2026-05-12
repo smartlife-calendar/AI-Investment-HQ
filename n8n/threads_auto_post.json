@@ -23,7 +23,7 @@
     },
     {
       "id": "code-1",
-      "name": "Get Day of Week",
+      "name": "Build Prompt",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
@@ -31,7 +31,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const now = new Date();\nconst tw = new Date(now.getTime() + 8*3600000);\nconst day = tw.getDay();\nreturn [{json: {day, isStockIQDay: day%2!==0, product: day%2!==0?'stockiq':'smartlife'}}];"
+        "jsCode": "\nconst now = new Date();\nconst tw = new Date(now.getTime() + 8*3600000);\nconst day = tw.getDay();\nconst isStockIQ = day % 2 !== 0;\n\nlet prompt;\nif (isStockIQ) {\n    prompt = `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 StockIQ AI 股票分析工具。\n強調：省時間、AI分析、看懂市場趨勢、適合上班族。\n結尾加上：stockiq.tw\nHashtag 一定要有：#Stock #美股，再加一個相關的。\n只輸出貼文內容，不要加說明或標題。`;\n} else {\n    prompt = `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 SmartLife Calendar 智慧行事曆 App。\n強調：時間管理、生活規劃、不漏掉重要事項。\niOS 下載：https://apps.apple.com/tw/app/smartlife-calendar/id6762165674\nAndroid 下載：https://play.google.com/store/apps/details?id=app.smartlifecalendar\nHashtag 一定要有：#App #好用工具，再加一個相關的。\n只輸出貼文內容，不要加說明或標題。`;\n}\n\nreturn [{json: {isStockIQ, prompt, day}}];\n"
       }
     },
     {
@@ -85,7 +85,7 @@
           "messages": [
             {
               "role": "user",
-              "content": "你是台灣 Threads 用戶，今天輪到推廣其中一個產品。\n\n今日推廣：{{ $node[\"Get Day of Week\"].json.isStockIQDay ? 'StockIQ 股票分析' : 'SmartLife Calendar 行事曆' }}\n\n如果是 StockIQ：\n- 用繁體中文，80-120字，自然語氣\n- 提到 AI 股票分析、省時間、看懂趨勢\n- 連結：stockiq.tw\n- hashtag 一定要有：#Stock #美股（再加1個相關的）\n\n如果是 SmartLife Calendar：\n- 用繁體中文，80-120字，自然語氣\n- 提到時間管理、生活規劃、智慧行事曆\n- App Store：https://apps.apple.com/tw/app/smartlife-calendar/id6762165674\n- Google Play：https://play.google.com/store/apps/details?id=app.smartlifecalendar\n- hashtag 一定要有：#App #好用工具（再加1個相關的）\n\n只輸出貼文內容，不要加任何說明。"
+              "content": "={{ $json.prompt }}"
             }
           ]
         }
@@ -101,7 +101,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst isStockIQ = $node['Get Day of Week'].json.isStockIQDay;\nlet final = text;\nif (isStockIQ && !final.includes('stockiq.tw')) final += '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: final}}];"
+        "jsCode": "\nconst r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst isStockIQ = $node['Build Prompt'].json.isStockIQ;\nlet final = text;\nif (isStockIQ && !final.includes('stockiq.tw')) {\n    final += '\\n\\n🔍 https://stockiq.tw';\n}\nreturn [{json: {postText: final}}];\n"
       }
     },
     {
@@ -183,14 +183,14 @@
       "main": [
         [
           {
-            "node": "Get Day of Week",
+            "node": "Build Prompt",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get Day of Week": {
+    "Build Prompt": {
       "main": [
         [
           {
