@@ -482,13 +482,24 @@
             // Macro indicators
             html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '📊 Macro Indicators' : '📊 宏觀指標') + '</h3>';
             html += '<div class="overflow-x-auto mb-6"><table class="w-full text-xs"><thead><tr class="bg-gray-50">';
-            html += (_lang==='en' ? '<th class="p-2 text-left">Indicator</th><th class="p-2 text-right">Current</th><th class="p-2 text-right">52W</th><th class="p-2 text-right">Momentum</th><th class="p-2 text-left">Signal</th></tr></thead><tbody>' : '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>');
+            html += (_lang==='en' ? '<th class="p-2 text-left">Indicator</th><th class="p-2 text-right">Current</th><th class="p-2 text-right">4W</th><th class="p-2 text-right">52W</th><th class="p-2 text-right">Momentum</th><th class="p-2 text-left">Signal</th></tr></thead><tbody>' : '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">近4週</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>');
             for (const m of (data.macro || [])) {
                 const perf = m.perf_52w;
                 const color = perf > 0 ? 'text-green-600' : perf < 0 ? 'text-red-600' : '';
+                // Calculate 4-week performance from wow data
+                const wow4 = (m.wow || []).slice(-4);
+                let perf4w = null;
+                if (wow4.length >= 2) {
+                    // Sum the last 4 weekly changes
+                    perf4w = wow4.reduce((sum, w) => sum + (w[2] || 0), 0);
+                    perf4w = Math.round(perf4w * 10) / 10;
+                }
+                const color4w = perf4w > 0 ? 'text-green-600' : perf4w < 0 ? 'text-red-600' : '';
+                const perf4wStr = perf4w !== null ? `${perf4w > 0 ? '+' : ''}${perf4w}%` : '—';
                 html += `<tr class="border-b hover:bg-gray-50">
                     <td class="p-2 font-medium">${m.name}</td>
                     <td class="p-2 text-right">${m.current}</td>
+                    <td class="p-2 text-right ${color4w} font-medium">${perf4wStr}</td>
                     <td class="p-2 text-right ${color}">${perf > 0 ? '+' : ''}${perf}%</td>
                     <td class="p-2 text-right">${m.momentum || '—'}</td>
                     <td class="p-2 text-gray-500 text-xs">${m.interpretation || '—'}</td>
