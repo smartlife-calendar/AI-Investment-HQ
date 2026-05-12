@@ -64,7 +64,7 @@
 
         <!-- Header -->
         <header class="text-center mb-6">
-            <h1 id="mainTitle" class="text-3xl font-bold text-gray-900 mb-3">全方位多模型股市分析系統</h1>
+            <h1 id="mainTitle" class="text-3xl font-bold text-gray-900 mb-3">StockIQ｜全方位多模型股市分析</h1>
             <button id="macroBtn" onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
                 <span class="text-lg">📊</span>
                 <span>總體經濟 & 板塊資金流動</span>
@@ -470,7 +470,7 @@
             // Macro indicators
             html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '📊 Macro Indicators' : '📊 宏觀指標') + '</h3>';
             html += '<div class="overflow-x-auto mb-6"><table class="w-full text-xs"><thead><tr class="bg-gray-50">';
-            html += '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>';
+            html += (_lang==='en' ? '<th class="p-2 text-left">Indicator</th><th class="p-2 text-right">Current</th><th class="p-2 text-right">52W</th><th class="p-2 text-right">Momentum</th><th class="p-2 text-left">Signal</th></tr></thead><tbody>' : '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>');
             for (const m of (data.macro || [])) {
                 const perf = m.perf_52w;
                 const color = perf > 0 ? 'text-green-600' : perf < 0 ? 'text-red-600' : '';
@@ -488,7 +488,22 @@
             html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '🔄 Sector Fund Flows (click for weekly detail)' : '🔄 板塊資金流動（點擊展開週對週分析）') + '</h3>';
             html += '<div class="space-y-1">';
             for (let i = 0; i < (data.broad_sectors || data.sectors || []).length; i++) {
-                const s = (data.broad_sectors || data.sectors)[i];
+                const s = Object.assign({}, (data.broad_sectors || data.sectors)[i]);
+                if (_lang === 'en') {
+                    const flowMap = {'流入':'Inflow','流出':'Outflow','中性':'Neutral'};
+                    const momMap = {'加速':'Accelerating','趨緩':'Decelerating','穩定':'Stable','跌勢趨緩':'Decelerating Drop'};
+                    if (s.flow && flowMap[s.flow]) s.flow = flowMap[s.flow];
+                    if (s.momentum && momMap[s.momentum]) s.momentum = momMap[s.momentum];
+                    // Translate sector name (remove Chinese prefix if bilingual like "科技 Tech")
+                    if (s.name) {
+                        const nameMap = {'科技':'Tech','醫療':'Healthcare','金融':'Financials','能源':'Energy',
+                            '消費選擇':'Consumer Disc.','消費必需':'Consumer Staples','工業':'Industrials',
+                            '通訊':'Communication','公用事業':'Utilities','原材料':'Materials','房地產':'Real Estate'};
+                        for (const [zh, en] of Object.entries(nameMap)) {
+                            if (s.name.startsWith(zh)) { s.name = en; break; }
+                        }
+                    }
+                }
                 const perf = s.perf_52w;
                 const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
                 const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
@@ -873,7 +888,24 @@
 
                 // 市場情緒摘要（顯示在最前面）
                 if (data.market_summary && data.market_summary.trim()) {
-                    reportMarkdown += '## 📊 ' + (_lang === 'en' ? 'Market Sentiment' : '市場情緒指標') + '\n' + data.market_summary + '\n\n---\n\n';
+                    let ms = data.market_summary;
+                    if (_lang === 'en') {
+                        const msMap = {
+                            '當前:': 'Current:', '一週前:': 'Last week:', '解讀:': 'Signal:',
+                            '情緒分數:': 'Sentiment Score:', '操作建議:': 'Recommendation:',
+                            '計算因子:': 'Factors:', '今日熱門:': 'Trending:', '今日熱門股:': 'Trending:',
+                            '中性': 'Neutral', '極度貪婪': 'Extreme Greed', '極度恐懼': 'Extreme Fear',
+                            '市場情緒偏多，追高需謹慎': 'Bullish market - caution chasing highs',
+                            '市場情緒偏空，注意下檔風險': 'Bearish market - watch downside risk',
+                            '100=極度貪婪': '100=Extreme Greed', '0=中性': '0=Neutral',
+                            '-100=極度恐懼': '-100=Extreme Fear',
+                            '分析框架應結合此情緒分數調整進出場建議的積極程度': 'Adjust entry/exit aggressiveness based on this sentiment score.',
+                        };
+                        for (const [zh, en] of Object.entries(msMap)) {
+                            ms = ms.split(zh).join(en);
+                        }
+                    }
+                    reportMarkdown += '## 📊 ' + (_lang === 'en' ? 'Market Sentiment' : '市場情緒指標') + '\n' + ms + '\n\n---\n\n';
                 }
 
                 // 對比表（全模型時顯示）
