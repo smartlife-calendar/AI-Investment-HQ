@@ -81,11 +81,11 @@
         "specifyBody": "json",
         "jsonBody": {
           "model": "claude-haiku-4-5",
-          "max_tokens": 300,
+          "max_tokens": 350,
           "messages": [
             {
               "role": "user",
-              "content": "用繁體中文寫一則自然的Threads貼文80-120字，推廣 StockIQ AI 股票分析工具，網址 https://stockiq.tw，語氣自然不像廣告，加2-3個hashtag。"
+              "content": "你是台灣 Threads 用戶，今天輪到推廣其中一個產品。\n\n今日推廣：{{ $node[\"Get Day of Week\"].json.isStockIQDay ? 'StockIQ 股票分析' : 'SmartLife Calendar 行事曆' }}\n\n如果是 StockIQ：\n- 用繁體中文，80-120字，自然語氣\n- 提到 AI 股票分析、省時間、看懂趨勢\n- 連結：stockiq.tw\n- hashtag 一定要有：#Stock #美股（再加1個相關的）\n\n如果是 SmartLife Calendar：\n- 用繁體中文，80-120字，自然語氣\n- 提到時間管理、生活規劃、智慧行事曆\n- App Store：https://apps.apple.com/tw/app/smartlife-calendar/id6762165674\n- Google Play：https://play.google.com/store/apps/details?id=app.smartlifecalendar\n- hashtag 一定要有：#App #好用工具（再加1個相關的）\n\n只輸出貼文內容，不要加任何說明。"
             }
           ]
         }
@@ -101,7 +101,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst final = text.includes('stockiq.tw') ? text : text + '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: final}}];"
+        "jsCode": "const r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst isStockIQ = $node['Get Day of Week'].json.isStockIQDay;\nlet final = text;\nif (isStockIQ && !final.includes('stockiq.tw')) final += '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: final}}];"
       }
     },
     {
