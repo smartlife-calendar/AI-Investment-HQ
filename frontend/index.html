@@ -390,6 +390,8 @@
                 if (loginBtn) loginBtn.style.display = '';
                 if (userInfo) userInfo.style.display = 'none';
             }
+            // Re-apply language after auth state change (ensures lang is applied to all new elements)
+            applyLang();
         }
 
         async function signInWithGoogle() {
@@ -451,7 +453,7 @@
             const panel = document.getElementById('macroPanel');
             const content = document.getElementById('macroContent');
             panel.classList.remove('hidden');
-            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入總體經濟數據（約15秒）...</p>';
+            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ ' + (_lang==='en' ? 'Loading macro data (~15s)...' : '載入總體經濟數據（約15秒）...') + '</p>';
             
             const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
             try {
@@ -491,14 +493,20 @@
                 const s = Object.assign({}, (data.broad_sectors || data.sectors)[i]);
                 if (_lang === 'en') {
                     const flowMap = {'流入':'Inflow','流出':'Outflow','中性':'Neutral'};
-                    const momMap = {'加速':'Accelerating','趨緩':'Decelerating','穩定':'Stable','跌勢趨緩':'Decelerating Drop'};
+                    const momMap = {
+                        '加速':'Accelerating','趨緩':'Decelerating','穩定':'Stable',
+                        '跌勢趨緩':'Decelerating Drop','加速下跌':'Accelerating Drop',
+                        '強勢加速':'Strong Accel.','弱勢趨緩':'Weakening'};
                     if (s.flow && flowMap[s.flow]) s.flow = flowMap[s.flow];
                     if (s.momentum && momMap[s.momentum]) s.momentum = momMap[s.momentum];
                     // Translate sector name (remove Chinese prefix if bilingual like "科技 Tech")
                     if (s.name) {
-                        const nameMap = {'科技':'Tech','醫療':'Healthcare','金融':'Financials','能源':'Energy',
-                            '消費選擇':'Consumer Disc.','消費必需':'Consumer Staples','工業':'Industrials',
-                            '通訊':'Communication','公用事業':'Utilities','原材料':'Materials','房地產':'Real Estate'};
+                        const nameMap = {
+                            '科技':'Tech','醫療':'Healthcare','金融':'Financials','能源':'Energy',
+                            '非必需消費':'Consumer Disc.','消費選擇':'Consumer Disc.',
+                            '必需消費':'Consumer Staples','消費必需':'Consumer Staples',
+                            '工業':'Industrials','通訊':'Communication','公用事業':'Utilities',
+                            '公用':'Utilities','原材料':'Materials','房地產':'Real Estate'};
                         for (const [zh, en] of Object.entries(nameMap)) {
                             if (s.name.startsWith(zh)) { s.name = en; break; }
                         }
@@ -894,7 +902,12 @@
                             '當前:': 'Current:', '一週前:': 'Last week:', '解讀:': 'Signal:',
                             '情緒分數:': 'Sentiment Score:', '操作建議:': 'Recommendation:',
                             '計算因子:': 'Factors:', '今日熱門:': 'Trending:', '今日熱門股:': 'Trending:',
+                            '→ 無明顯情緒偏向': '→ No clear directional bias',
+                            '→ 樂觀': '→ Greed', '→ 恐懼': '→ Fear',
+                            '→ 極度貪婪': '→ Extreme Greed', '→ 極度恐懼': '→ Extreme Fear',
+                            '樂觀 (Greed)': 'Greed', '恐懼 (Fear)': 'Fear',
                             '中性': 'Neutral', '極度貪婪': 'Extreme Greed', '極度恐懼': 'Extreme Fear',
+                            '樂觀': 'Greed', '恐懼': 'Fear',
                             '市場情緒偏多，追高需謹慎': 'Bullish market - caution chasing highs',
                             '市場情緒偏空，注意下檔風險': 'Bearish market - watch downside risk',
                             '100=極度貪婪': '100=Extreme Greed', '0=中性': '0=Neutral',
@@ -947,7 +960,28 @@
                             ? '　｜　Target: Bear ' + bear + ' / Base ' + base + ' / Bull ' + bull
                             : '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
                         reportMarkdown += '\n\n';
-                        reportMarkdown += analysis + '\n';
+                        let analysisText = analysis;
+                        if (_lang === 'en' && analysisText) {
+                            const aiMap = {
+                                '悲觀目標價:': 'Bear Target:',  '基準目標價:': 'Base Target:',
+                                '樂觀目標價:': 'Bull Target:',  '評級:': 'Rating:',
+                                '升級觸發:': 'Upgrade trigger:', '降級觸發:': 'Downgrade trigger:',
+                                '估值結論': 'Valuation Conclusion', '核心指標': 'Key Metrics',
+                                '主要風險': 'Key Risks', '指標評分表': 'Scorecard',
+                                '核心指標評分表': 'Key Metric Scorecard',
+                                '超買': 'Overbought', '超賣': 'Oversold', '中性': 'Neutral',
+                                '多頭動能': 'Bullish momentum', '空頭動能': 'Bearish momentum',
+                                '黃金排列': 'Golden cross', '死亡排列': 'Death cross',
+                                '超買上軌': 'Upper BB overbought', '超賣下軌': 'Lower BB oversold',
+                                '正常無放大': 'Normal volume', '量能萎縮': 'Volume declining',
+                                '量能放大': 'Volume surging', '觀望': 'Hold', '買進': 'Buy',
+                                '賣出': 'Sell', '強力買進': 'Strong Buy', '強力迴避': 'Strong Sell',
+                            };
+                            for (const [zh, en] of Object.entries(aiMap)) {
+                                analysisText = analysisText.split(zh).join(en);
+                            }
+                        }
+                        reportMarkdown += analysisText + '\n';
 
                         count++;
                         // Show all frameworks for now (paywall to be added via login system later)
