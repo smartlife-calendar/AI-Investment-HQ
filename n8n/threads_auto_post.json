@@ -101,7 +101,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const response = $input.first().json;\nconst text = response.content[0].text.trim();\nconst finalText = text.includes('stockiq.tw') ? text : text + '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: finalText}}];"
+        "jsCode": "const r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst final = text.includes('stockiq.tw') ? text : text + '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: final}}];"
       }
     },
     {
@@ -130,7 +130,7 @@
         "jsonBody": {
           "media_type": "TEXT",
           "text": "={{ $json.postText }}",
-          "access_token": "THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD"
+          "access_token": "THAHZCwqhe0ZAWtBYlkwTHJ6dEhYUXVLYWVWMjVybkFQRGhORl85S3FRaWd2UjgxWHBwY0tELVp4Yk5GaE84QllidjNOLUtTaF9HLTRPVG43VEhOSndYeVdYbmkzTFB2dUI4dHVSaDl1OFhqcHFqUGY3ZAlFESjZAteHVnUHhwNFM2SlVDcW1USl9FZAUhpSmFLaHMZD"
         }
       }
     },
@@ -173,7 +173,7 @@
         "specifyBody": "json",
         "jsonBody": {
           "creation_id": "={{ $json.id }}",
-          "access_token": "THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD"
+          "access_token": "THAHZCwqhe0ZAWtBYlkwTHJ6dEhYUXVLYWVWMjVybkFQRGhORl85S3FRaWd2UjgxWHBwY0tELVp4Yk5GaE84QllidjNOLUtTaF9HLTRPVG43VEhOSndYeVdYbmkzTFB2dUI4dHVSaDl1OFhqcHFqUGY3ZAlFESjZAteHVnUHhwNFM2SlVDcW1USl9FZAUhpSmFLaHMZD"
         }
       }
     }
