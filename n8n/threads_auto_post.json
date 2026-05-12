@@ -1,0 +1,235 @@
+{
+  "name": "StockIQ & SmartLife - Threads Auto Post",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Daily Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 1 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "get_day",
+      "name": "Get Day of Week",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\nconst now = new Date();\n// Convert to Taiwan time (UTC+8)\nconst taiwanOffset = 8 * 60 * 60 * 1000;\nconst taiwanTime = new Date(now.getTime() + taiwanOffset);\nconst day = taiwanTime.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat\n\n// Alternating: odd days = StockIQ, even days = SmartLife\nconst isStockIQDay = day % 2 !== 0;\n\nreturn [{\n    json: {\n        day: day,\n        isStockIQDay: isStockIQDay,\n        product: isStockIQDay ? 'stockiq' : 'smartlife',\n        taiwanDate: taiwanTime.toISOString().slice(0, 10)\n    }\n}];\n"
+      }
+    },
+    {
+      "id": "get_trending",
+      "name": "Get StockIQ Trending",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        680,
+        200
+      ],
+      "parameters": {
+        "url": "https://ai-investment-hq-production.up.railway.app/trending",
+        "method": "GET",
+        "options": {}
+      }
+    },
+    {
+      "id": "generate_post",
+      "name": "AI Generate Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        900,
+        300
+      ],
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "YOUR_ANTHROPIC_API_KEY"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-haiku-4-5\",\n  \"max_tokens\": 300,\n  \"messages\": [{\n    \"role\": \"user\",\n    \"content\": {{ $json.isStockIQDay ? \n      '你是一個台灣的投資愛好者，今天熱門股票是：' + ($node[\"Get StockIQ Trending\"].json.trending || ['NVDA','AAPL','TSLA']).slice(0,3).join('、') + '。\\n請用繁體中文寫一則自然、有溫度的 Threads 貼文（80-120字），提到這些股票可以在 stockiq.tw 查看 AI 深度分析，加上 2-3 個相關 hashtag。不要太像廣告，語氣自然。' \n      : '你是一個台灣的生活達人，請用繁體中文寫一則自然、有溫度的 Threads 貼文（80-120字），推廣 SmartLife Calendar 智慧行事曆 App，強調它可以幫助時間管理、生活規劃，附上 App Store 連結 https://apps.apple.com/tw/app/smartlife-calendar/id6762165674 和 Google Play 連結 https://play.google.com/store/apps/details?id=app.smartlifecalendar，加上 2-3 個 hashtag。不要太像廣告，語氣自然。'\n    }}\"\n  }]\n}"
+      }
+    },
+    {
+      "id": "extract_text",
+      "name": "Extract Post Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        300
+      ],
+      "parameters": {
+        "jsCode": "\nconst response = $input.first().json;\nconst text = response.content[0].text;\n\n// Add stockiq.tw link for StockIQ posts if not already included\nlet finalText = text;\nif ($node[\"Get Day of Week\"].json.isStockIQDay && !text.includes('stockiq.tw')) {\n    finalText = text + '\\n\\n🔍 免費分析：https://stockiq.tw';\n}\n\nreturn [{json: {postText: finalText.trim()}}];\n"
+      }
+    },
+    {
+      "id": "create_container",
+      "name": "Create Threads Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1340,
+        300
+      ],
+      "parameters": {
+        "url": "https://graph.threads.net/v1.0/26779577381733831/threads",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"media_type\": \"TEXT\", \"text\": \"{{ $json.postText }}\", \"access_token\": \"THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD\"}"
+      }
+    },
+    {
+      "id": "wait",
+      "name": "Wait 5s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        300
+      ],
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      }
+    },
+    {
+      "id": "publish",
+      "name": "Publish to Threads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1780,
+        300
+      ],
+      "parameters": {
+        "url": "https://graph.threads.net/v1.0/26779577381733831/threads_publish",
+        "method": "POST",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"creation_id\": \"{{ $json.id }}\", \"access_token\": \"THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD\"}"
+      }
+    }
+  ],
+  "connections": {
+    "Daily Schedule": {
+      "main": [
+        [
+          {
+            "node": "Get Day of Week",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Day of Week": {
+      "main": [
+        [
+          {
+            "node": "Get StockIQ Trending",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Generate Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get StockIQ Trending": {
+      "main": [
+        [
+          {
+            "node": "AI Generate Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Generate Post": {
+      "main": [
+        [
+          {
+            "node": "Extract Post Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Post Text": {
+      "main": [
+        [
+          {
+            "node": "Create Threads Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Threads Container": {
+      "main": [
+        [
+          {
+            "node": "Wait 5s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5s": {
+      "main": [
+        [
+          {
+            "node": "Publish to Threads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
