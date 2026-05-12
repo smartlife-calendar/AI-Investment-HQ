@@ -570,13 +570,12 @@
             }
             html += '</div>';
             
-            // Sub-sectors - gated: requires login
+            // Sub-sectors - FREE for logged in users, login prompt for guests
             if (data.sub_sectors && Object.keys(data.sub_sectors).length > 0) {
                 if (!_currentUser) {
-                    // Not logged in: show teaser + gate
+                    // Not logged in: show teaser + login (free, just need account)
                     html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
                     html += '<div class="relative">';
-                    // Show first group blurred
                     const firstGroup = Object.entries(data.sub_sectors)[0];
                     if (firstGroup) {
                         const [grp, subs] = firstGroup;
@@ -595,17 +594,17 @@
                     }
                     html += `<div class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-80 rounded-xl">
                         <div class="text-center p-6">
-                            <div class="text-3xl mb-2">🔓</div>
+                            <div class="text-3xl mb-2">🆓</div>
                             <p class="font-bold text-gray-800 mb-1">子板塊細分追蹤</p>
-                            <p class="text-gray-500 text-sm mb-4">登入即可查看 ${Object.values(data.sub_sectors).flat().length} 支細分 ETF 的資金流向</p>
+                            <p class="text-gray-500 text-sm mb-4">登入即可<strong>免費</strong>查看 ${Object.values(data.sub_sectors).flat().length} 支細分 ETF 的資金流向</p>
                             <button onclick="signInWithGoogle()" class="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 mx-auto">
-                                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> 免費登入解鎖
+                                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> 免費登入查看
                             </button>
                         </div>
                     </div>`;
                     html += '</div>';
                 } else {
-                // Logged in: show full sub-sectors
+                // Logged in: show full sub-sectors (completely free)
                 html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
                 let subIdx = 1000; // offset to avoid id collision with broad sectors
                 for (const [group, subs] of Object.entries(data.sub_sectors)) {
@@ -1115,11 +1114,11 @@
                         <div class="text-xs text-gray-500 mt-1">體驗包 10次 NT$29<br>標準包 50次 NT$99<br>進階包 200次 NT$299</div>
                         <div class="text-xs text-indigo-600 mt-2 font-medium">不過期・不訂閱</div>
                     </div>
-                    <div class="bg-white rounded-lg p-4 text-center shadow-sm">
-                        <div class="text-2xl mb-1">🔓</div>
-                        <div class="font-bold text-gray-800">子板塊解鎖</div>
-                        <div class="text-xs text-gray-500 mt-1">細分 ETF 資金流向<br>週對週趨勢分析<br>月繳制</div>
-                        <div class="text-lg font-bold text-indigo-600 mt-2">NT$30/月</div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm border border-green-100">
+                        <div class="text-2xl mb-1">🎁</div>
+                        <div class="font-bold text-gray-800">子板塊追蹤</div>
+                        <div class="text-xs text-gray-500 mt-1">細分 ETF 資金流向<br>週對週趨勢分析<br>登入即可使用</div>
+                        <div class="text-lg font-bold text-green-600 mt-2">完全免費</div>
                     </div>
                 </div>
                 <p class="text-xs text-gray-500">服務內容：AI 多框架股票分析報告，包含財務結構、技術面（RSI/MACD/布林）、Piotroski F-Score、Peter Lynch GARP、Howard Marks 宏觀週期等 7 大分析框架，提供悲觀/基準/樂觀三情境估值目標價及投資評級。</p>
@@ -1140,7 +1139,7 @@
                 <strong class="text-gray-700">服務條款：</strong>本平台提供之分析報告僅供參考，不構成任何投資建議或勸誘。投資涉及風險，過去績效不保證未來表現。使用者應自行評估投資決策，本平台不負擔任何投資損益責任。使用本服務即代表同意本條款。
             </div>
             <div id="refund" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
-                <strong class="text-gray-700">退款政策：</strong>次數包購買後如未使用，可於購買後 7 日內申請全額退款。已使用的次數按比例扣除。月繳子板塊方案可於當月結束前取消，不收取違約金。退款申請請寄信至 support@stockiq.tw，處理時間 3-5 個工作天。
+                <strong class="text-gray-700">退款政策：</strong>次數包購買後如未使用，可於購買後 7 日內申請全額退款。已使用的次數按比例扣除。退款申請請寄信至 support@stockiq.tw，處理時間 3-5 個工作天。
             </div>
             <div id="consumer" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
                 <strong class="text-gray-700">消費者權益：</strong>依消費者保護法，數位商品（分析次數包）購買後如有品質問題，可於 7 日內申請退款。如有任何消費爭議，可聯繫客服 support@stockiq.tw 或向消費者保護委員會申訴。
