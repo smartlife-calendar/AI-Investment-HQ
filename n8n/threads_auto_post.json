@@ -31,7 +31,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const now = new Date();\nconst taiwanOffset = 8 * 60 * 60 * 1000;\nconst taiwanTime = new Date(now.getTime() + taiwanOffset);\nconst day = taiwanTime.getDay();\nconst isStockIQDay = day % 2 !== 0;\nreturn [{json: {day, isStockIQDay, product: isStockIQDay ? 'stockiq' : 'smartlife'}}];"
+        "jsCode": "const now = new Date();\nconst tw = new Date(now.getTime() + 8*3600000);\nconst day = tw.getDay();\nreturn [{json: {day, isStockIQDay: day%2!==0, product: day%2!==0?'stockiq':'smartlife'}}];"
       }
     },
     {
@@ -78,8 +78,17 @@
           ]
         },
         "sendBody": true,
-        "specifyBody": "string",
-        "body": "={{ (() => { const isStockIQ = $node[\"Get Day of Week\"].json.isStockIQDay; const trending = ($node[\"Get StockIQ Trending\"].json.trending || ['NVDA','AAPL','TSLA']).slice(0,3).join('、'); const prompt = isStockIQ ? '你是台灣投資愛好者，今日熱門股票：' + trending + '。用繁體中文寫自然的Threads貼文80-120字，介紹在stockiq.tw可看AI分析，加2-3個hashtag，語氣自然不像廣告。' : '你是台灣生活達人，用繁體中文寫自然的Threads貼文80-120字，推廣SmartLife Calendar智慧行事曆App幫助時間管理，附App Store https://apps.apple.com/tw/app/smartlife-calendar/id6762165674 和Google Play https://play.google.com/store/apps/details?id=app.smartlifecalendar，加2-3個hashtag，語氣自然。'; return JSON.stringify({model:'claude-haiku-4-5',max_tokens:300,messages:[{role:'user',content:prompt}]}); })() }}"
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "claude-haiku-4-5",
+          "max_tokens": 300,
+          "messages": [
+            {
+              "role": "user",
+              "content": "用繁體中文寫一則自然的Threads貼文80-120字，推廣 StockIQ AI 股票分析工具，網址 https://stockiq.tw，語氣自然不像廣告，加2-3個hashtag。"
+            }
+          ]
+        }
       }
     },
     {
@@ -92,7 +101,7 @@
         300
       ],
       "parameters": {
-        "jsCode": "const response = $input.first().json;\nconst text = response.content[0].text;\nlet finalText = text.trim();\nif ($node['Get Day of Week'].json.isStockIQDay && !finalText.includes('stockiq.tw')) {\n  finalText = finalText + '\\n\\n🔍 免費分析：https://stockiq.tw';\n}\nreturn [{json: {postText: finalText}}];"
+        "jsCode": "const response = $input.first().json;\nconst text = response.content[0].text.trim();\nconst finalText = text.includes('stockiq.tw') ? text : text + '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: finalText}}];"
       }
     },
     {
@@ -107,9 +116,22 @@
       "parameters": {
         "url": "https://graph.threads.net/v1.0/26779577381733831/threads",
         "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
         "sendBody": true,
-        "specifyBody": "string",
-        "body": "={\"media_type\": \"TEXT\", \"text\": \"{{ $json.postText }}\", \"access_token\": \"THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD\"}"
+        "specifyBody": "json",
+        "jsonBody": {
+          "media_type": "TEXT",
+          "text": "={{ $json.postText }}",
+          "access_token": "THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD"
+        }
       }
     },
     {
@@ -138,9 +160,21 @@
       "parameters": {
         "url": "https://graph.threads.net/v1.0/26779577381733831/threads_publish",
         "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
         "sendBody": true,
-        "specifyBody": "string",
-        "body": "{\"creation_id\": \"{{ $json.id }}\", \"access_token\": \"THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD\"}"
+        "specifyBody": "json",
+        "jsonBody": {
+          "creation_id": "={{ $json.id }}",
+          "access_token": "THAHZCwqhe0ZAWtBYmF1RWZAfelVzdGJwMmZA1c2JPZAjdhcTRSSTVQSFBZAMHJ6Q21Na1BmOXBHVHdYN29GQjJlRElLOTVEREhXTERZAbG9jalZAhNUY1Nlhldld4UWU2RjdneW1YeFZAjNjNqU0lHRzVOUVFwSnkyUVE3SGZA4bXdQeE0xQ3RYU1lpakc3aDA5TFhqMHMZD"
+        }
       }
     }
   ],
