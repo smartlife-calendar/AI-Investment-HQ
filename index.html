@@ -334,6 +334,16 @@
             if (loginText) loginText.textContent = t.loginBtn;
             // HTML lang attr
             document.documentElement.lang = _lang === 'zh' ? 'zh-TW' : 'en';
+            // Disclaimer
+            const dTitle = document.getElementById('disclaimerTitle');
+            const dBody = document.getElementById('disclaimerBody');
+            const dBodyEn = document.getElementById('disclaimerBodyEn');
+            if (dTitle) dTitle.textContent = _lang==='en' ? 'Investment Disclaimer' : '投資風險警語 Investment Disclaimer';
+            if (dBody) dBody.style.display = _lang==='en' ? 'none' : '';
+            if (dBodyEn) dBodyEn.style.display = _lang==='en' ? '' : 'none';
+            // Input label  
+            const inputLabelEl = document.getElementById('inputLabel');
+            if (inputLabelEl) inputLabelEl.textContent = _lang==='en' ? 'Enter Stock Ticker (US)' : '輸入美股代號 (Ticker)';
             const macroTitle = document.getElementById('macroSectionTitle');
             if (macroTitle) macroTitle.textContent = _lang === 'en' ? '🌐 Macro Economy & 52W Sector Flows' : '🌐 總體經濟 & 板塊52週資金流動';
         }
@@ -963,20 +973,58 @@
                         let analysisText = analysis;
                         if (_lang === 'en' && analysisText) {
                             const aiMap = {
-                                '悲觀目標價:': 'Bear Target:',  '基準目標價:': 'Base Target:',
-                                '樂觀目標價:': 'Bull Target:',  '評級:': 'Rating:',
-                                '升級觸發:': 'Upgrade trigger:', '降級觸發:': 'Downgrade trigger:',
-                                '估值結論': 'Valuation Conclusion', '核心指標': 'Key Metrics',
-                                '主要風險': 'Key Risks', '指標評分表': 'Scorecard',
-                                '核心指標評分表': 'Key Metric Scorecard',
-                                '超買': 'Overbought', '超賣': 'Oversold', '中性': 'Neutral',
-                                '多頭動能': 'Bullish momentum', '空頭動能': 'Bearish momentum',
-                                '黃金排列': 'Golden cross', '死亡排列': 'Death cross',
-                                '超買上軌': 'Upper BB overbought', '超賣下軌': 'Lower BB oversold',
-                                '正常無放大': 'Normal volume', '量能萎縮': 'Volume declining',
-                                '量能放大': 'Volume surging', '觀望': 'Hold', '買進': 'Buy',
-                                '賣出': 'Sell', '強力買進': 'Strong Buy', '強力迴避': 'Strong Sell',
-                            };
+                            // Valuation labels
+                            '悲觀目標價:': 'Bear Target:', '基準目標價:': 'Base Target:',
+                            '樂觀目標價:': 'Bull Target:', '評級:': 'Rating:',
+                            '升級觸發:': 'Upgrade trigger:', '降級觸發:': 'Downgrade trigger:',
+                            // Section headers
+                            '估值結論': 'Valuation Conclusion', '核心指標評分表': 'Key Metric Scorecard',
+                            '核心指標': 'Key Metrics', '主要風險': 'Key Risks',
+                            '技術面詳細解讀': 'Technical Detail', '指標評分表': 'Scorecard',
+                            '多頭訊號': '📈 Bullish Signals', '空頭訊號': '📉 Bearish Signals',
+                            '風險訊號': '⚠️ Risk Signals', '警示訊號': '⚠️ Warning Signals',
+                            // Table headers
+                            '| 指標 | 數值 | 評分 |': '| Indicator | Value | Grade |',
+                            '| 指標 | 數值 | 判定 |': '| Indicator | Value | Signal |',
+                            '| 指標 | 數值 | 標準 | 評分 |': '| Indicator | Value | Standard | Grade |',
+                            '|---|---|---|': '|---|---|---|',
+                            // Indicator names
+                            '布林通道%B': 'Bollinger %B', 'MACD柱狀圖': 'MACD Histogram',
+                            '均線排列': 'MA Alignment', '均線系統': 'MA System',
+                            '量比': 'Volume Ratio', '成交量': 'Volume',
+                            '布林帶': 'Bollinger Band', '布林通道': 'Bollinger Band',
+                            // Signal descriptions
+                            '短中長期向上排列': 'Short/Mid/Long-term uptrend aligned',
+                            '短期強勢向上': 'Short-term strong uptrend',
+                            '成交量正常': 'Normal volume', '成交量放大': 'Volume expanding',
+                            '成交量萎縮': 'Volume declining',
+                            'Bullish momentum持續擴大': 'Bullish momentum expanding',
+                            'Neutral偏強': 'Neutral-Bullish',
+                            'Overbought上軌': 'Overbought (upper BB)',
+                            'Overbought預警': 'Overbought warning',
+                            'RSI接近70': 'RSI near 70',
+                            '基本面與技術面背離': 'Fundamentals-technical divergence',
+                            '多頭控制': 'Bulls in control', '空頭控制': 'Bears in control',
+                            '確認買方控制': 'Confirms bull control',
+                            '確認上漲有效性': 'Confirms valid upside',
+                            '反映波動加大': 'Reflects expanding volatility',
+                            '獲利了結壓力增加': 'Profit-taking pressure building',
+                            '短期漲幅過度': 'Short-term overextended',
+                            '修正風險高': 'High correction risk',
+                            '技術面驅動': 'Technically driven',
+                            // General
+                            '超買': 'Overbought', '超賣': 'Oversold', '中性': 'Neutral',
+                            '多頭動能': 'Bullish momentum', '空頭動能': 'Bearish momentum',
+                            '黃金排列': 'Golden cross', '死亡排列': 'Death cross',
+                            '量能萎縮': 'Volume declining', '量能放大': 'Volume surging',
+                            '量能溫和': 'Moderate volume', '量能正常': 'Normal volume',
+                            '觀望': 'Hold', '買進': 'Buy', '賣出': 'Sell',
+                            '強力買進': 'Strong Buy', '強力迴避': 'Strong Sell',
+                            // Misc
+                            '區間': 'range', '預警區': 'warning zone', '上軌': 'upper band',
+                            '下軌': 'lower band', '日內': 'within days',
+                            '訊號線': 'signal line', '帶寬': 'bandwidth', '位置': 'position',
+                        };
                             for (const [zh, en] of Object.entries(aiMap)) {
                                 analysisText = analysisText.split(zh).join(en);
                             }
