@@ -1,5 +1,5 @@
 {
-  "name": "StockIQ & SmartLife - Threads Auto Post",
+  "name": "StockIQ & SmartLife - Threads Auto Post (2/day)",
   "nodes": [
     {
       "id": "schedule-1",
@@ -7,7 +7,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        240,
+        100,
         300
       ],
       "parameters": {
@@ -22,40 +22,26 @@
       }
     },
     {
-      "id": "code-1",
-      "name": "Build Prompt",
+      "id": "code-stockiq",
+      "name": "StockIQ Prompt",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        460,
-        300
+        300,
+        160
       ],
       "parameters": {
-        "jsCode": "\nconst now = new Date();\nconst tw = new Date(now.getTime() + 8*3600000);\nconst day = tw.getDay();\nconst isStockIQ = day % 2 !== 0;\n\nlet prompt;\nif (isStockIQ) {\n    prompt = `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 StockIQ AI 股票分析工具。\n強調：省時間、AI分析、看懂市場趨勢、適合上班族。\n結尾加上：stockiq.tw\nHashtag 一定要有：#Stock #美股，再加一個相關的。\n只輸出貼文內容，不要加說明或標題。`;\n} else {\n    prompt = `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 SmartLife Calendar 智慧行事曆 App。\n強調：時間管理、生活規劃、不漏掉重要事項。\niOS 下載：https://apps.apple.com/tw/app/smartlife-calendar/id6762165674\nAndroid 下載：https://play.google.com/store/apps/details?id=app.smartlifecalendar\nHashtag 一定要有：#App #好用工具，再加一個相關的。\n只輸出貼文內容，不要加說明或標題。`;\n}\n\nreturn [{json: {isStockIQ, prompt, day}}];\n"
+        "jsCode": "return [{json: {prompt: `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 StockIQ AI 股票分析工具。\\n強調：省時間、AI分析、看懂市場趨勢、適合上班族投資人。\\n結尾附上：stockiq.tw\\nHashtag 必須包含：#Stock #美股，再加一個相關的。\\n只輸出貼文內容，不要加任何說明。`}}];"
       }
     },
     {
-      "id": "http-1",
-      "name": "Get StockIQ Trending",
+      "id": "http-ai-stockiq",
+      "name": "AI Post - StockIQ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
       "position": [
-        680,
-        200
-      ],
-      "parameters": {
-        "url": "https://ai-investment-hq-production.up.railway.app/trending",
-        "method": "GET"
-      }
-    },
-    {
-      "id": "http-2",
-      "name": "AI Generate Post",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
-      "position": [
-        900,
-        300
+        520,
+        160
       ],
       "parameters": {
         "url": "https://api.anthropic.com/v1/messages",
@@ -81,7 +67,7 @@
         "specifyBody": "json",
         "jsonBody": {
           "model": "claude-haiku-4-5",
-          "max_tokens": 350,
+          "max_tokens": 300,
           "messages": [
             {
               "role": "user",
@@ -92,26 +78,26 @@
       }
     },
     {
-      "id": "code-2",
-      "name": "Extract Post Text",
+      "id": "code-extract-stockiq",
+      "name": "Extract StockIQ Text",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        300
+        740,
+        160
       ],
       "parameters": {
-        "jsCode": "\nconst r = $input.first().json;\nconst text = r.content[0].text.trim();\nconst isStockIQ = $node['Build Prompt'].json.isStockIQ;\nlet final = text;\nif (isStockIQ && !final.includes('stockiq.tw')) {\n    final += '\\n\\n🔍 https://stockiq.tw';\n}\nreturn [{json: {postText: final}}];\n"
+        "jsCode": "const t = $input.first().json.content[0].text.trim();\nconst final = t.includes('stockiq.tw') ? t : t + '\\n\\n🔍 https://stockiq.tw';\nreturn [{json: {postText: final}}];"
       }
     },
     {
-      "id": "http-3",
-      "name": "Create Threads Container",
+      "id": "http-container-stockiq",
+      "name": "Create Container - StockIQ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
       "position": [
-        1340,
-        300
+        960,
+        160
       ],
       "parameters": {
         "url": "https://graph.threads.net/v1.0/26779577381733831/threads",
@@ -135,13 +121,13 @@
       }
     },
     {
-      "id": "wait-1",
-      "name": "Wait 5s",
+      "id": "wait-stockiq",
+      "name": "Wait 5s (StockIQ)",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1,
       "position": [
-        1560,
-        300
+        1180,
+        160
       ],
       "parameters": {
         "amount": 5,
@@ -149,13 +135,155 @@
       }
     },
     {
-      "id": "http-4",
-      "name": "Publish to Threads",
+      "id": "http-publish-stockiq",
+      "name": "Publish StockIQ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
       "position": [
-        1780,
-        300
+        1400,
+        160
+      ],
+      "parameters": {
+        "url": "https://graph.threads.net/v1.0/26779577381733831/threads_publish",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "creation_id": "={{ $json.id }}",
+          "access_token": "THAHZCwqhe0ZAWtBYlkwTHJ6dEhYUXVLYWVWMjVybkFQRGhORl85S3FRaWd2UjgxWHBwY0tELVp4Yk5GaE84QllidjNOLUtTaF9HLTRPVG43VEhOSndYeVdYbmkzTFB2dUI4dHVSaDl1OFhqcHFqUGY3ZAlFESjZAteHVnUHhwNFM2SlVDcW1USl9FZAUhpSmFLaHMZD"
+        }
+      }
+    },
+    {
+      "id": "code-smartlife",
+      "name": "SmartLife Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        300,
+        440
+      ],
+      "parameters": {
+        "jsCode": "return [{json: {prompt: `用繁體中文寫一則自然的 Threads 貼文，80-120字，推廣 SmartLife Calendar 智慧行事曆 App。\\n強調：時間管理、生活規劃、不漏掉重要事項。\\niOS 下載：https://apps.apple.com/tw/app/smartlife-calendar/id6762165674\\nAndroid 下載：https://play.google.com/store/apps/details?id=app.smartlifecalendar\\nHashtag 必須包含：#App #好用工具，再加一個相關的。\\n只輸出貼文內容，不要加任何說明。`}}];"
+      }
+    },
+    {
+      "id": "http-ai-smartlife",
+      "name": "AI Post - SmartLife",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        520,
+        440
+      ],
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "YOUR_ANTHROPIC_API_KEY"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "claude-haiku-4-5",
+          "max_tokens": 300,
+          "messages": [
+            {
+              "role": "user",
+              "content": "={{ $json.prompt }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "code-extract-smartlife",
+      "name": "Extract SmartLife Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        440
+      ],
+      "parameters": {
+        "jsCode": "const t = $input.first().json.content[0].text.trim();\nreturn [{json: {postText: t}}];"
+      }
+    },
+    {
+      "id": "http-container-smartlife",
+      "name": "Create Container - SmartLife",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        960,
+        440
+      ],
+      "parameters": {
+        "url": "https://graph.threads.net/v1.0/26779577381733831/threads",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "media_type": "TEXT",
+          "text": "={{ $json.postText }}",
+          "access_token": "THAHZCwqhe0ZAWtBYlkwTHJ6dEhYUXVLYWVWMjVybkFQRGhORl85S3FRaWd2UjgxWHBwY0tELVp4Yk5GaE84QllidjNOLUtTaF9HLTRPVG43VEhOSndYeVdYbmkzTFB2dUI4dHVSaDl1OFhqcHFqUGY3ZAlFESjZAteHVnUHhwNFM2SlVDcW1USl9FZAUhpSmFLaHMZD"
+        }
+      }
+    },
+    {
+      "id": "wait-smartlife",
+      "name": "Wait 5s (SmartLife)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        440
+      ],
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      }
+    },
+    {
+      "id": "http-publish-smartlife",
+      "name": "Publish SmartLife",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1400,
+        440
       ],
       "parameters": {
         "url": "https://graph.threads.net/v1.0/26779577381733831/threads_publish",
@@ -183,78 +311,122 @@
       "main": [
         [
           {
-            "node": "Build Prompt",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Build Prompt": {
-      "main": [
-        [
-          {
-            "node": "Get StockIQ Trending",
+            "node": "StockIQ Prompt",
             "type": "main",
             "index": 0
           },
           {
-            "node": "AI Generate Post",
+            "node": "SmartLife Prompt",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get StockIQ Trending": {
+    "StockIQ Prompt": {
       "main": [
         [
           {
-            "node": "AI Generate Post",
+            "node": "AI Post - StockIQ",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AI Generate Post": {
+    "AI Post - StockIQ": {
       "main": [
         [
           {
-            "node": "Extract Post Text",
+            "node": "Extract StockIQ Text",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Extract Post Text": {
+    "Extract StockIQ Text": {
       "main": [
         [
           {
-            "node": "Create Threads Container",
+            "node": "Create Container - StockIQ",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Create Threads Container": {
+    "Create Container - StockIQ": {
       "main": [
         [
           {
-            "node": "Wait 5s",
+            "node": "Wait 5s (StockIQ)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Wait 5s": {
+    "Wait 5s (StockIQ)": {
       "main": [
         [
           {
-            "node": "Publish to Threads",
+            "node": "Publish StockIQ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SmartLife Prompt": {
+      "main": [
+        [
+          {
+            "node": "AI Post - SmartLife",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Post - SmartLife": {
+      "main": [
+        [
+          {
+            "node": "Extract SmartLife Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract SmartLife Text": {
+      "main": [
+        [
+          {
+            "node": "Create Container - SmartLife",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Container - SmartLife": {
+      "main": [
+        [
+          {
+            "node": "Wait 5s (SmartLife)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5s (SmartLife)": {
+      "main": [
+        [
+          {
+            "node": "Publish SmartLife",
             "type": "main",
             "index": 0
           }
