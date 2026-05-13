@@ -48,6 +48,29 @@ def track_query(ticker: str, persona: str):
     if len(_query_history) > 1000:
         _query_history.pop(0)
 
+# === Threads Auto-Poster Setup ===
+try:
+    from anthropic import Anthropic as _Anthropic
+    _anthropic_client = _Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
+    from threads_poster import generate_and_post as _threads_post
+    
+    def _run_threads_post():
+        print("[Scheduler] Running daily Threads posts...")
+        try:
+            results = _threads_post(_anthropic_client)
+            for r in results:
+                print(f"[Scheduler] {r}")
+        except Exception as e:
+            print(f"[Scheduler] Error: {e}")
+    
+    # Schedule daily at 01:00 UTC = 09:00 Taiwan
+    _scheduler = BackgroundScheduler()
+    _scheduler.add_job(_run_threads_post, CronTrigger(hour=1, minute=0))
+    _scheduler.start()
+    print("[Scheduler] Threads auto-poster scheduled at 01:00 UTC daily")
+except Exception as e:
+    print(f"[Scheduler] Setup error (non-fatal): {e}")
+
 # === Data Cache ===
 # Cache: {ticker: {"data": {...}, "expires": timestamp, "version": str}}
 _data_cache: dict = {}
@@ -89,7 +112,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.3.2", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.4.0", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -121,7 +144,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.3.2",
+        "version": "4.4.0",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -146,6 +169,18 @@ def list_personas():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+@app.post("/threads-post")
+async def manual_threads_post():
+    """Manually trigger Threads posting (admin use)"""
+    try:
+        from anthropic import Anthropic as _A
+        from threads_poster import generate_and_post as _tp
+        client = _A(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
+        results = _tp(client)
+        return {"status": "ok", "results": results}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
 
 @app.get("/trending")
 def trending():
