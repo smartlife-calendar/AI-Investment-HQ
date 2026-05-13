@@ -22,3 +22,5 @@ restartPolicyType = "ON_FAILURE"
 # v3.9.0 parallel fetch
 
 # v4.2.5 auth + JWT
+
+# v4.4.0 redeploy 2026-05-13T01:08
