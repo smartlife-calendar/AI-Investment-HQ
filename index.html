@@ -2,7 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+    <link rel="icon" type="image/png" href="https://stockiq.tw/favicon.png">
+    <link rel="apple-touch-icon" href="https://stockiq.tw/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="StockIQ.TW - AI-powered multi-model stock analysis platform. Get deep financial analysis using 7 frameworks including Financial Structure, Peter Lynch GARP, Piotroski F-Score, Technical Analysis (RSI/MACD/Bollinger), Howard Marks Macro, and more. Free tier available.">
     <meta name="keywords" content="stock analysis, AI investing, Piotroski F-Score, Peter Lynch, technical analysis, RSI, MACD, financial analysis, stock research, investment">
@@ -73,7 +74,10 @@
 
         <!-- Header -->
         <header class="text-center mb-6">
-            <h1 id="mainTitle" class="text-3xl font-bold text-gray-900 mb-3">StockIQ｜全方位多模型股市分析</h1>
+            <div class="flex items-center justify-center gap-4 mb-3">
+                <img src="https://stockiq.tw/logo.png" alt="StockIQ Logo" class="w-16 h-16 object-contain">
+                <h1 id="mainTitle" class="text-3xl font-bold text-gray-900">StockIQ｜全方位多模型股市分析</h1>
+            </div>
             <button id="macroBtn" onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
                 <span class="text-lg">📊</span>
                 <span>總體經濟 & 板塊資金流動</span>
