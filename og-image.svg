@@ -1,0 +1,55 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Accent bar top -->
+  <rect x="0" y="0" width="1200" height="6" fill="url(#accent)"/>
+  
+  <!-- Chart decorative lines (background) -->
+  <polyline points="80,420 160,380 240,400 320,340 400,360 480,300 560,320 640,260 720,280 800,220 880,240 960,180 1040,200 1120,150" 
+    fill="none" stroke="#6366f1" stroke-width="2" opacity="0.3"/>
+  <polyline points="80,480 160,460 240,470 320,430 400,450 480,410 560,420 640,370 720,390 800,340 880,360 960,300 1040,320 1120,270" 
+    fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity="0.2"/>
+
+  <!-- Logo area -->
+  <text x="80" y="120" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">📊 StockIQ</text>
+  <text x="80" y="155" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8">.TW</text>
+  
+  <!-- Main tagline -->
+  <text x="80" y="240" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="white">AI 美股多框架深度分析</text>
+  <text x="80" y="300" font-family="Arial, sans-serif" font-size="28" fill="#94a3b8">7大分析框架 · 免費使用 · 即時數據</text>
+
+  <!-- Feature pills -->
+  <rect x="80" y="360" width="200" height="44" rx="22" fill="#6366f1" opacity="0.8"/>
+  <text x="180" y="389" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">財務結構</text>
+  
+  <rect x="300" y="360" width="200" height="44" rx="22" fill="#6366f1" opacity="0.7"/>
+  <text x="400" y="389" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">技術面分析</text>
+  
+  <rect x="520" y="360" width="200" height="44" rx="22" fill="#6366f1" opacity="0.7"/>
+  <text x="620" y="389" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Piotroski</text>
+  
+  <rect x="740" y="360" width="200" height="44" rx="22" fill="#6366f1" opacity="0.6"/>
+  <text x="840" y="389" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Peter Lynch</text>
+  
+  <rect x="960" y="360" width="180" height="44" rx="22" fill="#6366f1" opacity="0.5"/>
+  <text x="1050" y="389" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Howard Marks</text>
+
+  <!-- Bottom URL -->
+  <text x="80" y="560" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#6366f1">stockiq.tw</text>
+  <text x="80" y="600" font-family="Arial, sans-serif" font-size="20" fill="#64748b">輸入股票代號，立即獲得 AI 深度分析報告</text>
+  
+  <!-- Bottom accent -->
+  <rect x="0" y="624" width="1200" height="6" fill="url(#accent)"/>
+</svg>
