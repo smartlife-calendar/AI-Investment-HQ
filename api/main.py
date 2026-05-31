@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
@@ -112,7 +112,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.6.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.6.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -173,11 +173,10 @@ def list_personas():
 
 @app.post("/update-briefing")
 async def update_briefing_ep(x_admin_token: str = Header(default="")):
-    """Trigger daily briefing update via OpenClaw/local script"""
+    """Daily briefing stub - actual update runs via OpenClaw heartbeat script"""
     if x_admin_token != ADMIN_TOKEN:
         raise HTTPException(status_code=401, detail="Unauthorized")
-    return {"status": "use_cron", "message": "Run update_briefing.py via heartbeat or cron"}
-
+    return {"status": "use_heartbeat", "message": "Run update_briefing.py via OpenClaw heartbeat"}
 
 @app.post("/threads-post")
 async def manual_threads_post():
