@@ -112,7 +112,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.5.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.5.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -144,7 +144,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.5.0",
+        "version": "4.5.1",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -197,28 +197,58 @@ def market_movers():
     
     headers = {"User-Agent": "Mozilla/5.0 (compatible; StockIQ/1.0)"}
     
+    def get_signal(pct, vol_ratio):
+        if vol_ratio >= 1.5:
+            if pct > 3: return "🚀 強力買進"
+            elif pct > 1: return "📈 買壓偏強"
+            elif pct < -3: return "🔴 強力賣出"
+            elif pct < -1: return "📉 賣壓偏重"
+            else: return "🔄 換手整理"
+        else:
+            if pct > 2: return "📈 溫和上漲"
+            elif pct < -2: return "📉 溫和下跌"
+            else: return "➡️ 橫盤整理"
+
     def fetch_screener(scrId, count=10):
         try:
             url = f"https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?formatted=false&lang=en-US&region=US&scrIds={scrId}&count={count}"
             resp = requests.get(url, headers=headers, timeout=8)
             quotes = resp.json().get("finance", {}).get("result", [{}])[0].get("quotes", [])
-            return [{
-                "symbol": q.get("symbol", ""),
-                "name": q.get("shortName", q.get("longName", ""))[:30],
-                "price": round(q.get("regularMarketPrice", 0), 2),
-                "change": round(q.get("regularMarketChange", 0), 2),
-                "change_pct": round(q.get("regularMarketChangePercent", 0), 2),
-                "volume": q.get("regularMarketVolume", 0),
-                "market_cap": q.get("marketCap"),
-            } for q in quotes]
+            result = []
+            for q in quotes:
+                vol = q.get("regularMarketVolume", 0)
+                avg_vol = q.get("averageDailyVolume3Month") or q.get("averageDailyVolume10Day") or 0
+                vol_ratio = round(vol / avg_vol, 1) if avg_vol > 0 else 1.0
+                pct = round(q.get("regularMarketChangePercent", 0), 2)
+                result.append({
+                    "symbol": q.get("symbol", ""),
+                    "name": q.get("shortName", q.get("longName", ""))[:30],
+                    "price": round(q.get("regularMarketPrice", 0), 2),
+                    "change": round(q.get("regularMarketChange", 0), 2),
+                    "change_pct": pct,
+                    "volume": vol,
+                    "vol_ratio": vol_ratio,
+                    "signal": get_signal(pct, vol_ratio),
+                    "market_cap": q.get("marketCap"),
+                })
+            return result
         except Exception as e:
             print(f"Screener {scrId} error: {e}")
             return []
     
+    actives = fetch_screener("most_actives", count=25)
+    # Sort by signal strength: strong buy/sell first
+    strong_buy = sorted([x for x in actives if "強力買進" in x.get("signal","") or "買壓" in x.get("signal","")], 
+                        key=lambda x: x["change_pct"], reverse=True)[:10]
+    strong_sell = sorted([x for x in actives if "強力賣出" in x.get("signal","") or "賣壓" in x.get("signal","")], 
+                         key=lambda x: x["change_pct"])[:10]
+    
     result = {
         "gainers": fetch_screener("day_gainers"),
         "losers": fetch_screener("day_losers"),
-        "most_active": fetch_screener("most_actives"),
+        "most_active": actives[:10],
+        "strong_buy": strong_buy,
+        "strong_sell": strong_sell,
         "updated_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
     }
     
