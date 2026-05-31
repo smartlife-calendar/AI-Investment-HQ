@@ -112,7 +112,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.5.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.5.2", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -144,7 +144,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.5.1",
+        "version": "4.5.2",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -195,7 +195,19 @@ def market_movers():
     if cached and now < cached.get("expires", 0):
         return cached["data"]
     
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; StockIQ/1.0)"}
+    # Rotate user agents to avoid Yahoo Finance rate limiting
+    import random
+    ua_list = [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    ]
+    headers = {
+        "User-Agent": random.choice(ua_list),
+        "Accept": "application/json",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://finance.yahoo.com/",
+    }
     
     def get_signal(pct, vol_ratio):
         if vol_ratio >= 1.5:
@@ -211,9 +223,19 @@ def market_movers():
 
     def fetch_screener(scrId, count=10):
         try:
-            url = f"https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?formatted=false&lang=en-US&region=US&scrIds={scrId}&count={count}"
-            resp = requests.get(url, headers=headers, timeout=8)
-            quotes = resp.json().get("finance", {}).get("result", [{}])[0].get("quotes", [])
+            urls = [
+                f"https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?formatted=false&lang=en-US&region=US&scrIds={scrId}&count={count}",
+                f"https://query2.finance.yahoo.com/v1/finance/screener/predefined/saved?formatted=false&lang=en-US&region=US&scrIds={scrId}&count={count}",
+            ]
+            url = urls[0]  # Try query1 first
+            resp = requests.get(url, headers=headers, timeout=10)
+            data = resp.json()
+            quotes = data.get("finance", {}).get("result", [{}])[0].get("quotes", [])
+            # Retry with query2 if query1 returned empty
+            if not quotes and len(urls) > 1:
+                resp = requests.get(urls[1], headers=headers, timeout=10)
+                data = resp.json()
+                quotes = data.get("finance", {}).get("result", [{}])[0].get("quotes", [])
             result = []
             for q in quotes:
                 vol = q.get("regularMarketVolume", 0)
