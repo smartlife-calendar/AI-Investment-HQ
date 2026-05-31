@@ -170,6 +170,15 @@ def list_personas():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
+@app.post("/update-briefing")
+async def update_briefing_ep(x_admin_token: str = Header(default="")):
+    """Trigger daily briefing update via OpenClaw/local script"""
+    if x_admin_token != ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return {"status": "use_cron", "message": "Run update_briefing.py via heartbeat or cron"}
+
+
 @app.post("/threads-post")
 async def manual_threads_post():
     """Manually trigger Threads posting (admin use)"""
