@@ -784,6 +784,21 @@
         }
 
         // Load version and check maintenance on page load
+
+        function loadMovers() {
+            // Scroll to the pre-generated market briefing section
+            const briefing = document.getElementById('topBriefing');
+            if (briefing) {
+                briefing.scrollIntoView({behavior: 'smooth', block: 'start'});
+                // Add a highlight effect
+                briefing.style.outline = '2px solid #6366f1';
+                setTimeout(() => { briefing.style.outline = ''; }, 2000);
+            } else {
+                // Fallback: scroll to bottom where briefing should be
+                window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+            }
+        }
+
         // Initialize Auth on page load
         initAuth();
 
