@@ -112,7 +112,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.4.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.5.0", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -144,7 +144,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.4.0",
+        "version": "4.5.0",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
@@ -181,6 +181,50 @@ async def manual_threads_post():
         return {"status": "ok", "results": results}
     except Exception as e:
         return {"status": "error", "error": str(e)}
+
+
+@app.get("/market-movers")
+def market_movers():
+    """Real-time US market movers: gainers, losers, most active"""
+    import time
+    cache_key = "market_movers"
+    now = time.time()
+    
+    # Cache for 5 minutes
+    cached = _data_cache.get(cache_key)
+    if cached and now < cached.get("expires", 0):
+        return cached["data"]
+    
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; StockIQ/1.0)"}
+    
+    def fetch_screener(scrId, count=10):
+        try:
+            url = f"https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?formatted=false&lang=en-US&region=US&scrIds={scrId}&count={count}"
+            resp = requests.get(url, headers=headers, timeout=8)
+            quotes = resp.json().get("finance", {}).get("result", [{}])[0].get("quotes", [])
+            return [{
+                "symbol": q.get("symbol", ""),
+                "name": q.get("shortName", q.get("longName", ""))[:30],
+                "price": round(q.get("regularMarketPrice", 0), 2),
+                "change": round(q.get("regularMarketChange", 0), 2),
+                "change_pct": round(q.get("regularMarketChangePercent", 0), 2),
+                "volume": q.get("regularMarketVolume", 0),
+                "market_cap": q.get("marketCap"),
+            } for q in quotes]
+        except Exception as e:
+            print(f"Screener {scrId} error: {e}")
+            return []
+    
+    result = {
+        "gainers": fetch_screener("day_gainers"),
+        "losers": fetch_screener("day_losers"),
+        "most_active": fetch_screener("most_actives"),
+        "updated_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
+    }
+    
+    _data_cache[cache_key] = {"data": result, "expires": now + 300}
+    return result
+
 
 @app.get("/trending")
 def trending():
