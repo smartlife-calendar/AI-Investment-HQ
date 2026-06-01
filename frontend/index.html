@@ -61,6 +61,16 @@
             font-weight: 600;
         }
     </style>
+
+    <style>
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        #marketTickerWrapper { overflow: hidden; }
+        #marketTickerWrapper:hover #marketTickerBar { animation-play-state: paused !important; }
+    </style>
+
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- SEO Content Block - Visible to search crawlers -->
@@ -338,6 +348,8 @@
             _lang = lang;
             localStorage.setItem('lang', lang);
             applyLang();
+        // Load market ticker
+        loadMarketTicker();
         // Auto-load daily briefing immediately
         loadDailyBriefing();
         }
@@ -799,6 +811,63 @@
             }
         }
 
+
+        async function loadMarketTicker() {
+            const bar = document.getElementById('marketTickerBar');
+            if (!bar) return;
+            
+            const symbols = [
+                {sym: '^GSPC', name: 'S&P 500'},
+                {sym: '^IXIC', name: 'NASDAQ'},
+                {sym: '^DJI', name: '道瓊'},
+                {sym: '^VIX', name: 'VIX'}
+            ];
+            
+            let tickerHtml = '';
+            for (const s of symbols) {
+                try {
+                    const enc = encodeURIComponent(s.sym);
+                    const resp = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${enc}?interval=1d&range=1d`);
+                    const d = await resp.json();
+                    const meta = d?.chart?.result?.[0]?.meta || {};
+                    const price = meta.regularMarketPrice || 0;
+                    const prev = meta.chartPreviousClose || price;
+                    const pct = prev ? ((price - prev) / prev * 100) : 0;
+                    const color = pct > 0 ? '#22c55e' : pct < 0 ? '#ef4444' : '#94a3b8';
+                    const arrow = pct > 0 ? '▲' : pct < 0 ? '▼' : '─';
+                    tickerHtml += `<span style="margin:0 16px;white-space:nowrap"><span style="color:#cbd5e1">${s.name}</span> <span style="font-weight:700">${s.sym.includes('VIX') ? price.toFixed(2) : price.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2})}</span> <span style="color:${color}">${arrow}${Math.abs(pct).toFixed(2)}%</span></span>`;
+                    await new Promise(r => setTimeout(r, 300));
+                } catch(e) {}
+            }
+            
+            if (tickerHtml) {
+                bar.innerHTML = tickerHtml + tickerHtml; // duplicate for scroll effect
+                bar.style.animation = 'tickerScroll 30s linear infinite';
+            }
+        }
+
+        async function loadStockNews(ticker) {
+            try {
+                const resp = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${ticker}&newsCount=4&quotesCount=0`);
+                const d = await resp.json();
+                const news = d?.news || [];
+                if (!news.length) return;
+                
+                const newsHtml = news.slice(0, 4).map(n => 
+                    `<a href="${n.link}" target="_blank" rel="noopener" style="display:block;padding:8px 0;border-bottom:1px solid #e5e7eb;text-decoration:none;color:#374151;font-size:12px;line-height:1.5">
+                        <div style="font-weight:500;color:#1e293b;margin-bottom:2px">${n.title}</div>
+                        <div style="color:#94a3b8;font-size:11px">${n.publisher || ''} · ${new Date(n.providerPublishTime*1000).toLocaleDateString('zh-TW')}</div>
+                    </a>`
+                ).join('');
+                
+                const newsSection = document.getElementById('stockNewsSection');
+                if (newsSection) {
+                    newsSection.innerHTML = `<h4 style="font-weight:700;color:#1e293b;margin:16px 0 8px;font-size:14px">📰 相關新聞</h4>${newsHtml}`;
+                    newsSection.style.display = 'block';
+                }
+            } catch(e) { console.log('News error:', e); }
+        }
+
         // Initialize Auth on page load
         initAuth();
 
@@ -1113,6 +1182,8 @@
                 }
 
                 document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
+                document.getElementById('stockNewsSection').innerHTML = '';
+                loadStockNews(ticker);
 
             } catch (error) {
                 if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
