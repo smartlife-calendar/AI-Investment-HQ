@@ -1191,7 +1191,9 @@
 
                 document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
                 document.getElementById('stockNewsSection').innerHTML = '';
+                document.getElementById('scorecardSection').innerHTML = '';
                 loadStockNews(ticker);
+                renderScorecard(data, ticker);
 
             } catch (error) {
                 if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
