@@ -73,6 +73,13 @@
 
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+    <!-- Market Index Ticker Bar -->
+    <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
+        <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
+            <span style="color:#64748b;margin:0 16px">⏳ 載入大盤數據...</span>
+        </div>
+    </div>
+
     <!-- SEO Content Block - Visible to search crawlers -->
     <div id="seo-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
         <h1>StockIQ.TW - AI 美股多框架分析平台</h1>
@@ -208,6 +215,7 @@
                 <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
             </div>
             
+            <div id="stockNewsSection" style="display:none;border-top:1px solid #e5e7eb;margin-top:16px;padding-top:4px"></div>
             <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed markdown-body">
                 <!-- Report content goes here -->
             </div>
