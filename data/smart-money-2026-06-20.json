@@ -1,8 +1,8 @@
 {
   "date": "2026-06-20",
-  "generated_at": "2026-06-20T22:02:37.973536+08:00",
+  "generated_at": "2026-06-20T22:03:20.833903+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 20,
+  "count": 19,
   "stocks": [
     {
       "symbol": "FLEX",
@@ -111,15 +111,6 @@
       "vol_ratio": 2.89,
       "volume": 377357,
       "avg_volume": 130404
-    },
-    {
-      "symbol": "RKLB",
-      "name": "Rocket Lab Corporation",
-      "price": 107.24,
-      "change_pct": -0.69,
-      "vol_ratio": 2.58,
-      "volume": 70192050,
-      "avg_volume": 27231929
     },
     {
       "symbol": "LEU",
