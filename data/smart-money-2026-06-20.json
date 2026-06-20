@@ -1,6 +1,6 @@
 {
   "date": "2026-06-20",
-  "generated_at": "2026-06-20T21:31:51.655477+08:00",
+  "generated_at": "2026-06-20T22:02:37.973536+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 20,
   "stocks": [
@@ -113,13 +113,13 @@
       "avg_volume": 130404
     },
     {
-      "symbol": "EXLS",
-      "name": "ExlService Holdings, Inc.",
-      "price": 25.93,
-      "change_pct": -6.93,
-      "vol_ratio": 2.44,
-      "volume": 5762455,
-      "avg_volume": 2357374
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "price": 107.24,
+      "change_pct": -0.69,
+      "vol_ratio": 2.58,
+      "volume": 70192050,
+      "avg_volume": 27231929
     },
     {
       "symbol": "LEU",
