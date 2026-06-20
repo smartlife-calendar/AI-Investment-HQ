@@ -136,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.8.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.8.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -244,7 +244,9 @@ def get_indices():
             import time as _time
             _time.sleep(1)
             url = f"https://query2.finance.yahoo.com/v8/finance/chart/{sym.replace('^','%5E')}?interval=1d&range=1d"
-            r = requests.get(url, headers=yf_headers, timeout=10)
+            req_yf = urllib.request.Request(url, headers=yf_headers)
+            r_obj = urllib.request.urlopen(req_yf, timeout=10)
+            r = type('R', (), {'json': lambda self: json.loads(r_obj.read())})()
             meta = r.json().get("chart", {}).get("result", [{}])[0].get("meta", {})
             price = meta.get("regularMarketPrice", 0)
             prev = meta.get("chartPreviousClose", price)
