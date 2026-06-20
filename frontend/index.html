@@ -882,6 +882,72 @@
             } catch(e) { console.log('News error:', e); }
         }
 
+
+        function showTab(tabId) {
+            const tabs = ['tab-daily', 'tab-analyze', 'tab-macro', 'tab-smart', 'tab-history'];
+            const btns = ['btn-daily', 'btn-analyze', 'btn-macro', 'btn-smart', 'btn-history'];
+            tabs.forEach(t => {
+                const el = document.getElementById(t);
+                if (el) el.style.display = t === tabId ? 'block' : 'none';
+            });
+            btns.forEach(b => {
+                const btn = document.getElementById(b);
+                if (btn) {
+                    const isActive = b === 'btn-' + tabId.replace('tab-','');
+                    btn.style.background = isActive ? '#4f46e5' : 'transparent';
+                    btn.style.color = isActive ? 'white' : '#64748b';
+                }
+            });
+            // Load macro when tab clicked
+            if (tabId === 'tab-macro') loadMacro();
+            if (tabId === 'tab-smart') loadSmartMoney();
+        }
+
+        async function loadSmartMoney() {
+            const el = document.getElementById('smartMoneyContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#64748b;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
+            try {
+                // Load most_actives with vol_ratio as proxy for smart money
+                const resp = await fetch(API_BASE_URL + '/market-movers');
+                const data = await resp.json();
+                const actives = (data.most_active || []).filter(q => (q.vol_ratio || 0) >= 2);
+                actives.sort((a,b) => (b.vol_ratio||0) - (a.vol_ratio||0));
+                
+                let html = '<div style="margin-bottom:16px"><h3 style="font-size:16px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量監控（量比≥2x）</h3>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:12px">量比超過2倍且有明顯方向的股票，往往是主力資金進出的跡象。</p>';
+                
+                if (actives.length === 0) {
+                    html += '<p style="color:#94a3b8;text-align:center;padding:16px">今日無量比≥2x的異常放量個股</p>';
+                } else {
+                    actives.slice(0, 10).forEach(q => {
+                        const p = q.change_pct || 0;
+                        const vr = q.vol_ratio || 1;
+                        const color = p > 0 ? '#16a34a' : '#dc2626';
+                        const bg = p > 0 ? '#f0fdf4' : '#fef2f2';
+                        const signal = vr >= 3 ? '🚨 極強訊號' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
+                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid ${p>0?'#bbf7d0':'#fecaca'}">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
+                                <span style="font-size:11px;color:#64748b;margin-left:8px">${q.name||''}</span>
+                            </div>
+                            <div style="text-align:right">
+                                <div style="color:${color};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
+                                <div style="font-size:11px;color:#f97316;font-weight:600">量比 ${vr}x · ${signal}</div>
+                            </div>
+                        </div>`;
+                    });
+                }
+                html += '</div>';
+                html += '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:12px;color:#92400e">⚠️ 金流密碼僅為技術訊號參考，不代表一定有主力介入。建議搭配基本面分析使用。點擊任一股票進入完整 AI 分析。</div>';
+                el.innerHTML = html;
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+
         // Initialize Auth on page load
         initAuth();
 
@@ -1373,6 +1439,18 @@
                         <span>🤖</span> Google Play
                     </a>
                 </div>
+            </div>
+        </div>
+
+
+        <!-- Tab Navigation -->
+        <div class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="display:flex;gap:2px;background:#e2e8f0;border-radius:12px;padding:4px;overflow-x:auto">
+                <button onclick="showTab('tab-daily')" id="btn-daily" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:#4f46e5;color:white;white-space:nowrap;min-width:90px">📰 今日速報</button>
+                <button onclick="showTab('tab-analyze')" id="btn-analyze" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🔍 股票分析</button>
+                <button onclick="showTab('tab-macro')" id="btn-macro" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🌊 板塊資金</button>
+                <button onclick="showTab('tab-smart')" id="btn-smart" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">💡 金流密碼</button>
+                <button onclick="showTab('tab-history')" id="btn-history" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">📅 歷史資料</button>
             </div>
         </div>
 
