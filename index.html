@@ -900,7 +900,7 @@
         function showTab(tabName) {
             const allIds = ['topBriefing','dailyColumn','analyzeSection','macroSection','smartSection','newsSection','historySection'];
             const showIds = {
-                'today': ['topBriefing','dailyColumn'],
+                'today': ['topBriefing','dailyColumn','earningsSection'],
                 'analyze': ['analyzeSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
@@ -1146,6 +1146,66 @@
                     }
                 }
             } catch(e) {}
+        }
+
+
+        async function loadEarningsCalendar() {
+            const el = document.getElementById('earningsCalContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入財報日曆...</p>';
+            try {
+                // Key stocks with upcoming earnings (static list, updated weekly)
+                const watchedStocks = ['NVDA','AAPL','MSFT','TSLA','META','AMZN','GOOGL','AMD','INTC','NFLX','ORCL','ADBE'];
+                const results = [];
+                
+                for (const sym of watchedStocks.slice(0, 6)) {
+                    try {
+                        await new Promise(r => setTimeout(r, 200));
+                        const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=1d`);
+                        const data = await r.json();
+                        const meta = data?.chart?.result?.[0]?.meta || {};
+                        const ets = meta.earningsTimestampStart;
+                        if (ets) {
+                            const earningsDate = new Date(ets * 1000);
+                            const today = new Date();
+                            const daysAway = Math.round((earningsDate - today) / 86400000);
+                            if (daysAway >= -7 && daysAway <= 30) {
+                                results.push({
+                                    sym,
+                                    date: earningsDate.toLocaleDateString('zh-TW'),
+                                    days: daysAway,
+                                    price: meta.regularMarketPrice
+                                });
+                            }
+                        }
+                    } catch(e) {}
+                }
+                
+                results.sort((a, b) => a.days - b.days);
+                
+                if (!results.length) {
+                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近期無重大財報</p>';
+                } else {
+                    el.innerHTML = results.map(r => {
+                        const urgency = r.days >= 0 && r.days <= 7 ? '🔥' : r.days >= 0 ? '📅' : '✅';
+                        const dayText = r.days < 0 ? `${Math.abs(r.days)}天前` : r.days === 0 ? '今天' : `${r.days}天後`;
+                        const bg = r.days >= 0 && r.days <= 3 ? '#fef3c7' : 'white';
+                        return `<div onclick="document.getElementById('tickerInput').value='${r.sym}';showTab('analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:4px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:14px">${r.sym}</span>
+                                <span style="font-size:11px;color:#64748b;margin-left:8px">${r.date}</span>
+                            </div>
+                            <div style="text-align:right">
+                                <span style="font-size:13px">${urgency} ${dayText}</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗</p>';
+            }
         }
 
         // Initialize Auth on page load
@@ -1624,6 +1684,21 @@
 </div>
         </div>
 
+
+
+        <!-- Earnings Calendar in Today Tab -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection">
+            <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <div>
+                        <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0">📅 近期重大財報日曆</h3>
+                        <p style="font-size:12px;color:#94a3b8;margin:2px 0 0">財報前後股價波動最大，提早準備</p>
+                    </div>
+                    <button onclick="loadEarningsCalendar()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px">載入</button>
+                </div>
+                <div id="earningsCalContent"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:8px">點擊「載入」查看近期財報</p></div>
+            </div>
+        </div>
 
         <!-- SmartLife Calendar App Ad -->
         <div class="max-w-5xl mx-auto mt-6 px-4">
