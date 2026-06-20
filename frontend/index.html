@@ -108,7 +108,7 @@
             <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">板塊資金</button>
             <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">金流密碼</button>
             <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">財金新聞</button>
-            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">歷史資料</button>
+            <button onclick="showTab('daily_data')" id="tab-daily_data" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">每日資料</button>
             <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">投資教學</a>
             <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">市場日報</a>
         </div>
@@ -896,14 +896,14 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','macroSection','smartSection','newsSection','historySection','earningsSection'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
             const showIds = {
-                'today': ['topBriefing','dailyColumn','earningsSection'],
+                'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
                 'analyze': ['analyzeSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
-                'history': ['historySection']
+                'daily_data': ['historySection']
             }[tabName] || [];
             
             allIds.forEach(id => {
@@ -1626,7 +1626,13 @@
                                 analysisText = analysisText.split(zh).join(en);
                             }
                         }
-                        reportMarkdown += analysisText + '\n';
+                        // Strip markdown formatting
+                        let cleanText = analysisText
+                            .replace(/^#{1,3}\s/gm, '')
+                            .replace(/\*\*(.*?)\*\*/g, '$1')
+                            .replace(/\*(.*?)\*/g, '$1')
+                            .replace(/^[-*]\s/gm, '• ');
+                        reportMarkdown += cleanText + '\n';
 
                         count++;
                         // Show all frameworks for now (paywall to be added via login system later)
@@ -1813,7 +1819,7 @@
         </div>
 
         <!-- SmartLife Calendar App Ad -->
-        <div class="max-w-5xl mx-auto mt-6 px-4">
+        <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
             <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
                 <div style="display:flex;align-items:center;gap:16px">
                     <div style="background:white;border-radius:14px;padding:10px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
@@ -1861,7 +1867,7 @@
         <!-- History Section -->
         <div id="historySection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">歷史資料</h2>
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">每日資料</h2>
                 <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日市場速報和事件分析完整存檔 · 由 Railway 機器人每天 09:00 和 21:00 更新</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
                     <a href="/daily/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
