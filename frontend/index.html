@@ -76,7 +76,9 @@
     <!-- Market Index Ticker Bar -->
     <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
         <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
-            <span style="color:#64748b;margin:0 16px">⏳ 載入大盤數據...</span>
+            <span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">S&P 500</span> <span id="sp500val" style="font-weight:700">---</span> <span id="sp500chg" style="color:#94a3b8">--.--%</span></span>
+<span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">NASDAQ</span> <span id="nasdaqval" style="font-weight:700">---</span> <span id="nasdaqchg" style="color:#94a3b8">--.--%</span></span>
+<span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">VIX</span> <span id="vixval" style="font-weight:700">---</span> <span id="vixchg" style="color:#94a3b8">--.--%</span></span>
         </div>
     </div>
 
@@ -128,21 +130,7 @@
                 <img src="https://stockiq.tw/logo.png" alt="StockIQ Logo" class="w-16 h-16 object-contain">
                 <h1 id="mainTitle" class="text-3xl font-bold text-gray-900">StockIQ｜全方位多模型股市分析</h1>
             </div>
-            <button id="macroBtn" onclick="loadMacro()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-medium text-sm rounded-xl shadow-md hover:bg-indigo-700 active:scale-95 transition-all border border-indigo-700">
-                <span class="text-lg">📊</span>
-                <span>總體經濟 & 板塊資金流動</span>
-                <span class="text-xs bg-indigo-500 px-1.5 py-0.5 rounded-md">LIVE</span>
-            </button>
-                <a href="/learn/" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#7c3aed;color:white;font-weight:600;font-size:13px;border-radius:10px;text-decoration:none;box-shadow:0 2px 6px rgba(124,58,237,0.3)">
-                    <span>📚</span><span>投資教學</span>
-                </a>
-                <a href="/news/" style="display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#0891b2;color:white;font-weight:600;font-size:13px;border-radius:10px;text-decoration:none;box-shadow:0 2px 6px rgba(8,145,178,0.3)">
-                    <span>🌐</span><span>財金新聞</span>
-                </a>
-                <button onclick="loadMovers()" class="inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white font-medium text-sm rounded-xl shadow hover:bg-orange-600 active:scale-95 transition-all">
-                    <span>🔥</span><span id="moversBtnText">今日行情速覽</span>
-                </button>
-        </header>
+                    </header>
 
         <!-- Macro Panel -->
         <div id="macroPanel" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
