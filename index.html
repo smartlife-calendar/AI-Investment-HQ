@@ -229,6 +229,9 @@
                 <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
             </div>
             
+            <div id="pos52w" style="display:none"></div>
+            <div id="earningsDate" style="display:none;margin-bottom:10px"></div>
+            <div id="relatedStocks" style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px;display:none"></div>
             <div id="stockNewsSection" style="display:none;border-top:1px solid #e5e7eb;margin-top:16px;padding-top:4px"></div>
             <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed markdown-body">
                 <!-- Report content goes here -->
@@ -1069,6 +1072,82 @@
             document.body.appendChild(btn);
         }
 
+
+        async function loadExtraAnalysis(ticker, currentPrice, high52w, low52w) {
+            // 52W Position indicator
+            if (currentPrice && high52w && low52w) {
+                const range = high52w - low52w;
+                const pos = range > 0 ? ((currentPrice - low52w) / range * 100).toFixed(0) : 50;
+                const distFromHigh = high52w > 0 ? (((high52w - currentPrice) / high52w) * 100).toFixed(1) : 0;
+                const posColor = pos > 80 ? '#dc2626' : pos > 50 ? '#f59e0b' : '#16a34a';
+                
+                const el52w = document.getElementById('pos52w');
+                if (el52w) {
+                    el52w.innerHTML = `
+                        <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px">
+                            <div style="font-size:12px;color:#64748b;margin-bottom:6px">📊 52週位置</div>
+                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                                <div style="flex:1;min-width:150px">
+                                    <div style="background:#e2e8f0;border-radius:4px;height:8px;position:relative">
+                                        <div style="background:${posColor};width:${pos}%;height:100%;border-radius:4px"></div>
+                                        <div style="position:absolute;top:-18px;left:${pos}%;transform:translateX(-50%);font-size:11px;font-weight:700;color:${posColor}">${pos}%</div>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:4px">
+                                        <span>低 $${low52w}</span><span>高 $${high52w}</span>
+                                    </div>
+                                </div>
+                                <div style="text-align:center">
+                                    <div style="font-size:11px;color:#64748b">距52週高點</div>
+                                    <div style="font-weight:700;color:#dc2626">-${distFromHigh}%</div>
+                                </div>
+                            </div>
+                        </div>`;
+                    el52w.style.display = 'block';
+                }
+            }
+            
+            // Load earnings date
+            try {
+                const er = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                const ed = await er.json();
+                const meta = ed?.chart?.result?.[0]?.meta || {};
+                const ets = meta.earningsTimestampStart;
+                const elEarnings = document.getElementById('earningsDate');
+                if (elEarnings && ets) {
+                    const earningsDate = new Date(ets * 1000);
+                    const today = new Date();
+                    const daysAway = Math.round((earningsDate - today) / 86400000);
+                    const dateStr = earningsDate.toLocaleDateString('zh-TW');
+                    const urgency = daysAway >= 0 && daysAway <= 7 ? '🔥 即將' : daysAway >= 0 && daysAway <= 30 ? '📅 近期' : '📅';
+                    elEarnings.innerHTML = `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e">
+                        ${urgency} <strong>財報日期：${dateStr}</strong>${daysAway >= 0 ? ` (${daysAway}天後)` : ' (已公布)'}</div>`;
+                    elEarnings.style.display = 'block';
+                }
+            } catch(e) {}
+            
+            // Related stocks in same sector
+            try {
+                const sectorMap = {
+                    'NVDA':'INTC,AMD,AVGO', 'AAPL':'MSFT,GOOGL,META', 'TSLA':'F,GM,RIVN',
+                    'MSFT':'AAPL,GOOGL,AMZN', 'META':'GOOGL,SNAP,PINS', 'AMZN':'WMT,TGT,EBAY',
+                    'GOOGL':'META,MSFT,AAPL', 'AMD':'NVDA,INTC,QCOM', 'INTC':'NVDA,AMD,QCOM',
+                };
+                const related = sectorMap[ticker.toUpperCase()];
+                if (related) {
+                    const elRelated = document.getElementById('relatedStocks');
+                    if (elRelated) {
+                        elRelated.innerHTML = `<div style="font-size:12px;color:#64748b;margin-bottom:6px">🔗 同板塊比較</div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap">` +
+                            related.split(',').map(s => 
+                                `<button onclick="document.getElementById('tickerInput').value='${s}';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                                    style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;color:#4f46e5;font-size:13px">${s}</button>`
+                            ).join('') + '</div>';
+                        elRelated.style.display = 'block';
+                    }
+                }
+            } catch(e) {}
+        }
+
         // Initialize Auth on page load
         initAuth();
 
@@ -1386,6 +1465,14 @@
                 document.getElementById('stockNewsSection').innerHTML = '';
                 document.getElementById('scorecardSection').innerHTML = '';
                 loadStockNews(ticker);
+                // Load 52W position, earnings, related stocks
+                try {
+                    const meta = (data.structured_results && Object.values(data.structured_results)[0]) || {};
+                    const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                    const chartD = await r.json();
+                    const chartMeta = chartD?.chart?.result?.[0]?.meta || {};
+                    loadExtraAnalysis(ticker, chartMeta.regularMarketPrice, chartMeta.fiftyTwoWeekHigh, chartMeta.fiftyTwoWeekLow);
+                } catch(e) {}
                 addWatchButton(ticker);
                 renderScorecard(data, ticker);
 
