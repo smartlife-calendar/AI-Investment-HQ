@@ -963,50 +963,153 @@
 
 
 
+
         async function loadSmartMoney() {
             const el = document.getElementById('smartMoneyContent');
             if (!el || el.dataset.loaded) return;
-            el.innerHTML = '<p style="color:#64748b;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
             try {
-                // Load most_actives with vol_ratio as proxy for smart money
+                // Part 1: Volume anomaly from market movers
                 const resp = await fetch(API_BASE_URL + '/market-movers');
                 const data = await resp.json();
                 const actives = (data.most_active || []).filter(q => (q.vol_ratio || 0) >= 2);
                 actives.sort((a,b) => (b.vol_ratio||0) - (a.vol_ratio||0));
                 
-                let html = '<div style="margin-bottom:16px"><h3 style="font-size:16px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量監控（量比≥2x）</h3>';
-                html += '<p style="font-size:12px;color:#64748b;margin-bottom:12px">量比超過2倍且有明顯方向的股票，往往是主力資金進出的跡象。</p>';
+                let html = '<div id="smartTabs" style="display:flex;gap:8px;margin-bottom:16px">';
+                html += '<button onclick="switchSmartTab('volume')" id="smartTab-volume" style="padding:6px 14px;border:1px solid #4f46e5;border-radius:6px;background:#4f46e5;color:white;cursor:pointer;font-size:12px;font-weight:600">📊 量能異常</button>';
+                html += '<button onclick="switchSmartTab('options')" id="smartTab-options" style="padding:6px 14px;border:1px solid #e2e8f0;border-radius:6px;background:white;color:#64748b;cursor:pointer;font-size:12px;font-weight:600">📈 選擇權訊號</button>';
+                html += '</div>';
                 
-                if (actives.length === 0) {
+                // Volume anomaly section
+                html += '<div id="smart-volume">';
+                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量個股（量比≥2x）</h4>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">量比超過2倍通常代表主力資金在行動，需要搭配方向判斷（大漲=買進、大跌=賣出）</p>';
+                
+                if (!actives.length) {
                     html += '<p style="color:#94a3b8;text-align:center;padding:16px">今日無量比≥2x的異常放量個股</p>';
                 } else {
-                    actives.slice(0, 10).forEach(q => {
+                    actives.slice(0, 12).forEach(q => {
                         const p = q.change_pct || 0;
                         const vr = q.vol_ratio || 1;
-                        const color = p > 0 ? '#16a34a' : '#dc2626';
-                        const bg = p > 0 ? '#f0fdf4' : '#fef2f2';
-                        const signal = vr >= 3 ? '🚨 極強訊號' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
-                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
-                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid ${p>0?'#bbf7d0':'#fecaca'}">
-                            <div>
-                                <span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
-                                <span style="font-size:11px;color:#64748b;margin-left:8px">${q.name||''}</span>
-                            </div>
+                        const bg = p > 3 ? '#f0fdf4' : p < -3 ? '#fef2f2' : '#f8fafc';
+                        const pColor = p > 0 ? '#16a34a' : '#dc2626';
+                        const signal = vr >= 3 && p > 3 ? '🚀 強力買進' : vr >= 3 && p < -3 ? '🔴 強力賣出' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
+                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('analyze')" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
+                            <div><span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
+                            <span style="font-size:11px;color:#64748b;margin-left:8px">${(q.name||'').slice(0,20)}</span></div>
                             <div style="text-align:right">
-                                <div style="color:${color};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
-                                <div style="font-size:11px;color:#f97316;font-weight:600">量比 ${vr}x · ${signal}</div>
+                                <div style="color:${pColor};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
+                                <div style="font-size:11px;color:#f97316;font-weight:600">${vr}x量 · ${signal}</div>
                             </div>
                         </div>`;
                     });
                 }
                 html += '</div>';
-                html += '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:12px;color:#92400e">⚠️ 金流密碼僅為技術訊號參考，不代表一定有主力介入。建議搭配基本面分析使用。點擊任一股票進入完整 AI 分析。</div>';
+                
+                // Options signal section (loaded on demand)
+                html += '<div id="smart-options" style="display:none">';
+                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">📈 選擇權 Put/Call 訊號</h4>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">Put/Call 比率 &lt;0.8 看多；&gt;1.2 看空。異常大單往往是主力提前布局的跡象。</p>';
+                html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
+                html += '<input id="optionsTicker" placeholder="輸入股票代號 e.g. NVDA" style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-size:13px">';
+                html += '<button onclick="loadOptionsData()" style="background:#4f46e5;color:white;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600;font-size:13px">分析</button>';
+                html += '</div>';
+                html += '<div id="optionsResult"><p style="color:#94a3b8;text-align:center;padding:16px">輸入股票代號查看選擇權訊號</p></div>';
+                html += '</div>';
+                
+                html += '<div style="margin-top:12px;padding:10px;background:#fffbeb;border-radius:8px;font-size:11px;color:#92400e">⚠️ 金流密碼為技術訊號參考，非投資建議。主力也會虛晃一招，建議搭配基本面確認。點擊個股進行完整分析。</div>';
+                
                 el.innerHTML = html;
                 el.dataset.loaded = '1';
             } catch(e) {
                 el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
             }
         }
+        
+        function switchSmartTab(tab) {
+            document.getElementById('smart-volume').style.display = tab === 'volume' ? '' : 'none';
+            document.getElementById('smart-options').style.display = tab === 'options' ? '' : 'none';
+            document.getElementById('smartTab-volume').style.background = tab === 'volume' ? '#4f46e5' : 'white';
+            document.getElementById('smartTab-volume').style.color = tab === 'volume' ? 'white' : '#64748b';
+            document.getElementById('smartTab-options').style.background = tab === 'options' ? '#4f46e5' : 'white';
+            document.getElementById('smartTab-options').style.color = tab === 'options' ? 'white' : '#64748b';
+        }
+        
+        async function loadOptionsData() {
+            const ticker = (document.getElementById('optionsTicker').value || '').toUpperCase().trim();
+            if (!ticker) return;
+            const el = document.getElementById('optionsResult');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 分析選擇權數據...</p>';
+            try {
+                const resp = await fetch(`https://query2.finance.yahoo.com/v7/finance/options/${ticker}`);
+                const data = await resp.json();
+                const result = data?.optionChain?.result?.[0];
+                if (!result) throw new Error('No data');
+                
+                const opts = result.options?.[0] || {};
+                const calls = opts.calls || [];
+                const puts = opts.puts || [];
+                
+                const callOI = calls.reduce((s, c) => s + (c.openInterest||0), 0);
+                const putOI = puts.reduce((s, p) => s + (p.openInterest||0), 0);
+                const pcRatio = callOI > 0 ? (putOI / callOI) : 0;
+                
+                const callVol = calls.reduce((s, c) => s + (c.volume||0), 0);
+                const putVol = puts.reduce((s, p) => s + (p.volume||0), 0);
+                const pcVolRatio = callVol > 0 ? (putVol / callVol) : 0;
+                
+                const signal = pcRatio < 0.7 ? {text:'強烈看多 🚀', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio < 0.9 ? {text:'偏多 📈', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio > 1.3 ? {text:'強烈看空 🔴', color:'#dc2626', bg:'#fef2f2'} :
+                               pcRatio > 1.1 ? {text:'偏空 📉', color:'#dc2626', bg:'#fef2f2'} :
+                               {text:'中性 ➡️', color:'#64748b', bg:'#f8fafc'};
+                
+                // Find unusual options
+                const unusual = [...calls, ...puts]
+                    .filter(o => (o.volume||0) > 500 && (o.openInterest||0) > 0)
+                    .map(o => ({...o, ratio: (o.volume||0)/Math.max(o.openInterest||1,1), type: calls.includes(o) ? 'CALL' : 'PUT'}))
+                    .filter(o => o.ratio > 0.5)
+                    .sort((a,b) => b.ratio - a.ratio)
+                    .slice(0, 5);
+                
+                let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+                    <div style="text-align:center;padding:12px;background:${signal.bg};border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">P/C 未平倉比</div>
+                        <div style="font-size:22px;font-weight:800;color:${signal.color}">${pcRatio.toFixed(2)}</div>
+                        <div style="font-size:12px;font-weight:600;color:${signal.color}">${signal.text}</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Call 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#16a34a">${(callOI/1000).toFixed(0)}K</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Put 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#dc2626">${(putOI/1000).toFixed(0)}K</div>
+                    </div>
+                </div>`;
+                
+                if (unusual.length) {
+                    html += '<div style="font-size:13px;font-weight:600;color:#1e293b;margin-bottom:8px">🚨 異常大單（成交量/未平倉 > 50%）</div>';
+                    unusual.forEach(u => {
+                        const typeColor = u.type === 'CALL' ? '#16a34a' : '#dc2626';
+                        const exp = u.expiration ? new Date(u.expiration * 1000).toLocaleDateString('zh-TW') : '?';
+                        html += `<div style="display:flex;justify-content:space-between;padding:8px 12px;margin-bottom:4px;background:${u.type==='CALL'?'#f0fdf4':'#fef2f2'};border-radius:6px">
+                            <span style="font-weight:600;color:${typeColor}">${u.type}</span>
+                            <span style="color:#64748b">行使價 $${u.strike}</span>
+                            <span style="color:#64748b">到期 ${exp}</span>
+                            <span style="font-weight:600">量${(u.volume||0).toLocaleString()} / OI${(u.openInterest||0).toLocaleString()}</span>
+                            <span style="color:#f97316;font-weight:600">${u.ratio.toFixed(1)}x</span>
+                        </div>`;
+                    });
+                }
+                
+                el.innerHTML = html;
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:12px">無法取得選擇權數據（Yahoo Finance 可能限流）</p>';
+            }
+        }
+
 
 
         // ===== WATCH LIST =====
