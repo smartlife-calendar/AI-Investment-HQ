@@ -373,11 +373,9 @@
             _lang = lang;
             localStorage.setItem('lang', lang);
             applyLang();
+        if (typeof loadMarketTicker === 'function') loadMarketTicker();
+        if (typeof renderWatchList === 'function') renderWatchList();
         showTab('today');
-        // Load ticker and show daily tab
-        // Load market ticker
-        // Auto-load daily briefing immediately
-        loadDailyBriefing();
         }
 
         function applyLang() {
