@@ -1,6 +1,6 @@
 {
   "date": "2026-06-20",
-  "generated_at": "2026-06-20T21:32:04.601680+08:00",
+  "generated_at": "2026-06-20T22:02:49.155619+08:00",
   "sector_count": 11,
   "summary": {
     "inflow_count": 4,
@@ -36,9 +36,9 @@
       "sector_en": "Consumer Discretionary",
       "price": 117.16,
       "change_pct": 0.87,
-      "volume": 8260276,
-      "avg_volume": 8499174,
-      "vol_ratio": 0.97
+      "volume": 8728500,
+      "avg_volume": 8506490,
+      "vol_ratio": 1.03
     },
     {
       "symbol": "XLU",
@@ -56,9 +56,9 @@
       "sector_en": "Communication Services",
       "price": 109.45,
       "change_pct": -0.14,
-      "volume": 11638303,
-      "avg_volume": 5928735,
-      "vol_ratio": 1.96
+      "volume": 11655600,
+      "avg_volume": 5929006,
+      "vol_ratio": 1.97
     },
     {
       "symbol": "XLI",
@@ -76,8 +76,8 @@
       "sector_en": "Real Estate",
       "price": 43.86,
       "change_pct": -0.43,
-      "volume": 5727998,
-      "avg_volume": 6209987,
+      "volume": 5730700,
+      "avg_volume": 6210029,
       "vol_ratio": 0.92
     },
     {
@@ -86,8 +86,8 @@
       "sector_en": "Consumer Staples",
       "price": 83.3,
       "change_pct": -0.69,
-      "volume": 10428188,
-      "avg_volume": 13315579,
+      "volume": 10446700,
+      "avg_volume": 13315868,
       "vol_ratio": 0.78
     },
     {
