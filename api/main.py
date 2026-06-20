@@ -136,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.8.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.8.2", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -228,6 +228,7 @@ def cost_report(x_admin_token: str = Header(default="")):
 def get_indices():
     """Proxy Yahoo Finance indices to avoid CORS"""
     import time
+    import urllib.request as _urllib_req
     cache_key = "indices"
     now = time.time()
     cached = _data_cache.get(cache_key)
@@ -244,8 +245,8 @@ def get_indices():
             import time as _time
             _time.sleep(1)
             url = f"https://query2.finance.yahoo.com/v8/finance/chart/{sym.replace('^','%5E')}?interval=1d&range=1d"
-            req_yf = urllib.request.Request(url, headers=yf_headers)
-            r_obj = urllib.request.urlopen(req_yf, timeout=10)
+            req_yf = _urllib_req.Request(url, headers=yf_headers)
+            r_obj = _urllib_req.urlopen(req_yf, timeout=10)
             r = type('R', (), {'json': lambda self: json.loads(r_obj.read())})()
             meta = r.json().get("chart", {}).get("result", [{}])[0].get("meta", {})
             price = meta.get("regularMarketPrice", 0)
