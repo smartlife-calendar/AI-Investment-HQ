@@ -81,6 +81,37 @@
 <span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">VIX</span> <span id="vixval" style="font-weight:700">---</span> <span id="vixchg" style="color:#94a3b8">--.--%</span></span>
         </div>
     </div>
+    <!-- Top Navigation -->
+    <div style="background:white;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+            <img src="/logo.png" style="width:36px;height:36px;object-contain:contain;border-radius:8px" alt="StockIQ">
+            <span style="font-size:18px;font-weight:800;color:#1e1b4b">StockIQ<span style="color:#6366f1">.TW</span></span>
+        </a>
+        <div style="display:flex;align-items:center;gap:12px;font-size:13px">
+            <span id="creditLabel" style="color:#64748b">餘額：</span>
+            <strong id="creditCount" style="color:#4f46e5">0 次</strong>
+            <span id="userEmail" style="color:#64748b;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+            <button id="logoutBtn" onclick="signOut()" style="display:none;background:#fef2f2;color:#dc2626;border:1px solid #fecaca;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px">⏻ 登出</button>
+            <button id="loginBtn" onclick="signInWithGoogle()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px">
+                <img src="https://www.google.com/favicon.ico" style="width:14px;height:14px"><span id="loginText">Google 登入</span>
+            </button>
+            <button id="langToggleBtn" onclick="setLang(_lang==='zh'?'en':'zh')" style="background:#f1f5f9;color:#64748b;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">EN</button>
+        </div>
+    </div>
+
+    <!-- Sticky Tab Navigation -->
+    <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+        <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;padding:0 12px">
+            <button onclick="showTab('today')" id="tab-today" style="padding:12px 18px;border:none;border-top:none;border-left:none;border-right:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:14px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
+            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
+            <button onclick="showTab('news')" id="tab-news" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
+            <button onclick="showTab('history')" id="tab-history" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
+            <a href="/learn/" style="padding:12px 18px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0">📚 投資教學</a>
+        </div>
+    </div>
+
 
     <!-- SEO Content Block - Visible to search crawlers -->
     <div id="seo-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
