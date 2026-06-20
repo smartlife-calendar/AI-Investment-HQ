@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
+.nav .logo span { color: #818cf8; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
+h2 { font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 32px 0 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
+h3 { font-size: 17px; font-weight: 600; color: #374151; margin: 18px 0 8px; }
+p { margin-bottom: 14px; color: #475569; }
+ul, ol { padding-left: 22px; margin-bottom: 14px; }
+li { color: #475569; margin-bottom: 6px; }
+.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
+.card { background: white; border-radius: 10px; padding: 18px 22px; margin: 14px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.highlight { background: #eff6ff; border-radius: 8px; padding: 14px 18px; margin: 14px 0; border: 1px solid #bfdbfe; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
+.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
+.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+th { background: #f1f5f9; font-weight: 700; }
+</style>
+</head><body>
+<nav class="nav">
+  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <a href="/">🔍 分析工具</a><a href="/learn/">📚 投資教學</a>
+    <a href="/daily/">📰 市場日報</a><a href="/news/">🌐 財金新聞</a>
+  </div>
+</nav>
+<meta name="description" content="StockIQ 每日美股市場速報，強力買進訊號、板塊資金動向、今日大漲大跌個股分析">
+<title>每日美股市場速報 | StockIQ.TW</title>
+<div class="container">
+  <div class="breadcrumb"><a href="/">首頁</a> › 市場日報</div>
+  <span class="tag">📰 每日速報</span>
+  <h1>每日美股市場速報</h1>
+  <p>每個交易日台灣時間早上 9:00 自動更新，整理當日最重要的美股市場訊息，包含強力買進/賣出訊號、板塊資金動向、重大事件分析。</p>
+
+  <div class="card">
+    <h3>📅 今日速報 2026年06月20日</h3>
+    <p>今日速報請前往主頁查看：</p>
+    <a href="/" class="btn">查看今日速報 →</a>
+  </div>
+
+  <h2>為什麼每天看市場速報？</h2>
+  <ul>
+    <li><strong>強力買進訊號：</strong>量比超過1.5倍且大漲的股票，代表機構資金積極進場</li>
+    <li><strong>強力賣出訊號：</strong>量比超過1.5倍且大跌的股票，代表大資金快速離場</li>
+    <li><strong>板塊資金流向：</strong>了解今天哪個產業受到資金青睞，做板塊輪動判斷</li>
+    <li><strong>事件驅動分析：</strong>了解今天個股大漲大跌背後的事件原因和影響</li>
+  </ul>
+
+  <h2>速報指標說明</h2>
+  <h3>量比（Volume Ratio）</h3>
+  <p>量比 = 今日成交量 ÷ 近三個月日均成交量。量比 &gt; 1.5 代表今日交易活躍度明顯高於平常，通常意味著有重要資訊或事件驅動。</p>
+  
+  <h3>強力買進條件</h3>
+  <p>量比 ≥ 1.5 且當日漲幅 &gt; 3%，代表成交量放大的同時股價大漲，是機構資金主動買進的訊號。</p>
+  
+  <h3>強力賣出條件</h3>
+  <p>量比 ≥ 1.5 且當日跌幅 &gt; 3%，代表成交量放大的同時股價大跌，是機構資金主動出貨的訊號。</p>
+
+  <a href="/" class="btn">🔍 前往工具頁面 →</a>
+  <a href="/learn/" class="btn">📚 學習投資教學 →</a>
+</div>
+<div class="footer">
+  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
+  <p style="margin-top:8px"><a href="/" style="color:#818cf8">返回分析工具</a></p>
+</div></body></html>
