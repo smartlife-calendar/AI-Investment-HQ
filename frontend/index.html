@@ -373,9 +373,6 @@
             _lang = lang;
             localStorage.setItem('lang', lang);
             applyLang();
-        if (typeof loadMarketTicker === 'function') loadMarketTicker();
-        if (typeof renderWatchList === 'function') renderWatchList();
-        showTab('today');
         }
 
         function applyLang() {
@@ -1311,6 +1308,12 @@
 
         // Initialize Auth on page load
         initAuth();
+        // Initialize page functionality
+        setTimeout(() => {
+            if (typeof loadMarketTicker === 'function') loadMarketTicker();
+            if (typeof renderWatchList === 'function') renderWatchList();
+            if (typeof showTab === 'function') showTab('today');
+        }, 100);
 
         (async () => {
             try {
