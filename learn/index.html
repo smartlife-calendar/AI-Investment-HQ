@@ -4,39 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/logo.png">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.7; }
-.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
-.nav a:hover { background: rgba(255,255,255,0.1); color: white; }
-.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
-.nav .logo span { color: #818cf8; }
-.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
-h1 { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
-h2 { font-size: 22px; font-weight: 700; color: #1e1b4b; margin: 32px 0 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
-h3 { font-size: 18px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
-p { margin-bottom: 14px; color: #475569; }
-ul, ol { padding-left: 24px; margin-bottom: 14px; }
-li { color: #475569; margin-bottom: 6px; }
-.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
-.card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
-.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
-.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
-.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
-.breadcrumb a { color: #6366f1; text-decoration: none; }
-</style>
+
 </head>
 <body>
-<nav class="nav">
-  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
-  <div style="display:flex;gap:4px;flex-wrap:wrap">
-    <a href="/">🔍 分析工具</a>
-    <a href="/learn/">📚 投資教學</a>
-    <a href="/daily/">📰 市場日報</a>
-    <a href="/news/">🌐 財金新聞</a>
-  </div>
-</nav>
+    <!-- Standard Navigation -->
+    <nav class="site-nav">
+        <a href="/" class="logo">
+            <img src="/logo.png" alt="StockIQ">
+            <span>Stock<em>IQ</em>.TW</span>
+        </a>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <a href="/">🔍 分析工具</a>
+            <a href="/learn/">📚 投資教學</a>
+            <a href="/daily/">📰 市場日報</a>
+            <a href="/news/">🌐 財金新聞</a>
+        </div>
+    </nav>
 <div class="container">
   <div class="breadcrumb"><a href="/">首頁</a> › 投資教學</div>
   <span class="tag">📚 免費投資教學</span>
@@ -69,9 +52,14 @@ li { color: #475569; margin-bottom: 6px; }
   <p>學完理論，馬上用 StockIQ 的 AI 分析工具實際操作，輸入任何美股代號就能獲得完整分析報告。</p>
   <a href="/" class="btn">🔍 開始分析股票 →</a>
 </div>
-<div class="footer">
-  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
-  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。投資涉及風險，請自行評估。</p>
-  <p style="margin-top:8px">客服：smartlifecalendar@gmail.com ｜ <a href="/" style="color:#818cf8">返回分析工具</a></p>
-</div>
+    <div class="footer">
+        <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+        <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。投資涉及風險，請自行評估。</p>
+        <p style="margin-top:8px">
+            <a href="/" style="color:#818cf8">🔍 分析工具</a> ｜
+            <a href="/learn/" style="color:#818cf8">📚 投資教學</a> ｜
+            <a href="/daily/" style="color:#818cf8">📰 市場日報</a> ｜
+            <a href="/news/" style="color:#818cf8">🌐 財金新聞</a>
+        </p>
+    </div>
 </body></html>
