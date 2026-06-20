@@ -103,14 +103,14 @@
     <!-- Tab Navigation Bar (sticky) -->
     <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
         <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
-            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
-            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
-            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
-            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
-            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
-            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
-            <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</a>
-            <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</a>
+            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">今日速報</button>
+            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">股票分析</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">板塊資金</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">金流密碼</button>
+            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">財金新聞</button>
+            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">歷史資料</button>
+            <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">投資教學</a>
+            <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">市場日報</a>
         </div>
     </div>
 
@@ -1308,6 +1308,11 @@
 
         // Initialize Auth on page load
         initAuth();
+        // Update version display dynamically
+        fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
+            const el = document.getElementById('versionDisplay');
+            if (el) el.textContent = 'v' + (d.version || '4.8.2');
+        }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
             if (typeof loadMarketTicker === 'function') loadMarketTicker();
@@ -1835,7 +1840,7 @@
         <!-- Smart Money Section -->
         <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">💡 金流密碼</h2>
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">金流密碼</h2>
                 <p style="font-size:13px;color:#64748b;margin-bottom:16px">追蹤異常放量個股（量比≥2x），捕捉法人/主力資金布局跡象</p>
                 <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
             </div>
@@ -1844,7 +1849,7 @@
         <!-- News Section -->
         <div id="newsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 財金新聞</h2>
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">財金新聞</h2>
                 <p style="font-size:13px;color:#64748b;margin-bottom:16px">即時美股財經新聞 · 產業動態 · 個股事件</p>
                 <div id="newsContent"><p style="color:#94a3b8;text-align:center;padding:24px">點擊「財金新聞」標籤載入</p></div>
             </div>
@@ -1853,7 +1858,7 @@
         <!-- History Section -->
         <div id="historySection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📅 歷史資料</h2>
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">歷史資料</h2>
                 <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日市場速報和事件分析完整存檔 · 由 Railway 機器人每天 09:00 和 21:00 更新</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
                     <a href="/daily/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
@@ -1960,7 +1965,7 @@ Transocean同意收購Valaris，股東公平性受質疑，市場</div></div></d
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.1.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.8.2</p>
         </footer>
 
 
