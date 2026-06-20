@@ -200,6 +200,7 @@
                     <span id="btnAnalyzeText">開始解析</span>
                 </button>
             </div>
+        <div id="analyzeFormSection" style="display:none">
             <!-- Sample Report CTA for non-logged users -->
             <div id="sampleCTA" class="mt-3 text-center text-sm text-gray-500">
                 <span>不確定值不值得嗎？ </span>
@@ -894,10 +895,10 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
-                'analyze': ['analyzeSection'],
+                'analyze': ['analyzeSection','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
@@ -1811,7 +1812,8 @@
         </div>
 
         <!-- SmartLife Calendar App Ad -->
-        <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
+        <div         </div><!-- end analyzeFormSection -->
+id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
             <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
                 <div style="display:flex;align-items:center;gap:16px">
                     <div style="background:white;border-radius:14px;padding:10px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
