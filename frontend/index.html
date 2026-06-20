@@ -961,6 +961,70 @@
             }
         }
 
+
+        // ===== WATCH LIST =====
+        let _watchList = JSON.parse(localStorage.getItem('stockiq_watchlist') || '[]');
+
+        function addToWatchList(ticker) {
+            ticker = ticker.toUpperCase().trim();
+            if (!ticker) return;
+            if (!_watchList.includes(ticker)) {
+                _watchList.push(ticker);
+                localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+                renderWatchList();
+                showNotification(ticker + ' 已加入追蹤清單 ✅');
+            } else {
+                showNotification(ticker + ' 已在追蹤清單中');
+            }
+        }
+
+        function removeFromWatchList(ticker) {
+            _watchList = _watchList.filter(t => t !== ticker);
+            localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+            renderWatchList();
+        }
+
+        function showNotification(msg) {
+            let n = document.getElementById('watchNotification');
+            if (!n) {
+                n = document.createElement('div');
+                n.id = 'watchNotification';
+                n.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;padding:10px 18px;border-radius:10px;font-size:13px;z-index:9999;opacity:0;transition:opacity 0.3s';
+                document.body.appendChild(n);
+            }
+            n.textContent = msg;
+            n.style.opacity = '1';
+            setTimeout(() => { n.style.opacity = '0'; }, 2500);
+        }
+
+        function renderWatchList() {
+            const el = document.getElementById('watchListContent');
+            if (!el) return;
+            if (_watchList.length === 0) {
+                el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票<br><span style="font-size:11px">分析股票後點「加入追蹤」</span></p>';
+                return;
+            }
+            el.innerHTML = _watchList.map(t => 
+                `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9">
+                    <button onclick="document.getElementById('tickerInput').value='${t}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                        style="font-weight:700;color:#4f46e5;background:none;border:none;cursor:pointer;font-size:14px">${t}</button>
+                    <button onclick="removeFromWatchList('${t}')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:16px" title="移除">×</button>
+                </div>`
+            ).join('');
+        }
+
+        // Add watch button after analysis completes
+        function addWatchButton(ticker) {
+            const existing = document.getElementById('addWatchBtn');
+            if (existing) existing.remove();
+            const btn = document.createElement('button');
+            btn.id = 'addWatchBtn';
+            btn.textContent = (_watchList.includes(ticker) ? '✅ 已追蹤' : '+ 加入追蹤清單');
+            btn.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#4f46e5;color:white;border:none;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(79,70,229,0.4);z-index:100';
+            btn.onclick = () => { addToWatchList(ticker); btn.textContent = '✅ 已追蹤'; };
+            document.body.appendChild(btn);
+        }
+
         // Initialize Auth on page load
         initAuth();
 
@@ -1278,6 +1342,7 @@
                 document.getElementById('stockNewsSection').innerHTML = '';
                 document.getElementById('scorecardSection').innerHTML = '';
                 loadStockNews(ticker);
+                addWatchButton(ticker);
                 renderScorecard(data, ticker);
 
             } catch (error) {
@@ -1546,6 +1611,31 @@
                 </button>
                 <button onclick="document.getElementById('loginModal').classList.add('hidden')" 
                     class="text-gray-400 text-sm hover:text-gray-600">取消</button>
+            </div>
+        </div>
+
+
+        <!-- Watch List Toggle Button -->
+        <button onclick="document.getElementById('watchListPanel').classList.toggle('hidden')" 
+            style="position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;border:none;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100">
+            📋 追蹤清單
+        </button>
+
+        <!-- Watch List Panel -->
+        <div id="watchListPanel" class="hidden" style="position:fixed;bottom:70px;right:20px;width:220px;background:white;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:200;overflow:hidden">
+            <div style="background:#1e293b;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+                <span style="color:white;font-weight:700;font-size:14px">📋 追蹤清單</span>
+                <button onclick="document.getElementById('watchListPanel').classList.add('hidden')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:18px">×</button>
+            </div>
+            <div id="watchListContent" style="padding:8px 12px;max-height:300px;overflow-y:auto">
+                <p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票</p>
+            </div>
+            <div style="padding:10px 12px;border-top:1px solid #f1f5f9">
+                <div style="display:flex;gap:6px">
+                    <input id="watchAddInput" placeholder="輸入代號..." style="flex:1;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;font-size:13px;outline:none">
+                    <button onclick="addToWatchList(document.getElementById('watchAddInput').value);document.getElementById('watchAddInput').value=''" 
+                        style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer">+</button>
+                </div>
             </div>
         </div>
 
