@@ -3,90 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="StockIQ 美股投資教學：從基礎到進階，學習財務分析、技術面分析、Piotroski F-Score等七大投資框架。">
+<title>投資教學 | StockIQ.TW</title>
 <link rel="icon" type="image/png" href="/logo.png">
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
-.site-nav { background: #1e1b4b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; z-index: 100; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; color: #1e293b; line-height: 1.8; }
+.site-nav { background: #1e1b4b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 .site-nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; }
-.site-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
-.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.site-nav a:hover, .site-nav a.active { background: rgba(255,255,255,0.12); color: white; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; }
 .nav-logo span { color: white; font-weight: 800; font-size: 18px; }
 .nav-logo span em { color: #818cf8; font-style: normal; }
-.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
-h1 { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
-h2 { font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 32px 0 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
-h3 { font-size: 17px; font-weight: 600; color: #374151; margin: 18px 0 8px; }
-p { margin-bottom: 14px; color: #475569; }
-ul, ol { padding-left: 22px; margin-bottom: 14px; }
-li { color: #475569; margin-bottom: 6px; }
-.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
-.card { background: white; border-radius: 10px; padding: 18px 22px; margin: 14px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.highlight { background: #eff6ff; border-radius: 8px; padding: 14px 18px; margin: 14px 0; border: 1px solid #bfdbfe; }
-.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
-.site-footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+.page-container { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+.page-title { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 6px; }
+.page-subtitle { color: #64748b; font-size: 15px; margin-bottom: 28px; }
+.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; font-weight: 600; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+h2 { font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+h3 { font-size: 17px; font-weight: 600; color: #334155; margin: 20px 0 8px; }
+p { margin-bottom: 14px; color: #475569; font-size: 15px; }
+ul, ol { padding-left: 24px; margin-bottom: 16px; }
+li { color: #475569; margin-bottom: 6px; font-size: 15px; }
+.card { background: white; border-radius: 12px; padding: 20px 24px; margin: 14px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+.card h3 { margin-top: 0; }
+.card h3 a { color: #4f46e5; text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.info-box { background: #eff6ff; border-radius: 10px; padding: 16px 20px; margin: 16px 0; border: 1px solid #bfdbfe; }
+.success-box { background: #f0fdf4; border-radius: 10px; padding: 16px 20px; margin: 16px 0; border: 1px solid #86efac; }
+.warning-box { background: #fefce8; border-radius: 10px; padding: 16px 20px; margin: 16px 0; border: 1px solid #fde68a; }
+.btn { display: inline-flex; align-items: center; gap: 6px; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; margin: 4px; transition: background 0.2s; }
+.btn:hover { background: #4338ca; }
+.btn-outline { background: white; color: #4f46e5; border: 1.5px solid #4f46e5; }
+.btn-outline:hover { background: #ede9fe; }
+.site-footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 28px 20px; margin-top: 0; font-size: 13px; }
 .site-footer a { color: #818cf8; text-decoration: none; }
-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
-th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-th { background: #f1f5f9; font-weight: 700; }
+.site-footer a:hover { text-decoration: underline; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+th { background: #f8fafc; padding: 11px 14px; text-align: left; font-weight: 700; color: #374151; font-size: 13px; border-bottom: 2px solid #e2e8f0; }
+td { padding: 10px 14px; font-size: 14px; color: #475569; border-bottom: 1px solid #f1f5f9; }
+tr:last-child td { border-bottom: none; }
 </style>
 </head>
 <body>
-    <!-- Standard Navigation -->
-            <nav class="site-nav">
-        <a href="/" class="nav-logo">
-            <img src="/logo.png" alt="StockIQ">
-            <span>Stock<em>IQ</em>.TW</span>
-        </a>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">
-            <a href="/">分析工具</a>
-            <a href="/learn/">投資教學</a>
-            <a href="/daily/">市場日報</a>
-            <a href="/news/">財金新聞</a>
-        </div>
-    </nav>
-<div class="container">
-  <div class="breadcrumb"><a href="/">首頁</a> › 投資教學</div>
-  <span class="tag">📚 免費投資教學</span>
-  <h1>美股投資入門教學</h1>
-  <p>不管你是剛開始接觸美股的新手，還是想系統化學習投資方法的進階者，這裡提供從基礎到進階的完整投資知識。所有內容由 StockIQ 專業分析師整理，結合 AI 輔助分析的實際應用場景。</p>
-  
-  <h2>學習路徑</h2>
-  <div class="card">
-    <h3><a href="/learn/basics.html" style="color:#4f46e5">🌱 第一步：投資基礎知識</a></h3>
-    <p>什麼是股票？如何開始投資美股？P/E 本益比、市值、EPS 等基本概念完整解說。適合完全零基礎的新手。</p>
-    <a href="/learn/basics.html" class="btn">開始學習 →</a>
-  </div>
-  <div class="card">
-    <h3><a href="/learn/fundamental.html" style="color:#4f46e5">📊 第二步：基本面分析</a></h3>
-    <p>如何看懂財報？自由現金流、毛利率、ROE、D/E 比率等關鍵指標的意義與判斷標準。學會用數字評估一家公司的真實價值。</p>
-    <a href="/learn/fundamental.html" class="btn">開始學習 →</a>
-  </div>
-  <div class="card">
-    <h3><a href="/learn/technical.html" style="color:#4f46e5">📈 第三步：技術面分析</a></h3>
-    <p>RSI、MACD、布林通道、均線系統完整教學。學會從圖表訊號判斷買賣時機，搭配基本面做出更好的決策。</p>
-    <a href="/learn/technical.html" class="btn">開始學習 →</a>
-  </div>
-  <div class="card">
-    <h3><a href="/learn/frameworks.html" style="color:#4f46e5">🔬 第四步：進階投資框架</a></h3>
-    <p>Piotroski F-Score、Peter Lynch GARP、Howard Marks 週期理論等七大專業投資框架詳解。用大師的思維框架分析股票。</p>
-    <a href="/learn/frameworks.html" class="btn">開始學習 →</a>
-  </div>
-  
-  <h2>立即實戰</h2>
-  <p>學完理論，馬上用 StockIQ 的 AI 分析工具實際操作，輸入任何美股代號就能獲得完整分析報告。</p>
-  <a href="/" class="btn">🔍 開始分析股票 →</a>
+<nav class="site-nav">
+    <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="StockIQ">
+        <span>Stock<em>IQ</em>.TW</span>
+    </a>
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+        <a href="/">分析工具</a>
+        <a href="/learn/" class="active">投資教學</a>
+        <a href="/daily/">市場日報</a>
+        <a href="/news/">財金新聞</a>
+    </div>
+</nav>
+<div class="page-container">
+    <span class="tag">📚 免費投資教學</span>
+    <h1 class="page-title">美股投資完整教學</h1>
+    <p class="page-subtitle">從零基礎到進階分析，系統學習美股投資方法，結合 AI 工具做出更好的投資決策。</p>
+
+    <h2>學習路徑</h2>
+
+    <div class="card">
+        <h3><a href="/learn/basics.html">🌱 第一步：美股投資基礎</a></h3>
+        <p>什麼是股票、如何開戶、市值、P/E 本益比、EPS 等新手必懂概念。完全零基礎也能看懂。</p>
+        <a href="/learn/basics.html" class="btn">開始學習 →</a>
+    </div>
+
+    <div class="card">
+        <h3><a href="/learn/fundamental.html">📊 第二步：基本面分析</a></h3>
+        <p>看懂財報、自由現金流（FCF）、毛利率、ROE、D/E 比率、DCF 估值方法。用數字評估公司真實價值。</p>
+        <a href="/learn/fundamental.html" class="btn">開始學習 →</a>
+    </div>
+
+    <div class="card">
+        <h3><a href="/learn/technical.html">📈 第三步：技術面分析</a></h3>
+        <p>RSI、MACD、布林通道、均線系統完整教學。從圖表訊號判斷買賣時機，搭配基本面做決策。</p>
+        <a href="/learn/technical.html" class="btn">開始學習 →</a>
+    </div>
+
+    <div class="card">
+        <h3><a href="/learn/frameworks.html">🔬 第四步：七大投資框架</a></h3>
+        <p>Piotroski F-Score、Peter Lynch GARP、Howard Marks 週期理論等專業框架詳解。用大師思維分析股票。</p>
+        <a href="/learn/frameworks.html" class="btn">開始學習 →</a>
+    </div>
+
+    <h2>實戰工具</h2>
+    <div class="info-box">
+        <p>學完理論，馬上用 StockIQ 的 AI 分析工具實際操作。輸入任何美股代號，即可獲得完整七框架分析報告與目標價。</p>
+        <a href="/" class="btn">🔍 立即分析股票</a>
+        <a href="/" class="btn btn-outline">查看今日速報</a>
+    </div>
 </div>
-        <footer class="site-footer">
-        <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
-        <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
-        <p style="margin-top:8px">
-            <a href="/">🔍 分析工具</a> ｜
-            <a href="/learn/">📚 投資教學</a> ｜
-            <a href="/daily/">📰 市場日報</a> ｜
-            <a href="/news/">🌐 財金新聞</a>
-        </p>
-    </footer>
-</body></html>
+<footer class="site-footer">
+    <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+    <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。投資涉及風險，請自行評估。</p>
+    <p style="margin-top:10px">
+        <a href="/">分析工具</a> ·
+        <a href="/learn/">投資教學</a> ·
+        <a href="/daily/">市場日報</a> ·
+        <a href="/news/">財金新聞</a>
+    </p>
+</footer>
+</body>
+</html>
