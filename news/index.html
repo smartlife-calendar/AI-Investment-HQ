@@ -5,61 +5,51 @@
 <link rel="icon" type="image/png" href="/logo.png">
 <meta name="description" content="美股財金新聞精選與AI摘要 - 2026/06/20更新">
 <title>財金新聞 | StockIQ.TW</title>
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
-.site-nav { background: #1e1b4b; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; z-index: 100; }
-.site-nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 6px; }
-.site-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
-.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.nav-logo img { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; }
-.nav-logo span { color: white; font-weight: 800; font-size: 18px; }
-.nav-logo span em { color: #818cf8; font-style: normal; }
+body { font-family: -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
+.nav .logo span { color: #818cf8; }
 .container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
 h1 { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
 h2 { font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 32px 0 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
-h3 { font-size: 17px; font-weight: 600; color: #374151; margin: 18px 0 8px; }
 p { margin-bottom: 14px; color: #475569; }
-ul, ol { padding-left: 22px; margin-bottom: 14px; }
-li { color: #475569; margin-bottom: 6px; }
 .tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
 .card { background: white; border-radius: 10px; padding: 18px 22px; margin: 14px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.highlight { background: #eff6ff; border-radius: 8px; padding: 14px 18px; margin: 14px 0; border: 1px solid #bfdbfe; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
 .btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
-.site-footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
-.site-footer a { color: #818cf8; text-decoration: none; }
-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
-th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-th { background: #f1f5f9; font-weight: 700; }
+.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+.news-item { background: white; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+.news-item h3 { font-size: 15px; font-weight: 600; color: #1e1b4b; margin-bottom: 6px; }
+.news-item h3 a { color: #4f46e5; text-decoration: none; }
+.news-item p { font-size: 13px; color: #64748b; margin-bottom: 4px; }
+.summary-box { background: linear-gradient(135deg, #eff6ff, #f0fdf4); border: 1px solid #bfdbfe; border-radius: 12px; padding: 20px 24px; margin: 20px 0; }
+.summary-box p { color: #1e293b; font-size: 14px; line-height: 1.8; }
 </style>
 </head><body>
-    <!-- Standard Navigation -->
-        <nav class="site-nav">
-        <a href="/" class="nav-logo">
-            <img src="/logo.png" alt="StockIQ">
-            <span>Stock<em>IQ</em>.TW</span>
-        </a>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">
-            <a href="/">🔍 分析工具</a>
-            <a href="/learn/">📚 投資教學</a>
-            <a href="/daily/">📰 市場日報</a>
-            <a href="/news/">🌐 財金新聞</a>
-        </div>
-    </nav>
+<nav class="nav">
+  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <a href="/">🔍 分析工具</a><a href="/learn/">📚 投資教學</a>
+    <a href="/daily/">📰 市場日報</a><a href="/news/">🌐 財金新聞</a>
+  </div>
+</nav>
 <div class="container">
   <div class="breadcrumb"><a href="/">首頁</a> › 財金新聞</div>
   <span class="tag">🌐 財金新聞</span>
   <h1>美股財金新聞</h1>
-  <p>每日自動更新，整合 Yahoo Finance 最新美股相關新聞，並由 AI 整理中文摘要。最後更新：2026/06/20 12:18</p>
+  <p>每日自動更新，整合 Yahoo Finance 最新美股相關新聞，並由 AI 整理中文摘要。最後更新：2026/06/20 14:34</p>
   
   <div class="summary-box">
-    <p style="font-weight:700;color:#1e1b4b;margin-bottom:8px">🤖 AI 新聞摘要（2026/06/20 12:18 更新）</p>
-    <p>美股市場本周走勢分化，道瓊期貨、標普500期貨及那斯達克期貨週五小幅下跌，期貨將於週日晚間重新開盤。市場漲幅集中在特定個股，其中超微半導體（NVDA）等五檔股票接近買點。
+    <p style="font-weight:700;color:#1e1b4b;margin-bottom:8px">🤖 AI 新聞摘要（2026/06/20 14:34 更新）</p>
+    <p>本週美股市場呈現混合走勢。周五道瓊期貨、標普500期貨和納斯達克期貨均小幅下跌，期貨市場將於周日傍晚重新開盤。儘管上周股市反彈，但漲幅集中在少數個股，其中英偉達（NVDA）等5檔股票接近買點位置。
 
-人工智能領域持續受關注，某科技大廠雲端業務成為AI策略核心，增速達近四年最快水準，成為長期投資首選。與此同時，馬威爾科技（Marvell）在加入標普500指數及被稱為下一檔兆元級AI股後，首席財務官卻申報計畫拋售6500萬美元股票，引發市場關注。
+在個別股票方面，羅賓漢市場（HOOD）過去一年表現超越標普500指數，分析師對其前景持謹慎樂觀態度。此外，一檔AI相關龍頭股的雲端業務增速達近四年最快，成為其AI戰略核心。
 
-投資工具方面，嘉信理財（SCHW）準備推出基於標普500的預測市場產品，預測市場交易逐漸主流化。此外，許多美股投資組合過度集中於蘋果、微軟、亞馬遜等大型科技股，AVUV等基金產品應運而生，幫助投資人實現資產配置多元化。</p>
+在新產品動向上，嘉信理財（SCHW）準備進軍預測市場，推出以標普500為基礎的交易產品，反映事件交易逐漸主流化趨勢。投資人方面，許多高收入者面臨投資組合過度集中於蘋果（AAPL）、微軟（MSFT）、亞馬遜（AMZN）等科技龍頭，AVUV等基金提供了分散風險的解決方案。</p>
   </div>
   <h2>📰 今日新聞（2026/06/20）</h2>
   
@@ -74,6 +64,11 @@ th { background: #f1f5f9; font-weight: 700; }
     <p style="font-size:11px;color:#94a3b8">Sat, 20 Jun 2026 02:33:39 +0000</p>
   </div>
   <div class="news-item">
+    <h3><a href="https://www.barchart.com/story/news/2562883/is-robinhood-markets-stock-outperforming-the-s-p-500?.tsrc=rss" target="_blank" rel="noopener">Is Robinhood Markets Stock Outperforming the S&amp;P 500?</a></h3>
+    <p>While Robinhood Markets has outpaced the S&amp;P 500 Index over the past year, analysts are cautiously optimistic about the stock’s prospects.</p>
+    <p style="font-size:11px;color:#94a3b8">Sat, 20 Jun 2026 00:20:40 +0000</p>
+  </div>
+  <div class="news-item">
     <h3><a href="https://www.cryptoprowl.com/releases/schwab-plans-sp-500-prediction-markets-as-event-trading-moves-mainstream-5931?.tsrc=rss" target="_blank" rel="noopener">Schwab Plans S&amp;P 500 Prediction Markets as Event Trading Moves Mainstream</a></h3>
     <p>Charles Schwab (NYSE: $SCHW) is preparing to enter the prediction-markets race with a product built around the S&amp;am...</p>
     <p style="font-size:11px;color:#94a3b8">Fri, 19 Jun 2026 22:31:00 +0000</p>
@@ -83,24 +78,14 @@ th { background: #f1f5f9; font-weight: 700; }
     <p>You check your portfolio and it looks like every other portfolio in America. Apple, Microsoft, NVIDIA, Amazon, Meta, Alphabet, and a heaping side of S&amp;P 500 index fund that is, when you look under the hood, basically more of the same seven names. You are 38, you have 25-plus years until retirement,</p>
     <p style="font-size:11px;color:#94a3b8">Fri, 19 Jun 2026 21:30:35 +0000</p>
   </div>
-  <div class="news-item">
-    <h3><a href="https://www.fool.com/investing/2026/06/19/marvells-cfo-just-sold-65-million-of-stock-right-a/?.tsrc=rss" target="_blank" rel="noopener">After Being Called the Next Trillion-Dollar AI Stock and Joining the S&amp;P 500, Marvell's CFO Just Filed to Dump $65 Million of Stock. Here's Why.</a></h3>
-    <p>Marvell's CFO just filed paperwork with the SEC to offload a significant chunk of stock.</p>
-    <p style="font-size:11px;color:#94a3b8">Fri, 19 Jun 2026 21:27:00 +0000</p>
-  </div>
   <div style="margin-top:24px">
     <a href="/" class="btn">🔍 前往 AI 分析工具 →</a>
     <a href="/daily/" class="btn">📰 市場日報 →</a>
   </div>
 </div>
-        <footer class="site-footer">
-        <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
-        <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
-        <p style="margin-top:8px">
-            <a href="/">🔍 分析工具</a> ｜
-            <a href="/learn/">📚 投資教學</a> ｜
-            <a href="/daily/">📰 市場日報</a> ｜
-            <a href="/news/">🌐 財金新聞</a>
-        </p>
-    </footer>
+<div class="footer">
+  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
+  <p style="margin-top:8px"><a href="/" style="color:#818cf8">返回分析工具</a></p>
+</div>
 </body></html>
