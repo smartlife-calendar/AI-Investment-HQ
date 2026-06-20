@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
+.nav .logo span { color: #818cf8; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 28px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
+h2 { font-size: 20px; font-weight: 700; color: #1e1b4b; margin: 32px 0 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
+h3 { font-size: 17px; font-weight: 600; color: #374151; margin: 18px 0 8px; }
+p { margin-bottom: 14px; color: #475569; }
+ul, ol { padding-left: 22px; margin-bottom: 14px; }
+li { color: #475569; margin-bottom: 6px; }
+.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
+.card { background: white; border-radius: 10px; padding: 18px 22px; margin: 14px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.highlight { background: #eff6ff; border-radius: 8px; padding: 14px 18px; margin: 14px 0; border: 1px solid #bfdbfe; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
+.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
+.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+th { background: #f1f5f9; font-weight: 700; }
+</style>
+</head><body>
+<nav class="nav">
+  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <a href="/">🔍 分析工具</a><a href="/learn/">📚 投資教學</a>
+    <a href="/daily/">📰 市場日報</a><a href="/news/">🌐 財金新聞</a>
+  </div>
+</nav>
+<meta name="description" content="七大投資框架詳解：財務結構、技術面、Piotroski F-Score、Peter Lynch、Cathie Wood、Howard Marks、供應鏈分析">
+<title>七大投資分析框架 | StockIQ.TW</title>
+<div class="container">
+  <div class="breadcrumb"><a href="/">首頁</a> › <a href="/learn/">投資教學</a> › 七大框架</div>
+  <span class="tag">🔬 進階投資框架</span>
+  <h1>七大投資大師分析框架詳解</h1>
+  <p>StockIQ 整合了全球最具代表性的七種投資分析方法，讓你從多個角度全面評估一支股票。</p>
+
+  <div class="card">
+    <h3>1. 財務結構分析</h3>
+    <p><strong>適合：</strong>長期價值投資者 | <strong>核心指標：</strong>FCF、毛利率、EV/FCF、SBC%</p>
+    <p>深度解析企業財務健康度。透過自由現金流（FCF）分析公司真實的盈利質量，比較毛利率與同業，評估 EV/FCF 估值是否合理，並追蹤股本稀釋速度。最終透過三情境 DCF 模型計算悲觀、基準、樂觀三個目標價。</p>
+  </div>
+
+  <div class="card">
+    <h3>2. 技術面分析（RSI + MACD + 布林通道）</h3>
+    <p><strong>適合：</strong>波段交易者、進出場時機判斷 | <strong>核心指標：</strong>RSI、MACD、布林%B、MA均線</p>
+    <p>綜合五大技術指標給出進出場建議。RSI 判斷超買超賣，MACD 識別趨勢轉折，布林通道量化波動風險，均線系統確認多空格局，成交量分析驗證價格走勢。</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Piotroski F-Score 財務健康量化</h3>
+    <p><strong>適合：</strong>重視財務品質的價值投資者 | <strong>核心：</strong>9項財務指標 0-9分評分</p>
+    <p>由芝加哥大學教授 Joseph Piotroski 開發，透過9個是非題評估財務健康：ROA是否正向、現金流是否充足、ROA是否改善、現金流品質、槓桿率變化、流動性改善、是否增發新股、毛利率改善、資產週轉效率。8-9分為財務優質，4分以下需警惕。</p>
+  </div>
+
+  <div class="card">
+    <h3>4. Peter Lynch GARP 成長股評估</h3>
+    <p><strong>適合：</strong>尋找被低估的成長股 | <strong>核心指標：</strong>PEG ratio、Lynch 合理價</p>
+    <p>傳奇基金經理人 Peter Lynch 的核心理念：用合理的價格買進成長股。PEG &lt; 1.0 代表低估，Lynch 合理股價 = EPS × 盈餘成長率。同時評估 D/E 財務安全性和庫存成長是否超過營收成長（庫存膨脹是危險訊號）。</p>
+  </div>
+
+  <div class="card">
+    <h3>5. Cathie Wood 破壞性創新模型</h3>
+    <p><strong>適合：</strong>積極型投資者、科技成長股 | <strong>核心：</strong>5年目標價、潛在報酬倍數</p>
+    <p>仿照 ARK Invest 投資哲學，聚焦顛覆性創新。分析3年營收CAGR、R&D佔比、毛利率擴張趨勢，並計算5年目標價（假設成熟期P/S倍數）和潛在報酬倍數。適合能承受高波動、看重長期潛力的投資人。</p>
+  </div>
+
+  <div class="card">
+    <h3>6. Howard Marks 宏觀週期分析</h3>
+    <p><strong>適合：</strong>宏觀趨勢投資者 | <strong>核心：</strong>Fear & Greed、VIX、市場週期位置</p>
+    <p>橡樹資本創辦人 Howard Marks 的市場週期理論。評估當前 Fear & Greed Index、VIX 波動率、板塊ETF動能等宏觀指標，判斷市場處於週期的哪個階段（泡沫/正常/低迷），給出宏觀面操作建議。</p>
+  </div>
+
+  <div class="card">
+    <h3>7. 供應鏈結構分析</h3>
+    <p><strong>適合：</strong>重視競爭護城河的投資者 | <strong>核心：</strong>自製率、客戶集中度、CapEx強度</p>
+    <p>評估企業在供應鏈中的競爭地位。分析垂直整合程度（自製率越高競爭壁壘越強）、資本支出佔比（過高可能壓縮利潤）、前三大客戶集中度（集中度過高有斷鏈風險）、GAAP vs Non-GAAP毛利率差距。</p>
+  </div>
+
+  <h2>如何選擇適合的框架？</h2>
+  <table>
+    <tr><th>投資風格</th><th>建議框架</th></tr>
+    <tr><td>長期價值投資</td><td>財務結構 + Piotroski F-Score</td></tr>
+    <tr><td>成長股投資</td><td>Peter Lynch + Cathie Wood</td></tr>
+    <tr><td>波段交易</td><td>技術面 + 宏觀週期</td></tr>
+    <tr><td>全方位評估</td><td>使用全模型深度對比（7框架同時分析）</td></tr>
+  </table>
+
+  <a href="/" class="btn">🔍 立即使用七大框架分析 →</a>
+</div>
+<div class="footer">
+  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
+  <p style="margin-top:8px"><a href="/" style="color:#818cf8">返回分析工具</a></p>
+</div></body></html>
