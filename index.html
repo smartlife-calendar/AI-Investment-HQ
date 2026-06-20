@@ -150,8 +150,10 @@
                 <img src="https://stockiq.tw/logo.png" alt="StockIQ Logo" class="w-16 h-16 object-contain">
                 <h1 id="mainTitle" class="text-3xl font-bold text-gray-900">StockIQ｜全方位多模型股市分析</h1>
             </div>
+        <div id="analyzeFormSection" style="display:none">
                     </header>
 
+        </div>
         <!-- Macro Panel -->
         <div id="macroSection" style="display:none"><div id="macroPanel" style="display:none" class="" bg-white rounded-xl shadow-lg p-6 mb-8">
             <div class="flex justify-between items-center mb-4">
@@ -896,10 +898,10 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','inputFormSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
-                'analyze': ['analyzeSection','inputFormSection'],
+                'analyze': ['analyzeSection','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
