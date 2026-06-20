@@ -882,6 +882,72 @@
             } catch(e) { console.log('News error:', e); }
         }
 
+
+        function showTab(tabId) {
+            const tabs = ['tab-daily', 'tab-analyze', 'tab-macro', 'tab-smart', 'tab-history'];
+            const btns = ['btn-daily', 'btn-analyze', 'btn-macro', 'btn-smart', 'btn-history'];
+            tabs.forEach(t => {
+                const el = document.getElementById(t);
+                if (el) el.style.display = t === tabId ? 'block' : 'none';
+            });
+            btns.forEach(b => {
+                const btn = document.getElementById(b);
+                if (btn) {
+                    const isActive = b === 'btn-' + tabId.replace('tab-','');
+                    btn.style.background = isActive ? '#4f46e5' : 'transparent';
+                    btn.style.color = isActive ? 'white' : '#64748b';
+                }
+            });
+            // Load macro when tab clicked
+            if (tabId === 'tab-macro') loadMacro();
+            if (tabId === 'tab-smart') loadSmartMoney();
+        }
+
+        async function loadSmartMoney() {
+            const el = document.getElementById('smartMoneyContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#64748b;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
+            try {
+                // Load most_actives with vol_ratio as proxy for smart money
+                const resp = await fetch(API_BASE_URL + '/market-movers');
+                const data = await resp.json();
+                const actives = (data.most_active || []).filter(q => (q.vol_ratio || 0) >= 2);
+                actives.sort((a,b) => (b.vol_ratio||0) - (a.vol_ratio||0));
+                
+                let html = '<div style="margin-bottom:16px"><h3 style="font-size:16px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量監控（量比≥2x）</h3>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:12px">量比超過2倍且有明顯方向的股票，往往是主力資金進出的跡象。</p>';
+                
+                if (actives.length === 0) {
+                    html += '<p style="color:#94a3b8;text-align:center;padding:16px">今日無量比≥2x的異常放量個股</p>';
+                } else {
+                    actives.slice(0, 10).forEach(q => {
+                        const p = q.change_pct || 0;
+                        const vr = q.vol_ratio || 1;
+                        const color = p > 0 ? '#16a34a' : '#dc2626';
+                        const bg = p > 0 ? '#f0fdf4' : '#fef2f2';
+                        const signal = vr >= 3 ? '🚨 極強訊號' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
+                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid ${p>0?'#bbf7d0':'#fecaca'}">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
+                                <span style="font-size:11px;color:#64748b;margin-left:8px">${q.name||''}</span>
+                            </div>
+                            <div style="text-align:right">
+                                <div style="color:${color};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
+                                <div style="font-size:11px;color:#f97316;font-weight:600">量比 ${vr}x · ${signal}</div>
+                            </div>
+                        </div>`;
+                    });
+                }
+                html += '</div>';
+                html += '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:12px;color:#92400e">⚠️ 金流密碼僅為技術訊號參考，不代表一定有主力介入。建議搭配基本面分析使用。點擊任一股票進入完整 AI 分析。</div>';
+                el.innerHTML = html;
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+
         // Initialize Auth on page load
         initAuth();
 
@@ -1319,93 +1385,36 @@
 </div>
 </noscript>
 
-        
-        </div>
-
-
-        
-
-
-<!-- Daily Briefing (pre-generated 2026/06/20 11:10) -->
+        <!-- Daily Market Briefing (auto-loads for content richness) -->
+<!-- Daily Briefing (pre-generated 2026/05/31 16:16) -->
         <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing">
             <div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
     <h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2>
-    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/20 11:10 （週六）（收盤資料）</span>
+    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/05/31 16:16 （週末）</span>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
     <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px">
-      <div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div>
-      <div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">BFLY</span> <span style="color:#94a3b8;font-size:12px">$8.90 (+55.9%) ｜ 量比10.2x</span></div>
-<div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">QS</span> <span style="color:#94a3b8;font-size:12px">$8.04 (+16.5%) ｜ 量比3.7x</span></div>
-<div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">BE</span> <span style="color:#94a3b8;font-size:12px">$328.91 (+15.4%) ｜ 量比1.5x</span></div>
-<div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">OUST</span> <span style="color:#94a3b8;font-size:12px">$46.57 (+14.4%) ｜ 量比1.9x</span></div>
-<div onclick="document.getElementById('tickerInput').value='ACMR';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ACMR</span> <span style="color:#94a3b8;font-size:12px">$109.87 (+14.2%) ｜ 量比1.8x</span></div>
+      <div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進（量×漲）</div>
+      <div onclick="document.getElementById('tickerInput').value='SOFI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SOFI</span><span style="color:#4ade80">+7.4%<span style='color:#f97316;font-size:10px'> 2.3x</span></span></div><div onclick="document.getElementById('tickerInput').value='F';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">F</span><span style="color:#4ade80">+4.7%<span style='color:#f97316;font-size:10px'> 2.5x</span></span></div><div onclick="document.getElementById('tickerInput').value='SMCI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SMCI</span><span style="color:#4ade80">+11.6%<span style='color:#f97316;font-size:10px'> 2.3x</span></span></div><div onclick="document.getElementById('tickerInput').value='PLTR';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">PLTR</span><span style="color:#4ade80">+9.2%<span style='color:#f97316;font-size:10px'> 2.0x</span></span></div><div onclick="document.getElementById('tickerInput').value='HPE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">HPE</span><span style="color:#4ade80">+12.6%<span style='color:#f97316;font-size:10px'> 4.6x</span></span></div>
     </div>
     <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px">
-      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div>
-      <div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">RGC</span> <span style="color:#94a3b8;font-size:12px">$12.01 (-19.0%) ｜ 量比2.9x</span></div>
-<div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ACN</span> <span style="color:#94a3b8;font-size:12px">$127.98 (-18.0%) ｜ 量比7.0x</span></div>
-<div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">LEGN</span> <span style="color:#94a3b8;font-size:12px">$27.93 (-16.7%) ｜ 量比5.2x</span></div>
-<div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">TNGX</span> <span style="color:#94a3b8;font-size:12px">$27.97 (-13.4%) ｜ 量比3.2x</span></div>
-<div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">EPAM</span> <span style="color:#94a3b8;font-size:12px">$76.64 (-12.6%) ｜ 量比2.3x</span></div>
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出（量×跌）</div>
+      <div onclick="document.getElementById('tickerInput').value='RDW';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RDW</span><span style="color:#f87171">-5.1%<span style='color:#f97316;font-size:10px'> 2.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='RGTI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGTI</span><span style="color:#f87171">-5.5%<span style='color:#f97316;font-size:10px'> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='ASTS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ASTS</span><span style="color:#f87171">-14.8%<span style='color:#f97316;font-size:10px'> 2.6x</span></span></div>
     </div>
     <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
       <div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div>
-      <div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">BFLY</span> <span style="color:#94a3b8;font-size:12px">$8.90 (+55.9%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">WOLF</span> <span style="color:#94a3b8;font-size:12px">$57.41 (+17.9%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">QS</span> <span style="color:#94a3b8;font-size:12px">$8.04 (+16.5%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">BE</span> <span style="color:#94a3b8;font-size:12px">$328.91 (+15.4%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">OUST</span> <span style="color:#94a3b8;font-size:12px">$46.57 (+14.4%)</span></div>
+      <div onclick="document.getElementById('tickerInput').value='DELL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">DELL</span><span style="color:#4ade80">+32.8%</span></div><div onclick="document.getElementById('tickerInput').value='OKTA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OKTA</span><span style="color:#4ade80">+30.1%</span></div><div onclick="document.getElementById('tickerInput').value='NTAP';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">NTAP</span><span style="color:#4ade80">+22.4%</span></div><div onclick="document.getElementById('tickerInput').value='TBBB';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TBBB</span><span style="color:#4ade80">+15.6%</span></div><div onclick="document.getElementById('tickerInput').value='TEAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TEAM</span><span style="color:#4ade80">+15.3%</span></div>
     </div>
     <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
       <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div>
-      <div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">RGC</span> <span style="color:#94a3b8;font-size:12px">$12.01 (-19.0%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ACN</span> <span style="color:#94a3b8;font-size:12px">$127.98 (-18.0%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">LEGN</span> <span style="color:#94a3b8;font-size:12px">$27.93 (-16.7%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">TNGX</span> <span style="color:#94a3b8;font-size:12px">$27.97 (-13.4%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">EPAM</span> <span style="color:#94a3b8;font-size:12px">$76.64 (-12.6%)</span></div>
-    </div>
-    <div style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);border-radius:10px;padding:14px">
-      <div style="color:#fdba74;font-weight:700;margin-bottom:10px;font-size:13px">🔥 熱搜話題股</div>
-      <div onclick="document.getElementById('tickerInput').value='SPCX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SPCX</span> <span style="color:#94a3b8;font-size:12px">$185.00 (-3.6%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">INTC</span> <span style="color:#94a3b8;font-size:12px">$133.99 (+10.6%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='NVDA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NVDA</span> <span style="color:#94a3b8;font-size:12px">$210.69 (+3.0%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AAL</span> <span style="color:#94a3b8;font-size:12px">$15.99 (+3.7%)</span></div>
-<div onclick="document.getElementById('tickerInput').value='NOK';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NOK</span> <span style="color:#94a3b8;font-size:12px">$13.49 (-2.5%)</span></div>
+      <div onclick="document.getElementById('tickerInput').value='AMBA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AMBA</span><span style="color:#f87171">-21.4%</span></div><div onclick="document.getElementById('tickerInput').value='GAP';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">GAP</span><span style="color:#f87171">-15.4%</span></div><div onclick="document.getElementById('tickerInput').value='ASTS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ASTS</span><span style="color:#f87171">-14.8%</span></div><div onclick="document.getElementById('tickerInput').value='KRMN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">KRMN</span><span style="color:#f87171">-12.7%</span></div><div onclick="document.getElementById('tickerInput').value='AEO';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AEO</span><span style="color:#f87171">-11.8%</span></div>
     </div>
   </div>
   <p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance 數據 ｜ 量比=今日量÷近3月均量 ｜ 點代號直接分析 ｜ stockiq.tw 每日更新</p>
 </div>
         </div>
 
-        <!-- Daily Column: 2026/06/20 11:10 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn">
-          <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-              <div style="font-size:18px;font-weight:800;color:#1f2937">⚡ 今日事件快速分析</div>
-              <span style="color:#9ca3af;font-size:12px">2026/06/20 11:10</span>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-              <div style="background:white;border-left:4px solid #10b981;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
-  <div style="font-size:15px;font-weight:700;color:#059669;margin-bottom:14px">📈 BFLY +55.9%（量比10.2x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">蝴蝶網絡因醫療超聲波技術突破及機構訂單激增而大漲55.9%</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 超聲波晶片技術獲FDA新認證，便攜式醫療診斷設備需求激增，量比10.2倍創近期新高</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 2026年Q2季度醫療設備採購預算釋放，醫院及診所集中採購便攜式超聲設備</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 股價從低位$5.71反彈至$8.90，技術面突破關鍵支撐位，吸引技術面追漲資金</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ SONC (Sono Bello Inc)：醫療美容超聲設備需求同步上升，受益於整體便攜式超聲市場擴張</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ INTU (Intuit Inc)：醫療機構採購管理軟體需求增加，配合設備採購的數位化管理工具銷售向上</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ VEEV (Veeva Systems Inc)：生命科學企業雲平台受惠於醫療設備廠商上游供應鏈管理需求增長</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ GE (General Electric)：傳統大型超聲設備製造商面臨便攜式新技術替代威脅，市場份額被侵蝕</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ SIX (Six Flags Entertainment)：與醫療無關，但高科技股反彈吸引資金從娛樂類轉向，造成板塊資金分流</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">BFLY短期技術面強勁但估值風險高，建議留意後續財報確認訂單真實性，警惕高位獲利了結風險</span></div>
-</div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
-  <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:14px">📉 ACN -18.0%（量比7.0x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">埃森哲因雲計算業務增速放緩及企業IT預算削減預期而大跌18.0%</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. ACN發布下調2026年全年指引，雲服務及數位轉型業務增速從預期15%下修至9%，反映企業客戶資本支出謹慎</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 美聯儲維持高利率政策預期，企業融資成本上升導致IT預算優化，大型企業採購週期延長</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 量比7.0倍大幅換手，機構投資者集中拋售，股價跌破$130關鍵支撐位，引發技術面連鎖賣壓</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ CRWD (CrowdStrike Inc)：企業轉向專業化網安服務而非全棧諮詢，市場份額從大型諮詢公司分流至專業廠商</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ SNOW (Snowflake Inc)：雲端資料平台作為輕資產替代方案，相對於高成本諮詢服務更受採購經理青睞</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ IBM (International Business Machines)：同為企業IT解決方案提供商，面臨客戶IT預算縮減連動影響</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ MSFT (Microsoft)：企業對Azure雲服務的部署實施需求可能延後，ACN是微軟主要轉售及實施夥伴</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ ORCL (Oracle Corporation)：企業數位轉型專案延期，資料庫及ERP系統導入項目預算也將相應調整</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">ACN大跌反映整體企業IT支出週期承壓，投資者應警惕同類諮詢及雲服務股連動下行風險，需觀察後續管理層業績會議確認調整幅度</span></div>
-</div>
-            </div>
-            <p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 本分析僅供參考，不構成投資建議｜AI輔助生成｜stockiq.tw</p>
-          </div>
-        </div>
 
         <!-- SmartLife Calendar App Ad -->
         <div class="max-w-5xl mx-auto mt-6 px-4">
@@ -1433,11 +1442,56 @@
             </div>
         </div>
 
-        
-</div>
 
-        
-<!-- Product Info + Policies (for payment platform review) -->
+        <!-- Tab Navigation -->
+        <div class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="display:flex;gap:2px;background:#e2e8f0;border-radius:12px;padding:4px;overflow-x:auto">
+                <button onclick="showTab('tab-daily')" id="btn-daily" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:#4f46e5;color:white;white-space:nowrap;min-width:90px">📰 今日速報</button>
+                <button onclick="showTab('tab-analyze')" id="btn-analyze" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🔍 股票分析</button>
+                <button onclick="showTab('tab-macro')" id="btn-macro" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🌊 板塊資金</button>
+                <button onclick="showTab('tab-smart')" id="btn-smart" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">💡 金流密碼</button>
+                <button onclick="showTab('tab-history')" id="btn-history" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">📅 歷史資料</button>
+            </div>
+        </div>
+
+        <!-- Daily Column: 2026/06/20 10:53 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/06/20 10:53</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 INTC +10.6%（量比1.6x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股事件分析
+
+## 📈 INTC +10.6%（量比1.6x）
+
+**（1）觸發事件**
+Cramer看好Intel轉型前景，Ray Dalio警示經濟風險推升防禦性科技股需求。
+
+**（2）主要原因**
+- **芯片供應鏈重要性提升**：地緣政治緊張與國內生產法案支持，Intel作為關鍵基礎設施地位強化。
+- **估值修復預期**：近期股價下滑後，機構投資人逢低佈局，認為公司轉型潛力被低估。
+- **避險資金流入**：Dalio債務警告促使資金轉向科技防禦股，Intel受惠於再工業化主題。
+
+**（3）受惠個股**
+- **QCOM**（高通）：芯片設計同步受惠於供應鏈重組。
+- **NVDA**（輝達）：AI驅動的科技需求擴張帶動整體產業估值。
+
+**（4）受害個股**
+- **TSM**（台積電）：Intel國內擴產威脅其全球代工優勢。
+- **AMD**（超微）：Intel反彈分食市場份額。
+
+**（5）結論**
+Intel上漲反映芯片自主化趨勢與避險買盤共振，但需驗證轉型實績。
+
+---
+
+## 📉</div></div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#dc2626;margin-bottom:8px;font-size:14px">📉 RIG -4.8%（量比2.0x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line">RIG -4.8%（量比2.0x）
+
+**（1）觸發事件**
+Transocean收購Valaris引發股東公平性質疑，市場擔憂交易條件不佳。
+
+**（2）主要原因**
+- **併購溢價</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
+
+        <!-- Daily Briefing: 2026/06/20 10:53 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing"><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/20 10:53</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INTC</span><span style="color:#4ade80">+10.6%<span style="color:#f97316;font-size:10px"> 1.6x</span></span></div><div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAL</span><span style="color:#4ade80">+3.7%<span style="color:#f97316;font-size:10px"> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='FLEX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">FLEX</span><span style="color:#4ade80">+3.1%<span style="color:#f97316;font-size:10px"> 12.6x</span></span></div><div onclick="document.getElementById('tickerInput').value='MRVL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MRVL</span><span style="color:#4ade80">+7.3%<span style="color:#f97316;font-size:10px"> 6.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%<span style="color:#f97316;font-size:10px"> 3.7x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='RIG';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RIG</span><span style="color:#f87171">-4.8%<span style="color:#f97316;font-size:10px"> 2.0x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BFLY</span><span style="color:#4ade80">+55.9%</span></div><div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">WOLF</span><span style="color:#4ade80">+17.9%</span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%</span></div><div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BE</span><span style="color:#4ade80">+15.4%</span></div><div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OUST</span><span style="color:#4ade80">+14.4%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGC</span><span style="color:#f87171">-19.0%</span></div><div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ACN</span><span style="color:#f87171">-18.0%</span></div><div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">LEGN</span><span style="color:#f87171">-16.7%</span></div><div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TNGX</span><span style="color:#f87171">-13.4%</span></div><div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EPAM</span><span style="color:#f87171">-12.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+
+        <!-- Product Info + Policies (for payment platform review) -->
         <div class="max-w-3xl mx-auto mt-10 px-4">
             <!-- Service Introduction -->
             <div class="bg-gray-50 rounded-xl p-6 mb-4 text-sm text-gray-600">
