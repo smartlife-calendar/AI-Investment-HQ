@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
+.nav .logo span { color: #818cf8; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 30px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
+h2 { font-size: 22px; font-weight: 700; color: #1e1b4b; margin: 36px 0 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+h3 { font-size: 18px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
+p { margin-bottom: 14px; color: #475569; }
+ul, ol { padding-left: 24px; margin-bottom: 14px; }
+li { color: #475569; margin-bottom: 8px; }
+.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
+.card { background: white; border-radius: 12px; padding: 20px 24px; margin: 16px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.highlight { background: #eff6ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #bfdbfe; }
+.example { background: #f0fdf4; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #86efac; }
+.warning { background: #fef3c7; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #fcd34d; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
+.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
+.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+th { background: #f1f5f9; font-weight: 700; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <a href="/">🔍 分析工具</a>
+    <a href="/learn/">📚 投資教學</a>
+    <a href="/daily/">📰 市場日報</a>
+    <a href="/news/">🌐 財金新聞</a>
+  </div>
+</nav>
+<meta name="description" content="技術面分析完整教學：RSI、MACD、布林通道、均線系統，學會用圖表訊號判斷買賣時機">
+<title>技術面分析教學：RSI、MACD、布林通道 | StockIQ.TW</title>
+<div class="container">
+  <div class="breadcrumb"><a href="/">首頁</a> › <a href="/learn/">投資教學</a> › 技術面分析</div>
+  <span class="tag">📈 技術分析</span>
+  <h1>技術面分析完整教學</h1>
+  <p>技術面分析透過觀察股票的歷史價格和成交量走勢，尋找規律性的「訊號」來預測未來價格走向。與基本面分析不同，技術面分析不關心公司的財務狀況，而是專注於「市場行為」本身。</p>
+
+  <h2>為什麼要學技術分析？</h2>
+  <p>即使你是長期投資者，了解技術面可以幫助你：</p>
+  <ul>
+    <li>找到更好的買入時機（避免買在高點）</li>
+    <li>判斷短期支撐與壓力位置</li>
+    <li>識別市場情緒過度時（超買/超賣）</li>
+    <li>配合基本面分析做出更完整的判斷</li>
+  </ul>
+
+  <h2>一、RSI 相對強弱指數</h2>
+  <p>RSI（Relative Strength Index）是最常用的動量指標，數值範圍 0-100，衡量最近一段時間內上漲和下跌的力道比較。</p>
+  <div class="highlight">
+    <h3>RSI 判讀標準</h3>
+    <table>
+      <tr><th>RSI 數值</th><th>意義</th><th>操作參考</th></tr>
+      <tr><td>&gt; 70</td><td>超買（Overbought）</td><td>注意回調風險，考慮減碼</td></tr>
+      <tr><td>50-70</td><td>強勢區</td><td>多頭趨勢，持有或適量加碼</td></tr>
+      <tr><td>30-50</td><td>弱勢區</td><td>空頭趨勢，謹慎或觀望</td></tr>
+      <tr><td>&lt; 30</td><td>超賣（Oversold）</td><td>注意反彈機會，考慮分批買進</td></tr>
+    </table>
+  </div>
+  <div class="warning">
+    <p><strong>⚠️ 注意：</strong>RSI 超賣不代表一定會立刻反彈，趨勢強烈時 RSI 可能長時間維持在低位。建議搭配其他指標使用。</p>
+  </div>
+
+  <h2>二、MACD 指數平滑移動平均</h2>
+  <p>MACD（Moving Average Convergence Divergence）由三個部分組成：MACD 線、訊號線（Signal Line）、柱狀圖（Histogram）。</p>
+  <div class="card">
+    <h3>🟢 黃金交叉（買入訊號）</h3>
+    <p>MACD 線從下方穿越訊號線向上突破。代表短期動能轉強，是技術面轉多的訊號。</p>
+  </div>
+  <div class="card">
+    <h3>🔴 死亡交叉（賣出訊號）</h3>
+    <p>MACD 線從上方向下穿越訊號線。代表短期動能轉弱，是技術面轉空的訊號。</p>
+  </div>
+  <div class="example">
+    <p><strong>📌 實際應用：</strong>當 MACD 出現黃金交叉，同時 RSI 在 40-60 的健康區間（既不超買也不超賣），這是較可靠的買入時機。</p>
+  </div>
+
+  <h2>三、布林通道（Bollinger Bands）</h2>
+  <p>布林通道由三條線組成：中軌（20日均線）、上軌（中軌+2倍標準差）、下軌（中軌-2倍標準差）。約 95% 的股價波動會落在上下軌之間。</p>
+  <ul>
+    <li><strong>股價觸碰上軌：</strong>可能有回調風險（超買訊號）</li>
+    <li><strong>股價觸碰下軌：</strong>可能有反彈機會（超賣訊號）</li>
+    <li><strong>布林帶收窄：</strong>波動率降低，通常預示大行情即將來臨</li>
+    <li><strong>布林帶擴張：</strong>波動率增加，趨勢確立中</li>
+  </ul>
+
+  <h2>四、均線系統（Moving Averages）</h2>
+  <p>均線是最基礎的技術指標。常用的有 MA20（20日均線）、MA50（50日均線）、MA200（200日均線）。</p>
+  <div class="highlight">
+    <h3>均線排列判讀</h3>
+    <p><strong>黃金排列（多頭格局）：</strong>MA20 &gt; MA50 &gt; MA200，代表短中長期均線都向上，是強勢多頭的典型形態。</p>
+    <p><strong>死亡排列（空頭格局）：</strong>MA20 &lt; MA50 &lt; MA200，代表短中長期均線都向下，是強勢空頭的典型形態。</p>
+  </div>
+
+  <h2>五、成交量分析</h2>
+  <p>量比 = 當日成交量 ÷ 近期平均成交量。成交量是技術分析中最重要的確認指標。</p>
+  <table>
+    <tr><th>量價關係</th><th>意義</th></tr>
+    <tr><td>量增價漲</td><td>多頭有力，上漲可信度高</td></tr>
+    <tr><td>量縮價漲</td><td>追高意願低，漲勢可能乏力</td></tr>
+    <tr><td>量增價跌</td><td>空頭有力，下跌可信度高</td></tr>
+    <tr><td>量縮價跌</td><td>無量下跌，可能接近支撐</td></tr>
+  </table>
+
+  <h2>如何用 StockIQ 看技術面？</h2>
+  <p>輸入任何美股代號，StockIQ 的「技術面分析」框架會自動計算 RSI、MACD、布林通道%B、均線排列、量比等指標，並給出綜合評分和操作建議，讓你不需要自己手動計算。</p>
+  <a href="/?persona=technical_analysis" class="btn">🔍 立即分析技術面 →</a>
+  <a href="/learn/fundamental.html" class="btn">📊 學習基本面分析 →</a>
+</div>
+<div class="footer">
+  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
+  <p style="margin-top:8px"><a href="/" style="color:#818cf8">返回分析工具</a> ｜ 客服：smartlifecalendar@gmail.com</p>
+</div></body></html>
