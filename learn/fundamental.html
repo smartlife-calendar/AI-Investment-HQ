@@ -4,44 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/logo.png">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
-.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
-.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
-.nav .logo span { color: #818cf8; }
-.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
-h1 { font-size: 30px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
-h2 { font-size: 22px; font-weight: 700; color: #1e1b4b; margin: 36px 0 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
-h3 { font-size: 18px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
-p { margin-bottom: 14px; color: #475569; }
-ul, ol { padding-left: 24px; margin-bottom: 14px; }
-li { color: #475569; margin-bottom: 8px; }
-.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
-.card { background: white; border-radius: 12px; padding: 20px 24px; margin: 16px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-.highlight { background: #eff6ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #bfdbfe; }
-.example { background: #f0fdf4; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #86efac; }
-.warning { background: #fef3c7; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #fcd34d; }
-.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
-.breadcrumb a { color: #6366f1; text-decoration: none; }
-.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
-.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
-th { background: #f1f5f9; font-weight: 700; }
-</style>
+
 </head>
 <body>
-<nav class="nav">
-  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
-  <div style="display:flex;gap:4px;flex-wrap:wrap">
-    <a href="/">🔍 分析工具</a>
-    <a href="/learn/">📚 投資教學</a>
-    <a href="/daily/">📰 市場日報</a>
-    <a href="/news/">🌐 財金新聞</a>
-  </div>
-</nav>
+    <!-- Standard Navigation -->
+    <nav class="site-nav">
+        <a href="/" class="logo">
+            <img src="/logo.png" alt="StockIQ">
+            <span>Stock<em>IQ</em>.TW</span>
+        </a>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <a href="/">🔍 分析工具</a>
+            <a href="/learn/">📚 投資教學</a>
+            <a href="/daily/">📰 市場日報</a>
+            <a href="/news/">🌐 財金新聞</a>
+        </div>
+    </nav>
 <meta name="description" content="基本面分析教學：自由現金流FCF、毛利率、ROE、D/E比率、EV/FCF估值，學會用財務數字評估股票價值">
 <title>基本面分析教學：財報解讀與估值方法 | StockIQ.TW</title>
 <div class="container">
@@ -124,8 +102,14 @@ th { background: #f1f5f9; font-weight: 700; }
   <a href="/learn/technical.html" class="btn">📈 學習技術面分析 →</a>
   <a href="/learn/frameworks.html" class="btn">🔬 了解七大框架 →</a>
 </div>
-<div class="footer">
-  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
-  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。</p>
-  <p style="margin-top:8px"><a href="/" style="color:#818cf8">返回分析工具</a> ｜ 客服：smartlifecalendar@gmail.com</p>
-</div></body></html>
+    <div class="footer">
+        <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+        <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。投資涉及風險，請自行評估。</p>
+        <p style="margin-top:8px">
+            <a href="/" style="color:#818cf8">🔍 分析工具</a> ｜
+            <a href="/learn/" style="color:#818cf8">📚 投資教學</a> ｜
+            <a href="/daily/" style="color:#818cf8">📰 市場日報</a> ｜
+            <a href="/news/" style="color:#818cf8">🌐 財金新聞</a>
+        </p>
+    </div>
+</body></html>
