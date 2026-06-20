@@ -136,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.7.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.8.0", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -221,6 +221,40 @@ def cost_report(x_admin_token: str = Header(default="")):
             for ticker in set(r["ticker"] for r in _cost_log)
         }
     }
+
+
+
+@app.get("/indices")
+def get_indices():
+    """Proxy Yahoo Finance indices to avoid CORS"""
+    import time
+    cache_key = "indices"
+    now = time.time()
+    cached = _data_cache.get(cache_key)
+    if cached and now < cached.get("expires", 0):
+        return cached["data"]
+    
+    yf_headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+        "Referer": "https://finance.yahoo.com/"
+    }
+    result = {}
+    for sym, name in [("^GSPC", "S&P 500"), ("^IXIC", "NASDAQ"), ("^DJI", "DOW"), ("^VIX", "VIX")]:
+        try:
+            import time as _time
+            _time.sleep(1)
+            url = f"https://query2.finance.yahoo.com/v8/finance/chart/{sym.replace('^','%5E')}?interval=1d&range=1d"
+            r = requests.get(url, headers=yf_headers, timeout=10)
+            meta = r.json().get("chart", {}).get("result", [{}])[0].get("meta", {})
+            price = meta.get("regularMarketPrice", 0)
+            prev = meta.get("chartPreviousClose", price)
+            pct = round((price - prev) / prev * 100, 2) if prev else 0
+            result[sym] = {"name": name, "price": round(price, 2), "pct": pct}
+        except Exception as e:
+            result[sym] = {"name": name, "price": 0, "pct": 0, "error": str(e)}
+    
+    _data_cache[cache_key] = {"data": result, "expires": now + 300}
+    return result
 
 
 @app.post("/threads-post")
