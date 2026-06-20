@@ -32,6 +32,30 @@ def check_rate_limit(ip: str) -> tuple:
     _rate_store[ip].append(now)
     return True, RATE_LIMIT - count - 1, 0
 
+
+# === Cost Tracking ===
+_cost_log: list = []  # [{timestamp, ticker, persona, input_tokens, output_tokens, cost_usd}]
+_total_cost_usd: float = 0.0
+
+def log_api_cost(ticker: str, persona: str, input_tokens: int, output_tokens: int):
+    """Log Anthropic API usage for cost tracking"""
+    global _total_cost_usd
+    # Haiku pricing: $0.00025/1K input, $0.00125/1K output
+    cost = (input_tokens / 1000 * 0.00025) + (output_tokens / 1000 * 0.00125)
+    _total_cost_usd += cost
+    _cost_log.append({
+        "time": datetime.utcnow().isoformat()[:16],
+        "ticker": ticker,
+        "persona": persona,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": round(cost, 6),
+        "cost_ntd": round(cost * 32, 4)
+    })
+    # Keep last 1000 entries
+    if len(_cost_log) > 1000:
+        _cost_log.pop(0)
+
 # === Query Tracking (热门追踪) ===
 _query_counter: dict = defaultdict(int)  # {ticker: count}
 _query_history: list = []  # [{ticker, timestamp, persona}]
@@ -112,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.6.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.7.0", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -177,6 +201,27 @@ async def update_briefing_ep(x_admin_token: str = Header(default="")):
     if x_admin_token != ADMIN_TOKEN:
         raise HTTPException(status_code=401, detail="Unauthorized")
     return {"status": "use_heartbeat", "message": "Run update_briefing.py via OpenClaw heartbeat"}
+
+
+@app.get("/cost-report")
+def cost_report(x_admin_token: str = Header(default="")):
+    """Admin endpoint: view API cost tracking"""
+    if x_admin_token != ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return {
+        "total_cost_usd": round(_total_cost_usd, 4),
+        "total_cost_ntd": round(_total_cost_usd * 32, 2),
+        "total_calls": len(_cost_log),
+        "recent_10": _cost_log[-10:],
+        "by_ticker": {
+            ticker: {
+                "calls": sum(1 for r in _cost_log if r["ticker"] == ticker),
+                "cost_ntd": round(sum(r["cost_ntd"] for r in _cost_log if r["ticker"] == ticker), 2)
+            }
+            for ticker in set(r["ticker"] for r in _cost_log)
+        }
+    }
+
 
 @app.post("/threads-post")
 async def manual_threads_post():
