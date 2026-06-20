@@ -26,3 +26,5 @@ restartPolicyType = "ON_FAILURE"
 # v4.4.0 redeploy 2026-05-13T01:08
 
 # v4.6.1 force 2026-05-31T10:42
+
+# force v4.8.0 2026-06-20T06:26
