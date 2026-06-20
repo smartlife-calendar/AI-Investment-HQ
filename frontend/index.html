@@ -125,7 +125,7 @@
         </div>
 
         <!-- Header -->
-        <header class="text-center mb-6">
+        <div id="analyzeSection"><header class="text-center mb-6">
             <div class="flex items-center justify-center gap-4 mb-3">
                 <img src="https://stockiq.tw/logo.png" alt="StockIQ Logo" class="w-16 h-16 object-contain">
                 <h1 id="mainTitle" class="text-3xl font-bold text-gray-900">StockIQ｜全方位多模型股市分析</h1>
@@ -133,7 +133,7 @@
                     </header>
 
         <!-- Macro Panel -->
-        <div id="macroPanel" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div id="macroSection" style="display:none"><div id="macroPanel" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold">🌍 總體經濟 & 板塊52週資金流動</h2>
                 <button onclick="document.getElementById('macroPanel').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">✕</button>
@@ -350,11 +350,9 @@
             _lang = lang;
             localStorage.setItem('lang', lang);
             applyLang();
+        showTab('today');
         // Load ticker and show daily tab
-        loadMarketTicker();
-        setTimeout(() => showTab('tab-daily'), 100);
         // Load market ticker
-        loadMarketTicker();
         // Auto-load daily briefing immediately
         loadDailyBriefing();
         }
@@ -875,45 +873,83 @@
 
 
 
-        function showTab(tabId) {
-            // Map tab IDs to element IDs that should be shown/hidden
-            const tabMap = {
-                'tab-daily': ['topBriefing', 'dailyColumn'],
-                'tab-analyze': ['analyzeSection'],
-                'tab-macro': ['macroPanel'],
-                'tab-smart': ['tab-smart'],
-                'tab-history': ['tab-history']
-            };
-            const btnMap = {
-                'tab-daily': 'btn-daily',
-                'tab-analyze': 'btn-analyze',
-                'tab-macro': 'btn-macro',
-                'tab-smart': 'btn-smart',
-                'tab-history': 'btn-history'
+
+        function showTab(tabName) {
+            // All sections to potentially show/hide
+            const sections = {
+                'today': ['topBriefing', 'dailyColumn', 'moversPanel'],
+                'analyze': ['analyzeSection'],
+                'macro': ['macroSection'],
+                'smart': ['smartSection'],
+                'news': ['newsSection'],
+                'history': ['historySection']
             };
             
-            // Show/hide elements
-            const allElements = ['topBriefing','dailyColumn','analyzeSection','macroPanel','tab-smart','tab-history'];
-            allElements.forEach(id => {
+            // Hide all sections first
+            const allIds = ['topBriefing','dailyColumn','moversPanel','analyzeSection','macroSection','smartSection','newsSection','historySection'];
+            allIds.forEach(id => {
                 const el = document.getElementById(id);
-                if (!el) return;
-                const shouldShow = (tabMap[tabId] || []).includes(id);
-                el.style.display = shouldShow ? '' : 'none';
+                if (el) el.style.display = 'none';
             });
             
-            // Update button styles
-            Object.keys(btnMap).forEach(tab => {
-                const btn = document.getElementById(btnMap[tab]);
-                if (!btn) return;
-                const isActive = tab === tabId;
-                btn.style.background = isActive ? '#4f46e5' : 'transparent';
-                btn.style.color = isActive ? 'white' : '#64748b';
+            // Show the selected tab's sections
+            (sections[tabName] || []).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = '';
             });
+            
+            // Update tab button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.style.color = '#64748b';
+                btn.style.borderBottom = '2px solid transparent';
+            });
+            const activeBtn = document.getElementById('tab-' + tabName);
+            if (activeBtn) {
+                activeBtn.style.color = '#4f46e5';
+                activeBtn.style.borderBottom = '2px solid #4f46e5';
+            }
             
             // Side effects
-            if (tabId === 'tab-macro') loadMacro();
-            if (tabId === 'tab-smart') loadSmartMoney();
+            if (tabName === 'macro') { 
+                const mp = document.getElementById('macroSection');
+                if (mp) { mp.style.display = ''; loadMacro(); }
+            }
+            if (tabName === 'smart') loadSmartMoney();
+            if (tabName === 'news') loadNewsSection();
         }
+        
+        async function loadNewsSection() {
+            const el = document.getElementById('newsContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:24px">⏳ 載入財金新聞...</p>';
+            try {
+                const symbols = ['AAPL','NVDA','TSLA','MSFT','AMZN'];
+                const allNews = [];
+                for (const sym of symbols.slice(0,2)) {
+                    const r = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${sym}&newsCount=2&quotesCount=0`);
+                    const d = await r.json();
+                    (d.news||[]).forEach(n => allNews.push({...n, sym}));
+                    await new Promise(r=>setTimeout(r,500));
+                }
+                // Also get market news
+                const mr = await fetch('https://query1.finance.yahoo.com/v1/finance/search?q=stock+market&newsCount=5&quotesCount=0');
+                const md = await mr.json();
+                (md.news||[]).forEach(n => allNews.push(n));
+                
+                if (!allNews.length) throw new Error('No news');
+                el.innerHTML = allNews.slice(0,8).map(n => {
+                    const d = n.providerPublishTime ? new Date(n.providerPublishTime*1000).toLocaleDateString('zh-TW') : '';
+                    return `<a href="${n.link}" target="_blank" rel="noopener" style="display:block;padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:600;font-size:14px;color:#1e293b;margin-bottom:4px">${n.title}</div>
+                        <div style="font-size:12px;color:#94a3b8">${n.publisher||''} · ${d}</div>
+                    </a>`;
+                }).join('');
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+
 
 
         async function loadSmartMoney() {
@@ -1519,17 +1555,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Tab Navigation -->
-        <div class="max-w-5xl mx-auto mt-4 px-4">
-            <div style="display:flex;gap:2px;background:#e2e8f0;border-radius:12px;padding:4px;overflow-x:auto">
-                <button onclick="showTab('tab-daily')" id="btn-daily" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:#4f46e5;color:white;white-space:nowrap;min-width:90px">📰 今日速報</button>
-                <button onclick="showTab('tab-analyze')" id="btn-analyze" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🔍 股票分析</button>
-                <button onclick="showTab('tab-macro')" id="btn-macro" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">🌊 板塊資金</button>
-                <button onclick="showTab('tab-smart')" id="btn-smart" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">💡 金流密碼</button>
-                <button onclick="showTab('tab-history')" id="btn-history" style="flex:1;padding:8px 16px;border:none;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;background:transparent;color:#64748b;white-space:nowrap;min-width:90px">📅 歷史資料</button>
-            </div>
         </div>
 
 
@@ -1537,6 +1562,44 @@
         <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing">
             <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px;text-align:center">
                 <p style="color:#818cf8;font-size:14px;margin:0">📰 今日市場速報每天 09:00 台灣時間自動更新 · 請稍後再來查看</p>
+            </div>
+        </div>
+
+
+        <!-- Smart Money Section -->
+        <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">💡 金流密碼</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">追蹤異常放量個股（量比≥2x），捕捉法人/主力資金布局跡象</p>
+                <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+            </div>
+        </div>
+
+        <!-- News Section -->
+        <div id="newsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 財金新聞</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">即時美股財經新聞 · 產業動態 · 個股事件</p>
+                <div id="newsContent"><p style="color:#94a3b8;text-align:center;padding:24px">點擊「財金新聞」標籤載入</p></div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="historySection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📅 歷史資料</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日市場速報和事件分析完整存檔 · 由 Railway 機器人每天 09:00 和 21:00 更新</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                    <a href="/daily/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#4f46e5">📰 每日速報存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">查看歷史市場速報</div>
+                    </a>
+                    <a href="/news/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#0891b2">🌐 財金新聞存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">每日新聞摘要</div>
+                    </a>
+                </div>
+                <p style="font-size:12px;color:#94a3b8;margin-top:16px">💡 每天 09:00 開盤速報 · 21:00 收盤總結，資料永久保存供追溯</p>
             </div>
         </div>
 
