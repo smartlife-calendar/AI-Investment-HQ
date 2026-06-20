@@ -362,6 +362,9 @@
             _lang = lang;
             localStorage.setItem('lang', lang);
             applyLang();
+        // Load ticker and show daily tab
+        loadMarketTicker();
+        setTimeout(() => showTab('tab-daily'), 100);
         // Load market ticker
         loadMarketTicker();
         // Auto-load daily briefing immediately
@@ -883,25 +886,47 @@
         }
 
 
+
         function showTab(tabId) {
-            const tabs = ['tab-daily', 'tab-analyze', 'tab-macro', 'tab-smart', 'tab-history'];
-            const btns = ['btn-daily', 'btn-analyze', 'btn-macro', 'btn-smart', 'btn-history'];
-            tabs.forEach(t => {
-                const el = document.getElementById(t);
-                if (el) el.style.display = t === tabId ? 'block' : 'none';
+            // Map tab IDs to element IDs that should be shown/hidden
+            const tabMap = {
+                'tab-daily': ['topBriefing', 'dailyColumn'],
+                'tab-analyze': ['analyzeSection'],
+                'tab-macro': ['macroPanel'],
+                'tab-smart': ['tab-smart'],
+                'tab-history': ['tab-history']
+            };
+            const btnMap = {
+                'tab-daily': 'btn-daily',
+                'tab-analyze': 'btn-analyze',
+                'tab-macro': 'btn-macro',
+                'tab-smart': 'btn-smart',
+                'tab-history': 'btn-history'
+            };
+            
+            // Show/hide elements
+            const allElements = ['topBriefing','dailyColumn','analyzeSection','macroPanel','tab-smart','tab-history'];
+            allElements.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const shouldShow = (tabMap[tabId] || []).includes(id);
+                el.style.display = shouldShow ? '' : 'none';
             });
-            btns.forEach(b => {
-                const btn = document.getElementById(b);
-                if (btn) {
-                    const isActive = b === 'btn-' + tabId.replace('tab-','');
-                    btn.style.background = isActive ? '#4f46e5' : 'transparent';
-                    btn.style.color = isActive ? 'white' : '#64748b';
-                }
+            
+            // Update button styles
+            Object.keys(btnMap).forEach(tab => {
+                const btn = document.getElementById(btnMap[tab]);
+                if (!btn) return;
+                const isActive = tab === tabId;
+                btn.style.background = isActive ? '#4f46e5' : 'transparent';
+                btn.style.color = isActive ? 'white' : '#64748b';
             });
-            // Load macro when tab clicked
+            
+            // Side effects
             if (tabId === 'tab-macro') loadMacro();
             if (tabId === 'tab-smart') loadSmartMoney();
         }
+
 
         async function loadSmartMoney() {
             const el = document.getElementById('smartMoneyContent');
@@ -1454,42 +1479,13 @@
             </div>
         </div>
 
-        <!-- Daily Column: 2026/06/20 10:53 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/06/20 10:53</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 INTC +10.6%（量比1.6x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股事件分析
 
-## 📈 INTC +10.6%（量比1.6x）
-
-**（1）觸發事件**
-Cramer看好Intel轉型前景，Ray Dalio警示經濟風險推升防禦性科技股需求。
-
-**（2）主要原因**
-- **芯片供應鏈重要性提升**：地緣政治緊張與國內生產法案支持，Intel作為關鍵基礎設施地位強化。
-- **估值修復預期**：近期股價下滑後，機構投資人逢低佈局，認為公司轉型潛力被低估。
-- **避險資金流入**：Dalio債務警告促使資金轉向科技防禦股，Intel受惠於再工業化主題。
-
-**（3）受惠個股**
-- **QCOM**（高通）：芯片設計同步受惠於供應鏈重組。
-- **NVDA**（輝達）：AI驅動的科技需求擴張帶動整體產業估值。
-
-**（4）受害個股**
-- **TSM**（台積電）：Intel國內擴產威脅其全球代工優勢。
-- **AMD**（超微）：Intel反彈分食市場份額。
-
-**（5）結論**
-Intel上漲反映芯片自主化趨勢與避險買盤共振，但需驗證轉型實績。
-
----
-
-## 📉</div></div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#dc2626;margin-bottom:8px;font-size:14px">📉 RIG -4.8%（量比2.0x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line">RIG -4.8%（量比2.0x）
-
-**（1）觸發事件**
-Transocean收購Valaris引發股東公平性質疑，市場擔憂交易條件不佳。
-
-**（2）主要原因**
-- **併購溢價</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
-
-        <!-- Daily Briefing: 2026/06/20 10:53 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing"><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/20 10:53</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INTC</span><span style="color:#4ade80">+10.6%<span style="color:#f97316;font-size:10px"> 1.6x</span></span></div><div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAL</span><span style="color:#4ade80">+3.7%<span style="color:#f97316;font-size:10px"> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='FLEX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">FLEX</span><span style="color:#4ade80">+3.1%<span style="color:#f97316;font-size:10px"> 12.6x</span></span></div><div onclick="document.getElementById('tickerInput').value='MRVL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MRVL</span><span style="color:#4ade80">+7.3%<span style="color:#f97316;font-size:10px"> 6.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%<span style="color:#f97316;font-size:10px"> 3.7x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='RIG';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RIG</span><span style="color:#f87171">-4.8%<span style="color:#f97316;font-size:10px"> 2.0x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BFLY</span><span style="color:#4ade80">+55.9%</span></div><div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">WOLF</span><span style="color:#4ade80">+17.9%</span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%</span></div><div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BE</span><span style="color:#4ade80">+15.4%</span></div><div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OUST</span><span style="color:#4ade80">+14.4%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGC</span><span style="color:#f87171">-19.0%</span></div><div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ACN</span><span style="color:#f87171">-18.0%</span></div><div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">LEGN</span><span style="color:#f87171">-16.7%</span></div><div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TNGX</span><span style="color:#f87171">-13.4%</span></div><div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EPAM</span><span style="color:#f87171">-12.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+        <!-- Daily Briefing Placeholder - Railway bot updates at 09:00 TW daily -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing">
+            <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px;text-align:center">
+                <p style="color:#818cf8;font-size:14px;margin:0">📰 今日市場速報每天 09:00 台灣時間自動更新 · 請稍後再來查看</p>
+            </div>
+        </div>
 
         <!-- Product Info + Policies (for payment platform review) -->
         <div class="max-w-3xl mx-auto mt-10 px-4">
