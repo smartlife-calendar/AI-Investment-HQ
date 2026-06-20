@@ -931,30 +931,29 @@
             if (!el || el.dataset.loaded) return;
             el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:24px">⏳ 載入財金新聞...</p>';
             try {
-                const symbols = ['AAPL','NVDA','TSLA','MSFT','AMZN'];
-                const allNews = [];
-                for (const sym of symbols.slice(0,2)) {
-                    const r = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${sym}&newsCount=2&quotesCount=0`);
-                    const d = await r.json();
-                    (d.news||[]).forEach(n => allNews.push({...n, sym}));
-                    await new Promise(r=>setTimeout(r,500));
+                // Load pre-fetched news from Railway bot's daily update
+                const resp = await fetch('/news/index.html');
+                const text = await resp.text();
+                // Extract news articles from the static page
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const newsItems = doc.querySelectorAll('a[href*="finance"]');
+                if (newsItems.length > 0) {
+                    el.innerHTML = Array.from(newsItems).slice(0,8).map(a => 
+                        `<a href="${a.href}" target="_blank" rel="noopener" style="display:block;padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">${a.innerHTML}</a>`
+                    ).join('');
+                } else {
+                    el.innerHTML = `<div style="text-align:center;padding:24px">
+                        <p style="color:#64748b;margin-bottom:12px">每日財金新聞由 Railway 機器人每天更新</p>
+                        <a href="/news/" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">查看完整財金新聞 →</a>
+                    </div>`;
                 }
-                // Also get market news
-                const mr = await fetch('https://query1.finance.yahoo.com/v1/finance/search?q=stock+market&newsCount=5&quotesCount=0');
-                const md = await mr.json();
-                (md.news||[]).forEach(n => allNews.push(n));
-                
-                if (!allNews.length) throw new Error('No news');
-                el.innerHTML = allNews.slice(0,8).map(n => {
-                    const d = n.providerPublishTime ? new Date(n.providerPublishTime*1000).toLocaleDateString('zh-TW') : '';
-                    return `<a href="${n.link}" target="_blank" rel="noopener" style="display:block;padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
-                        <div style="font-weight:600;font-size:14px;color:#1e293b;margin-bottom:4px">${n.title}</div>
-                        <div style="font-size:12px;color:#94a3b8">${n.publisher||''} · ${d}</div>
-                    </a>`;
-                }).join('');
                 el.dataset.loaded = '1';
             } catch(e) {
-                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+                el.innerHTML = `<div style="text-align:center;padding:24px">
+                    <p style="color:#64748b;margin-bottom:12px">每日財金新聞由 Railway 機器人每天更新</p>
+                    <a href="/news/" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">查看完整財金新聞 →</a>
+                </div>`;
             }
         }
 
