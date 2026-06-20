@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="美股投資基礎教學：股票是什麼、如何開戶、P/E本益比、市值、EPS每股盈餘等新手必學概念">
+<title>美股投資基礎入門 | StockIQ.TW 投資教學</title>
+<link rel="icon" type="image/png" href="/logo.png">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+.nav { background: #1e1b4b; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.nav a { color: #a5b4fc; text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+.nav .logo { color: white; font-weight: 800; font-size: 18px; text-decoration: none; }
+.nav .logo span { color: #818cf8; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+h1 { font-size: 30px; font-weight: 800; color: #1e1b4b; margin-bottom: 8px; }
+h2 { font-size: 22px; font-weight: 700; color: #1e1b4b; margin: 36px 0 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+h3 { font-size: 18px; font-weight: 600; color: #374151; margin: 20px 0 8px; }
+p { margin-bottom: 14px; color: #475569; }
+ul, ol { padding-left: 24px; margin-bottom: 14px; }
+li { color: #475569; margin-bottom: 8px; }
+.tag { display: inline-block; background: #ede9fe; color: #6d28d9; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-bottom: 12px; }
+.card { background: white; border-radius: 12px; padding: 20px 24px; margin: 16px 0; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.highlight { background: #eff6ff; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #bfdbfe; }
+.example { background: #f0fdf4; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #86efac; }
+.warning { background: #fefce8; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border: 1px solid #fde68a; }
+.breadcrumb { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+.breadcrumb a { color: #6366f1; text-decoration: none; }
+.btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 4px; }
+.footer { background: #1e1b4b; color: #94a3b8; text-align: center; padding: 24px; margin-top: 48px; font-size: 13px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+th { background: #f1f5f9; font-weight: 700; color: #1e293b; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="/" class="logo">Stock<span>IQ</span>.TW</a>
+  <div style="display:flex;gap:4px;flex-wrap:wrap">
+    <a href="/">🔍 分析工具</a>
+    <a href="/learn/">📚 投資教學</a>
+    <a href="/daily/">📰 市場日報</a>
+    <a href="/news/">🌐 財金新聞</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="breadcrumb"><a href="/">首頁</a> › <a href="/learn/">投資教學</a> › 投資基礎</div>
+  <span class="tag">🌱 入門必讀</span>
+  <h1>美股投資基礎入門：新手完整指南</h1>
+  <p>如果你剛開始對美股感興趣，這篇文章將帶你從零開始，理解投資的核心概念，讓你不再對財經新聞感到陌生。</p>
+
+  <h2>什麼是股票？</h2>
+  <p>股票代表對一家公司的所有權份額。當你買進 1 股蘋果（AAPL），你就擁有蘋果公司極小比例的股份，成為公司的股東之一。公司獲利時，股東可能透過兩種方式受益：</p>
+  <ul>
+    <li><strong>股價上漲：</strong>公司成長，股票市值增加，你可以用更高的價格賣出獲利</li>
+    <li><strong>股利（Dividend）：</strong>部分公司定期將盈餘分配給股東</li>
+  </ul>
+
+  <div class="example">
+    <h3>📌 實例說明</h3>
+    <p>假設你在 2020 年用 $120 買進 10 股蘋果（AAPL），共投入 $1,200。2024 年蘋果股價漲到 $220，你的 10 股現在價值 $2,200，獲利 $1,000，報酬率 83%。</p>
+  </div>
+
+  <h2>為什麼投資美股？</h2>
+  <div class="card">
+    <h3>🌍 全球最大市場</h3>
+    <p>美股市值約佔全球股市總市值的 45%，包含全球最具影響力的公司：Apple、Microsoft、NVIDIA、Amazon、Google 等。</p>
+  </div>
+  <div class="card">
+    <h3>💵 以美元計價的資產</h3>
+    <p>投資美股等同於持有美元資產，可以對沖台幣匯率風險。當美元升值時，投資報酬會更高。</p>
+  </div>
+  <div class="card">
+    <h3>📈 長期報酬優異</h3>
+    <p>美國 S&P 500 指數過去 30 年平均年化報酬率約 10-11%，遠超過定存利率。</p>
+  </div>
+
+  <h2>新手必懂的五個基本概念</h2>
+
+  <h3>1. 市值（Market Capitalization）</h3>
+  <p>市值 = 股價 × 流通股數，代表市場對這家公司的總估值。</p>
+  <table>
+    <tr><th>分類</th><th>市值範圍</th><th>特性</th><th>例子</th></tr>
+    <tr><td>大型股</td><td>超過 $100 億</td><td>穩定、流動性高</td><td>Apple、Microsoft</td></tr>
+    <tr><td>中型股</td><td>$20-100 億</td><td>成長潛力大</td><td>各行業中型公司</td></tr>
+    <tr><td>小型股</td><td>低於 $20 億</td><td>高風險高報酬</td><td>新興成長公司</td></tr>
+  </table>
+
+  <h3>2. 本益比 P/E Ratio（Price-to-Earnings）</h3>
+  <p>本益比 = 股價 ÷ 每股盈餘（EPS），代表你花多少錢「買」1元的盈餘。</p>
+  <div class="highlight">
+    <p><strong>舉例：</strong>某股票股價 $100，每股盈餘 $5，P/E = 100÷5 = 20倍。意思是你付出 20 倍的盈餘來買這支股票。</p>
+    <p><strong>判斷標準：</strong>P/E 越低通常越便宜（但不一定），科技股 P/E 通常較高（30-50倍），傳統產業較低（10-20倍）。</p>
+  </div>
+
+  <h3>3. 每股盈餘 EPS（Earnings Per Share）</h3>
+  <p>EPS = 淨利潤 ÷ 流通股數，代表公司每一股股票為股東賺了多少錢。EPS 持續成長是公司健康的重要指標。</p>
+
+  <h3>4. 成交量（Volume）</h3>
+  <p>當日交易的股數。成交量大代表市場關注度高，流動性好；成交量小的股票買賣差價（spread）可能較大，要小心。</p>
+
+  <h3>5. 股利率（Dividend Yield）</h3>
+  <p>股利率 = 年度股利 ÷ 股價。如果你看重穩定現金流，可以關注高股利率的股票，但高股利不一定代表公司優質。</p>
+
+  <h2>如何開始投資美股？</h2>
+  <ol>
+    <li><strong>選擇券商：</strong>台灣投資人可選擇國內複委託（元大、富邦）或直接開海外帳戶（TD Ameritrade、Interactive Brokers）</li>
+    <li><strong>備妥資金：</strong>建議初期用閒置資金，不影響生活的金額開始</li>
+    <li><strong>研究基本功：</strong>了解你想投資的公司的商業模式和財務狀況</li>
+    <li><strong>分散投資：</strong>不要把所有資金集中在一支股票，建議持有10-20支不同產業的股票</li>
+    <li><strong>長期持有：</strong>短期進出容易受情緒影響，長期持有優質公司往往更有效</li>
+  </ol>
+
+  <div class="warning">
+    <h3>⚠️ 新手常犯的錯誤</h3>
+    <ul>
+      <li>追漲殺跌：股票漲了才買，跌了就賣，往往造成高買低賣</li>
+      <li>過度集中：把資金全部押注在單一股票或產業</li>
+      <li>忽略手續費：頻繁交易累積的手續費可能侵蝕大部分獲利</li>
+      <li>沒有投資計畫：不清楚自己的投資目標、時間範圍和風險承受度</li>
+    </ul>
+  </div>
+
+  <h2>下一步學習</h2>
+  <p>了解基礎概念後，進一步學習如何分析一家公司的價值：</p>
+  <a href="/learn/fundamental.html" class="btn">📊 學習基本面分析 →</a>
+  <a href="/learn/technical.html" class="btn">📈 學習技術面分析 →</a>
+  <a href="/" class="btn">🔍 立即分析美股 →</a>
+</div>
+<div class="footer">
+  <p>© 2026 StockIQ.TW — AI 美股多框架分析平台</p>
+  <p style="margin-top:8px">⚠️ 本網站資訊僅供參考，不構成投資建議。投資涉及風險，請自行評估。</p>
+  <p style="margin-top:8px">客服：smartlifecalendar@gmail.com ｜ <a href="/" style="color:#818cf8">返回分析工具</a></p>
+</div>
+</body></html>
