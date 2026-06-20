@@ -81,39 +81,39 @@
 <span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">VIX</span> <span id="vixval" style="font-weight:700">---</span> <span id="vixchg" style="color:#94a3b8">--.--%</span></span>
         </div>
     </div>
-    <!-- Top Navigation (consistent with all pages) -->
-    <nav style="background:#1e1b4b;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+    <!-- Unified Header -->
+    <div style="background:#1e1b4b;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none">
             <img src="/logo.png" alt="StockIQ" style="width:32px;height:32px;border-radius:8px;object-fit:contain">
             <span style="color:white;font-weight:800;font-size:18px">Stock<span style="color:#818cf8">IQ</span>.TW</span>
         </a>
-        <div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
-            <a href="/" style="color:#a5b4fc;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:6px">🔍 分析工具</a>
-            <a href="/learn/" style="color:#a5b4fc;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:6px">📚 投資教學</a>
-            <a href="/daily/" style="color:#a5b4fc;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:6px">📰 市場日報</a>
-            <a href="/news/" style="color:#a5b4fc;text-decoration:none;font-size:13px;padding:4px 10px;border-radius:6px">🌐 財金新聞</a>
-            <span style="color:#64748b;font-size:12px;margin-left:8px"><span id="creditLabel">餘額：</span><strong id="creditCount" style="color:#818cf8">0 次</strong></span>
-            <button id="loginBtn" onclick="signInWithGoogle()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px"><img src="https://www.google.com/favicon.ico" style="width:12px;height:12px"><span id="loginText">Google 登入</span></button>
-            <div id="userInfo" style="display:none;align-items:center;gap:8px">
-                <span id="userEmail" style="color:#94a3b8;font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-                <button id="logoutBtn" onclick="signOut()" style="background:rgba(248,113,113,0.2);color:#fca5a5;border:1px solid rgba(248,113,113,0.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:600">⏻ 登出</button>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="color:#64748b;font-size:12px"><span id="creditLabel">餘額：</span><strong id="creditCount" style="color:#818cf8">0 次</strong></span>
+            <span id="userEmail" style="color:#94a3b8;font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+            <button id="loginBtn" onclick="signInWithGoogle()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px">
+                <img src="https://www.google.com/favicon.ico" style="width:14px;height:14px"><span id="loginText">Google 登入</span>
+            </button>
+            <div id="userInfo" style="display:none;align-items:center;gap:6px">
+                <button id="logoutBtn" onclick="signOut()" style="background:rgba(248,113,113,0.15);color:#fca5a5;border:1px solid rgba(248,113,113,0.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:600">⏻ 登出</button>
             </div>
             <button id="langToggleBtn" onclick="setLang(_lang==='zh'?'en':'zh')" style="background:rgba(255,255,255,0.1);color:#a5b4fc;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">EN</button>
         </div>
-    </nav>
+    </div>
 
-        <!-- Sticky Tab Navigation -->
+    <!-- Tab Navigation Bar (sticky) -->
     <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
-        <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;padding:0 12px">
-            <button onclick="showTab('today')" id="tab-today" style="padding:12px 18px;border:none;border-top:none;border-left:none;border-right:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:14px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
-            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
-            <button onclick="showTab('macro')" id="tab-macro" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
-            <button onclick="showTab('smart')" id="tab-smart" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
-            <button onclick="showTab('news')" id="tab-news" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
-            <button onclick="showTab('history')" id="tab-history" style="padding:12px 18px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
-            <a href="/learn/" style="padding:12px 18px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:14px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0">📚 投資教學</a>
+        <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
+            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
+            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
+            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
+            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
+            <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</a>
+            <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</a>
         </div>
     </div>
+
 
 
     <!-- SEO Content Block - Visible to search crawlers -->
