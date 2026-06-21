@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-92YNV369H8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-92YNV369H8');
+    </script>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="https://stockiq.tw/favicon.png">
+    <link rel="apple-touch-icon" href="https://stockiq.tw/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StockIQ.TW - AI-powered multi-model stock analysis platform. Get deep financial analysis using 7 frameworks including Financial Structure, Peter Lynch GARP, Piotroski F-Score, Technical Analysis (RSI/MACD/Bollinger), Howard Marks Macro, and more. Free tier available.">
+    <meta name="keywords" content="stock analysis, AI investing, Piotroski F-Score, Peter Lynch, technical analysis, RSI, MACD, financial analysis, stock research, investment">
+    <meta property="og:title" content="StockIQ.TW | AI 美股多框架分析平台">
+    <meta property="og:description" content="7大AI分析框架，包含財務結構、技術面、Piotroski F-Score、Peter Lynch等。輸入股票代號即得深度分析報告＋目標價。免費使用。">
+    <meta property="og:url" content="https://stockiq.tw">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://stockiq.tw/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="StockIQ.TW">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="StockIQ.TW | AI 美股多框架分析">
+    <meta name="twitter:description" content="7大AI分析框架，免費分析任意美股。技術面+基本面+宏觀分析一次搞定。">
+    <meta name="twitter:image" content="https://stockiq.tw/og-image.png">
+    <meta name="robots" content="index, follow">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306345121020754"
+         crossorigin="anonymous"></script>
+    <title>StockIQ.TW | AI股票分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .loader {
+            border-top-color: #3b82f6;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .markdown-body th, .markdown-body td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .markdown-body th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+    </style>
+
+    <style>
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        #marketTickerWrapper { overflow: hidden; }
+        #marketTickerWrapper:hover #marketTickerBar { animation-play-state: paused !important; }
+    </style>
+
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+    <!-- Market Index Ticker Bar -->
+    <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
+        <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
+            <span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">S&P 500</span> <span id="sp500val" style="font-weight:700">---</span> <span id="sp500chg" style="color:#94a3b8">--.--%</span></span>
+<span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">NASDAQ</span> <span id="nasdaqval" style="font-weight:700">---</span> <span id="nasdaqchg" style="color:#94a3b8">--.--%</span></span>
+<span style="margin:0 16px;white-space:nowrap"><span style="color:#94a3b8">VIX</span> <span id="vixval" style="font-weight:700">---</span> <span id="vixchg" style="color:#94a3b8">--.--%</span></span>
+        </div>
+    </div>
+    <!-- Unified Header -->
+    <div style="background:#1e1b4b;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+            <img src="/logo.png" alt="StockIQ" style="width:32px;height:32px;border-radius:8px;object-fit:contain">
+            <span style="color:white;font-weight:800;font-size:18px">Stock<span style="color:#818cf8">IQ</span>.TW</span>
+        </a>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="color:#64748b;font-size:12px"><span id="creditLabel">餘額：</span><strong id="creditCount" style="color:#818cf8">0 次</strong></span>
+            <span id="userEmail" style="color:#94a3b8;font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+            <button id="loginBtn" onclick="signInWithGoogle()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px">
+                <img src="https://www.google.com/favicon.ico" style="width:14px;height:14px"><span id="loginText">Google 登入</span>
+            </button>
+            <div id="userInfo" style="display:none;align-items:center;gap:6px">
+                <button id="logoutBtn" onclick="signOut()" style="background:rgba(248,113,113,0.15);color:#fca5a5;border:1px solid rgba(248,113,113,0.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:600">⏻ 登出</button>
+            </div>
+            <button id="langToggleBtn" onclick="setLang(_lang==='zh'?'en':'zh')" style="background:rgba(255,255,255,0.1);color:#a5b4fc;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">EN</button>
+        </div>
+    </div>
+
+    <!-- Tab Navigation Bar (sticky) -->
+    <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+        <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
+            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
+            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
+            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
+            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
+            <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</a>
+            <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</a>
+        </div>
+    </div>
+
+
+
+    <!-- SEO Content Block - Visible to search crawlers -->
+    <div id="seo-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+        <h1>StockIQ.TW - AI 美股多框架分析平台</h1>
+        <h2>7大分析框架深度解析美股個股</h2>
+        <p>StockIQ 是台灣最完整的 AI 股票分析工具，提供7大專業投資框架：財務結構分析、技術面分析（RSI/MACD/布林通道）、Piotroski F-Score 財務健康量化、Peter Lynch GARP 成長股評估、Cathie Wood 破壞性創新模型、Howard Marks 宏觀週期分析、供應鏈結構分析。</p>
+        <h3>主要功能</h3>
+        <ul>
+            <li>輸入任意 NYSE/NASDAQ 美股代號，即時獲得 AI 深度分析報告</li>
+            <li>三情境估值：悲觀/基準/樂觀目標價，含上漲/下跌幅度</li>
+            <li>板塊資金流動追蹤：科技、醫療、金融、能源等11大板塊</li>
+            <li>子板塊細分追蹤：半導體、AI基礎設施、雲端服務等細分 ETF</li>
+            <li>宏觀指標監控：10年債殖利率、VIX、S&P500、美元指數等</li>
+            <li>中英文雙語介面（繁體中文 / English）</li>
+            <li>免費帳號每月3次完整分析，Google 帳號一鍵登入</li>
+        </ul>
+        <h3>分析框架說明</h3>
+        <p>財務結構分析：FCF自由現金流、毛利率、D/E債務比、EV/FCF估值等財務健康指標分析</p>
+        <p>技術面分析：RSI相對強弱指數、MACD指數平滑移動平均、布林通道、均線系統（MA20/MA50/MA200）、成交量分析</p>
+        <p>Piotroski F-Score：9項財務健康指標量化評分，0-9分評級</p>
+        <p>Peter Lynch GARP：PEG合理成長股評估，Lynch合理股價計算</p>
+        <h3>適合用戶</h3>
+        <p>忙碌上班族投資人、美股初學者、想要快速做投資功課的台灣投資者、需要系統性分析框架的個人投資者</p>
+        <p>網址：stockiq.tw | 支援：AAPL、NVDA、TSLA、MSFT 等所有美股代號</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto py-6 px-3 sm:px-4 sm:py-10">
+
+
+        <!-- Header -->
+        <div id="analyzeSection" style="display:none"><header class="text-center mb-6">
+            <div class="flex items-center justify-center gap-4 mb-3">
+                <img src="https://stockiq.tw/logo.png" alt="StockIQ Logo" class="w-16 h-16 object-contain">
+                <h1 id="mainTitle" class="text-3xl font-bold text-gray-900">StockIQ｜全方位多模型股市分析</h1>
+            </div>
+                    </header>
+
+        <!-- Macro Panel -->
+        <div id="macroSection" style="display:none"><div id="macroPanel" style="display:none" class="" bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">🌍 總體經濟 & 板塊52週資金流動</h2>
+                <button onclick="document.getElementById('macroPanel').classList.add('hidden')" class="text-gray-400 hover:text-gray-600">✕</button>
+            </div>
+            <div id="macroContent" class="text-sm text-gray-600">載入中...</div>
+        </div>
+
+        
+        <!-- Investment Disclaimer -->
+        <div id="analyzeDisclaimer" style="display:none" class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+            <div class="flex items-start">
+                <span class="text-amber-500 text-xl mr-3">⚠️</span>
+                <div class="text-sm text-amber-800">
+                    <p class="font-semibold mb-1">投資風險警語 Investment Disclaimer</p>
+                    <p>本系統提供之分析報告僅供參考，不構成任何投資建議或勸誘。投資有風險，過去績效不代表未來表現。使用者應自行判斷並承擔投資損益責任。本報告不保證資料之完整性與準確性。</p>
+                    <p class="mt-1 text-xs text-amber-600">This analysis is for informational purposes only and does not constitute investment advice. Past performance does not guarantee future results.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Box -->
+        <div id="mainInputForm" style="display:none" class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-3">輸入股票代號 (Ticker)</h2>
+            <p id="marketDetected" class="text-xs text-gray-400 mb-2"><span id="inputHint">輸入美股代號（NYSE / NASDAQ）</span></p>
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="tickerInput" placeholder="美股: AAPL | NVDA | TSLA | MSFT" oninput="this.value=this.value.toUpperCase();autoDetectMarket(this.value)" style="text-transform:uppercase" 
+                       class="w-full sm:flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 uppercase">
+                
+                <select id="personaSelect" class="w-full sm:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                    <option value="financial_structure">財務結構分析</option>
+                    <option value="supply_chain_structure">供應鏈結構分析</option>
+                    <option value="peter_lynch">Peter Lynch GARP成長</option>
+                    <option value="cathie_wood">Cathie Wood (破壞性創新)</option>
+                    <option value="piotroski_fscore">Piotroski (F-Score 量化)</option>
+                    <option value="technical_analysis">技術面分析 (RSI+布林+MACD)</option>
+                    <option value="howard_marks_macro">Howard Marks 宏觀週期</option>
+
+                    <option value="all">【標準】3框架快速對比 (~20秒)</option>
+                    <option value="all_extended">【Pro】全模型深度對比 (~55秒)</option>
+                </select>
+
+                <button onclick="analyzeStock()" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
+                    <span id="btnAnalyzeText">開始解析</span>
+                </button>
+            </div>
+            <!-- Sample Report CTA for non-logged users -->
+            <div id="sampleCTA" class="mt-3 text-center text-sm text-gray-500">
+                <span>不確定值不值得嗎？ </span>
+                <button onclick="showSampleReport()" class="text-indigo-600 hover:underline font-medium">看範例分析報告</button>
+            </div>
+
+            <div id="errorMsg" class="hidden text-red-500 mt-3 text-sm">請輸入股票代號</div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingArea" class="hidden flex-col items-center justify-center py-12">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+            <p class="text-gray-600 text-lg font-medium" id="loadingMsg">量化模型正在調閱資料並進行解構中...</p>
+            <p class="text-gray-400 text-sm mt-2" id="loadingDetail">(同步爬取基本面、報表風險與市場情緒)</p>
+            <div class="mt-4 w-56">
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="progressBar" class="bg-blue-500 h-1.5 rounded-full transition-all duration-1000" style="width: 5%"></div>
+                </div>
+                <p class="text-xs text-gray-400 mt-1 text-center" id="loadingTimer">0s</p>
+            </div>
+        </div>
+
+        <!-- Result Area -->
+        <div id="resultArea" class="hidden bg-white rounded-xl shadow-lg p-8">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h3 class="text-2xl font-bold text-gray-800" id="resultTitle">報告產出</h3>
+                <span id="resultPersona" class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">模型</span>
+            </div>
+            
+            <div id="pos52w" style="display:none"></div>
+            <div id="earningsDate" style="display:none;margin-bottom:10px"></div>
+            <div id="relatedStocks" style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px;display:none"></div>
+            <div id="stockNewsSection" style="display:none;border-top:1px solid #e5e7eb;margin-top:16px;padding-top:4px"></div>
+            <div id="reportContent" class="prose max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed markdown-body">
+                <!-- Report content goes here -->
+            </div>
+        </div>
+
+        <!-- Paywall/Upsell Banner (for free users) -->
+        <div id="paywallBanner" class="hidden mt-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-lg p-6 text-white text-center">
+            <h3 class="text-xl font-bold mb-2">想解鎖全視角分析嗎？</h3>
+            <p class="mb-4">升級至 Pro 方案，一鍵並行六大模型解析，並獲得 SEC 原始財報深度洞察。</p>
+            <button class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-2 px-6 rounded-full transition-colors">
+                解鎖 Pro 權限 ($19/月)
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+        let macroData = null;
+
+        // Market switching
+
+
+
+        function showSampleReport() {
+            var sampleMarkdown = [
+                "## ✅ 財務結構分析  ▸ 評級：**買進**",
+                "> 目標價：悲觀 $245 | 基準 $330 | 樂觀 $410",
+                "",
+                "### 📊 估值結論",
+                "| 情境 | 目標價 | 幅度 |",
+                "|---|---|---|",
+                "| 悲觀 | $245 | -16% |",
+                "| 基準 | $330 | +12% |",
+                "| 樂觀 | $410 | +40% |",
+                "",
+                "**評級: 買進**  ",
+                "升級觸發: FCF Yield >4% | 降級觸發: 淨債務 >$60B",
+                "",
+                "### 核心指標",
+                "| 指標 | 數值 | 評分 |",
+                "|---|---|---|",
+                "| FCF | $98.77B | ✅ Pass |",
+                "| 毛利率 | 49.3% | ✅ Pass |",
+                "| D/E | 0.78x | ✅ Pass |",
+                "| EV/FCF | 43.9x | ⚠️ 偏高 |",
+                "",
+                "### 主要風險",
+                "1. EV/FCF 43.9x 遠高於科技平均 25x（估值偏貴）",
+                "2. 中國市場競爭加劇（華為高端機壓縮市佔）",
+                "3. AI 硬體/服務投資回報時程不明確"
+            ].join("\n");
+
+            document.getElementById('loadingArea').classList.add('hidden');
+            document.getElementById('resultArea').classList.remove('hidden');
+            document.getElementById('resultTitle').innerText = 'AAPL - 範例分析報告';
+            document.getElementById('resultPersona').innerText = '財務結構分析（範例）';
+
+            var html = marked.parse(sampleMarkdown);
+            html += '<div class="mt-6 p-6 bg-indigo-50 rounded-xl border border-indigo-200 text-center">';
+            html += '<p class="font-bold text-gray-800 mb-2">🚀 登入即可分析任意美股</p>';
+            html += '<p class="text-gray-500 text-sm mb-4">免費帳號每月 3 次 · 支援 7 大分析框架 · 無需信用卡</p>';
+            html += '<button onclick="signInWithGoogle()" style="background:#4f46e5;color:white;padding:10px 24px;border-radius:12px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;margin:0 auto">';
+            html += '<img src="https://www.google.com/favicon.ico" style="width:16px;height:16px"> Google 免費登入</button>';
+            html += '</div>';
+            document.getElementById('reportContent').innerHTML = html;
+
+            var cta = document.getElementById('sampleCTA');
+            if (cta) cta.classList.add('hidden');
+        }
+
+                // === i18n Language Support ===
+        let _lang = localStorage.getItem('lang') || 'zh';
+        const i18n = {
+            zh: {
+                title: 'StockIQ｜全方位多模型股市分析',
+                subtitle: '總體經濟 & 板塊資金流動',
+                inputLabel: '輸入美股代號 (Ticker)',
+                inputHint: '輸入美股代號（NYSE / NASDAQ）',
+                placeholder: '美股: AAPL | NVDA | TSLA | MSFT',
+                btnAnalyze: '開始解析',
+                btnMacro: '📊 總體經濟 & 板塊資金流動 LIVE',
+                loading: '量化模型正在調閱資料並進行解構中...',
+                selectLabel: '選擇分析框架',
+                loginBtn: 'Google 登入',
+                langToggle: 'EN',
+                disclaimer: '本平台分析報告僅供參考，不構成任何投資建議',
+                personas: {
+                    'financial_structure': '財務結構分析',
+                    'supply_chain_structure': '供應鏈結構分析',
+                    'peter_lynch': 'Peter Lynch GARP成長',
+                    'cathie_wood': 'Cathie Wood (破壞性創新)',
+                    'piotroski_fscore': 'Piotroski (F-Score 量化)',
+                    'technical_analysis': '技術面分析 (RSI+布林+MACD)',
+                    'howard_marks_macro': 'Howard Marks 宏觀週期',
+                    'all': '【標準】3框架快速對比 (~20秒)',
+                    'all_extended': '【Pro】全模型深度對比 (~55秒)',
+                },
+                credits: '次',
+                balance: '餘額：',
+                logout: '登出',
+                reportTitle: '深度解析報告',
+                searchTime: '搜尋時間：',
+                price: '股價',
+            },
+            en: {
+                title: 'StockIQ｜Multi-Model AI Stock Analysis',
+                subtitle: 'Macro Economy & Sector Fund Flow',
+                inputLabel: 'Enter Stock Ticker (US)',
+                inputHint: 'NYSE / NASDAQ stocks supported',
+                placeholder: 'e.g. AAPL | NVDA | TSLA | MSFT',
+                btnAnalyze: 'Analyze',
+                btnMacro: '📊 Macro Economy & Sector Flows LIVE',
+                loading: 'AI models are fetching and analyzing data...',
+                selectLabel: 'Select Framework',
+                loginBtn: 'Sign in with Google',
+                langToggle: '中文',
+                disclaimer: 'Reports are for informational purposes only and do not constitute investment advice.',
+                personas: {
+                    'financial_structure': 'Financial Structure Analysis',
+                    'supply_chain_structure': 'Supply Chain Analysis',
+                    'peter_lynch': 'Peter Lynch GARP Growth',
+                    'cathie_wood': 'Cathie Wood (Disruptive Innovation)',
+                    'piotroski_fscore': 'Piotroski F-Score',
+                    'technical_analysis': 'Technical Analysis (RSI+BB+MACD)',
+                    'howard_marks_macro': 'Howard Marks Macro Cycle',
+                    'all': '[Standard] 3-Framework Quick (~20s)',
+                    'all_extended': '[Pro] Full Model Deep Dive (~55s)',
+                },
+                credits: ' credits',
+                balance: 'Balance: ',
+                logout: 'Sign out',
+                reportTitle: 'Deep Analysis Report',
+                searchTime: 'Searched: ',
+                price: 'Price',
+            }
+        };
+
+        function setLang(lang) {
+            _lang = lang;
+            localStorage.setItem('lang', lang);
+            applyLang();
+        }
+
+        function applyLang() {
+            const t = i18n[_lang];
+            // Update simple text elements
+            const els = {
+                'mainTitle': t.title,
+                'inputLabel': t.inputLabel,
+                'inputHint': t.inputHint,
+                'btnAnalyzeText': t.btnAnalyze,
+                'langToggleBtn': t.langToggle,
+                'disclaimerText': t.disclaimer,
+            };
+            for (const [id, text] of Object.entries(els)) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            }
+            // Placeholder
+            const inp = document.getElementById('tickerInput');
+            if (inp) inp.placeholder = t.placeholder;
+            // Macro button
+            const macroBtn = document.getElementById('macroBtn');
+            if (macroBtn) macroBtn.textContent = t.btnMacro;
+            // Loading message
+            const loadingMsg = document.getElementById('loadingMsg');
+            if (loadingMsg) loadingMsg.textContent = t.loading;
+            // Dropdown options - translate persona names
+            const select = document.getElementById('personaSelect');
+            if (select && t.personas) {
+                Array.from(select.options).forEach(opt => {
+                    if (t.personas[opt.value]) opt.text = t.personas[opt.value];
+                });
+            }
+            // Credits display
+            const creditCount = document.getElementById('creditCount');
+            const creditLabel = document.getElementById('creditLabel');
+            if (creditLabel) creditLabel.textContent = t.balance;
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) logoutBtn.textContent = t.logout;
+            // Login button text
+            const loginText = document.getElementById('loginText');
+            if (loginText) loginText.textContent = t.loginBtn;
+            // HTML lang attr
+            document.documentElement.lang = _lang === 'zh' ? 'zh-TW' : 'en';
+            // Disclaimer
+            const dTitle = document.getElementById('disclaimerTitle');
+            const dBody = document.getElementById('disclaimerBody');
+            const dBodyEn = document.getElementById('disclaimerBodyEn');
+            if (dTitle) dTitle.textContent = _lang==='en' ? 'Investment Disclaimer' : '投資風險警語 Investment Disclaimer';
+            if (dBody) dBody.style.display = _lang==='en' ? 'none' : '';
+            if (dBodyEn) dBodyEn.style.display = _lang==='en' ? '' : 'none';
+            // Input label  
+            const inputLabelEl = document.getElementById('inputLabel');
+            if (inputLabelEl) inputLabelEl.textContent = _lang==='en' ? 'Enter Stock Ticker (US)' : '輸入美股代號 (Ticker)';
+            const macroTitle = document.getElementById('macroSectionTitle');
+            if (macroTitle) macroTitle.textContent = _lang === 'en' ? '🌐 Macro Economy & 52W Sector Flows' : '🌐 總體經濟 & 板塊52週資金流動';
+        }
+
+        // === Supabase Auth ===
+        const SUPABASE_URL = 'https://kggwnlevbxghmqpieoet.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.G-Z1R_OoyqT_3AGQThzPaOdh-qhrBe8cD1acz-nV_QY';
+        const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let _currentUser = null;
+        let _userCredits = 0;
+
+        async function initAuth() {
+            const { data: { session } } = await _sb.auth.getSession();
+            if (session) {
+                _currentUser = session.user;
+                await loadUserCredits();
+            }
+            updateAuthUI();
+
+            _sb.auth.onAuthStateChange(async (event, session) => {
+                _currentUser = session ? session.user : null;
+                if (_currentUser) await loadUserCredits();
+                updateAuthUI();
+            });
+        }
+
+        async function loadUserCredits() {
+            if (!_currentUser) return;
+            const { data } = await _sb.from('user_credits').select('credits').eq('user_id', _currentUser.id).single();
+            _userCredits = data ? data.credits : 0;
+            const el = document.getElementById('creditCount');
+            if (el) el.textContent = _userCredits + ' 次';
+        }
+
+        function updateAuthUI() {
+            // Show/hide sample CTA based on login state
+            const sampleCTA = document.getElementById('sampleCTA');
+            if (sampleCTA) {
+                if (_currentUser) {
+                    sampleCTA.classList.add('hidden');
+                } else {
+                    sampleCTA.classList.remove('hidden');
+                }
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userEmail = document.getElementById('userEmail');
+            if (_currentUser) {
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'flex';
+                if (userEmail) userEmail.textContent = _currentUser.email;
+            } else {
+                if (loginBtn) loginBtn.style.display = '';
+                if (userInfo) userInfo.style.display = 'none';
+            }
+            // Re-apply language after auth state change (ensures lang is applied to all new elements)
+            applyLang();
+        }
+
+        async function signInWithGoogle() {
+            // Always redirect back to production domain
+            const redirectTo = window.location.hostname === 'localhost' 
+                ? 'https://stockiq.tw/'
+                : window.location.origin + window.location.pathname;
+            await _sb.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: redirectTo }
+            });
+        }
+
+        async function signOut() {
+            console.log('signOut called');
+            try {
+                await _sb.auth.signOut();
+                console.log('Supabase signOut done');
+            } catch(e) { console.log('signOut error:', e); }
+            _currentUser = null;
+            _userCredits = 0;
+            const creditCount = document.getElementById('creditCount');
+            if (creditCount) creditCount.textContent = '0 次';
+            updateAuthUI();
+            const resultArea = document.getElementById('resultArea');
+            if (resultArea) resultArea.classList.add('hidden');
+            // Force page reload to clear all state
+            setTimeout(() => window.location.reload(), 500);
+        }
+
+        let currentMarket = 'us';
+        
+        function switchMarket(market) {
+            currentMarket = market;
+            const usBtn = null; // tabs removed
+            const twBtn = null; // tabs removed
+            const input = document.getElementById('tickerInput');
+            
+            const indicator = document.getElementById('marketDetected');
+            if (market === 'us') {
+                input.placeholder = '輸入美股代號 (e.g. NVDA, AAPL, MU)';
+                if (indicator) indicator.textContent = '🇺🇸 偵測到美股 - 提供完整9個分析框架';
+            } else {
+                input.placeholder = '輸入台股代號 (e.g. 2330, 2303)';
+                if (indicator) indicator.textContent = '🇹🇼 偵測到台股 - 提供適用分析框架';
+            }
+        }
+        
+        function autoDetectMarket(val) {
+            const cleaned = val.replace('.TW','').replace('.TWO','');
+            if (/^[0-9]{4}$/.test(cleaned) || val.endsWith('.TW') || val.endsWith('.TWO')) {
+                if (currentMarket !== 'tw') switchMarket('tw');
+            } else if (val.length > 0 && /^[A-Z]/.test(val)) {
+                if (currentMarket !== 'us') switchMarket('us');
+            }
+        }
+
+        async function loadMacro() {
+            const panel = document.getElementById('macroPanel');
+            const content = document.getElementById('macroContent');
+            panel.classList.remove('hidden');
+            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ ' + (_lang==='en' ? 'Loading macro data (~15s)...' : '載入總體經濟數據（約15秒）...') + '</p>';
+            
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+            try {
+                const resp = await fetch(API_BASE_URL + '/macro');
+                macroData = await resp.json();
+                renderMacro(macroData);
+            } catch (e) {
+                content.innerHTML = '<p class="text-red-500">載入失敗: ' + e.message + '</p>';
+            }
+        }
+
+        function renderMacro(data) {
+            const content = document.getElementById('macroContent');
+            let html = '';
+
+            // Macro indicators
+            html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '📊 Macro Indicators' : '📊 宏觀指標') + '</h3>';
+            html += '<div class="overflow-x-auto mb-6"><table class="w-full text-xs"><thead><tr class="bg-gray-50">';
+            html += (_lang==='en' ? '<th class="p-2 text-left">Indicator</th><th class="p-2 text-right">Current</th><th class="p-2 text-right">4W</th><th class="p-2 text-right">52W</th><th class="p-2 text-right">Momentum</th><th class="p-2 text-left">Signal</th></tr></thead><tbody>' : '<th class="p-2 text-left">指標</th><th class="p-2 text-right">當前</th><th class="p-2 text-right">近4週</th><th class="p-2 text-right">52週</th><th class="p-2 text-right">動能</th><th class="p-2 text-left">解讀</th></tr></thead><tbody>');
+            for (const m of (data.macro || [])) {
+                const perf = m.perf_52w;
+                const color = perf > 0 ? 'text-green-600' : perf < 0 ? 'text-red-600' : '';
+                // Calculate 4-week performance from wow data
+                const wow4 = (m.wow || []).slice(-4);
+                let perf4w = null;
+                if (wow4.length >= 2) {
+                    // Sum the last 4 weekly changes
+                    perf4w = wow4.reduce((sum, w) => sum + (w[2] || 0), 0);
+                    perf4w = Math.round(perf4w * 10) / 10;
+                }
+                const color4w = perf4w > 0 ? 'text-green-600' : perf4w < 0 ? 'text-red-600' : '';
+                const perf4wStr = perf4w !== null ? `${perf4w > 0 ? '+' : ''}${perf4w}%` : '—';
+                html += `<tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 font-medium">${m.name}</td>
+                    <td class="p-2 text-right">${m.current}</td>
+                    <td class="p-2 text-right ${color4w} font-medium">${perf4wStr}</td>
+                    <td class="p-2 text-right ${color}">${perf > 0 ? '+' : ''}${perf}%</td>
+                    <td class="p-2 text-right">${m.momentum || '—'}</td>
+                    <td class="p-2 text-gray-500 text-xs">${m.interpretation || '—'}</td>
+                </tr>`;
+            }
+            html += '</tbody></table></div>';
+
+            // Sector flows
+            html += '<h3 class="font-semibold text-gray-700 mb-3">' + (_lang==='en' ? '🔄 Sector Fund Flows (click for weekly detail)' : '🔄 板塊資金流動（點擊展開週對週分析）') + '</h3>';
+            html += '<div class="space-y-1">';
+            for (let i = 0; i < (data.broad_sectors || data.sectors || []).length; i++) {
+                const s = Object.assign({}, (data.broad_sectors || data.sectors)[i]);
+                if (_lang === 'en') {
+                    const flowMap = {'流入':'Inflow','流出':'Outflow','中性':'Neutral'};
+                    const momMap = {
+                        '加速':'Accelerating','趨緩':'Decelerating','穩定':'Stable',
+                        '跌勢趨緩':'Decelerating Drop','加速下跌':'Accelerating Drop',
+                        '強勢加速':'Strong Accel.','弱勢趨緩':'Weakening'};
+                    if (s.flow && flowMap[s.flow]) s.flow = flowMap[s.flow];
+                    if (s.momentum && momMap[s.momentum]) s.momentum = momMap[s.momentum];
+                    // Translate sector name (remove Chinese prefix if bilingual like "科技 Tech")
+                    if (s.name) {
+                        const nameMap = {
+                            '科技':'Tech','醫療':'Healthcare','金融':'Financials','能源':'Energy',
+                            '非必需消費':'Consumer Disc.','消費選擇':'Consumer Disc.',
+                            '必需消費':'Consumer Staples','消費必需':'Consumer Staples',
+                            '工業':'Industrials','通訊':'Communication','公用事業':'Utilities',
+                            '公用':'Utilities','原材料':'Materials','房地產':'Real Estate'};
+                        for (const [zh, en] of Object.entries(nameMap)) {
+                            if (s.name.startsWith(zh)) { s.name = en; break; }
+                        }
+                    }
+                }
+                const perf = s.perf_52w;
+                const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                
+                // Week-over-week bar for last 8 weeks
+                const weekBars = (s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                    const barColor = wow > 0 ? '#22c55e' : '#ef4444';
+                    const height = Math.min(Math.abs(wow) * 3, 30);
+                    return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:10px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
+                }).join('');
+                
+                const recent4 = s.recent_4w !== null ? `近4週: ${s.recent_4w > 0 ? '+' : ''}${s.recent_4w}%` : '';
+                const prior4 = s.prior_4w !== null ? `前4週: ${s.prior_4w > 0 ? '+' : ''}${s.prior_4w}%` : '';
+
+                html += `<div class="border rounded-lg ${color} overflow-hidden">
+                    <div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleSector(${i})">
+                        <div class="flex items-center gap-3">
+                            <span class="font-medium text-sm">${s.name}</span>
+                            <span class="text-xs text-gray-500">${s.etf}</span>
+                            <span class="text-xs">${s.flow}</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div style="height:32px;display:flex;align-items:flex-end">${weekBars}</div>
+                            <span class="text-xs text-gray-500">${s.momentum || ''}</span>
+                            <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                            <span class="text-xs text-gray-400">52W</span>
+                            <span class="text-xs text-gray-400">▼</span>
+                        </div>
+                    </div>
+                    <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
+                        <div class="flex gap-4 mb-2 text-gray-600">
+                            <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                            <span>📊 前4W: ${s.prior_4w !== null && s.prior_4w !== undefined ? (s.prior_4w > 0 ? '+' : '') + s.prior_4w + '%' : '計算中'}</span>
+                            <span>📈 動能: ${s.momentum || 'N/A'}</span>
+                        </div>
+                        <table class="w-full text-xs border-collapse">
+                            <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
+                            ${(s.wow || s.weekly_detail || []).slice(-8).reverse().map(([date, price, wow]) => {
+                                const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
+                                const accel = wow > 3 ? '📈🔥' : wow > 1 ? '↑' : wow > -1 ? '→' : wow > -3 ? '↓' : '📉🔥';
+                                return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${price.toFixed(2)}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
+                            }).join('')}
+                        </table>
+                    </div>
+                </div>`;
+            }
+            html += '</div>';
+            
+            // Sub-sectors - FREE for logged in users, login prompt for guests
+            if (data.sub_sectors && Object.keys(data.sub_sectors).length > 0) {
+                if (!_currentUser) {
+                    // Not logged in: show teaser + login (free, just need account)
+                    html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
+                    html += '<div class="relative">';
+                    const firstGroup = Object.entries(data.sub_sectors)[0];
+                    if (firstGroup) {
+                        const [grp, subs] = firstGroup;
+                        html += `<div class="blur-sm pointer-events-none select-none text-xs font-semibold text-gray-500 mt-2 mb-1 pl-1 border-l-2 border-indigo-300">${grp}</div>`;
+                        html += '<div class="blur-sm pointer-events-none select-none space-y-1">';
+                        for (const s of (subs || []).slice(0, 3)) {
+                            const perf = s.perf_52w;
+                            const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                            const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                            html += `<div class="border rounded-lg ${color} p-2.5 flex items-center justify-between">
+                                <span class="font-medium text-sm">${s.name} <span class="text-xs text-gray-400">${s.etf}</span></span>
+                                <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}% 52W</span>
+                            </div>`;
+                        }
+                        html += '</div>';
+                    }
+                    html += `<div class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-80 rounded-xl">
+                        <div class="text-center p-6">
+                            <div class="text-3xl mb-2">🆓</div>
+                            <p class="font-bold text-gray-800 mb-1">子板塊細分追蹤</p>
+                            <p class="text-gray-500 text-sm mb-4">登入即可<strong>免費</strong>查看 ${Object.values(data.sub_sectors).flat().length} 支細分 ETF 的資金流向</p>
+                            <button onclick="signInWithGoogle()" class="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 mx-auto">
+                                <img src="https://www.google.com/favicon.ico" class="w-4 h-4"> 免費登入查看
+                            </button>
+                        </div>
+                    </div>`;
+                    html += '</div>';
+                } else {
+                // Logged in: show full sub-sectors (completely free)
+                html += '<h3 class="font-semibold text-gray-700 mt-6 mb-3">🔬 子板塊資金流動（細分追蹤）</h3>';
+                let subIdx = 1000; // offset to avoid id collision with broad sectors
+                for (const [group, subs] of Object.entries(data.sub_sectors)) {
+                    if (!subs || subs.length === 0) continue;
+                    html += `<div class="text-xs font-semibold text-gray-500 mt-4 mb-1 pl-1 border-l-2 border-indigo-300">${group}</div>`;
+                    html += '<div class="space-y-1">';
+                    for (const s of subs) {
+                        const perf = s.perf_52w;
+                        const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
+                        const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
+                        const weekBars = (s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
+                            const barColor = wow > 0 ? '#22c55e' : '#ef4444';
+                            const height = Math.min(Math.abs(wow) * 3, 30);
+                            return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:8px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
+                        }).join('');
+                        html += `<div class="border rounded-lg ${color} overflow-hidden">
+                            <div class="p-2.5 cursor-pointer flex items-center justify-between" onclick="toggleSector(${subIdx})">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-medium text-sm">${s.name}</span>
+                                    <span class="text-xs text-gray-400">${s.etf}</span>
+                                    <span class="text-xs">${s.flow || ''}</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div style="height:28px;display:flex;align-items:flex-end">${weekBars}</div>
+                                    <span class="text-xs text-gray-500">${s.momentum || ''}</span>
+                                    <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                                    <span class="text-xs text-gray-400">52W</span>
+                                    <span class="text-xs text-gray-400">▼</span>
+                                </div>
+                            </div>
+                            <div id="sector-${subIdx}" class="hidden px-3 pb-3 text-xs">
+                                <div class="flex gap-4 mb-2 text-gray-600">
+                                    <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                                    <span>📈 動能: ${s.momentum || 'N/A'}</span>
+                                </div>
+                                <table class="w-full text-xs border-collapse">
+                                    <tr class="bg-gray-100"><th class="p-1 text-left">日期</th><th class="p-1 text-right">收盤</th><th class="p-1 text-right">週漲跌</th><th class="p-1 text-left">趨勢</th></tr>
+                                    ${(s.wow || s.weekly_detail || []).slice(-8).reverse().map(([date, price, wow]) => {
+                                        const wc = wow > 0 ? 'text-green-600' : 'text-red-600';
+                                        const accel = wow > 3 ? '📈🔥' : wow > 1 ? '↑' : wow > -1 ? '→' : wow > -3 ? '↓' : '📉🔥';
+                                        return `<tr class="border-b border-gray-100"><td class="p-1">${date}</td><td class="p-1 text-right">$${typeof price === 'number' ? price.toFixed(2) : price}</td><td class="p-1 text-right ${wc}">${wow > 0 ? '+' : ''}${wow}%</td><td class="p-1">${accel}</td></tr>`;
+                                    }).join('')}
+                                </table>
+                            </div>
+                        </div>`;
+                        subIdx++;
+                    }
+                    html += '</div>';
+                }
+                } // end logged-in else
+            }
+
+            // Summary
+            const summary = data.summary || {};
+            if (summary.top_inflow) {
+                html += `<div class="mt-4 p-3 bg-green-50 rounded-lg text-xs">
+                    <strong>🟢 資金流入前3：</strong> ${summary.top_inflow.map(([n,p]) => `${n}(${p > 0 ? '+' : ''}${p}%)`).join(' | ')}
+                </div>`;
+            }
+            if (summary.top_outflow) {
+                html += `<div class="mt-2 p-3 bg-red-50 rounded-lg text-xs">
+                    <strong>🔴 資金流出前3：</strong> ${summary.top_outflow.map(([n,p]) => `${n}(${p > 0 ? '+' : ''}${p}%)`).join(' | ')}
+                </div>`;
+            }
+
+            content.innerHTML = html;
+        }
+
+        function toggleSector(i) {
+            const el = document.getElementById('sector-' + i);
+            el.classList.toggle('hidden');
+        }
+
+        async function loadTickerSector(ticker, apiBase) {
+            try {
+                const resp = await fetch(apiBase + '/macro/ticker/' + ticker);
+                const sc = await resp.json();
+                if (sc.sector && sc.sector !== '未知') {
+                    let sectorHtml = '';
+                    if (_lang === 'en' && sc.sector) {
+                        const secMap = {'科技/軟體硬體':'Tech/Software&HW','科技':'Technology','醫療':'Healthcare',
+                            '金融':'Financials','能源':'Energy','消費':'Consumer','工業':'Industrials',
+                            '通訊':'Communication','公用':'Utilities','原材料':'Materials','房地產':'Real Estate'};
+                        for (const [zh, en] of Object.entries(secMap)) {
+                            if (sc.sector.includes(zh)) { sc.sector = sc.sector.replace(zh, en); }
+                            if (sc.broad_sector && sc.broad_sector.includes(zh)) { sc.broad_sector = sc.broad_sector.replace(zh, en); }
+                            if (sc.sub_sector && sc.sub_sector.includes(zh)) { sc.sub_sector = sc.sub_sector.replace(zh, en); }
+                        }
+                        if (sc.broad_flow) sc.broad_flow = sc.broad_flow==='流入'?'Inflow':sc.broad_flow==='流出'?'Outflow':sc.broad_flow;
+                        if (sc.sub_flow) sc.sub_flow = sc.sub_flow==='流入'?'Inflow':sc.sub_flow==='流出'?'Outflow':sc.sub_flow;
+                        if (sc.broad_momentum) sc.broad_momentum = sc.broad_momentum==='加速'?'Accelerating':sc.broad_momentum==='趨緩'?'Decelerating':sc.broad_momentum==='穩定'?'Stable':sc.broad_momentum;
+                        if (sc.sub_momentum) sc.sub_momentum = sc.sub_momentum==='加速'?'Accelerating':sc.sub_momentum==='趨緩'?'Decelerating':sc.sub_momentum==='穩定'?'Stable':sc.sub_momentum;
+                    }
+                    sectorHtml = `<div class="mt-2 p-2 bg-blue-50 rounded-lg text-xs flex flex-wrap gap-3">
+                        <span>📌 ${_lang === "en" ? "Sector" : "板塊"}: <strong>${sc.sector}</strong></span>`;
+                    if (sc.broad_perf_52w !== null && sc.broad_perf_52w !== undefined) {
+                        const bc = sc.broad_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
+                        sectorHtml += `<span>${sc.broad_sector}: <span class="${bc}">${sc.broad_perf_52w > 0 ? '+' : ''}${sc.broad_perf_52w}% 52W ${sc.broad_flow}</span></span>`;
+                    }
+                    if (sc.sub_perf_52w !== null && sc.sub_perf_52w !== undefined && sc.sub_sector) {
+                        const sc2 = sc.sub_perf_52w > 0 ? 'text-green-600' : 'text-red-600';
+                        sectorHtml += `<span>${sc.sub_sector}: <span class="${sc2}">${sc.sub_perf_52w > 0 ? '+' : ''}${sc.sub_perf_52w}% 52W ${sc.sub_flow}</span> ${sc.sub_momentum}</span>`;
+                    }
+                    sectorHtml += `</div>`;
+                    // Remove existing sector info to avoid duplicates
+                    const existingSector = document.getElementById('sectorInfoCard');
+                    if (existingSector) existingSector.remove();
+                    const titleEl = document.getElementById('resultTitle');
+                    const wrapper = document.createElement('div');
+                    wrapper.id = 'sectorInfoCard';
+                    wrapper.innerHTML = sectorHtml;
+                    titleEl.insertAdjacentElement('afterend', wrapper);
+                }
+            } catch(e) {}
+        }
+
+        // Load version and check maintenance on page load
+
+        function loadMovers() {
+            // Scroll to the pre-generated market briefing section
+            const briefing = document.getElementById('topBriefing');
+            if (briefing) {
+                briefing.scrollIntoView({behavior: 'smooth', block: 'start'});
+                // Add a highlight effect
+                briefing.style.outline = '2px solid #6366f1';
+                setTimeout(() => { briefing.style.outline = ''; }, 2000);
+            } else {
+                // Fallback: scroll to bottom where briefing should be
+                window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+            }
+        }
+
+
+        async function loadMarketTicker() {
+            const bar = document.getElementById('marketTickerBar');
+            if (!bar) return;
+            try {
+                const resp = await fetch(API_BASE_URL + '/indices');
+                const data = await resp.json();
+                const items = [
+                    {key: '^GSPC', name: 'S&P 500'},
+                    {key: '^IXIC', name: 'NASDAQ'},
+                    {key: '^DJI', name: '道瓊'},
+                    {key: '^VIX', name: 'VIX'}
+                ];
+                let tickerHtml = '';
+                items.forEach(item => {
+                    const d = data[item.key] || {};
+                    const price = d.price || 0;
+                    const pct = d.pct || 0;
+                    if (price === 0) return;
+                    const color = pct > 0 ? '#4ade80' : pct < 0 ? '#f87171' : '#94a3b8';
+                    const arrow = pct > 0 ? '▲' : pct < 0 ? '▼' : '─';
+                    const priceStr = price > 1000 ? price.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) : price.toFixed(2);
+                    tickerHtml += `<span style="margin:0 20px;white-space:nowrap;flex-shrink:0">`;
+                    tickerHtml += `<span style="color:#94a3b8">${item.name}</span> `;
+                    tickerHtml += `<span style="font-weight:700;color:white">${priceStr}</span> `;
+                    tickerHtml += `<span style="color:${color}">${arrow}${Math.abs(pct).toFixed(2)}%</span>`;
+                    tickerHtml += `</span>`;
+                });
+                if (tickerHtml) {
+                    bar.innerHTML = tickerHtml + tickerHtml;
+                    bar.style.animation = 'tickerScroll 30s linear infinite';
+                }
+            } catch(e) {
+                bar.innerHTML = '<span style="color:#64748b;margin:0 16px">⏳ 市場數據更新中...</span>';
+            }
+        }
+
+        async function loadStockNews(ticker) {
+            try {
+                const resp = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${ticker}&newsCount=4&quotesCount=0`);
+                const d = await resp.json();
+                const news = d?.news || [];
+                if (!news.length) return;
+                
+                const newsHtml = news.slice(0, 4).map(n => 
+                    `<a href="${n.link}" target="_blank" rel="noopener" style="display:block;padding:8px 0;border-bottom:1px solid #e5e7eb;text-decoration:none;color:#374151;font-size:12px;line-height:1.5">
+                        <div style="font-weight:500;color:#1e293b;margin-bottom:2px">${n.title}</div>
+                        <div style="color:#94a3b8;font-size:11px">${n.publisher || ''} · ${new Date(n.providerPublishTime*1000).toLocaleDateString('zh-TW')}</div>
+                    </a>`
+                ).join('');
+                
+                const newsSection = document.getElementById('stockNewsSection');
+                if (newsSection) {
+                    newsSection.innerHTML = `<h4 style="font-weight:700;color:#1e293b;margin:16px 0 8px;font-size:14px">📰 相關新聞</h4>${newsHtml}`;
+                    newsSection.style.display = 'block';
+                }
+            } catch(e) { console.log('News error:', e); }
+        }
+
+
+
+
+        function showTab(tabName) {
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeDisclaimer','mainInputForm','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
+            const showIds = {
+                'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
+                'analyze': ['analyzeSection','analyzeDisclaimer','mainInputForm','analyzeFormSection'],
+                'macro': ['macroSection'],
+                'smart': ['smartSection'],
+                'news': ['newsSection'],
+                'history': ['historySection']
+            }[tabName] || [];
+            
+            allIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+            showIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = '';
+            });
+            
+            document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
+                const active = btn.id === 'tab-' + tabName;
+                btn.style.color = active ? '#4f46e5' : '#64748b';
+                btn.style.borderBottom = active ? '3px solid #4f46e5' : '3px solid transparent';
+                btn.style.fontWeight = active ? '700' : '600';
+            });
+            
+            if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
+            if (tabName === 'smart') loadSmartMoney();
+            if (tabName === 'news') loadNewsSection();
+        }
+        
+        async function loadNewsSection() {
+            const el = document.getElementById('newsContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:24px">⏳ 載入財金新聞...</p>';
+            try {
+                // Load pre-fetched news from Railway bot's daily update
+                const resp = await fetch('/news/index.html');
+                const text = await resp.text();
+                // Extract news articles from the static page
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const newsItems = doc.querySelectorAll('a[href*="finance"]');
+                if (newsItems.length > 0) {
+                    el.innerHTML = Array.from(newsItems).slice(0,8).map(a => 
+                        `<a href="${a.href}" target="_blank" rel="noopener" style="display:block;padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">${a.innerHTML}</a>`
+                    ).join('');
+                } else {
+                    el.innerHTML = `<div style="text-align:center;padding:24px">
+                        <p style="color:#64748b;margin-bottom:12px">每日財金新聞由 Railway 機器人每天更新</p>
+                        <a href="/news/" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">查看完整財金新聞 →</a>
+                    </div>`;
+                }
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = `<div style="text-align:center;padding:24px">
+                    <p style="color:#64748b;margin-bottom:12px">每日財金新聞由 Railway 機器人每天更新</p>
+                    <a href="/news/" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">查看完整財金新聞 →</a>
+                </div>`;
+            }
+        }
+
+
+
+
+        async function loadSmartMoney() {
+            const el = document.getElementById('smartMoneyContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
+            try {
+                // Part 1: Volume anomaly from market movers
+                const resp = await fetch(API_BASE_URL + '/market-movers');
+                const data = await resp.json();
+                const actives = (data.most_active || []).filter(q => (q.vol_ratio || 0) >= 2);
+                actives.sort((a,b) => (b.vol_ratio||0) - (a.vol_ratio||0));
+                
+                let html = '<div id="smartTabs" style="display:flex;gap:8px;margin-bottom:16px">';
+                html += '<button data-tab="volume" onclick="switchSmartTab(this.dataset.tab)" id="smartTab-volume" style="padding:6px 14px;border:1px solid #4f46e5;border-radius:6px;background:#4f46e5;color:white;cursor:pointer;font-size:12px;font-weight:600">&#128202; &#37327;&#33021;&#30064;&#24120;</button>';
+                html += '<button data-tab="options" onclick="switchSmartTab(this.dataset.tab)" id="smartTab-options" style="padding:6px 14px;border:1px solid #e2e8f0;border-radius:6px;background:white;color:#64748b;cursor:pointer;font-size:12px;font-weight:600">&#128200; &#36984;&#25321;&#26435;&#35722;&#34399;</button>';
+                html += '</div>';
+                
+                // Volume anomaly section
+                html += '<div id="smart-volume">';
+                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量個股（量比≥2x）</h4>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">量比超過2倍通常代表主力資金在行動，需要搭配方向判斷（大漲=買進、大跌=賣出）</p>';
+                
+                if (!actives.length) {
+                    html += '<p style="color:#94a3b8;text-align:center;padding:16px">今日無量比≥2x的異常放量個股</p>';
+                } else {
+                    actives.slice(0, 12).forEach(q => {
+                        const p = q.change_pct || 0;
+                        const vr = q.vol_ratio || 1;
+                        const bg = p > 3 ? '#f0fdf4' : p < -3 ? '#fef2f2' : '#f8fafc';
+                        const pColor = p > 0 ? '#16a34a' : '#dc2626';
+                        const signal = vr >= 3 && p > 3 ? '🚀 強力買進' : vr >= 3 && p < -3 ? '🔴 強力賣出' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
+                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('analyze')" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
+                            <div><span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
+                            <span style="font-size:11px;color:#64748b;margin-left:8px">${(q.name||'').slice(0,20)}</span></div>
+                            <div style="text-align:right">
+                                <div style="color:${pColor};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
+                                <div style="font-size:11px;color:#f97316;font-weight:600">${vr}x量 · ${signal}</div>
+                            </div>
+                        </div>`;
+                    });
+                }
+                html += '</div>';
+                
+                // Options signal section (loaded on demand)
+                html += '<div id="smart-options" style="display:none">';
+                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">📈 選擇權 Put/Call 訊號</h4>';
+                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">Put/Call 比率 &lt;0.8 看多；&gt;1.2 看空。異常大單往往是主力提前布局的跡象。</p>';
+                html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
+                html += '<input id="optionsTicker" placeholder="輸入股票代號 e.g. NVDA" style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-size:13px">';
+                html += '<button onclick="loadOptionsData()" style="background:#4f46e5;color:white;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600;font-size:13px">分析</button>';
+                html += '</div>';
+                html += '<div id="optionsResult"><p style="color:#94a3b8;text-align:center;padding:16px">輸入股票代號查看選擇權訊號</p></div>';
+                html += '</div>';
+                
+                html += '<div style="margin-top:12px;padding:10px;background:#fffbeb;border-radius:8px;font-size:11px;color:#92400e">⚠️ 金流密碼為技術訊號參考，非投資建議。主力也會虛晃一招，建議搭配基本面確認。點擊個股進行完整分析。</div>';
+                
+                el.innerHTML = html;
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+        
+        function switchSmartTab(tab) {
+            const tabs = ['volume', 'options', 'accum'];
+            tabs.forEach(t => {
+                const el = document.getElementById('smart-' + t);
+                if (el) el.style.display = t === tab ? '' : 'none';
+                const btn = document.getElementById('smartTab-' + t);
+                if (btn) {
+                    btn.style.background = t === tab ? '#4f46e5' : 'white';
+                    btn.style.color = t === tab ? 'white' : '#64748b';
+                    btn.style.borderColor = t === tab ? '#4f46e5' : '#e2e8f0';
+                }
+            });
+        }
+        
+        async function loadOptionsData() {
+            const ticker = (document.getElementById('optionsTicker').value || '').toUpperCase().trim();
+            if (!ticker) return;
+            const el = document.getElementById('optionsResult');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 分析選擇權數據...</p>';
+            try {
+                const resp = await fetch(`https://query2.finance.yahoo.com/v7/finance/options/${ticker}`);
+                const data = await resp.json();
+                const result = data?.optionChain?.result?.[0];
+                if (!result) throw new Error('No data');
+                
+                const opts = result.options?.[0] || {};
+                const calls = opts.calls || [];
+                const puts = opts.puts || [];
+                
+                const callOI = calls.reduce((s, c) => s + (c.openInterest||0), 0);
+                const putOI = puts.reduce((s, p) => s + (p.openInterest||0), 0);
+                const pcRatio = callOI > 0 ? (putOI / callOI) : 0;
+                
+                const callVol = calls.reduce((s, c) => s + (c.volume||0), 0);
+                const putVol = puts.reduce((s, p) => s + (p.volume||0), 0);
+                const pcVolRatio = callVol > 0 ? (putVol / callVol) : 0;
+                
+                const signal = pcRatio < 0.7 ? {text:'強烈看多 🚀', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio < 0.9 ? {text:'偏多 📈', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio > 1.3 ? {text:'強烈看空 🔴', color:'#dc2626', bg:'#fef2f2'} :
+                               pcRatio > 1.1 ? {text:'偏空 📉', color:'#dc2626', bg:'#fef2f2'} :
+                               {text:'中性 ➡️', color:'#64748b', bg:'#f8fafc'};
+                
+                // Find unusual options
+                const unusual = [...calls, ...puts]
+                    .filter(o => (o.volume||0) > 500 && (o.openInterest||0) > 0)
+                    .map(o => ({...o, ratio: (o.volume||0)/Math.max(o.openInterest||1,1), type: calls.includes(o) ? 'CALL' : 'PUT'}))
+                    .filter(o => o.ratio > 0.5)
+                    .sort((a,b) => b.ratio - a.ratio)
+                    .slice(0, 5);
+                
+                let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+                    <div style="text-align:center;padding:12px;background:${signal.bg};border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">P/C 未平倉比</div>
+                        <div style="font-size:22px;font-weight:800;color:${signal.color}">${pcRatio.toFixed(2)}</div>
+                        <div style="font-size:12px;font-weight:600;color:${signal.color}">${signal.text}</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Call 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#16a34a">${(callOI/1000).toFixed(0)}K</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Put 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#dc2626">${(putOI/1000).toFixed(0)}K</div>
+                    </div>
+                </div>`;
+                
+                if (unusual.length) {
+                    html += '<div style="font-size:13px;font-weight:600;color:#1e293b;margin-bottom:8px">🚨 異常大單（成交量/未平倉 > 50%）</div>';
+                    unusual.forEach(u => {
+                        const typeColor = u.type === 'CALL' ? '#16a34a' : '#dc2626';
+                        const exp = u.expiration ? new Date(u.expiration * 1000).toLocaleDateString('zh-TW') : '?';
+                        html += `<div style="display:flex;justify-content:space-between;padding:8px 12px;margin-bottom:4px;background:${u.type==='CALL'?'#f0fdf4':'#fef2f2'};border-radius:6px">
+                            <span style="font-weight:600;color:${typeColor}">${u.type}</span>
+                            <span style="color:#64748b">行使價 $${u.strike}</span>
+                            <span style="color:#64748b">到期 ${exp}</span>
+                            <span style="font-weight:600">量${(u.volume||0).toLocaleString()} / OI${(u.openInterest||0).toLocaleString()}</span>
+                            <span style="color:#f97316;font-weight:600">${u.ratio.toFixed(1)}x</span>
+                        </div>`;
+                    });
+                }
+                
+                el.innerHTML = html;
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:12px">無法取得選擇權數據（Yahoo Finance 可能限流）</p>';
+            }
+        }
+
+
+
+        // ===== WATCH LIST =====
+        let _watchList = JSON.parse(localStorage.getItem('stockiq_watchlist') || '[]');
+
+        function addToWatchList(ticker) {
+            ticker = ticker.toUpperCase().trim();
+            if (!ticker) return;
+            if (!_watchList.includes(ticker)) {
+                _watchList.push(ticker);
+                localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+                renderWatchList();
+                showNotification(ticker + ' 已加入追蹤清單 ✅');
+            } else {
+                showNotification(ticker + ' 已在追蹤清單中');
+            }
+        }
+
+        function removeFromWatchList(ticker) {
+            _watchList = _watchList.filter(t => t !== ticker);
+            localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+            renderWatchList();
+        }
+
+        function showNotification(msg) {
+            let n = document.getElementById('watchNotification');
+            if (!n) {
+                n = document.createElement('div');
+                n.id = 'watchNotification';
+                n.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;padding:10px 18px;border-radius:10px;font-size:13px;z-index:9999;opacity:0;transition:opacity 0.3s';
+                document.body.appendChild(n);
+            }
+            n.textContent = msg;
+            n.style.opacity = '1';
+            setTimeout(() => { n.style.opacity = '0'; }, 2500);
+        }
+
+        function renderWatchList() {
+            const el = document.getElementById('watchListContent');
+            if (!el) return;
+            if (_watchList.length === 0) {
+                el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票<br><span style="font-size:11px">分析股票後點「加入追蹤」</span></p>';
+                return;
+            }
+            el.innerHTML = _watchList.map(t => 
+                `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9">
+                    <button onclick="document.getElementById('tickerInput').value='${t}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                        style="font-weight:700;color:#4f46e5;background:none;border:none;cursor:pointer;font-size:14px">${t}</button>
+                    <button onclick="removeFromWatchList('${t}')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:16px" title="移除">×</button>
+                </div>`
+            ).join('');
+        }
+
+        // Add watch button after analysis completes
+        function addWatchButton(ticker) {
+            const existing = document.getElementById('addWatchBtn');
+            if (existing) existing.remove();
+            const btn = document.createElement('button');
+            btn.id = 'addWatchBtn';
+            btn.textContent = (_watchList.includes(ticker) ? '✅ 已追蹤' : '+ 加入追蹤清單');
+            btn.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#4f46e5;color:white;border:none;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(79,70,229,0.4);z-index:100';
+            btn.onclick = () => { addToWatchList(ticker); btn.textContent = '✅ 已追蹤'; };
+            document.body.appendChild(btn);
+        }
+
+
+        async function loadExtraAnalysis(ticker, currentPrice, high52w, low52w) {
+            // 52W Position indicator
+            if (currentPrice && high52w && low52w) {
+                const range = high52w - low52w;
+                const pos = range > 0 ? ((currentPrice - low52w) / range * 100).toFixed(0) : 50;
+                const distFromHigh = high52w > 0 ? (((high52w - currentPrice) / high52w) * 100).toFixed(1) : 0;
+                const posColor = pos > 80 ? '#dc2626' : pos > 50 ? '#f59e0b' : '#16a34a';
+                
+                const el52w = document.getElementById('pos52w');
+                if (el52w) {
+                    el52w.innerHTML = `
+                        <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px">
+                            <div style="font-size:12px;color:#64748b;margin-bottom:6px">📊 52週位置</div>
+                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                                <div style="flex:1;min-width:150px">
+                                    <div style="background:#e2e8f0;border-radius:4px;height:8px;position:relative">
+                                        <div style="background:${posColor};width:${pos}%;height:100%;border-radius:4px"></div>
+                                        <div style="position:absolute;top:-18px;left:${pos}%;transform:translateX(-50%);font-size:11px;font-weight:700;color:${posColor}">${pos}%</div>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:4px">
+                                        <span>低 $${low52w}</span><span>高 $${high52w}</span>
+                                    </div>
+                                </div>
+                                <div style="text-align:center">
+                                    <div style="font-size:11px;color:#64748b">距52週高點</div>
+                                    <div style="font-weight:700;color:#dc2626">-${distFromHigh}%</div>
+                                </div>
+                            </div>
+                        </div>`;
+                    el52w.style.display = 'block';
+                }
+            }
+            
+            // Load earnings date
+            try {
+                const er = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                const ed = await er.json();
+                const meta = ed?.chart?.result?.[0]?.meta || {};
+                const ets = meta.earningsTimestampStart;
+                const elEarnings = document.getElementById('earningsDate');
+                if (elEarnings && ets) {
+                    const earningsDate = new Date(ets * 1000);
+                    const today = new Date();
+                    const daysAway = Math.round((earningsDate - today) / 86400000);
+                    const dateStr = earningsDate.toLocaleDateString('zh-TW');
+                    const urgency = daysAway >= 0 && daysAway <= 7 ? '🔥 即將' : daysAway >= 0 && daysAway <= 30 ? '📅 近期' : '📅';
+                    elEarnings.innerHTML = `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e">
+                        ${urgency} <strong>財報日期：${dateStr}</strong>${daysAway >= 0 ? ` (${daysAway}天後)` : ' (已公布)'}</div>`;
+                    elEarnings.style.display = 'block';
+                }
+            } catch(e) {}
+            
+            // Related stocks in same sector
+            try {
+                const sectorMap = {
+                    'NVDA':'INTC,AMD,AVGO', 'AAPL':'MSFT,GOOGL,META', 'TSLA':'F,GM,RIVN',
+                    'MSFT':'AAPL,GOOGL,AMZN', 'META':'GOOGL,SNAP,PINS', 'AMZN':'WMT,TGT,EBAY',
+                    'GOOGL':'META,MSFT,AAPL', 'AMD':'NVDA,INTC,QCOM', 'INTC':'NVDA,AMD,QCOM',
+                };
+                const related = sectorMap[ticker.toUpperCase()];
+                if (related) {
+                    const elRelated = document.getElementById('relatedStocks');
+                    if (elRelated) {
+                        elRelated.innerHTML = `<div style="font-size:12px;color:#64748b;margin-bottom:6px">🔗 同板塊比較</div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap">` +
+                            related.split(',').map(s => 
+                                `<button onclick="document.getElementById('tickerInput').value='${s}';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                                    style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;color:#4f46e5;font-size:13px">${s}</button>`
+                            ).join('') + '</div>';
+                        elRelated.style.display = 'block';
+                    }
+                }
+            } catch(e) {}
+        }
+
+
+        async function loadEarningsCalendar() {
+            const el = document.getElementById('earningsCalContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入財報日曆...</p>';
+            try {
+                // Key stocks with upcoming earnings (static list, updated weekly)
+                const watchedStocks = ['NVDA','AAPL','MSFT','TSLA','META','AMZN','GOOGL','AMD','INTC','NFLX','ORCL','ADBE'];
+                const results = [];
+                
+                for (const sym of watchedStocks.slice(0, 6)) {
+                    try {
+                        await new Promise(r => setTimeout(r, 200));
+                        const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=1d`);
+                        const data = await r.json();
+                        const meta = data?.chart?.result?.[0]?.meta || {};
+                        const ets = meta.earningsTimestampStart;
+                        if (ets) {
+                            const earningsDate = new Date(ets * 1000);
+                            const today = new Date();
+                            const daysAway = Math.round((earningsDate - today) / 86400000);
+                            if (daysAway >= -7 && daysAway <= 30) {
+                                results.push({
+                                    sym,
+                                    date: earningsDate.toLocaleDateString('zh-TW'),
+                                    days: daysAway,
+                                    price: meta.regularMarketPrice
+                                });
+                            }
+                        }
+                    } catch(e) {}
+                }
+                
+                results.sort((a, b) => a.days - b.days);
+                
+                if (!results.length) {
+                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近期無重大財報</p>';
+                } else {
+                    el.innerHTML = results.map(r => {
+                        const urgency = r.days >= 0 && r.days <= 7 ? '🔥' : r.days >= 0 ? '📅' : '✅';
+                        const dayText = r.days < 0 ? `${Math.abs(r.days)}天前` : r.days === 0 ? '今天' : `${r.days}天後`;
+                        const bg = r.days >= 0 && r.days <= 3 ? '#fef3c7' : 'white';
+                        return `<div onclick="document.getElementById('tickerInput').value='${r.sym}';showTab('analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                            style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:4px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:14px">${r.sym}</span>
+                                <span style="font-size:11px;color:#64748b;margin-left:8px">${r.date}</span>
+                            </div>
+                            <div style="text-align:right">
+                                <span style="font-size:13px">${urgency} ${dayText}</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗</p>';
+            }
+        }
+
+
+        async function loadAccumulationScan() {
+            const el = document.getElementById('accumContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:24px">⏳ 掃描吸籌形態（約30秒）...</p>';
+            try {
+                const resp = await fetch(API_BASE_URL + '/accumulation-scan');
+                const data = await resp.json();
+                const stocks = data.stocks || [];
+                
+                if (!stocks.length) {
+                    el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:16px">目前監測清單中無吸籌訊號</p>';
+                    el.dataset.loaded = '1';
+                    return;
+                }
+                
+                el.innerHTML = stocks.map(s => {
+                    const volColor = s.vol_increase_pct > 20 ? '#16a34a' : s.vol_increase_pct > 0 ? '#ca8a04' : '#94a3b8';
+                    return `<div onclick="document.getElementById('tickerInput').value='${s.symbol}';showTab('analyze')" 
+                        style="padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;cursor:pointer;border-left:4px solid ${s.score >= 7 ? '#22c55e' : '#f59e0b'}">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:16px">${s.symbol}</span>
+                                <span style="font-size:13px;margin-left:8px">${s.signal}</span>
+                                <span style="background:#f3f4f6;color:#374151;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px">評分 ${s.score}/9</span>
+                            </div>
+                            <span style="font-weight:600;color:#1e293b">$${s.current_price}</span>
+                        </div>
+                        <div style="display:flex;gap:12px;font-size:12px;color:#64748b;flex-wrap:wrap">
+                            <span>📈 量能趨勢 <strong style="color:${volColor}">${s.vol_increase_pct > 0 ? '+' : ''}${s.vol_increase_pct}%</strong></span>
+                            <span>📊 波動率 <strong>${s.price_volatility}%</strong></span>
+                            <span>📅 6月漲跌 <strong>${s.price_change_6mo > 0 ? '+' : ''}${s.price_change_6mo}%</strong></span>
+                            <span>🔥 近週量比 <strong style="color:#f97316">${s.recent_vol_ratio}x</strong></span>
+                        </div>
+                    </div>`;
+                }).join('') + 
+                `<p style="font-size:11px;color:#94a3b8;margin-top:12px">吸籌偵測條件：近6個月量能緩慢放大 + 價格低波動整理，點擊個股進行深度分析。資料每小時更新。更新時間：${data.updated_at}</p>`;
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+
+        // Initialize Auth on page load
+        initAuth();
+        // Dynamic version display
+        fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
+            const el = document.getElementById('versionDisplay');
+            if (el) el.textContent = 'v' + (d.version || '4.8.2');
+        }).catch(() => {});
+        // Initialize page functionality
+        setTimeout(() => {
+            if (typeof loadMarketTicker === 'function') loadMarketTicker();
+            if (typeof renderWatchList === 'function') renderWatchList();
+            if (typeof showTab === 'function') showTab('today');
+        }, 100);
+
+        (async () => {
+            try {
+                const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+                const resp = await fetch(API_BASE_URL + '/maintenance');
+                const data = await resp.json();
+                
+                if (data.maintenance) {
+                    // Show maintenance banner
+                    const banner = document.createElement('div');
+                    banner.className = 'fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-3 z-50 font-medium';
+                    banner.innerHTML = '🔧 系統維護中：' + data.message + ' | 請稍後重新整理';
+                    document.body.prepend(banner);
+                    document.getElementById('analyzeBtn') && (document.getElementById('analyzeBtn').disabled = true);
+                }
+                
+                // Show version
+                const healthResp = await fetch(API_BASE_URL + '/health');
+                const healthData = await healthResp.json();
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = 'v' + (healthData.version || '?');
+            } catch(e) {
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = '版本資訊載入失敗';
+            }
+        })();
+
+
+        function translateRating(rating, lang) {
+            if (lang !== 'en') return rating;
+            const map = {
+                '強力買進': 'Strong Buy', '買進': 'Buy', '觀望': 'Hold',
+                '賣出': 'Sell', '強力迴避': 'Strong Sell'
+            };
+            return map[rating] || rating;
+        }
+
+        function translatePersonaName(name, lang) {
+            if (lang !== 'en') return name;
+            const map = {
+                '財務結構分析': 'Financial Structure', '供應鏈結構分析': 'Supply Chain',
+                'Peter Lynch (合理成長 GARP 模型)': 'Peter Lynch GARP',
+                'Cathie Wood (破壞性創新模型)': 'Cathie Wood Innovation',
+                'Piotroski (F-Score 財務健康量化模型)': 'Piotroski F-Score',
+                '技術面分析': 'Technical Analysis',
+                'Howard Marks 宏觀周期分析': 'Howard Marks Macro',
+            };
+            // Partial match
+            for (const [zh, en] of Object.entries(map)) {
+                if (name.includes(zh.substring(0, 4))) return en;
+            }
+            return name;
+        }
+
+        async function analyzeStock() {
+            // === AUTH GATE: use _currentUser (set by Supabase onAuthStateChange) ===
+            if (!_currentUser) {
+                const loginModal = document.getElementById('loginModal');
+                if (loginModal) loginModal.classList.remove('hidden');
+                return;
+            }
+
+            let ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+                // Auto-append .TW for 4-digit Taiwan stock codes
+                if (currentMarket === 'tw' && /^[0-9]{4}$/.test(ticker)) {
+                    ticker = ticker + '.TW';
+                    document.getElementById('tickerInput').value = ticker;
+                }
+            const personaSelect = document.getElementById('personaSelect');
+            const personaName = personaSelect.options[personaSelect.selectedIndex].text.split(' ')[0];
+            const personaId = personaSelect.value;
+
+            if (!ticker) {
+                document.getElementById('errorMsg').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('errorMsg').classList.add('hidden');
+            document.getElementById('resultArea').classList.add('hidden');
+            document.getElementById('paywallBanner').classList.add('hidden');
+            document.getElementById('loadingArea').classList.remove('hidden');
+            document.getElementById('loadingArea').classList.add('flex');
+            
+            // Progress bar animation - iOS-friendly version
+            const _startTime = Date.now();
+            let _lastElapsed = -1;
+            function _updateProgress() {
+                const _elapsed = Math.floor((Date.now() - _startTime) / 1000);
+                if (_elapsed !== _lastElapsed) {
+                    _lastElapsed = _elapsed;
+                    const pct = Math.min(90, _elapsed * 3);
+                    const bar = document.getElementById('progressBar');
+                    const timer = document.getElementById('loadingTimer');
+                    const msg = document.getElementById('loadingMsg');
+                    const detail = document.getElementById('loadingDetail');
+                    if (bar) bar.style.width = pct + '%';
+                    if (timer) timer.textContent = _elapsed + 's';
+                    if (_elapsed === 8 && msg) msg.textContent = '正在處理財務數據...'
+                    if (_elapsed === 15 && msg) msg.textContent = 'AI分析框架運算中...'
+                    if (_elapsed === 25 && msg) msg.textContent = '生成估值結論...'
+                    if (_elapsed === 35 && detail) detail.textContent = '（大型股通常15-25秒，小型股可能需要更長時間）'
+                }
+                if (window._progressRunning) requestAnimationFrame(_updateProgress);
+            }
+            window._progressRunning = true;
+            const _progressInterval = { _stop: () => { window._progressRunning = false; } };
+            requestAnimationFrame(_updateProgress);
+            
+            // 60 second timeout for mobile
+            const _timeout = setTimeout(() => {
+                if (_progressInterval && _progressInterval._stop) _progressInterval._stop(); window._progressRunning = false;
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultTitle').innerText = '分析超時';
+                document.getElementById('reportContent').innerHTML = marked.parse(
+                    '### ⏱️ 分析時間過長\n\n' +
+                    '可能原因：\n' +
+                    '- 網路連線不穩定\n' +
+                    '- 伺服器繁忙（請稍後再試）\n' +
+                    '- 此股票數據需要更長時間處理\n\n' +
+                    '**建議：** 請重新嘗試，或改用單一分析框架（速度較快）'
+                );
+            }, 60000);
+            
+            // Store for cleanup
+            window._analysisTimeout = _timeout;
+            window._progressInterval = _progressInterval;
+
+            // API_BASE_URL: 部署後改為 Railway URL
+            // 例如 https://ai-investment-hq.railway.app
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+
+            try {
+                const response = await fetch(API_BASE_URL + '/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ticker: ticker,
+                        persona_id: personaId,
+                        manual_text: '',
+                        lang: _lang || 'zh'
+                    })
+                });
+
+                // CRITICAL: clear the timeout and interval before handling response
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
+                
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'API error ' + response.status);
+                }
+
+                const data = await response.json();
+
+                document.getElementById('resultArea').classList.remove('hidden');
+                if (personaId === 'all') {
+                    document.getElementById('paywallBanner').classList.remove('hidden');
+                }
+
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
+                const timeStr = now.toLocaleTimeString('zh-TW', {hour:'2-digit',minute:'2-digit'});
+                document.getElementById('resultTitle').innerText = ticker + ' - ' + (i18n[_lang || 'zh'].reportTitle || '深度解析報告');
+                const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
+                const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
+                document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') 
+                    ? (_lang === 'en' ? 'Full Model Analysis' : '全模型交叉對比') 
+                    : personaName;
+                const metaEl = document.getElementById('resultMeta');
+                if (metaEl) metaEl.innerText = (_lang === 'en' ? 'Searched: ' : '搜尋時間：') + dateStr + ' ' + timeStr + priceNote;
+                
+                // Load sector context for this stock
+                loadTickerSector(ticker, API_BASE_URL);
+
+                let reportMarkdown = '';
+
+                // 市場情緒摘要（顯示在最前面）
+                if (data.market_summary && data.market_summary.trim()) {
+                    let ms = data.market_summary;
+                    if (_lang === 'en') {
+                        const msMap = {
+                            '當前:': 'Current:', '一週前:': 'Last week:', '解讀:': 'Signal:',
+                            '情緒分數:': 'Sentiment Score:', '操作建議:': 'Recommendation:',
+                            '計算因子:': 'Factors:', '今日熱門:': 'Trending:', '今日熱門股:': 'Trending:',
+                            '→ 無明顯情緒偏向': '→ No clear directional bias',
+                            '→ 樂觀': '→ Greed', '→ 恐懼': '→ Fear',
+                            '→ 極度貪婪': '→ Extreme Greed', '→ 極度恐懼': '→ Extreme Fear',
+                            '樂觀 (Greed)': 'Greed', '恐懼 (Fear)': 'Fear',
+                            '中性': 'Neutral', '極度貪婪': 'Extreme Greed', '極度恐懼': 'Extreme Fear',
+                            '樂觀': 'Greed', '恐懼': 'Fear',
+                            '市場情緒偏多，追高需謹慎': 'Bullish market - caution chasing highs',
+                            '市場情緒偏空，注意下檔風險': 'Bearish market - watch downside risk',
+                            '100=極度貪婪': '100=Extreme Greed', '0=中性': '0=Neutral',
+                            '-100=極度恐懼': '-100=Extreme Fear',
+                            '分析框架應結合此情緒分數調整進出場建議的積極程度': 'Adjust entry/exit aggressiveness based on this sentiment score.',
+                        };
+                        for (const [zh, en] of Object.entries(msMap)) {
+                            ms = ms.split(zh).join(en);
+                        }
+                    }
+                    reportMarkdown += '## 📊 ' + (_lang === 'en' ? 'Market Sentiment' : '市場情緒指標') + '\n' + ms + '\n\n---\n\n';
+                }
+
+                // 對比表（全模型時顯示）
+                if (data.comparison_table) {
+                    var ct = data.comparison_table;
+                    if (_lang === 'en') {
+                        ct = ct.replace(/分析框架/g,'Framework').replace(/悲觀/g,'Bear')
+                              .replace(/基準/g,'Base').replace(/樂觀/g,'Bull')
+                              .replace(/評級/g,'Rating').replace(/買進/g,'Buy')
+                              .replace(/觀望/g,'Hold').replace(/賣出/g,'Sell')
+                              .replace(/強力買進/g,'Strong Buy').replace(/強力迴避/g,'Strong Sell')
+                              .replace(/共識目標價（基準均值）/g,'Consensus Target (Base Avg)')
+                              .replace(/財務結構分析/g,'Financial Structure')
+                              .replace(/供應鏈結構分析/g,'Supply Chain')
+                              .replace(/技術面分析/g,'Technical Analysis')
+                              .replace(/宏觀周期分析/g,'Macro Cycle');
+                    }
+                    reportMarkdown += ct + '\n\n---\n\n';
+                }
+
+                // 各框架完整分析
+                if (data.analyses) {
+                    let count = 0;
+                    for (const [pid, analysis] of Object.entries(data.analyses)) {
+                        const sr = data.structured_results || {};
+                        const pname = (sr[pid] && sr[pid].persona_name) ? sr[pid].persona_name : pid;
+                        const bear = (sr[pid] && sr[pid].bear_price) ? '$' + sr[pid].bear_price : 'N/A';
+                        const base = (sr[pid] && sr[pid].base_price) ? '$' + sr[pid].base_price : 'N/A';
+                        const bull = (sr[pid] && sr[pid].bull_price) ? '$' + sr[pid].bull_price : 'N/A';
+                        const rating = (sr[pid] && sr[pid].rating) ? sr[pid].rating : '';
+
+                        const ratingEmoji = {'強力買進':'🚀','買進':'✅','觀望':'⚠️','賣出':'🔴','強力迴避':'❌'}[rating] || '📊';
+                        reportMarkdown += '\n\n---\n\n';
+                        const pnameDisplay = translatePersonaName(pname, _lang);
+                        const ratingDisplay = translateRating(rating, _lang);
+                        reportMarkdown += '## ' + ratingEmoji + ' ' + pnameDisplay + '\n';
+                        if (rating) reportMarkdown += (_lang==='en' ? '**Rating: ' : '**評級：') + ratingDisplay + '**';
+                        if (bear !== 'N/A') reportMarkdown += _lang==='en'
+                            ? '　｜　Target: Bear ' + bear + ' / Base ' + base + ' / Bull ' + bull
+                            : '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
+                        reportMarkdown += '\n\n';
+                        let analysisText = analysis;
+                        if (_lang === 'en' && analysisText) {
+                            const aiMap = {
+                            // Valuation labels
+                            '悲觀目標價:': 'Bear Target:', '基準目標價:': 'Base Target:',
+                            '樂觀目標價:': 'Bull Target:', '評級:': 'Rating:',
+                            '升級觸發:': 'Upgrade trigger:', '降級觸發:': 'Downgrade trigger:',
+                            // Section headers
+                            '估值結論': 'Valuation Conclusion', '核心指標評分表': 'Key Metric Scorecard',
+                            '核心指標': 'Key Metrics', '主要風險': 'Key Risks',
+                            '技術面詳細解讀': 'Technical Detail', '指標評分表': 'Scorecard',
+                            '多頭訊號': '📈 Bullish Signals', '空頭訊號': '📉 Bearish Signals',
+                            '風險訊號': '⚠️ Risk Signals', '警示訊號': '⚠️ Warning Signals',
+                            // Table headers
+                            '| 指標 | 數值 | 評分 |': '| Indicator | Value | Grade |',
+                            '| 指標 | 數值 | 判定 |': '| Indicator | Value | Signal |',
+                            '| 指標 | 數值 | 標準 | 評分 |': '| Indicator | Value | Standard | Grade |',
+                            '|---|---|---|': '|---|---|---|',
+                            // Indicator names
+                            '布林通道%B': 'Bollinger %B', 'MACD柱狀圖': 'MACD Histogram',
+                            '均線排列': 'MA Alignment', '均線系統': 'MA System',
+                            '量比': 'Volume Ratio', '成交量': 'Volume',
+                            '布林帶': 'Bollinger Band', '布林通道': 'Bollinger Band',
+                            // Signal descriptions
+                            '短中長期向上排列': 'Short/Mid/Long-term uptrend aligned',
+                            '短期強勢向上': 'Short-term strong uptrend',
+                            '成交量正常': 'Normal volume', '成交量放大': 'Volume expanding',
+                            '成交量萎縮': 'Volume declining',
+                            'Bullish momentum持續擴大': 'Bullish momentum expanding',
+                            'Neutral偏強': 'Neutral-Bullish',
+                            'Overbought上軌': 'Overbought (upper BB)',
+                            'Overbought預警': 'Overbought warning',
+                            'RSI接近70': 'RSI near 70',
+                            '基本面與技術面背離': 'Fundamentals-technical divergence',
+                            '多頭控制': 'Bulls in control', '空頭控制': 'Bears in control',
+                            '確認買方控制': 'Confirms bull control',
+                            '確認上漲有效性': 'Confirms valid upside',
+                            '反映波動加大': 'Reflects expanding volatility',
+                            '獲利了結壓力增加': 'Profit-taking pressure building',
+                            '短期漲幅過度': 'Short-term overextended',
+                            '修正風險高': 'High correction risk',
+                            '技術面驅動': 'Technically driven',
+                            // General
+                            '超買': 'Overbought', '超賣': 'Oversold', '中性': 'Neutral',
+                            '多頭動能': 'Bullish momentum', '空頭動能': 'Bearish momentum',
+                            '黃金排列': 'Golden cross', '死亡排列': 'Death cross',
+                            '量能萎縮': 'Volume declining', '量能放大': 'Volume surging',
+                            '量能溫和': 'Moderate volume', '量能正常': 'Normal volume',
+                            '觀望': 'Hold', '買進': 'Buy', '賣出': 'Sell',
+                            '強力買進': 'Strong Buy', '強力迴避': 'Strong Sell',
+                            // Misc
+                            '區間': 'range', '預警區': 'warning zone', '上軌': 'upper band',
+                            '下軌': 'lower band', '日內': 'within days',
+                            '訊號線': 'signal line', '帶寬': 'bandwidth', '位置': 'position',
+                        };
+                            for (const [zh, en] of Object.entries(aiMap)) {
+                                analysisText = analysisText.split(zh).join(en);
+                            }
+                        }
+                        reportMarkdown += analysisText + '\n';
+
+                        count++;
+                        // Show all frameworks for now (paywall to be added via login system later)
+                    }
+                }
+
+                document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
+                document.getElementById('stockNewsSection').innerHTML = '';
+                document.getElementById('scorecardSection').innerHTML = '';
+                loadStockNews(ticker);
+                // Load 52W position, earnings, related stocks
+                try {
+                    const meta = (data.structured_results && Object.values(data.structured_results)[0]) || {};
+                    const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                    const chartD = await r.json();
+                    const chartMeta = chartD?.chart?.result?.[0]?.meta || {};
+                    loadExtraAnalysis(ticker, chartMeta.regularMarketPrice, chartMeta.fiftyTwoWeekHigh, chartMeta.fiftyTwoWeekLow);
+                } catch(e) {}
+                addWatchButton(ticker);
+                renderScorecard(data, ticker);
+
+            } catch (error) {
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+                document.getElementById('resultArea').classList.remove('hidden');
+                // Check if it's a 404 (invalid ticker) or other error
+                const isNotFound = error.message && (error.message.includes('404') || error.message.includes('查無'));
+                document.getElementById('resultTitle').innerText = isNotFound ? '查無此股票代碼' : '連線失敗';
+                document.getElementById('resultPersona').innerText = '';
+                if (isNotFound) {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ❌ 查無此代碼：' + ticker + '\n\n' +
+                        '請確認：\n' +
+                        '- 美股範例：`AAPL`、`GOOGL`、`TSLA`\n' +
+                        '- 台股範例：`2330.TW`、`2303.TW`\n' +
+                        '- 注意大小寫和格式是否正確'
+                    );
+                } else {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ⚠️ 無法連線到分析伺服器\n\n' +
+                        '錯誤：' + error.message + '\n\n' +
+                        '請稍後再試'
+                    );
+                }
+            }
+        }
+    </script>
+
+        <!-- Google AdSense Banner -->
+        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5306345121020754"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Static content for search crawlers (hidden visually) -->
+        <noscript>
+<div style="max-width:900px;margin:0 auto;padding:20px;font-family:sans-serif;color:#333">
+
+<h1 style="color:#4f46e5">StockIQ.TW — AI 美股多框架深度分析平台</h1>
+<p>StockIQ 是專為台灣投資人設計的 AI 股票分析工具，提供業界最完整的多框架分析方法，讓您不需要看財報、不需要自己算指標，只要輸入股票代號，就能獲得專業級的深度分析報告與投資評級。</p>
+
+<h2>🔬 七大分析框架</h2>
+
+<h3>1. 財務結構分析</h3>
+<p>深度解析企業財務健康狀況。分析自由現金流（FCF）、毛利率、淨利率、D/E 債務比率、EV/FCF 估值倍數、股本稀釋速度（SBC%）等核心財務指標。透過三情境 DCF 現金流折現模型，計算悲觀、基準、樂觀三個目標價，給出具體的投資評級。</p>
+<p>適合：想了解企業基本面健康度的長期投資人</p>
+
+<h3>2. 技術面分析（RSI + MACD + 布林通道）</h3>
+<p>整合主要技術指標，全面評估股票的技術面狀況。分析 RSI(14) 相對強弱指數（超買/超賣判斷）、MACD 指數平滑移動平均（黃金/死亡交叉）、布林通道%B（上軌/下軌突破）、均線系統（MA20/MA50/MA200 排列方式）、成交量量比分析。</p>
+<p>適合：重視進出場時機的波段交易者</p>
+
+<h3>3. Piotroski F-Score 財務健康量化</h3>
+<p>由芝加哥大學教授 Joseph Piotroski 開發的量化評分系統。透過 9 個財務健康指標（ROA 正向、OCF 正向、ROA 年增、現金流質量、槓桿率下降、流動性改善、無股份稀釋、毛利率改善、資產週轉改善）計算 0-9 分評分。8-9 分為財務優質，0-4 分為財務警示。</p>
+<p>適合：重視企業財務品質的價值投資人</p>
+
+<h3>4. Peter Lynch GARP 合理成長股評估</h3>
+<p>採用傳奇基金經理人 Peter Lynch 的 GARP（Growth at a Reasonable Price）投資哲學。核心指標包括 PEG 比率（P/E÷盈餘成長率，< 1.0 為低估）、Lynch 合理股價（EPS × 盈餘成長率）、D/E 債務比率（< 0.8 為安全）、庫存成長 vs 營收成長對比。</p>
+<p>適合：尋找具合理估值成長股的中長期投資人</p>
+
+<h3>5. Cathie Wood 破壞性創新模型</h3>
+<p>仿照 ARK Invest 創辦人 Cathie Wood 的投資方法論，聚焦於具顛覆性技術的高成長公司。分析指標包括：3年營收複合年增長率（CAGR）、研發費用佔比（R&D/Revenue）、毛利率擴張趨勢（季對季）、5年目標價計算（成熟期 P/S 倍數 × 預期營收）、潛在報酬倍數。</p>
+<p>適合：願意承受高波動、尋求高成長機會的積極型投資人</p>
+
+<h3>6. Howard Marks 宏觀週期分析</h3>
+<p>參考橡樹資本創辦人 Howard Marks 的市場週期理論，評估當前宏觀環境對個股的影響。整合 Fear & Greed Index、VIX 波動率指數、板塊 ETF 近期動能、利率趨勢、市場情緒周期位置等因素，給出宏觀面操作建議。</p>
+<p>適合：重視宏觀環境與市場時機的投資人</p>
+
+<h3>7. 供應鏈結構分析</h3>
+<p>深度解析企業在供應鏈中的定位與競爭優勢。分析指標包括：自製率（垂直整合程度）、CapEx 強度（資本支出/營收）、客戶集中度（前三大客戶佔比）、GAAP vs Non-GAAP 毛利率差距、前後向整合能力。</p>
+<p>適合：關注企業護城河與供應鏈穩定性的投資人</p>
+
+<h2>📊 板塊資金流動追蹤</h2>
+<p>每日更新的美股板塊資金流向分析，追蹤11大板塊（科技、醫療、金融、能源、非必需消費、必需消費、工業、通訊、公用事業、原材料、房地產）及數十個細分 ETF 子板塊的 52 週表現、近4週動能、週對週漲跌趨勢。幫助投資人了解機構資金正在流入或流出哪個產業，作為選股方向的重要參考。</p>
+
+<h2>🌐 宏觀指標監控</h2>
+<p>即時監控影響美股的關鍵宏觀指標：美國10年期公債殖利率、CBOE VIX 波動率指數、S&P 500 指數、NASDAQ 綜合指數、道瓊工業平均指數、美元指數（DXY）、黃金現貨價格。每個指標均顯示當前值、52週變化幅度、近期動能方向。</p>
+
+<h2>⚡ 快速評分卡</h2>
+<p>每次完成個股分析後，系統自動整合所有選用框架的分析結果，產生一張快速評分卡，顯示：綜合投資評級（強力買進/買進/觀望/賣出/強力迴避）、0-100 綜合評分、共識悲觀/基準/樂觀目標價（多框架平均值）、各框架個別評級標籤。讓投資人可以在5秒內掌握核心投資觀點。</p>
+
+<h2>📰 即時相關新聞</h2>
+<p>分析完成後自動抓取該股票最新4篇相關新聞，整合來自 Yahoo Finance、Bloomberg、Reuters 等主流財經媒體的報導，幫助投資人了解驅動股價的最新事件與催化劑。</p>
+
+<h2>💰 定價方案</h2>
+<ul>
+<li><strong>免費方案</strong>：每月3次完整分析、大板塊資金流動、市場速報，含廣告，NT$0</li>
+<li><strong>體驗包</strong>：10次分析，NT$29，不過期不訂閱</li>
+<li><strong>標準包</strong>：50次分析，NT$99，不過期不訂閱</li>
+<li><strong>進階包</strong>：200次分析，NT$299，不過期不訂閱</li>
+</ul>
+
+<h2>🎯 適合哪些人使用</h2>
+<ul>
+<li>忙碌的上班族投資人，沒時間深入研究財報</li>
+<li>美股新手，需要系統性框架建立投資邏輯</li>
+<li>希望快速做多支股票比較的主動投資人</li>
+<li>想要第二意見參考的個人投資者</li>
+<li>需要中文介面美股分析工具的台灣投資人</li>
+</ul>
+
+<h2>🔗 開始使用</h2>
+<p>網址：<a href="https://stockiq.tw">https://stockiq.tw</a><br>
+登入方式：Google 帳號一鍵登入，無需信用卡<br>
+支援股市：NYSE、NASDAQ 所有上市股票<br>
+語言：繁體中文 / English 雙語介面<br>
+客服：smartlifecalendar@gmail.com</p>
+
+<p><em>⚠️ 免責聲明：本平台提供之分析報告僅供參考，不構成任何投資建議。投資涉及風險，過去績效不代表未來表現。使用者應自行評估並承擔投資損益責任。</em></p>
+
+</div>
+</noscript>
+
+        <!-- Daily Market Briefing (auto-loads for content richness) -->
+<!-- Daily Briefing (pre-generated 2026/05/31 16:16) -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none">
+            <div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2>
+    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/05/31 16:16 （週末）</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+    <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px">
+      <div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進（量×漲）</div>
+      <div onclick="document.getElementById('tickerInput').value='SOFI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SOFI</span><span style="color:#4ade80">+7.4%<span style='color:#f97316;font-size:10px'> 2.3x</span></span></div><div onclick="document.getElementById('tickerInput').value='F';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">F</span><span style="color:#4ade80">+4.7%<span style='color:#f97316;font-size:10px'> 2.5x</span></span></div><div onclick="document.getElementById('tickerInput').value='SMCI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SMCI</span><span style="color:#4ade80">+11.6%<span style='color:#f97316;font-size:10px'> 2.3x</span></span></div><div onclick="document.getElementById('tickerInput').value='PLTR';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">PLTR</span><span style="color:#4ade80">+9.2%<span style='color:#f97316;font-size:10px'> 2.0x</span></span></div><div onclick="document.getElementById('tickerInput').value='HPE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">HPE</span><span style="color:#4ade80">+12.6%<span style='color:#f97316;font-size:10px'> 4.6x</span></span></div>
+    </div>
+    <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出（量×跌）</div>
+      <div onclick="document.getElementById('tickerInput').value='RDW';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RDW</span><span style="color:#f87171">-5.1%<span style='color:#f97316;font-size:10px'> 2.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='RGTI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGTI</span><span style="color:#f87171">-5.5%<span style='color:#f97316;font-size:10px'> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='ASTS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ASTS</span><span style="color:#f87171">-14.8%<span style='color:#f97316;font-size:10px'> 2.6x</span></span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='DELL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">DELL</span><span style="color:#4ade80">+32.8%</span></div><div onclick="document.getElementById('tickerInput').value='OKTA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OKTA</span><span style="color:#4ade80">+30.1%</span></div><div onclick="document.getElementById('tickerInput').value='NTAP';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">NTAP</span><span style="color:#4ade80">+22.4%</span></div><div onclick="document.getElementById('tickerInput').value='TBBB';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TBBB</span><span style="color:#4ade80">+15.6%</span></div><div onclick="document.getElementById('tickerInput').value='TEAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TEAM</span><span style="color:#4ade80">+15.3%</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='AMBA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AMBA</span><span style="color:#f87171">-21.4%</span></div><div onclick="document.getElementById('tickerInput').value='GAP';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">GAP</span><span style="color:#f87171">-15.4%</span></div><div onclick="document.getElementById('tickerInput').value='ASTS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ASTS</span><span style="color:#f87171">-14.8%</span></div><div onclick="document.getElementById('tickerInput').value='KRMN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">KRMN</span><span style="color:#f87171">-12.7%</span></div><div onclick="document.getElementById('tickerInput').value='AEO';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AEO</span><span style="color:#f87171">-11.8%</span></div>
+    </div>
+  </div>
+  <p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance 數據 ｜ 量比=今日量÷近3月均量 ｜ 點代號直接分析 ｜ stockiq.tw 每日更新</p>
+</div>
+        </div>
+
+
+
+        <!-- Earnings Calendar in Today Tab -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection" style="display:none">
+            <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <div>
+                        <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0">📅 近期重大財報日曆</h3>
+                        <p style="font-size:12px;color:#94a3b8;margin:2px 0 0">財報前後股價波動最大，提早準備</p>
+                    </div>
+                    <button onclick="loadEarningsCalendar()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px">載入</button>
+                </div>
+                <div id="earningsCalContent"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:8px">點擊「載入」查看近期財報</p></div>
+            </div>
+        </div>
+
+        <!-- SmartLife Calendar App Ad -->
+        <div         </div><!-- end analyzeFormSection -->
+        <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
+            <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+                <div style="display:flex;align-items:center;gap:16px">
+                    <div style="background:white;border-radius:14px;padding:10px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        <span style="font-size:32px">📅</span>
+                    </div>
+                    <div>
+                        <div style="font-weight:800;font-size:16px;margin-bottom:4px">SmartLife Calendar</div>
+                        <div style="font-size:12px;opacity:0.9;line-height:1.5">口語輸入行程 · AI 一鍵生成旅遊計畫 · 穿搭建議 · 日記功能</div>
+                        <div style="font-size:11px;opacity:0.75;margin-top:2px">iOS &amp; Android 免費下載</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-shrink:0">
+                    <a href="https://apps.apple.com/tw/app/smartlife-calendar/id6762165674" target="_blank" rel="noopener"
+                       style="background:white;color:#4f46e5;font-weight:700;font-size:12px;padding:10px 18px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px">
+                        <span>🍎</span> App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=app.smartlifecalendar" target="_blank" rel="noopener"
+                       style="background:rgba(255,255,255,0.15);color:white;font-weight:700;font-size:12px;padding:10px 18px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3)">
+                        <span>🤖</span> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- Smart Money Section -->
+        <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">💡 金流密碼</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">追蹤異常放量個股（量比≥2x），捕捉法人/主力資金布局跡象</p>
+                <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+            </div>
+        </div>
+
+        <!-- News Section -->
+        <div id="newsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 財金新聞</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">即時美股財經新聞 · 產業動態 · 個股事件</p>
+                <div id="newsContent"><p style="color:#94a3b8;text-align:center;padding:24px">點擊「財金新聞」標籤載入</p></div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="historySection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📅 歷史資料</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日市場速報和事件分析完整存檔 · 由 Railway 機器人每天 09:00 和 21:00 更新</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                    <a href="/daily/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#4f46e5">📰 每日速報存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">查看歷史市場速報</div>
+                    </a>
+                    <a href="/news/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#0891b2">🌐 財金新聞存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">每日新聞摘要</div>
+                    </a>
+                </div>
+                <p style="font-size:12px;color:#94a3b8;margin-top:16px">💡 每天 09:00 開盤速報 · 21:00 收盤總結，資料永久保存供追溯</p>
+            </div>
+        </div>
+
+        <!-- Daily Column: 2026/06/21 11:17 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/06/21 11:17</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 MRVL +7.3%（量比6.1x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股今日事件深度分析
+
+## 📈 MRVL 強力買進 (+7.3%)
+
+**（1）觸發事件**
+川普看好馬維爾科技，市場預期其晶片業務將受政策扶持。
+
+**（2）主要原因**
+- 川普政策傾斜：政府支持美國半導體產業自主，馬維爾數據中心晶片符合戰略需求
+- 市場想像空間：相關新聞暗示馬維爾有望成為下一個兆元企業，吸引資金追捧
+- 技術領先地位：其AI/雲端晶片產品線強勁，受惠於資料中心投資增長
+
+**（3）受惠個股**
+- **NVDA（輝達）**：同為AI晶片龍頭，政策利多連動上漲
+- **INTC（英特爾）**：美系晶片廠，同受國家隊扶持政策激勵
+
+**（4）受害個股**
+- **QCOM（高通）**：非數據中心主力，相對利空
+- **AMD（超微）**：馬維爾客群擴張可能侵蝕市占
+
+**（5）結論**
+政策扶持+兆元潛力+量能確認，馬維爾成為晶片產業中短期聚焦標的。
+
+---
+
+## 📉</div></div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#dc2626;margin-bottom:8px;font-size:14px">📉 CTSH -10.5%（量比7.4x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line">CTSH 強力賣出 (-10.5%)
+
+**（1）觸發事件**
+瑞銀集團下調評等，市場恐慌拋售IT服務商。
+
+**（2）主要原因**
+- 評等下調衝擊：投行降級代表獲利預期調整</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
+
+        <!-- Daily Briefing: 2026/06/21 11:17 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/21 11:17</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='MRVL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MRVL</span><span style="color:#4ade80">+7.3%<span style="color:#f97316;font-size:10px"> 6.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INTC</span><span style="color:#4ade80">+10.6%<span style="color:#f97316;font-size:10px"> 1.8x</span></span></div><div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAL</span><span style="color:#4ade80">+3.7%<span style="color:#f97316;font-size:10px"> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='KEEL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">KEEL</span><span style="color:#4ade80">+5.4%<span style="color:#f97316;font-size:10px"> 2.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='GRAB';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">GRAB</span><span style="color:#4ade80">+3.5%<span style="color:#f97316;font-size:10px"> 1.6x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='CTSH';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">CTSH</span><span style="color:#f87171">-10.5%<span style="color:#f97316;font-size:10px"> 7.4x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BFLY</span><span style="color:#4ade80">+55.9%</span></div><div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">WOLF</span><span style="color:#4ade80">+17.9%</span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%</span></div><div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BE</span><span style="color:#4ade80">+15.4%</span></div><div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OUST</span><span style="color:#4ade80">+14.4%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGC</span><span style="color:#f87171">-19.0%</span></div><div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ACN</span><span style="color:#f87171">-18.0%</span></div><div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">LEGN</span><span style="color:#f87171">-16.7%</span></div><div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TNGX</span><span style="color:#f87171">-13.4%</span></div><div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EPAM</span><span style="color:#f87171">-12.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+
+        <!-- Product Info + Policies (for payment platform review) -->
+        <div class="max-w-3xl mx-auto mt-10 px-4">
+            <!-- Service Introduction -->
+            <div class="bg-gray-50 rounded-xl p-6 mb-4 text-sm text-gray-600">
+                <h3 class="font-bold text-gray-800 mb-3">📋 服務說明</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+                        <div class="text-2xl mb-1">🆓</div>
+                        <div class="font-bold text-gray-800">免費方案</div>
+                        <div class="text-xs text-gray-500 mt-1">每月 3 次分析<br>大板塊資金流動<br>含廣告</div>
+                        <div class="text-lg font-bold text-green-600 mt-2">NT$0</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm border-2 border-indigo-200">
+                        <div class="text-2xl mb-1">📦</div>
+                        <div class="font-bold text-gray-800">次數包</div>
+                        <div class="text-xs text-gray-500 mt-1">體驗包 10次 NT$29<br>標準包 50次 NT$99<br>進階包 200次 NT$299</div>
+                        <div class="text-xs text-indigo-600 mt-2 font-medium">不過期・不訂閱</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm border border-green-100">
+                        <div class="text-2xl mb-1">🎁</div>
+                        <div class="font-bold text-gray-800">子板塊追蹤</div>
+                        <div class="text-xs text-gray-500 mt-1">細分 ETF 資金流向<br>週對週趨勢分析<br>登入即可使用</div>
+                        <div class="text-lg font-bold text-green-600 mt-2">完全免費</div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">服務內容：AI 多框架股票分析報告，包含財務結構、技術面（RSI/MACD/布林）、Piotroski F-Score、Peter Lynch GARP、Howard Marks 宏觀週期等 7 大分析框架，提供悲觀/基準/樂觀三情境估值目標價及投資評級。</p>
+            </div>
+            <!-- Policies -->
+            <div class="text-xs text-gray-500 flex flex-wrap justify-center gap-4 mb-4">
+                <a href="#privacy" class="hover:text-gray-700">隱私權政策</a>
+                <a href="#terms" class="hover:text-gray-700">服務條款</a>
+                <a href="#refund" class="hover:text-gray-700">退款政策</a>
+                <a href="#consumer" class="hover:text-gray-700">消費者保護</a>
+                <a href="mailto:smartlifecalendar@gmail.com" class="hover:text-gray-700">客服信箱: smartlifecalendar@gmail.com</a>
+            </div>
+            <!-- Policy Content (collapsed) -->
+            <div id="privacy" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">隱私權政策：</strong>本平台收集用戶電子郵件（登入用）及使用記錄（分析次數統計）。個人資料不會出售或分享給第三方。用戶可隨時要求刪除帳號及相關資料，請寄信至 smartlifecalendar@gmail.com。
+            </div>
+            <div id="terms" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">服務條款：</strong>本平台提供之分析報告僅供參考，不構成任何投資建議或勸誘。投資涉及風險，過去績效不保證未來表現。使用者應自行評估投資決策，本平台不負擔任何投資損益責任。使用本服務即代表同意本條款。
+            </div>
+            <div id="refund" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">退款政策：</strong>次數包購買後如未使用，可於購買後 7 日內申請全額退款。已使用的次數按比例扣除。退款申請請寄信至 smartlifecalendar@gmail.com，處理時間 3-5 個工作天。
+            </div>
+            <div id="consumer" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">消費者權益：</strong>依消費者保護法，數位商品（分析次數包）購買後如有品質問題，可於 7 日內申請退款。如有任何消費爭議，可聯繫客服 smartlifecalendar@gmail.com 或向消費者保護委員會申訴。
+            </div>
+        </div>
+
+        <!-- Footer Disclaimer -->
+        <footer class="text-center text-xs text-gray-400 mt-6 pb-6">
+            <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+            <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+            <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v4.1.0</p>
+        </footer>
+
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl">
+                <div class="text-4xl mb-4">📊</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">登入後開始分析</h3>
+                <p class="text-gray-500 text-sm mb-6">免費帳號每月 3 次完整分析<br>登入即送，無需信用卡</p>
+                <button onclick="signInWithGoogle(); document.getElementById('loginModal').classList.add('hidden')" 
+                    class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 font-medium text-gray-700 mb-3">
+                    <img src="https://www.google.com/favicon.ico" class="w-5 h-5"> 使用 Google 帳號登入
+                </button>
+                <button onclick="document.getElementById('loginModal').classList.add('hidden')" 
+                    class="text-gray-400 text-sm hover:text-gray-600">取消</button>
+            </div>
+        </div>
+
+
+        <!-- Watch List Toggle Button -->
+        <button onclick="document.getElementById('watchListPanel').classList.toggle('hidden')" 
+            style="position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;border:none;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100">
+            📋 追蹤清單
+        </button>
+
+        <!-- Watch List Panel -->
+        <div id="watchListPanel" class="hidden" style="position:fixed;bottom:70px;right:20px;width:220px;background:white;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:200;overflow:hidden">
+            <div style="background:#1e293b;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+                <span style="color:white;font-weight:700;font-size:14px">📋 追蹤清單</span>
+                <button onclick="document.getElementById('watchListPanel').classList.add('hidden')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:18px">×</button>
+            </div>
+            <div id="watchListContent" style="padding:8px 12px;max-height:300px;overflow-y:auto">
+                <p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票</p>
+            </div>
+            <div style="padding:10px 12px;border-top:1px solid #f1f5f9">
+                <div style="display:flex;gap:6px">
+                    <input id="watchAddInput" placeholder="輸入代號..." style="flex:1;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;font-size:13px;outline:none">
+                    <button onclick="addToWatchList(document.getElementById('watchAddInput').value);document.getElementById('watchAddInput').value=''" 
+                        style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer">+</button>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>
+
