@@ -168,7 +168,7 @@ async def tw_test(ticker: str):
 def health():
     return {
         "status": "healthy",
-        "version": "4.6.0",
+        "version": "5.0.0",
         "model": "claude-haiku-4-5 (fast)",
         "anthropic_key_set": bool(os.environ.get("ANTHROPIC_API_KEY")),
         "fmp_key_set": bool(os.environ.get("FMP_API_KEY")),
