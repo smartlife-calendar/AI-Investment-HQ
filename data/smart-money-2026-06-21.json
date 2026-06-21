@@ -1,16 +1,16 @@
 {
   "date": "2026-06-21",
-  "generated_at": "2026-06-21T09:00:29.013859+08:00",
+  "generated_at": "2026-06-21T09:31:10.418302+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 19,
+  "count": 23,
   "stocks": [
     {
       "symbol": "FLEX",
       "name": "Flex Ltd.",
       "price": 147.61,
       "change_pct": 3.13,
-      "vol_ratio": 12.64,
-      "volume": 80714535,
+      "vol_ratio": 12.67,
+      "volume": 80915265,
       "avg_volume": 6384193
     },
     {
@@ -21,6 +21,15 @@
       "vol_ratio": 10.23,
       "volume": 59731176,
       "avg_volume": 5841058
+    },
+    {
+      "symbol": "CTSH",
+      "name": "Cognizant Technology Solutions ",
+      "price": 43.7,
+      "change_pct": -10.49,
+      "vol_ratio": 7.44,
+      "volume": 61312375,
+      "avg_volume": 8245180
     },
     {
       "symbol": "AAMI",
@@ -41,21 +50,12 @@
       "avg_volume": 5950766
     },
     {
-      "symbol": "CTSH",
-      "name": "Cognizant Technology Solutions ",
-      "price": 43.7,
-      "change_pct": -10.49,
-      "vol_ratio": 7.0,
-      "volume": 57685964,
-      "avg_volume": 8245180
-    },
-    {
       "symbol": "MRVL",
       "name": "Marvell Technology, Inc.",
       "price": 310.58,
       "change_pct": 7.27,
-      "vol_ratio": 6.12,
-      "volume": 250206305,
+      "vol_ratio": 6.14,
+      "volume": 250989360,
       "avg_volume": 40881875
     },
     {
@@ -64,7 +64,7 @@
       "price": 27.93,
       "change_pct": -16.68,
       "vol_ratio": 5.16,
-      "volume": 13601339,
+      "volume": 13608396,
       "avg_volume": 2637424
     },
     {
@@ -81,8 +81,8 @@
       "name": "QuantumScape Corporation",
       "price": 8.04,
       "change_pct": 16.52,
-      "vol_ratio": 3.67,
-      "volume": 80749753,
+      "vol_ratio": 3.89,
+      "volume": 85585773,
       "avg_volume": 21981322
     },
     {
@@ -90,8 +90,8 @@
       "name": "Steel Dynamics, Inc.",
       "price": 249.91,
       "change_pct": -7.49,
-      "vol_ratio": 3.57,
-      "volume": 4217630,
+      "vol_ratio": 3.83,
+      "volume": 4526556,
       "avg_volume": 1182530
     },
     {
@@ -99,8 +99,8 @@
       "name": "Tango Therapeutics, Inc.",
       "price": 27.97,
       "change_pct": -13.38,
-      "vol_ratio": 3.15,
-      "volume": 11811891,
+      "vol_ratio": 3.23,
+      "volume": 12095877,
       "avg_volume": 3745972
     },
     {
@@ -108,8 +108,8 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 12.01,
       "change_pct": -18.96,
-      "vol_ratio": 2.89,
-      "volume": 377357,
+      "vol_ratio": 2.92,
+      "volume": 380694,
       "avg_volume": 130404
     },
     {
@@ -122,6 +122,15 @@
       "avg_volume": 887041
     },
     {
+      "symbol": "CMCSA",
+      "name": "Comcast Corporation",
+      "price": 22.43,
+      "change_pct": -1.15,
+      "vol_ratio": 2.42,
+      "volume": 74561805,
+      "avg_volume": 30768401
+    },
+    {
       "symbol": "INFY",
       "name": "Infosys Limited",
       "price": 10.57,
@@ -131,21 +140,21 @@
       "avg_volume": 17266966
     },
     {
-      "symbol": "AMC",
-      "name": "AMC Entertainment Holdings, Inc",
-      "price": 2.83,
-      "change_pct": 6.39,
-      "vol_ratio": 2.35,
-      "volume": 80933058,
-      "avg_volume": 34430370
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "price": 77.38,
+      "change_pct": 0.55,
+      "vol_ratio": 2.34,
+      "volume": 91920414,
+      "avg_volume": 39290182
     },
     {
       "symbol": "CHRN",
       "name": "ChronoScale Corporation",
       "price": 23.33,
       "change_pct": 13.2,
-      "vol_ratio": 2.3,
-      "volume": 548723,
+      "vol_ratio": 2.31,
+      "volume": 551963,
       "avg_volume": 238946
     },
     {
@@ -158,6 +167,24 @@
       "avg_volume": 1785069
     },
     {
+      "symbol": "OUST",
+      "name": "Ouster, Inc.",
+      "price": 46.57,
+      "change_pct": 14.37,
+      "vol_ratio": 2.2,
+      "volume": 8412368,
+      "avg_volume": 3826501
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.29,
+      "change_pct": 5.36,
+      "vol_ratio": 2.12,
+      "volume": 87302077,
+      "avg_volume": 41269887
+    },
+    {
       "symbol": "KMX",
       "name": "CarMax Inc",
       "price": 53.66,
@@ -167,12 +194,21 @@
       "avg_volume": 3532674
     },
     {
+      "symbol": "ACMR",
+      "name": "ACM Research, Inc.",
+      "price": 109.87,
+      "change_pct": 14.22,
+      "vol_ratio": 2.03,
+      "volume": 2986972,
+      "avg_volume": 1468980
+    },
+    {
       "symbol": "ENTG",
       "name": "Entegris, Inc.",
       "price": 178.77,
       "change_pct": 13.62,
       "vol_ratio": 2.02,
-      "volume": 5930590,
+      "volume": 5933481,
       "avg_volume": 2941230
     }
   ]
