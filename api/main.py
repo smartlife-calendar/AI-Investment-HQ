@@ -136,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.9.1", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.9.2", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
