@@ -1022,12 +1022,12 @@
                 const stocks = data.stocks;
                 const updatedAt = data.generated_at ? new Date(data.generated_at).toLocaleString('zh-TW') : '';
                 
-                let html2 = \`<div style="margin-bottom:12px;color:#6b7280;font-size:12px">🕐 更新時間：\${updatedAt} ｜ 掃描 \${data.total_scanned || stocks.length} 支</div>\`;
+                let html2 = `<div style="margin-bottom:12px;color:#6b7280;font-size:12px">🕐 更新時間：\${updatedAt} ｜ 掃描 \${data.total_scanned || stocks.length} 支</div>`;
                 html2 += '<div style="display:grid;gap:10px;">';
                 stocks.forEach(s => {
                     const scoreColor = s.score >= 7 ? '#7c3aed' : '#2563eb';
                     const signalColor = s.score >= 7 ? '#ede9fe' : '#dbeafe';
-                    html2 += \`<div style="background:white;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border-left:4px solid \${scoreColor};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+                    html2 += `<div style="background:white;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border-left:4px solid \${scoreColor};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
                         <div>
                             <span onclick="document.getElementById('tickerInput').value='\${s.symbol}';showTab('analyze');setTimeout(()=>window.startAnalysis && window.startAnalysis(),200)" 
                                   style="font-weight:800;font-size:16px;color:\${scoreColor};cursor:pointer">\${s.symbol}</span>
@@ -1045,7 +1045,7 @@
                             </div>
                             <div style="font-size:10px;color:#9ca3af;margin-top:2px">吸籌評分 \${s.score}/8</div>
                         </div>
-                    </div>\`;
+                    </div>`;
                 });
                 html2 += '</div>';
                 content.innerHTML = html2;
