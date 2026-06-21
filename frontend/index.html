@@ -1142,52 +1142,46 @@
         async function loadSmartDirection(direction) {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
-            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + (direction==='bullish'?'吸籌':'出貨') + '偵測...</p>';
+            const label = direction === 'bullish' ? '吸籌' : '出貨';
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + label + '偵測中...</p>';
             
             try {
-                // Try static JSON first
                 let stocks = null;
-                try {
-                    const r = await fetch('/data/accumulation.json?t=' + Date.now());
-                    if (r.ok) {
-                        const j = await r.json();
-                        if (j && j.generated_at) {
-                            const age = (Date.now() - new Date(j.generated_at).getTime()) / 3600000;
-                            if (age <= 25) {
-                                stocks = direction === 'bullish' ? j.stocks : (j.bearish || []);
-                            }
+                
+                // Load from pre-computed JSON
+                const r = await fetch('/data/accumulation.json?t=' + Date.now());
+                if (r.ok) {
+                    const j = await r.json();
+                    if (j) {
+                        const age = (Date.now() - new Date(j.generated_at || 0).getTime()) / 3600000;
+                        if (age <= 25) {
+                            stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
                         }
                     }
-                } catch(e) {}
+                }
                 
-                // Fallback: query Supabase directly
-                if (!stocks) {
+                // Fallback: Supabase query
+                if (!stocks || stocks.length === 0) {
                     const today = new Date().toISOString().split('T')[0];
-                    const r2 = await fetch(
+                    const sb = await fetch(
                         'https://kggwnlevbxghmqpieoet.supabase.co/rest/v1/accumulation_signals?direction=eq.' + direction + '&date=eq.' + today + '&order=score.desc&limit=50',
                         { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.ynPBHJnmLsHsMcBGj7ij9SbxDdnDL1yGr6VQhGN-bk0', 'Accept': 'application/json' } }
                     );
-                    if (r2.ok) stocks = await r2.json();
+                    if (sb.ok) stocks = await sb.json();
                 }
                 
                 if (!stocks || stocks.length === 0) {
-                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">今日暫無' + (direction==='bullish'?'吸籌':'出貨') + '訊號</p>';
+                    content.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b"><div style="font-size:32px;margin-bottom:8px">' + (direction==='bullish'?'📈':'📉') + '</div><p>今日暫無' + label + '訊號</p></div>';
                     return;
                 }
                 
-                stocks = stocks.filter(s => s.direction === direction || !s.direction && direction === 'bullish');
-                stocks.sort((a,b) => b.score - a.score);
-                
                 const isBull = direction === 'bullish';
-                const accentColor = isBull ? '#16a34a' : '#dc2626';
-                const bgLight = isBull ? '#f0fdf4' : '#fef2f2';
-                const updatedAt = stocks[0]?.created_at ? new Date(stocks[0].created_at).toLocaleString('zh-TW') : '';
                 
-                let out = '<div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-                out += '<span style="color:#6b7280;font-size:12px">共 ' + stocks.length + ' 個訊號 · 掃描 ' + (isBull ? '📈 走多' : '📉 走空') + ' 候選</span>';
+                let out = '<div style="margin-bottom:12px;color:#6b7280;font-size:12px">';
+                out += '共 <strong>' + stocks.length + '</strong> 個' + label + '訊號 · ';
+                out += (isBull ? '📈 走多候選' : '📉 走空候選');
                 out += '</div>';
                 
-                // Legend
                 if (isBull) {
                     out += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">';
                     out += '<span style="background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">📈 5-6分 吸籌中</span>';
@@ -1201,43 +1195,44 @@
                 }
                 
                 out += '<div style="display:grid;gap:10px;">';
-                stocks.slice(0, 30).forEach(s => {
+                stocks.slice(0, 30).forEach(function(s) {
                     const sc = s.score || 0;
                     const isStrong = sc >= 7;
                     const borderColor = isStrong ? (isBull ? '#15803d' : '#b91c1c') : (isBull ? '#16a34a' : '#dc2626');
                     const cardBg = isStrong ? (isBull ? '#f0fdf4' : '#fff1f2') : 'white';
-                    const pctFill = Math.round((sc / 10) * 100);
-                    const consecStr = s.consec_days > 0 ? ' · 連續 <strong style="color:' + borderColor + '">' + s.consec_days + '</strong> 天' : '';
-                    const change3mStr = s.change_3m !== undefined ? ' · 3M ' + (s.change_3m >= 0 ? '+' : '') + s.change_3m + '%' : '';
-                    const scoreBreak = s.score_vol !== undefined ? '量+' + s.score_vol + ' 壓縮+' + s.score_comp + ' 位置+' + s.score_pos + ' OBV+' + s.score_obv : '';
+                    const pct = Math.round((sc / 10) * 100);
+                    const consec = s.consec_days > 0 ? ' · 連 ' + s.consec_days + ' 天' : '';
+                    const c3m = s.change_3m != null ? ' · 3M ' + (s.change_3m >= 0 ? '+' : '') + s.change_3m + '%' : '';
+                    const scoreDetail = s.score_vol != null ? '量+' + s.score_vol + ' 壓縮+' + s.score_comp + ' 位置+' + s.score_pos + ' OBV+' + s.score_obv : '';
+                    const c1d = s.change_1d >= 0 ? '+' + s.change_1d : '' + s.change_1d;
+                    const c1m = s.change_1m >= 0 ? '+' + s.change_1m : '' + s.change_1m;
                     
                     out += '<div style="background:' + cardBg + ';border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-left:4px solid ' + borderColor + '">';
                     out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
                     out += '<div>';
-                    out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" ';
-                    out += 'style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
-                    out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong ? (isBull?'#bbf7d0':'#fecaca') : (isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal || '') + '</span>';
-                    out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '%' + consecStr + change3mStr + '</div>';
+                    out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
+                    out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal || '') + '</span>';
+                    out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '%' + consec + c3m + '</div>';
                     out += '</div>';
                     out += '<div style="text-align:right">';
                     out += '<div style="font-size:20px;font-weight:700;color:#1e293b">$' + s.price + '</div>';
-                    out += '<div style="font-size:13px;color:' + (s.change_1d >= 0 ? '#16a34a' : '#dc2626') + '">' + (s.change_1d >= 0 ? '+' : '') + s.change_1d + '% 今</div>';
-                    out += '<div style="font-size:11px;color:#9ca3af">' + (s.change_1m >= 0 ? '+' : '') + s.change_1m + '% 月</div>';
-                    out += '</div>';
-                    out += '</div>';
+                    out += '<div style="font-size:13px;color:' + (s.change_1d >= 0 ? '#16a34a' : '#dc2626') + '">' + c1d + '% 今</div>';
+                    out += '<div style="font-size:11px;color:#9ca3af">' + c1m + '% 月</div>';
+                    out += '</div></div>';
                     out += '<div style="margin-top:10px">';
                     out += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
-                    out += '<span style="font-size:10px;color:#9ca3af">' + scoreBreak + '</span>';
+                    out += '<span style="font-size:10px;color:#9ca3af">' + scoreDetail + '</span>';
                     out += '<span style="font-size:12px;font-weight:700;color:' + borderColor + '">' + sc + '/10</span>';
                     out += '</div>';
-                    out += '<div style="background:#e5e7eb;border-radius:4px;height:5px">';
-                    out += '<div style="background:' + borderColor + ';width:' + pctFill + '%;height:5px;border-radius:4px"></div></div>';
+                    out += '<div style="background:#e5e7eb;border-radius:4px;height:5px"><div style="background:' + borderColor + ';width:' + pct + '%;height:5px;border-radius:4px"></div></div>';
                     out += '</div></div>';
                 });
                 out += '</div>';
                 content.innerHTML = out;
+                
             } catch(e) {
-                content.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
+                console.error('loadSmartDirection error:', e);
+                content.innerHTML = '<p style="color:#ef4444;text-align:center;padding:24px">載入失敗：' + e.message + '</p>';
             }
         }
         
