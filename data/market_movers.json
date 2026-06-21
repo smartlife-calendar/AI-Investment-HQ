@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-21T14:02:45+08:00",
+  "generated_at": "2026-06-21T14:49:05+08:00",
   "gainers": [
     {
       "symbol": "BFLY",
@@ -125,10 +125,10 @@
     },
     {
       "symbol": "NVA",
-      "name": "Nova Minerals Limited",
+      "name": "Nova Minerals Corp",
       "price": 5.76,
       "change_pct": -11.38,
-      "volume": 592926,
+      "volume": 593768,
       "vr": ""
     },
     {
@@ -198,11 +198,11 @@
       "vr": ""
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 15.99,
-      "change_pct": 3.7,
-      "volume": 126278445,
+      "symbol": "CDE",
+      "name": "Coeur Mining, Inc.",
+      "price": 17.51,
+      "change_pct": -0.11,
+      "volume": 45025801,
       "vr": ""
     },
     {
@@ -214,11 +214,43 @@
       "vr": ""
     },
     {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 15.99,
+      "change_pct": 3.7,
+      "volume": 126278445,
+      "vr": ""
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer, Inc.",
+      "price": 25.21,
+      "change_pct": -2.74,
+      "volume": 67907094,
+      "vr": ""
+    },
+    {
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 22.01,
+      "change_pct": -1.92,
+      "volume": 55132557,
+      "vr": ""
+    },
+    {
       "symbol": "NFLX",
       "name": "Netflix, Inc.",
       "price": 77.38,
       "change_pct": 0.55,
       "volume": 91920414,
+      "vr": ""
+    },
+    {
+      "symbol": "F",
+      "name": "Ford Motor Company",
+      "price": 14.06,
+      "change_pct": 0.72,
+      "volume": 88662416,
       "vr": ""
     },
     {
@@ -251,38 +283,6 @@
       "price": 8.04,
       "change_pct": 16.52,
       "volume": 85585773,
-      "vr": ""
-    },
-    {
-      "symbol": "SOFI",
-      "name": "SoFi Technologies, Inc.",
-      "price": 17.91,
-      "change_pct": 2.81,
-      "volume": 80961071,
-      "vr": ""
-    },
-    {
-      "symbol": "FLEX",
-      "name": "Flex Ltd.",
-      "price": 147.61,
-      "change_pct": 3.13,
-      "volume": 80915265,
-      "vr": ""
-    },
-    {
-      "symbol": "AMZN",
-      "name": "Amazon.com, Inc.",
-      "price": 244.39,
-      "change_pct": 2.9,
-      "volume": 75624415,
-      "vr": ""
-    },
-    {
-      "symbol": "CMCSA",
-      "name": "Comcast Corporation",
-      "price": 22.43,
-      "change_pct": -1.15,
-      "volume": 74561805,
       "vr": ""
     }
   ],
@@ -330,12 +330,12 @@
   ],
   "strong_sell": [
     {
-      "symbol": "CTSH",
-      "name": "Cognizant Technology Solutions ",
-      "price": 43.7,
-      "change_pct": -10.49,
-      "volume": 61312375,
-      "vr": 7.4
+      "symbol": "RIG",
+      "name": "Transocean Ltd (Switzerland)",
+      "price": 5.31,
+      "change_pct": -4.84,
+      "volume": 67139758,
+      "vr": 2.0
     }
   ]
 }
