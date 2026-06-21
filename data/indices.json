@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-21T12:38:17+08:00",
+  "generated_at": "2026-06-21T13:08:53+08:00",
   "indices": {
     "^GSPC": {
       "name": "S&P 500",
@@ -20,6 +20,11 @@
       "name": "VIX",
       "price": 16.4,
       "pct": -11.06
+    },
+    "^TNX": {
+      "name": "10Y Bond",
+      "price": 4.45,
+      "pct": -0.27
     },
     "DX-Y.NYB": {
       "name": "DXY",
