@@ -136,7 +136,7 @@ class AnalysisRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": "4.9.0", "model": "claude-haiku-4-5 (fast)"}
+    return {"status": "ok", "version": "4.9.1", "model": "claude-haiku-4-5 (fast)"}
 
 
 @app.get("/tw-test/{ticker}")
@@ -257,6 +257,125 @@ def get_indices():
             result[sym] = {"name": name, "price": 0, "pct": 0, "error": str(e)}
     
     _data_cache[cache_key] = {"data": result, "expires": now + 300}
+    return result
+
+
+
+@app.get("/accumulation-scan")
+def accumulation_scan():
+    """Scan for stocks showing accumulation pattern (slowly increasing volume + consolidation)"""
+    import time as _time
+    cache_key = "accumulation"
+    now = time.time()
+    cached = _data_cache.get(cache_key)
+    if cached and now < cached.get("expires", 0):
+        return cached["data"]
+    
+    yf_headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+        "Referer": "https://finance.yahoo.com/"
+    }
+    
+    # Watch list of stocks to scan (expand this list over time)
+    watchlist = [
+        "NVDA","AAPL","MSFT","TSLA","META","AMZN","GOOGL","AMD","INTC","NFLX",
+        "PLTR","SOFI","RIVN","LCID","NIO","MSTR","COIN","HOOD","RBLX","SNAP",
+        "BFLY","MU","SMCI","ARM","AVGO","QCOM","TXN","AMAT","LRCX","KLAC"
+    ]
+    
+    results = []
+    news_results = {}
+    
+    for sym in watchlist:
+        try:
+            _time.sleep(0.8)
+            # Get 3-month weekly data
+            url = f"https://query2.finance.yahoo.com/v8/finance/chart/{sym}?interval=1wk&range=6mo"
+            req_yf = urllib.request.Request(url, headers=yf_headers)
+            resp = urllib.request.urlopen(req_yf, timeout=10)
+            data = json.loads(resp.read())
+            
+            chart = data.get("chart", {}).get("result", [{}])[0]
+            meta = chart.get("meta", {})
+            quotes = chart.get("indicators", {}).get("quote", [{}])[0]
+            
+            closes = quotes.get("close", [])
+            volumes = quotes.get("volume", [])
+            timestamps = chart.get("timestamp", [])
+            
+            if len(closes) < 12 or len(volumes) < 12:
+                continue
+            
+            # Remove None values
+            valid = [(t, c, v) for t, c, v in zip(timestamps, closes, volumes) 
+                    if c is not None and v is not None and v > 0]
+            if len(valid) < 12:
+                continue
+            
+            # Split into first half and second half (comparing periods)
+            mid = len(valid) // 2
+            first_half_vols = [v for _, _, v in valid[:mid]]
+            second_half_vols = [v for _, _, v in valid[mid:]]
+            first_prices = [c for _, c, _ in valid[:mid]]
+            second_prices = [c for _, c, _ in valid[mid:]]
+            
+            avg_vol_first = sum(first_half_vols) / len(first_half_vols)
+            avg_vol_second = sum(second_half_vols) / len(second_half_vols)
+            
+            # Volume trend: is second half volume higher than first?
+            vol_increase_pct = (avg_vol_second - avg_vol_first) / avg_vol_first * 100 if avg_vol_first > 0 else 0
+            
+            # Price volatility: standard deviation of prices normalized
+            all_prices = [c for _, c, _ in valid]
+            price_mean = sum(all_prices) / len(all_prices)
+            price_std = (sum((p - price_mean) ** 2 for p in all_prices) / len(all_prices)) ** 0.5
+            price_cv = price_std / price_mean * 100 if price_mean > 0 else 999  # coefficient of variation
+            
+            # Price change over period
+            price_change_pct = (all_prices[-1] - all_prices[0]) / all_prices[0] * 100 if all_prices[0] > 0 else 0
+            
+            # Recent volume spike (last week vs average)
+            recent_vol = valid[-1][2]
+            avg_vol = sum(v for _, _, v in valid) / len(valid)
+            recent_vol_ratio = recent_vol / avg_vol if avg_vol > 0 else 1
+            
+            # Accumulation score (higher = more likely accumulation)
+            # Criteria: volume slowly increasing + price consolidating (low volatility) + price not declining
+            accum_score = 0
+            if vol_increase_pct > 20: accum_score += 3  # Volume trend up
+            elif vol_increase_pct > 10: accum_score += 2
+            elif vol_increase_pct > 0: accum_score += 1
+            
+            if price_cv < 8: accum_score += 3  # Low price volatility (consolidating)
+            elif price_cv < 12: accum_score += 2
+            elif price_cv < 16: accum_score += 1
+            
+            if -5 < price_change_pct < 20: accum_score += 2  # Price not declining much, not spiking
+            
+            if recent_vol_ratio > 1.5: accum_score += 1  # Recent volume uptick
+            
+            current_price = meta.get("regularMarketPrice", all_prices[-1])
+            
+            if accum_score >= 5:  # Threshold for accumulation signal
+                results.append({
+                    "symbol": sym,
+                    "score": accum_score,
+                    "vol_increase_pct": round(vol_increase_pct, 1),
+                    "price_volatility": round(price_cv, 1),
+                    "price_change_6mo": round(price_change_pct, 1),
+                    "recent_vol_ratio": round(recent_vol_ratio, 1),
+                    "current_price": round(current_price, 2) if current_price else 0,
+                    "signal": "🟢 強吸籌" if accum_score >= 7 else "🟡 吸籌觀察"
+                })
+                
+        except Exception as e:
+            print(f"[Accum] {sym}: {e}")
+    
+    # Sort by score
+    results.sort(key=lambda x: x["score"], reverse=True)
+    
+    result = {"stocks": results[:10], "updated_at": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())}
+    _data_cache[cache_key] = {"data": result, "expires": now + 3600}  # Cache 1 hour
     return result
 
 
