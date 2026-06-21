@@ -8,6 +8,94 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-92YNV369H8');
+        async function loadDailyReport() {
+            const today = new Date();
+            const tw_offset = 8 * 60;
+            const tw_time = new Date(today.getTime() + (tw_offset - today.getTimezoneOffset()) * 60000);
+            const dateStr = tw_time.toISOString().split('T')[0];
+            
+            // Try loading today's daily report
+            try {
+                const r = await fetch('/daily/' + dateStr + '.html');
+                if (!r.ok) return; // No report yet for today
+                const html2 = await r.text();
+                
+                // Extract the main content from the daily report
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html2, 'text/html');
+                
+                // Get the main content body (skip nav and footer)
+                const mainContent = doc.querySelector('.max-w-4xl') || doc.querySelector('main') || doc.body;
+                if (!mainContent) return;
+                
+                // Update dailyColumn with the full daily report content
+                const dc = document.getElementById('dailyColumn');
+                if (dc && mainContent.innerHTML.length > 500) {
+                    // Wrap in a styled container
+                    dc.innerHTML = '<div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">'
+                        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'
+                        + '<h2 style="font-size:18px;font-weight:800;color:#1e293b;margin:0">📋 ' + dateStr + ' 完整市場日報</h2>'
+                        + '<a href="/daily/' + dateStr + '.html" target="_blank" style="font-size:12px;color:#4f46e5">開新頁查看 ↗</a>'
+                        + '</div>'
+                        + mainContent.innerHTML
+                        + '</div>';
+                }
+            } catch(e) {}
+        }
+        
+        async function loadDailyArchive() {
+            const el = document.getElementById('dailyArchiveList');
+            if (!el || el.dataset.loaded) return;
+            
+            // List of available daily reports (last 30 days)
+            const today = new Date();
+            const entries = [];
+            for (let i = 0; i < 30; i++) {
+                const d = new Date(today.getTime() - i * 86400000);
+                const dateStr = d.toISOString().split('T')[0];
+                entries.push(dateStr);
+            }
+            
+            // Try fetching to see which ones exist
+            let out = '';
+            for (const dateStr of entries.slice(0, 7)) {
+                const d = new Date(dateStr);
+                const label = d.toLocaleDateString('zh-TW', {year:'numeric', month:'long', day:'numeric', weekday:'short'});
+                out += `<div onclick="loadDailyInPage('${dateStr}')" 
+                    style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:white;border-radius:10px;cursor:pointer;border:1px solid #e2e8f0;margin-bottom:6px;transition:background 0.1s"
+                    onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
+                    <span style="font-weight:600;color:#1e293b">📰 ${label} 市場速報</span>
+                    <span style="font-size:12px;color:#4f46e5">查看 →</span>
+                </div>`;
+            }
+            
+            out += '<div id="dailyInPageContent" style="margin-top:16px"></div>';
+            el.innerHTML = out;
+            el.dataset.loaded = '1';
+            
+            // Auto-load today
+            const todayStr = new Date().toISOString().split('T')[0];
+            loadDailyInPage(todayStr);
+        }
+        
+        async function loadDailyInPage(dateStr) {
+            const container = document.getElementById('dailyInPageContent');
+            if (!container) return;
+            container.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:20px">⏳ 載入 ' + dateStr + ' 速報...</p>';
+            try {
+                const r = await fetch('/daily/' + dateStr + '.html');
+                if (!r.ok) { container.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:20px">此日期暫無速報</p>'; return; }
+                const html2 = await r.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html2, 'text/html');
+                const main = doc.querySelector('.max-w-4xl') || doc.querySelector('article') || doc.body;
+                container.innerHTML = '<div style="background:#f8fafc;border-radius:12px;padding:20px;border:1px solid #e2e8f0">' 
+                    + (main ? main.innerHTML : html2)
+                    + '</div>';
+            } catch(e) {
+                container.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗</p>';
+            }
+        }
     </script>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="https://stockiq.tw/favicon.png">
@@ -109,8 +197,8 @@
             <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
             <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
             <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
-            <a href="/learn/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</a>
-            <a href="/daily/" style="padding:11px 16px;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;text-decoration:none;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</a>
+            <button onclick="showTab('learn')" id="tab-learn" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</button>
+            <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
         </div>
     </div>
 
@@ -923,14 +1011,16 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd','adBanner'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd','adBanner'],
                 'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
-                'history': ['historySection']
+                'history': ['historySection'],
+                'learn': ['learnSection'],
+                'daily_archive': ['dailyArchiveSection']
             }[tabName] || [];
             
             allIds.forEach(id => {
@@ -950,8 +1040,10 @@
             });
             
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
+            if (tabName === 'today') { setTimeout(() => { loadEarningsCalendar(); loadDailyReport(); }, 500); }
             if (tabName === 'smart') loadSmartMoney();
             if (tabName === 'news') loadNewsSection();
+            if (tabName === 'daily_archive') loadDailyArchive();
         }
         
         async function loadNewsSection() {
@@ -1308,60 +1400,96 @@
 
         async function loadEarningsCalendar() {
             const el = document.getElementById('earningsCalContent');
-            if (!el || el.dataset.loaded) return;
-            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入財報日曆...</p>';
+            if (!el) return;
+            if (el.dataset.loaded) return;
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入中...</p>';
+            
             try {
-                // Key stocks with upcoming earnings (static list, updated weekly)
-                const watchedStocks = ['NVDA','AAPL','MSFT','TSLA','META','AMZN','GOOGL','AMD','INTC','NFLX','ORCL','ADBE'];
-                const results = [];
+                // Static upcoming market events (updated by briefing script)
+                const today = new Date();
+                const todayTs = today.getTime();
                 
-                for (const sym of watchedStocks.slice(0, 6)) {
-                    try {
-                        await new Promise(r => setTimeout(r, 200));
-                        const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=1d`);
-                        const data = await r.json();
-                        const meta = data?.chart?.result?.[0]?.meta || {};
-                        const ets = meta.earningsTimestampStart;
-                        if (ets) {
-                            const earningsDate = new Date(ets * 1000);
-                            const today = new Date();
-                            const daysAway = Math.round((earningsDate - today) / 86400000);
-                            if (daysAway >= -7 && daysAway <= 30) {
-                                results.push({
-                                    sym,
-                                    date: earningsDate.toLocaleDateString('zh-TW'),
-                                    days: daysAway,
-                                    price: meta.regularMarketPrice
-                                });
-                            }
-                        }
-                    } catch(e) {}
+                // Earnings from data/market_events.json if available, else static
+                let events = [];
+                try {
+                    const r = await fetch('/data/market_events.json?t=' + Date.now());
+                    if (r.ok) {
+                        const j = await r.json();
+                        events = j.events || [];
+                    }
+                } catch(e) {}
+                
+                // Fallback: hardcoded Q3 2026 key dates
+                if (!events.length) {
+                    const year = today.getFullYear();
+                    const month = today.getMonth(); // 0-indexed
+                    
+                    // Generate earnings estimates for major stocks
+                    const majorEarnings = [
+                        // Q3 2026 estimates (update monthly)
+                        { sym: 'NVDA', date: '2026-08-27', type: 'earnings', note: 'Q2 FY2027 財報' },
+                        { sym: 'AAPL', date: '2026-07-31', type: 'earnings', note: 'Q3 FY2026 財報' },
+                        { sym: 'MSFT', date: '2026-07-29', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        { sym: 'GOOGL', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'META', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'AMZN', date: '2026-08-04', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'TSLA', date: '2026-07-22', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'AMD', date: '2026-07-28', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'INTC', date: '2026-07-23', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'NFLX', date: '2026-07-17', type: 'earnings', note: 'Q2 2026 財報' },
+                        // Market events
+                        { sym: '📌', date: '2026-06-20', type: 'event', note: '四巫日（指數期貨+期權結算）' },
+                        { sym: '📌', date: '2026-07-04', type: 'event', note: '美國獨立紀念日（休市）' },
+                        { sym: '📌', date: '2026-07-31', type: 'event', note: 'FOMC 利率決策' },
+                        { sym: '📌', date: '2026-09-19', type: 'event', note: '四巫日（指數期貨+期權結算）' },
+                    ];
+                    events = majorEarnings;
                 }
                 
-                results.sort((a, b) => a.days - b.days);
+                // Filter to upcoming 45 days and past 7 days
+                const upcoming = events.filter(e => {
+                    const d = new Date(e.date).getTime();
+                    const diff = (d - todayTs) / 86400000;
+                    return diff >= -7 && diff <= 45;
+                }).sort((a, b) => new Date(a.date) - new Date(b.date));
                 
-                if (!results.length) {
-                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近期無重大財報</p>';
-                } else {
-                    el.innerHTML = results.map(r => {
-                        const urgency = r.days >= 0 && r.days <= 7 ? '🔥' : r.days >= 0 ? '📅' : '✅';
-                        const dayText = r.days < 0 ? `${Math.abs(r.days)}天前` : r.days === 0 ? '今天' : `${r.days}天後`;
-                        const bg = r.days >= 0 && r.days <= 3 ? '#fef3c7' : 'white';
-                        return `<div onclick="document.getElementById('tickerInput').value='${r.sym}';showTab('analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
-                            style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:4px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
-                            <div>
-                                <span style="font-weight:700;color:#4f46e5;font-size:14px">${r.sym}</span>
-                                <span style="font-size:11px;color:#64748b;margin-left:8px">${r.date}</span>
-                            </div>
-                            <div style="text-align:right">
-                                <span style="font-size:13px">${urgency} ${dayText}</span>
-                            </div>
-                        </div>`;
-                    }).join('');
+                if (!upcoming.length) {
+                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近期無重大事件</p>';
+                    el.dataset.loaded = '1';
+                    return;
                 }
+                
+                let out = '';
+                upcoming.forEach(ev => {
+                    const d = new Date(ev.date);
+                    const diff = Math.round((d.getTime() - todayTs) / 86400000);
+                    const isEarnings = ev.type === 'earnings';
+                    const urgency = diff < 0 ? '✅' : diff === 0 ? '🔥' : diff <= 3 ? '⚠️' : isEarnings ? '📅' : '📌';
+                    const dayText = diff < 0 ? Math.abs(diff) + '天前' : diff === 0 ? '今天！' : diff + '天後';
+                    const bg = diff === 0 ? '#fef3c7' : diff > 0 && diff <= 3 ? '#fff7ed' : 'white';
+                    const borderColor = diff === 0 ? '#f59e0b' : diff > 0 && diff <= 3 ? '#f97316' : '#e2e8f0';
+                    const dateStr = d.toLocaleDateString('zh-TW', {month:'numeric', day:'numeric', weekday:'short'});
+                    
+                    const clickable = isEarnings ? 
+                        `onclick="document.getElementById('tickerInput').value='${ev.sym}';showTab('analyze')"` : '';
+                    const cursor = isEarnings ? 'cursor:pointer' : '';
+                    
+                    out += `<div ${clickable} style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:4px;background:${bg};border-radius:8px;${cursor};border:1px solid ${borderColor}">
+                        <div>
+                            <span style="font-weight:700;color:${isEarnings ? '#4f46e5' : '#374151'};font-size:14px">${ev.sym}</span>
+                            <span style="font-size:11px;color:#64748b;margin-left:8px">${ev.note || ''}</span>
+                        </div>
+                        <div style="text-align:right;white-space:nowrap">
+                            <span style="font-size:12px;color:#64748b">${dateStr}</span>
+                            <span style="font-size:12px;margin-left:6px">${urgency} ${dayText}</span>
+                        </div>
+                    </div>`;
+                });
+                
+                el.innerHTML = out;
                 el.dataset.loaded = '1';
             } catch(e) {
-                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗</p>';
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
             }
         }
 
@@ -1777,14 +1905,21 @@
     </script>
 
         <!-- Google AdSense Banner -->
-        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center">
+        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center" style="min-height:0;overflow:hidden">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-5306345121020754"
                  data-ad-slot="auto"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});
+            // Hide ad banner if no ad loaded after 3 seconds
+            setTimeout(function() {
+                var ins = document.querySelector('#adBanner ins.adsbygoogle');
+                if (ins && ins.offsetHeight < 10) {
+                    document.getElementById('adBanner').style.display = 'none';
+                }
+            }, 3000);</script>
         </div>
 
         <!-- Static content for search crawlers (hidden visually) -->
@@ -1947,6 +2082,48 @@
                 <p style="font-size:12px;color:#94a3b8;margin-top:16px">💡 每天 09:00 開盤速報 · 21:00 收盤總結，資料永久保存供追溯</p>
             </div>
         </div>
+        <!-- Learn Section (投資教學) -->
+        <div id="learnSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:16px">📚 投資教學</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+                    <a href="/learn/" target="_blank" style="display:block;background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:16px;text-decoration:none;color:#0c4a6e">
+                        <div style="font-size:24px;margin-bottom:8px">📖</div>
+                        <div style="font-weight:700;margin-bottom:4px">入門基礎</div>
+                        <div style="font-size:12px;color:#64748b">股票、ETF、基本術語</div>
+                    </a>
+                    <a href="/learn/frameworks.html" target="_blank" style="display:block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:16px;text-decoration:none;color:#14532d">
+                        <div style="font-size:24px;margin-bottom:8px">🧠</div>
+                        <div style="font-weight:700;margin-bottom:4px">分析框架</div>
+                        <div style="font-size:12px;color:#64748b">7大AI分析框架詳解</div>
+                    </a>
+                    <a href="/learn/fundamental.html" target="_blank" style="display:block;background:#fefce8;border:1px solid #fde68a;border-radius:12px;padding:16px;text-decoration:none;color:#713f12">
+                        <div style="font-size:24px;margin-bottom:8px">📊</div>
+                        <div style="font-weight:700;margin-bottom:4px">基本面分析</div>
+                        <div style="font-size:12px;color:#64748b">財報、本益比、估值</div>
+                    </a>
+                    <a href="/learn/technical.html" target="_blank" style="display:block;background:#fdf4ff;border:1px solid #e9d5ff;border-radius:12px;padding:16px;text-decoration:none;color:#581c87">
+                        <div style="font-size:24px;margin-bottom:8px">📈</div>
+                        <div style="font-weight:700;margin-bottom:4px">技術分析</div>
+                        <div style="font-size:12px;color:#64748b">K線、均線、指標</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Archive Section (市場日報) -->
+        <div id="dailyArchiveSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 市場日報存檔</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日速報存檔，供回顧查閱</p>
+                <div id="dailyArchiveContent">
+                    <div style="display:flex;flex-direction:column;gap:8px" id="dailyArchiveList">
+                        <p style="color:#94a3b8;text-align:center">⏳ 載入中...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Daily Column: 2026/06/21 11:17 -->
         <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
