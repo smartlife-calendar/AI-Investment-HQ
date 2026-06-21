@@ -96,6 +96,32 @@
                 container.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗</p>';
             }
         }
+        function checkMarketStatus() {
+            const now = new Date();
+            const day = now.getUTCDay(); // 0=Sun, 6=Sat
+            const hour = now.getUTCHours();
+            const isWeekend = day === 0 || day === 6;
+            // US market hours: Mon-Fri 13:30-20:00 UTC
+            const isMarketOpen = !isWeekend && hour >= 13 && (hour < 20 || (hour === 20 && now.getUTCMinutes() === 0));
+            const isPreMarket = !isWeekend && hour >= 9 && hour < 13;
+            const isAfterHours = !isWeekend && hour >= 20 && hour < 24;
+            
+            const bannerEl = document.getElementById('marketStatusBanner');
+            if (!bannerEl) return;
+            
+            if (isWeekend) {
+                bannerEl.innerHTML = '<div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:10px 16px;border-radius:8px;margin-bottom:12px;font-size:13px;color:#92400e">📅 <strong>週末非交易日</strong> — 顯示上週五收盤資料，下週一美股開盤時間：台灣時間週一 21:30</div>';
+                bannerEl.style.display = '';
+            } else if (isMarketOpen) {
+                bannerEl.style.display = 'none';
+            } else if (isPreMarket) {
+                bannerEl.innerHTML = '<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:10px 16px;border-radius:8px;margin-bottom:12px;font-size:13px;color:#14532d">🌅 <strong>盤前交易</strong> — 美股將於台灣時間 21:30 開盤</div>';
+                bannerEl.style.display = '';
+            } else if (isAfterHours) {
+                bannerEl.innerHTML = '<div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:10px 16px;border-radius:8px;margin-bottom:12px;font-size:13px;color:#0c4a6e">🌙 <strong>盤後交易</strong> — 今日收盤，顯示收盤資料</div>';
+                bannerEl.style.display = '';
+            }
+        }
     </script>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="https://stockiq.tw/favicon.png">
@@ -1040,7 +1066,13 @@
             });
             
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
-            if (tabName === 'today') { setTimeout(() => { loadEarningsCalendar(); loadDailyReport(); }, 500); }
+            if (tabName === 'today') { 
+                setTimeout(() => { 
+                    loadEarningsCalendar(); 
+                    loadDailyReport();
+                    checkMarketStatus();
+                }, 300); 
+            }
             if (tabName === 'smart') loadSmartMoney();
             if (tabName === 'news') loadNewsSection();
             if (tabName === 'daily_archive') loadDailyArchive();
@@ -1398,64 +1430,61 @@
         }
 
 
-        async function loadEarningsCalendar() {
+        async function loadEarningsCalendar(showAll) {
             const el = document.getElementById('earningsCalContent');
             if (!el) return;
-            if (el.dataset.loaded) return;
             el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入中...</p>';
             
             try {
-                // Static upcoming market events (updated by briefing script)
                 const today = new Date();
                 const todayTs = today.getTime();
                 
-                // Earnings from data/market_events.json if available, else static
                 let events = [];
                 try {
                     const r = await fetch('/data/market_events.json?t=' + Date.now());
-                    if (r.ok) {
-                        const j = await r.json();
-                        events = j.events || [];
-                    }
+                    if (r.ok) events = (await r.json()).events || [];
                 } catch(e) {}
                 
-                // Fallback: hardcoded Q3 2026 key dates
                 if (!events.length) {
-                    const year = today.getFullYear();
-                    const month = today.getMonth(); // 0-indexed
-                    
-                    // Generate earnings estimates for major stocks
-                    const majorEarnings = [
-                        // Q3 2026 estimates (update monthly)
-                        { sym: 'NVDA', date: '2026-08-27', type: 'earnings', note: 'Q2 FY2027 財報' },
-                        { sym: 'AAPL', date: '2026-07-31', type: 'earnings', note: 'Q3 FY2026 財報' },
-                        { sym: 'MSFT', date: '2026-07-29', type: 'earnings', note: 'Q4 FY2026 財報' },
-                        { sym: 'GOOGL', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
-                        { sym: 'META', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
-                        { sym: 'AMZN', date: '2026-08-04', type: 'earnings', note: 'Q2 2026 財報' },
-                        { sym: 'TSLA', date: '2026-07-22', type: 'earnings', note: 'Q2 2026 財報' },
-                        { sym: 'AMD', date: '2026-07-28', type: 'earnings', note: 'Q2 2026 財報' },
-                        { sym: 'INTC', date: '2026-07-23', type: 'earnings', note: 'Q2 2026 財報' },
+                    events = [
+                        // === 本週財報 ===
+                        { sym: 'MU',   date: '2026-06-24', type: 'earnings', note: 'Q3 FY2026 財報（重要！）' },
+                        { sym: 'NKE',  date: '2026-06-26', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        { sym: 'FDX',  date: '2026-06-24', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        // === 7月財報 ===
                         { sym: 'NFLX', date: '2026-07-17', type: 'earnings', note: 'Q2 2026 財報' },
-                        // Market events
-                        { sym: '📌', date: '2026-06-20', type: 'event', note: '四巫日（指數期貨+期權結算）' },
+                        { sym: 'TSLA', date: '2026-07-22', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'INTC', date: '2026-07-23', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'AMD',  date: '2026-07-28', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'GOOGL',date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'META', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'MSFT', date: '2026-07-29', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        { sym: 'AAPL', date: '2026-07-31', type: 'earnings', note: 'Q3 FY2026 財報' },
+                        { sym: 'AMZN', date: '2026-08-04', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'NVDA', date: '2026-08-27', type: 'earnings', note: 'Q2 FY2027 財報' },
+                        // === 市場事件 ===
                         { sym: '📌', date: '2026-07-04', type: 'event', note: '美國獨立紀念日（休市）' },
                         { sym: '📌', date: '2026-07-31', type: 'event', note: 'FOMC 利率決策' },
-                        { sym: '📌', date: '2026-09-19', type: 'event', note: '四巫日（指數期貨+期權結算）' },
+                        { sym: '📌', date: '2026-09-19', type: 'event', note: '四巫日（期指/期權結算）' },
+                        { sym: '📌', date: '2026-09-05', type: 'event', note: '勞動節（休市）' },
                     ];
-                    events = majorEarnings;
                 }
                 
-                // Filter to upcoming 45 days and past 7 days
+                const windowDays = showAll ? 45 : 14;
                 const upcoming = events.filter(e => {
-                    const d = new Date(e.date).getTime();
-                    const diff = (d - todayTs) / 86400000;
-                    return diff >= -7 && diff <= 45;
+                    const diff = (new Date(e.date).getTime() - todayTs) / 86400000;
+                    return diff >= -3 && diff <= windowDays;
                 }).sort((a, b) => new Date(a.date) - new Date(b.date));
                 
+                const allUpcoming = events.filter(e => {
+                    const diff = (new Date(e.date).getTime() - todayTs) / 86400000;
+                    return diff >= -3 && diff <= 45;
+                });
+                const hasMore = allUpcoming.length > upcoming.length;
+                
                 if (!upcoming.length) {
-                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近期無重大事件</p>';
-                    el.dataset.loaded = '1';
+                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近2週無重大事件</p>'
+                        + (hasMore ? '<button onclick="loadEarningsCalendar(true)" style="display:block;margin:8px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px">展開一個月 ▾</button>' : '');
                     return;
                 }
                 
@@ -1467,27 +1496,27 @@
                     const urgency = diff < 0 ? '✅' : diff === 0 ? '🔥' : diff <= 3 ? '⚠️' : isEarnings ? '📅' : '📌';
                     const dayText = diff < 0 ? Math.abs(diff) + '天前' : diff === 0 ? '今天！' : diff + '天後';
                     const bg = diff === 0 ? '#fef3c7' : diff > 0 && diff <= 3 ? '#fff7ed' : 'white';
-                    const borderColor = diff === 0 ? '#f59e0b' : diff > 0 && diff <= 3 ? '#f97316' : '#e2e8f0';
+                    const border = diff <= 3 && diff >= 0 ? '#f97316' : '#e2e8f0';
                     const dateStr = d.toLocaleDateString('zh-TW', {month:'numeric', day:'numeric', weekday:'short'});
-                    
-                    const clickable = isEarnings ? 
-                        `onclick="document.getElementById('tickerInput').value='${ev.sym}';showTab('analyze')"` : '';
-                    const cursor = isEarnings ? 'cursor:pointer' : '';
-                    
-                    out += `<div ${clickable} style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:4px;background:${bg};border-radius:8px;${cursor};border:1px solid ${borderColor}">
+                    const click = isEarnings ? `onclick="document.getElementById('tickerInput').value='${ev.sym}';showTab('analyze')"` : '';
+                    out += `<div ${click} style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;margin-bottom:3px;background:${bg};border-radius:7px;${isEarnings ? 'cursor:pointer' : ''};border:1px solid ${border}">
                         <div>
-                            <span style="font-weight:700;color:${isEarnings ? '#4f46e5' : '#374151'};font-size:14px">${ev.sym}</span>
-                            <span style="font-size:11px;color:#64748b;margin-left:8px">${ev.note || ''}</span>
+                            <span style="font-weight:700;color:${isEarnings ? '#4f46e5' : '#374151'};font-size:13px">${ev.sym}</span>
+                            <span style="font-size:11px;color:#64748b;margin-left:6px">${ev.note || ''}</span>
                         </div>
-                        <div style="text-align:right;white-space:nowrap">
-                            <span style="font-size:12px;color:#64748b">${dateStr}</span>
-                            <span style="font-size:12px;margin-left:6px">${urgency} ${dayText}</span>
+                        <div style="text-align:right;white-space:nowrap;font-size:11px">
+                            <span style="color:#64748b">${dateStr}</span>
+                            <span style="margin-left:5px">${urgency} ${dayText}</span>
                         </div>
                     </div>`;
                 });
                 
+                if (hasMore && !showAll) {
+                    out += `<button onclick="loadEarningsCalendar(true)" style="display:block;width:100%;margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;color:#64748b;border-radius:8px;padding:7px;cursor:pointer;font-size:12px">▾ 展開完整一個月（共 ${allUpcoming.length} 個事件）</button>`;
+                }
+                
                 el.innerHTML = out;
-                el.dataset.loaded = '1';
+                delete el.dataset.loaded;
             } catch(e) {
                 el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
             }
@@ -2160,7 +2189,7 @@
 - 評級下</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
 
         <!-- Daily Briefing: 2026/06/21 13:44 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing"><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/21 13:44</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='MRVL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MRVL</span><span style="color:#4ade80">+7.3%<span style="color:#f97316;font-size:10px"> 6.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INTC</span><span style="color:#4ade80">+10.6%<span style="color:#f97316;font-size:10px"> 1.8x</span></span></div><div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAL</span><span style="color:#4ade80">+3.7%<span style="color:#f97316;font-size:10px"> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='KEEL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">KEEL</span><span style="color:#4ade80">+5.4%<span style="color:#f97316;font-size:10px"> 2.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='GRAB';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">GRAB</span><span style="color:#4ade80">+3.5%<span style="color:#f97316;font-size:10px"> 1.6x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='CTSH';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">CTSH</span><span style="color:#f87171">-10.5%<span style="color:#f97316;font-size:10px"> 7.4x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BFLY</span><span style="color:#4ade80">+55.9%</span></div><div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">WOLF</span><span style="color:#4ade80">+17.9%</span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%</span></div><div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BE</span><span style="color:#4ade80">+15.4%</span></div><div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OUST</span><span style="color:#4ade80">+14.4%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGC</span><span style="color:#f87171">-19.0%</span></div><div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ACN</span><span style="color:#f87171">-18.0%</span></div><div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">LEGN</span><span style="color:#f87171">-16.7%</span></div><div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TNGX</span><span style="color:#f87171">-13.4%</span></div><div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EPAM</span><span style="color:#f87171">-12.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing"><div id="marketStatusBanner" style="display:none"></div><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/21 13:44</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='MRVL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MRVL</span><span style="color:#4ade80">+7.3%<span style="color:#f97316;font-size:10px"> 6.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INTC</span><span style="color:#4ade80">+10.6%<span style="color:#f97316;font-size:10px"> 1.8x</span></span></div><div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAL</span><span style="color:#4ade80">+3.7%<span style="color:#f97316;font-size:10px"> 1.7x</span></span></div><div onclick="document.getElementById('tickerInput').value='KEEL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">KEEL</span><span style="color:#4ade80">+5.4%<span style="color:#f97316;font-size:10px"> 2.1x</span></span></div><div onclick="document.getElementById('tickerInput').value='GRAB';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">GRAB</span><span style="color:#4ade80">+3.5%<span style="color:#f97316;font-size:10px"> 1.6x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='CTSH';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">CTSH</span><span style="color:#f87171">-10.5%<span style="color:#f97316;font-size:10px"> 7.4x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='BFLY';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BFLY</span><span style="color:#4ade80">+55.9%</span></div><div onclick="document.getElementById('tickerInput').value='WOLF';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">WOLF</span><span style="color:#4ade80">+17.9%</span></div><div onclick="document.getElementById('tickerInput').value='QS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QS</span><span style="color:#4ade80">+16.5%</span></div><div onclick="document.getElementById('tickerInput').value='BE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">BE</span><span style="color:#4ade80">+15.4%</span></div><div onclick="document.getElementById('tickerInput').value='OUST';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">OUST</span><span style="color:#4ade80">+14.4%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='RGC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">RGC</span><span style="color:#f87171">-19.0%</span></div><div onclick="document.getElementById('tickerInput').value='ACN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ACN</span><span style="color:#f87171">-18.0%</span></div><div onclick="document.getElementById('tickerInput').value='LEGN';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">LEGN</span><span style="color:#f87171">-16.7%</span></div><div onclick="document.getElementById('tickerInput').value='TNGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">TNGX</span><span style="color:#f87171">-13.4%</span></div><div onclick="document.getElementById('tickerInput').value='EPAM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EPAM</span><span style="color:#f87171">-12.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
 
         <!-- Product Info + Policies (for payment platform review) -->
         <div class="max-w-3xl mx-auto mt-10 px-4">
