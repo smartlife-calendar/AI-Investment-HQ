@@ -550,16 +550,34 @@
         async function loadMacro() {
             const panel = document.getElementById('macroPanel');
             const content = document.getElementById('macroContent');
-            panel.classList.remove('hidden');
-            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ ' + (_lang==='en' ? 'Loading macro data (~15s)...' : '載入總體經濟數據（約15秒）...') + '</p>';
+            panel.style.display = '';
+            if (content) content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入板塊資金數據...</p>';
             
-            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
             try {
-                const resp = await fetch(API_BASE_URL + '/macro');
-                macroData = await resp.json();
-                renderMacro(macroData);
-            } catch (e) {
-                content.innerHTML = '<p class="text-red-500">載入失敗: ' + e.message + '</p>';
+                // Try pre-generated static JSON first (fast: <1s)
+                let data = null;
+                try {
+                    const r = await fetch('/data/macro.json?t=' + Date.now());
+                    if (r.ok) {
+                        data = await r.json();
+                        // Only use if fresh (< 25 hours)
+                        if (data && data.generated_at) {
+                            const age = (Date.now() - new Date(data.generated_at).getTime()) / 3600000;
+                            if (age > 25) { data = null; console.log('macro.json stale, using API'); }
+                        }
+                    }
+                } catch(e) {}
+                
+                // Fallback to Railway API
+                if (!data) {
+                    const r2 = await fetch(API_BASE_URL + '/macro');
+                    if (!r2.ok) throw new Error('API error ' + r2.status);
+                    data = await r2.json();
+                }
+                
+                if (data) renderMacro(data);
+            } catch(e) {
+                if (content) content.innerHTML = '<p class="text-red-400 text-center py-8">❌ 無法載入板塊資金數據<br><small>' + e.message + '</small></p>';
             }
         }
 
@@ -838,38 +856,44 @@
 
 
         async function loadMarketTicker() {
-            const bar = document.getElementById('marketTickerBar');
-            if (!bar) return;
             try {
-                const resp = await fetch(API_BASE_URL + '/indices');
-                const data = await resp.json();
-                const items = [
-                    {key: '^GSPC', name: 'S&P 500'},
-                    {key: '^IXIC', name: 'NASDAQ'},
-                    {key: '^DJI', name: '道瓊'},
-                    {key: '^VIX', name: 'VIX'}
-                ];
-                let tickerHtml = '';
-                items.forEach(item => {
-                    const d = data[item.key] || {};
-                    const price = d.price || 0;
-                    const pct = d.pct || 0;
-                    if (price === 0) return;
-                    const color = pct > 0 ? '#4ade80' : pct < 0 ? '#f87171' : '#94a3b8';
-                    const arrow = pct > 0 ? '▲' : pct < 0 ? '▼' : '─';
-                    const priceStr = price > 1000 ? price.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) : price.toFixed(2);
-                    tickerHtml += `<span style="margin:0 20px;white-space:nowrap;flex-shrink:0">`;
-                    tickerHtml += `<span style="color:#94a3b8">${item.name}</span> `;
-                    tickerHtml += `<span style="font-weight:700;color:white">${priceStr}</span> `;
-                    tickerHtml += `<span style="color:${color}">${arrow}${Math.abs(pct).toFixed(2)}%</span>`;
-                    tickerHtml += `</span>`;
-                });
-                if (tickerHtml) {
-                    bar.innerHTML = tickerHtml + tickerHtml;
-                    bar.style.animation = 'tickerScroll 30s linear infinite';
+                // Try pre-generated indices.json first
+                let data = null;
+                try {
+                    const r = await fetch('/data/indices.json?t=' + Date.now());
+                    if (r.ok) {
+                        const j = await r.json();
+                        if (j && j.indices && j.generated_at) {
+                            const age = (Date.now() - new Date(j.generated_at).getTime()) / 3600000;
+                            if (age <= 25) data = j.indices;
+                        }
+                    }
+                } catch(e) {}
+                
+                // Fallback to Railway API
+                if (!data) {
+                    const r2 = await fetch(API_BASE_URL + '/indices');
+                    if (!r2.ok) throw new Error('indices API error');
+                    data = await r2.json();
                 }
+                
+                if (!data) return;
+                
+                // Render ticker bar
+                const keys = ['^GSPC','^IXIC','^DJI','^VIX','^TNX','DX-Y.NYB'];
+                const tickerEl = document.getElementById('marketTickerInner');
+                if (!tickerEl) return;
+                let html2 = '';
+                keys.forEach(k => {
+                    const d = data[k];
+                    if (!d) return;
+                    const color = d.pct >= 0 ? '#4ade80' : '#f87171';
+                    const arrow = d.pct >= 0 ? '▲' : '▼';
+                    html2 += \`<span style="margin:0 16px;white-space:nowrap"><strong>\${d.name}</strong> \${d.price} <span style="color:\${color}">\${arrow}\${Math.abs(d.pct).toFixed(2)}%</span></span>\`;
+                });
+                tickerEl.innerHTML = html2 + html2; // duplicate for scroll
             } catch(e) {
-                bar.innerHTML = '<span style="color:#64748b;margin:0 16px">⏳ 市場數據更新中...</span>';
+                console.warn('loadMarketTicker failed:', e.message);
             }
         }
 
@@ -965,65 +989,68 @@
 
 
         async function loadSmartMoney() {
-            const el = document.getElementById('smartMoneyContent');
-            if (!el || el.dataset.loaded) return;
-            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入金流密碼數據...</p>';
+            const content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入吸籌偵測數據...</p>';
+            
             try {
-                // Part 1: Volume anomaly from market movers
-                const resp = await fetch(API_BASE_URL + '/market-movers');
-                const data = await resp.json();
-                const actives = (data.most_active || []).filter(q => (q.vol_ratio || 0) >= 2);
-                actives.sort((a,b) => (b.vol_ratio||0) - (a.vol_ratio||0));
+                // Try pre-generated static JSON first
+                let data = null;
+                try {
+                    const r = await fetch('/data/accumulation.json?t=' + Date.now());
+                    if (r.ok) {
+                        data = await r.json();
+                        if (data && data.generated_at) {
+                            const age = (Date.now() - new Date(data.generated_at).getTime()) / 3600000;
+                            if (age > 25) { data = null; }
+                        }
+                    }
+                } catch(e) {}
                 
-                let html = '<div id="smartTabs" style="display:flex;gap:8px;margin-bottom:16px">';
-                html += '<button data-tab="volume" onclick="switchSmartTab(this.dataset.tab)" id="smartTab-volume" style="padding:6px 14px;border:1px solid #4f46e5;border-radius:6px;background:#4f46e5;color:white;cursor:pointer;font-size:12px;font-weight:600">&#128202; &#37327;&#33021;&#30064;&#24120;</button>';
-                html += '<button data-tab="options" onclick="switchSmartTab(this.dataset.tab)" id="smartTab-options" style="padding:6px 14px;border:1px solid #e2e8f0;border-radius:6px;background:white;color:#64748b;cursor:pointer;font-size:12px;font-weight:600">&#128200; &#36984;&#25321;&#26435;&#35722;&#34399;</button>';
-                html += '</div>';
-                
-                // Volume anomaly section
-                html += '<div id="smart-volume">';
-                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">🔍 異常放量個股（量比≥2x）</h4>';
-                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">量比超過2倍通常代表主力資金在行動，需要搭配方向判斷（大漲=買進、大跌=賣出）</p>';
-                
-                if (!actives.length) {
-                    html += '<p style="color:#94a3b8;text-align:center;padding:16px">今日無量比≥2x的異常放量個股</p>';
-                } else {
-                    actives.slice(0, 12).forEach(q => {
-                        const p = q.change_pct || 0;
-                        const vr = q.vol_ratio || 1;
-                        const bg = p > 3 ? '#f0fdf4' : p < -3 ? '#fef2f2' : '#f8fafc';
-                        const pColor = p > 0 ? '#16a34a' : '#dc2626';
-                        const signal = vr >= 3 && p > 3 ? '🚀 強力買進' : vr >= 3 && p < -3 ? '🔴 強力賣出' : vr >= 2.5 ? '⚡ 強訊號' : '📊 觀察';
-                        html += `<div onclick="document.getElementById('tickerInput').value='${q.symbol}';showTab('analyze')" 
-                            style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:${bg};border-radius:8px;cursor:pointer;border:1px solid #e2e8f0">
-                            <div><span style="font-weight:700;color:#4f46e5;font-size:15px">${q.symbol}</span>
-                            <span style="font-size:11px;color:#64748b;margin-left:8px">${(q.name||'').slice(0,20)}</span></div>
-                            <div style="text-align:right">
-                                <div style="color:${pColor};font-weight:700">${p>0?'+':''}${p.toFixed(2)}%</div>
-                                <div style="font-size:11px;color:#f97316;font-weight:600">${vr}x量 · ${signal}</div>
-                            </div>
-                        </div>`;
-                    });
+                // Fallback to Railway API
+                if (!data) {
+                    const r2 = await fetch(API_BASE_URL + '/accumulation-scan');
+                    if (!r2.ok) throw new Error('API error ' + r2.status);
+                    data = await r2.json();
                 }
-                html += '</div>';
                 
-                // Options signal section (loaded on demand)
-                html += '<div id="smart-options" style="display:none">';
-                html += '<h4 style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:8px">📈 選擇權 Put/Call 訊號</h4>';
-                html += '<p style="font-size:12px;color:#64748b;margin-bottom:10px">Put/Call 比率 &lt;0.8 看多；&gt;1.2 看空。異常大單往往是主力提前布局的跡象。</p>';
-                html += '<div style="display:flex;gap:8px;margin-bottom:12px">';
-                html += '<input id="optionsTicker" placeholder="輸入股票代號 e.g. NVDA" style="flex:1;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;font-size:13px">';
-                html += '<button onclick="loadOptionsData()" style="background:#4f46e5;color:white;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600;font-size:13px">分析</button>';
-                html += '</div>';
-                html += '<div id="optionsResult"><p style="color:#94a3b8;text-align:center;padding:16px">輸入股票代號查看選擇權訊號</p></div>';
-                html += '</div>';
+                if (!data || !data.stocks || data.stocks.length === 0) {
+                    content.innerHTML = '<p class="text-gray-400 text-center py-8">📊 暫無吸籌訊號（非交易日或數據更新中）</p>';
+                    return;
+                }
                 
-                html += '<div style="margin-top:12px;padding:10px;background:#fffbeb;border-radius:8px;font-size:11px;color:#92400e">⚠️ 金流密碼為技術訊號參考，非投資建議。主力也會虛晃一招，建議搭配基本面確認。點擊個股進行完整分析。</div>';
+                const stocks = data.stocks;
+                const updatedAt = data.generated_at ? new Date(data.generated_at).toLocaleString('zh-TW') : '';
                 
-                el.innerHTML = html;
-                el.dataset.loaded = '1';
+                let html2 = \`<div style="margin-bottom:12px;color:#6b7280;font-size:12px">🕐 更新時間：\${updatedAt} ｜ 掃描 \${data.total_scanned || stocks.length} 支</div>\`;
+                html2 += '<div style="display:grid;gap:10px;">';
+                stocks.forEach(s => {
+                    const scoreColor = s.score >= 7 ? '#7c3aed' : '#2563eb';
+                    const signalColor = s.score >= 7 ? '#ede9fe' : '#dbeafe';
+                    html2 += \`<div style="background:white;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border-left:4px solid \${scoreColor};display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+                        <div>
+                            <span onclick="document.getElementById('tickerInput').value='\${s.symbol}';showTab('analyze');setTimeout(()=>window.startAnalysis && window.startAnalysis(),200)" 
+                                  style="font-weight:800;font-size:16px;color:\${scoreColor};cursor:pointer">\${s.symbol}</span>
+                            <span style="background:\${signalColor};color:\${scoreColor};font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px">\${s.signal}</span>
+                            <div style="font-size:12px;color:#6b7280;margin-top:4px">量比 \${s.vol_ratio}x ｜ 6M區間位置 \${s.range_position_pct}%</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div style="font-size:18px;font-weight:700;color:#1e293b">$\${s.price}</div>
+                            <div style="font-size:13px;color:\${s.change_1d >= 0 ? '#16a34a' : '#dc2626'}">\${s.change_1d >= 0 ? '+' : ''}\${s.change_1d}% 今日</div>
+                            <div style="font-size:11px;color:#9ca3af">\${s.change_1m >= 0 ? '+' : ''}\${s.change_1m}% 1月</div>
+                        </div>
+                        <div style="width:100%">
+                            <div style="background:#e5e7eb;border-radius:4px;height:6px">
+                                <div style="background:\${scoreColor};width:\${s.score/8*100}%;height:6px;border-radius:4px"></div>
+                            </div>
+                            <div style="font-size:10px;color:#9ca3af;margin-top:2px">吸籌評分 \${s.score}/8</div>
+                        </div>
+                    </div>\`;
+                });
+                html2 += '</div>';
+                content.innerHTML = html2;
             } catch(e) {
-                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+                content.innerHTML = '<p class="text-red-400 text-center py-8">❌ 載入失敗：' + e.message + '</p>';
             }
         }
         
