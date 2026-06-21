@@ -1,18 +1,9 @@
 {
   "date": "2026-06-21",
-  "generated_at": "2026-06-21T11:41:03.279705+08:00",
+  "generated_at": "2026-06-21T20:41:58.676242+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 23,
+  "count": 21,
   "stocks": [
-    {
-      "symbol": "FLEX",
-      "name": "Flex Ltd.",
-      "price": 147.61,
-      "change_pct": 3.13,
-      "vol_ratio": 12.67,
-      "volume": 80915265,
-      "avg_volume": 6384193
-    },
     {
       "symbol": "BFLY",
       "name": "Butterfly Network, Inc.",
@@ -120,15 +111,6 @@
       "vol_ratio": 2.43,
       "volume": 2152217,
       "avg_volume": 887041
-    },
-    {
-      "symbol": "CMCSA",
-      "name": "Comcast Corporation",
-      "price": 22.43,
-      "change_pct": -1.15,
-      "vol_ratio": 2.42,
-      "volume": 74561805,
-      "avg_volume": 30768401
     },
     {
       "symbol": "INFY",
