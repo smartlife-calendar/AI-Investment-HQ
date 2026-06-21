@@ -1214,7 +1214,7 @@
                     out += '<div style="background:' + cardBg + ';border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-left:4px solid ' + borderColor + '">';
                     out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
                     out += '<div>';
-                    out += '<span onclick="document.getElementById(\'tickerInput\').value=\'' + s.symbol + '\';showTab(\'analyze\')" ';
+                    out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" ';
                     out += 'style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong ? (isBull?'#bbf7d0':'#fecaca') : (isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal || '') + '</span>';
                     out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '%' + consecStr + change3mStr + '</div>';
