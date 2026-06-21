@@ -1,0 +1,164 @@
+{
+  "generated_at": "2026-06-21T14:02:45+08:00",
+  "events": [
+    {
+      "sym": "MU",
+      "date": "2026-06-24",
+      "type": "earnings",
+      "note": "MU Q財報 盤後",
+      "eps_forecast": "$19.54",
+      "market_cap": "$1,176,440,884,663"
+    },
+    {
+      "sym": "📌",
+      "date": "2026-07-04",
+      "type": "event",
+      "note": "美國獨立紀念日（休市）"
+    },
+    {
+      "sym": "NFLX",
+      "date": "2026-07-16",
+      "type": "earnings",
+      "note": "NFLX Q財報 盤後",
+      "eps_forecast": "$0.79",
+      "market_cap": "$324,063,054,715"
+    },
+    {
+      "sym": "GOOGL",
+      "date": "2026-07-22",
+      "type": "earnings",
+      "note": "GOOGL Q財報",
+      "eps_forecast": "$2.86",
+      "market_cap": "$4,407,679,640,000"
+    },
+    {
+      "sym": "TSLA",
+      "date": "2026-07-22",
+      "type": "earnings",
+      "note": "TSLA Q財報",
+      "eps_forecast": "$0.27",
+      "market_cap": "$1,488,693,827,987"
+    },
+    {
+      "sym": "NOW",
+      "date": "2026-07-22",
+      "type": "earnings",
+      "note": "NOW Q財報",
+      "eps_forecast": "$0.40",
+      "market_cap": "$98,439,880,000"
+    },
+    {
+      "sym": "INTC",
+      "date": "2026-07-23",
+      "type": "earnings",
+      "note": "INTC Q財報",
+      "eps_forecast": "$0.10",
+      "market_cap": "$608,648,600,000"
+    },
+    {
+      "sym": "MSFT",
+      "date": "2026-07-29",
+      "type": "earnings",
+      "note": "MSFT Q財報",
+      "eps_forecast": "$4.21",
+      "market_cap": "$2,814,708,193,693"
+    },
+    {
+      "sym": "META",
+      "date": "2026-07-29",
+      "type": "earnings",
+      "note": "META Q財報",
+      "eps_forecast": "$7.11",
+      "market_cap": "$1,440,758,298,884"
+    },
+    {
+      "sym": "ARM",
+      "date": "2026-07-29",
+      "type": "earnings",
+      "note": "ARM Q財報",
+      "eps_forecast": "$0.18",
+      "market_cap": "$445,711,463,958"
+    },
+    {
+      "sym": "QCOM",
+      "date": "2026-07-29",
+      "type": "earnings",
+      "note": "QCOM Q財報",
+      "eps_forecast": "$1.52",
+      "market_cap": "$224,470,380,000"
+    },
+    {
+      "sym": "AAPL",
+      "date": "2026-07-30",
+      "type": "earnings",
+      "note": "AAPL Q財報",
+      "eps_forecast": "$1.88",
+      "market_cap": "$4,346,723,008,200"
+    },
+    {
+      "sym": "AMZN",
+      "date": "2026-07-30",
+      "type": "earnings",
+      "note": "AMZN Q財報",
+      "eps_forecast": "$1.82",
+      "market_cap": "$2,554,813,491,050"
+    },
+    {
+      "sym": "NET",
+      "date": "2026-07-30",
+      "type": "earnings",
+      "note": "NET Q財報",
+      "eps_forecast": "($0.03)",
+      "market_cap": "$80,190,894,036"
+    },
+    {
+      "sym": "📌",
+      "date": "2026-07-31",
+      "type": "event",
+      "note": "FOMC 利率決策"
+    },
+    {
+      "sym": "PLTR",
+      "date": "2026-08-03",
+      "type": "earnings",
+      "note": "PLTR Q財報",
+      "eps_forecast": "$0.27",
+      "market_cap": "$313,160,863,556"
+    },
+    {
+      "sym": "AMD",
+      "date": "2026-08-04",
+      "type": "earnings",
+      "note": "AMD Q財報",
+      "eps_forecast": "$1.35",
+      "market_cap": "$835,650,215,475"
+    },
+    {
+      "sym": "SMCI",
+      "date": "2026-08-04",
+      "type": "earnings",
+      "note": "SMCI Q財報",
+      "eps_forecast": "$0.59",
+      "market_cap": "$16,707,405,430"
+    },
+    {
+      "sym": "📌",
+      "date": "2026-09-05",
+      "type": "event",
+      "note": "勞動節（休市）"
+    },
+    {
+      "sym": "📌",
+      "date": "2026-09-18",
+      "type": "event",
+      "note": "FOMC 利率決策"
+    },
+    {
+      "sym": "📌",
+      "date": "2026-09-19",
+      "type": "event",
+      "note": "四巫日（指數期貨/期權結算）"
+    }
+  ],
+  "earnings_count": 16
+}
