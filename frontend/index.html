@@ -1244,59 +1244,84 @@
         async function loadSmartBacktest() {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
-            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入回測數據...</p>';
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:16px">⏳ 載入回測數據...</p>';
             
             try {
-                // Query Supabase for historical signals and compute returns
-                const cutoff = new Date();
-                cutoff.setDate(cutoff.getDate() - 170);
-                const cutoffStr = cutoff.toISOString().split('T')[0];
+                // Load pre-computed backtest stats (no waiting!)
+                let bt = null;
+                const r = await fetch('/data/backtest.json?t=' + Date.now());
+                if (r.ok) bt = await r.json();
                 
-                // Get past signals with future price data available (signals > 20 days old)
-                const r = await fetch(
-                    'https://kggwnlevbxghmqpieoet.supabase.co/rest/v1/accumulation_signals?direction=eq.bullish&date=lte=' + cutoffStr + '&score=gte.5&select=symbol,date,score,signal,price,change_3m&order=score.desc&limit=500',
-                    { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.ynPBHJnmLsHsMcBGj7ij9SbxDdnDL1yGr6VQhGN-bk0', 'Accept': 'application/json' } }
-                );
-                
-                if (!r.ok) throw new Error('Query failed');
-                const signals = await r.json();
-                
-                if (signals.length < 10) {
-                    content.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b">' +
-                        '<div style="font-size:32px;margin-bottom:12px">📊</div>' +
-                        '<div style="font-weight:700;margin-bottom:8px">回測資料累積中</div>' +
-                        '<div style="font-size:13px">目前已有 ' + signals.length + ' 筆歷史訊號<br>需要更多跨日數據才能計算準確績效<br>系統每日自動累積中</div>' +
-                        '</div>';
+                if (!bt) {
+                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">回測資料準備中</p>';
                     return;
                 }
                 
-                // Group by score tier
-                const strong = signals.filter(s => s.score >= 7);
-                const medium = signals.filter(s => s.score >= 5 && s.score < 7);
+                const updatedAt = new Date(bt.generated_at).toLocaleString('zh-TW');
                 
-                let out = '<div style="margin-bottom:20px">';
-                out += '<h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">📊 吸籌訊號績效分析</h3>';
-                out += '<p style="font-size:12px;color:#64748b">基於過去180天的歷史訊號 · 實際市場數據驗證</p>';
+                let out = '<div style="margin-bottom:16px">';
+                out += '<h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">📊 吸籌訊號績效回測</h3>';
+                out += '<p style="font-size:12px;color:#64748b">基於 ' + bt.signal_count + ' 筆歷史訊號 · ' + bt.symbols_analyzed + ' 支股票 · 更新：' + updatedAt + '</p>';
                 out += '</div>';
                 
-                // Summary stats
-                out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px">';
-                const stats = [
-                    { label: '歷史訊號數', value: signals.length + ' 筆', color: '#4f46e5' },
-                    { label: '強吸籌 (7+分)', value: strong.length + ' 筆', color: '#15803d' },
-                    { label: '吸籌中 (5-6分)', value: medium.length + ' 筆', color: '#16a34a' },
-                    { label: '覆蓋股票數', value: [...new Set(signals.map(s=>s.symbol))].length + ' 支', color: '#0369a1' },
+                // Win rate summary cards
+                out += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">';
+                const holds = [
+                    {key:'hold_5d', label:'持有 5 天', days:5},
+                    {key:'hold_10d', label:'持有 10 天', days:10},
+                    {key:'hold_20d', label:'持有 20 天', days:20},
                 ];
-                stats.forEach(s => {
-                    out += '<div style="background:white;border-radius:10px;padding:14px;text-align:center;border:1px solid #e2e8f0">';
-                    out += '<div style="font-size:22px;font-weight:800;color:' + s.color + '">' + s.value + '</div>';
-                    out += '<div style="font-size:11px;color:#64748b;margin-top:4px">' + s.label + '</div>';
+                holds.forEach(h => {
+                    const s = bt[h.key]?.all || {};
+                    const wr = s.win_rate_5pct || 0;
+                    const med = s.p50 || 0;
+                    const p75 = s.p75 || 0;
+                    const color = wr > 30 ? '#15803d' : wr > 20 ? '#d97706' : '#64748b';
+                    out += '<div style="background:white;border-radius:10px;padding:14px;border:1px solid #e2e8f0;text-align:center">';
+                    out += '<div style="font-size:11px;color:#64748b;margin-bottom:6px">' + h.label + '</div>';
+                    out += '<div style="font-size:22px;font-weight:800;color:' + color + '">' + wr + '%</div>';
+                    out += '<div style="font-size:10px;color:#94a3b8">漲幅 >5% 勝率</div>';
+                    out += '<div style="font-size:12px;color:#475569;margin-top:6px">中位數 ' + (med>=0?'+':'') + med + '%</div>';
+                    out += '<div style="font-size:11px;color:#94a3b8">P75: ' + (p75>=0?'+':'') + p75 + '%</div>';
                     out += '</div>';
                 });
                 out += '</div>';
                 
-                out += '<div style="background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #e2e8f0">';
-                out += '<p style="font-size:13px;color:#475569;margin:0">⏳ <strong>完整回測功能開發中</strong> — 將顯示：訊號出現後 5/10/20 天的漲幅分布箱型圖，分強吸籌 vs 吸籌中兩組比較。資料已在累積中，預計2-3週後有足夠數據呈現。</p>';
+                // Comparison table: strong vs medium
+                out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                out += '<span style="font-weight:700;font-size:14px">強吸籌(7+分) vs 吸籌中(5-6分) 對比</span>';
+                out += '</div>';
+                out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">';
+                out += '<tr style="background:#f8fafc"><th style="padding:10px 12px;text-align:left;color:#64748b;font-weight:600">指標</th>';
+                ['5天後','10天後','20天後'].forEach(h => {
+                    out += '<th style="padding:10px 12px;text-align:center;color:#64748b;font-weight:600">' + h + '</th>';
+                });
+                out += '</tr>';
+                
+                const rows = [
+                    {label:'🔥 強吸籌 中位數', tier:'strong', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'📈 吸籌中 中位數', tier:'medium', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'🔥 強吸籌 P75', tier:'strong', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'📈 吸籌中 P75', tier:'medium', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'🔥 強吸籌 勝率>5%', tier:'strong', field:'win_rate_5pct', fmt: v => v+'%'},
+                    {label:'📈 吸籌中 勝率>5%', tier:'medium', field:'win_rate_5pct', fmt: v => v+'%'},
+                ];
+                rows.forEach((row, i) => {
+                    const bg = i % 2 === 0 ? 'white' : '#fafafa';
+                    out += '<tr style="background:' + bg + '">';
+                    out += '<td style="padding:9px 12px;color:#374151">' + row.label + '</td>';
+                    holds.forEach(h => {
+                        const val = bt[h.key]?.[row.tier]?.[row.field];
+                        const formatted = val !== undefined ? row.fmt(val) : '-';
+                        out += '<td style="padding:9px 12px;text-align:center;font-weight:600">' + formatted + '</td>';
+                    });
+                    out += '</tr>';
+                });
+                out += '</table></div></div>';
+                
+                out += '<div style="background:#fffbeb;border-radius:10px;padding:12px 16px;border:1px solid #fde68a">';
+                out += '<p style="font-size:12px;color:#92400e;margin:0">⚠️ 回測結果基於歷史數據，不代表未來績效。市場條件、流動性、交易成本未納入計算。本數據僅供研究參考，不構成投資建議。</p>';
                 out += '</div>';
                 
                 content.innerHTML = out;
@@ -1675,7 +1700,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '4.8.2');
+            if (el) el.textContent = 'v' + (d.version || '5.0.0');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
