@@ -1,0 +1,341 @@
+{
+  "generated_at": "2026-06-21T12:11:09+08:00",
+  "gainers": [
+    {
+      "symbol": "BFLY",
+      "name": "Butterfly Network, Inc.",
+      "price": 8.9,
+      "change_pct": 55.87,
+      "volume": 59731176,
+      "vr": ""
+    },
+    {
+      "symbol": "WOLF",
+      "name": "Wolfspeed, Inc.",
+      "price": 57.41,
+      "change_pct": 17.91,
+      "volume": 9484883,
+      "vr": ""
+    },
+    {
+      "symbol": "QS",
+      "name": "QuantumScape Corporation",
+      "price": 8.04,
+      "change_pct": 16.52,
+      "volume": 85585773,
+      "vr": ""
+    },
+    {
+      "symbol": "BE",
+      "name": "Bloom Energy Corporation",
+      "price": 328.91,
+      "change_pct": 15.41,
+      "volume": 15927664,
+      "vr": ""
+    },
+    {
+      "symbol": "OUST",
+      "name": "Ouster, Inc.",
+      "price": 46.57,
+      "change_pct": 14.37,
+      "volume": 8412368,
+      "vr": ""
+    },
+    {
+      "symbol": "ACMR",
+      "name": "ACM Research, Inc.",
+      "price": 109.87,
+      "change_pct": 14.22,
+      "volume": 2986972,
+      "vr": ""
+    },
+    {
+      "symbol": "ENTG",
+      "name": "Entegris, Inc.",
+      "price": 178.77,
+      "change_pct": 13.62,
+      "volume": 5933481,
+      "vr": ""
+    },
+    {
+      "symbol": "SMR",
+      "name": "NuScale Power Corporation",
+      "price": 11.74,
+      "change_pct": 13.54,
+      "volume": 48584275,
+      "vr": ""
+    },
+    {
+      "symbol": "CHRN",
+      "name": "ChronoScale Corporation",
+      "price": 23.33,
+      "change_pct": 13.2,
+      "volume": 551963,
+      "vr": ""
+    },
+    {
+      "symbol": "KMX",
+      "name": "CarMax Inc",
+      "price": 53.66,
+      "change_pct": 13.14,
+      "volume": 7330039,
+      "vr": ""
+    }
+  ],
+  "losers": [
+    {
+      "symbol": "RGC",
+      "name": "Regencell Bioscience Holdings L",
+      "price": 12.01,
+      "change_pct": -18.96,
+      "volume": 380694,
+      "vr": ""
+    },
+    {
+      "symbol": "ACN",
+      "name": "Accenture plc",
+      "price": 127.98,
+      "change_pct": -17.97,
+      "volume": 41630037,
+      "vr": ""
+    },
+    {
+      "symbol": "LEGN",
+      "name": "Legend Biotech Corporation",
+      "price": 27.93,
+      "change_pct": -16.68,
+      "volume": 13608396,
+      "vr": ""
+    },
+    {
+      "symbol": "TNGX",
+      "name": "Tango Therapeutics, Inc.",
+      "price": 27.97,
+      "change_pct": -13.38,
+      "volume": 12095877,
+      "vr": ""
+    },
+    {
+      "symbol": "EPAM",
+      "name": "EPAM Systems, Inc.",
+      "price": 76.64,
+      "change_pct": -12.61,
+      "volume": 4084770,
+      "vr": ""
+    },
+    {
+      "symbol": "NVA",
+      "name": "Nova Minerals Limited",
+      "price": 5.76,
+      "change_pct": -11.38,
+      "volume": 592926,
+      "vr": ""
+    },
+    {
+      "symbol": "CTSH",
+      "name": "Cognizant Technology Solutions ",
+      "price": 43.7,
+      "change_pct": -10.49,
+      "volume": 61312375,
+      "vr": ""
+    },
+    {
+      "symbol": "INFY",
+      "name": "Infosys Limited",
+      "price": 10.57,
+      "change_pct": -9.66,
+      "volume": 41059210,
+      "vr": ""
+    },
+    {
+      "symbol": "SLBT",
+      "name": "SL Science Holding Limited Ordinary Shares",
+      "price": 5.79,
+      "change_pct": -9.25,
+      "volume": 488769,
+      "vr": ""
+    },
+    {
+      "symbol": "AAMI",
+      "name": "Acadian Asset Management Inc.",
+      "price": 75.15,
+      "change_pct": -9.15,
+      "volume": 2999510,
+      "vr": ""
+    }
+  ],
+  "most_active": [
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 185.0,
+      "change_pct": -3.56,
+      "volume": 272126781,
+      "vr": ""
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 310.58,
+      "change_pct": 7.27,
+      "volume": 250989360,
+      "vr": ""
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 210.69,
+      "change_pct": 2.95,
+      "volume": 241272013,
+      "vr": ""
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 133.99,
+      "change_pct": 10.64,
+      "volume": 233906555,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 15.99,
+      "change_pct": 3.7,
+      "volume": 126278445,
+      "vr": ""
+    },
+    {
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 13.49,
+      "change_pct": -2.46,
+      "volume": 125181134,
+      "vr": ""
+    },
+    {
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "price": 77.38,
+      "change_pct": 0.55,
+      "volume": 91920414,
+      "vr": ""
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.29,
+      "change_pct": 5.36,
+      "volume": 87302077,
+      "vr": ""
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 298.01,
+      "change_pct": 0.7,
+      "volume": 85962201,
+      "vr": ""
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.57,
+      "change_pct": 3.48,
+      "volume": 85667364,
+      "vr": ""
+    },
+    {
+      "symbol": "QS",
+      "name": "QuantumScape Corporation",
+      "price": 8.04,
+      "change_pct": 16.52,
+      "volume": 85585773,
+      "vr": ""
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 17.91,
+      "change_pct": 2.81,
+      "volume": 80961071,
+      "vr": ""
+    },
+    {
+      "symbol": "FLEX",
+      "name": "Flex Ltd.",
+      "price": 147.61,
+      "change_pct": 3.13,
+      "volume": 80915265,
+      "vr": ""
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "price": 244.39,
+      "change_pct": 2.9,
+      "volume": 75624415,
+      "vr": ""
+    },
+    {
+      "symbol": "CMCSA",
+      "name": "Comcast Corporation",
+      "price": 22.43,
+      "change_pct": -1.15,
+      "volume": 74561805,
+      "vr": ""
+    }
+  ],
+  "strong_buy": [
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 310.58,
+      "change_pct": 7.27,
+      "volume": 250989360,
+      "vr": 6.1
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 133.99,
+      "change_pct": 10.64,
+      "volume": 233906555,
+      "vr": 1.8
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 15.99,
+      "change_pct": 3.7,
+      "volume": 126278445,
+      "vr": 1.7
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.29,
+      "change_pct": 5.36,
+      "volume": 87302077,
+      "vr": 2.1
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.57,
+      "change_pct": 3.48,
+      "volume": 85667364,
+      "vr": 1.6
+    }
+  ],
+  "strong_sell": [
+    {
+      "symbol": "CTSH",
+      "name": "Cognizant Technology Solutions ",
+      "price": 43.7,
+      "change_pct": -10.49,
+      "volume": 61312375,
+      "vr": 7.4
+    }
+  ]
+}
