@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-06-21T12:11:09+08:00",
+  "indices": {
+    "^GSPC": {
+      "name": "S&P 500",
+      "price": 7500.58,
+      "pct": 1.08
+    },
+    "^IXIC": {
+      "name": "NASDAQ",
+      "price": 26517.93,
+      "pct": 1.91
+    },
+    "^DJI": {
+      "name": "DOW",
+      "price": 51564.7,
+      "pct": 0.14
+    },
+    "^VIX": {
+      "name": "VIX",
+      "price": 16.4,
+      "pct": -11.06
+    },
+    "DX-Y.NYB": {
+      "name": "DXY",
+      "price": 100.85,
+      "pct": 0.76
+    }
+  }
+}
