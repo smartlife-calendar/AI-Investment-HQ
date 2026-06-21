@@ -175,7 +175,8 @@
         </div>
 
         <!-- Search Box -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div id="analyzeFormSection" style="display:none">
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-semibold mb-3">輸入股票代號 (Ticker)</h2>
             <p id="marketDetected" class="text-xs text-gray-400 mb-2"><span id="inputHint">輸入美股代號（NYSE / NASDAQ）</span></p>
             <div class="flex flex-col sm:flex-row gap-3">
@@ -248,6 +249,7 @@
             </button>
         </div>
     </div>
+      </div>
 
     <script>
         const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
@@ -897,10 +899,10 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','mainInputForm','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
-                'analyze': ['analyzeSection','analyzeDisclaimer','mainInputForm','analyzeFormSection'],
+                'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
@@ -1683,7 +1685,7 @@
 
                 document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
                 document.getElementById('stockNewsSection').innerHTML = '';
-                document.getElementById('scorecardSection').innerHTML = '';
+                const _sc = document.getElementById('scorecardSection'); if(_sc) _sc.innerHTML = '';
                 loadStockNews(ticker);
                 // Load 52W position, earnings, related stocks
                 try {
@@ -1883,7 +1885,6 @@
         </div>
 
         <!-- SmartLife Calendar App Ad -->
-        <div         </div><!-- end analyzeFormSection -->
         <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
             <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
                 <div style="display:flex;align-items:center;gap:16px">
@@ -1907,7 +1908,6 @@
                     </a>
                 </div>
             </div>
-        </div>
         </div>
 
 
