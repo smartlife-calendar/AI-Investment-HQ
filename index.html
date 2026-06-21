@@ -877,7 +877,7 @@
                 }
                 if (!data) return;
                 // Update individual ticker elements
-                const map = {'^GSPC':'sp500',''^IXIC':'nasdaq','^DJI':'dow','^VIX':'vix'};
+                const map = {'^GSPC':'sp500','^IXIC':'nasdaq','^DJI':'dow','^VIX':'vix'};
                 Object.entries(map).forEach(([k,id]) => {
                     const d = data[k] || data;
                     if (!d) return;
