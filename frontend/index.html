@@ -1306,19 +1306,7 @@
             }
         }
         
-        function switchSmartTab(tab) {
-            const tabs = ['volume', 'options', 'accum'];
-            tabs.forEach(t => {
-                const el = document.getElementById('smart-' + t);
-                if (el) el.style.display = t === tab ? '' : 'none';
-                const btn = document.getElementById('smartTab-' + t);
-                if (btn) {
-                    btn.style.background = t === tab ? '#4f46e5' : 'white';
-                    btn.style.color = t === tab ? 'white' : '#64748b';
-                    btn.style.borderColor = t === tab ? '#4f46e5' : '#e2e8f0';
-                }
-            });
-        }
+        // OLD switchSmartTab removed
         
         async function loadOptionsData() {
             const ticker = (document.getElementById('optionsTicker').value || '').toUpperCase().trim();
