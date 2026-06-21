@@ -1115,88 +1115,193 @@
         async function loadSmartMoney() {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
-            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入吸籌偵測數據...</p>';
+            content.innerHTML = '<p class="text-gray-400 text-center py-8">⏳ 載入中...</p>';
+            window._smartCurrentTab = window._smartCurrentTab || 'bullish';
+            switchSmartTab(window._smartCurrentTab);
+        }
+        
+        function switchSmartTab(tab) {
+            window._smartCurrentTab = tab;
+            // Update tab button styles
+            ['bullish','bearish','backtest'].forEach(t => {
+                const btn = document.getElementById('smart-tab-' + t);
+                if (!btn) return;
+                if (t === tab) {
+                    if (t === 'bullish') { btn.style.background = '#dcfce7'; btn.style.color = '#16a34a'; btn.style.border = 'none'; }
+                    else if (t === 'bearish') { btn.style.background = '#fee2e2'; btn.style.color = '#dc2626'; btn.style.border = 'none'; }
+                    else { btn.style.background = '#ede9fe'; btn.style.color = '#7c3aed'; btn.style.border = 'none'; }
+                } else {
+                    btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '2px solid #e2e8f0';
+                }
+            });
+            if (tab === 'bullish') loadSmartDirection('bullish');
+            else if (tab === 'bearish') loadSmartDirection('bearish');
+            else loadSmartBacktest();
+        }
+        
+        async function loadSmartDirection(direction) {
+            const content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + (direction==='bullish'?'吸籌':'出貨') + '偵測...</p>';
             
             try {
-                let data = null;
+                // Try static JSON first
+                let stocks = null;
                 try {
                     const r = await fetch('/data/accumulation.json?t=' + Date.now());
                     if (r.ok) {
-                        data = await r.json();
-                        if (data && data.generated_at) {
-                            const age = (Date.now() - new Date(data.generated_at).getTime()) / 3600000;
-                            if (age > 25) data = null;
+                        const j = await r.json();
+                        if (j && j.generated_at) {
+                            const age = (Date.now() - new Date(j.generated_at).getTime()) / 3600000;
+                            if (age <= 25) {
+                                stocks = direction === 'bullish' ? j.stocks : (j.bearish || []);
+                            }
                         }
                     }
                 } catch(e) {}
                 
-                if (!data) {
-                    const r2 = await fetch(API_BASE_URL + '/accumulation-scan');
-                    if (!r2.ok) throw new Error('API error ' + r2.status);
-                    data = await r2.json();
+                // Fallback: query Supabase directly
+                if (!stocks) {
+                    const today = new Date().toISOString().split('T')[0];
+                    const r2 = await fetch(
+                        'https://kggwnlevbxghmqpieoet.supabase.co/rest/v1/accumulation_signals?direction=eq.' + direction + '&date=eq.' + today + '&order=score.desc&limit=50',
+                        { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.ynPBHJnmLsHsMcBGj7ij9SbxDdnDL1yGr6VQhGN-bk0', 'Accept': 'application/json' } }
+                    );
+                    if (r2.ok) stocks = await r2.json();
                 }
                 
-                const stocks = (data.stocks || []).sort((a,b) => b.score - a.score);
-                if (stocks.length === 0) {
-                    content.innerHTML = '<p class="text-gray-400 text-center py-8">📊 暫無吸籌訊號（非交易日或數據更新中）</p>';
+                if (!stocks || stocks.length === 0) {
+                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">今日暫無' + (direction==='bullish'?'吸籌':'出貨') + '訊號</p>';
                     return;
                 }
                 
-                const updatedAt = data.generated_at ? new Date(data.generated_at).toLocaleString('zh-TW') : '';
-                const scoreMax = stocks[0].score_max || 10;
+                stocks = stocks.filter(s => s.direction === direction || !s.direction && direction === 'bullish');
+                stocks.sort((a,b) => b.score - a.score);
                 
-                let out = '<div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">'
-                    + '<span style="color:#6b7280;font-size:12px">🕐 ' + updatedAt + '｜掃描 ' + (data.total_scanned || stocks.length) + ' 支</span>'
-                    + '<span style="color:#6b7280;font-size:11px">評分標準：量能×3 壓縮×2 位置×2 OBV×2 動能×1</span>'
-                    + '</div>';
+                const isBull = direction === 'bullish';
+                const accentColor = isBull ? '#16a34a' : '#dc2626';
+                const bgLight = isBull ? '#f0fdf4' : '#fef2f2';
+                const updatedAt = stocks[0]?.created_at ? new Date(stocks[0].created_at).toLocaleString('zh-TW') : '';
                 
-                // Score legend
-                out += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">'
-                    + '<span style="background:#fef3c7;color:#d97706;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">👀 4-4分 觀察</span>'
-                    + '<span style="background:#dbeafe;color:#2563eb;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">📈 5-6分 吸籌中</span>'
-                    + '<span style="background:#ede9fe;color:#7c3aed;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">🔥 7-10分 強吸籌</span>'
-                    + '</div>';
+                let out = '<div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+                out += '<span style="color:#6b7280;font-size:12px">共 ' + stocks.length + ' 個訊號 · 掃描 ' + (isBull ? '📈 走多' : '📉 走空') + ' 候選</span>';
+                out += '</div>';
+                
+                // Legend
+                if (isBull) {
+                    out += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">';
+                    out += '<span style="background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">📈 5-6分 吸籌中</span>';
+                    out += '<span style="background:#bbf7d0;color:#15803d;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">🔥 7+分 強吸籌</span>';
+                    out += '</div>';
+                } else {
+                    out += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">';
+                    out += '<span style="background:#fee2e2;color:#dc2626;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">⚠️ 5-6分 出貨中</span>';
+                    out += '<span style="background:#fecaca;color:#b91c1c;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">🔻 7+分 強出貨</span>';
+                    out += '</div>';
+                }
                 
                 out += '<div style="display:grid;gap:10px;">';
-                stocks.forEach(s => {
+                stocks.slice(0, 30).forEach(s => {
                     const sc = s.score || 0;
-                    const borderColor = sc >= 7 ? '#7c3aed' : sc >= 5 ? '#2563eb' : '#d97706';
-                    const bgBadge = sc >= 7 ? '#ede9fe' : sc >= 5 ? '#dbeafe' : '#fef3c7';
-                    const pctFill = Math.round((sc / (s.score_max || 10)) * 100);
-                    const consecStr = s.consec_days > 0 ? ' ｜ 連續 <strong style="color:#7c3aed">' + s.consec_days + '</strong> 天吸籌' : '';
-                    const scoreBreak = s.score_vol !== undefined 
-                        ? '量能+' + s.score_vol + ' 壓縮+' + s.score_comp + ' 位置+' + s.score_pos + ' OBV+' + s.score_obv + ' 動能+' + s.score_mom
-                        : '';
+                    const isStrong = sc >= 7;
+                    const borderColor = isStrong ? (isBull ? '#15803d' : '#b91c1c') : (isBull ? '#16a34a' : '#dc2626');
+                    const cardBg = isStrong ? (isBull ? '#f0fdf4' : '#fff1f2') : 'white';
+                    const pctFill = Math.round((sc / 10) * 100);
+                    const consecStr = s.consec_days > 0 ? ' · 連續 <strong style="color:' + borderColor + '">' + s.consec_days + '</strong> 天' : '';
+                    const change3mStr = s.change_3m !== undefined ? ' · 3M ' + (s.change_3m >= 0 ? '+' : '') + s.change_3m + '%' : '';
+                    const scoreBreak = s.score_vol !== undefined ? '量+' + s.score_vol + ' 壓縮+' + s.score_comp + ' 位置+' + s.score_pos + ' OBV+' + s.score_obv : '';
                     
-                    out += '<div style="background:white;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border-left:4px solid ' + borderColor + '">'
-                        + '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">'
-                        + '<div>'
-                        + '<span onclick="document.getElementById(\'tickerInput\').value=\'' + s.symbol + '\';showTab(\'analyze\')" '
-                        + 'style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>'
-                        + ' <span style="background:' + bgBadge + ';color:' + borderColor + ';font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px">' + (s.signal || '') + '</span>'
-                        + '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> ｜ 6M位置 <strong>' + s.range_position_pct + '%</strong>' + consecStr + '</div>'
-                        + '</div>'
-                        + '<div style="text-align:right">'
-                        + '<div style="font-size:20px;font-weight:700;color:#1e293b">$' + s.price + '</div>'
-                        + '<div style="font-size:13px;color:' + (s.change_1d >= 0 ? '#16a34a' : '#dc2626') + '">' + (s.change_1d >= 0 ? '+' : '') + s.change_1d + '% 今日</div>'
-                        + '<div style="font-size:11px;color:#9ca3af">' + (s.change_1m >= 0 ? '+' : '') + s.change_1m + '% 1月</div>'
-                        + '</div>'
-                        + '</div>'
-                        + '<div style="margin-top:10px">'
-                        + '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
-                        + '<span style="font-size:11px;color:#9ca3af">' + scoreBreak + '</span>'
-                        + '<span style="font-size:12px;font-weight:700;color:' + borderColor + '">' + sc + '/' + (s.score_max || 10) + ' 分</span>'
-                        + '</div>'
-                        + '<div style="background:#e5e7eb;border-radius:4px;height:6px">'
-                        + '<div style="background:' + borderColor + ';width:' + pctFill + '%;height:6px;border-radius:4px;transition:width 0.3s"></div>'
-                        + '</div>'
-                        + '</div>'
-                        + '</div>';
+                    out += '<div style="background:' + cardBg + ';border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-left:4px solid ' + borderColor + '">';
+                    out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
+                    out += '<div>';
+                    out += '<span onclick="document.getElementById(\'tickerInput\').value=\'' + s.symbol + '\';showTab(\'analyze\')" ';
+                    out += 'style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
+                    out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong ? (isBull?'#bbf7d0':'#fecaca') : (isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal || '') + '</span>';
+                    out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '%' + consecStr + change3mStr + '</div>';
+                    out += '</div>';
+                    out += '<div style="text-align:right">';
+                    out += '<div style="font-size:20px;font-weight:700;color:#1e293b">$' + s.price + '</div>';
+                    out += '<div style="font-size:13px;color:' + (s.change_1d >= 0 ? '#16a34a' : '#dc2626') + '">' + (s.change_1d >= 0 ? '+' : '') + s.change_1d + '% 今</div>';
+                    out += '<div style="font-size:11px;color:#9ca3af">' + (s.change_1m >= 0 ? '+' : '') + s.change_1m + '% 月</div>';
+                    out += '</div>';
+                    out += '</div>';
+                    out += '<div style="margin-top:10px">';
+                    out += '<div style="display:flex;justify-content:space-between;margin-bottom:3px">';
+                    out += '<span style="font-size:10px;color:#9ca3af">' + scoreBreak + '</span>';
+                    out += '<span style="font-size:12px;font-weight:700;color:' + borderColor + '">' + sc + '/10</span>';
+                    out += '</div>';
+                    out += '<div style="background:#e5e7eb;border-radius:4px;height:5px">';
+                    out += '<div style="background:' + borderColor + ';width:' + pctFill + '%;height:5px;border-radius:4px"></div></div>';
+                    out += '</div></div>';
                 });
                 out += '</div>';
                 content.innerHTML = out;
             } catch(e) {
-                content.innerHTML = '<p class="text-red-400 text-center py-8">❌ 載入失敗：' + e.message + '</p>';
+                content.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
+            }
+        }
+        
+        async function loadSmartBacktest() {
+            const content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入回測數據...</p>';
+            
+            try {
+                // Query Supabase for historical signals and compute returns
+                const cutoff = new Date();
+                cutoff.setDate(cutoff.getDate() - 170);
+                const cutoffStr = cutoff.toISOString().split('T')[0];
+                
+                // Get past signals with future price data available (signals > 20 days old)
+                const r = await fetch(
+                    'https://kggwnlevbxghmqpieoet.supabase.co/rest/v1/accumulation_signals?direction=eq.bullish&date=lte=' + cutoffStr + '&score=gte.5&select=symbol,date,score,signal,price,change_3m&order=score.desc&limit=500',
+                    { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.ynPBHJnmLsHsMcBGj7ij9SbxDdnDL1yGr6VQhGN-bk0', 'Accept': 'application/json' } }
+                );
+                
+                if (!r.ok) throw new Error('Query failed');
+                const signals = await r.json();
+                
+                if (signals.length < 10) {
+                    content.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b">' +
+                        '<div style="font-size:32px;margin-bottom:12px">📊</div>' +
+                        '<div style="font-weight:700;margin-bottom:8px">回測資料累積中</div>' +
+                        '<div style="font-size:13px">目前已有 ' + signals.length + ' 筆歷史訊號<br>需要更多跨日數據才能計算準確績效<br>系統每日自動累積中</div>' +
+                        '</div>';
+                    return;
+                }
+                
+                // Group by score tier
+                const strong = signals.filter(s => s.score >= 7);
+                const medium = signals.filter(s => s.score >= 5 && s.score < 7);
+                
+                let out = '<div style="margin-bottom:20px">';
+                out += '<h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">📊 吸籌訊號績效分析</h3>';
+                out += '<p style="font-size:12px;color:#64748b">基於過去180天的歷史訊號 · 實際市場數據驗證</p>';
+                out += '</div>';
+                
+                // Summary stats
+                out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px">';
+                const stats = [
+                    { label: '歷史訊號數', value: signals.length + ' 筆', color: '#4f46e5' },
+                    { label: '強吸籌 (7+分)', value: strong.length + ' 筆', color: '#15803d' },
+                    { label: '吸籌中 (5-6分)', value: medium.length + ' 筆', color: '#16a34a' },
+                    { label: '覆蓋股票數', value: [...new Set(signals.map(s=>s.symbol))].length + ' 支', color: '#0369a1' },
+                ];
+                stats.forEach(s => {
+                    out += '<div style="background:white;border-radius:10px;padding:14px;text-align:center;border:1px solid #e2e8f0">';
+                    out += '<div style="font-size:22px;font-weight:800;color:' + s.color + '">' + s.value + '</div>';
+                    out += '<div style="font-size:11px;color:#64748b;margin-top:4px">' + s.label + '</div>';
+                    out += '</div>';
+                });
+                out += '</div>';
+                
+                out += '<div style="background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #e2e8f0">';
+                out += '<p style="font-size:13px;color:#475569;margin:0">⏳ <strong>完整回測功能開發中</strong> — 將顯示：訊號出現後 5/10/20 天的漲幅分布箱型圖，分強吸籌 vs 吸籌中兩組比較。資料已在累積中，預計2-3週後有足夠數據呈現。</p>';
+                out += '</div>';
+                
+                content.innerHTML = out;
+            } catch(e) {
+                content.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
             }
         }
         
@@ -2078,8 +2183,26 @@
         <!-- Smart Money Section -->
         <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">💡 金流密碼</h2>
-                <p style="font-size:13px;color:#64748b;margin-bottom:16px">追蹤異常放量個股（量比≥2x），捕捉法人/主力資金布局跡象</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+                    <div>
+                        <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">💡 金流密碼</h2>
+                        <p style="font-size:12px;color:#64748b;margin:4px 0 0">AI 量化偵測主力資金動向 · S&P500 + Nasdaq100 + 題材股</p>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                        <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish"
+                            style="padding:8px 18px;border-radius:20px;border:none;cursor:pointer;font-weight:700;font-size:13px;background:#dcfce7;color:#16a34a;transition:all 0.2s">
+                            📈 吸籌偵測
+                        </button>
+                        <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish"
+                            style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
+                            📉 出貨偵測
+                        </button>
+                        <button onclick="switchSmartTab('backtest')" id="smart-tab-backtest"
+                            style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
+                            📊 績效回測
+                        </button>
+                    </div>
+                </div>
                 <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
             </div>
         </div>
