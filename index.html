@@ -1153,22 +1153,15 @@
                 if (r.ok) {
                     const j = await r.json();
                     if (j) {
-                        const age = (Date.now() - new Date(j.generated_at || 0).getTime()) / 3600000;
+                        const _ts = j.generated_at ? Date.parse(j.generated_at.replace('+08:00','Z').replace('+08:00','')) || Date.parse(j.generated_at) : 0;
+                        const age = _ts ? (Date.now() - _ts) / 3600000 : 0;
                         if (age <= 25) {
                             stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
                         }
                     }
                 }
                 
-                // Fallback: Supabase query
-                if (!stocks || stocks.length === 0) {
-                    const today = new Date().toISOString().split('T')[0];
-                    const sb = await fetch(
-                        'https://kggwnlevbxghmqpieoet.supabase.co/rest/v1/accumulation_signals?direction=eq.' + direction + '&date=eq.' + today + '&order=score.desc&limit=50',
-                        { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ3dubGV2YnhnaG1xcGllb2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDE2MTgsImV4cCI6MjA5NDAxNzYxOH0.ynPBHJnmLsHsMcBGj7ij9SbxDdnDL1yGr6VQhGN-bk0', 'Accept': 'application/json' } }
-                    );
-                    if (sb.ok) stocks = await sb.json();
-                }
+                // No Supabase fallback - use JSON only to avoid hang
                 
                 if (!stocks || stocks.length === 0) {
                     content.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b"><div style="font-size:32px;margin-bottom:8px">' + (direction==='bullish'?'📈':'📉') + '</div><p>今日暫無' + label + '訊號</p></div>';
