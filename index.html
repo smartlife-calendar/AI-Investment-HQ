@@ -163,7 +163,7 @@
 
         
         <!-- Investment Disclaimer -->
-        <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+        <div id="analyzeDisclaimer" style="display:none" class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
             <div class="flex items-start">
                 <span class="text-amber-500 text-xl mr-3">⚠️</span>
                 <div class="text-sm text-amber-800">
@@ -897,10 +897,10 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','mainInputForm','macroSection','smartSection','newsSection','historySection','earningsSection','smartlifeAd'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','earningsSection','smartlifeAd'],
-                'analyze': ['analyzeSection','analyzeFormSection'],
+                'analyze': ['analyzeSection','analyzeDisclaimer','mainInputForm','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
