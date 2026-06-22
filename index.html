@@ -764,6 +764,9 @@
                     return `<div title="${date}: ${wow > 0 ? '+' : ''}${wow}%" style="display:inline-block;width:10px;height:${height}px;background:${barColor};margin-right:1px;vertical-align:bottom"></div>`;
                 }).join('');
                 
+                // Compute 4W performance from wow data
+                const wow4 = (s.wow || []).slice(-4);
+                const perf4w = wow4.length >= 2 ? wow4.reduce((sum, w) => sum + (w[2] || 0), 0).toFixed(1) : '0.0';
                 const recent4 = s.recent_4w !== null ? `近4週: ${s.recent_4w > 0 ? '+' : ''}${s.recent_4w}%` : '';
                 const prior4 = s.prior_4w !== null ? `前4週: ${s.prior_4w > 0 ? '+' : ''}${s.prior_4w}%` : '';
 
@@ -777,7 +780,9 @@
                         <div class="flex items-center gap-4">
                             <div style="height:32px;display:flex;align-items:flex-end">${weekBars}</div>
                             <span class="text-xs text-gray-500">${s.momentum || ''}</span>
-                            <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                            <span class="font-semibold text-sm" style="color:${perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280'}">${perf4w > 0 ? '+' : ''}${perf4w}%</span>
+                            <span class="text-xs text-gray-400">4W</span>
+                            <span style="margin-left:4px" class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
                             <span class="text-xs text-gray-400">52W</span>
                             <span class="text-xs text-gray-400">▼</span>
                         </div>
