@@ -1168,6 +1168,20 @@
                     return;
                 }
                 
+                // Sort by decision proximity: Phase 3 (breakout) > Phase 2 (active) > Phase 1 (early)
+                // Then by score within same phase
+                if (direction === 'bullish') {
+                    stocks.sort(function(a, b) {
+                        var phaseA = a.phase || 1;
+                        var phaseB = b.phase || 1;
+                        if (phaseB !== phaseA) return phaseB - phaseA;  // higher phase first
+                        return (b.score || 0) - (a.score || 0);  // then higher score
+                    });
+                } else {
+                    // Bearish: higher score = more urgent
+                    stocks.sort(function(a, b) { return (b.score || 0) - (a.score || 0); });
+                }
+                
                 const isBull = direction === 'bullish';
                 let out = '<div style="margin-bottom:12px;color:#6b7280;font-size:12px">共 <strong>' + stocks.length + '</strong> 個' + label + '訊號</div>';
                 
