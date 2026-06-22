@@ -2479,7 +2479,90 @@
 
         <!-- Footer Disclaimer -->
         
-        <!-- Disclaimer -->
+        
+        <!-- Indicator Reference Glossary -->
+        <div id="glossarySection" style="max-width:960px;margin:24px auto;padding:0 20px">
+            <details>
+                <summary style="font-size:14px;font-weight:700;color:#4f46e5;cursor:pointer;padding:12px 0">
+                    📖 指標參照說明 Indicator Reference ▾
+                </summary>
+                <div style="background:white;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0;margin-top:8px;font-size:12px;line-height:1.9;color:#374151">
+                    
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">📰 今日速報</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>大盤橫幅</strong><span>S&P 500、NASDAQ、DOW、VIX 即時報價，來源：Yahoo Finance</span>
+                        <strong>強力買進/賣出</strong><span>當日成交量 ≥ 平均量 1.5 倍 + 漲幅 >3% 或跌幅 >3% 的個股</span>
+                        <strong>漲幅/跌幅前5</strong><span>Yahoo Finance day_gainers / day_losers 排行</span>
+                        <strong>事件分析</strong><span>AI (Claude Haiku) 依據當日最強買/賣訊號 + 相關新聞生成</span>
+                        <strong>財報日曆</strong><span>Nasdaq API 即時財報排程 + 手動維護的 FOMC/四巫日等市場事件</span>
+                        <strong>🐂🐻 牛熊指標</strong><span>SPY vs 200SMA 位置：>+5% 牛市 / 0~5% 觀望 / 0~-5% 警告 / <-5% 熊市</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">📊 股票分析</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>7大框架</strong><span>財務結構、成長性、技術面、供應鏈、大戶動向等，AI 同時用多角度分析</span>
+                        <strong>目標價</strong><span>悲觀/基準/樂觀 三情境估值，基於 DCF 或相對估值法</span>
+                        <strong>52週位置</strong><span>當前價格在過去 52 週最高/最低間的百分位</span>
+                        <strong>同板塊比較</strong><span>與同產業 ETF 及競爭對手的相對表現</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">🌊 板塊資金</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>板塊 ETF</strong><span>11 大 SPDR 板塊 ETF（XLK 科技、XLF 金融、XLE 能源等）</span>
+                        <strong>52W 表現</strong><span>過去 52 週累計漲跌幅，反映長期資金流向</span>
+                        <strong>🟢流入/🔴流出</strong><span>52W 漲幅 >10% = 流入；<-10% = 流出；中間 = 中性</span>
+                        <strong>動能指標</strong><span>近 4 週 vs 前 4 週漲幅比較：加速/穩定/趨緩</span>
+                        <strong>週漲跌</strong><span>最近 8 週的每週漲跌百分比，觀察趨勢延續或反轉</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">💡 金流密碼</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>動能確認</strong><span>股價在 6 個月區間的位置 + 是否在 MA20 上方（0-3 分）</span>
+                        <strong>量能擴張</strong><span>近 20 天平均量 vs 前 40 天平均量的比值（0-2 分）</span>
+                        <strong>波動甜蜜點</strong><span>6 個月價格區間 15-35% 為最佳（歷史回測相關性最高 +0.13）</span>
+                        <strong>突破訊號</strong><span>股價從 MA20 下方穿越到上方 + 量能確認（0-2 分）</span>
+                        <strong>趨勢對齊</strong><span>MA10 > MA20 = 短期趨勢向上（0-1 分）</span>
+                        <strong>出貨門檻</strong><span>必須 OBV 下降 或 下跌日成交量 > 上漲日成交量 1.2 倍，才進入出貨評分</span>
+                        <strong>進場價</strong><span>現價或 MA20 附近（回調買入，不追高）</span>
+                        <strong>止損價</strong><span>MA50 或近 20 天最低點下方（技術支撐位）</span>
+                        <strong>目標價 T1</strong><span>近 20 天最高點上方（阻力位突破）</span>
+                        <strong>目標價 T2</strong><span>6 個月最高點（趨勢延伸目標）</span>
+                        <strong>R:R 比</strong><span>風險報酬比 = (T1 - 進場) ÷ (進場 - 止損)，>2 為理想</span>
+                        <strong>動能強/穩/弱</strong><span>近 5 天平均量 vs 前 5 天：>1.1 強 / 0.9-1.1 穩 / <0.9 弱</span>
+                        <strong>板塊共振</strong><span>個股方向與板塊 ETF 資金流向一致 = ✅ 順勢 / 不一致 = ⚠️ 逆勢</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">📊 績效回測</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>回測期間</strong><span>過去 180 天（約 130 個交易日），160 支股票</span>
+                        <strong>中位數</strong><span>所有訊號的報酬率中位數（50% 在此之上，50% 在此之下）</span>
+                        <strong>P75</strong><span>前 25% 表現最好的訊號達到的報酬率</span>
+                        <strong>勝率 >5%</strong><span>持有 N 天後漲幅超過 5% 的比例</span>
+                        <strong>年化報酬</strong><span>假設每 20 天輪換一次，一年 13 輪的複利估算</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">🌐 市場情緒</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px;margin-bottom:16px">
+                        <strong>VIX</strong><span>CBOE 波動率指數。<15 低波動 / 15-20 正常 / 20-30 偏高 / >30 恐慌</span>
+                        <strong>CNN 貪婪指數</strong><span>CNN Fear & Greed Index (0-100)。<25 極度恐懼 / 25-45 恐懼 / 45-55 中性 / 55-75 貪婪 / >75 極度貪婪</span>
+                        <strong>SPY vs 200SMA</strong><span>標普 500 ETF 相對其 200 日移動平均線的距離（%）</span>
+                        <strong>綜合情緒</strong><span>VIX + SPY 技術面 + 避險需求 + 動能的加權平均（0-100）</span>
+                    </div>
+
+                    <h3 style="font-size:14px;color:#1e1b4b;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0">📐 技術指標縮寫</h3>
+                    <div style="display:grid;grid-template-columns:120px 1fr;gap:4px 12px">
+                        <strong>MA(N)</strong><span>N 日簡單移動平均線（例：MA20 = 20 日均線）</span>
+                        <strong>OBV</strong><span>能量潮 On-Balance Volume：漲日量累加、跌日量累減，反映資金進出</span>
+                        <strong>ATR</strong><span>平均真實波幅 Average True Range：衡量近 14 天的價格波動幅度</span>
+                        <strong>量比</strong><span>近期平均成交量 ÷ 過去平均成交量，>1 表示量能擴張</span>
+                        <strong>R:R</strong><span>Risk-Reward Ratio 風險報酬比，潛在獲利 ÷ 潛在虧損</span>
+                        <strong>52W High</strong><span>過去 52 週（一年）的最高價</span>
+                        <strong>ADV</strong><span>Average Dollar Volume 平均日成交金額（篩選門檻：>$500 萬）</span>
+                    </div>
+                </div>
+            </details>
+        </div>
+<!-- Disclaimer -->
         <div style="max-width:960px;margin:24px auto;padding:0 20px">
             <div style="background:#fefce8;border:1px solid #fde68a;border-radius:12px;padding:16px 20px">
                 <div style="font-weight:700;color:#92400e;font-size:13px;margin-bottom:8px">⚠️ 免責聲明 Disclaimer</div>
