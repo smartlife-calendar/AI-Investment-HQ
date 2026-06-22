@@ -423,6 +423,42 @@ def scan_accumulation(ticker, direction="bullish"):
             else:
                 sector_resonance = "✅ 順勢" if "流出" in sector_flow else "⚠️ 逆勢" if "流入" in sector_flow else "➖ 中性"
 
+        # Smart price levels
+        if direction == "bullish" and ma20 and ma50:
+            # Entry: current price (or MA20 on pullback)
+            entry = round(min(current, ma20 * 1.01), 2)  # slightly above MA20
+            # Stop loss: lower of MA50 or recent 20-day low
+            recent_low = min(closes[-20:]) if n >= 20 else min(closes[-10:])
+            stop_candidates = [x for x in [ma50 * 0.98, recent_low * 0.98] if x < entry]
+            stop = round(max(stop_candidates) if stop_candidates else entry * 0.95, 2)  # must be below entry
+            stop_pct = round((stop / entry - 1) * 100, 1)
+            # Target 1: recent 20-day high (resistance)
+            recent_high = max(closes[-20:]) if n >= 20 else max(closes[-10:])
+            t1 = round(recent_high * 1.02, 2)  # slightly above resistance
+            t1_pct = round((t1 / entry - 1) * 100, 1)
+            # Target 2: 6-month high
+            t2 = round(price_max * 1.01, 2)
+            t2_pct = round((t2 / entry - 1) * 100, 1)
+            # Risk/Reward ratio
+            risk = abs(entry - stop)
+            reward = t1 - entry
+            rr = round(reward / risk, 1) if risk > 0 else 0
+            # Momentum health: is volume still expanding or fading?
+            vol_last_5 = sum(volumes[-5:]) / 5
+            vol_prev_5 = sum(volumes[-10:-5]) / 5 if n >= 10 else vol_last_5
+            mom_health = "強" if vol_last_5 > vol_prev_5 * 1.1 else "穩" if vol_last_5 > vol_prev_5 * 0.9 else "弱"
+        else:
+            entry = round(current, 2)
+            stop = round(current * 1.05, 2)  # bearish: stop above
+            stop_pct = 5.0
+            recent_low = min(closes[-20:]) if n >= 20 else min(closes)
+            t1 = round(recent_low, 2)
+            t1_pct = round((t1 / current - 1) * 100, 1)
+            t2 = round(recent_low * 0.9, 2)
+            t2_pct = round((t2 / current - 1) * 100, 1)
+            rr = 0
+            mom_health = ""
+
         return {
             "symbol": ticker, "direction": direction,
             "score": score, "score_max": 10,
@@ -440,6 +476,15 @@ def scan_accumulation(ticker, direction="bullish"):
             "phase": phase, "phase_label": phase_label,
             "sector_etf": sector_etf, "sector_flow": sector_flow,
             "sector_resonance": sector_resonance,
+            "entry_price": entry,
+            "stop_loss": stop,
+            "stop_pct": stop_pct,
+            "target_1": t1,
+            "target_1_pct": t1_pct,
+            "target_2": t2,
+            "target_2_pct": t2_pct,
+            "risk_reward": rr,
+            "mom_health": mom_health,
         }
     except Exception:
         pass
