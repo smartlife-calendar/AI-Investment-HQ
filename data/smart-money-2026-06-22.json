@@ -1,26 +1,53 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T22:50:08.826125+08:00",
+  "generated_at": "2026-06-22T23:21:15.515995+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 5,
   "stocks": [
     {
       "symbol": "APGE",
       "name": "Apogee Therapeutics, Inc.",
-      "price": 132.66,
-      "change_pct": 46.78,
-      "vol_ratio": 35.96,
-      "volume": 35046746,
+      "price": 132.65,
+      "change_pct": 46.76,
+      "vol_ratio": 39.84,
+      "volume": 38821517,
       "avg_volume": 974516
     },
     {
       "symbol": "DFTX",
       "name": "Definium Therapeutics, Inc.",
-      "price": 36.62,
-      "change_pct": 49.61,
-      "vol_ratio": 5.67,
-      "volume": 10900101,
+      "price": 37.23,
+      "change_pct": 52.17,
+      "vol_ratio": 6.17,
+      "volume": 11865488,
       "avg_volume": 1922656
+    },
+    {
+      "symbol": "PLBL",
+      "name": "Polibeli Group Ltd",
+      "price": 8.03,
+      "change_pct": 5.07,
+      "vol_ratio": 2.83,
+      "volume": 106174,
+      "avg_volume": 37479
+    },
+    {
+      "symbol": "AGI",
+      "name": "Alamos Gold Inc.",
+      "price": 31.01,
+      "change_pct": -14.67,
+      "vol_ratio": 2.23,
+      "volume": 7717046,
+      "avg_volume": 3457693
+    },
+    {
+      "symbol": "CHRN",
+      "name": "ChronoScale Corporation",
+      "price": 26.44,
+      "change_pct": 13.35,
+      "vol_ratio": 2.08,
+      "volume": 497905,
+      "avg_volume": 238946
     }
   ]
 }
