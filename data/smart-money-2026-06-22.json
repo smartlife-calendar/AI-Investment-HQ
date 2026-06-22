@@ -1,16 +1,16 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T21:41:45.733052+08:00",
+  "generated_at": "2026-06-22T21:42:29.562223+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
       "symbol": "APGE",
       "name": "Apogee Therapeutics, Inc.",
-      "price": 132.7,
-      "change_pct": 46.82,
-      "vol_ratio": 18.2,
-      "volume": 17739911,
+      "price": 132.75,
+      "change_pct": 46.87,
+      "vol_ratio": 18.32,
+      "volume": 17852925,
       "avg_volume": 974516
     },
     {
@@ -19,16 +19,16 @@
       "price": 24.52,
       "change_pct": 0.88,
       "vol_ratio": 3.84,
-      "volume": 14090676,
+      "volume": 14093527,
       "avg_volume": 3670719
     },
     {
       "symbol": "DFTX",
       "name": "Definium Therapeutics, Inc.",
-      "price": 37.68,
-      "change_pct": 53.92,
-      "vol_ratio": 2.89,
-      "volume": 5558099,
+      "price": 37.65,
+      "change_pct": 53.19,
+      "vol_ratio": 2.92,
+      "volume": 5618894,
       "avg_volume": 1922656
     }
   ]
