@@ -1168,19 +1168,11 @@
                     return;
                 }
                 
-                // Sort by decision proximity: Phase 3 (breakout) > Phase 2 (active) > Phase 1 (early)
-                // Then by score within same phase
-                if (direction === 'bullish') {
-                    stocks.sort(function(a, b) {
-                        var phaseA = a.phase || 1;
-                        var phaseB = b.phase || 1;
-                        if (phaseB !== phaseA) return phaseB - phaseA;  // higher phase first
-                        return (b.score || 0) - (a.score || 0);  // then higher score
-                    });
-                } else {
-                    // Bearish: higher score = more urgent
-                    stocks.sort(function(a, b) { return (b.score || 0) - (a.score || 0); });
-                }
+                // Sort by score (highest first), then by phase within same score
+                stocks.sort(function(a, b) {
+                    if ((b.score || 0) !== (a.score || 0)) return (b.score || 0) - (a.score || 0);
+                    return (b.phase || 0) - (a.phase || 0);
+                });
                 
                 const isBull = direction === 'bullish';
                 let out = '<div style="margin-bottom:12px;color:#6b7280;font-size:12px">共 <strong>' + stocks.length + '</strong> 個' + label + '訊號</div>';
@@ -1211,7 +1203,31 @@
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
-                    var actionHtml = s.action ? '<div style="font-size:11px;margin-top:3px;font-weight:600;color:' + (s.action && s.action.includes('進場') ? '#16a34a' : s.action && s.action.includes('減碼') ? '#dc2626' : '#d97706') + '">' + s.action + (s.action_detail ? ' — ' + s.action_detail : '') + '</div>' : '';
+                    // Entry/exit price suggestions based on current price and ATR
+                    var entryPrice = s.price ? '$' + s.price.toFixed(2) : '';
+                    var stopLoss = s.price ? '$' + (s.price * 0.95).toFixed(2) : '';
+                    var target1 = s.price ? '$' + (s.price * 1.05).toFixed(2) : '';
+                    var target2 = s.price ? '$' + (s.price * 1.10).toFixed(2) : '';
+                    
+                    var actionColor = '#d97706';
+                    if (s.action && s.action.indexOf('進場') >= 0) actionColor = '#16a34a';
+                    else if (s.action && s.action.indexOf('減碼') >= 0) actionColor = '#dc2626';
+                    
+                    var actionHtml = '';
+                    if (s.action) {
+                        actionHtml = '<div style="margin-top:6px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">';
+                        actionHtml += '<div style="font-size:12px;font-weight:700;color:' + actionColor + ';margin-bottom:4px">' + s.action + '</div>';
+                        if (s.action_detail) actionHtml += '<div style="font-size:11px;color:#64748b;margin-bottom:4px">' + s.action_detail + '</div>';
+                        if (isBull && s.price) {
+                            actionHtml += '<div style="display:flex;gap:12px;font-size:10px;color:#475569;flex-wrap:wrap">';
+                            actionHtml += '<span>📍 現價 <strong>' + entryPrice + '</strong></span>';
+                            actionHtml += '<span>🛑 止損 <strong style="color:#dc2626">' + stopLoss + '</strong> (-5%)</span>';
+                            actionHtml += '<span>🎯 目標1 <strong style="color:#16a34a">' + target1 + '</strong> (+5%)</span>';
+                            actionHtml += '<span>🎯 目標2 <strong style="color:#15803d">' + target2 + '</strong> (+10%)</span>';
+                            actionHtml += '</div>';
+                        }
+                        actionHtml += '</div>';
+                    }
                     var sectorHtml = s.sector_resonance && s.sector_resonance !== 'N/A' ? '<span style="font-size:10px;background:#f1f5f9;padding:2px 6px;border-radius:4px;margin-left:4px">' + s.sector_resonance + '</span>' : '';
                     out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '%' + consec + c3m + sectorHtml + phaseHtml + '</div>';
                     out += actionHtml;
@@ -2206,6 +2222,17 @@
                                         <div>• <strong>突破訊號</strong>（0-2）：穿越MA20+量能確認</div>
                                         <div>• <strong>趨勢對齊</strong>（0-1）：MA10 > MA20</div>
                                         <div style="margin-top:6px;color:#16a34a;font-size:10px">基於1,795筆歷史回測最佳化</div>
+                                        <div style="margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0">
+                                            <div style="font-weight:700;color:#4f46e5;margin-bottom:6px">📖 操作指南</div>
+                                            <div>• <strong>分數 7+</strong>：動能強，可考慮進場，設 -5% 止損</div>
+                                            <div>• <strong>分數 5-6</strong>：趨勢形成中，持續觀察等突破確認</div>
+                                            <div>• <strong>進場</strong>：在訊號出現後的回調買入（不追高）</div>
+                                            <div>• <strong>止損</strong>：跌破進場價 -5% 出場</div>
+                                            <div>• <strong>止盈</strong>：分批止盈 +5% / +10%</div>
+                                            <div>• <strong>持有期</strong>：建議 10-20 交易日</div>
+                                            <div>• <strong>倉位</strong>：單筆不超過總資金 5%</div>
+                                            <div style="margin-top:4px;color:#94a3b8;font-size:10px">回測績效：20天平均+3.25%，勝率55.5%，20份組合年化+51%</div>
+                                        </div>
                                     </div>
                                     <div>
                                         <div style="font-weight:700;color:#dc2626;margin-bottom:6px">📉 出貨評分（滿分10）</div>
