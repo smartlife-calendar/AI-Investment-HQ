@@ -2281,6 +2281,17 @@
                         </button>
                     </div>
                 </div>
+                <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                    <input type="text" id="smartSearchInput" placeholder="輸入代號查詢，如 SNDK" 
+                        style="flex:1;min-width:150px;max-width:250px;border:2px solid #e2e8f0;border-radius:10px;padding:8px 14px;font-size:13px;outline:none;transition:border 0.2s"
+                        onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e2e8f0'"
+                        onkeydown="if(event.key==='Enter')searchSmartSignal()">
+                    <button onclick="searchSmartSignal()" 
+                        style="background:#4f46e5;color:white;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap">
+                        🔍 查詢
+                    </button>
+                    <div id="smartSearchResult" style="display:none;width:100%"></div>
+                </div>
                 <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
             </div>
         </div>
@@ -2690,6 +2701,70 @@
                     banner.style.display = '';
                 }
             } catch(e) {}
+        }
+        function searchSmartSignal() {
+            var input = document.getElementById('smartSearchInput');
+            var resultDiv = document.getElementById('smartSearchResult');
+            if (!input || !resultDiv) return;
+            
+            var ticker = input.value.trim().toUpperCase();
+            if (!ticker) return;
+            
+            resultDiv.style.display = '';
+            resultDiv.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">🔍 查詢 ' + ticker + ' 中...</p>';
+            
+            // Check if in embedded data
+            var data = window._smartData || {};
+            var allStocks = (data.stocks || []).concat(data.bearish || []);
+            var found = allStocks.filter(function(s) { return s.symbol === ticker; });
+            
+            if (found.length > 0) {
+                var s = found[0];
+                var isBull = s.direction === 'bullish';
+                var color = isBull ? '#16a34a' : '#dc2626';
+                var bgColor = isBull ? '#f0fdf4' : '#fef2f2';
+                
+                var out = '<div style="background:' + bgColor + ';border-radius:12px;padding:16px;border-left:4px solid ' + color + '">';
+                out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
+                out += '<div>';
+                out += '<span style="font-size:20px;font-weight:800;color:' + color + '">' + s.symbol + '</span>';
+                out += ' <span style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:' + (isBull?'#dcfce7':'#fee2e2') + ';color:' + color + '">' + (s.signal||'') + ' ' + s.score + '/10</span>';
+                out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '% · 3M ' + (s.change_3m>=0?'+':'') + s.change_3m + '%</div>';
+                if (s.phase_label) out += '<div style="font-size:11px;color:#7c3aed;font-weight:600;margin-top:2px">' + s.phase_label + '</div>';
+                if (s.action) out += '<div style="font-size:12px;font-weight:600;color:' + color + ';margin-top:4px">' + s.action + '</div>';
+                if (s.action_detail) out += '<div style="font-size:11px;color:#64748b">' + s.action_detail + '</div>';
+                out += '</div>';
+                out += '<div style="text-align:right">';
+                out += '<div style="font-size:22px;font-weight:800;color:#1e293b">$' + s.price + '</div>';
+                out += '<div style="font-size:13px;color:' + (s.change_1d>=0?'#16a34a':'#dc2626') + '">' + (s.change_1d>=0?'+':'') + s.change_1d + '% 今</div>';
+                out += '</div></div>';
+                
+                // Price levels
+                if (s.entry_price) {
+                    out += '<div style="margin-top:10px;padding:8px 10px;background:white;border-radius:8px;border:1px solid #e2e8f0;display:flex;gap:10px;font-size:10px;color:#475569;flex-wrap:wrap;align-items:center">';
+                    out += '<span>📍 進場 <strong>$' + s.entry_price.toFixed(2) + '</strong></span>';
+                    out += '<span>🛑 止損 <strong style="color:#dc2626">$' + s.stop_loss.toFixed(2) + '</strong> (' + s.stop_pct.toFixed(1) + '%)</span>';
+                    out += '<span>🎯 T1 <strong style="color:#16a34a">$' + s.target_1.toFixed(2) + '</strong> (+' + s.target_1_pct.toFixed(1) + '%)</span>';
+                    out += '<span>🎯 T2 <strong style="color:#15803d">$' + s.target_2.toFixed(2) + '</strong> (+' + s.target_2_pct.toFixed(1) + '%)</span>';
+                    if (s.risk_reward) out += '<span style="background:#ede9fe;color:#7c3aed;padding:1px 6px;border-radius:4px;font-weight:700">R:R ' + s.risk_reward.toFixed(1) + '</span>';
+                    if (s.mom_health) out += '<span style="background:' + (s.mom_health==='強'?'#dcfce7':s.mom_health==='穩'?'#fef3c7':'#fee2e2') + ';padding:1px 6px;border-radius:4px;font-weight:600">動能' + s.mom_health + '</span>';
+                    out += '</div>';
+                }
+                if (s.sector_resonance && s.sector_resonance !== 'N/A') {
+                    out += '<div style="margin-top:6px;font-size:11px;color:#64748b">' + s.sector_resonance + ' (' + (s.sector_etf||'') + ' ' + (s.sector_flow||'') + ')</div>';
+                }
+                out += '</div>';
+                resultDiv.innerHTML = out;
+            } else {
+                // Not in our 160-stock scan list
+                resultDiv.innerHTML = '<div style="background:#fefce8;border-radius:12px;padding:16px;border-left:4px solid #f59e0b;text-align:center">'
+                    + '<div style="font-size:16px;font-weight:700;color:#92400e;margin-bottom:6px">' + ticker + ' 不在掃描清單中</div>'
+                    + '<div style="font-size:12px;color:#a16207">目前金流密碼掃描 S&P500 前50 + Nasdaq100 + 題材股，共 160 支。</div>'
+                    + '<div style="font-size:12px;color:#a16207;margin-top:4px">如需分析此股票，請使用「股票分析」功能。</div>'
+                    + '<button onclick="document.getElementById(\'tickerInput\').value=\'' + ticker + '\';showTab(\'analyze\')" '
+                    + 'style="margin-top:8px;background:#4f46e5;color:white;border:none;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px">📊 前往分析 ' + ticker + '</button>'
+                    + '</div>';
+            }
         }
     </script>
 </body>
