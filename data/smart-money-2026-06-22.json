@@ -1,7 +1,17 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T21:31:35.783245+08:00",
+  "generated_at": "2026-06-22T21:32:16.594283+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 0,
-  "stocks": []
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "DFTX",
+      "name": "Definium Therapeutics, Inc.",
+      "price": 37.86,
+      "change_pct": 54.66,
+      "vol_ratio": 2.2,
+      "volume": 4225792,
+      "avg_volume": 1922656
+    }
+  ]
 }
