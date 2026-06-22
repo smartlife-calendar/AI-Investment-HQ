@@ -1,34 +1,34 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T21:38:28.199641+08:00",
+  "generated_at": "2026-06-22T21:39:07.285504+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
       "symbol": "APGE",
       "name": "Apogee Therapeutics, Inc.",
-      "price": 132.68,
-      "change_pct": 46.8,
-      "vol_ratio": 17.29,
-      "volume": 16845291,
+      "price": 132.65,
+      "change_pct": 46.77,
+      "vol_ratio": 17.54,
+      "volume": 17090391,
       "avg_volume": 974516
     },
     {
       "symbol": "CWAN",
       "name": "Clearwater Analytics Holdings, ",
       "price": 24.52,
-      "change_pct": 0.91,
+      "change_pct": 0.88,
       "vol_ratio": 3.83,
-      "volume": 14066884,
+      "volume": 14074680,
       "avg_volume": 3670719
     },
     {
       "symbol": "DFTX",
       "name": "Definium Therapeutics, Inc.",
-      "price": 37.28,
-      "change_pct": 52.07,
-      "vol_ratio": 2.69,
-      "volume": 5164137,
+      "price": 37.17,
+      "change_pct": 51.84,
+      "vol_ratio": 2.72,
+      "volume": 5221249,
       "avg_volume": 1922656
     }
   ]
