@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-21T14:49:05+08:00",
+  "generated_at": "2026-06-22T08:09:56+08:00",
   "gainers": [
     {
       "symbol": "BFLY",
@@ -124,14 +124,6 @@
       "vr": ""
     },
     {
-      "symbol": "NVA",
-      "name": "Nova Minerals Corp",
-      "price": 5.76,
-      "change_pct": -11.38,
-      "volume": 593768,
-      "vr": ""
-    },
-    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions ",
       "price": 43.7,
@@ -149,7 +141,7 @@
     },
     {
       "symbol": "SLBT",
-      "name": "SL Science Holding Limited Ordinary Shares",
+      "name": "SL Science Holding Limited",
       "price": 5.79,
       "change_pct": -9.25,
       "volume": 488769,
@@ -161,6 +153,14 @@
       "price": 75.15,
       "change_pct": -9.15,
       "volume": 2999510,
+      "vr": ""
+    },
+    {
+      "symbol": "KR",
+      "name": "Kroger Company (The)",
+      "price": 56.61,
+      "change_pct": -8.43,
+      "volume": 26634405,
       "vr": ""
     }
   ],
