@@ -1,0 +1,17 @@
+{
+  "vix": 16.4,
+  "vix_200sma": 18.56,
+  "vix_zone": "正常(15-20)",
+  "vix_score": 78.0,
+  "cnn_fg_score": 37.3,
+  "cnn_fg_rating": "fear",
+  "cnn_fg_prev_week": 35.5,
+  "spy_vs_200sma": 8.48,
+  "spy_from_52w_high": -1.69,
+  "spy_score": 92.4,
+  "high_score": 91.55,
+  "mom_score": 52.70628210484517,
+  "haven_score": 36.40117840104885,
+  "composite_score": 70.2,
+  "composite_label": "貪婪"
+}
