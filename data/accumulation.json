@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-22T08:23:35+08:00",
+  "generated_at": "2026-06-22T08:45:03+08:00",
   "stocks": [
     {
       "symbol": "PEP",
@@ -19,7 +19,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 1,
-      "change_3m": -7.5
+      "change_3m": -7.5,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "TMO",
@@ -39,7 +42,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -0.0
+      "change_3m": -0.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "NKE",
@@ -59,7 +65,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 1,
-      "change_3m": -15.5
+      "change_3m": -15.5,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "DHR",
@@ -79,7 +88,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -7.5
+      "change_3m": -7.5,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "RTX",
@@ -99,7 +111,10 @@
       "score_pos": 2,
       "score_obv": 1,
       "score_mom": 1,
-      "change_3m": -9.3
+      "change_3m": -9.3,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "V",
@@ -119,7 +134,10 @@
       "score_pos": 1,
       "score_obv": 0,
       "score_mom": 1,
-      "change_3m": 9.4
+      "change_3m": 9.4,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "HD",
@@ -139,7 +157,10 @@
       "score_pos": 2,
       "score_obv": 1,
       "score_mom": 1,
-      "change_3m": 1.0
+      "change_3m": 1.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "MCD",
@@ -159,7 +180,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -11.8
+      "change_3m": -11.8,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "AMGN",
@@ -179,7 +203,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": -3.9
+      "change_3m": -3.9,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "BMY",
@@ -199,7 +226,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": -9.0
+      "change_3m": -9.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "HON",
@@ -219,7 +249,10 @@
       "score_pos": 0,
       "score_obv": 2,
       "score_mom": 1,
-      "change_3m": -0.4
+      "change_3m": -0.4,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "ZS",
@@ -239,7 +272,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -20.0
+      "change_3m": -20.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "VRSK",
@@ -259,7 +295,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": -15.0
+      "change_3m": -15.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "IDXX",
@@ -279,7 +318,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -2.6
+      "change_3m": -2.6,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "ACHR",
@@ -299,7 +341,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 1,
-      "change_3m": -7.3
+      "change_3m": -7.3,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "RXRX",
@@ -319,7 +364,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": -2.7
+      "change_3m": -2.7,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     }
   ],
   "bearish": [
@@ -341,7 +389,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 135.9
+      "change_3m": 135.9,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "AVGO",
@@ -361,7 +412,10 @@
       "score_pos": 0,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 30.2
+      "change_3m": 30.2,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "BAC",
@@ -381,7 +435,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 20.0
+      "change_3m": 20.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "CSCO",
@@ -401,7 +458,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": 54.0
+      "change_3m": 54.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "LIN",
@@ -421,7 +481,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 4.8
+      "change_3m": 4.8,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "TXN",
@@ -441,7 +504,10 @@
       "score_pos": 2,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 69.2
+      "change_3m": 69.2,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "INTU",
@@ -461,7 +527,10 @@
       "score_pos": 0,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": -40.2
+      "change_3m": -40.2,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "DDOG",
@@ -481,7 +550,10 @@
       "score_pos": 1,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 69.9
+      "change_3m": 69.9,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "SNOW",
@@ -501,7 +573,10 @@
       "score_pos": 1,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": 34.1
+      "change_3m": 34.1,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "RDW",
@@ -521,7 +596,10 @@
       "score_pos": 0,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": 50.3
+      "change_3m": 50.3,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "RKLB",
@@ -541,7 +619,10 @@
       "score_pos": 0,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 54.3
+      "change_3m": 54.3,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "SATL",
@@ -561,7 +642,10 @@
       "score_pos": 0,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 103.7
+      "change_3m": 103.7,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "LUNR",
@@ -581,7 +665,10 @@
       "score_pos": 0,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 26.2
+      "change_3m": 26.2,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "BA",
@@ -601,7 +688,10 @@
       "score_pos": 0,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 8.1
+      "change_3m": 8.1,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "IONQ",
@@ -621,7 +711,10 @@
       "score_pos": 1,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 74.6
+      "change_3m": 74.6,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "TENB",
@@ -641,7 +734,10 @@
       "score_pos": 1,
       "score_obv": 2,
       "score_mom": 0,
-      "change_3m": 32.1
+      "change_3m": 32.1,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "SOXX",
@@ -661,7 +757,10 @@
       "score_pos": 2,
       "score_obv": 0,
       "score_mom": 0,
-      "change_3m": 89.0
+      "change_3m": 89.0,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "BOTZ",
@@ -681,7 +780,10 @@
       "score_pos": 1,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 10.1
+      "change_3m": 10.1,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     },
     {
       "symbol": "UFO",
@@ -701,7 +803,10 @@
       "score_pos": 0,
       "score_obv": 1,
       "score_mom": 0,
-      "change_3m": 10.5
+      "change_3m": 10.5,
+      "market_sentiment": 70.2,
+      "cnn_fg": 37.3,
+      "vix": 16.4
     }
   ],
   "total_scanned": 160
