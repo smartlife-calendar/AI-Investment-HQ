@@ -1,6 +1,6 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T22:09:08.672110+08:00",
+  "generated_at": "2026-06-22T22:09:48.411403+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
@@ -28,7 +28,7 @@
       "price": 24.52,
       "change_pct": 0.93,
       "vol_ratio": 4.1,
-      "volume": 15067430,
+      "volume": 15067774,
       "avg_volume": 3670719
     }
   ]
