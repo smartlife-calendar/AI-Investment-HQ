@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T04:11:02.070219+08:00",
+  "generated_at": "2026-06-24T04:41:46.961264+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 8,
   "stocks": [
@@ -37,16 +37,16 @@
       "price": 21.24,
       "change_pct": 18.99,
       "vol_ratio": 3.14,
-      "volume": 678695,
+      "volume": 678824,
       "avg_volume": 215941
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
-      "price": 15.91,
-      "change_pct": 11.99,
-      "vol_ratio": 2.83,
-      "volume": 40664207,
+      "price": 15.96,
+      "change_pct": 12.32,
+      "vol_ratio": 2.94,
+      "volume": 42255890,
       "avg_volume": 14362845
     },
     {
