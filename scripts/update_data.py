@@ -6,7 +6,7 @@ Saves to data/ directory on GitHub → frontend loads instantly without waiting 
 
 Run: python3 scripts/update_data.py
 """
-import urllib.request, json, base64, time, sys
+import urllib.request, json, base64, time, sys, os
 from datetime import datetime, timezone, timedelta
 
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
