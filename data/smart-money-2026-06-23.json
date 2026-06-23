@@ -1,27 +1,9 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T21:30:17.759019+08:00",
+  "generated_at": "2026-06-23T21:30:59.972927+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 12,
+  "count": 2,
   "stocks": [
-    {
-      "symbol": "APGE",
-      "name": "Apogee Therapeutics, Inc.",
-      "price": 132.55,
-      "change_pct": 46.66,
-      "vol_ratio": 32.0,
-      "volume": 61218507,
-      "avg_volume": 1912837
-    },
-    {
-      "symbol": "DFTX",
-      "name": "Definium Therapeutics, Inc.",
-      "price": 36.67,
-      "change_pct": 49.8,
-      "vol_ratio": 8.99,
-      "volume": 20031362,
-      "avg_volume": 2229409
-    },
     {
       "symbol": "AGI",
       "name": "Alamos Gold Inc.",
@@ -39,78 +21,6 @@
       "vol_ratio": 3.89,
       "volume": 533731,
       "avg_volume": 137211
-    },
-    {
-      "symbol": "BWIN",
-      "name": "The Baldwin Insurance Group, In",
-      "price": 23.52,
-      "change_pct": 16.21,
-      "vol_ratio": 2.95,
-      "volume": 4705165,
-      "avg_volume": 1593595
-    },
-    {
-      "symbol": "KEEL",
-      "name": "Keel Infrastructure Corp.",
-      "price": 6.66,
-      "change_pct": 5.88,
-      "vol_ratio": 2.56,
-      "volume": 109008708,
-      "avg_volume": 42584225
-    },
-    {
-      "symbol": "ORKA",
-      "name": "Oruka Therapeutics, Inc.",
-      "price": 85.38,
-      "change_pct": 18.03,
-      "vol_ratio": 2.54,
-      "volume": 4200169,
-      "avg_volume": 1655901
-    },
-    {
-      "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "price": 35.46,
-      "change_pct": 15.66,
-      "vol_ratio": 2.53,
-      "volume": 124395469,
-      "avg_volume": 49199212
-    },
-    {
-      "symbol": "RCUS",
-      "name": "Arcus Biosciences, Inc.",
-      "price": 27.23,
-      "change_pct": 12.01,
-      "vol_ratio": 2.47,
-      "volume": 2926117,
-      "avg_volume": 1186874
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 16.08,
-      "change_pct": 0.56,
-      "vol_ratio": 2.38,
-      "volume": 177367962,
-      "avg_volume": 74598640
-    },
-    {
-      "symbol": "SYRE",
-      "name": "Spyre Therapeutics, Inc.",
-      "price": 100.32,
-      "change_pct": 13.56,
-      "vol_ratio": 2.23,
-      "volume": 2768929,
-      "avg_volume": 1241162
-    },
-    {
-      "symbol": "BHVN",
-      "name": "Biohaven Ltd.",
-      "price": 15.5,
-      "change_pct": 14.22,
-      "vol_ratio": 2.08,
-      "volume": 5330606,
-      "avg_volume": 2560608
     }
   ]
 }
