@@ -1079,7 +1079,7 @@
                     checkMarketStatus();
                 }, 300); 
             }
-            if (tabName === 'smart') loadSmartMoney();
+            if (tabName === 'smart') { loadSmartMoney(); loadBullBearIndicator(); }
             if (tabName === 'news') loadNewsSection();
             if (tabName === 'daily_archive') loadDailyArchive();
         }
@@ -1209,7 +1209,6 @@
                     out += '<div>';
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
-                    out += transHtml;
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
                     var transHtml = '';
                     if (s.transition && s.transition !== '' && s.transition !== 'undefined') {
@@ -1223,6 +1222,7 @@
                     }
                     if (s.prev_score != null && s.prev_score !== undefined) {
                         transHtml += '<span style="color:#94a3b8;font-size:9px;margin-left:4px">(前:' + s.prev_score + ')</span>';
+                    out += transHtml;
                     }
                     // Entry/exit price suggestions based on current price and ATR
                     var entryPrice = s.entry_price ? '$' + s.entry_price.toFixed(2) : (s.price ? '$' + s.price.toFixed(2) : '');
@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.1.2');
+            if (el) el.textContent = 'v' + (d.version || '5.2.0');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2237,6 +2237,7 @@
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
                     <div>
                         <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">💡 金流密碼</h2>
+                        <div id="smartBullBear" style="font-size:12px;margin-top:4px"></div>
                         <p style="font-size:12px;color:#64748b;margin:4px 0 0">AI 量化偵測主力資金動向 · S&P500 + Nasdaq100 + 題材股</p>
                         <details style="margin-top:8px">
                             <summary style="font-size:12px;color:#4f46e5;cursor:pointer;font-weight:600">📋 評估項目說明 ▾</summary>
@@ -2577,7 +2578,7 @@ Netflix年度跌幅達42%，但估值吸引力論文未能阻止拋售。
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.1.2</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.2.0</p>
         </footer>
 
 
@@ -2676,6 +2677,11 @@ Netflix年度跌幅達42%，但估值吸引力論文未能阻止拋售。
                 if (banner) {
                     banner.innerHTML = widget + (banner.innerHTML || '');
                     banner.style.display = '';
+                }
+                // Also show mini version in smart money section
+                var smartBB = document.getElementById('smartBullBear');
+                if (smartBB) {
+                    smartBB.innerHTML = '<span style="font-size:18px">' + emoji + '</span> <strong style="color:' + color + '">' + regime + '</strong> · VIX ' + vix.toFixed(1) + ' · CNN ' + cnn.toFixed(0) + ' ' + cnnLabel + ' · 綜合 ' + composite.toFixed(0) + '/100';
                 }
             } catch(e) {}
         }
