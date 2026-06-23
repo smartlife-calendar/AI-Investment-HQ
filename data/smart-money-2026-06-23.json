@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T09:42:50.671298+08:00",
+  "generated_at": "2026-06-23T10:13:34.755926+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -9,9 +9,9 @@
       "name": "Apogee Therapeutics, Inc.",
       "price": 132.55,
       "change_pct": 46.66,
-      "vol_ratio": 62.82,
+      "vol_ratio": 32.0,
       "volume": 61218507,
-      "avg_volume": 974516
+      "avg_volume": 1912837
     },
     {
       "symbol": "DFTX",
@@ -36,36 +36,18 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 10.51,
       "change_pct": -12.49,
-      "vol_ratio": 4.09,
+      "vol_ratio": 3.89,
       "volume": 533731,
-      "avg_volume": 130404
+      "avg_volume": 137211
     },
     {
       "symbol": "BWIN",
       "name": "The Baldwin Insurance Group, In",
       "price": 23.52,
       "change_pct": 16.21,
-      "vol_ratio": 3.03,
+      "vol_ratio": 2.95,
       "volume": 4705165,
-      "avg_volume": 1550758
-    },
-    {
-      "symbol": "ORKA",
-      "name": "Oruka Therapeutics, Inc.",
-      "price": 85.38,
-      "change_pct": 18.03,
-      "vol_ratio": 2.63,
-      "volume": 4200169,
-      "avg_volume": 1597220
-    },
-    {
-      "symbol": "RCUS",
-      "name": "Arcus Biosciences, Inc.",
-      "price": 27.23,
-      "change_pct": 12.01,
-      "vol_ratio": 2.56,
-      "volume": 2926117,
-      "avg_volume": 1144045
+      "avg_volume": 1593595
     },
     {
       "symbol": "KEEL",
@@ -77,22 +59,40 @@
       "avg_volume": 42584225
     },
     {
+      "symbol": "ORKA",
+      "name": "Oruka Therapeutics, Inc.",
+      "price": 85.38,
+      "change_pct": 18.03,
+      "vol_ratio": 2.54,
+      "volume": 4200169,
+      "avg_volume": 1655901
+    },
+    {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
       "price": 35.46,
       "change_pct": 15.66,
-      "vol_ratio": 2.54,
+      "vol_ratio": 2.53,
       "volume": 124395469,
-      "avg_volume": 48982825
+      "avg_volume": 49199212
+    },
+    {
+      "symbol": "RCUS",
+      "name": "Arcus Biosciences, Inc.",
+      "price": 27.23,
+      "change_pct": 12.01,
+      "vol_ratio": 2.47,
+      "volume": 2926117,
+      "avg_volume": 1186874
     },
     {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
       "price": 16.08,
       "change_pct": 0.56,
-      "vol_ratio": 2.43,
+      "vol_ratio": 2.38,
       "volume": 177367962,
-      "avg_volume": 72988962
+      "avg_volume": 74598640
     },
     {
       "symbol": "SYRE",
@@ -108,9 +108,9 @@
       "name": "Biohaven Ltd.",
       "price": 15.5,
       "change_pct": 14.22,
-      "vol_ratio": 2.14,
+      "vol_ratio": 2.08,
       "volume": 5330606,
-      "avg_volume": 2490138
+      "avg_volume": 2560608
     }
   ]
 }
