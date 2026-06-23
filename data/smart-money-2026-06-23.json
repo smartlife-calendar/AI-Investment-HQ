@@ -1,26 +1,7 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T21:30:59.972927+08:00",
+  "generated_at": "2026-06-23T21:31:36.360256+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
-  "stocks": [
-    {
-      "symbol": "AGI",
-      "name": "Alamos Gold Inc.",
-      "price": 32.04,
-      "change_pct": -11.83,
-      "vol_ratio": 4.6,
-      "volume": 16746220,
-      "avg_volume": 3638291
-    },
-    {
-      "symbol": "RGC",
-      "name": "Regencell Bioscience Holdings L",
-      "price": 10.51,
-      "change_pct": -12.49,
-      "vol_ratio": 3.89,
-      "volume": 533731,
-      "avg_volume": 137211
-    }
-  ]
+  "count": 0,
+  "stocks": []
 }
