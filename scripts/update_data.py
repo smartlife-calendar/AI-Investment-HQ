@@ -278,6 +278,9 @@ def scan_accumulation(ticker, direction="bullish"):
         up_vol = sum(volumes[i] for i in range(n-10, n) if i > 0 and closes[i] >= closes[i-1])
         dist_ratio = down_vol / up_vol if up_vol > 0 else 1.0
 
+        # Volume score (common to both directions)
+        vol_score = 2 if vol_ratio > 1.4 else 1 if vol_ratio > 1.1 else 0
+
         # ── BULLISH v5: Momentum + Breakout ──────────────────────────────
         if direction == "bullish":
             # 1. Momentum confirmed (0-3): in upper range + above MA20
@@ -286,8 +289,7 @@ def scan_accumulation(ticker, direction="bullish"):
             elif range_pos > 40: mom_score += 1
             if current > (ma20 or current * 0.99): mom_score += 1
 
-            # 2. Volume expansion (0-2)
-            vol_score = 2 if vol_ratio > 1.4 else 1 if vol_ratio > 1.1 else 0
+            # 2. Volume expansion (0-2) — uses common vol_score
 
             # 3. Volatility sweet spot (0-2): 15-35% range
             if 15 <= price_range_pct <= 35:
@@ -437,7 +439,8 @@ def scan_accumulation(ticker, direction="bullish"):
             t1 = round(recent_high * 1.02, 2)  # slightly above resistance
             t1_pct = round((t1 / entry - 1) * 100, 1)
             # Target 2: 6-month high
-            t2 = round(price_max * 1.01, 2)
+            t2_raw = round(price_max * 1.02, 2)
+            t2 = max(t2_raw, round(t1 * 1.05, 2))  # T2 must be above T1
             t2_pct = round((t2 / entry - 1) * 100, 1)
             # Risk/Reward ratio
             risk = abs(entry - stop)
@@ -637,38 +640,46 @@ def run():
         "summary": {},
     }
 
-    for ticker, name in MACRO_TICKERS:
-        print(f"  {ticker}...", end=" ", flush=True)
+    # Parallel fetch macro + sectors
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    
+    def _fetch_macro(args):
+        ticker, name, kind = args
+        time.sleep(0.05)
         data = compute_52w(ticker)
-        if data:
-            macro_result["macro"].append({"name": name, "ticker": ticker, **data})
-            print(f"{data['current']} ({data['perf_52w']:+.1f}%)")
-        else:
-            print("failed")
-
-    for etf, name in BROAD_SECTORS:
-        print(f"  {etf}...", end=" ", flush=True)
-        data = compute_52w(etf)
-        if data:
-            macro_result["broad_sectors"].append({"name": name, "etf": etf, **data})
-            print(f"{data['perf_52w']:+.1f}%")
-        else:
-            print("failed")
+        return ticker, name, kind, data
+    
+    all_macro_items = [(t, n, "macro") for t, n in MACRO_TICKERS] + [(e, n, "sector") for e, n in BROAD_SECTORS]
+    
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        for ticker, name, kind, data in executor.map(_fetch_macro, all_macro_items):
+            if data:
+                if kind == "macro":
+                    macro_result["macro"].append({"name": name, "ticker": ticker, **data})
+                else:
+                    macro_result["broad_sectors"].append({"name": name, "etf": ticker, **data})
+                print(f"  {ticker} {data.get('perf_52w',0):+.1f}%")
 
     macro_result["broad_sectors"].sort(key=lambda x: x["perf_52w"], reverse=True)
 
-    for group, etfs in SUB_SECTORS.items():
-        group_data = []
-        for etf, name in etfs:
-            print(f"  {etf}...", end=" ", flush=True)
+    # Parallel sub-sector fetch
+    all_sub_items = [(etf, name, group) for group, etfs in SUB_SECTORS.items() for etf, name in etfs]
+    sub_results = defaultdict(list)
+    
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        def _fetch_sub(args):
+            etf, name, group = args
+            time.sleep(0.05)
             data = compute_52w(etf)
+            return etf, name, group, data
+        for etf, name, group, data in executor.map(_fetch_sub, all_sub_items):
             if data:
-                group_data.append({"name": name, "etf": etf, **data, "wow": data.get("wow", [])[-4:]})
-                print(f"{data['perf_52w']:+.1f}%")
-            else:
-                print("failed")
-        group_data.sort(key=lambda x: x["perf_52w"], reverse=True)
-        macro_result["sub_sectors"][group] = group_data
+                sub_results[group].append({"name": name, "etf": etf, **data, "wow": data.get("wow", [])[-4:]})
+                print(f"  {etf} {data.get('perf_52w',0):+.1f}%")
+    
+    for group in sub_results:
+        sub_results[group].sort(key=lambda x: x["perf_52w"], reverse=True)
+        macro_result["sub_sectors"][group] = sub_results[group]
 
     top3 = macro_result["broad_sectors"][:3]
     bot3 = macro_result["broad_sectors"][-3:]
@@ -783,11 +794,21 @@ def run():
                         if bear["score"] < 5: bear = None
                 
                 signals = []
-                if bull:
+                # Rule: if both trigger, higher score wins. Tie = bearish (conservative)
+                if bull and bear:
+                    if bear["score"] >= bull["score"]:
+                        bear["direction"] = "bearish"
+                        bearish_results.append(bear)
+                        signals.append(f"bear={bear['score']}(wins)")
+                    else:
+                        bull["direction"] = "bullish"
+                        accum_results.append(bull)
+                        signals.append(f"bull={bull['score']}(wins)")
+                elif bull:
                     bull["direction"] = "bullish"
                     accum_results.append(bull)
                     signals.append(f"bull={bull['score']}")
-                if bear:
+                elif bear:
                     bear["direction"] = "bearish"
                     bearish_results.append(bear)
                     signals.append(f"bear={bear['score']}")
@@ -798,6 +819,72 @@ def run():
     
     scan_elapsed = time.time() - scan_start
     print(f"  Scan completed in {scan_elapsed:.1f}s ({len(accum_results)} bull, {len(bearish_results)} bear)")
+
+    # Query yesterday's signals for transition + momentum labels
+    print("  Checking yesterday's signals for transitions...")
+    try:
+        from datetime import date as date_cls
+        yesterday = (tw - timedelta(days=1)).strftime("%Y-%m-%d")
+        # Also check 2 days ago for weekends
+        two_days_ago = (tw - timedelta(days=2)).strftime("%Y-%m-%d")
+        three_days_ago = (tw - timedelta(days=3)).strftime("%Y-%m-%d")
+        
+        prev_req = urllib.request.Request(
+            f"{SUPABASE_URL}/rest/v1/accumulation_signals?date=in.({yesterday},{two_days_ago},{three_days_ago})&select=symbol,date,score,direction&order=date.desc",
+            headers={**SB_HEADERS, "Accept": "application/json", "Prefer": ""}
+        )
+        prev_signals = json.loads(urllib.request.urlopen(prev_req, timeout=10).read())
+        
+        # Build lookup: most recent signal per symbol
+        prev_by_sym = {}
+        for ps in prev_signals:
+            sym = ps["symbol"]
+            if sym not in prev_by_sym:  # first = most recent
+                prev_by_sym[sym] = ps
+        
+        print(f"  Found {len(prev_by_sym)} previous signals")
+        
+        # Apply transition + momentum labels
+        for s in accum_results + bearish_results:
+            sym = s["symbol"]
+            prev = prev_by_sym.get(sym)
+            
+            if prev:
+                prev_dir = prev["direction"]
+                curr_dir = s["direction"]
+                prev_score = prev["score"]
+                curr_score = s["score"]
+                
+                # Transition label
+                if prev_dir == "bearish" and curr_dir == "bullish":
+                    s["transition"] = "⚡ 空翻多"
+                elif prev_dir == "bullish" and curr_dir == "bearish":
+                    s["transition"] = "⚡ 多翻空"
+                elif prev_dir == curr_dir:
+                    s["transition"] = "持續" + ("看多" if curr_dir == "bullish" else "看空")
+                else:
+                    s["transition"] = ""
+                
+                # Momentum change
+                score_diff = curr_score - prev_score
+                if score_diff >= 2:
+                    s["momentum_change"] = "🔺 動能轉強"
+                elif score_diff >= 1:
+                    s["momentum_change"] = "▲ 動能略升"
+                elif score_diff <= -2:
+                    s["momentum_change"] = "🔻 動能轉弱"
+                elif score_diff <= -1:
+                    s["momentum_change"] = "▼ 動能略降"
+                else:
+                    s["momentum_change"] = "➡️ 動能持平"
+                
+                s["prev_score"] = prev_score
+            else:
+                s["transition"] = "🆕 新訊號"
+                s["momentum_change"] = ""
+                s["prev_score"] = None
+    except Exception as e:
+        print(f"  Transition check failed: {e}")
 
     accum_results.sort(key=lambda x: x["score"], reverse=True)
     bearish_results.sort(key=lambda x: x["score"], reverse=True)
@@ -886,6 +973,7 @@ def run():
         "stocks": accum_results,
         "bearish": bearish_results,
         "total_scanned": len(SCAN_TICKERS),
+        "scan_list": list(SCAN_TICKERS),
     }
 
     # ── 4c. Save to Supabase ─────────────────────────────────────────────────
