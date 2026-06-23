@@ -1,0 +1,17 @@
+{
+  "date": "2026-06-24",
+  "generated_at": "2026-06-24T00:04:32.964591+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "PRIM",
+      "name": "Primoris Services Corporation",
+      "price": 83.46,
+      "change_pct": -22.96,
+      "vol_ratio": 3.47,
+      "volume": 6056242,
+      "avg_volume": 1745875
+    }
+  ]
+}
