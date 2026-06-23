@@ -1,61 +1,61 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T02:38:29.463480+08:00",
+  "generated_at": "2026-06-24T03:09:26.438896+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 6,
   "stocks": [
     {
       "symbol": "LGND",
       "name": "Ligand Pharmaceuticals Incorpor",
-      "price": 278.06,
-      "change_pct": 6.06,
-      "vol_ratio": 7.62,
-      "volume": 1787626,
+      "price": 278.83,
+      "change_pct": 6.36,
+      "vol_ratio": 7.76,
+      "volume": 1819633,
       "avg_volume": 234612
     },
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
-      "price": 82.31,
-      "change_pct": -24.03,
-      "vol_ratio": 4.44,
-      "volume": 7745924,
+      "price": 81.83,
+      "change_pct": -24.47,
+      "vol_ratio": 4.63,
+      "volume": 8091633,
       "avg_volume": 1745875
     },
     {
       "symbol": "VRNS",
       "name": "Varonis Systems, Inc.",
-      "price": 35.23,
-      "change_pct": 7.69,
-      "vol_ratio": 3.39,
-      "volume": 7550111,
+      "price": 34.88,
+      "change_pct": 6.63,
+      "vol_ratio": 3.5,
+      "volume": 7805297,
       "avg_volume": 2230146
     },
     {
       "symbol": "MAAS",
       "name": "Maase Inc.",
-      "price": 23.7,
-      "change_pct": 32.75,
-      "vol_ratio": 2.8,
-      "volume": 603884,
+      "price": 22.87,
+      "change_pct": 28.12,
+      "vol_ratio": 2.88,
+      "volume": 622563,
       "avg_volume": 215941
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
-      "price": 15.94,
-      "change_pct": 12.17,
-      "vol_ratio": 2.44,
-      "volume": 35063795,
+      "price": 15.74,
+      "change_pct": 10.77,
+      "vol_ratio": 2.57,
+      "volume": 36957515,
       "avg_volume": 14362845
     },
     {
       "symbol": "VKTX",
       "name": "Viking Therapeutics, Inc.",
-      "price": 34.62,
-      "change_pct": 6.97,
-      "vol_ratio": 2.08,
-      "volume": 4558776,
+      "price": 34.22,
+      "change_pct": 5.72,
+      "vol_ratio": 2.4,
+      "volume": 5269510,
       "avg_volume": 2195414
     }
   ]
