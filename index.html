@@ -255,7 +255,7 @@
         <p>網址：stockiq.tw | 支援：AAPL、NVDA、TSLA、MSFT 等所有美股代號</p>
     </div>
 
-    <div class="max-w-4xl mx-auto py-6 px-3 sm:px-4 sm:py-10">
+    <div class="max-w-4xl mx-auto py-6 px-3 sm:px-4 sm:py-10" style="display:flex;flex-direction:column">
 
 
         <!-- Header -->
@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.2.0');
+            if (el) el.textContent = 'v' + (d.version || '5.2.1');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2191,7 +2191,7 @@
 
 
         <!-- Earnings Calendar in Today Tab -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection" style="display:none">
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection" style="display:none;order:3">
             <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
                     <div>
@@ -2578,7 +2578,7 @@ Netflix年度跌幅達42%，但估值吸引力論文未能阻止拋售。
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.2.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.2.1</p>
         </footer>
 
 
