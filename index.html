@@ -2703,7 +2703,7 @@
                 resultDiv.innerHTML = out;
             } else {
                 // Check if in scan list but just no signal
-                var scanList = (data.scan_list || []);
+                var scanList = (data.scan_list || (window._smartData || {}).scan_list || []);
                 var inList = scanList.indexOf(ticker) >= 0;
                 
                 if (inList) {
