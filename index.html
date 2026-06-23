@@ -1209,7 +1209,21 @@
                     out += '<div>';
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
+                    out += transHtml;
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
+                    var transHtml = '';
+                    if (s.transition) {
+                        var tColor = s.transition.indexOf('空翻多') >= 0 ? '#16a34a' : s.transition.indexOf('多翻空') >= 0 ? '#dc2626' : '#6b7280';
+                        var tBg = s.transition.indexOf('空翻多') >= 0 ? '#dcfce7' : s.transition.indexOf('多翻空') >= 0 ? '#fee2e2' : s.transition.indexOf('新') >= 0 ? '#ede9fe' : '#f1f5f9';
+                        transHtml = '<span style="background:' + tBg + ';color:' + tColor + ';font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px">' + s.transition + '</span>';
+                    }
+                    if (s.momentum_change) {
+                        var mColor = s.momentum_change.indexOf('轉強') >= 0 ? '#16a34a' : s.momentum_change.indexOf('轉弱') >= 0 ? '#dc2626' : '#6b7280';
+                        transHtml += '<span style="color:' + mColor + ';font-size:10px;font-weight:600;margin-left:4px">' + s.momentum_change + '</span>';
+                    }
+                    if (s.prev_score != null) {
+                        transHtml += '<span style="color:#94a3b8;font-size:9px;margin-left:4px">(前:' + s.prev_score + ')</span>';
+                    }
                     // Entry/exit price suggestions based on current price and ATR
                     var entryPrice = s.entry_price ? '$' + s.entry_price.toFixed(2) : (s.price ? '$' + s.price.toFixed(2) : '');
                     var stopLoss = s.stop_loss ? '$' + s.stop_loss.toFixed(2) : (s.price ? '$' + (s.price * 0.95).toFixed(2) : '');
