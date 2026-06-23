@@ -1,16 +1,16 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T04:41:46.961264+08:00",
+  "generated_at": "2026-06-24T05:12:34.670994+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 8,
+  "count": 9,
   "stocks": [
     {
       "symbol": "LGND",
       "name": "Ligand Pharmaceuticals Incorpor",
       "price": 279.44,
       "change_pct": 6.59,
-      "vol_ratio": 9.75,
-      "volume": 2287776,
+      "vol_ratio": 9.8,
+      "volume": 2298168,
       "avg_volume": 234612
     },
     {
@@ -36,8 +36,8 @@
       "name": "Maase Inc.",
       "price": 21.24,
       "change_pct": 18.99,
-      "vol_ratio": 3.14,
-      "volume": 678824,
+      "vol_ratio": 3.15,
+      "volume": 680370,
       "avg_volume": 215941
     },
     {
@@ -54,8 +54,8 @@
       "name": "Viking Therapeutics, Inc.",
       "price": 34.81,
       "change_pct": 7.54,
-      "vol_ratio": 2.81,
-      "volume": 6159814,
+      "vol_ratio": 2.83,
+      "volume": 6212949,
       "avg_volume": 2195414
     },
     {
@@ -66,6 +66,15 @@
       "vol_ratio": 2.41,
       "volume": 480318,
       "avg_volume": 198941
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer, Inc.",
+      "price": 24.72,
+      "change_pct": -1.44,
+      "vol_ratio": 2.24,
+      "volume": 81943195,
+      "avg_volume": 36596887
     },
     {
       "symbol": "AAL",
