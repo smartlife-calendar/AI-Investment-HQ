@@ -1,17 +1,35 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T00:04:32.964591+08:00",
+  "generated_at": "2026-06-24T00:35:21.564227+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 3,
   "stocks": [
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
-      "price": 83.46,
-      "change_pct": -22.96,
-      "vol_ratio": 3.47,
-      "volume": 6056242,
+      "price": 84.65,
+      "change_pct": -21.87,
+      "vol_ratio": 3.63,
+      "volume": 6336896,
       "avg_volume": 1745875
+    },
+    {
+      "symbol": "VRNS",
+      "name": "Varonis Systems, Inc.",
+      "price": 36.38,
+      "change_pct": 11.2,
+      "vol_ratio": 2.6,
+      "volume": 5806817,
+      "avg_volume": 2230146
+    },
+    {
+      "symbol": "INFQ",
+      "name": "Infleqtion, Inc.",
+      "price": 16.12,
+      "change_pct": 13.44,
+      "vol_ratio": 2.07,
+      "volume": 29737062,
+      "avg_volume": 14362845
     }
   ]
 }
