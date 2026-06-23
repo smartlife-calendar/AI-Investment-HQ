@@ -1152,21 +1152,20 @@
             content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + label + '偵測...</p>';
             
             try {
-                // Use pre-loaded data (instant, no fetch needed)
+                // Fetch latest JSON (updated daily by cron)
                 let stocks = null;
-                if (window._smartData) {
-                    stocks = direction === 'bullish' ? (window._smartData.stocks || []) : (window._smartData.bearish || []);
-                }
-                
-                // Fallback: try fetching JSON
+                try {
+                    const r = await fetch('/data/accumulation.json?t=' + Date.now());
+                    if (r.ok) {
+                        const j = await r.json();
+                        stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
+                    }
+                } catch(e) {}
+                // Fallback: embedded data
                 if (!stocks || stocks.length === 0) {
-                    try {
-                        const r = await fetch('/data/accumulation.json');
-                        if (r.ok) {
-                            const j = await r.json();
-                            stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
-                        }
-                    } catch(e) {}
+                    if (window._smartData) {
+                        stocks = direction === 'bullish' ? (window._smartData.stocks || []) : (window._smartData.bearish || []);
+                    }
                 }
                 
                 if (!stocks || stocks.length === 0) {
@@ -2625,7 +2624,7 @@
                 }
             } catch(e) {}
         }
-        function searchSmartSignal() {
+        async function searchSmartSignal() {
             var input = document.getElementById('smartSearchInput');
             var resultDiv = document.getElementById('smartSearchResult');
             if (!input || !resultDiv) return;
@@ -2636,8 +2635,15 @@
             resultDiv.style.display = '';
             resultDiv.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">🔍 查詢 ' + ticker + ' 中...</p>';
             
-            // Check if in embedded data
+            // Fetch latest data from JSON
             var data = window._smartData || {};
+            try {
+                var resp = await fetch('/data/accumulation.json?t=' + Date.now());
+                if (resp.ok) {
+                    var jdata = await resp.json();
+                    data = jdata;
+                }
+            } catch(e) {}
             var allStocks = (data.stocks || []).concat(data.bearish || []);
             var found = allStocks.filter(function(s) { return s.symbol === ticker; });
             
