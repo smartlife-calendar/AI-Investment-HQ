@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T21:44:20.049612+08:00",
+  "generated_at": "2026-06-23T21:45:01.709184+08:00",
   "sector_count": 11,
   "summary": {
     "inflow_count": 3,
@@ -14,9 +14,9 @@
       "symbol": "XLP",
       "sector_zh": "必需消費",
       "sector_en": "Consumer Staples",
-      "price": 83.29,
-      "change_pct": 1.17,
-      "volume": 1541569,
+      "price": 83.25,
+      "change_pct": 1.13,
+      "volume": 1564137,
       "avg_volume": 13078961,
       "vol_ratio": 0.12
     },
@@ -24,19 +24,19 @@
       "symbol": "XLV",
       "sector_zh": "醫療保健",
       "sector_en": "Healthcare",
-      "price": 151.67,
-      "change_pct": 1.09,
-      "volume": 1108243,
+      "price": 151.53,
+      "change_pct": 0.99,
+      "volume": 1128846,
       "avg_volume": 10729614,
-      "vol_ratio": 0.1
+      "vol_ratio": 0.11
     },
     {
       "symbol": "XLRE",
       "sector_zh": "房地產",
       "sector_en": "Real Estate",
-      "price": 44.26,
-      "change_pct": 0.46,
-      "volume": 794644,
+      "price": 44.24,
+      "change_pct": 0.42,
+      "volume": 799405,
       "avg_volume": 5973638,
       "vol_ratio": 0.13
     },
@@ -44,9 +44,9 @@
       "symbol": "XLU",
       "sector_zh": "公用事業",
       "sector_en": "Utilities",
-      "price": 44.79,
-      "change_pct": 0.13,
-      "volume": 2000811,
+      "price": 44.81,
+      "change_pct": 0.16,
+      "volume": 2033438,
       "avg_volume": 21497414,
       "vol_ratio": 0.09
     },
@@ -54,11 +54,21 @@
       "symbol": "XLF",
       "sector_zh": "金融",
       "sector_en": "Financials",
-      "price": 53.74,
-      "change_pct": 0.02,
-      "volume": 2631117,
+      "price": 53.75,
+      "change_pct": 0.04,
+      "volume": 2676214,
       "avg_volume": 38787838,
       "vol_ratio": 0.07
+    },
+    {
+      "symbol": "XLE",
+      "sector_zh": "能源",
+      "sector_en": "Energy",
+      "price": 54.06,
+      "change_pct": -0.0,
+      "volume": 3797319,
+      "avg_volume": 43880984,
+      "vol_ratio": 0.09
     },
     {
       "symbol": "XLC",
@@ -66,27 +76,17 @@
       "sector_en": "Communication Services",
       "price": 107.18,
       "change_pct": -0.02,
-      "volume": 505252,
+      "volume": 513456,
       "avg_volume": 5819101,
       "vol_ratio": 0.09
-    },
-    {
-      "symbol": "XLE",
-      "sector_zh": "能源",
-      "sector_en": "Energy",
-      "price": 53.97,
-      "change_pct": -0.18,
-      "volume": 3687440,
-      "avg_volume": 43880984,
-      "vol_ratio": 0.08
     },
     {
       "symbol": "XLY",
       "sector_zh": "非必需消費",
       "sector_en": "Consumer Discretionary",
-      "price": 114.17,
-      "change_pct": -0.51,
-      "volume": 754986,
+      "price": 114.06,
+      "change_pct": -0.61,
+      "volume": 771490,
       "avg_volume": 8367855,
       "vol_ratio": 0.09
     },
@@ -95,8 +95,8 @@
       "sector_zh": "原物料",
       "sector_en": "Materials",
       "price": 50.97,
-      "change_pct": -1.06,
-      "volume": 1290206,
+      "change_pct": -1.07,
+      "volume": 1314517,
       "avg_volume": 11980911,
       "vol_ratio": 0.11
     },
@@ -104,9 +104,9 @@
       "symbol": "XLI",
       "sector_zh": "工業",
       "sector_en": "Industrials",
-      "price": 178.02,
-      "change_pct": -2.08,
-      "volume": 1120797,
+      "price": 178.08,
+      "change_pct": -2.05,
+      "volume": 1128877,
       "avg_volume": 9363652,
       "vol_ratio": 0.12
     },
@@ -114,9 +114,9 @@
       "symbol": "XLK",
       "sector_zh": "科技",
       "sector_en": "Technology",
-      "price": 184.93,
+      "price": 184.92,
       "change_pct": -3.56,
-      "volume": 2220414,
+      "volume": 2264628,
       "avg_volume": 13232523,
       "vol_ratio": 0.17
     }
