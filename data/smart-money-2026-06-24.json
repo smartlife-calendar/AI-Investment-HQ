@@ -1,43 +1,43 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T01:06:09.141558+08:00",
+  "generated_at": "2026-06-24T01:36:54.750639+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 4,
   "stocks": [
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
-      "price": 83.53,
-      "change_pct": -22.9,
-      "vol_ratio": 3.77,
-      "volume": 6580800,
+      "price": 86.52,
+      "change_pct": -20.14,
+      "vol_ratio": 3.93,
+      "volume": 6859352,
       "avg_volume": 1745875
     },
     {
       "symbol": "VRNS",
       "name": "Varonis Systems, Inc.",
-      "price": 36.27,
-      "change_pct": 10.88,
-      "vol_ratio": 2.83,
-      "volume": 6313192,
+      "price": 35.67,
+      "change_pct": 9.05,
+      "vol_ratio": 2.99,
+      "volume": 6665084,
       "avg_volume": 2230146
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
-      "price": 15.9,
-      "change_pct": 11.89,
-      "vol_ratio": 2.16,
-      "volume": 31095509,
+      "price": 16.32,
+      "change_pct": 14.85,
+      "vol_ratio": 2.26,
+      "volume": 32495548,
       "avg_volume": 14362845
     },
     {
       "symbol": "MAAS",
       "name": "Maase Inc.",
-      "price": 22.68,
-      "change_pct": 27.03,
-      "vol_ratio": 2.07,
-      "volume": 446376,
+      "price": 23.5,
+      "change_pct": 31.38,
+      "vol_ratio": 2.17,
+      "volume": 469046,
       "avg_volume": 215941
     }
   ]
