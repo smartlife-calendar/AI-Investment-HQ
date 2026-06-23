@@ -1,62 +1,71 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T03:09:26.438896+08:00",
+  "generated_at": "2026-06-24T03:40:14.540179+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 6,
+  "count": 7,
   "stocks": [
     {
       "symbol": "LGND",
       "name": "Ligand Pharmaceuticals Incorpor",
-      "price": 278.83,
-      "change_pct": 6.36,
-      "vol_ratio": 7.76,
-      "volume": 1819633,
+      "price": 281.23,
+      "change_pct": 7.27,
+      "vol_ratio": 8.59,
+      "volume": 2016024,
       "avg_volume": 234612
     },
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
-      "price": 81.83,
-      "change_pct": -24.47,
-      "vol_ratio": 4.63,
-      "volume": 8091633,
+      "price": 82.6,
+      "change_pct": -23.76,
+      "vol_ratio": 4.99,
+      "volume": 8710709,
       "avg_volume": 1745875
     },
     {
       "symbol": "VRNS",
       "name": "Varonis Systems, Inc.",
-      "price": 34.88,
-      "change_pct": 6.63,
-      "vol_ratio": 3.5,
-      "volume": 7805297,
+      "price": 35.2,
+      "change_pct": 7.6,
+      "vol_ratio": 3.69,
+      "volume": 8224907,
       "avg_volume": 2230146
     },
     {
       "symbol": "MAAS",
       "name": "Maase Inc.",
-      "price": 22.87,
-      "change_pct": 28.12,
-      "vol_ratio": 2.88,
-      "volume": 622563,
+      "price": 21.25,
+      "change_pct": 19.05,
+      "vol_ratio": 3.03,
+      "volume": 654645,
       "avg_volume": 215941
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
-      "price": 15.74,
-      "change_pct": 10.77,
-      "vol_ratio": 2.57,
-      "volume": 36957515,
+      "price": 16.06,
+      "change_pct": 13.02,
+      "vol_ratio": 2.68,
+      "volume": 38523461,
       "avg_volume": 14362845
     },
     {
       "symbol": "VKTX",
       "name": "Viking Therapeutics, Inc.",
-      "price": 34.22,
-      "change_pct": 5.72,
-      "vol_ratio": 2.4,
-      "volume": 5269510,
+      "price": 34.5,
+      "change_pct": 6.57,
+      "vol_ratio": 2.49,
+      "volume": 5463938,
       "avg_volume": 2195414
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 16.12,
+      "change_pct": 0.28,
+      "vol_ratio": 2.05,
+      "volume": 152713598,
+      "avg_volume": 74598640
     }
   ]
 }
