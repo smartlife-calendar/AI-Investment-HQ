@@ -1,44 +1,62 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T02:07:40.815724+08:00",
+  "generated_at": "2026-06-24T02:38:29.463480+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 4,
+  "count": 6,
   "stocks": [
+    {
+      "symbol": "LGND",
+      "name": "Ligand Pharmaceuticals Incorpor",
+      "price": 278.06,
+      "change_pct": 6.06,
+      "vol_ratio": 7.62,
+      "volume": 1787626,
+      "avg_volume": 234612
+    },
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
-      "price": 82.17,
-      "change_pct": -24.16,
-      "vol_ratio": 4.21,
-      "volume": 7346171,
+      "price": 82.31,
+      "change_pct": -24.03,
+      "vol_ratio": 4.44,
+      "volume": 7745924,
       "avg_volume": 1745875
     },
     {
       "symbol": "VRNS",
       "name": "Varonis Systems, Inc.",
-      "price": 35.63,
-      "change_pct": 8.94,
-      "vol_ratio": 3.17,
-      "volume": 7073455,
+      "price": 35.23,
+      "change_pct": 7.69,
+      "vol_ratio": 3.39,
+      "volume": 7550111,
       "avg_volume": 2230146
     },
     {
       "symbol": "MAAS",
       "name": "Maase Inc.",
-      "price": 24.61,
-      "change_pct": 37.87,
-      "vol_ratio": 2.65,
-      "volume": 572030,
+      "price": 23.7,
+      "change_pct": 32.75,
+      "vol_ratio": 2.8,
+      "volume": 603884,
       "avg_volume": 215941
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
-      "price": 15.97,
-      "change_pct": 12.38,
-      "vol_ratio": 2.35,
-      "volume": 33712072,
+      "price": 15.94,
+      "change_pct": 12.17,
+      "vol_ratio": 2.44,
+      "volume": 35063795,
       "avg_volume": 14362845
+    },
+    {
+      "symbol": "VKTX",
+      "name": "Viking Therapeutics, Inc.",
+      "price": 34.62,
+      "change_pct": 6.97,
+      "vol_ratio": 2.08,
+      "volume": 4558776,
+      "avg_volume": 2195414
     }
   ]
 }
