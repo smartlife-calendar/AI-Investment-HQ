@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T09:37:31.858566+08:00",
+  "generated_at": "2026-06-23T09:38:17.774571+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -18,9 +18,9 @@
       "name": "Definium Therapeutics, Inc.",
       "price": 36.67,
       "change_pct": 49.8,
-      "vol_ratio": 10.42,
+      "vol_ratio": 8.99,
       "volume": 20031362,
-      "avg_volume": 1922656
+      "avg_volume": 2229409
     },
     {
       "symbol": "AGI",
