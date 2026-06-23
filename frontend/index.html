@@ -1212,16 +1212,16 @@
                     out += transHtml;
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
                     var transHtml = '';
-                    if (s.transition) {
-                        var tColor = s.transition.indexOf('空翻多') >= 0 ? '#16a34a' : s.transition.indexOf('多翻空') >= 0 ? '#dc2626' : '#6b7280';
-                        var tBg = s.transition.indexOf('空翻多') >= 0 ? '#dcfce7' : s.transition.indexOf('多翻空') >= 0 ? '#fee2e2' : s.transition.indexOf('新') >= 0 ? '#ede9fe' : '#f1f5f9';
+                    if (s.transition && s.transition !== '' && s.transition !== 'undefined') {
+                        var tColor = (s.transition||'').indexOf('空翻多') >= 0 ? '#16a34a' : (s.transition||'').indexOf('多翻空') >= 0 ? '#dc2626' : '#6b7280';
+                        var tBg = (s.transition||'').indexOf('空翻多') >= 0 ? '#dcfce7' : (s.transition||'').indexOf('多翻空') >= 0 ? '#fee2e2' : (s.transition||'').indexOf('新') >= 0 ? '#ede9fe' : '#f1f5f9';
                         transHtml = '<span style="background:' + tBg + ';color:' + tColor + ';font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px">' + s.transition + '</span>';
                     }
-                    if (s.momentum_change) {
-                        var mColor = s.momentum_change.indexOf('轉強') >= 0 ? '#16a34a' : s.momentum_change.indexOf('轉弱') >= 0 ? '#dc2626' : '#6b7280';
+                    if (s.momentum_change && s.momentum_change !== '' && s.momentum_change !== 'undefined') {
+                        var mColor = (s.momentum_change||'').indexOf('轉強') >= 0 ? '#16a34a' : (s.momentum_change||'').indexOf('轉弱') >= 0 ? '#dc2626' : '#6b7280';
                         transHtml += '<span style="color:' + mColor + ';font-size:10px;font-weight:600;margin-left:4px">' + s.momentum_change + '</span>';
                     }
-                    if (s.prev_score != null) {
+                    if (s.prev_score != null && s.prev_score !== undefined) {
                         transHtml += '<span style="color:#94a3b8;font-size:9px;margin-left:4px">(前:' + s.prev_score + ')</span>';
                     }
                     // Entry/exit price suggestions based on current price and ATR
@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.1.1');
+            if (el) el.textContent = 'v' + (d.version || '5.1.2');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2577,7 +2577,7 @@ Netflix年度跌幅達42%，但估值吸引力論文未能阻止拋售。
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.1.1</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.1.2</p>
         </footer>
 
 
