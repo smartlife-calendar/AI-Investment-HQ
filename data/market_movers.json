@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T09:30:18+08:00",
+  "generated_at": "2026-06-23T10:35:42+08:00",
   "gainers": [
     {
       "symbol": "DFTX",
@@ -317,15 +317,7 @@
       "price": 132.55,
       "change_pct": 46.66,
       "volume": 61218507,
-      "vr": 62.8
-    },
-    {
-      "symbol": "TE",
-      "name": "T1 Energy Inc.",
-      "price": 10.4,
-      "change_pct": 11.23,
-      "volume": 45341465,
-      "vr": 1.5
+      "vr": 32.0
     }
   ],
   "strong_sell": [
@@ -335,7 +327,7 @@
       "price": 72.88,
       "change_pct": -5.82,
       "volume": 77787058,
-      "vr": 2.0
+      "vr": 1.9
     },
     {
       "symbol": "GOOGL",
