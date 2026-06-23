@@ -1152,20 +1152,21 @@
             content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + label + '偵測...</p>';
             
             try {
-                // Fetch latest JSON (updated daily by cron)
+                // Use pre-loaded data (instant, no fetch needed)
                 let stocks = null;
-                try {
-                    const r = await fetch('/data/accumulation.json?t=' + Date.now());
-                    if (r.ok) {
-                        const j = await r.json();
-                        stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
-                    }
-                } catch(e) {}
-                // Fallback: embedded data
+                if (window._smartData) {
+                    stocks = direction === 'bullish' ? (window._smartData.stocks || []) : (window._smartData.bearish || []);
+                }
+                
+                // Fallback: try fetching JSON
                 if (!stocks || stocks.length === 0) {
-                    if (window._smartData) {
-                        stocks = direction === 'bullish' ? (window._smartData.stocks || []) : (window._smartData.bearish || []);
-                    }
+                    try {
+                        const r = await fetch('/data/accumulation.json');
+                        if (r.ok) {
+                            const j = await r.json();
+                            stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
+                        }
+                    } catch(e) {}
                 }
                 
                 if (!stocks || stocks.length === 0) {
@@ -1208,21 +1209,7 @@
                     out += '<div>';
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
-                    out += transHtml;
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
-                    var transHtml = '';
-                    if (s.transition) {
-                        var tColor = s.transition.indexOf('空翻多') >= 0 ? '#16a34a' : s.transition.indexOf('多翻空') >= 0 ? '#dc2626' : '#6b7280';
-                        var tBg = s.transition.indexOf('空翻多') >= 0 ? '#dcfce7' : s.transition.indexOf('多翻空') >= 0 ? '#fee2e2' : s.transition.indexOf('🆕') >= 0 ? '#ede9fe' : '#f1f5f9';
-                        transHtml = '<span style="background:' + tBg + ';color:' + tColor + ';font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px">' + s.transition + '</span>';
-                    }
-                    if (s.momentum_change) {
-                        var mColor = s.momentum_change.indexOf('轉強') >= 0 ? '#16a34a' : s.momentum_change.indexOf('轉弱') >= 0 ? '#dc2626' : '#6b7280';
-                        transHtml += '<span style="color:' + mColor + ';font-size:10px;font-weight:600;margin-left:4px">' + s.momentum_change + '</span>';
-                    }
-                    if (s.prev_score != null) {
-                        transHtml += '<span style="color:#94a3b8;font-size:9px;margin-left:4px">(前:' + s.prev_score + ')</span>';
-                    }
                     // Entry/exit price suggestions based on current price and ATR
                     var entryPrice = s.entry_price ? '$' + s.entry_price.toFixed(2) : (s.price ? '$' + s.price.toFixed(2) : '');
                     var stopLoss = s.stop_loss ? '$' + s.stop_loss.toFixed(2) : (s.price ? '$' + (s.price * 0.95).toFixed(2) : '');
@@ -2230,24 +2217,7 @@
         </div>
 
 
-        
-        <!-- Market Status Banner -->
-        <div class="max-w-5xl mx-auto mt-4 px-4">
-            <div id="marketStatusBanner" style="display:none"></div>
-        </div>
-
-        <!-- Daily Briefing -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none">
-            <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white">
-                <div style="text-align:center;padding:20px;color:#818cf8">速報載入中...</div>
-            </div>
-        </div>
-
-        <!-- Daily Column -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none">
-        </div>
-
-<!-- Smart Money Section -->
+        <!-- Smart Money Section -->
         <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
@@ -2655,7 +2625,7 @@
                 }
             } catch(e) {}
         }
-        async function searchSmartSignal() {
+        function searchSmartSignal() {
             var input = document.getElementById('smartSearchInput');
             var resultDiv = document.getElementById('smartSearchResult');
             if (!input || !resultDiv) return;
@@ -2666,15 +2636,8 @@
             resultDiv.style.display = '';
             resultDiv.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">🔍 查詢 ' + ticker + ' 中...</p>';
             
-            // Fetch latest data from JSON
+            // Check if in embedded data
             var data = window._smartData || {};
-            try {
-                var resp = await fetch('/data/accumulation.json?t=' + Date.now());
-                if (resp.ok) {
-                    var jdata = await resp.json();
-                    data = jdata;
-                }
-            } catch(e) {}
             var allStocks = (data.stocks || []).concat(data.bearish || []);
             var found = allStocks.filter(function(s) { return s.symbol === ticker; });
             
@@ -2717,7 +2680,7 @@
                 resultDiv.innerHTML = out;
             } else {
                 // Check if in scan list but just no signal
-                var scanList = (data.scan_list || (window._smartData || {}).scan_list || []);
+                var scanList = (data.scan_list || []);
                 var inList = scanList.indexOf(ticker) >= 0;
                 
                 if (inList) {
