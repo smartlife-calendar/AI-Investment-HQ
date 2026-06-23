@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T09:42:04.704465+08:00",
+  "generated_at": "2026-06-23T09:42:50.671298+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -27,9 +27,9 @@
       "name": "Alamos Gold Inc.",
       "price": 32.04,
       "change_pct": -11.83,
-      "vol_ratio": 4.84,
+      "vol_ratio": 4.6,
       "volume": 16746220,
-      "avg_volume": 3457693
+      "avg_volume": 3638291
     },
     {
       "symbol": "RGC",
