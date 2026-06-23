@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T09:39:48.748682+08:00",
+  "generated_at": "2026-06-23T09:40:35.336658+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -99,9 +99,9 @@
       "name": "Spyre Therapeutics, Inc.",
       "price": 100.32,
       "change_pct": 13.56,
-      "vol_ratio": 2.29,
+      "vol_ratio": 2.23,
       "volume": 2768929,
-      "avg_volume": 1208498
+      "avg_volume": 1241162
     },
     {
       "symbol": "BHVN",
