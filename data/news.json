@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-06-22T15:03:19+08:00",
+  "generated_at": "2026-06-23T09:30:18+08:00",
   "news": [
+    {
+      "title": "Stressing Over Whether Your Index Fund Has SpaceX? Don’t",
+      "url": "https://finance.yahoo.com/m/1e724870-751d-364a-ba31-81acb69649cf/stressing-over-whether-your.html",
+      "publisher": "The Wall Street Journal",
+      "published": 1782120600
+    },
     {
       "title": "Which Total U.S. Stock Market ETF Is Better: Vanguard or iShares?",
       "url": "https://finance.yahoo.com/m/bdbfdae2-3d62-3803-95f2-85189ac6f22a/which-total-u.s.-stock-market.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/00dd11e3-4c6a-3aa1-bfa2-d479a4414d59/is-the-vanguard-total-stock.html",
       "publisher": "Motley Fool",
       "published": 1781091600
-    },
-    {
-      "title": "Best ETFs for Beginners in 2026: 7 Funds to Start Your Portfolio",
-      "url": "https://finance.yahoo.com/m/b07fc938-0712-3adb-b683-f17ff8a7b40e/best-etfs-for-beginners-in.html",
-      "publisher": "etf.com",
-      "published": 1780957904
     }
   ]
 }
