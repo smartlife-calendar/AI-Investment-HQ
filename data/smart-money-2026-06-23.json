@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T09:41:20.298171+08:00",
+  "generated_at": "2026-06-23T09:42:04.704465+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -50,15 +50,6 @@
       "avg_volume": 1550758
     },
     {
-      "symbol": "KEEL",
-      "name": "Keel Infrastructure Corp.",
-      "price": 6.66,
-      "change_pct": 5.88,
-      "vol_ratio": 2.64,
-      "volume": 109008708,
-      "avg_volume": 41269887
-    },
-    {
       "symbol": "ORKA",
       "name": "Oruka Therapeutics, Inc.",
       "price": 85.38,
@@ -75,6 +66,15 @@
       "vol_ratio": 2.56,
       "volume": 2926117,
       "avg_volume": 1144045
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.66,
+      "change_pct": 5.88,
+      "vol_ratio": 2.56,
+      "volume": 109008708,
+      "avg_volume": 42584225
     },
     {
       "symbol": "SMCI",
