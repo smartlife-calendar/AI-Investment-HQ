@@ -1,92 +1,92 @@
 {
   "date": "2026-06-23",
-  "generated_at": "2026-06-23T21:30:31.596833+08:00",
+  "generated_at": "2026-06-23T21:31:14.510796+08:00",
   "sector_count": 11,
   "summary": {
     "inflow_count": 2,
-    "outflow_count": 5,
-    "neutral_count": 4,
-    "top_sector": "必需消費",
+    "outflow_count": 6,
+    "neutral_count": 3,
+    "top_sector": "醫療保健",
     "bottom_sector": "科技"
   },
   "sectors": [
     {
-      "symbol": "XLP",
-      "sector_zh": "必需消費",
-      "sector_en": "Consumer Staples",
-      "price": 83.54,
-      "change_pct": 1.48,
-      "volume": 236697,
-      "avg_volume": 13078961,
-      "vol_ratio": 0.02
-    },
-    {
       "symbol": "XLV",
       "sector_zh": "醫療保健",
       "sector_en": "Healthcare",
-      "price": 151.62,
-      "change_pct": 1.05,
-      "volume": 232959,
+      "price": 151.92,
+      "change_pct": 1.25,
+      "volume": 326291,
       "avg_volume": 10729614,
-      "vol_ratio": 0.02
+      "vol_ratio": 0.03
+    },
+    {
+      "symbol": "XLP",
+      "sector_zh": "必需消費",
+      "sector_en": "Consumer Staples",
+      "price": 83.28,
+      "change_pct": 1.16,
+      "volume": 451349,
+      "avg_volume": 13078961,
+      "vol_ratio": 0.03
     },
     {
       "symbol": "XLRE",
       "sector_zh": "房地產",
       "sector_en": "Real Estate",
-      "price": 44.17,
-      "change_pct": 0.24,
-      "volume": 206015,
+      "price": 44.18,
+      "change_pct": 0.27,
+      "volume": 284330,
       "avg_volume": 5973638,
-      "vol_ratio": 0.03
+      "vol_ratio": 0.05
     },
     {
       "symbol": "XLU",
       "sector_zh": "公用事業",
       "sector_en": "Utilities",
-      "price": 44.74,
-      "change_pct": 0.0,
-      "volume": 279664,
+      "price": 44.69,
+      "change_pct": -0.11,
+      "volume": 435371,
       "avg_volume": 21497414,
-      "vol_ratio": 0.01
-    },
-    {
-      "symbol": "XLF",
-      "sector_zh": "金融",
-      "sector_en": "Financials",
-      "price": 53.66,
-      "change_pct": -0.13,
-      "volume": 338512,
-      "avg_volume": 38787838,
-      "vol_ratio": 0.01
+      "vol_ratio": 0.02
     },
     {
       "symbol": "XLE",
       "sector_zh": "能源",
       "sector_en": "Energy",
-      "price": 53.97,
-      "change_pct": -0.16,
-      "volume": 595621,
+      "price": 53.93,
+      "change_pct": -0.24,
+      "volume": 1161838,
       "avg_volume": 43880984,
-      "vol_ratio": 0.01
+      "vol_ratio": 0.03
+    },
+    {
+      "symbol": "XLF",
+      "sector_zh": "金融",
+      "sector_en": "Financials",
+      "price": 53.54,
+      "change_pct": -0.34,
+      "volume": 930186,
+      "avg_volume": 38787838,
+      "vol_ratio": 0.02
     },
     {
       "symbol": "XLC",
       "sector_zh": "通訊服務",
       "sector_en": "Communication Services",
-      "price": 106.56,
-      "change_pct": -0.6,
-      "volume": 77021,
+      "price": 106.54,
+      "change_pct": -0.62,
+      "volume": 114034,
       "avg_volume": 5819101,
-      "vol_ratio": 0.01
+      "vol_ratio": 0.02
     },
     {
       "symbol": "XLY",
       "sector_zh": "非必需消費",
       "sector_en": "Consumer Discretionary",
-      "price": 113.92,
-      "change_pct": -0.72,
-      "volume": 58029,
+      "price": 113.83,
+      "change_pct": -0.8,
+      "volume": 93030,
       "avg_volume": 8367855,
       "vol_ratio": 0.01
     },
@@ -94,31 +94,31 @@
       "symbol": "XLB",
       "sector_zh": "原物料",
       "sector_en": "Materials",
-      "price": 51.03,
-      "change_pct": -0.95,
-      "volume": 244852,
+      "price": 51.0,
+      "change_pct": -1.01,
+      "volume": 411743,
       "avg_volume": 11980911,
-      "vol_ratio": 0.02
+      "vol_ratio": 0.03
     },
     {
       "symbol": "XLI",
       "sector_zh": "工業",
       "sector_en": "Industrials",
-      "price": 179.0,
-      "change_pct": -1.54,
-      "volume": 101745,
+      "price": 178.89,
+      "change_pct": -1.6,
+      "volume": 180283,
       "avg_volume": 9363652,
-      "vol_ratio": 0.01
+      "vol_ratio": 0.02
     },
     {
       "symbol": "XLK",
       "sector_zh": "科技",
       "sector_en": "Technology",
-      "price": 184.55,
-      "change_pct": -3.75,
-      "volume": 391916,
+      "price": 184.09,
+      "change_pct": -3.99,
+      "volume": 660263,
       "avg_volume": 13232523,
-      "vol_ratio": 0.03
+      "vol_ratio": 0.05
     }
   ]
 }
