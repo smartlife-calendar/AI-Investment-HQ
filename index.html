@@ -1062,7 +1062,7 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','earningsSection','dailyFlowsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','dailyFlowsSection','smartlifeAd','adBanner'],
                 'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
@@ -1746,7 +1746,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.5.0');
+            if (el) el.textContent = 'v' + (d.version || '5.5.1');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2632,7 +2632,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.5.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.5.1</p>
         </footer>
 
 
@@ -2813,7 +2813,7 @@
                 }
             }
         }
-        async function loadDailyFlows() {
+        async async function loadDailyFlows() {
             var el = document.getElementById('dailyFlowsContent');
             if (!el || el.dataset.loaded) return;
             try {
