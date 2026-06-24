@@ -1,25 +1,25 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T23:21:53.005917+08:00",
+  "generated_at": "2026-06-24T23:22:36.514386+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 2,
   "stocks": [
     {
       "symbol": "RUN",
       "name": "Sunrun Inc.",
-      "price": 16.36,
-      "change_pct": 27.67,
-      "vol_ratio": 3.45,
-      "volume": 28810142,
+      "price": 16.34,
+      "change_pct": 27.52,
+      "vol_ratio": 3.46,
+      "volume": 28879784,
       "avg_volume": 8354548
     },
     {
       "symbol": "DFTX",
       "name": "Definium Therapeutics, Inc.",
-      "price": 44.24,
-      "change_pct": 22.28,
-      "vol_ratio": 3.3,
-      "volume": 7596940,
+      "price": 44.25,
+      "change_pct": 22.31,
+      "vol_ratio": 3.31,
+      "volume": 7610507,
       "avg_volume": 2300477
     }
   ]
