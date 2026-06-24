@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.4.0');
+            if (el) el.textContent = 'v' + (d.version || '5.4.1');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2246,7 +2246,7 @@
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
                     <div>
                         <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">💡 金流密碼</h2>
-                        <div id="smartBullBear" style="font-size:12px;margin-top:4px"></div>
+                        
                         <p style="font-size:12px;color:#64748b;margin:4px 0 0">AI 量化偵測主力資金動向 · S&P500 + Nasdaq100 + 題材股</p>
                         <details style="margin-top:8px">
                             <summary style="font-size:12px;color:#4f46e5;cursor:pointer;font-weight:600">📋 評估項目說明 ▾</summary>
@@ -2622,7 +2622,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.1</p>
         </footer>
 
 
@@ -2718,15 +2718,12 @@
                     + '</div>';
                 
                 var banner = document.getElementById('marketStatusBanner');
-                if (banner) {
-                    banner.innerHTML = widget + (banner.innerHTML || '');
+                if (banner && !banner.dataset.loaded) {
+                    banner.innerHTML = widget;
                     banner.style.display = '';
+                    banner.dataset.loaded = '1';
                 }
-                // Also show mini version in smart money section
-                var smartBB = document.getElementById('smartBullBear');
-                if (smartBB) {
-                    smartBB.innerHTML = '<span style="font-size:18px">' + emoji + '</span> <strong style="color:' + color + '">' + regime + '</strong> · VIX ' + vix.toFixed(1) + ' · CNN ' + cnn.toFixed(0) + ' ' + cnnLabel + ' · 綜合 ' + composite.toFixed(0) + '/100';
-                }
+
             } catch(e) {}
         }
         function searchSmartSignal() {
