@@ -225,7 +225,12 @@
             <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
             <button onclick="showTab('learn')" id="tab-learn" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</button>
             <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
-        </div>
+        
+    <!-- Bull/Bear Indicator (always visible, above all content) -->
+    <div class="max-w-5xl mx-auto mt-4 px-4">
+        <div id="marketStatusBanner"></div>
+    </div>
+</div>
     </div>
 
 
@@ -1074,7 +1079,7 @@
             if (tabName === 'today') { 
                 setTimeout(() => { 
                     loadEarningsCalendar(); loadDailyFlows();
-                    loadBullBearIndicator(); 
+                    // bull/bear loads globally 
                     loadDailyReport();
                     checkMarketStatus();
                 }, 300); 
@@ -1726,13 +1731,14 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.4.1');
+            if (el) el.textContent = 'v' + (d.version || '5.4.2');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
             if (typeof loadMarketTicker === 'function') loadMarketTicker();
             if (typeof renderWatchList === 'function') renderWatchList();
             if (typeof showTab === 'function') showTab('today');
+            if (typeof loadBullBearIndicator === 'function') loadBullBearIndicator();
         }, 100);
 
         (async () => {
@@ -2450,34 +2456,33 @@
         <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
               <div style="font-size:18px;font-weight:800;color:#1f2937">⚡ 今日事件快速分析</div>
-              <span style="color:#9ca3af;font-size:12px">2026/06/24 10:27</span>
+              <span style="color:#9ca3af;font-size:12px">2026/06/24 11:00</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
               <div style="background:white;border-left:4px solid #10b981;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
   <div style="font-size:15px;font-weight:700;color:#059669;margin-bottom:14px">📈 MAAS +19.0%（量比3.1x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">MAAS在量能大幅推升（量比3.1x）的情況下勁揚19.0%，顯示機構投資者積極進場布局</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 成交量比放大3.1倍，表明大額資金湧入該股，超越平均日均成交量水準，引發技術面突破</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 股價來到$21.24區間，若公司近期宣布有利消息（如併購、新合約或盈利指引上修），將激發追漲買盤</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 市場風險偏好回升，小型股MAAS作為高波動性標的，容易在資金寬鬆環境下獲得資金追捧</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ LASR（Laser Photonics）：若MAAS所屬製造/工業設備領域景氣升溫，同類中小型科技股將同步受惠</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ ASPN（Aspen Aerogels）：輕量化材料與先進製造概念股，與MAAS相近的成長型投資主題</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ RAIL（Ormat Technologies）：清潔能源和基礎設施領域機會增加，資金配置傾斜至成長股</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ TLT（Tilt Holdings）：資金從低波動防禦性股票轉向高報酬成長股，防禦股相對失寵</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ UUP（美元指數ETF）：成長股上漲通常伴隨風險資產升溫，美元往往走弱</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">MAAS高量價齊漲顯示熱錢進場，但需警惕這類小型股波動率高，建議設定停損點避免追高風險</span></div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">MAAS因企業數位轉型需求升溫及季度業績超預期而大幅上漲</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 量比3.1倍創近期新高，顯示機構資金積極布局，暗示有重大利好消息驅動</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 漲幅19.0%超越大盤，可能受惠於雲端運算及AI相關應用需求增加</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 成交量激增配合股價上揚，表現出強勁的技術面突破訊號</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ CRWD：同為軟體資安類股，受惠於企業數位轉型加速帶動資安投資需求</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ SNOW：雲端資料平台受惠於AI及大數據應用爆發，與MAAS產業生態互補</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ NFLX：串流科技升級需要更強大的基礎架構支持，利好相關服務商</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ IBM：傳統IT服務商面臨新興雲端廠商競爭壓力加大</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ ORCL：甲骨文雲端轉型進度若跟不上，市場份額可能被新興玩家蠶食</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ ACN：埃森哲若未能快速適應新技術浪潮，顧問服務需求可能下滑</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">MAAS強勢突破需注意高位追高風險，建議在技術面確認支撐後才進場</span></div>
 </div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
   <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:14px">📉 PRIM -21.6%（量比5.4x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">PRIM因成交量暴增5.4倍而重挫21.6%，提示出現重大負面消息或機構大幅減持</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 成交量比飆升至5.4倍創近期新高，大幅拋售量體表明主力資金或機構投資者集體出逃該股</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. Primoris Services主要從事工程與建設服務，若近期公告重大合約流失、成本超支或降低盈利指引，將引發股價崩跌</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 建築與工程承包商對利率敏感，若聯準會升息預期升溫或美債收益率飆升，此類公司估值將受壓迫</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ IYR（Ishares美國房地產ETF）：若建築成本上升推高房價，房地產投資信託可能受惠於資產重估</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ UUP（美元指數ETF）：避險資金湧入美元，導致高風險建築股遭拋售</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ KBH（KB Home）：家建商與工程服務商息息相關，若PRIM虧損擴大，家建成本與工期延誤將蔓延</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ XHB（Spdr房屋建築ETF）：建築類股集體承壓，整個建築供應鏈面臨獲利衰退壓力</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ WM（Waste Management）：若建設活動放緩，廢棄物處理需求下降</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">PRIM巨幅跌幅與爆量出逃顯示基本面惡化，建議不要逢低搶進，應等待企業釐清負面因素後才考慮介入</span></div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">PRIM因工程承包項目延誤及成本超支導致財測下調而重挫</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 跌幅21.6%搭配量比5.4倍，反映市場恐慌性拋售及機構止損</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 建築工程類股近期面臨原料成本高漲及勞動力短缺困境，毛利率承壓</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 可能發佈負面財報或下調全年指引，摧毀投資人信心</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ 低成本工程承包商受惠於PRIM喪失的市場份額，競爭環境改善</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ 工程軟體公司如ACHR因客戶尋求成本控制解決方案而受惠</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ MAS：馬斯克相關建築承包部門若與PRIM有競爭關係，產業信心下降</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ XYL：水利工程設備廠商若依賴建築承包商銷售，需求可能同步走弱</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ BWA：汽車供應鏈工程類服務若景氣轉向，相關訂單能見度下降</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">PRIM大跌反映建築工程業景氣惡化訊號，產業類股應提高警覺並評估持股風險</span></div>
 </div>
             </div>
             <p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 本分析僅供參考，不構成投資建議｜AI輔助生成｜stockiq.tw</p>
           </div></div>
 
         <!-- Daily Briefing: 2026/06/24 10:03 -->
-                <div class="max-w-5xl mx-auto mt-4 px-4"><div id="marketStatusBanner" style="display:none"></div></div>
-<div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
     <h2 style="font-size:20px;font-weight:800;margin:0">📰 🌅 早報 市場速報</h2>
-    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/24 10:26 （週三）</span>
+    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/24 10:59 （週三）</span>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
     <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px">
@@ -2622,7 +2627,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.1</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.2</p>
         </footer>
 
 
@@ -2720,7 +2725,7 @@
                 var banner = document.getElementById('marketStatusBanner');
                 if (banner && !banner.dataset.loaded) {
                     banner.innerHTML = widget;
-                    banner.style.display = '';
+                    // always visible
                     banner.dataset.loaded = '1';
                 }
 
