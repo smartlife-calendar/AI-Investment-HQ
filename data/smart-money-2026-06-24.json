@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T22:07:47.727106+08:00",
+  "generated_at": "2026-06-24T22:08:30.156355+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 2,
   "stocks": [
@@ -16,10 +16,10 @@
     {
       "symbol": "RUN",
       "name": "Sunrun Inc.",
-      "price": 15.97,
-      "change_pct": 24.71,
-      "vol_ratio": 2.35,
-      "volume": 19646087,
+      "price": 15.95,
+      "change_pct": 24.51,
+      "vol_ratio": 2.36,
+      "volume": 19698282,
       "avg_volume": 8354548
     }
   ]
