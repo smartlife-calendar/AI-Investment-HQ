@@ -1093,8 +1093,8 @@
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
-                    // earnings loads globally loadDailyFlows();
-                    // bull/bear loads globally 
+                    loadDailyFlows(); // daily sector flows
+                    // checkMarketStatus handled separately 
                     loadDailyReport();
                     checkMarketStatus();
                 }, 300); 
@@ -1746,7 +1746,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.5.4');
+            if (el) el.textContent = 'v' + (d.version || '5.5.5');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2774,7 +2774,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.5.4</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.5.5</p>
         </footer>
 
 
