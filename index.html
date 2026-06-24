@@ -225,7 +225,12 @@
             <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
             <button onclick="showTab('learn')" id="tab-learn" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</button>
             <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
-        </div>
+        
+    <!-- Bull/Bear Indicator (always visible, above all content) -->
+    <div class="max-w-5xl mx-auto mt-4 px-4">
+        <div id="marketStatusBanner"></div>
+    </div>
+</div>
     </div>
 
 
@@ -1074,7 +1079,7 @@
             if (tabName === 'today') { 
                 setTimeout(() => { 
                     loadEarningsCalendar(); loadDailyFlows();
-                    loadBullBearIndicator(); 
+                    // bull/bear loads globally 
                     loadDailyReport();
                     checkMarketStatus();
                 }, 300); 
@@ -1726,13 +1731,14 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.4.1');
+            if (el) el.textContent = 'v' + (d.version || '5.4.2');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
             if (typeof loadMarketTicker === 'function') loadMarketTicker();
             if (typeof renderWatchList === 'function') renderWatchList();
             if (typeof showTab === 'function') showTab('today');
+            if (typeof loadBullBearIndicator === 'function') loadBullBearIndicator();
         }, 100);
 
         (async () => {
@@ -2473,8 +2479,7 @@
           </div></div>
 
         <!-- Daily Briefing: 2026/06/24 10:03 -->
-                <div class="max-w-5xl mx-auto mt-4 px-4"><div id="marketStatusBanner" style="display:none"></div></div>
-<div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
     <h2 style="font-size:20px;font-weight:800;margin:0">📰 🌅 早報 市場速報</h2>
     <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/24 10:59 （週三）</span>
@@ -2622,7 +2627,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.1</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.2</p>
         </footer>
 
 
@@ -2720,7 +2725,7 @@
                 var banner = document.getElementById('marketStatusBanner');
                 if (banner && !banner.dataset.loaded) {
                     banner.innerHTML = widget;
-                    banner.style.display = '';
+                    // always visible
                     banner.dataset.loaded = '1';
                 }
 
