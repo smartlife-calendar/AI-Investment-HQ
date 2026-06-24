@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T09:09:20.082764+08:00",
+  "generated_at": "2026-06-24T09:40:04.006031+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 9,
   "stocks": [
@@ -56,7 +56,7 @@
       "change_pct": 7.54,
       "vol_ratio": 2.83,
       "volume": 6212949,
-      "avg_volume": 2195414
+      "avg_volume": 2193877
     },
     {
       "symbol": "ENLT",
