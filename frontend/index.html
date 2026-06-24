@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.3.0');
+            if (el) el.textContent = 'v' + (d.version || '5.3.1');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2447,41 +2447,79 @@
         
         
         <!-- Daily Column: 2026/06/24 10:03 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/06/24 10:03</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 INFQ +12.3%（量比2.9x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股事件分析
-
-## 📈 INFQ +12.3%（強力買進）
-
-**（1）觸發事件**
-川普簽署行政命令支持量子計算產業，激發市場對該領域的樂觀預期。
-
-**（2）主要原因**
-- 政策支持：政府資金傾斜量子計算研發，Infleqtion作為該領域領先企業獲得直接利好。
-- 社群熱度：社交媒體廣泛討論其10倍增長潛力，散戶追捧推高買盤動能。
-- 技術前景：量子計算商業化加速，Infleqtion核心技術被看好，估值上調預期。
-
-**（3）受惠個股**
-- **QCOM（高通）**：量子芯片供應商，將受惠政策紅利
-- **IBM**：量子計算平臺提供者，行業整體升溫帶動上漲
-
-**（4）受害個股**
-無明顯受害股（量子概念為增量市場）
-
-**（5）結論**
-政策驅動+社群助攻，INFQ成為量子計算風口最大受益者。
-
----
-
-## 📉</div></div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#dc2626;margin-bottom:8px;font-size:14px">📉 PRIM -21.6%（量比?x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line">PRIM -21.6%（強力賣出）
-
-**（1）觸發事件**
-基礎設施公司因成本超支及高管離職，信心崩潰觸發恐慌性拋售。
-
-**（2）主要原因**
-- 財務惡化：成本控制失利導致利潤下滑，業績指引下調引發大幅賣壓。
-- 管理風險：核心高管離職暗示內部問題，投資者擔憂經</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+              <div style="font-size:18px;font-weight:800;color:#1f2937">⚡ 今日事件快速分析</div>
+              <span style="color:#9ca3af;font-size:12px">2026/06/24 10:27</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+              <div style="background:white;border-left:4px solid #10b981;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
+  <div style="font-size:15px;font-weight:700;color:#059669;margin-bottom:14px">📈 MAAS +19.0%（量比3.1x）</div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">MAAS在量能大幅推升（量比3.1x）的情況下勁揚19.0%，顯示機構投資者積極進場布局</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 成交量比放大3.1倍，表明大額資金湧入該股，超越平均日均成交量水準，引發技術面突破</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 股價來到$21.24區間，若公司近期宣布有利消息（如併購、新合約或盈利指引上修），將激發追漲買盤</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 市場風險偏好回升，小型股MAAS作為高波動性標的，容易在資金寬鬆環境下獲得資金追捧</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ LASR（Laser Photonics）：若MAAS所屬製造/工業設備領域景氣升溫，同類中小型科技股將同步受惠</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ ASPN（Aspen Aerogels）：輕量化材料與先進製造概念股，與MAAS相近的成長型投資主題</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ RAIL（Ormat Technologies）：清潔能源和基礎設施領域機會增加，資金配置傾斜至成長股</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ TLT（Tilt Holdings）：資金從低波動防禦性股票轉向高報酬成長股，防禦股相對失寵</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ UUP（美元指數ETF）：成長股上漲通常伴隨風險資產升溫，美元往往走弱</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">MAAS高量價齊漲顯示熱錢進場，但需警惕這類小型股波動率高，建議設定停損點避免追高風險</span></div>
+</div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
+  <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:14px">📉 PRIM -21.6%（量比5.4x）</div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">PRIM因成交量暴增5.4倍而重挫21.6%，提示出現重大負面消息或機構大幅減持</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 成交量比飆升至5.4倍創近期新高，大幅拋售量體表明主力資金或機構投資者集體出逃該股</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. Primoris Services主要從事工程與建設服務，若近期公告重大合約流失、成本超支或降低盈利指引，將引發股價崩跌</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 建築與工程承包商對利率敏感，若聯準會升息預期升溫或美債收益率飆升，此類公司估值將受壓迫</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ IYR（Ishares美國房地產ETF）：若建築成本上升推高房價，房地產投資信託可能受惠於資產重估</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ UUP（美元指數ETF）：避險資金湧入美元，導致高風險建築股遭拋售</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ KBH（KB Home）：家建商與工程服務商息息相關，若PRIM虧損擴大，家建成本與工期延誤將蔓延</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ XHB（Spdr房屋建築ETF）：建築類股集體承壓，整個建築供應鏈面臨獲利衰退壓力</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ WM（Waste Management）：若建設活動放緩，廢棄物處理需求下降</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">PRIM巨幅跌幅與爆量出逃顯示基本面惡化，建議不要逢低搶進，應等待企業釐清負面因素後才考慮介入</span></div>
+</div>
+            </div>
+            <p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 本分析僅供參考，不構成投資建議｜AI輔助生成｜stockiq.tw</p>
+          </div></div>
 
         <!-- Daily Briefing: 2026/06/24 10:03 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div id="marketStatusBanner" style="display:none"></div><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/24 10:03</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><div onclick="document.getElementById('tickerInput').value='INFQ';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INFQ</span><span style="color:#4ade80">+12.3%<span style="color:#f97316;font-size:10px"> 2.9x</span></span></div></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><p style='color:#818cf8;font-size:11px;margin:0'>今日無強力賣出訊號</p></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='MAAS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MAAS</span><span style="color:#4ade80">+19.0%</span></div><div onclick="document.getElementById('tickerInput').value='QNT';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QNT</span><span style="color:#4ade80">+13.5%</span></div><div onclick="document.getElementById('tickerInput').value='INFQ';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">INFQ</span><span style="color:#4ade80">+12.3%</span></div><div onclick="document.getElementById('tickerInput').value='QURE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">QURE</span><span style="color:#4ade80">+10.5%</span></div><div onclick="document.getElementById('tickerInput').value='VKTX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">VKTX</span><span style="color:#4ade80">+7.5%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='PRIM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">PRIM</span><span style="color:#f87171">-21.6%</span></div><div onclick="document.getElementById('tickerInput').value='FLNC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">FLNC</span><span style="color:#f87171">-15.8%</span></div><div onclick="document.getElementById('tickerInput').value='AXTI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AXTI</span><span style="color:#f87171">-15.7%</span></div><div onclick="document.getElementById('tickerInput').value='AAOI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAOI</span><span style="color:#f87171">-13.9%</span></div><div onclick="document.getElementById('tickerInput').value='SNDK';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SNDK</span><span style="color:#f87171">-13.6%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+                <div class="max-w-5xl mx-auto mt-4 px-4"><div id="marketStatusBanner" style="display:none"></div></div>
+<div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <h2 style="font-size:20px;font-weight:800;margin:0">📰 🌅 早報 市場速報</h2>
+    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/06/24 10:26 （週三）</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+    <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px">
+      <div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div>
+      <div onclick="document.getElementById('tickerInput').value='MAAS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">MAAS</span> <span style="color:#94a3b8;font-size:12px">$21.24 (+19.0%) ｜ 量比3.1x</span></div>
+<div onclick="document.getElementById('tickerInput').value='INFQ';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">INFQ</span> <span style="color:#94a3b8;font-size:12px">$15.96 (+12.3%) ｜ 量比2.9x</span></div>
+<div onclick="document.getElementById('tickerInput').value='QURE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">QURE</span> <span style="color:#94a3b8;font-size:12px">$49.04 (+10.5%) ｜ 量比1.6x</span></div>
+<div onclick="document.getElementById('tickerInput').value='VKTX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">VKTX</span> <span style="color:#94a3b8;font-size:12px">$34.81 (+7.5%) ｜ 量比2.8x</span></div>
+<div onclick="document.getElementById('tickerInput').value='VRNS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">VRNS</span> <span style="color:#94a3b8;font-size:12px">$35.03 (+7.1%) ｜ 量比4.3x</span></div>
+    </div>
+    <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div>
+      <div onclick="document.getElementById('tickerInput').value='PRIM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">PRIM</span> <span style="color:#94a3b8;font-size:12px">$84.95 (-21.6%) ｜ 量比5.4x</span></div>
+<div onclick="document.getElementById('tickerInput').value='VRT';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">VRT</span> <span style="color:#94a3b8;font-size:12px">$318.32 (-11.1%) ｜ 量比1.8x</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='MAAS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">MAAS</span> <span style="color:#94a3b8;font-size:12px">$21.24 (+19.0%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='QNT';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">QNT</span> <span style="color:#94a3b8;font-size:12px">$77.46 (+13.5%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='INFQ';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">INFQ</span> <span style="color:#94a3b8;font-size:12px">$15.96 (+12.3%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='QURE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">QURE</span> <span style="color:#94a3b8;font-size:12px">$49.04 (+10.5%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='VKTX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">VKTX</span> <span style="color:#94a3b8;font-size:12px">$34.81 (+7.5%)</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='PRIM';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">PRIM</span> <span style="color:#94a3b8;font-size:12px">$84.95 (-21.6%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='FLNC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">FLNC</span> <span style="color:#94a3b8;font-size:12px">$21.21 (-15.8%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='AXTI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AXTI</span> <span style="color:#94a3b8;font-size:12px">$77.91 (-15.7%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='AAOI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AAOI</span> <span style="color:#94a3b8;font-size:12px">$147.44 (-13.9%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='SNDK';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SNDK</span> <span style="color:#94a3b8;font-size:12px">$1963.60 (-13.6%)</span></div>
+    </div>
+    <div style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);border-radius:10px;padding:14px">
+      <div style="color:#fdba74;font-weight:700;margin-bottom:10px;font-size:13px">🔥 熱搜話題股</div>
+      <div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AAL</span> <span style="color:#94a3b8;font-size:12px">$16.14 (+0.4%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='SPCX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SPCX</span> <span style="color:#94a3b8;font-size:12px">$156.11 (+1.0%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">INTC</span> <span style="color:#94a3b8;font-size:12px">$132.28 (-6.1%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='NVDA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NVDA</span> <span style="color:#94a3b8;font-size:12px">$200.04 (-4.1%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='SOFI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SOFI</span> <span style="color:#94a3b8;font-size:12px">$17.29 (+1.1%)</span></div>
+    </div>
+  </div>
+  <p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance 數據 ｜ 量比=今日量÷近3月均量 ｜ 點代號直接分析 ｜ stockiq.tw 每日更新</p>
+</div></div>
 
         <!-- Indicator Reference Glossary -->
         <div id="glossarySection" style="max-width:960px;margin:24px auto;padding:0 20px">
@@ -2584,7 +2622,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.3.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.3.1</p>
         </footer>
 
 
