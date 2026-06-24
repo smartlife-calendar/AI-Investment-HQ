@@ -233,6 +233,19 @@
 </div>
     </div>
 
+<div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection">
+            <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <div>
+                        <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0">📅 近期重大財報日曆</h3>
+                        <p style="font-size:12px;color:#94a3b8;margin:2px 0 0">財報前後股價波動最大，提早準備</p>
+                    </div>
+                    <button onclick="loadEarningsCalendar()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px">載入</button>
+                </div>
+                <div id="earningsCalContent"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:8px">點擊「載入」查看近期財報</p></div>
+            </div>
+        </div>
+
 
 
     <!-- SEO Content Block - Visible to search crawlers -->
@@ -1049,7 +1062,7 @@
         function showTab(tabName) {
             const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','earningsSection','dailyFlowsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection'];
             const showIds = {
-                'today': ['topBriefing','dailyColumn','dailyFlowsSection','earningsSection','smartlifeAd','adBanner'],
+                'today': ['topBriefing','dailyColumn','dailyFlowsSection','smartlifeAd','adBanner'],
                 'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
@@ -1078,7 +1091,7 @@
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
-                    loadEarningsCalendar(); loadDailyFlows();
+                    // earnings loads globally loadDailyFlows();
                     // bull/bear loads globally 
                     loadDailyReport();
                     checkMarketStatus();
@@ -1731,7 +1744,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.4.2');
+            if (el) el.textContent = 'v' + (d.version || '5.4.3');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -1739,6 +1752,7 @@
             if (typeof renderWatchList === 'function') renderWatchList();
             if (typeof showTab === 'function') showTab('today');
             if (typeof loadBullBearIndicator === 'function') loadBullBearIndicator();
+            if (typeof loadEarningsCalendar === 'function') loadEarningsCalendar();
         }, 100);
 
         (async () => {
@@ -2206,18 +2220,7 @@
             </div>
         </div>
 
-<div class="max-w-5xl mx-auto mt-4 px-4" id="earningsSection" style="display:none;order:3">
-            <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-                    <div>
-                        <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0">📅 近期重大財報日曆</h3>
-                        <p style="font-size:12px;color:#94a3b8;margin:2px 0 0">財報前後股價波動最大，提早準備</p>
-                    </div>
-                    <button onclick="loadEarningsCalendar()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px">載入</button>
-                </div>
-                <div id="earningsCalContent"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:8px">點擊「載入」查看近期財報</p></div>
-            </div>
-        </div>
+
 
         <!-- SmartLife Calendar App Ad -->
         <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
@@ -2627,7 +2630,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.2</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.3</p>
         </footer>
 
 
