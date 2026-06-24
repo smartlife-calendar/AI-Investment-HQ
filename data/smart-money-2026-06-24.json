@@ -1,34 +1,34 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T22:44:22.700403+08:00",
+  "generated_at": "2026-06-24T22:45:09.223854+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
       "symbol": "RUN",
       "name": "Sunrun Inc.",
-      "price": 15.7,
-      "change_pct": 22.52,
-      "vol_ratio": 2.9,
-      "volume": 24207113,
+      "price": 15.82,
+      "change_pct": 23.5,
+      "vol_ratio": 2.91,
+      "volume": 24275294,
       "avg_volume": 8354548
     },
     {
       "symbol": "DFTX",
       "name": "Definium Therapeutics, Inc.",
-      "price": 44.0,
-      "change_pct": 21.61,
-      "vol_ratio": 2.77,
-      "volume": 6378695,
+      "price": 44.01,
+      "change_pct": 21.63,
+      "vol_ratio": 2.79,
+      "volume": 6411820,
       "avg_volume": 2300477
     },
     {
       "symbol": "ABVX",
       "name": "Abivax SA",
-      "price": 88.25,
-      "change_pct": -10.34,
+      "price": 88.84,
+      "change_pct": -9.74,
       "vol_ratio": 2.2,
-      "volume": 3607968,
+      "volume": 3613699,
       "avg_volume": 1641111
     }
   ]
