@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T11:32:57.307002+08:00",
+  "generated_at": "2026-06-24T13:19:57.410718+08:00",
   "sector_count": 11,
   "summary": {
     "inflow_count": 5,
@@ -16,9 +16,9 @@
       "sector_en": "Consumer Staples",
       "price": 83.72,
       "change_pct": 1.69,
-      "volume": 14770822,
-      "avg_volume": 13079080,
-      "vol_ratio": 1.13
+      "volume": 14961300,
+      "avg_volume": 12982793,
+      "vol_ratio": 1.15
     },
     {
       "symbol": "XLV",
@@ -26,9 +26,9 @@
       "sector_en": "Healthcare",
       "price": 152.18,
       "change_pct": 1.43,
-      "volume": 9209402,
-      "avg_volume": 10729698,
-      "vol_ratio": 0.86
+      "volume": 9477800,
+      "avg_volume": 10533863,
+      "vol_ratio": 0.9
     },
     {
       "symbol": "XLRE",
@@ -36,9 +36,9 @@
       "sector_en": "Real Estate",
       "price": 44.64,
       "change_pct": 1.32,
-      "volume": 4056356,
-      "avg_volume": 5973638,
-      "vol_ratio": 0.68
+      "volume": 4137600,
+      "avg_volume": 5796222,
+      "vol_ratio": 0.71
     },
     {
       "symbol": "XLE",
@@ -46,9 +46,9 @@
       "sector_en": "Energy",
       "price": 54.46,
       "change_pct": 0.74,
-      "volume": 34504993,
-      "avg_volume": 43881139,
-      "vol_ratio": 0.79
+      "volume": 38687200,
+      "avg_volume": 43367806,
+      "vol_ratio": 0.89
     },
     {
       "symbol": "XLU",
@@ -56,9 +56,9 @@
       "sector_en": "Utilities",
       "price": 45.07,
       "change_pct": 0.74,
-      "volume": 19563679,
-      "avg_volume": 21497458,
-      "vol_ratio": 0.91
+      "volume": 22293800,
+      "avg_volume": 21350149,
+      "vol_ratio": 1.04
     },
     {
       "symbol": "XLF",
@@ -66,9 +66,9 @@
       "sector_en": "Financials",
       "price": 53.88,
       "change_pct": 0.28,
-      "volume": 31106411,
-      "avg_volume": 38788153,
-      "vol_ratio": 0.8
+      "volume": 33361200,
+      "avg_volume": 38031271,
+      "vol_ratio": 0.88
     },
     {
       "symbol": "XLC",
@@ -76,9 +76,9 @@
       "sector_en": "Communication Services",
       "price": 107.27,
       "change_pct": 0.07,
-      "volume": 7653531,
-      "avg_volume": 5819138,
-      "vol_ratio": 1.32
+      "volume": 7946800,
+      "avg_volume": 5809441,
+      "vol_ratio": 1.37
     },
     {
       "symbol": "XLY",
@@ -86,9 +86,9 @@
       "sector_en": "Consumer Discretionary",
       "price": 113.76,
       "change_pct": -0.86,
-      "volume": 9173180,
-      "avg_volume": 8367898,
-      "vol_ratio": 1.1
+      "volume": 9196000,
+      "avg_volume": 8279277,
+      "vol_ratio": 1.11
     },
     {
       "symbol": "XLB",
@@ -96,9 +96,9 @@
       "sector_en": "Materials",
       "price": 50.87,
       "change_pct": -1.26,
-      "volume": 10248904,
-      "avg_volume": 11980911,
-      "vol_ratio": 0.86
+      "volume": 10273400,
+      "avg_volume": 11839092,
+      "vol_ratio": 0.87
     },
     {
       "symbol": "XLI",
@@ -106,9 +106,9 @@
       "sector_en": "Industrials",
       "price": 178.15,
       "change_pct": -2.01,
-      "volume": 8561397,
-      "avg_volume": 9363660,
-      "vol_ratio": 0.91
+      "volume": 8927400,
+      "avg_volume": 9211580,
+      "vol_ratio": 0.97
     },
     {
       "symbol": "XLK",
@@ -116,9 +116,9 @@
       "sector_en": "Technology",
       "price": 184.19,
       "change_pct": -3.94,
-      "volume": 14610560,
-      "avg_volume": 13232712,
-      "vol_ratio": 1.1
+      "volume": 14621300,
+      "avg_volume": 13118471,
+      "vol_ratio": 1.11
     }
   ]
 }
