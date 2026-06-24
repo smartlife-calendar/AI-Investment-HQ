@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T09:54:49.352634+08:00",
+  "generated_at": "2026-06-24T10:25:40.866434+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 9,
   "stocks": [
@@ -29,7 +29,7 @@
       "change_pct": 7.09,
       "vol_ratio": 4.33,
       "volume": 9654419,
-      "avg_volume": 2230146
+      "avg_volume": 2230783
     },
     {
       "symbol": "MAAS",
