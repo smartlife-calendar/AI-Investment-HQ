@@ -1079,7 +1079,7 @@
                     checkMarketStatus();
                 }, 300); 
             }
-            if (tabName === 'smart') { loadSmartMoney(); loadBullBearIndicator(); }
+            if (tabName === 'smart') { loadSmartMoney(); }
             if (tabName === 'news') loadNewsSection();
             if (tabName === 'daily_archive') loadDailyArchive();
         }
@@ -1726,7 +1726,7 @@
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.3.1');
+            if (el) el.textContent = 'v' + (d.version || '5.4.0');
         }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
@@ -2622,7 +2622,7 @@
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.3.1</p>
+            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.4.0</p>
         </footer>
 
 
@@ -2816,19 +2816,30 @@
                 var sectors = data.sectors || [];
                 if (!sectors.length) { el.innerHTML = '<p style="color:#94a3b8;text-align:center">暫無數據</p>'; return; }
                 
-                var out = '<table style="width:100%;border-collapse:collapse;font-size:13px">';
-                out += '<tr style="background:#f8fafc"><th style="padding:6px 10px;text-align:left">板塊</th><th>ETF</th><th>流向</th><th style="text-align:right">今日漲跌</th><th>幅度</th></tr>';
+                var netFlow = data.net_flow_b || 0;
+                var netColor = netFlow > 0 ? '#16a34a' : '#dc2626';
+                var netLabel = netFlow > 0 ? '淨流入' : '淨流出';
+                
+                var out = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:8px 12px;background:' + (netFlow > 0 ? '#f0fdf4' : '#fef2f2') + ';border-radius:8px">';
+                out += '<span style="font-size:13px;color:#64748b">今日市場整體</span>';
+                out += '<span style="font-size:16px;font-weight:800;color:' + netColor + '">' + netLabel + ' $' + Math.abs(netFlow).toFixed(1) + 'B</span>';
+                out += '</div>';
+                
+                out += '<table style="width:100%;border-collapse:collapse;font-size:12px">';
+                out += '<tr style="background:#f8fafc"><th style="padding:5px 8px;text-align:left">板塊</th><th>ETF</th><th>流向</th><th style="text-align:right">今日</th><th style="text-align:right">資金流</th><th>幅度</th></tr>';
                 sectors.forEach(function(s) {
                     var chg = s.daily_chg || 0;
+                    var dollar = s.dollar_flow_b || 0;
                     var color = chg > 0 ? '#16a34a' : chg < 0 ? '#dc2626' : '#6b7280';
                     var barW = Math.min(Math.abs(chg) * 15, 80);
                     var barC = chg > 0 ? '#22c55e' : '#ef4444';
                     out += '<tr style="border-bottom:1px solid #f1f5f9">';
-                    out += '<td style="padding:6px 10px;font-weight:600">' + s.name + '</td>';
-                    out += '<td style="padding:6px 10px;text-align:center;color:#64748b;font-size:11px">' + s.etf + '</td>';
-                    out += '<td style="padding:6px 10px;text-align:center">' + (s.flow || '') + '</td>';
-                    out += '<td style="padding:6px 10px;text-align:right;font-weight:700;color:' + color + '">' + (chg > 0 ? '+' : '') + chg.toFixed(2) + '%</td>';
-                    out += '<td style="padding:6px 10px"><div style="background:#e5e7eb;border-radius:3px;height:8px;width:80px;display:inline-block;vertical-align:middle"><div style="background:' + barC + ';height:8px;width:' + barW + 'px;border-radius:3px"></div></div></td>';
+                    out += '<td style="padding:5px 8px;font-weight:600">' + s.name + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:center;color:#64748b;font-size:11px">' + s.etf + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:center">' + (s.flow || '') + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:right;font-weight:700;color:' + color + '">' + (chg > 0 ? '+' : '') + chg.toFixed(2) + '%</td>';
+                    out += '<td style="padding:5px 8px;text-align:right;color:' + color + ';font-size:11px">' + (dollar > 0 ? '+' : '') + dollar.toFixed(1) + 'B</td>';
+                    out += '<td style="padding:5px 8px"><div style="background:#e5e7eb;border-radius:3px;height:8px;width:80px;display:inline-block;vertical-align:middle"><div style="background:' + barC + ';height:8px;width:' + barW + 'px;border-radius:3px"></div></div></td>';
                     out += '</tr>';
                 });
                 out += '</table>';
