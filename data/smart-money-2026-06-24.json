@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T09:42:17.846818+08:00",
+  "generated_at": "2026-06-24T09:54:49.352634+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 9,
   "stocks": [
@@ -9,18 +9,18 @@
       "name": "Ligand Pharmaceuticals Incorpor",
       "price": 279.44,
       "change_pct": 6.59,
-      "vol_ratio": 9.8,
+      "vol_ratio": 9.78,
       "volume": 2298168,
-      "avg_volume": 234612
+      "avg_volume": 234939
     },
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
       "price": 84.95,
       "change_pct": -21.59,
-      "vol_ratio": 5.5,
+      "vol_ratio": 5.44,
       "volume": 9595504,
-      "avg_volume": 1745875
+      "avg_volume": 1764462
     },
     {
       "symbol": "VRNS",
@@ -36,18 +36,18 @@
       "name": "Maase Inc.",
       "price": 21.24,
       "change_pct": 18.99,
-      "vol_ratio": 3.15,
+      "vol_ratio": 3.1,
       "volume": 680370,
-      "avg_volume": 215941
+      "avg_volume": 219481
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
       "price": 15.96,
       "change_pct": 12.32,
-      "vol_ratio": 2.94,
+      "vol_ratio": 2.9,
       "volume": 42255890,
-      "avg_volume": 14362845
+      "avg_volume": 14586788
     },
     {
       "symbol": "VKTX",
@@ -65,7 +65,7 @@
       "change_pct": 5.96,
       "vol_ratio": 2.41,
       "volume": 480318,
-      "avg_volume": 198941
+      "avg_volume": 199414
     },
     {
       "symbol": "PFE",
@@ -74,16 +74,16 @@
       "change_pct": -1.44,
       "vol_ratio": 2.24,
       "volume": 81943195,
-      "avg_volume": 36596887
+      "avg_volume": 36617073
     },
     {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
       "price": 16.14,
       "change_pct": 0.37,
-      "vol_ratio": 2.23,
+      "vol_ratio": 2.22,
       "volume": 166082368,
-      "avg_volume": 74598640
+      "avg_volume": 74906691
     }
   ]
 }
