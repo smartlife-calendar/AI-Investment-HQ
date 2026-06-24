@@ -1,6 +1,6 @@
 {
   "date": "2026-06-24",
-  "generated_at": "2026-06-24T13:19:43.910930+08:00",
+  "generated_at": "2026-06-24T20:50:30.982767+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 9,
   "stocks": [
@@ -9,81 +9,81 @@
       "name": "Ligand Pharmaceuticals Incorpor",
       "price": 279.44,
       "change_pct": 6.59,
-      "vol_ratio": 9.78,
+      "vol_ratio": 8.57,
       "volume": 2298168,
-      "avg_volume": 234939
+      "avg_volume": 268217
     },
     {
       "symbol": "PRIM",
       "name": "Primoris Services Corporation",
       "price": 84.95,
       "change_pct": -21.59,
-      "vol_ratio": 5.44,
+      "vol_ratio": 5.06,
       "volume": 9595504,
-      "avg_volume": 1764462
+      "avg_volume": 1895772
     },
     {
       "symbol": "VRNS",
       "name": "Varonis Systems, Inc.",
       "price": 35.03,
       "change_pct": 7.09,
-      "vol_ratio": 4.33,
+      "vol_ratio": 4.1,
       "volume": 9654419,
-      "avg_volume": 2230783
+      "avg_volume": 2352262
     },
     {
       "symbol": "MAAS",
       "name": "Maase Inc.",
       "price": 21.24,
       "change_pct": 18.99,
-      "vol_ratio": 3.1,
+      "vol_ratio": 3.0,
       "volume": 680370,
-      "avg_volume": 219481
+      "avg_volume": 226920
     },
     {
       "symbol": "INFQ",
       "name": "Infleqtion, Inc.",
       "price": 15.96,
       "change_pct": 12.32,
-      "vol_ratio": 2.9,
+      "vol_ratio": 2.81,
       "volume": 42255890,
-      "avg_volume": 14586788
+      "avg_volume": 15037470
     },
     {
       "symbol": "VKTX",
       "name": "Viking Therapeutics, Inc.",
       "price": 34.81,
       "change_pct": 7.54,
-      "vol_ratio": 2.83,
+      "vol_ratio": 2.75,
       "volume": 6212949,
-      "avg_volume": 2193877
+      "avg_volume": 2258733
     },
     {
       "symbol": "ENLT",
       "name": "Enlight Renewable Energy Ltd.",
       "price": 90.56,
       "change_pct": 5.96,
-      "vol_ratio": 2.41,
+      "vol_ratio": 2.35,
       "volume": 480318,
-      "avg_volume": 199414
+      "avg_volume": 203979
     },
     {
       "symbol": "PFE",
       "name": "Pfizer, Inc.",
       "price": 24.72,
       "change_pct": -1.44,
-      "vol_ratio": 2.24,
+      "vol_ratio": 2.19,
       "volume": 81943195,
-      "avg_volume": 36617073
+      "avg_volume": 37348525
     },
     {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
       "price": 16.14,
       "change_pct": 0.37,
-      "vol_ratio": 2.22,
+      "vol_ratio": 2.17,
       "volume": 166082368,
-      "avg_volume": 74906691
+      "avg_volume": 76382888
     }
   ]
 }
