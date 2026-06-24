@@ -8,6 +8,7 @@ Run: python3 scripts/update_data.py
 """
 import urllib.request, json, base64, time, sys, os
 from datetime import datetime, timezone, timedelta
+from collections import defaultdict
 
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 REPO = "smartlife-calendar/AI-Investment-HQ"
@@ -615,6 +616,131 @@ def save_market_context(ctx, today_date):
     return ctx
 
 
+
+def send_daily_email(tw, bull_signals, bear_signals, mkt_ctx, news_items=None):
+    """Send daily smart money email summary."""
+    RESEND_KEY = os.environ.get("RESEND_API_KEY", "re_h6P4QM47_N47rSLhCs3qEeZkQUq5fkvaU")
+    TO_EMAIL = "smartlifecalendar@gmail.com"
+    
+    if not RESEND_KEY:
+        print("  No RESEND_API_KEY set, skipping email")
+        return
+    
+    date_str = tw.strftime("%Y/%m/%d")
+    day_name = ["週一","週二","週三","週四","週五","週六","週日"][tw.weekday()]
+    
+    # Market context
+    vix = mkt_ctx.get("vix", "?") if mkt_ctx else "?"
+    cnn = mkt_ctx.get("cnn_fg_score", "?") if mkt_ctx else "?"
+    composite = mkt_ctx.get("composite_score", "?") if mkt_ctx else "?"
+    spy_200 = mkt_ctx.get("spy_vs_200sma", "?") if mkt_ctx else "?"
+    
+    # Bull/bear regime
+    if isinstance(spy_200, (int, float)):
+        regime = "🐂 牛市" if spy_200 > 5 else "🐂 觀望" if spy_200 > 0 else "🐻 警告" if spy_200 > -5 else "🐻 熊市"
+    else:
+        regime = "?"
+    
+    # Build news HTML
+    news_html = ""
+    if news_items:
+        news_rows = ""
+        for n in (news_items or [])[:8]:
+            t = n.get("title", "").replace('"', '&quot;')
+            u = n.get("url", "#")
+            p = n.get("publisher", "")
+            news_rows += '<div style="padding:8px 0;border-bottom:1px solid #f1f5f9"><a href="' + u + '" style="color:#4f46e5;font-size:13px;text-decoration:none;line-height:1.6">' + t + '</a> <span style="color:#94a3b8;font-size:11px">' + p + '</span></div>'
+        news_html = '<div style="background:white;padding:16px 24px;border:1px solid #e2e8f0;border-top:none"><h2 style="font-size:16px;color:#1e293b;margin:0 0 12px">🌐 今日財金新聞</h2>' + news_rows + '</div>'
+
+    # Build HTML email
+    bull_top = sorted(bull_signals, key=lambda x: x.get("score", 0), reverse=True)[:10]
+    bear_top = sorted(bear_signals, key=lambda x: x.get("score", 0), reverse=True)[:5]
+    
+    bull_rows = ""
+    for s in bull_top:
+        color = "#16a34a" if s.get("score", 0) >= 7 else "#2563eb"
+        trans = s.get("transition", "")
+        mom = s.get("momentum_change", "")
+        bull_rows += f"""
+        <tr>
+            <td style="padding:8px 12px;font-weight:700;color:{color}">{s.get("symbol","")}</td>
+            <td style="padding:8px 12px;text-align:center">{s.get("score","")}/10</td>
+            <td style="padding:8px 12px">{s.get("signal","")}</td>
+            <td style="padding:8px 12px;text-align:right">${s.get("price","")}</td>
+            <td style="padding:8px 12px;font-size:11px">{trans} {mom}</td>
+            <td style="padding:8px 12px;font-size:11px">{s.get("action","")}</td>
+        </tr>"""
+    
+    bear_rows = ""
+    for s in bear_top:
+        bear_rows += f"""
+        <tr>
+            <td style="padding:8px 12px;font-weight:700;color:#dc2626">{s.get("symbol","")}</td>
+            <td style="padding:8px 12px;text-align:center">{s.get("score","")}/10</td>
+            <td style="padding:8px 12px">{s.get("signal","")}</td>
+            <td style="padding:8px 12px;text-align:right">${s.get("price","")}</td>
+        </tr>"""
+    
+    html_body = f"""
+    <div style="font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:600px;margin:0 auto;background:#f8fafc">
+        <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);padding:20px 24px;color:white;border-radius:12px 12px 0 0">
+            <h1 style="margin:0;font-size:20px">💡 StockIQ 每日金流密碼</h1>
+            <p style="margin:4px 0 0;color:#818cf8;font-size:13px">{date_str} {day_name}</p>
+        </div>
+        
+        <div style="background:white;padding:16px 24px;border:1px solid #e2e8f0">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f5f9">
+                <span style="font-size:24px">{regime.split()[0]}</span>
+                <div>
+                    <strong style="color:{'#16a34a' if '牛' in regime else '#dc2626'}">{regime}</strong>
+                    <span style="color:#64748b;font-size:12px;margin-left:12px">VIX {vix} · CNN {cnn} · 綜合 {composite}/100</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background:white;padding:16px 24px;border:1px solid #e2e8f0;border-top:none">
+            <h2 style="font-size:16px;color:#16a34a;margin:0 0 12px">📈 吸籌偵測 Top 10（共 {len(bull_signals)} 支）</h2>
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
+                <tr style="background:#f8fafc">
+                    <th style="padding:8px 12px;text-align:left">代號</th>
+                    <th style="padding:8px 12px">分數</th>
+                    <th style="padding:8px 12px;text-align:left">訊號</th>
+                    <th style="padding:8px 12px;text-align:right">價格</th>
+                    <th style="padding:8px 12px;text-align:left">動態</th>
+                    <th style="padding:8px 12px;text-align:left">建議</th>
+                </tr>
+                {bull_rows}
+            </table>
+        </div>
+        
+        {"<div style='background:white;padding:16px 24px;border:1px solid #e2e8f0;border-top:none'><h2 style='font-size:16px;color:#dc2626;margin:0 0 12px'>📉 出貨偵測 Top 5（共 " + str(len(bear_signals)) + " 支）</h2><table style='width:100%;border-collapse:collapse;font-size:13px'><tr style='background:#f8fafc'><th style='padding:8px 12px;text-align:left'>代號</th><th style='padding:8px 12px'>分數</th><th style='padding:8px 12px;text-align:left'>訊號</th><th style='padding:8px 12px;text-align:right'>價格</th></tr>" + bear_rows + "</table></div>" if bear_signals else ""}
+        
+        {news_html}
+        <div style="background:#fefce8;padding:12px 24px;font-size:11px;color:#92400e;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">
+            ⚠️ 僅供參考，不構成投資建議。過去績效不代表未來表現。
+            <br><a href="https://stockiq.tw" style="color:#4f46e5">stockiq.tw</a> · 
+            <a href="https://stockiq.tw/?tab=smart" style="color:#4f46e5">查看完整金流密碼</a>
+        </div>
+    </div>
+    """
+    
+    payload = json.dumps({
+        "from": "StockIQ 金流密碼 <report@stockiq.tw>",
+        "to": [TO_EMAIL],
+        "subject": f"{regime} StockIQ 金流密碼 {date_str} · 吸籌 {len(bull_signals)} 支 · 出貨 {len(bear_signals)} 支",
+        "html": html_body,
+    }).encode()
+    
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={"Authorization": f"Bearer {RESEND_KEY}", "Content-Type": "application/json", "User-Agent": "StockIQ/5.2"}
+    )
+    r = urllib.request.urlopen(req, timeout=15)
+    result = json.loads(r.read())
+    print(f"  ✅ Email sent: {result.get('id', '?')}")
+
+
 def run():
     tw = datetime.now(timezone.utc) + timedelta(hours=8)
     now_str = tw.strftime("%Y-%m-%dT%H:%M:%S+08:00")
@@ -907,7 +1033,6 @@ def run():
         r_sb = urllib.request.urlopen(req_sb, timeout=10)
         hist = json.loads(r_sb.read())
         # Build streak per symbol: count consecutive days from today backwards
-        from collections import defaultdict
         by_sym = defaultdict(list)
         for row in hist:
             by_sym[row["symbol"]].append(row["date"])
@@ -1136,6 +1261,13 @@ def run():
         news_json = json.dumps(news_data, ensure_ascii=False, indent=2)
         sha = gh_put("data/news.json", news_json, f"Update news.json {tw.strftime('%Y/%m/%d %H:%M')}")
         print(f"  ✅ data/news.json → {sha}")
+
+    # ── 7. Send daily email ─────────────────────────────────────────────────
+    print("\n📧 Sending daily email...")
+    try:
+        send_daily_email(tw, accum_results, bearish_results, market_ctx, news_items if 'news_items' in dir() else [])
+    except Exception as e:
+        print(f"  ❌ Email failed: {e}")
 
     print(f"\n✅ All data files updated — {tw.strftime('%Y/%m/%d %H:%M')} TW")
     return True
