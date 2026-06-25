@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:59:39.394554+08:00",
+  "generated_at": "2026-06-25T10:00:20.996726+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -36,9 +36,9 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 8.56,
       "change_pct": -22.74,
-      "vol_ratio": 3.33,
+      "vol_ratio": 3.18,
       "volume": 468670,
-      "avg_volume": 140535
+      "avg_volume": 147343
     },
     {
       "symbol": "SYRE",
