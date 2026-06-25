@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-25T12:20:21+08:00",
+  "generated_at": "2026-06-25T21:00:03+08:00",
   "from_cache": false,
   "macro": [
     {
       "name": "10年債殖利率",
       "ticker": "^TNX",
-      "current": 4.4,
-      "change_1d": -1.1,
+      "current": 4.37,
+      "change_1d": -1.89,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
-      "perf_52w": 2.8,
+      "perf_52w": 2.0,
       "flow": "⚪中性",
       "momentum": "📈 跌勢趨緩",
       "wow": [
@@ -51,20 +51,20 @@
         ],
         [
           "06/22",
-          4.4,
-          -1.1
+          4.37,
+          -1.9
         ]
       ]
     },
     {
       "name": "美元指數 DXY",
       "ticker": "DX-Y.NYB",
-      "current": 101.49,
-      "change_1d": -0.12,
+      "current": 101.55,
+      "change_1d": -0.06,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
-      "perf_52w": 4.2,
+      "perf_52w": 4.3,
       "flow": "⚪中性",
       "momentum": "📈 加速",
       "wow": [
@@ -105,7 +105,7 @@
         ],
         [
           "06/25",
-          101.49,
+          101.55,
           -0.1
         ]
       ]
@@ -113,12 +113,12 @@
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 4009.3,
-      "change_1d": 0.48,
-      "volume_1d": 26263,
-      "avg_volume_5d": 6991,
-      "fund_flow": 105296247,
-      "perf_52w": 22.5,
+      "current": 4029.5,
+      "change_1d": 0.98,
+      "volume_1d": 70336,
+      "avg_volume_5d": 18009,
+      "fund_flow": 283418912,
+      "perf_52w": 23.1,
       "flow": "🟢流入",
       "momentum": "📉 加速下跌",
       "wow": [
@@ -159,20 +159,20 @@
         ],
         [
           "06/25",
-          4009.3,
-          0.5
+          4029.5,
+          1.0
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 69.32,
-      "change_1d": -1.45,
-      "volume_1d": 14174,
-      "avg_volume_5d": 184274,
-      "fund_flow": -982542,
-      "perf_52w": 5.8,
+      "current": 69.53,
+      "change_1d": -1.15,
+      "volume_1d": 65540,
+      "avg_volume_5d": 197115,
+      "fund_flow": -4556996,
+      "perf_52w": 6.1,
       "flow": "⚪中性",
       "momentum": "📉 加速下跌",
       "wow": [
@@ -213,21 +213,21 @@
         ],
         [
           "06/25",
-          69.32,
-          -1.5
+          69.53,
+          -1.2
         ]
       ]
     },
     {
       "name": "VIX 恐慌指數",
       "ticker": "^VIX",
-      "current": 18.63,
-      "change_1d": -4.41,
+      "current": 17.87,
+      "change_1d": -4.08,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
-      "perf_52w": 14.2,
-      "flow": "🟢流入",
+      "perf_52w": 9.5,
+      "flow": "⚪中性",
       "momentum": "📉 加速下跌",
       "wow": [
         [
@@ -266,9 +266,9 @@
           13.6
         ],
         [
-          "06/24",
-          18.63,
-          0.0
+          "06/25",
+          17.87,
+          -4.1
         ]
       ]
     },
