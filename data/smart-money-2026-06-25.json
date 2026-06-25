@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:40:54.319480+08:00",
+  "generated_at": "2026-06-25T09:41:38.853499+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 14,
   "stocks": [
@@ -9,9 +9,9 @@
       "name": "Sunrun Inc.",
       "price": 14.42,
       "change_pct": 12.57,
-      "vol_ratio": 6.3,
+      "vol_ratio": 5.77,
       "volume": 52595763,
-      "avg_volume": 8354548
+      "avg_volume": 9117387
     },
     {
       "symbol": "DFTX",
