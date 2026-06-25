@@ -1,9 +1,9 @@
 {
-  "vix": 18.63,
-  "vix_200sma": 18.61,
+  "vix": 17.87,
+  "vix_200sma": 18.62,
   "vix_zone": "正常(15-20)",
-  "vix_score": 66.85000000000001,
-  "cnn_fg_score": 26.0,
+  "vix_score": 70.64999999999999,
+  "cnn_fg_score": 25.8,
   "cnn_fg_rating": "fear",
   "cnn_fg_prev_week": 37.6,
   "spy_vs_200sma": 6.31,
@@ -12,6 +12,6 @@
   "high_score": 82.65,
   "mom_score": 38.52701594082471,
   "haven_score": 25.742626028993104,
-  "composite_score": 59.1,
+  "composite_score": 59.8,
   "composite_label": "中性"
 }
