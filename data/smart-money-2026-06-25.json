@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:44:30.640589+08:00",
+  "generated_at": "2026-06-25T09:45:16.478429+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 14,
   "stocks": [
@@ -108,9 +108,9 @@
       "name": "ICON plc",
       "price": 158.17,
       "change_pct": 10.86,
-      "vol_ratio": 2.11,
+      "vol_ratio": 2.05,
       "volume": 2406383,
-      "avg_volume": 1142030
+      "avg_volume": 1171858
     },
     {
       "symbol": "NTRA",
