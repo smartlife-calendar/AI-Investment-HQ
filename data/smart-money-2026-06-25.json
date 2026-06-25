@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:53:48.066181+08:00",
+  "generated_at": "2026-06-25T09:54:34.325678+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 12,
   "stocks": [
@@ -54,9 +54,9 @@
       "name": "American Airlines Group, Inc.",
       "price": 17.44,
       "change_pct": 8.05,
-      "vol_ratio": 2.71,
+      "vol_ratio": 2.63,
       "volume": 207169194,
-      "avg_volume": 76382888
+      "avg_volume": 78648482
     },
     {
       "symbol": "CBRS",
