@@ -1,7 +1,26 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T11:37:56.990434+08:00",
+  "generated_at": "2026-06-25T11:38:45.730564+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 0,
-  "stocks": []
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 17.44,
+      "change_pct": 8.05,
+      "vol_ratio": 2.6,
+      "volume": 207169194,
+      "avg_volume": 79680459
+    },
+    {
+      "symbol": "RKT",
+      "name": "Rocket Companies, Inc.",
+      "price": 14.73,
+      "change_pct": 9.35,
+      "vol_ratio": 2.2,
+      "volume": 57952005,
+      "avg_volume": 26341820
+    }
+  ]
 }
