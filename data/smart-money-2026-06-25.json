@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:47:27.632336+08:00",
+  "generated_at": "2026-06-25T09:48:13.953228+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 14,
   "stocks": [
@@ -68,15 +68,6 @@
       "avg_volume": 8364796
     },
     {
-      "symbol": "ADPT",
-      "name": "Adaptive Biotechnologies Corpor",
-      "price": 19.34,
-      "change_pct": 12.25,
-      "vol_ratio": 2.31,
-      "volume": 5271244,
-      "avg_volume": 2278967
-    },
-    {
       "symbol": "MMYT",
       "name": "MakeMyTrip Limited",
       "price": 51.68,
@@ -95,13 +86,22 @@
       "avg_volume": 34261146
     },
     {
+      "symbol": "ADPT",
+      "name": "Adaptive Biotechnologies Corpor",
+      "price": 19.34,
+      "change_pct": 12.25,
+      "vol_ratio": 2.26,
+      "volume": 5271244,
+      "avg_volume": 2333088
+    },
+    {
       "symbol": "RKT",
       "name": "Rocket Companies, Inc.",
       "price": 14.73,
       "change_pct": 9.35,
-      "vol_ratio": 2.24,
+      "vol_ratio": 2.19,
       "volume": 57952005,
-      "avg_volume": 25836140
+      "avg_volume": 26470898
     },
     {
       "symbol": "ICLR",
