@@ -1,9 +1,18 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T11:40:04.920351+08:00",
+  "generated_at": "2026-06-25T11:41:04.380364+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 3,
   "stocks": [
+    {
+      "symbol": "RUN",
+      "name": "Sunrun Inc.",
+      "price": 14.42,
+      "change_pct": 12.57,
+      "vol_ratio": 5.8,
+      "volume": 52595763,
+      "avg_volume": 9068235
+    },
     {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
