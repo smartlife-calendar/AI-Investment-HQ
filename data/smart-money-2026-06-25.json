@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:37:13.175227+08:00",
+  "generated_at": "2026-06-25T09:37:55.812884+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 14,
   "stocks": [
@@ -18,9 +18,9 @@
       "name": "Definium Therapeutics, Inc.",
       "price": 42.13,
       "change_pct": 16.45,
-      "vol_ratio": 5.41,
+      "vol_ratio": 5.06,
       "volume": 12455589,
-      "avg_volume": 2300477
+      "avg_volume": 2461032
     },
     {
       "symbol": "KBH",
