@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-06-25T09:55:19+08:00",
+  "generated_at": "2026-06-25T11:18:38+08:00",
   "news": [
+    {
+      "title": "VTI vs VOO: Total Market or S 500 — Does the Difference Actually Matter?",
+      "url": "https://finance.yahoo.com/m/3347ccce-4a95-3469-a6a1-fd2e2aafeca4/vti-vs-voo%3A-total-market-or-s.html",
+      "publisher": "etf.com",
+      "published": 1782339397
+    },
     {
       "title": "Stressing Over Whether Your Index Fund Has SpaceX? Don’t",
       "url": "https://finance.yahoo.com/m/1e724870-751d-364a-ba31-81acb69649cf/stressing-over-whether-your.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/a45ece90-5381-38b6-8407-0ffd53383538/voo-vs.-vti%3A-should-you-own.html",
       "publisher": "24/7 Wall St.",
       "published": 1781117544
-    },
-    {
-      "title": "Is the Vanguard Total Stock Market ETF the Best Buy for Long-Term Investors?",
-      "url": "https://finance.yahoo.com/m/00dd11e3-4c6a-3aa1-bfa2-d479a4414d59/is-the-vanguard-total-stock.html",
-      "publisher": "Motley Fool",
-      "published": 1781091600
     }
   ]
 }
