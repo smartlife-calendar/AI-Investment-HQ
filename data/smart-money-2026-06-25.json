@@ -1,8 +1,8 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:53:04.336624+08:00",
+  "generated_at": "2026-06-25T09:53:48.066181+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 13,
+  "count": 12,
   "stocks": [
     {
       "symbol": "RUN",
@@ -111,15 +111,6 @@
       "vol_ratio": 2.05,
       "volume": 2406383,
       "avg_volume": 1171858
-    },
-    {
-      "symbol": "NTRA",
-      "name": "Natera, Inc.",
-      "price": 259.97,
-      "change_pct": 10.74,
-      "vol_ratio": 2.03,
-      "volume": 2938702,
-      "avg_volume": 1444716
     }
   ]
 }
