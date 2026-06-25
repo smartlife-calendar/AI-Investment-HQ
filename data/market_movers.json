@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T09:28:37+08:00",
+  "generated_at": "2026-06-25T09:48:36+08:00",
   "gainers": [
     {
       "symbol": "KBH",
@@ -309,7 +309,7 @@
       "price": 14.42,
       "change_pct": 12.57,
       "volume": 52595763,
-      "vr": 6.3
+      "vr": 5.8
     }
   ],
   "strong_sell": [
