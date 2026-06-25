@@ -1,8 +1,8 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:48:13.953228+08:00",
+  "generated_at": "2026-06-25T09:50:49.402826+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 14,
+  "count": 13,
   "stocks": [
     {
       "symbol": "RUN",
@@ -68,24 +68,6 @@
       "avg_volume": 8364796
     },
     {
-      "symbol": "MMYT",
-      "name": "MakeMyTrip Limited",
-      "price": 51.68,
-      "change_pct": 10.97,
-      "vol_ratio": 2.27,
-      "volume": 2901809,
-      "avg_volume": 1278340
-    },
-    {
-      "symbol": "PATH",
-      "name": "UiPath, Inc.",
-      "price": 10.31,
-      "change_pct": 1.48,
-      "vol_ratio": 2.27,
-      "volume": 77943522,
-      "avg_volume": 34261146
-    },
-    {
       "symbol": "ADPT",
       "name": "Adaptive Biotechnologies Corpor",
       "price": 19.34,
@@ -93,6 +75,24 @@
       "vol_ratio": 2.26,
       "volume": 5271244,
       "avg_volume": 2333088
+    },
+    {
+      "symbol": "MMYT",
+      "name": "MakeMyTrip Limited",
+      "price": 51.68,
+      "change_pct": 10.97,
+      "vol_ratio": 2.23,
+      "volume": 2901809,
+      "avg_volume": 1301403
+    },
+    {
+      "symbol": "PATH",
+      "name": "UiPath, Inc.",
+      "price": 10.31,
+      "change_pct": 1.48,
+      "vol_ratio": 2.21,
+      "volume": 77943522,
+      "avg_volume": 35238930
     },
     {
       "symbol": "RKT",
@@ -120,15 +120,6 @@
       "vol_ratio": 2.03,
       "volume": 2938702,
       "avg_volume": 1444716
-    },
-    {
-      "symbol": "PFE",
-      "name": "Pfizer, Inc.",
-      "price": 24.04,
-      "change_pct": -2.75,
-      "vol_ratio": 2.01,
-      "volume": 75223623,
-      "avg_volume": 37348525
     }
   ]
 }
