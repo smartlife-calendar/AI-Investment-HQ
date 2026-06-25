@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T11:43:49+08:00",
+  "generated_at": "2026-06-25T12:02:10+08:00",
   "indices": {
     "^GSPC": {
       "name": "S&P 500",
@@ -8,7 +8,7 @@
     },
     "^IXIC": {
       "name": "NASDAQ",
-      "price": 25476.63,
+      "price": 25476.64,
       "pct": -0.43
     },
     "^DJI": {
@@ -28,8 +28,8 @@
     },
     "DX-Y.NYB": {
       "name": "DXY",
-      "price": 101.51,
-      "pct": -0.1
+      "price": 101.61,
+      "pct": 0.2
     }
   }
 }
