@@ -1,6 +1,6 @@
 {
   "date": "2026-06-25",
-  "generated_at": "2026-06-25T09:41:38.853499+08:00",
+  "generated_at": "2026-06-25T09:42:21.280108+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 14,
   "stocks": [
@@ -45,9 +45,9 @@
       "name": "Spyre Therapeutics, Inc.",
       "price": 86.24,
       "change_pct": -11.14,
-      "vol_ratio": 3.17,
+      "vol_ratio": 3.04,
       "volume": 4035157,
-      "avg_volume": 1271711
+      "avg_volume": 1326532
     },
     {
       "symbol": "AAL",
@@ -63,9 +63,9 @@
       "name": "Cerebras Systems Inc.",
       "price": 182.26,
       "change_pct": -19.61,
-      "vol_ratio": 2.61,
+      "vol_ratio": 2.45,
       "volume": 20532462,
-      "avg_volume": 7877081
+      "avg_volume": 8364796
     },
     {
       "symbol": "ADPT",
