@@ -1,166 +1,166 @@
 {
-  "generated_at": "2026-06-24T11:54:06+08:00",
+  "generated_at": "2026-06-25T09:23:49+08:00",
   "gainers": [
     {
-      "symbol": "MAAS",
-      "name": "Maase Inc.",
-      "price": 21.24,
-      "change_pct": 18.99,
-      "volume": 680370,
+      "symbol": "KBH",
+      "name": "KB Home",
+      "price": 61.51,
+      "change_pct": 16.65,
+      "volume": 4563274,
       "vr": ""
     },
     {
-      "symbol": "QNT",
-      "name": "Quantinuum Inc.",
-      "price": 77.46,
-      "change_pct": 13.46,
-      "volume": 5539488,
+      "symbol": "DFTX",
+      "name": "Definium Therapeutics, Inc.",
+      "price": 42.13,
+      "change_pct": 16.45,
+      "volume": 12455589,
       "vr": ""
     },
     {
-      "symbol": "INFQ",
-      "name": "Infleqtion, Inc.",
-      "price": 15.96,
-      "change_pct": 12.32,
-      "volume": 42255890,
+      "symbol": "FOUR",
+      "name": "Shift4 Payments, Inc.",
+      "price": 44.22,
+      "change_pct": 14.35,
+      "volume": 2606142,
       "vr": ""
     },
     {
-      "symbol": "QURE",
-      "name": "uniQure N.V.",
-      "price": 49.04,
-      "change_pct": 10.48,
-      "volume": 3332746,
+      "symbol": "MANE",
+      "name": "Veradermics, Incorporated",
+      "price": 117.29,
+      "change_pct": 13.21,
+      "volume": 1039822,
       "vr": ""
     },
     {
-      "symbol": "VKTX",
-      "name": "Viking Therapeutics, Inc.",
-      "price": 34.81,
-      "change_pct": 7.54,
-      "volume": 6212949,
+      "symbol": "RUN",
+      "name": "Sunrun Inc.",
+      "price": 14.42,
+      "change_pct": 12.57,
+      "volume": 52595763,
       "vr": ""
     },
     {
-      "symbol": "VRNS",
-      "name": "Varonis Systems, Inc.",
-      "price": 35.03,
-      "change_pct": 7.09,
-      "volume": 9654419,
+      "symbol": "ADPT",
+      "name": "Adaptive Biotechnologies Corpor",
+      "price": 19.34,
+      "change_pct": 12.25,
+      "volume": 5271244,
       "vr": ""
     },
     {
-      "symbol": "GWRE",
-      "name": "Guidewire Software, Inc.",
-      "price": 109.63,
-      "change_pct": 6.76,
-      "volume": 2215195,
+      "symbol": "BLDR",
+      "name": "Builders FirstSource, Inc.",
+      "price": 85.41,
+      "change_pct": 11.31,
+      "volume": 3494855,
       "vr": ""
     },
     {
-      "symbol": "LGND",
-      "name": "Ligand Pharmaceuticals Incorpor",
-      "price": 279.44,
-      "change_pct": 6.59,
-      "volume": 2298168,
+      "symbol": "MMYT",
+      "name": "MakeMyTrip Limited",
+      "price": 51.68,
+      "change_pct": 10.97,
+      "volume": 2901809,
       "vr": ""
     },
     {
-      "symbol": "PAYP",
-      "name": "PayPay Corporation - American D",
-      "price": 14.61,
-      "change_pct": 6.49,
-      "volume": 1908698,
+      "symbol": "ICLR",
+      "name": "ICON plc",
+      "price": 158.17,
+      "change_pct": 10.86,
+      "volume": 2406383,
       "vr": ""
     },
     {
-      "symbol": "NTSK",
-      "name": "Netskope, Inc.",
-      "price": 9.53,
-      "change_pct": 6.48,
-      "volume": 7000417,
+      "symbol": "NTRA",
+      "name": "Natera, Inc.",
+      "price": 259.97,
+      "change_pct": 10.74,
+      "volume": 2938702,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "PRIM",
-      "name": "Primoris Services Corporation",
-      "price": 84.95,
-      "change_pct": -21.59,
-      "volume": 9595504,
+      "symbol": "RGC",
+      "name": "Regencell Bioscience Holdings L",
+      "price": 8.56,
+      "change_pct": -22.74,
+      "volume": 468670,
       "vr": ""
     },
     {
-      "symbol": "FLNC",
-      "name": "Fluence Energy, Inc.",
-      "price": 21.21,
-      "change_pct": -15.8,
-      "volume": 13239388,
+      "symbol": "CBRS",
+      "name": "Cerebras Systems Inc.",
+      "price": 182.26,
+      "change_pct": -19.61,
+      "volume": 20532462,
       "vr": ""
     },
     {
-      "symbol": "AXTI",
-      "name": "AXT Inc",
-      "price": 77.91,
-      "change_pct": -15.72,
-      "volume": 12788552,
+      "symbol": "NVTS",
+      "name": "Navitas Semiconductor Corporati",
+      "price": 18.32,
+      "change_pct": -14.39,
+      "volume": 33913591,
       "vr": ""
     },
     {
-      "symbol": "AAOI",
-      "name": "Applied Optoelectronics, Inc.",
-      "price": 147.44,
-      "change_pct": -13.89,
-      "volume": 13385196,
+      "symbol": "CHRN",
+      "name": "ChronoScale Corporation",
+      "price": 22.13,
+      "change_pct": -14.29,
+      "volume": 383735,
       "vr": ""
     },
     {
-      "symbol": "SNDK",
-      "name": "Sandisk Corporation",
-      "price": 1963.6,
-      "change_pct": -13.64,
-      "volume": 12640048,
+      "symbol": "NG",
+      "name": "Novagold Resources Inc.",
+      "price": 6.2,
+      "change_pct": -14.13,
+      "volume": 5357259,
       "vr": ""
     },
     {
-      "symbol": "CAMT",
-      "name": "Camtek Ltd.",
-      "price": 169.39,
-      "change_pct": -13.45,
-      "volume": 599564,
+      "symbol": "YSS",
+      "name": "York Space Systems Inc.",
+      "price": 24.54,
+      "change_pct": -14.08,
+      "volume": 1619464,
       "vr": ""
     },
     {
-      "symbol": "MU",
-      "name": "Micron Technology, Inc.",
-      "price": 1051.77,
-      "change_pct": -13.18,
-      "volume": 58149691,
+      "symbol": "MAAS",
+      "name": "Maase Inc.",
+      "price": 18.26,
+      "change_pct": -14.03,
+      "volume": 188361,
       "vr": ""
     },
     {
-      "symbol": "EOSE",
-      "name": "Eos Energy Enterprises, Inc.",
-      "price": 6.49,
-      "change_pct": -11.58,
-      "volume": 20935137,
+      "symbol": "INFQ",
+      "name": "Infleqtion, Inc.",
+      "price": 14.1,
+      "change_pct": -11.65,
+      "volume": 22132727,
       "vr": ""
     },
     {
-      "symbol": "TE",
-      "name": "T1 Energy Inc.",
-      "price": 9.24,
-      "change_pct": -11.15,
-      "volume": 30612661,
+      "symbol": "SYRE",
+      "name": "Spyre Therapeutics, Inc.",
+      "price": 86.24,
+      "change_pct": -11.14,
+      "volume": 4035157,
       "vr": ""
     },
     {
-      "symbol": "VRT",
-      "name": "Vertiv Holdings, LLC",
-      "price": 318.32,
-      "change_pct": -11.07,
-      "volume": 10250377,
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "price": 85.41,
+      "change_pct": -10.21,
+      "volume": 26001529,
       "vr": ""
     }
   ],
@@ -168,133 +168,158 @@
     {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
-      "price": 16.14,
-      "change_pct": 0.37,
-      "volume": 166082368,
-      "vr": ""
-    },
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 156.11,
-      "change_pct": 0.98,
-      "volume": 153240080,
-      "vr": ""
-    },
-    {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 132.28,
-      "change_pct": -6.14,
-      "volume": 131263983,
-      "vr": ""
-    },
-    {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 200.04,
-      "change_pct": -4.13,
-      "volume": 152123958,
+      "price": 17.44,
+      "change_pct": 8.05,
+      "volume": 207169194,
       "vr": ""
     },
     {
       "symbol": "SOFI",
       "name": "SoFi Technologies, Inc.",
-      "price": 17.29,
-      "change_pct": 1.11,
-      "volume": 88981838,
+      "price": 17.31,
+      "change_pct": 0.12,
+      "volume": 119083264,
+      "vr": ""
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 199.0,
+      "change_pct": -0.5,
+      "volume": 149005898,
+      "vr": ""
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 131.65,
+      "change_pct": -0.48,
+      "volume": 101683749,
       "vr": ""
     },
     {
       "symbol": "NOK",
       "name": "Nokia Corporation Sponsored",
-      "price": 13.7,
-      "change_pct": -5.06,
-      "volume": 81246993,
-      "vr": ""
-    },
-    {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 22.81,
-      "change_pct": 3.21,
-      "volume": 59896561,
-      "vr": ""
-    },
-    {
-      "symbol": "F",
-      "name": "Ford Motor Company",
-      "price": 14.0,
-      "change_pct": -0.78,
-      "volume": 57855214,
-      "vr": ""
-    },
-    {
-      "symbol": "PFE",
-      "name": "Pfizer, Inc.",
-      "price": 24.72,
-      "change_pct": -1.44,
-      "volume": 81943195,
-      "vr": ""
-    },
-    {
-      "symbol": "KEEL",
-      "name": "Keel Infrastructure Corp.",
-      "price": 6.6,
-      "change_pct": -0.9,
-      "volume": 59093999,
-      "vr": ""
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 3.46,
-      "change_pct": -0.86,
-      "volume": 53316284,
-      "vr": ""
-    },
-    {
-      "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "price": 33.32,
-      "change_pct": -6.03,
-      "volume": 55641861,
-      "vr": ""
-    },
-    {
-      "symbol": "MU",
-      "name": "Micron Technology, Inc.",
-      "price": 1051.77,
-      "change_pct": -13.18,
-      "volume": 58149691,
+      "price": 13.81,
+      "change_pct": 0.8,
+      "volume": 89033459,
       "vr": ""
     },
     {
       "symbol": "PATH",
       "name": "UiPath, Inc.",
-      "price": 10.16,
-      "change_pct": 0.0,
-      "volume": 49327201,
+      "price": 10.31,
+      "change_pct": 1.48,
+      "volume": 77943522,
       "vr": ""
     },
     {
-      "symbol": "TSLA",
-      "name": "Tesla, Inc.",
-      "price": 381.61,
-      "change_pct": -5.79,
-      "volume": 49777273,
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 154.54,
+      "change_pct": -1.01,
+      "volume": 74811433,
+      "vr": ""
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 7.68,
+      "change_pct": -9.96,
+      "volume": 72026119,
+      "vr": ""
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer, Inc.",
+      "price": 24.04,
+      "change_pct": -2.75,
+      "volume": 75223623,
+      "vr": ""
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.12,
+      "change_pct": -7.27,
+      "volume": 66422594,
+      "vr": ""
+    },
+    {
+      "symbol": "RKT",
+      "name": "Rocket Companies, Inc.",
+      "price": 14.73,
+      "change_pct": 9.35,
+      "volume": 57952005,
+      "vr": ""
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "price": 234.27,
+      "change_pct": 0.07,
+      "volume": 62415490,
+      "vr": ""
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.49,
+      "change_pct": 0.87,
+      "volume": 51775889,
+      "vr": ""
+    },
+    {
+      "symbol": "RUN",
+      "name": "Sunrun Inc.",
+      "price": 14.42,
+      "change_pct": 12.57,
+      "volume": 52595763,
+      "vr": ""
+    },
+    {
+      "symbol": "JOBY",
+      "name": "Joby Aviation, Inc.",
+      "price": 9.28,
+      "change_pct": -2.83,
+      "volume": 50525958,
       "vr": ""
     }
   ],
   "strong_buy": [
     {
-      "symbol": "INFQ",
-      "name": "Infleqtion, Inc.",
-      "price": 15.96,
-      "change_pct": 12.32,
-      "volume": 42255890,
-      "vr": 2.9
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 17.44,
+      "change_pct": 8.05,
+      "volume": 207169194,
+      "vr": 2.7
+    },
+    {
+      "symbol": "RKT",
+      "name": "Rocket Companies, Inc.",
+      "price": 14.73,
+      "change_pct": 9.35,
+      "volume": 57952005,
+      "vr": 2.2
+    },
+    {
+      "symbol": "RUN",
+      "name": "Sunrun Inc.",
+      "price": 14.42,
+      "change_pct": 12.57,
+      "volume": 52595763,
+      "vr": 6.3
     }
   ],
-  "strong_sell": []
+  "strong_sell": [
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 6.12,
+      "change_pct": -7.27,
+      "volume": 66422594,
+      "vr": 1.5
+    }
+  ]
 }
