@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T10:56:41+08:00",
+  "generated_at": "2026-06-26T11:08:35+08:00",
   "indices": {
     "^GSPC": {
       "name": "S&P 500",
@@ -28,7 +28,7 @@
     },
     "DX-Y.NYB": {
       "name": "DXY",
-      "price": 101.54,
+      "price": 101.53,
       "pct": 0.1
     }
   }
