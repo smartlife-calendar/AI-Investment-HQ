@@ -1,6 +1,6 @@
 {
   "date": "2026-06-26",
-  "generated_at": "2026-06-26T10:37:06.372642+08:00",
+  "generated_at": "2026-06-26T10:59:12.052704+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 4,
   "stocks": [
@@ -9,9 +9,9 @@
       "name": "Bio-Techne Corp",
       "price": 70.7,
       "change_pct": 20.08,
-      "vol_ratio": 18.8,
+      "vol_ratio": 14.5,
       "volume": 51348792,
-      "avg_volume": 2731318
+      "avg_volume": 3541296
     },
     {
       "symbol": "BB",
