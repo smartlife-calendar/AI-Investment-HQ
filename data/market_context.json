@@ -1,8 +1,8 @@
 {
-  "vix": 20.16,
+  "vix": 20.13,
   "vix_200sma": 18.65,
   "vix_zone": "偏高(20-30)",
-  "vix_score": 59.2,
+  "vix_score": 59.35000000000001,
   "cnn_fg_score": 25.0,
   "cnn_fg_rating": "extreme fear",
   "cnn_fg_prev_week": 31.6,
