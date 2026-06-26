@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-26T09:00:03+08:00",
+  "generated_at": "2026-06-26T10:56:41+08:00",
   "gainers": [
     {
       "symbol": "DPC",
@@ -293,7 +293,7 @@
       "price": 1213.56,
       "change_pct": 15.81,
       "volume": 79552392,
-      "vr": 1.6
+      "vr": 1.5
     },
     {
       "symbol": "BB",
@@ -309,7 +309,7 @@
       "price": 70.7,
       "change_pct": 20.08,
       "volume": 51348792,
-      "vr": 18.8
+      "vr": 14.5
     }
   ],
   "strong_sell": [
@@ -343,7 +343,7 @@
       "price": 8.87,
       "change_pct": -4.42,
       "volume": 53915834,
-      "vr": 1.8
+      "vr": 1.7
     },
     {
       "symbol": "MSTR",
