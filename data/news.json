@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-06-25T21:00:03+08:00",
+  "generated_at": "2026-06-26T10:56:41+08:00",
   "news": [
+    {
+      "title": "Which Is the Better Total Market ETF: Schwab's SCHB or Vanguard's VTI?",
+      "url": "https://finance.yahoo.com/m/0b39f28a-59d8-3f45-b986-c7d41d81e6dc/which-is-the-better-total.html",
+      "publisher": "Motley Fool",
+      "published": 1782417264
+    },
     {
       "title": "VTI vs VOO: Total Market or S 500 — Does the Difference Actually Matter?",
       "url": "https://finance.yahoo.com/m/3347ccce-4a95-3469-a6a1-fd2e2aafeca4/vti-vs-voo%3A-total-market-or-s.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/markets/options/articles/etf-retirement-portfolio-moderate-risk-160100552.html",
       "publisher": "Zacks",
       "published": 1781193660
-    },
-    {
-      "title": "VOO vs. VTI: Should You Own the S&P 500 or the Entire Market?",
-      "url": "https://finance.yahoo.com/m/a45ece90-5381-38b6-8407-0ffd53383538/voo-vs.-vti%3A-should-you-own.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1781117544
     }
   ]
 }
