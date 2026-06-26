@@ -1,35 +1,44 @@
 {
   "date": "2026-06-26",
-  "generated_at": "2026-06-26T01:04:42.206727+08:00",
+  "generated_at": "2026-06-26T09:01:26.696967+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 4,
   "stocks": [
     {
-      "symbol": "RUN",
-      "name": "Sunrun Inc.",
-      "price": 14.42,
-      "change_pct": 12.57,
-      "vol_ratio": 5.8,
-      "volume": 52595763,
-      "avg_volume": 9068235
+      "symbol": "TECH",
+      "name": "Bio-Techne Corp",
+      "price": 70.7,
+      "change_pct": 20.08,
+      "vol_ratio": 18.8,
+      "volume": 51348792,
+      "avg_volume": 2731318
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 17.44,
-      "change_pct": 8.05,
-      "vol_ratio": 2.6,
-      "volume": 207169194,
-      "avg_volume": 79680459
+      "symbol": "BB",
+      "name": "BlackBerry Limited",
+      "price": 10.34,
+      "change_pct": 19.95,
+      "vol_ratio": 2.4,
+      "volume": 70161578,
+      "avg_volume": 29233990
     },
     {
-      "symbol": "RKT",
-      "name": "Rocket Companies, Inc.",
-      "price": 14.73,
-      "change_pct": 9.35,
-      "vol_ratio": 2.2,
-      "volume": 57952005,
-      "avg_volume": 26341820
+      "symbol": "MSTR",
+      "name": "Strategy Inc",
+      "price": 85.33,
+      "change_pct": -9.44,
+      "vol_ratio": 2.3,
+      "volume": 44502644,
+      "avg_volume": 19348975
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 275.15,
+      "change_pct": -6.15,
+      "vol_ratio": 2.1,
+      "volume": 102383867,
+      "avg_volume": 48754222
     }
   ]
 }
