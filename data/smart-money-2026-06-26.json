@@ -1,6 +1,6 @@
 {
   "date": "2026-06-26",
-  "generated_at": "2026-06-26T21:00:59.907940+08:00",
+  "generated_at": "2026-06-26T21:01:32.059113+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 4,
   "stocks": [
@@ -18,9 +18,9 @@
       "name": "BlackBerry Limited",
       "price": 10.34,
       "change_pct": 19.95,
-      "vol_ratio": 2.4,
+      "vol_ratio": 2.3,
       "volume": 70161578,
-      "avg_volume": 29233990
+      "avg_volume": 30505033
     },
     {
       "symbol": "MSTR",
