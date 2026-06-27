@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-27T10:13:50+08:00",
+  "generated_at": "2026-06-27T21:00:01+08:00",
   "gainers": [
     {
       "symbol": "SLS",
@@ -325,7 +325,7 @@
       "price": 11.4,
       "change_pct": 10.25,
       "volume": 53666443,
-      "vr": 1.8
+      "vr": 1.7
     }
   ],
   "strong_sell": [
