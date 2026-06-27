@@ -1,44 +1,35 @@
 {
   "date": "2026-06-27",
-  "generated_at": "2026-06-27T09:57:11.751504+08:00",
+  "generated_at": "2026-06-27T10:01:35.271556+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 4,
+  "count": 3,
   "stocks": [
-    {
-      "symbol": "TECH",
-      "name": "Bio-Techne Corp",
-      "price": 70.7,
-      "change_pct": 20.08,
-      "vol_ratio": 14.5,
-      "volume": 51348792,
-      "avg_volume": 3541296
-    },
-    {
-      "symbol": "BB",
-      "name": "BlackBerry Limited",
-      "price": 10.34,
-      "change_pct": 19.95,
-      "vol_ratio": 2.3,
-      "volume": 70161578,
-      "avg_volume": 30505033
-    },
-    {
-      "symbol": "MSTR",
-      "name": "Strategy Inc",
-      "price": 85.33,
-      "change_pct": -9.44,
-      "vol_ratio": 2.3,
-      "volume": 44502644,
-      "avg_volume": 19348975
-    },
     {
       "symbol": "AAPL",
       "name": "Apple Inc.",
-      "price": 275.15,
-      "change_pct": -6.15,
+      "price": 283.78,
+      "change_pct": 3.14,
+      "vol_ratio": 5.0,
+      "volume": 261244321,
+      "avg_volume": 52248864
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "price": 372.97,
+      "change_pct": 5.71,
+      "vol_ratio": 4.6,
+      "volume": 181041665,
+      "avg_volume": 39356883
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems, Inc.",
+      "price": 113.77,
+      "change_pct": -4.37,
       "vol_ratio": 2.1,
-      "volume": 102383867,
-      "avg_volume": 48754222
+      "volume": 50087461,
+      "avg_volume": 23851171
     }
   ]
 }
