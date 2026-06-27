@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-06-27T10:13:50+08:00",
+  "generated_at": "2026-06-27T21:00:01+08:00",
   "news": [
+    {
+      "title": "Could Buying VTI Today Set You Up for Life?",
+      "url": "https://finance.yahoo.com/m/8904f397-1768-3f3d-82fb-2ab1388378dd/could-buying-vti-today-set.html",
+      "publisher": "Motley Fool",
+      "published": 1782552480
+    },
     {
       "title": "Which Is the Better Total Market ETF: Schwab's SCHB or Vanguard's VTI?",
       "url": "https://finance.yahoo.com/m/0b39f28a-59d8-3f45-b986-c7d41d81e6dc/which-is-the-better-total.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/1eacfd89-6c95-3687-95c9-5f7e15ae2dff/vti-is-cheaper-than-its-own.html",
       "publisher": "Trefis",
       "published": 1781290980
-    },
-    {
-      "title": "An ETF Retirement Portfolio for Moderate-Risk Investors",
-      "url": "https://finance.yahoo.com/markets/options/articles/etf-retirement-portfolio-moderate-risk-160100552.html",
-      "publisher": "Zacks",
-      "published": 1781193660
     }
   ]
 }
