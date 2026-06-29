@@ -1,8 +1,8 @@
 {
   "date": "2026-06-29",
-  "generated_at": "2026-06-29T09:00:41.119139+08:00",
+  "generated_at": "2026-06-29T09:01:09.693248+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 2,
   "stocks": [
     {
       "symbol": "AAPL",
@@ -10,26 +10,17 @@
       "price": 283.78,
       "change_pct": 3.14,
       "vol_ratio": 5.0,
-      "volume": 261244321,
-      "avg_volume": 52248864
+      "volume": 261775450,
+      "avg_volume": 52355090
     },
     {
       "symbol": "MSFT",
       "name": "Microsoft Corporation",
       "price": 372.97,
       "change_pct": 5.71,
-      "vol_ratio": 4.6,
-      "volume": 181041665,
-      "avg_volume": 39356883
-    },
-    {
-      "symbol": "CSCO",
-      "name": "Cisco Systems, Inc.",
-      "price": 113.77,
-      "change_pct": -4.37,
-      "vol_ratio": 2.1,
-      "volume": 50087461,
-      "avg_volume": 23851171
+      "vol_ratio": 4.8,
+      "volume": 186201631,
+      "avg_volume": 38792006
     }
   ]
 }
