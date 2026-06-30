@@ -1,26 +1,44 @@
 {
   "date": "2026-06-30",
-  "generated_at": "2026-06-30T09:37:22.151809+08:00",
+  "generated_at": "2026-06-30T10:02:28.743848+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 4,
   "stocks": [
     {
-      "symbol": "AAPL",
-      "name": "Apple Inc.",
-      "price": 283.78,
-      "change_pct": 3.14,
-      "vol_ratio": 5.0,
-      "volume": 261775450,
-      "avg_volume": 52355090
+      "symbol": "CMCSA",
+      "name": "Comcast Corporation",
+      "price": 24.22,
+      "change_pct": 4.53,
+      "vol_ratio": 4.0,
+      "volume": 133879890,
+      "avg_volume": 33469972
     },
     {
-      "symbol": "MSFT",
-      "name": "Microsoft Corporation",
-      "price": 372.97,
-      "change_pct": 5.71,
-      "vol_ratio": 4.8,
-      "volume": 186201631,
-      "avg_volume": 38792006
+      "symbol": "FRSH",
+      "name": "Freshworks Inc.",
+      "price": 10.21,
+      "change_pct": 3.65,
+      "vol_ratio": 3.8,
+      "volume": 52973675,
+      "avg_volume": 13940440
+    },
+    {
+      "symbol": "VZ",
+      "name": "Verizon Communications Inc.",
+      "price": 44.1,
+      "change_pct": -5.24,
+      "vol_ratio": 2.2,
+      "volume": 53798611,
+      "avg_volume": 24453914
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 4.6,
+      "change_pct": 5.26,
+      "vol_ratio": 2.0,
+      "volume": 77950102,
+      "avg_volume": 38975051
     }
   ]
 }
