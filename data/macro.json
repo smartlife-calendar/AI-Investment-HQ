@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T10:39:25+08:00",
+  "generated_at": "2026-07-01T10:44:24+08:00",
   "from_cache": false,
   "macro": [
     {
@@ -113,12 +113,12 @@
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 3994.0,
-      "change_1d": -0.7,
-      "volume_1d": 14331,
-      "avg_volume_5d": 6850,
-      "fund_flow": -57238014,
-      "perf_52w": 19.8,
+      "current": 3996.6,
+      "change_1d": -0.64,
+      "volume_1d": 14710,
+      "avg_volume_5d": 7001,
+      "fund_flow": -58789987,
+      "perf_52w": 19.9,
       "flow": "🟢流入",
       "momentum": "➡️ 穩定",
       "wow": [
@@ -159,19 +159,19 @@
         ],
         [
           "07/01",
-          3994.0,
-          -0.7
+          3996.6,
+          -0.6
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 69.77,
-      "change_1d": -1.39,
-      "volume_1d": 4733,
-      "avg_volume_5d": 147233,
-      "fund_flow": -330221,
+      "current": 69.78,
+      "change_1d": -1.37,
+      "volume_1d": 4848,
+      "avg_volume_5d": 147279,
+      "fund_flow": -338293,
       "perf_52w": 4.9,
       "flow": "⚪中性",
       "momentum": "➡️ 穩定",
@@ -213,7 +213,7 @@
         ],
         [
           "07/01",
-          69.77,
+          69.78,
           -1.4
         ]
       ]
