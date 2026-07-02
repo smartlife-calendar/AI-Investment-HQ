@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-07-01T10:44:24+08:00",
+  "generated_at": "2026-07-02T10:12:48+08:00",
   "news": [
+    {
+      "title": "US Treasury picks BlackRock, Vanguard ETFs for Trump Accounts",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/us-treasury-picks-blackrock-vanguard-215730669.html",
+      "publisher": "Reuters",
+      "published": 1782943050
+    },
+    {
+      "title": "The ETFs behind Trump's new child investment accounts",
+      "url": "https://finance.yahoo.com/video/the-etfs-behind-trumps-new-child-investment-accounts-215300606.html",
+      "publisher": "Yahoo Finance Video",
+      "published": 1782940200
+    },
+    {
+      "title": "Vanguard to Serve as Alternate Fund Partner for Trump Accounts",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-serve-alternate-fund-partner-202900335.html",
+      "publisher": "PR Newswire",
+      "published": 1782937740
+    },
     {
       "title": "Should You Forget the Vanguard Total Stock Market ETF? Here's What History Says.",
       "url": "https://finance.yahoo.com/m/e319c4a7-3a75-31e3-a99a-e1cc872077ac/should-you-forget-the.html",
@@ -42,24 +60,6 @@
       "url": "https://finance.yahoo.com/m/a8e34480-d697-32eb-957e-56b4c2c31d90/this-unstoppable-vanguard-etf.html",
       "publisher": "Motley Fool",
       "published": 1782687000
-    },
-    {
-      "title": "SpaceX landed in millions of 401(k)s through index funds — and the same rules open the door to OpenAI and Anthropic",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/spacex-landed-millions-401-k-214500017.html",
-      "publisher": "Moneywise",
-      "published": 1782683100
-    },
-    {
-      "title": "Could Buying VTI Today Set You Up for Life?",
-      "url": "https://finance.yahoo.com/m/8904f397-1768-3f3d-82fb-2ab1388378dd/could-buying-vti-today-set.html",
-      "publisher": "Motley Fool",
-      "published": 1782552480
-    },
-    {
-      "title": "Which Is the Better Total Market ETF: Schwab's SCHB or Vanguard's VTI?",
-      "url": "https://finance.yahoo.com/m/0b39f28a-59d8-3f45-b986-c7d41d81e6dc/which-is-the-better-total.html",
-      "publisher": "Motley Fool",
-      "published": 1782417264
     }
   ]
 }
