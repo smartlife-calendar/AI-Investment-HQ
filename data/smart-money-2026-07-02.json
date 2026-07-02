@@ -1,35 +1,35 @@
 {
   "date": "2026-07-02",
-  "generated_at": "2026-07-02T10:00:37.693996+08:00",
+  "generated_at": "2026-07-02T10:01:27.469838+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
-      "symbol": "QXO",
-      "name": "QXO, Inc.",
-      "price": 17.28,
-      "change_pct": -3.03,
-      "vol_ratio": 3.9,
-      "volume": 65303751,
-      "avg_volume": 16744551
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 43.06,
+      "change_pct": 4.9,
+      "vol_ratio": 3.2,
+      "volume": 80065825,
+      "avg_volume": 25020570
     },
     {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 20.7,
-      "change_pct": -5.13,
-      "vol_ratio": 2.5,
-      "volume": 110581249,
-      "avg_volume": 44232499
+      "symbol": "META",
+      "name": "Meta Platforms, Inc.",
+      "price": 612.91,
+      "change_pct": 8.81,
+      "vol_ratio": 2.6,
+      "volume": 45057181,
+      "avg_volume": 17329685
     },
     {
-      "symbol": "VZ",
-      "name": "Verizon Communications Inc.",
-      "price": 42.34,
-      "change_pct": -3.99,
-      "vol_ratio": 2.3,
-      "volume": 57096116,
-      "avg_volume": 24824398
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 4.94,
+      "change_pct": 6.93,
+      "vol_ratio": 2.4,
+      "volume": 99029365,
+      "avg_volume": 41262235
     }
   ]
 }
