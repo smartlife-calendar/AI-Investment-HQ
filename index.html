@@ -1228,7 +1228,7 @@
                 });
                 
                 const isBull = direction === 'bullish';
-                let out = '<div style="margin-bottom:12px;color:#6b7280;font-size:12px">共 <strong>' + stocks.length + '</strong> 個' + label + '訊號</div>';
+                let out = '<div style="margin-bottom:12px;color:#6b7280;font-size:12px">共 <strong>' + stocks.length + '</strong> 個' + label + '訊號' + (window._smartData && window._smartData.generated_at ? ' <span style="color:#94a3b8;font-size:11px">(' + window._smartData.generated_at.substring(0,10) + ' 更新)</span>' : '') + '</div>';
                 
                 if (isBull) {
                     out += '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><span style="background:#dcfce7;color:#16a34a;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">📈 5-6分 吸籌中</span><span style="background:#bbf7d0;color:#15803d;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700">🔥 7+分 強吸籌</span></div>';
