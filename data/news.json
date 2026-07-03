@@ -1,11 +1,17 @@
 {
-  "generated_at": "2026-07-02T10:12:48+08:00",
+  "generated_at": "2026-07-03T10:00:04+08:00",
   "news": [
     {
       "title": "US Treasury picks BlackRock, Vanguard ETFs for Trump Accounts",
       "url": "https://finance.yahoo.com/markets/stocks/articles/us-treasury-picks-blackrock-vanguard-215730669.html",
       "publisher": "Reuters",
-      "published": 1782943050
+      "published": 1783018798
+    },
+    {
+      "title": "Trump Accounts to launch July 4: Who's eligible & where is it invested?",
+      "url": "https://finance.yahoo.com/video/trump-accounts-launch-july-4-154500803.html",
+      "publisher": "Yahoo Finance Video",
+      "published": 1783007100
     },
     {
       "title": "The ETFs behind Trump's new child investment accounts",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/5ae8f8b8-7e10-3560-8ee5-60bd403da99c/vanguard-vti-vs.-schwab-schb%3A.html",
       "publisher": "Motley Fool",
       "published": 1782717601
-    },
-    {
-      "title": "This Unstoppable Vanguard ETF Could Set You Up for Life With $300 a Month. Here's How.",
-      "url": "https://finance.yahoo.com/m/a8e34480-d697-32eb-957e-56b4c2c31d90/this-unstoppable-vanguard-etf.html",
-      "publisher": "Motley Fool",
-      "published": 1782687000
     }
   ]
 }
