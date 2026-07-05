@@ -1,0 +1,17 @@
+{
+  "date": "2026-07-05",
+  "generated_at": "2026-07-05T09:00:42.815325+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 18.63,
+      "change_pct": 8.44,
+      "vol_ratio": 2.6,
+      "volume": 77783087,
+      "avg_volume": 29916571
+    }
+  ]
+}
