@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T21:00:02+08:00",
+  "generated_at": "2026-07-06T13:32:13+08:00",
   "events": [
     {
       "sym": "📌",
@@ -13,7 +13,7 @@
       "type": "earnings",
       "note": "NFLX Q財報 盤後",
       "eps_forecast": "$0.79",
-      "market_cap": "$298,545,615,635"
+      "market_cap": "$312,399,142,792"
     },
     {
       "sym": "GOOGL",
@@ -21,7 +21,7 @@
       "type": "earnings",
       "note": "GOOGL Q財報",
       "eps_forecast": "$2.86",
-      "market_cap": "$4,164,390,360,000"
+      "market_cap": "$4,376,420,360,000"
     },
     {
       "sym": "TSLA",
@@ -29,23 +29,23 @@
       "type": "earnings",
       "note": "TSLA Q財報",
       "eps_forecast": "$0.27",
-      "market_cap": "$1,408,847,138,490"
+      "market_cap": "$1,597,309,362,336"
     },
     {
       "sym": "NOW",
       "date": "2026-07-22",
       "type": "earnings",
-      "note": "NOW Q財報",
+      "note": "NOW Q財報 盤後",
       "eps_forecast": "$0.40",
-      "market_cap": "$92,295,120,000"
+      "market_cap": "$109,079,800,000"
     },
     {
       "sym": "INTC",
       "date": "2026-07-23",
       "type": "earnings",
-      "note": "INTC Q財報",
+      "note": "INTC Q財報 盤後",
       "eps_forecast": "$0.10",
-      "market_cap": "$667,804,620,000"
+      "market_cap": "$638,402,520,000"
     },
     {
       "sym": "MSFT",
@@ -53,15 +53,15 @@
       "type": "earnings",
       "note": "MSFT Q財報",
       "eps_forecast": "$4.21",
-      "market_cap": "$2,620,974,616,612"
+      "market_cap": "$2,854,598,888,053"
     },
     {
       "sym": "META",
       "date": "2026-07-29",
       "type": "earnings",
       "note": "META Q財報",
-      "eps_forecast": "$7.10",
-      "market_cap": "$1,378,033,859,042"
+      "eps_forecast": "$7.09",
+      "market_cap": "$1,555,825,027,255"
     },
     {
       "sym": "ARM",
@@ -69,7 +69,7 @@
       "type": "earnings",
       "note": "ARM Q財報",
       "eps_forecast": "$0.18",
-      "market_cap": "$369,982,651,673"
+      "market_cap": "$359,086,725,892"
     },
     {
       "sym": "QCOM",
@@ -77,7 +77,7 @@
       "type": "earnings",
       "note": "QCOM Q財報",
       "eps_forecast": "$1.53",
-      "market_cap": "$215,964,600,000"
+      "market_cap": "$191,743,680,000"
     },
     {
       "sym": "AAPL",
@@ -85,7 +85,7 @@
       "type": "earnings",
       "note": "AAPL Q財報",
       "eps_forecast": "$1.88",
-      "market_cap": "$4,041,226,003,400"
+      "market_cap": "$4,323,663,859,280"
     },
     {
       "sym": "AMZN",
@@ -93,7 +93,7 @@
       "type": "earnings",
       "note": "AMZN Q財報",
       "eps_forecast": "$1.82",
-      "market_cap": "$2,441,971,413,066"
+      "market_cap": "$2,599,993,350,681"
     },
     {
       "sym": "NET",
@@ -101,7 +101,7 @@
       "type": "earnings",
       "note": "NET Q財報",
       "eps_forecast": "($0.03)",
-      "market_cap": "$80,113,131,455"
+      "market_cap": "$87,062,278,442"
     },
     {
       "sym": "📌",
@@ -115,7 +115,7 @@
       "type": "earnings",
       "note": "PLTR Q財報",
       "eps_forecast": "$0.27",
-      "market_cap": "$257,159,655,773"
+      "market_cap": "$301,414,034,868"
     },
     {
       "sym": "AMD",
@@ -123,7 +123,7 @@
       "type": "earnings",
       "note": "AMD Q財報",
       "eps_forecast": "$1.35",
-      "market_cap": "$868,408,982,312"
+      "market_cap": "$881,959,273,622"
     },
     {
       "sym": "SMCI",
@@ -131,15 +131,23 @@
       "type": "earnings",
       "note": "SMCI Q財報",
       "eps_forecast": "$0.59",
-      "market_cap": "$19,052,937,510"
+      "market_cap": "$16,629,221,027"
     },
     {
       "sym": "DDOG",
       "date": "2026-08-06",
       "type": "earnings",
       "note": "DDOG Q財報",
-      "eps_forecast": "$0.12",
-      "market_cap": "$78,645,844,158"
+      "eps_forecast": "$0.13",
+      "market_cap": "$94,144,350,787"
+    },
+    {
+      "sym": "PANW",
+      "date": "2026-08-17",
+      "type": "earnings",
+      "note": "PANW Q財報",
+      "eps_forecast": "$0.51",
+      "market_cap": "$286,912,600,000"
     },
     {
       "sym": "📌",
@@ -160,5 +168,5 @@
       "note": "四巫日（指數期貨/期權結算）"
     }
   ],
-  "earnings_count": 16
+  "earnings_count": 17
 }

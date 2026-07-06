@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-04",
-  "generated_at": "2026-07-04T10:00:01.974627+00:00",
+  "date": "2026-07-06",
+  "generated_at": "2026-07-06T13:32:13.585529+00:00",
   "sectors": [
     {
       "etf": "XLV",
@@ -47,7 +47,7 @@
       "name": "金融 Finance",
       "price": 55.62,
       "daily_chg": 1.53,
-      "vol_ratio": 1.29,
+      "vol_ratio": 1.28,
       "flow": "🟢 流入",
       "mcap_b": 165,
       "dollar_flow_b": 2.6

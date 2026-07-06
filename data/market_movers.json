@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-04T10:00:01+08:00",
+  "generated_at": "2026-07-06T13:32:13+08:00",
   "gainers": [
     {
       "symbol": "SLBT",
       "name": "SL Science Holding Limited",
       "price": 5.99,
       "change_pct": 34.61,
-      "volume": 1147096,
+      "volume": 1216225,
       "vr": ""
     },
     {
@@ -14,7 +14,7 @@
       "name": "Polibeli Group Ltd",
       "price": 10.26,
       "change_pct": 18.2,
-      "volume": 846510,
+      "volume": 848246,
       "vr": ""
     },
     {
@@ -30,7 +30,7 @@
       "name": "SELLAS Life Sciences Group, Inc",
       "price": 14.98,
       "change_pct": 12.89,
-      "volume": 12072478,
+      "volume": 17275558,
       "vr": ""
     },
     {
@@ -38,7 +38,7 @@
       "name": "Avis Budget Group, Inc.",
       "price": 163.44,
       "change_pct": 11.23,
-      "volume": 539323,
+      "volume": 543098,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "AeroVironment, Inc.",
       "price": 190.89,
       "change_pct": 10.7,
-      "volume": 4117679,
+      "volume": 4167391,
       "vr": ""
     },
     {
@@ -54,7 +54,7 @@
       "name": "Nektar Therapeutics",
       "price": 71.04,
       "change_pct": 10.33,
-      "volume": 1094939,
+      "volume": 1120778,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Moderna, Inc.",
       "price": 79.76,
       "change_pct": 10.01,
-      "volume": 13227210,
+      "volume": 14111998,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Immunome, Inc.",
       "price": 23.61,
       "change_pct": 9.87,
-      "volume": 1853646,
+      "volume": 1869683,
       "vr": ""
     },
     {
@@ -88,7 +88,7 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 6.37,
       "change_pct": -20.67,
-      "volume": 916622,
+      "volume": 940500,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "Vicor Corporation",
       "price": 282.95,
       "change_pct": -19.21,
-      "volume": 1151480,
+      "volume": 1156080,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "Axcelis Technologies, Inc.",
       "price": 144.5,
       "change_pct": -18.97,
-      "volume": 1036186,
+      "volume": 1037599,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Veeco Instruments Inc.",
       "price": 57.49,
       "change_pct": -18.48,
-      "volume": 2670445,
+      "volume": 2673849,
       "vr": ""
     },
     {
@@ -120,7 +120,7 @@
       "name": "Bel Fuse Inc.",
       "price": 230.16,
       "change_pct": -18.29,
-      "volume": 116987,
+      "volume": 117093,
       "vr": ""
     },
     {
@@ -128,7 +128,7 @@
       "name": "Ultra Clean Holdings, Inc.",
       "price": 106.47,
       "change_pct": -17.84,
-      "volume": 2414726,
+      "volume": 2437037,
       "vr": ""
     },
     {
@@ -136,7 +136,7 @@
       "name": "MaxLinear, Inc",
       "price": 93.12,
       "change_pct": -17.15,
-      "volume": 4932114,
+      "volume": 4944609,
       "vr": ""
     },
     {
@@ -144,7 +144,7 @@
       "name": "Aehr Test Systems",
       "price": 69.96,
       "change_pct": -17.13,
-      "volume": 3433148,
+      "volume": 3480299,
       "vr": ""
     },
     {
@@ -152,7 +152,7 @@
       "name": "Ouster, Inc.",
       "price": 49.84,
       "change_pct": -16.96,
-      "volume": 9034821,
+      "volume": 9136346,
       "vr": ""
     },
     {
@@ -160,17 +160,25 @@
       "name": "ACM Research, Inc.",
       "price": 97.77,
       "change_pct": -16.55,
-      "volume": 2886063,
+      "volume": 2944320,
       "vr": ""
     }
   ],
   "most_active": [
     {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 194.83,
+      "change_pct": -1.39,
+      "volume": 142385548,
+      "vr": ""
+    },
+    {
       "symbol": "AAL",
       "name": "American Airlines Group, Inc.",
       "price": 17.92,
       "change_pct": -1.27,
-      "volume": 129747122,
+      "volume": 130085026,
       "vr": ""
     },
     {
@@ -182,19 +190,11 @@
       "vr": ""
     },
     {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 194.83,
-      "change_pct": -1.39,
-      "volume": 129935067,
-      "vr": ""
-    },
-    {
       "symbol": "INTC",
       "name": "Intel Corporation",
       "price": 120.35,
       "change_pct": -5.25,
-      "volume": 122319394,
+      "volume": 125021717,
       "vr": ""
     },
     {
@@ -202,7 +202,7 @@
       "name": "Opendoor Technologies Inc",
       "price": 4.9,
       "change_pct": -0.81,
-      "volume": 89450976,
+      "volume": 90049906,
       "vr": ""
     },
     {
@@ -210,15 +210,7 @@
       "name": "Ondas Inc",
       "price": 7.41,
       "change_pct": -6.44,
-      "volume": 86228013,
-      "vr": ""
-    },
-    {
-      "symbol": "RIVN",
-      "name": "Rivian Automotive, Inc.",
-      "price": 18.63,
-      "change_pct": 8.44,
-      "volume": 77783087,
+      "volume": 87137400,
       "vr": ""
     },
     {
@@ -226,7 +218,7 @@
       "name": "SoFi Technologies, Inc.",
       "price": 18.24,
       "change_pct": -1.08,
-      "volume": 80149146,
+      "volume": 81377450,
       "vr": ""
     },
     {
@@ -238,11 +230,11 @@
       "vr": ""
     },
     {
-      "symbol": "TSLA",
-      "name": "Tesla, Inc.",
-      "price": 393.45,
-      "change_pct": -7.49,
-      "volume": 72014753,
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 18.63,
+      "change_pct": 8.44,
+      "volume": 78267206,
       "vr": ""
     },
     {
@@ -250,31 +242,31 @@
       "name": "Apple Inc.",
       "price": 308.63,
       "change_pct": 4.84,
-      "volume": 71900726,
+      "volume": 75400626,
       "vr": ""
     },
     {
-      "symbol": "IREN",
-      "name": "IREN LIMITED",
-      "price": 38.82,
-      "change_pct": -10.39,
-      "volume": 59798128,
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "price": 393.45,
+      "change_pct": -7.49,
+      "volume": 73915762,
       "vr": ""
     },
     {
-      "symbol": "VZ",
-      "name": "Verizon Communications Inc.",
-      "price": 42.56,
-      "change_pct": 1.36,
-      "volume": 58856216,
+      "symbol": "MU",
+      "name": "Micron Technology, Inc.",
+      "price": 975.56,
+      "change_pct": -5.49,
+      "volume": 61844373,
       "vr": ""
     },
     {
-      "symbol": "PATH",
-      "name": "UiPath, Inc.",
-      "price": 11.71,
-      "change_pct": 1.39,
-      "volume": 58368571,
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 162.0,
+      "change_pct": 2.83,
+      "volume": 61257120,
       "vr": ""
     },
     {
@@ -282,7 +274,15 @@
       "name": "Plug Power, Inc.",
       "price": 2.64,
       "change_pct": 0.0,
-      "volume": 59940245,
+      "volume": 60796980,
+      "vr": ""
+    },
+    {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies Inc.",
+      "price": 129.3,
+      "change_pct": 2.84,
+      "volume": 60789443,
       "vr": ""
     }
   ],
@@ -292,7 +292,7 @@
       "name": "Rivian Automotive, Inc.",
       "price": 18.63,
       "change_pct": 8.44,
-      "volume": 77783087,
+      "volume": 78267206,
       "vr": 2.6
     }
   ],
