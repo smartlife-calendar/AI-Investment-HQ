@@ -1,26 +1,26 @@
 {
   "date": "2026-07-09",
-  "generated_at": "2026-07-09T09:48:28.049799+08:00",
+  "generated_at": "2026-07-09T10:02:19.880832+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 2,
   "stocks": [
     {
-      "symbol": "CRNX",
-      "name": "Crinetics Pharmaceuticals, Inc.",
-      "price": 83.53,
-      "change_pct": 98.74,
-      "vol_ratio": 31.2,
-      "volume": 80611242,
-      "avg_volume": 2583693
+      "symbol": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "price": 108.98,
+      "change_pct": 11.05,
+      "vol_ratio": 3.1,
+      "volume": 38329486,
+      "avg_volume": 12364350
     },
     {
-      "symbol": "RIVN",
-      "name": "Rivian Automotive, Inc.",
-      "price": 16.49,
-      "change_pct": -18.12,
-      "vol_ratio": 2.8,
-      "volume": 88577925,
-      "avg_volume": 31634973
+      "symbol": "QXO",
+      "name": "QXO, Inc.",
+      "price": 14.66,
+      "change_pct": -3.87,
+      "vol_ratio": 2.7,
+      "volume": 53580712,
+      "avg_volume": 19844708
     }
   ]
 }
