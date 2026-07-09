@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-08T10:00:02+08:00",
+  "generated_at": "2026-07-09T10:00:02+08:00",
   "news": [
+    {
+      "title": "4 Brilliant Vanguard ETFs to Buy in July",
+      "url": "https://finance.yahoo.com/m/fe9a51d9-af56-3904-9c6a-64bc595992c8/4-brilliant-vanguard-etfs-to.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1783512000
+    },
     {
       "title": "Vanguard Total Stock Market ETF vs iShares Core MSCI Emerging Market ETF: Is VXUS or IEMG the Better Buy Right Now?",
       "url": "https://finance.yahoo.com/m/862c719d-7589-38ff-ae9d-1186cc26bf9a/vanguard-total-stock-market.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-serve-alternate-fund-partner-202900335.html",
       "publisher": "PR Newswire",
       "published": 1782937740
-    },
-    {
-      "title": "Should You Forget the Vanguard Total Stock Market ETF? Here's What History Says.",
-      "url": "https://finance.yahoo.com/m/e319c4a7-3a75-31e3-a99a-e1cc872077ac/should-you-forget-the.html",
-      "publisher": "Motley Fool",
-      "published": 1782842880
     }
   ]
 }

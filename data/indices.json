@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-07-08T10:00:02+08:00",
+  "generated_at": "2026-07-09T10:00:02+08:00",
   "indices": {
     "^GSPC": {
       "name": "S&P 500",
-      "price": 7503.85,
-      "pct": -0.45
+      "price": 7482.71,
+      "pct": -0.28
     },
     "^IXIC": {
       "name": "NASDAQ",
-      "price": 25818.69,
-      "pct": -1.16
+      "price": 25870.65,
+      "pct": 0.2
     },
     "^DJI": {
       "name": "DOW",
-      "price": 52925.15,
-      "pct": -0.25
+      "price": 52348.39,
+      "pct": -1.09
     },
     "^VIX": {
       "name": "VIX",
-      "price": 16.13,
-      "pct": 3.6
+      "price": 16.9,
+      "pct": 4.77
     },
     "^TNX": {
       "name": "10Y Bond",
-      "price": 4.53,
-      "pct": 0.98
+      "price": 4.57,
+      "pct": 0.88
     },
     "DX-Y.NYB": {
       "name": "DXY",
-      "price": 101.15,
-      "pct": 0.01
+      "price": 101.01,
+      "pct": -0.04
     }
   }
 }
