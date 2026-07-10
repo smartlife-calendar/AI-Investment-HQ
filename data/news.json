@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-09T10:00:02+08:00",
+  "generated_at": "2026-07-10T10:00:01+08:00",
   "news": [
+    {
+      "title": "Small Cap ETFs Are Beating the S 500 as the Mag 7 Stumble",
+      "url": "https://finance.yahoo.com/m/049bd161-9bec-3802-b497-7d4d2e319d21/small-cap-etfs-are-beating.html",
+      "publisher": "etf.com",
+      "published": 1783645579
+    },
     {
       "title": "4 Brilliant Vanguard ETFs to Buy in July",
       "url": "https://finance.yahoo.com/m/fe9a51d9-af56-3904-9c6a-64bc595992c8/4-brilliant-vanguard-etfs-to.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/video/the-etfs-behind-trumps-new-child-investment-accounts-215300606.html",
       "publisher": "Yahoo Finance Video",
       "published": 1782940200
-    },
-    {
-      "title": "Vanguard to Serve as Alternate Fund Partner for Trump Accounts",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-serve-alternate-fund-partner-202900335.html",
-      "publisher": "PR Newswire",
-      "published": 1782937740
     }
   ]
 }
