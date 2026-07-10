@@ -1,26 +1,35 @@
 {
   "date": "2026-07-10",
-  "generated_at": "2026-07-10T10:01:02.245864+08:00",
+  "generated_at": "2026-07-10T10:01:14.480573+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "BABA",
-      "name": "Alibaba Group Holding Limited",
-      "price": 108.98,
-      "change_pct": 11.05,
-      "vol_ratio": 3.1,
-      "volume": 38329486,
-      "avg_volume": 12364350
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 18.12,
+      "change_pct": 8.76,
+      "vol_ratio": 2.5,
+      "volume": 83489927,
+      "avg_volume": 33395970
     },
     {
-      "symbol": "QXO",
-      "name": "QXO, Inc.",
-      "price": 14.66,
-      "change_pct": -3.87,
-      "vol_ratio": 2.7,
-      "volume": 53580712,
-      "avg_volume": 19844708
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 5.3,
+      "change_pct": 10.65,
+      "vol_ratio": 2.4,
+      "volume": 112036033,
+      "avg_volume": 46681680
+    },
+    {
+      "symbol": "PATH",
+      "name": "UiPath, Inc.",
+      "price": 11.8,
+      "change_pct": 3.33,
+      "vol_ratio": 2.3,
+      "volume": 98073136,
+      "avg_volume": 42640493
     }
   ]
 }
