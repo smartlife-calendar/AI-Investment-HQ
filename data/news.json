@@ -1,6 +1,18 @@
 {
-  "generated_at": "2026-07-10T10:00:01+08:00",
+  "generated_at": "2026-07-11T10:00:02+08:00",
   "news": [
+    {
+      "title": "VOO Just Crossed $1 Trillion. Here’s the Hidden Risk Nobody’s Pricing In",
+      "url": "https://finance.yahoo.com/m/9e0b8d68-427f-38db-ba5b-a96ec472e648/voo-just-crossed-%241-trillion..html",
+      "publisher": "24/7 Wall St.",
+      "published": 1783717959
+    },
+    {
+      "title": "The Tax Math That Makes VXUS Worth $2,184 More Inside a Roth IRA",
+      "url": "https://finance.yahoo.com/m/6eedf083-0fd1-3992-8e35-b861c0688003/the-tax-math-that-makes-vxus.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1783685410
+    },
     {
       "title": "Small Cap ETFs Are Beating the S 500 as the Mag 7 Stumble",
       "url": "https://finance.yahoo.com/m/049bd161-9bec-3802-b497-7d4d2e319d21/small-cap-etfs-are-beating.html",
@@ -48,18 +60,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/us-treasury-picks-blackrock-vanguard-215730669.html",
       "publisher": "Reuters",
       "published": 1783018798
-    },
-    {
-      "title": "Trump Accounts to launch July 4: Who's eligible & where is it invested?",
-      "url": "https://finance.yahoo.com/video/trump-accounts-launch-july-4-154500803.html",
-      "publisher": "Yahoo Finance Video",
-      "published": 1783007100
-    },
-    {
-      "title": "The ETFs behind Trump's new child investment accounts",
-      "url": "https://finance.yahoo.com/video/the-etfs-behind-trumps-new-child-investment-accounts-215300606.html",
-      "publisher": "Yahoo Finance Video",
-      "published": 1782940200
     }
   ]
 }
