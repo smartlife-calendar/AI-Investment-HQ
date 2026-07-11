@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-12",
+  "generated_at": "2026-07-12T00:21:15.959441+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "FRMI",
+      "name": "Fermi Inc.",
+      "price": 6.59,
+      "change_pct": -9.97,
+      "vol_ratio": 3.9,
+      "volume": 72310019,
+      "avg_volume": 18541030
+    },
+    {
+      "symbol": "CRCL",
+      "name": "Circle Internet Group, Inc.",
+      "price": 66.14,
+      "change_pct": 4.97,
+      "vol_ratio": 2.4,
+      "volume": 35158305,
+      "avg_volume": 14649293
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms, Inc.",
+      "price": 669.21,
+      "change_pct": 5.97,
+      "vol_ratio": 2.3,
+      "volume": 39408342,
+      "avg_volume": 17134061
+    }
+  ]
+}
