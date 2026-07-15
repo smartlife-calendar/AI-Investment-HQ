@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-14T12:20:09+08:00",
+  "generated_at": "2026-07-15T10:00:02+08:00",
   "news": [
+    {
+      "title": "Trump Accounts Could Subject Your Kid to a Stock Market Bubble. Here’s a Better Way to Invest.",
+      "url": "https://finance.yahoo.com/m/c0fd204b-7be1-3725-94e4-db4bbc9787c0/trump-accounts-could-subject.html",
+      "publisher": "Barchart",
+      "published": 1784042141
+    },
     {
       "title": "SpaceX's IPO Is Reshaping the Most Popular ETFs on Wall Street. Here's What That Means for Your Portfolio.",
       "url": "https://finance.yahoo.com/m/ceb983da-2a18-3dde-9fc1-90ec02c61356/spacex%27s-ipo-is-reshaping-the.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/862c719d-7589-38ff-ae9d-1186cc26bf9a/vanguard-total-stock-market.html",
       "publisher": "Motley Fool",
       "published": 1783355228
-    },
-    {
-      "title": "Should You Put $500 a Month Into This Vanguard ETF? Here's How Much You Could Gain.",
-      "url": "https://finance.yahoo.com/m/18e9d49d-d7eb-3429-9bd5-0a2b847afad6/should-you-put-%24500-a-month.html",
-      "publisher": "Motley Fool",
-      "published": 1783233300
     }
   ]
 }
