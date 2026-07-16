@@ -1,26 +1,35 @@
 {
   "date": "2026-07-16",
-  "generated_at": "2026-07-16T09:37:34.258913+08:00",
+  "generated_at": "2026-07-16T10:01:23.621436+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "IBM",
-      "name": "International Business Machines",
-      "price": 217.07,
-      "change_pct": -25.21,
-      "vol_ratio": 7.4,
-      "volume": 67422893,
-      "avg_volume": 9111201
+      "symbol": "PYPL",
+      "name": "PayPal Holdings, Inc.",
+      "price": 55.52,
+      "change_pct": 17.2,
+      "vol_ratio": 5.4,
+      "volume": 89318737,
+      "avg_volume": 16540506
     },
     {
-      "symbol": "CLSK",
-      "name": "CleanSpark, Inc.",
-      "price": 13.45,
-      "change_pct": 8.82,
-      "vol_ratio": 3.6,
-      "volume": 76365717,
-      "avg_volume": 21212699
+      "symbol": "LCID",
+      "name": "Lucid Group, Inc.",
+      "price": 5.95,
+      "change_pct": 28.79,
+      "vol_ratio": 2.8,
+      "volume": 56365785,
+      "avg_volume": 20130637
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 4.75,
+      "change_pct": 4.4,
+      "vol_ratio": 2.3,
+      "volume": 115182772,
+      "avg_volume": 50079466
     }
   ]
 }
