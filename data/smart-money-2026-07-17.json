@@ -1,35 +1,35 @@
 {
   "date": "2026-07-17",
-  "generated_at": "2026-07-17T09:55:27.895331+08:00",
+  "generated_at": "2026-07-17T10:01:21.979665+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
-      "symbol": "PYPL",
-      "name": "PayPal Holdings, Inc.",
-      "price": 55.52,
-      "change_pct": 17.2,
-      "vol_ratio": 5.4,
-      "volume": 89318737,
-      "avg_volume": 16540506
-    },
-    {
-      "symbol": "LCID",
-      "name": "Lucid Group, Inc.",
-      "price": 5.95,
-      "change_pct": 28.79,
-      "vol_ratio": 2.8,
-      "volume": 56365785,
-      "avg_volume": 20130637
+      "symbol": "ATAI",
+      "name": "AtaiBeckley Inc.",
+      "price": 7.15,
+      "change_pct": 33.4,
+      "vol_ratio": 16.0,
+      "volume": 165656796,
+      "avg_volume": 10353549
     },
     {
       "symbol": "OPEN",
       "name": "Opendoor Technologies Inc",
-      "price": 4.75,
-      "change_pct": 4.4,
-      "vol_ratio": 2.3,
-      "volume": 115182772,
-      "avg_volume": 50079466
+      "price": 4.57,
+      "change_pct": -3.79,
+      "vol_ratio": 2.7,
+      "volume": 143539272,
+      "avg_volume": 53162693
+    },
+    {
+      "symbol": "LCID",
+      "name": "Lucid Group, Inc.",
+      "price": 6.46,
+      "change_pct": 8.57,
+      "vol_ratio": 2.2,
+      "volume": 45435548,
+      "avg_volume": 20652521
     }
   ]
 }
