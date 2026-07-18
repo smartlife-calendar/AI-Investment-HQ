@@ -1,35 +1,26 @@
 {
   "date": "2026-07-18",
-  "generated_at": "2026-07-18T09:51:39.492249+08:00",
+  "generated_at": "2026-07-18T10:01:22.058249+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 2,
   "stocks": [
     {
-      "symbol": "ATAI",
-      "name": "AtaiBeckley Inc.",
-      "price": 7.15,
-      "change_pct": 33.4,
-      "vol_ratio": 16.0,
-      "volume": 165656796,
-      "avg_volume": 10353549
-    },
-    {
-      "symbol": "OPEN",
-      "name": "Opendoor Technologies Inc",
-      "price": 4.57,
-      "change_pct": -3.79,
-      "vol_ratio": 2.7,
-      "volume": 143539272,
-      "avg_volume": 53162693
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "price": 68.95,
+      "change_pct": -7.26,
+      "vol_ratio": 3.3,
+      "volume": 141231076,
+      "avg_volume": 42797295
     },
     {
       "symbol": "LCID",
       "name": "Lucid Group, Inc.",
-      "price": 6.46,
-      "change_pct": 8.57,
-      "vol_ratio": 2.2,
-      "volume": 45435548,
-      "avg_volume": 20652521
+      "price": 7.36,
+      "change_pct": 13.93,
+      "vol_ratio": 2.3,
+      "volume": 47786233,
+      "avg_volume": 20776623
     }
   ]
 }
