@@ -1383,7 +1383,22 @@
                         + '<span>🎯 ' + target + ' (' + (upside > 0 ? '+' : '') + upside + '%)</span>'
                         + '<span>P/C ' + pc + '</span>'
                         + (a.n_analysts ? '<span>👥 ' + a.n_analysts + '位分析師</span>' : '')
-                        + '</div></div>';
+                        +'</div>'
+                        + (function() {
+                            var v = s.valuation || {};
+                            if (!v.analyst && !v.sector_pe) return '';
+                            var parts = [];
+                            if (v.analyst) parts.push('分析師 $' + Math.round(v.analyst));
+                            if (v.sector_pe) parts.push('板塊PE $' + Math.round(v.sector_pe));
+                            if (v.ddm) parts.push('DDM $' + Math.round(v.ddm));
+                            if (v.composite_upside != null) {
+                                var cu = v.composite_upside;
+                                var cuColor = cu > 10 ? '#16a34a' : cu < -10 ? '#dc2626' : '#a16207';
+                                parts.push('<span style="color:' + cuColor + ';font-weight:700">綜合 ' + (cu>0?'+':'') + Math.round(cu) + '%</span>');
+                            }
+                            return '<div style="font-size:10px;color:#94a3b8;margin-top:4px;border-top:1px solid #f1f5f9;padding-top:4px">💰 ' + parts.join(' · ') + '</div>';
+                        })()
+                        + '</div>';
                 }
                 
                 var out = '<div style="padding:16px">';
