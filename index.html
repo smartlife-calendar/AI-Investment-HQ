@@ -233,7 +233,7 @@
             <span id="userEmail" style="color:#94a3b8;font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
             
             
-            <button id="langToggleBtn" onclick="setLang(_lang==='zh'?'en':'zh')" style="background:rgba(255,255,255,0.1);color:#a5b4fc;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">EN</button>
+            
         </div>
     </div>
 
@@ -1344,13 +1344,21 @@
             }
         }
         
-        function loadSignalMap() {
+        async function loadSignalMap() {
             var content = document.getElementById('smartMoneyContent');
             if (!content) return;
             var ts = new Date().getTime();
+            var dateStr = '';
+            try {
+                var r = await fetch('/data/accumulation.json?t=' + ts);
+                if (r.ok) {
+                    var d = await r.json();
+                    if (d.generated_at) dateStr = new Date(d.generated_at).toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
+                }
+            } catch(e) {}
             content.innerHTML = '<div style="text-align:center;padding:16px">'
-                + '<h3 style="color:#e2e8f0;margin:0 0 12px;font-size:16px">Signal Map</h3>'
-                + '<p style="color:#94a3b8;font-size:12px;margin:0 0 16px">X=Score | Y=1M Change% | Color=Phase | Size=Days</p>'
+                + '<h3 style="color:#e2e8f0;margin:0 0 12px;font-size:16px">📊 Signal Map' + (dateStr ? ' — ' + dateStr : '') + '</h3>'
+                + '<p style="color:#94a3b8;font-size:12px;margin:0 0 16px">X=訊號分數 | Y=月漲跌% | 顏色=Phase階段 | 大小=連續天數</p>'
                 + '<img src="/data/signal_map.png?' + ts + '" style="max-width:100%;border-radius:12px;border:1px solid #334155" alt="Signal Map">'
                 + '</div>';
         }
