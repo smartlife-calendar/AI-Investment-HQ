@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T08:13:31+08:00",
+  "generated_at": "2026-07-20T08:17:42+08:00",
   "from_cache": false,
   "macro": [
     {
@@ -59,8 +59,8 @@
     {
       "name": "美元指數 DXY",
       "ticker": "DX-Y.NYB",
-      "current": 100.83,
-      "change_1d": 0.08,
+      "current": 100.82,
+      "change_1d": 0.07,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
@@ -105,7 +105,7 @@
         ],
         [
           "07/20",
-          100.83,
+          100.82,
           0.1
         ]
       ]
@@ -113,12 +113,12 @@
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 3988.5,
-      "change_1d": -0.6,
-      "volume_1d": 4950,
-      "avg_volume_5d": 1646,
-      "fund_flow": -19743075,
-      "perf_52w": 19.6,
+      "current": 3993.8,
+      "change_1d": -0.47,
+      "volume_1d": 5247,
+      "avg_volume_5d": 1705,
+      "fund_flow": -20955469,
+      "perf_52w": 19.8,
       "flow": "🟢流入",
       "momentum": "📈 跌勢趨緩",
       "wow": [
@@ -159,20 +159,20 @@
         ],
         [
           "07/20",
-          3988.5,
-          -0.6
+          3993.8,
+          -0.5
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 83.87,
-      "change_1d": 1.69,
-      "volume_1d": 22802,
-      "avg_volume_5d": 210018,
-      "fund_flow": 1912632,
-      "perf_52w": 28.7,
+      "current": 83.65,
+      "change_1d": 1.41,
+      "volume_1d": 23510,
+      "avg_volume_5d": 210160,
+      "fund_flow": 1966612,
+      "perf_52w": 28.4,
       "flow": "🟢流入",
       "momentum": "📈 加速",
       "wow": [
@@ -213,8 +213,8 @@
         ],
         [
           "07/20",
-          83.87,
-          1.7
+          83.65,
+          1.4
         ]
       ]
     },
