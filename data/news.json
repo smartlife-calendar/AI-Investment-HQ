@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-18T10:00:02+08:00",
+  "generated_at": "2026-07-20T08:17:42+08:00",
   "news": [
+    {
+      "title": "Not Sure Which Stocks to Buy? This Vanguard ETF Makes It Simple.",
+      "url": "https://finance.yahoo.com/m/addad311-1aff-3389-a142-69f18ab5fc81/not-sure-which-stocks-to-buy%3F.html",
+      "publisher": "Motley Fool",
+      "published": 1784368200
+    },
     {
       "title": "VTI Is Cheaper Than It Used to Be. So What's the Catch?",
       "url": "https://finance.yahoo.com/m/7b75d8fa-bae0-3ec2-b0fc-40b5759c20fa/vti-is-cheaper-than-it-used.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/2e7217ff-fff2-374a-96c0-6b629414fc65/this-overlooked-investment.html",
       "publisher": "Motley Fool",
       "published": 1783753500
-    },
-    {
-      "title": "VOO Just Crossed $1 Trillion. Here’s the Hidden Risk Nobody’s Pricing In",
-      "url": "https://finance.yahoo.com/m/9e0b8d68-427f-38db-ba5b-a96ec472e648/voo-just-crossed-%241-trillion..html",
-      "publisher": "24/7 Wall St.",
-      "published": 1783717959
     }
   ]
 }
