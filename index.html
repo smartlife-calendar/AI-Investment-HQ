@@ -494,8 +494,7 @@
         <div id="marketStatusBanner"></div>
     </div>
 
-    <!-- Earnings Calendar (always visible) -->
-    <div class="max-w-5xl mx-auto mt-3 px-4" id="earningsSection">
+    <div class="max-w-5xl mx-auto mt-3 px-4" id="earningsSection" style="display:none">
         <div style="background:white;border-radius:14px;padding:16px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
                 <h3 style="font-size:15px;font-weight:700;color:#1e293b;margin:0">📅 近期重大財報日曆</h3>
@@ -1327,9 +1326,9 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
-                'today': ['topBriefing','dailyColumn','dailyFlowsSection','smartlifeAd','adBanner'],
+                'today': ['topBriefing','dailyColumn','earningsSection','dailyFlowsSection','smartlifeAd','adBanner'],
                 'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
