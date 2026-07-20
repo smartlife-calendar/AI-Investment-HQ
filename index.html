@@ -1178,12 +1178,13 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','backtest','signalmap'].forEach(t => {
+            ['bullish','bearish','backtest','signalmap','alpha'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
                     if (t === 'bullish') { btn.style.background = '#dcfce7'; btn.style.color = '#16a34a'; btn.style.border = 'none'; }
                     else if (t === 'bearish') { btn.style.background = '#fee2e2'; btn.style.color = '#dc2626'; btn.style.border = 'none'; }
+                    else if (t === 'alpha') { btn.style.background = '#fef3c7'; btn.style.color = '#92400e'; btn.style.border = 'none'; }
                     else { btn.style.background = '#ede9fe'; btn.style.color = '#7c3aed'; btn.style.border = 'none'; }
                 } else {
                     btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '2px solid #e2e8f0';
@@ -1192,6 +1193,7 @@
             if (tab === 'bullish') loadSmartDirection('bullish');
             else if (tab === 'bearish') loadSmartDirection('bearish');
             else if (tab === 'signalmap') loadSignalMap();
+            else if (tab === 'alpha') loadAlphaFramework();
             else loadSmartBacktest();
         }
         
@@ -1357,6 +1359,107 @@
                 + '</div>';
         }
         
+
+        async function loadAlphaFramework() {
+            var content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入 Alpha 框架數據...</p>';
+            
+            try {
+                var r = await fetch('/data/alpha.json?t=' + Date.now());
+                if (!r.ok) throw new Error('alpha.json not found');
+                var data = await r.json();
+                var stocks = data.stocks;
+                var genAt = data.generated_at || '?';
+                
+                // Classify
+                var type4 = [], type3 = [], type2 = [], type1 = [];
+                Object.keys(stocks).forEach(function(sym) {
+                    var s = stocks[sym];
+                    s.symbol = sym;
+                    var cls = s.classification || 'type2_reduce';
+                    if (cls === 'type4_accumulate') type4.push(s);
+                    else if (cls === 'type3_hold') type3.push(s);
+                    else if (cls === 'type2_reduce') type2.push(s);
+                    else type1.push(s);
+                });
+                
+                // Sort by expected return
+                type4.sort(function(a,b) { return (b.expected_return||0) - (a.expected_return||0); });
+                type3.sort(function(a,b) { return (b.expected_return||0) - (a.expected_return||0); });
+                type1.sort(function(a,b) { return (a.expected_return||0) - (b.expected_return||0); });
+                
+                function makeCard(s, color, borderColor) {
+                    var n = s.narrative || {};
+                    var a = s.alpha || {};
+                    var p = s.positioning || {};
+                    var er = (s.expected_return || 0).toFixed(1);
+                    var upside = (a.upside_pct || 0).toFixed(1);
+                    var eps = (n.eps_revision_pct || 0).toFixed(1);
+                    var pc = (p.pc_ratio_oi || 0).toFixed(2);
+                    var nVerdict = n.verdict === 'intact' ? '✅' : n.verdict === 'weakening' ? '⚠️' : '❌';
+                    var target = a.target_mean ? '$' + a.target_mean.toFixed(0) : '?';
+                    
+                    return '<div class="smart-card" style="background:' + color + ';border-radius:12px;padding:14px;border-left:4px solid ' + borderColor + '">'
+                        + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">'
+                        + '<span data-ticker="' + s.symbol + '" style="font-weight:800;font-size:15px;color:#1e293b;cursor:pointer" onclick="document.getElementById(\'analyzeInput\').value=\'' + s.symbol + '\';showTab(\'analyze\');analyzeStock()">' + s.symbol + '</span>'
+                        + '<span style="font-weight:700;font-size:14px;color:' + borderColor + '">ER ' + er + '</span>'
+                        + '</div>'
+                        + '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#64748b;margin-top:6px">'
+                        + '<span>' + nVerdict + ' EPS ' + (eps > 0 ? '+' : '') + eps + '%</span>'
+                        + '<span>🎯 ' + target + ' (' + (upside > 0 ? '+' : '') + upside + '%)</span>'
+                        + '<span>P/C ' + pc + '</span>'
+                        + (a.n_analysts ? '<span>👥 ' + a.n_analysts + '位分析師</span>' : '')
+                        + '</div></div>';
+                }
+                
+                var out = '<div style="padding:16px">';
+                
+                // Summary cards
+                out += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;text-align:center;font-size:12px">';
+                out += '<div style="background:#dcfce7;padding:10px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:#16a34a">' + type4.length + '</div>🟢 加碼</div>';
+                out += '<div style="background:#fef9c3;padding:10px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:#a16207">' + type3.length + '</div>🟡 持有</div>';
+                out += '<div style="background:#fed7aa;padding:10px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:#c2410c">' + type2.length + '</div>🟠 減碼</div>';
+                out += '<div style="background:#fee2e2;padding:10px;border-radius:10px"><div style="font-size:20px;font-weight:800;color:#dc2626">' + type1.length + '</div>🔴 清倉</div>';
+                out += '</div>';
+                
+                // Type 4 - Accumulate
+                out += '<h3 style="color:#16a34a;font-size:15px;margin:16px 0 8px">🟢 Type 4 加碼區 — 敘事完好 + 高Alpha + 結構OK</h3>';
+                out += '<div style="display:grid;gap:8px">';
+                type4.forEach(function(s) { out += makeCard(s, '#f0fdf4', '#16a34a'); });
+                out += '</div>';
+                
+                // Type 1 - Exit
+                out += '<h3 style="color:#dc2626;font-size:15px;margin:16px 0 8px">🔴 Type 1 清倉警報 — 敘事破裂 + 低Alpha</h3>';
+                out += '<div style="display:grid;gap:8px">';
+                type1.forEach(function(s) { out += makeCard(s, '#fef2f2', '#dc2626'); });
+                out += '</div>';
+                
+                // Type 3 - Hold (collapsed)
+                out += '<details style="margin-top:16px"><summary style="cursor:pointer;color:#a16207;font-weight:700;font-size:14px;padding:8px 0">🟡 Type 3 持有 (' + type3.length + ' 支) ▾</summary>';
+                out += '<div style="display:grid;gap:8px;margin-top:8px">';
+                type3.forEach(function(s) { out += makeCard(s, '#fffbeb', '#a16207'); });
+                out += '</div></details>';
+                
+                // Type 2 - Reduce (collapsed)
+                out += '<details style="margin-top:12px"><summary style="cursor:pointer;color:#c2410c;font-weight:700;font-size:14px;padding:8px 0">🟠 Type 2 減碼 (' + type2.length + ' 支) ▾</summary>';
+                out += '<div style="display:grid;gap:8px;margin-top:8px">';
+                type2.forEach(function(s) { out += makeCard(s, '#fff7ed', '#c2410c'); });
+                out += '</div></details>';
+                
+                out += '<p style="font-size:11px;color:#94a3b8;margin-top:16px;text-align:center">更新時間：' + new Date(genAt).toLocaleString('zh-TW') + ' · 三層量化框架（敘事+Alpha+結構）</p>';
+                out += '</div>';
+                
+                content.innerHTML = out;
+                
+                // Show-more for type4 and type1 if > 10
+                var cards = content.querySelectorAll('.smart-card');
+                
+            } catch(e) {
+                content.innerHTML = '<p style="color:#ef4444;text-align:center;padding:24px">載入失敗：' + e.message + '</p>';
+            }
+        }
+
 async function loadSmartBacktest() {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
@@ -2554,6 +2657,7 @@ async function loadSmartBacktest() {
                             📊 績效回測
                         </button>
                         <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
+                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
