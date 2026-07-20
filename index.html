@@ -837,7 +837,7 @@
         let _currentUser = null;
         let _userCredits = 0;
 
-        async function initAuth() {
+        async async function initAuth() {
             const { data: { session } } = await _sb.auth.getSession();
             if (session) {
                 _currentUser = session.user;
@@ -2035,7 +2035,7 @@ function loadSmartBacktest() {
         }
 
         // Initialize Auth on page load
-        initAuth();
+        try { initAuth(); } catch(e) { console.warn('Auth init failed:', e); }
         // Dynamic version display
         fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
             const el = document.getElementById('versionDisplay');
