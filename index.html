@@ -1389,7 +1389,7 @@
                             if (!v.analyst && !v.sector_pe) return '';
                             var parts = [];
                             if (v.analyst) parts.push('分析師 $' + Math.round(v.analyst));
-                            if (v.sector_pe) parts.push('板塊PE $' + Math.round(v.sector_pe));
+                            if (v.sector_pe) parts.push('板塊PE(' + (v.sector_pe_used||'?') + 'x) $' + Math.round(v.sector_pe));
                             if (v.ddm) parts.push('DDM $' + Math.round(v.ddm));
                             if (v.composite_upside != null) {
                                 var cu = v.composite_upside;
@@ -2901,7 +2901,7 @@ async function loadSmartBacktest() {
 
             <details style="margin-bottom:16px">
                 <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
-                    七、回測驗證的交易規則 <span style="font-size:14px;color:#94a3b8">▾</span>
+                    八、回測驗證的交易規則 <span style="font-size:14px;color:#94a3b8">▾</span>
                 </summary>
                 <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px">
@@ -3125,4 +3125,69 @@ async function loadSmartBacktest() {
     </script>
 </body>
 </html>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    七、多模型估值比較 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                    <p style="color:#64748b;font-size:13px;margin:0 0 16px">每支股票使用 3 種獨立模型估值，取平均作為「綜合估值」，避免單一模型偏差</p>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">1. 分析師共識目標價</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>來源：</strong>Yahoo Finance（華爾街賣方分析師 12 個月目標價）</div>
+                            <div><strong>計算：</strong>所有分析師目標價的算術平均</div>
+                            <div><strong>優點：</strong>反映市場共識，覆蓋人數越多越可靠</div>
+                            <div><strong>缺點：</strong>分析師傾向偏樂觀（常給 buy），目標價通常偏高</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">2. 板塊 PE 估值</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>公式：</strong>Forward EPS × 板塊平均 PE</div>
+                            <div><strong>邏輯：</strong>同板塊公司應有相近的估值倍數</div>
+                        </div>
+                        <div style="margin-top:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;font-size:11px">
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Technology</strong> 30x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Consumer Cyclical</strong> 25x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Communication</strong> 22x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Industrials</strong> 20x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Healthcare</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Basic Materials</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Utilities</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Consumer Defensive</strong> 24x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Financial</strong> 14x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Energy</strong> 12x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Real Estate</strong> 35x</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. DDM 股利折現模型</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>公式：</strong>DDM = Dividend × (1+g) / (r-g)</div>
+                            <div><strong>參數：</strong>r=10%（要求報酬率），g=4-8%（依殖利率調整）</div>
+                            <div><strong>適用：</strong>穩定配息股（PG, JNJ, KO）。不配息股無法計算</div>
+                            <div><strong>殖利率 &gt;3%</strong> → g=4% · <strong>1.5-3%</strong> → g=6% · <strong>&lt;1.5%</strong> → g=8%</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">4. 綜合估值</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>計算：</strong>可用模型（分析師 + 板塊PE + DDM）的算術平均</div>
+                            <div><strong>判讀：</strong></div>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:4px">
+                            <span style="background:#dcfce7;padding:4px 10px;border-radius:12px">綜合 &gt;+20% 明顯低估</span>
+                            <span style="background:#fef9c3;padding:4px 10px;border-radius:12px">+5%~+20% 合理偏低</span>
+                            <span style="background:#e2e8f0;padding:4px 10px;border-radius:12px">±5% 合理價位</span>
+                            <span style="background:#fee2e2;padding:4px 10px;border-radius:12px">&lt;-10% 可能高估</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
 
