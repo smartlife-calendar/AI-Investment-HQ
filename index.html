@@ -206,6 +206,8 @@
         animation-play-state: paused;
     }
     </style>
+
+    <meta name="stockiq-version" content="bf3a12e-clean" data-date="2026-07-20">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -227,14 +229,10 @@
             <span style="color:white;font-weight:800;font-size:18px">Stock<span style="color:#818cf8">IQ</span>.TW</span>
         </a>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <span style="color:#64748b;font-size:12px"><span id="creditLabel">餘額：</span><strong id="creditCount" style="color:#818cf8">0 次</strong></span>
+            <span style="color:#64748b;font-size:12px">
             <span id="userEmail" style="color:#94a3b8;font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-            <button id="loginBtn" onclick="signInWithGoogle()" style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px">
-                <img src="https://www.google.com/favicon.ico" style="width:14px;height:14px"><span id="loginText">Google 登入</span>
-            </button>
-            <div id="userInfo" style="display:none;align-items:center;gap:6px">
-                <button id="logoutBtn" onclick="signOut()" style="background:rgba(248,113,113,0.15);color:#fca5a5;border:1px solid rgba(248,113,113,0.3);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-weight:600">⏻ 登出</button>
-            </div>
+            
+            
             <button id="langToggleBtn" onclick="setLang(_lang==='zh'?'en':'zh')" style="background:rgba(255,255,255,0.1);color:#a5b4fc;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">EN</button>
         </div>
     </div>
@@ -243,11 +241,11 @@
     <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
         <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
             <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
-            <button onclick="showTab('analyze')" id="tab-analyze" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔍 股票分析</button>
+            
             <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
             <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
             <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
-            <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
+            
 
             <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
             <button onclick="showTab('guide')" id="tab-guide" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📖 學習中心</button>
@@ -1091,14 +1089,12 @@
 
 
         function showTab(tabName) {
-            const allIds = ['dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
                 'today': ['dailyColumn','earningsSection','dailyFlowsSection','smartlifeAd','adBanner'],
-                'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
-                'history': ['historySection'],
                 'daily_archive': ['dailyArchiveSection'],
                 'guide': ['guideSection']
             }[tabName] || [];
@@ -1903,12 +1899,8 @@ async function loadSmartBacktest() {
         }
 
         // Initialize Auth on page load
-        try { initAuth(); } catch(e) { console.warn('Auth init failed:', e); }
+        // Auth disabled
         // Dynamic version display
-        fetch(API_BASE_URL + '/health').then(r => r.json()).then(d => {
-            const el = document.getElementById('versionDisplay');
-            if (el) el.textContent = 'v' + (d.version || '5.6.0');
-        }).catch(() => {});
         // Initialize page functionality
         setTimeout(() => {
             if (typeof loadMarketTicker === 'function') loadMarketTicker();
@@ -3103,19 +3095,7 @@ async function loadSmartBacktest() {
 
 
         <!-- Login Modal -->
-        <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl">
-                <div class="text-4xl mb-4">📊</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">登入後開始分析</h3>
-                <p class="text-gray-500 text-sm mb-6">免費帳號每月 3 次完整分析<br>登入即送，無需信用卡</p>
-                <button onclick="signInWithGoogle(); document.getElementById('loginModal').classList.add('hidden')" 
-                    class="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 font-medium text-gray-700 mb-3">
-                    <img src="https://www.google.com/favicon.ico" class="w-5 h-5"> 使用 Google 帳號登入
-                </button>
-                <button onclick="document.getElementById('loginModal').classList.add('hidden')" 
-                    class="text-gray-400 text-sm hover:text-gray-600">取消</button>
-            </div>
-        </div>
+        
 
 
         <!-- Watch List Toggle Button -->
