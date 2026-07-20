@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-18T10:00:02+08:00",
+  "generated_at": "2026-07-20T08:17:42+08:00",
   "gainers": [
     {
       "symbol": "LCID",
       "name": "Lucid Group, Inc.",
       "price": 7.36,
       "change_pct": 13.93,
-      "volume": 47786233,
+      "volume": 48307410,
       "vr": ""
     },
     {
@@ -14,7 +14,7 @@
       "name": "SELLAS Life Sciences Group, Inc",
       "price": 13.19,
       "change_pct": 12.26,
-      "volume": 11231556,
+      "volume": 11293041,
       "vr": ""
     },
     {
@@ -22,7 +22,7 @@
       "name": "Oruka Therapeutics, Inc.",
       "price": 92.7,
       "change_pct": 11.63,
-      "volume": 2804544,
+      "volume": 2804782,
       "vr": ""
     },
     {
@@ -30,7 +30,7 @@
       "name": "Dianthus Therapeutics, Inc.",
       "price": 105.6,
       "change_pct": 10.75,
-      "volume": 1017100,
+      "volume": 1025194,
       "vr": ""
     },
     {
@@ -38,7 +38,7 @@
       "name": "Hemab Therapeutics Holdings, In",
       "price": 49.29,
       "change_pct": 10.69,
-      "volume": 318407,
+      "volume": 320015,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "Trevi Therapeutics, Inc.",
       "price": 19.07,
       "change_pct": 9.85,
-      "volume": 8309900,
+      "volume": 8312192,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Sionna Therapeutics, Inc.",
       "price": 49.41,
       "change_pct": 9.1,
-      "volume": 1139271,
+      "volume": 1139315,
       "vr": ""
     },
     {
@@ -88,7 +88,7 @@
       "name": "Intuitive Surgical, Inc.",
       "price": 345.42,
       "change_pct": -14.15,
-      "volume": 11547187,
+      "volume": 11563751,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "Cadence Design Systems, Inc.",
       "price": 330.11,
       "change_pct": -9.47,
-      "volume": 5176142,
+      "volume": 5188484,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "Penguin Solutions, Inc.",
       "price": 60.41,
       "change_pct": -8.43,
-      "volume": 4107941,
+      "volume": 4131383,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Synopsys, Inc.",
       "price": 384.27,
       "change_pct": -7.85,
-      "volume": 4951945,
+      "volume": 5039287,
       "vr": ""
     },
     {
@@ -136,7 +136,7 @@
       "name": "StoneX Group Inc.",
       "price": 102.99,
       "change_pct": -7.12,
-      "volume": 1305061,
+      "volume": 1307419,
       "vr": ""
     },
     {
@@ -152,7 +152,7 @@
       "name": "MARA Holdings, Inc.",
       "price": 10.69,
       "change_pct": -6.39,
-      "volume": 43030675,
+      "volume": 43680041,
       "vr": ""
     },
     {
@@ -160,7 +160,7 @@
       "name": "Figure Technology Solutions, In",
       "price": 28.97,
       "change_pct": -6.15,
-      "volume": 2130032,
+      "volume": 2132915,
       "vr": ""
     }
   ],
@@ -170,7 +170,7 @@
       "name": "Ondas Inc",
       "price": 6.53,
       "change_pct": -1.88,
-      "volume": 213636481,
+      "volume": 214489252,
       "vr": ""
     },
     {
@@ -178,7 +178,15 @@
       "name": "American Airlines Group, Inc.",
       "price": 14.98,
       "change_pct": -3.97,
-      "volume": 176722073,
+      "volume": 176807466,
+      "vr": ""
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 202.81,
+      "change_pct": -2.21,
+      "volume": 144281910,
       "vr": ""
     },
     {
@@ -190,11 +198,19 @@
       "vr": ""
     },
     {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 202.81,
-      "change_pct": -2.21,
-      "volume": 138213660,
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 95.04,
+      "change_pct": -2.0,
+      "volume": 126779308,
+      "vr": ""
+    },
+    {
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 10.12,
+      "change_pct": -2.5,
+      "volume": 115510979,
       "vr": ""
     },
     {
@@ -206,35 +222,11 @@
       "vr": ""
     },
     {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 95.04,
-      "change_pct": -2.0,
-      "volume": 120108222,
-      "vr": ""
-    },
-    {
-      "symbol": "SKHYV",
-      "name": "SK hynix Inc. - American Deposi",
-      "price": 168.01,
-      "change_pct": 0.0,
-      "volume": 107674661,
-      "vr": ""
-    },
-    {
       "symbol": "OPEN",
       "name": "Opendoor Technologies Inc",
       "price": 4.5,
       "change_pct": -1.53,
-      "volume": 106419159,
-      "vr": ""
-    },
-    {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 10.12,
-      "change_pct": -2.5,
-      "volume": 115510979,
+      "volume": 106529320,
       "vr": ""
     },
     {
@@ -258,7 +250,7 @@
       "name": "SoFi Technologies, Inc.",
       "price": 17.28,
       "change_pct": -0.23,
-      "volume": 89520407,
+      "volume": 89973828,
       "vr": ""
     },
     {
@@ -266,15 +258,7 @@
       "name": "Space Exploration Technologies ",
       "price": 123.99,
       "change_pct": -5.43,
-      "volume": 83231703,
-      "vr": ""
-    },
-    {
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "price": 154.03,
-      "change_pct": 1.13,
-      "volume": 71991315,
+      "volume": 83706220,
       "vr": ""
     },
     {
@@ -284,6 +268,22 @@
       "change_pct": -0.77,
       "volume": 70400888,
       "vr": ""
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix Inc.",
+      "price": 154.03,
+      "change_pct": 1.13,
+      "volume": 73978314,
+      "vr": ""
+    },
+    {
+      "symbol": "HL",
+      "name": "Hecla Mining Company",
+      "price": 14.33,
+      "change_pct": -1.31,
+      "volume": 66976189,
+      "vr": ""
     }
   ],
   "strong_buy": [
@@ -292,7 +292,7 @@
       "name": "Lucid Group, Inc.",
       "price": 7.36,
       "change_pct": 13.93,
-      "volume": 47786233,
+      "volume": 48307410,
       "vr": 2.3
     }
   ],
@@ -302,7 +302,7 @@
       "name": "American Airlines Group, Inc.",
       "price": 14.98,
       "change_pct": -3.97,
-      "volume": 176722073,
+      "volume": 176807466,
       "vr": 1.7
     },
     {
