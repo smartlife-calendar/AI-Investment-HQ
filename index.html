@@ -207,7 +207,7 @@
     }
     </style>
 
-    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.20-451f589">
+    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.20-v2">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -1388,9 +1388,10 @@
                             var v = s.valuation || {};
                             if (!v.analyst && !v.sector_pe) return '';
                             var parts = [];
-                            if (v.analyst) parts.push('分析師 $' + Math.round(v.analyst));
+                            if (v.analyst_adj) parts.push('分析師(-10%) $' + Math.round(v.analyst_adj));
+                            else if (v.analyst) parts.push('分析師 $' + Math.round(v.analyst));
                             if (v.sector_pe) parts.push('板塊PE(' + (v.sector_pe_used||'?') + 'x) $' + Math.round(v.sector_pe));
-                            if (v.ddm) parts.push('DDM $' + Math.round(v.ddm));
+                            if (v.peg_fair) parts.push('PEG(' + (v.peg_pe_used||'?') + 'x) $' + Math.round(v.peg_fair));
                             if (v.composite != null) {
                                 var cu = v.composite_upside || 0;
                                 var cuColor = cu > 10 ? '#16a34a' : cu < -10 ? '#dc2626' : '#a16207';
@@ -2878,7 +2879,7 @@ async function loadSmartBacktest() {
                                 <span style="font-size:11px;color:#94a3b8">Tech 30x · ConsDisc 25x · Comm 22x · Indust 20x · Health 18x · ConsDef 24x · Financial 14x · Energy 12x · REIT 35x</span>
                             </div>
                             <div style="background:#f8fafc;padding:10px;border-radius:8px">
-                                <strong>💰 DDM 股利折現</strong> — Div×(1+g)/(r-g)，r=10%。高殖利率 g=4%、中 g=6%、低 g=8%。僅適用配息股
+                                <strong>📐 PEG 估值</strong> — FPE(-12%) × (EPS成長% × PEG倍數)。科技股PEG=1.2x，防禦股PEG=1.8x。成長率上限50%，PE上限40x
                             </div>
                             <div style="background:#eff6ff;padding:10px;border-radius:8px;border-left:3px solid #4f46e5">
                                 <strong>🎯 綜合估值</strong> = 可用模型平均<br>
@@ -2963,12 +2964,14 @@ async function loadSmartBacktest() {
                     </div>
                     
                     <div style="margin-bottom:16px">
-                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. DDM 股利折現模型</h3>
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. PEG 成長估值模型</h3>
                         <div style="font-size:12px;color:#475569;line-height:1.8">
-                            <div><strong>公式：</strong>DDM = Dividend × (1+g) / (r-g)</div>
-                            <div><strong>參數：</strong>r=10%（要求報酬率），g=4-8%（依殖利率調整）</div>
-                            <div><strong>適用：</strong>穩定配息股（PG, JNJ, KO）。不配息股無法計算</div>
-                            <div><strong>殖利率 &gt;3%</strong> → g=4% · <strong>1.5-3%</strong> → g=6% · <strong>&lt;1.5%</strong> → g=8%</div>
+                            <div><strong>公式：</strong>FairValue = FwdEPS × 0.88 × (EPS成長率 × PEG倍數)</div>
+                            <div><strong>FPE 折扣：</strong>Forward EPS 打 88 折（研究顯示分析師 FPE 平均高估 12%）</div>
+                            <div><strong>PEG 倍數：</strong>科技/通訊/消費循環 = 1.2x，其他 = 1.8x</div>
+                            <div><strong>安全閥：</strong>成長率上限 50%、PE 上限 40x 下限 12x（防止極端值爆炸）</div>
+                            <div><strong>信心調整：</strong>實際 PEG &lt; 0.8 或 &gt; 2.0 時，該模型權重提高（強錯價訊號）</div>
+                            <div><strong>優勢：</strong>適用所有有盈利的股票，不限於配息股。結合成長與估值</div>
                         </div>
                     </div>
                     
@@ -3171,7 +3174,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-451f589</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-v2</p>
         </footer>
 
 
@@ -4675,7 +4678,7 @@ async function loadSmartBacktest() {
                                 <span style="font-size:11px;color:#94a3b8">Tech 30x · ConsDisc 25x · Comm 22x · Indust 20x · Health 18x · ConsDef 24x · Financial 14x · Energy 12x · REIT 35x</span>
                             </div>
                             <div style="background:#f8fafc;padding:10px;border-radius:8px">
-                                <strong>💰 DDM 股利折現</strong> — Div×(1+g)/(r-g)，r=10%。高殖利率 g=4%、中 g=6%、低 g=8%。僅適用配息股
+                                <strong>📐 PEG 估值</strong> — FPE(-12%) × (EPS成長% × PEG倍數)。科技股PEG=1.2x，防禦股PEG=1.8x。成長率上限50%，PE上限40x
                             </div>
                             <div style="background:#eff6ff;padding:10px;border-radius:8px;border-left:3px solid #4f46e5">
                                 <strong>🎯 綜合估值</strong> = 可用模型平均<br>
@@ -4904,7 +4907,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-451f589</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-v2</p>
         </footer>
 
 
@@ -4994,12 +4997,14 @@ async function loadSmartBacktest() {
                     </div>
                     
                     <div style="margin-bottom:16px">
-                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. DDM 股利折現模型</h3>
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. PEG 成長估值模型</h3>
                         <div style="font-size:12px;color:#475569;line-height:1.8">
-                            <div><strong>公式：</strong>DDM = Dividend × (1+g) / (r-g)</div>
-                            <div><strong>參數：</strong>r=10%（要求報酬率），g=4-8%（依殖利率調整）</div>
-                            <div><strong>適用：</strong>穩定配息股（PG, JNJ, KO）。不配息股無法計算</div>
-                            <div><strong>殖利率 &gt;3%</strong> → g=4% · <strong>1.5-3%</strong> → g=6% · <strong>&lt;1.5%</strong> → g=8%</div>
+                            <div><strong>公式：</strong>FairValue = FwdEPS × 0.88 × (EPS成長率 × PEG倍數)</div>
+                            <div><strong>FPE 折扣：</strong>Forward EPS 打 88 折（研究顯示分析師 FPE 平均高估 12%）</div>
+                            <div><strong>PEG 倍數：</strong>科技/通訊/消費循環 = 1.2x，其他 = 1.8x</div>
+                            <div><strong>安全閥：</strong>成長率上限 50%、PE 上限 40x 下限 12x（防止極端值爆炸）</div>
+                            <div><strong>信心調整：</strong>實際 PEG &lt; 0.8 或 &gt; 2.0 時，該模型權重提高（強錯價訊號）</div>
+                            <div><strong>優勢：</strong>適用所有有盈利的股票，不限於配息股。結合成長與估值</div>
                         </div>
                     </div>
                     
