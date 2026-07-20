@@ -3222,4 +3222,1802 @@ async function loadSmartBacktest() {
                 </div>
             </details>
             
+';
+                
+                // Type 2 - Reduce (collapsed)
+                out += '<details style="margin-top:12px"><summary style="cursor:pointer;color:#c2410c;font-weight:700;font-size:14px;padding:8px 0">🟠 Type 2 減碼 (' + type2.length + ' 支) ▾</summary>';
+                out += '<div style="display:grid;gap:8px;margin-top:8px">';
+                type2.forEach(function(s) { out += makeCard(s, '#fff7ed', '#c2410c'); });
+                out += '</div></details>';
+                
+                out += '<p style="font-size:11px;color:#94a3b8;margin-top:16px;text-align:center">更新時間：' + new Date(genAt).toLocaleString('zh-TW') + ' · 三層量化框架（敘事+Alpha+結構）</p>';
+                out += '</div>';
+                
+                content.innerHTML = out;
+                
+                // Show-more for type4 and type1 if > 10
+                var cards = content.querySelectorAll('.smart-card');
+                
+            } catch(e) {
+                content.innerHTML = '<p style="color:#ef4444;text-align:center;padding:24px">載入失敗：' + e.message + '</p>';
+            }
+        }
 
+async function loadSmartBacktest() {
+            const content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:16px">⏳ 載入回測數據...</p>';
+            
+            try {
+                // Load pre-computed backtest stats (no waiting!)
+                let bt = null;
+                const r = await fetch('/data/backtest.json?t=' + Date.now());
+                if (r.ok) bt = await r.json();
+                
+                if (!bt) {
+                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">回測資料準備中</p>';
+                    return;
+                }
+                
+                const updatedAt = new Date(bt.generated_at).toLocaleString('zh-TW');
+                
+                let out = '<div style="margin-bottom:16px">';
+                out += '<h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">📊 吸籌訊號績效回測</h3>';
+                out += '<p style="font-size:12px;color:#64748b">基於 ' + bt.signal_count + ' 筆歷史訊號 · ' + bt.symbols_analyzed + ' 支股票 · 更新：' + updatedAt + '</p>';
+                out += '</div>';
+                
+                // Win rate summary cards
+                out += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">';
+                const holds = [
+                    {key:'hold_5d', label:'持有 5 天', days:5},
+                    {key:'hold_10d', label:'持有 10 天', days:10},
+                    {key:'hold_20d', label:'持有 20 天', days:20},
+                ];
+                holds.forEach(h => {
+                    const s = bt[h.key]?.all || {};
+                    const wr = s.win_rate_5pct || 0;
+                    const med = s.p50 || 0;
+                    const p75 = s.p75 || 0;
+                    const color = wr > 30 ? '#15803d' : wr > 20 ? '#d97706' : '#64748b';
+                    out += '<div style="background:white;border-radius:10px;padding:14px;border:1px solid #e2e8f0;text-align:center">';
+                    out += '<div style="font-size:11px;color:#64748b;margin-bottom:6px">' + h.label + '</div>';
+                    out += '<div style="font-size:22px;font-weight:800;color:' + color + '">' + wr + '%</div>';
+                    out += '<div style="font-size:10px;color:#94a3b8">漲幅 >5% 勝率</div>';
+                    out += '<div style="font-size:12px;color:#475569;margin-top:6px">中位數 ' + (med>=0?'+':'') + med + '%</div>';
+                    out += '<div style="font-size:11px;color:#94a3b8">P75: ' + (p75>=0?'+':'') + p75 + '%</div>';
+                    out += '</div>';
+                });
+                out += '</div>';
+                
+                // Comparison table: strong vs medium
+                out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                out += '<span style="font-weight:700;font-size:14px">強吸籌(7+分) vs 吸籌中(5-6分) 對比</span>';
+                out += '</div>';
+                out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">';
+                out += '<tr style="background:#f8fafc"><th style="padding:10px 12px;text-align:left;color:#64748b;font-weight:600">指標</th>';
+                ['5天後','10天後','20天後'].forEach(h => {
+                    out += '<th style="padding:10px 12px;text-align:center;color:#64748b;font-weight:600">' + h + '</th>';
+                });
+                out += '</tr>';
+                
+                const rows = [
+                    {label:'🔥 強吸籌 中位數', tier:'strong', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'📈 吸籌中 中位數', tier:'medium', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'🔥 強吸籌 P75', tier:'strong', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'📈 吸籌中 P75', tier:'medium', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
+                    {label:'🔥 強吸籌 勝率>5%', tier:'strong', field:'win_rate_5pct', fmt: v => v+'%'},
+                    {label:'📈 吸籌中 勝率>5%', tier:'medium', field:'win_rate_5pct', fmt: v => v+'%'},
+                ];
+                rows.forEach((row, i) => {
+                    const bg = i % 2 === 0 ? 'white' : '#fafafa';
+                    out += '<tr style="background:' + bg + '">';
+                    out += '<td style="padding:9px 12px;color:#374151">' + row.label + '</td>';
+                    holds.forEach(h => {
+                        const val = bt[h.key]?.[row.tier]?.[row.field];
+                        const formatted = val !== undefined ? row.fmt(val) : '-';
+                        out += '<td style="padding:9px 12px;text-align:center;font-weight:600">' + formatted + '</td>';
+                    });
+                    out += '</tr>';
+                });
+                out += '</table></div></div>';
+                
+                out += '<div style="background:#fffbeb;border-radius:10px;padding:12px 16px;border:1px solid #fde68a">';
+                out += '<p style="font-size:12px;color:#92400e;margin:0">⚠️ 回測結果基於歷史數據，不代表未來績效。市場條件、流動性、交易成本未納入計算。本數據僅供研究參考，不構成投資建議。</p>';
+                out += '</div>';
+                
+                content.innerHTML = out;
+            } catch(e) {
+                content.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
+            }
+        }
+        
+        // OLD switchSmartTab removed
+        
+        async function loadOptionsData() {
+            const ticker = (document.getElementById('optionsTicker').value || '').toUpperCase().trim();
+            if (!ticker) return;
+            const el = document.getElementById('optionsResult');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 分析選擇權數據...</p>';
+            try {
+                const resp = await fetch(`https://query2.finance.yahoo.com/v7/finance/options/${ticker}`);
+                const data = await resp.json();
+                const result = data?.optionChain?.result?.[0];
+                if (!result) throw new Error('No data');
+                
+                const opts = result.options?.[0] || {};
+                const calls = opts.calls || [];
+                const puts = opts.puts || [];
+                
+                const callOI = calls.reduce((s, c) => s + (c.openInterest||0), 0);
+                const putOI = puts.reduce((s, p) => s + (p.openInterest||0), 0);
+                const pcRatio = callOI > 0 ? (putOI / callOI) : 0;
+                
+                const callVol = calls.reduce((s, c) => s + (c.volume||0), 0);
+                const putVol = puts.reduce((s, p) => s + (p.volume||0), 0);
+                const pcVolRatio = callVol > 0 ? (putVol / callVol) : 0;
+                
+                const signal = pcRatio < 0.7 ? {text:'強烈看多 🚀', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio < 0.9 ? {text:'偏多 📈', color:'#16a34a', bg:'#f0fdf4'} :
+                               pcRatio > 1.3 ? {text:'強烈看空 🔴', color:'#dc2626', bg:'#fef2f2'} :
+                               pcRatio > 1.1 ? {text:'偏空 📉', color:'#dc2626', bg:'#fef2f2'} :
+                               {text:'中性 ➡️', color:'#64748b', bg:'#f8fafc'};
+                
+                // Find unusual options
+                const unusual = [...calls, ...puts]
+                    .filter(o => (o.volume||0) > 500 && (o.openInterest||0) > 0)
+                    .map(o => ({...o, ratio: (o.volume||0)/Math.max(o.openInterest||1,1), type: calls.includes(o) ? 'CALL' : 'PUT'}))
+                    .filter(o => o.ratio > 0.5)
+                    .sort((a,b) => b.ratio - a.ratio)
+                    .slice(0, 5);
+                
+                let html = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+                    <div style="text-align:center;padding:12px;background:${signal.bg};border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">P/C 未平倉比</div>
+                        <div style="font-size:22px;font-weight:800;color:${signal.color}">${pcRatio.toFixed(2)}</div>
+                        <div style="font-size:12px;font-weight:600;color:${signal.color}">${signal.text}</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Call 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#16a34a">${(callOI/1000).toFixed(0)}K</div>
+                    </div>
+                    <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px">
+                        <div style="font-size:11px;color:#64748b">Put 未平倉</div>
+                        <div style="font-size:18px;font-weight:700;color:#dc2626">${(putOI/1000).toFixed(0)}K</div>
+                    </div>
+                </div>`;
+                
+                if (unusual.length) {
+                    html += '<div style="font-size:13px;font-weight:600;color:#1e293b;margin-bottom:8px">🚨 異常大單（成交量/未平倉 > 50%）</div>';
+                    unusual.forEach(u => {
+                        const typeColor = u.type === 'CALL' ? '#16a34a' : '#dc2626';
+                        const exp = u.expiration ? new Date(u.expiration * 1000).toLocaleDateString('zh-TW') : '?';
+                        html += `<div style="display:flex;justify-content:space-between;padding:8px 12px;margin-bottom:4px;background:${u.type==='CALL'?'#f0fdf4':'#fef2f2'};border-radius:6px">
+                            <span style="font-weight:600;color:${typeColor}">${u.type}</span>
+                            <span style="color:#64748b">行使價 $${u.strike}</span>
+                            <span style="color:#64748b">到期 ${exp}</span>
+                            <span style="font-weight:600">量${(u.volume||0).toLocaleString()} / OI${(u.openInterest||0).toLocaleString()}</span>
+                            <span style="color:#f97316;font-weight:600">${u.ratio.toFixed(1)}x</span>
+                        </div>`;
+                    });
+                }
+                
+                el.innerHTML = html;
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:12px">無法取得選擇權數據（Yahoo Finance 可能限流）</p>';
+            }
+        }
+
+
+
+        // ===== WATCH LIST =====
+        let _watchList = JSON.parse(localStorage.getItem('stockiq_watchlist') || '[]');
+
+        function addToWatchList(ticker) {
+            ticker = ticker.toUpperCase().trim();
+            if (!ticker) return;
+            if (!_watchList.includes(ticker)) {
+                _watchList.push(ticker);
+                localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+                renderWatchList();
+                showNotification(ticker + ' 已加入追蹤清單 ✅');
+            } else {
+                showNotification(ticker + ' 已在追蹤清單中');
+            }
+        }
+
+        function removeFromWatchList(ticker) {
+            _watchList = _watchList.filter(t => t !== ticker);
+            localStorage.setItem('stockiq_watchlist', JSON.stringify(_watchList));
+            renderWatchList();
+        }
+
+        function showNotification(msg) {
+            let n = document.getElementById('watchNotification');
+            if (!n) {
+                n = document.createElement('div');
+                n.id = 'watchNotification';
+                n.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;padding:10px 18px;border-radius:10px;font-size:13px;z-index:9999;opacity:0;transition:opacity 0.3s';
+                document.body.appendChild(n);
+            }
+            n.textContent = msg;
+            n.style.opacity = '1';
+            setTimeout(() => { n.style.opacity = '0'; }, 2500);
+        }
+
+        function renderWatchList() {
+            const el = document.getElementById('watchListContent');
+            if (!el) return;
+            if (_watchList.length === 0) {
+                el.innerHTML = '<p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票<br><span style="font-size:11px">分析股票後點「加入追蹤」</span></p>';
+                return;
+            }
+            el.innerHTML = _watchList.map(t => 
+                `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9">
+                    <button onclick="document.getElementById('tickerInput').value='${t}';showTab('tab-analyze');document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                        style="font-weight:700;color:#4f46e5;background:none;border:none;cursor:pointer;font-size:14px">${t}</button>
+                    <button onclick="removeFromWatchList('${t}')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:16px" title="移除">×</button>
+                </div>`
+            ).join('');
+        }
+
+        // Add watch button after analysis completes
+        function addWatchButton(ticker) {
+            const existing = document.getElementById('addWatchBtn');
+            if (existing) existing.remove();
+            const btn = document.createElement('button');
+            btn.id = 'addWatchBtn';
+            btn.textContent = (_watchList.includes(ticker) ? '✅ 已追蹤' : '+ 加入追蹤清單');
+            btn.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#4f46e5;color:white;border:none;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(79,70,229,0.4);z-index:100';
+            btn.onclick = () => { addToWatchList(ticker); btn.textContent = '✅ 已追蹤'; };
+            document.body.appendChild(btn);
+        }
+
+
+        async function loadExtraAnalysis(ticker, currentPrice, high52w, low52w) {
+            // 52W Position indicator
+            if (currentPrice && high52w && low52w) {
+                const range = high52w - low52w;
+                const pos = range > 0 ? ((currentPrice - low52w) / range * 100).toFixed(0) : 50;
+                const distFromHigh = high52w > 0 ? (((high52w - currentPrice) / high52w) * 100).toFixed(1) : 0;
+                const posColor = pos > 80 ? '#dc2626' : pos > 50 ? '#f59e0b' : '#16a34a';
+                
+                const el52w = document.getElementById('pos52w');
+                if (el52w) {
+                    el52w.innerHTML = `
+                        <div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px">
+                            <div style="font-size:12px;color:#64748b;margin-bottom:6px">📊 52週位置</div>
+                            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                                <div style="flex:1;min-width:150px">
+                                    <div style="background:#e2e8f0;border-radius:4px;height:8px;position:relative">
+                                        <div style="background:${posColor};width:${pos}%;height:100%;border-radius:4px"></div>
+                                        <div style="position:absolute;top:-18px;left:${pos}%;transform:translateX(-50%);font-size:11px;font-weight:700;color:${posColor}">${pos}%</div>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;margin-top:4px">
+                                        <span>低 $${low52w}</span><span>高 $${high52w}</span>
+                                    </div>
+                                </div>
+                                <div style="text-align:center">
+                                    <div style="font-size:11px;color:#64748b">距52週高點</div>
+                                    <div style="font-weight:700;color:#dc2626">-${distFromHigh}%</div>
+                                </div>
+                            </div>
+                        </div>`;
+                    el52w.style.display = 'block';
+                }
+            }
+            
+            // Load earnings date
+            try {
+                const er = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                const ed = await er.json();
+                const meta = ed?.chart?.result?.[0]?.meta || {};
+                const ets = meta.earningsTimestampStart;
+                const elEarnings = document.getElementById('earningsDate');
+                if (elEarnings && ets) {
+                    const earningsDate = new Date(ets * 1000);
+                    const today = new Date();
+                    const daysAway = Math.round((earningsDate - today) / 86400000);
+                    const dateStr = earningsDate.toLocaleDateString('zh-TW');
+                    const urgency = daysAway >= 0 && daysAway <= 7 ? '🔥 即將' : daysAway >= 0 && daysAway <= 30 ? '📅 近期' : '📅';
+                    elEarnings.innerHTML = `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:12px;color:#92400e">
+                        ${urgency} <strong>財報日期：${dateStr}</strong>${daysAway >= 0 ? ` (${daysAway}天後)` : ' (已公布)'}</div>`;
+                    elEarnings.style.display = 'block';
+                }
+            } catch(e) {}
+            
+            // Related stocks in same sector
+            try {
+                const sectorMap = {
+                    'NVDA':'INTC,AMD,AVGO', 'AAPL':'MSFT,GOOGL,META', 'TSLA':'F,GM,RIVN',
+                    'MSFT':'AAPL,GOOGL,AMZN', 'META':'GOOGL,SNAP,PINS', 'AMZN':'WMT,TGT,EBAY',
+                    'GOOGL':'META,MSFT,AAPL', 'AMD':'NVDA,INTC,QCOM', 'INTC':'NVDA,AMD,QCOM',
+                };
+                const related = sectorMap[ticker.toUpperCase()];
+                if (related) {
+                    const elRelated = document.getElementById('relatedStocks');
+                    if (elRelated) {
+                        elRelated.innerHTML = `<div style="font-size:12px;color:#64748b;margin-bottom:6px">🔗 同板塊比較</div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap">` +
+                            related.split(',').map(s => 
+                                `<button onclick="document.getElementById('tickerInput').value='${s}';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" 
+                                    style="background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:5px 12px;cursor:pointer;font-weight:600;color:#4f46e5;font-size:13px">${s}</button>`
+                            ).join('') + '</div>';
+                        elRelated.style.display = 'block';
+                    }
+                }
+            } catch(e) {}
+        }
+
+
+        async function loadEarningsCalendar(showAll) {
+            const el = document.getElementById('earningsCalContent');
+            if (!el) return;
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">⏳ 載入中...</p>';
+            
+            try {
+                const today = new Date();
+                const todayTs = today.getTime();
+                
+                let events = [];
+                try {
+                    const r = await fetch('/data/market_events.json?t=' + Date.now());
+                    if (r.ok) events = (await r.json()).events || [];
+                } catch(e) {}
+                
+                if (!events.length) {
+                    events = [
+                        // === 本週財報 ===
+                        { sym: 'MU',   date: '2026-06-24', type: 'earnings', note: 'Q3 FY2026 財報（重要！）' },
+                        { sym: 'NKE',  date: '2026-06-26', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        { sym: 'FDX',  date: '2026-06-24', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        // === 7月財報 ===
+                        { sym: 'NFLX', date: '2026-07-17', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'TSLA', date: '2026-07-22', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'INTC', date: '2026-07-23', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'AMD',  date: '2026-07-28', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'GOOGL',date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'META', date: '2026-07-29', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'MSFT', date: '2026-07-29', type: 'earnings', note: 'Q4 FY2026 財報' },
+                        { sym: 'AAPL', date: '2026-07-31', type: 'earnings', note: 'Q3 FY2026 財報' },
+                        { sym: 'AMZN', date: '2026-08-04', type: 'earnings', note: 'Q2 2026 財報' },
+                        { sym: 'NVDA', date: '2026-08-27', type: 'earnings', note: 'Q2 FY2027 財報' },
+                        // === 市場事件 ===
+                        { sym: '📌', date: '2026-07-04', type: 'event', note: '美國獨立紀念日（休市）' },
+                        { sym: '📌', date: '2026-07-31', type: 'event', note: 'FOMC 利率決策' },
+                        { sym: '📌', date: '2026-09-19', type: 'event', note: '四巫日（期指/期權結算）' },
+                        { sym: '📌', date: '2026-09-05', type: 'event', note: '勞動節（休市）' },
+                    ];
+                }
+                
+                const windowDays = showAll ? 45 : 14;
+                const upcoming = events.filter(e => {
+                    const diff = (new Date(e.date).getTime() - todayTs) / 86400000;
+                    return diff >= -3 && diff <= windowDays;
+                }).sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                const allUpcoming = events.filter(e => {
+                    const diff = (new Date(e.date).getTime() - todayTs) / 86400000;
+                    return diff >= -3 && diff <= 45;
+                });
+                const hasMore = allUpcoming.length > upcoming.length;
+                
+                if (!upcoming.length) {
+                    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">近2週無重大事件</p>'
+                        + (hasMore ? '<button onclick="loadEarningsCalendar(true)" style="display:block;margin:8px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px">展開一個月 ▾</button>' : '');
+                    return;
+                }
+                
+                let out = '';
+                upcoming.forEach(ev => {
+                    const d = new Date(ev.date);
+                    const diff = Math.round((d.getTime() - todayTs) / 86400000);
+                    const isEarnings = ev.type === 'earnings';
+                    const urgency = diff < 0 ? '✅' : diff === 0 ? '🔥' : diff <= 3 ? '⚠️' : isEarnings ? '📅' : '📌';
+                    const dayText = diff < 0 ? Math.abs(diff) + '天前' : diff === 0 ? '今天！' : diff + '天後';
+                    const bg = diff === 0 ? '#fef3c7' : diff > 0 && diff <= 3 ? '#fff7ed' : 'white';
+                    const border = diff <= 3 && diff >= 0 ? '#f97316' : '#e2e8f0';
+                    const dateStr = d.toLocaleDateString('zh-TW', {month:'numeric', day:'numeric', weekday:'short'});
+                    const click = isEarnings ? `onclick="document.getElementById('tickerInput').value='${ev.sym}';showTab('analyze')"` : '';
+                    out += `<div ${click} style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;margin-bottom:3px;background:${bg};border-radius:7px;${isEarnings ? 'cursor:pointer' : ''};border:1px solid ${border}">
+                        <div>
+                            <span style="font-weight:700;color:${isEarnings ? '#4f46e5' : '#374151'};font-size:13px">${ev.sym}</span>
+                            <span style="font-size:11px;color:#64748b;margin-left:6px">${ev.note || ''}</span>
+                        </div>
+                        <div style="text-align:right;white-space:nowrap;font-size:11px">
+                            <span style="color:#64748b">${dateStr}</span>
+                            <span style="margin-left:5px">${urgency} ${dayText}</span>
+                        </div>
+                    </div>`;
+                });
+                
+                if (hasMore && !showAll) {
+                    out += `<button onclick="loadEarningsCalendar(true)" style="display:block;width:100%;margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;color:#64748b;border-radius:8px;padding:7px;cursor:pointer;font-size:12px">▾ 展開完整一個月（共 ${allUpcoming.length} 個事件）</button>`;
+                }
+                
+                el.innerHTML = out;
+                delete el.dataset.loaded;
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
+            }
+        }
+
+
+        async function loadAccumulationScan() {
+            const el = document.getElementById('accumContent');
+            if (!el || el.dataset.loaded) return;
+            el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:24px">⏳ 掃描吸籌形態（約30秒）...</p>';
+            try {
+                const resp = await fetch(API_BASE_URL + '/accumulation-scan');
+                const data = await resp.json();
+                const stocks = data.stocks || [];
+                
+                if (!stocks.length) {
+                    el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:16px">目前監測清單中無吸籌訊號</p>';
+                    el.dataset.loaded = '1';
+                    return;
+                }
+                
+                el.innerHTML = stocks.map(s => {
+                    const volColor = s.vol_increase_pct > 20 ? '#16a34a' : s.vol_increase_pct > 0 ? '#ca8a04' : '#94a3b8';
+                    return `<div onclick="document.getElementById('tickerInput').value='${s.symbol}';showTab('analyze')" 
+                        style="padding:14px;margin-bottom:8px;background:white;border-radius:10px;border:1px solid #e2e8f0;cursor:pointer;border-left:4px solid ${s.score >= 7 ? '#22c55e' : '#f59e0b'}">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                            <div>
+                                <span style="font-weight:700;color:#4f46e5;font-size:16px">${s.symbol}</span>
+                                <span style="font-size:13px;margin-left:8px">${s.signal}</span>
+                                <span style="background:#f3f4f6;color:#374151;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px">評分 ${s.score}/9</span>
+                            </div>
+                            <span style="font-weight:600;color:#1e293b">$${s.current_price}</span>
+                        </div>
+                        <div style="display:flex;gap:12px;font-size:12px;color:#64748b;flex-wrap:wrap">
+                            <span>📈 量能趨勢 <strong style="color:${volColor}">${s.vol_increase_pct > 0 ? '+' : ''}${s.vol_increase_pct}%</strong></span>
+                            <span>📊 波動率 <strong>${s.price_volatility}%</strong></span>
+                            <span>📅 6月漲跌 <strong>${s.price_change_6mo > 0 ? '+' : ''}${s.price_change_6mo}%</strong></span>
+                            <span>🔥 近週量比 <strong style="color:#f97316">${s.recent_vol_ratio}x</strong></span>
+                        </div>
+                    </div>`;
+                }).join('') + 
+                `<p style="font-size:11px;color:#94a3b8;margin-top:12px">吸籌偵測條件：近6個月量能緩慢放大 + 價格低波動整理，點擊個股進行深度分析。資料每小時更新。更新時間：${data.updated_at}</p>`;
+                el.dataset.loaded = '1';
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center;padding:16px">載入失敗，請稍後再試</p>';
+            }
+        }
+
+        // Initialize Auth on page load
+        // Auth disabled
+        // Dynamic version display
+        // Initialize page functionality
+        setTimeout(() => {
+            if (typeof loadMarketTicker === 'function') loadMarketTicker();
+            if (typeof renderWatchList === 'function') renderWatchList();
+            if (typeof showTab === 'function') showTab('today');
+            if (typeof loadBullBearIndicator === 'function') loadBullBearIndicator();
+            if (typeof loadEarningsCalendar === 'function') loadEarningsCalendar();
+        }, 100);
+
+        (async () => {
+            try {
+                const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+                const resp = await fetch(API_BASE_URL + '/maintenance');
+                const data = await resp.json();
+                
+                if (data.maintenance) {
+                    // Show maintenance banner
+                    const banner = document.createElement('div');
+                    banner.className = 'fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-3 z-50 font-medium';
+                    banner.innerHTML = '🔧 系統維護中：' + data.message + ' | 請稍後重新整理';
+                    document.body.prepend(banner);
+                    document.getElementById('analyzeBtn') && (document.getElementById('analyzeBtn').disabled = true);
+                }
+                
+                // Show version
+                const healthResp = await fetch(API_BASE_URL + '/health');
+                const healthData = await healthResp.json();
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = 'v' + (healthData.version || '?');
+            } catch(e) {
+                const vEl = document.getElementById('versionDisplay');
+                if (vEl) vEl.textContent = '版本資訊載入失敗';
+            }
+        })();
+
+
+        function translateRating(rating, lang) {
+            if (lang !== 'en') return rating;
+            const map = {
+                '強力買進': 'Strong Buy', '買進': 'Buy', '觀望': 'Hold',
+                '賣出': 'Sell', '強力迴避': 'Strong Sell'
+            };
+            return map[rating] || rating;
+        }
+
+        function translatePersonaName(name, lang) {
+            if (lang !== 'en') return name;
+            const map = {
+                '財務結構分析': 'Financial Structure', '供應鏈結構分析': 'Supply Chain',
+                'Peter Lynch (合理成長 GARP 模型)': 'Peter Lynch GARP',
+                'Cathie Wood (破壞性創新模型)': 'Cathie Wood Innovation',
+                'Piotroski (F-Score 財務健康量化模型)': 'Piotroski F-Score',
+                '技術面分析': 'Technical Analysis',
+                'Howard Marks 宏觀周期分析': 'Howard Marks Macro',
+            };
+            // Partial match
+            for (const [zh, en] of Object.entries(map)) {
+                if (name.includes(zh.substring(0, 4))) return en;
+            }
+            return name;
+        }
+
+        async function analyzeStock() {
+            // === AUTH GATE: use _currentUser (set by Supabase onAuthStateChange) ===
+            if (!_currentUser) {
+                const loginModal = document.getElementById('loginModal');
+                if (loginModal) loginModal.classList.remove('hidden');
+                return;
+            }
+
+            let ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+                // Auto-append .TW for 4-digit Taiwan stock codes
+                if (currentMarket === 'tw' && /^[0-9]{4}$/.test(ticker)) {
+                    ticker = ticker + '.TW';
+                    document.getElementById('tickerInput').value = ticker;
+                }
+            const personaSelect = document.getElementById('personaSelect');
+            const personaName = personaSelect.options[personaSelect.selectedIndex].text.split(' ')[0];
+            const personaId = personaSelect.value;
+
+            if (!ticker) {
+                document.getElementById('errorMsg').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('errorMsg').classList.add('hidden');
+            document.getElementById('resultArea').classList.add('hidden');
+            document.getElementById('paywallBanner').classList.add('hidden');
+            document.getElementById('loadingArea').classList.remove('hidden');
+            document.getElementById('loadingArea').classList.add('flex');
+            
+            // Progress bar animation - iOS-friendly version
+            const _startTime = Date.now();
+            let _lastElapsed = -1;
+            function _updateProgress() {
+                const _elapsed = Math.floor((Date.now() - _startTime) / 1000);
+                if (_elapsed !== _lastElapsed) {
+                    _lastElapsed = _elapsed;
+                    const pct = Math.min(90, _elapsed * 3);
+                    const bar = document.getElementById('progressBar');
+                    const timer = document.getElementById('loadingTimer');
+                    const msg = document.getElementById('loadingMsg');
+                    const detail = document.getElementById('loadingDetail');
+                    if (bar) bar.style.width = pct + '%';
+                    if (timer) timer.textContent = _elapsed + 's';
+                    if (_elapsed === 8 && msg) msg.textContent = '正在處理財務數據...'
+                    if (_elapsed === 15 && msg) msg.textContent = 'AI分析框架運算中...'
+                    if (_elapsed === 25 && msg) msg.textContent = '生成估值結論...'
+                    if (_elapsed === 35 && detail) detail.textContent = '（大型股通常15-25秒，小型股可能需要更長時間）'
+                }
+                if (window._progressRunning) requestAnimationFrame(_updateProgress);
+            }
+            window._progressRunning = true;
+            const _progressInterval = { _stop: () => { window._progressRunning = false; } };
+            requestAnimationFrame(_updateProgress);
+            
+            // 60 second timeout for mobile
+            const _timeout = setTimeout(() => {
+                if (_progressInterval && _progressInterval._stop) _progressInterval._stop(); window._progressRunning = false;
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultTitle').innerText = '分析超時';
+                document.getElementById('reportContent').innerHTML = marked.parse(
+                    '### ⏱️ 分析時間過長\n\n' +
+                    '可能原因：\n' +
+                    '- 網路連線不穩定\n' +
+                    '- 伺服器繁忙（請稍後再試）\n' +
+                    '- 此股票數據需要更長時間處理\n\n' +
+                    '**建議：** 請重新嘗試，或改用單一分析框架（速度較快）'
+                );
+            }, 60000);
+            
+            // Store for cleanup
+            window._analysisTimeout = _timeout;
+            window._progressInterval = _progressInterval;
+
+            // API_BASE_URL: 部署後改為 Railway URL
+            // 例如 https://ai-investment-hq.railway.app
+            const API_BASE_URL = window.API_BASE_URL || 'https://ai-investment-hq-production.up.railway.app';
+
+            try {
+                const response = await fetch(API_BASE_URL + '/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ticker: ticker,
+                        persona_id: personaId,
+                        manual_text: '',
+                        lang: _lang || 'zh'
+                    })
+                });
+
+                // CRITICAL: clear the timeout and interval before handling response
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
+                
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'API error ' + response.status);
+                }
+
+                const data = await response.json();
+
+                document.getElementById('resultArea').classList.remove('hidden');
+                if (personaId === 'all') {
+                    document.getElementById('paywallBanner').classList.remove('hidden');
+                }
+
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
+                const timeStr = now.toLocaleTimeString('zh-TW', {hour:'2-digit',minute:'2-digit'});
+                document.getElementById('resultTitle').innerText = ticker + ' - ' + (i18n[_lang || 'zh'].reportTitle || '深度解析報告');
+                const priceInfo = data.structured_results && Object.values(data.structured_results)[0];
+                const priceNote = data.current_price ? '  ·  股價 $' + data.current_price : '';
+                document.getElementById('resultPersona').innerText = (personaId === 'all' || personaId === 'all_extended') 
+                    ? (_lang === 'en' ? 'Full Model Analysis' : '全模型交叉對比') 
+                    : personaName;
+                const metaEl = document.getElementById('resultMeta');
+                if (metaEl) metaEl.innerText = (_lang === 'en' ? 'Searched: ' : '搜尋時間：') + dateStr + ' ' + timeStr + priceNote;
+                
+                // Load sector context for this stock
+                loadTickerSector(ticker, API_BASE_URL);
+
+                let reportMarkdown = '';
+
+                // 市場情緒摘要（顯示在最前面）
+                if (data.market_summary && data.market_summary.trim()) {
+                    let ms = data.market_summary;
+                    if (_lang === 'en') {
+                        const msMap = {
+                            '當前:': 'Current:', '一週前:': 'Last week:', '解讀:': 'Signal:',
+                            '情緒分數:': 'Sentiment Score:', '操作建議:': 'Recommendation:',
+                            '計算因子:': 'Factors:', '今日熱門:': 'Trending:', '今日熱門股:': 'Trending:',
+                            '→ 無明顯情緒偏向': '→ No clear directional bias',
+                            '→ 樂觀': '→ Greed', '→ 恐懼': '→ Fear',
+                            '→ 極度貪婪': '→ Extreme Greed', '→ 極度恐懼': '→ Extreme Fear',
+                            '樂觀 (Greed)': 'Greed', '恐懼 (Fear)': 'Fear',
+                            '中性': 'Neutral', '極度貪婪': 'Extreme Greed', '極度恐懼': 'Extreme Fear',
+                            '樂觀': 'Greed', '恐懼': 'Fear',
+                            '市場情緒偏多，追高需謹慎': 'Bullish market - caution chasing highs',
+                            '市場情緒偏空，注意下檔風險': 'Bearish market - watch downside risk',
+                            '100=極度貪婪': '100=Extreme Greed', '0=中性': '0=Neutral',
+                            '-100=極度恐懼': '-100=Extreme Fear',
+                            '分析框架應結合此情緒分數調整進出場建議的積極程度': 'Adjust entry/exit aggressiveness based on this sentiment score.',
+                        };
+                        for (const [zh, en] of Object.entries(msMap)) {
+                            ms = ms.split(zh).join(en);
+                        }
+                    }
+                    reportMarkdown += '## 📊 ' + (_lang === 'en' ? 'Market Sentiment' : '市場情緒指標') + '\n' + ms + '\n\n---\n\n';
+                }
+
+                // 對比表（全模型時顯示）
+                if (data.comparison_table) {
+                    var ct = data.comparison_table;
+                    if (_lang === 'en') {
+                        ct = ct.replace(/分析框架/g,'Framework').replace(/悲觀/g,'Bear')
+                              .replace(/基準/g,'Base').replace(/樂觀/g,'Bull')
+                              .replace(/評級/g,'Rating').replace(/買進/g,'Buy')
+                              .replace(/觀望/g,'Hold').replace(/賣出/g,'Sell')
+                              .replace(/強力買進/g,'Strong Buy').replace(/強力迴避/g,'Strong Sell')
+                              .replace(/共識目標價（基準均值）/g,'Consensus Target (Base Avg)')
+                              .replace(/財務結構分析/g,'Financial Structure')
+                              .replace(/供應鏈結構分析/g,'Supply Chain')
+                              .replace(/技術面分析/g,'Technical Analysis')
+                              .replace(/宏觀周期分析/g,'Macro Cycle');
+                    }
+                    reportMarkdown += ct + '\n\n---\n\n';
+                }
+
+                // 各框架完整分析
+                if (data.analyses) {
+                    let count = 0;
+                    for (const [pid, analysis] of Object.entries(data.analyses)) {
+                        const sr = data.structured_results || {};
+                        const pname = (sr[pid] && sr[pid].persona_name) ? sr[pid].persona_name : pid;
+                        const bear = (sr[pid] && sr[pid].bear_price) ? '$' + sr[pid].bear_price : 'N/A';
+                        const base = (sr[pid] && sr[pid].base_price) ? '$' + sr[pid].base_price : 'N/A';
+                        const bull = (sr[pid] && sr[pid].bull_price) ? '$' + sr[pid].bull_price : 'N/A';
+                        const rating = (sr[pid] && sr[pid].rating) ? sr[pid].rating : '';
+
+                        const ratingEmoji = {'強力買進':'🚀','買進':'✅','觀望':'⚠️','賣出':'🔴','強力迴避':'❌'}[rating] || '📊';
+                        reportMarkdown += '\n\n---\n\n';
+                        const pnameDisplay = translatePersonaName(pname, _lang);
+                        const ratingDisplay = translateRating(rating, _lang);
+                        reportMarkdown += '## ' + ratingEmoji + ' ' + pnameDisplay + '\n';
+                        if (rating) reportMarkdown += (_lang==='en' ? '**Rating: ' : '**評級：') + ratingDisplay + '**';
+                        if (bear !== 'N/A') reportMarkdown += _lang==='en'
+                            ? '　｜　Target: Bear ' + bear + ' / Base ' + base + ' / Bull ' + bull
+                            : '　｜　目標價：悲觀 ' + bear + ' / 基準 ' + base + ' / 樂觀 ' + bull;
+                        reportMarkdown += '\n\n';
+                        let analysisText = analysis;
+                        if (_lang === 'en' && analysisText) {
+                            const aiMap = {
+                            // Valuation labels
+                            '悲觀目標價:': 'Bear Target:', '基準目標價:': 'Base Target:',
+                            '樂觀目標價:': 'Bull Target:', '評級:': 'Rating:',
+                            '升級觸發:': 'Upgrade trigger:', '降級觸發:': 'Downgrade trigger:',
+                            // Section headers
+                            '估值結論': 'Valuation Conclusion', '核心指標評分表': 'Key Metric Scorecard',
+                            '核心指標': 'Key Metrics', '主要風險': 'Key Risks',
+                            '技術面詳細解讀': 'Technical Detail', '指標評分表': 'Scorecard',
+                            '多頭訊號': '📈 Bullish Signals', '空頭訊號': '📉 Bearish Signals',
+                            '風險訊號': '⚠️ Risk Signals', '警示訊號': '⚠️ Warning Signals',
+                            // Table headers
+                            '| 指標 | 數值 | 評分 |': '| Indicator | Value | Grade |',
+                            '| 指標 | 數值 | 判定 |': '| Indicator | Value | Signal |',
+                            '| 指標 | 數值 | 標準 | 評分 |': '| Indicator | Value | Standard | Grade |',
+                            '|---|---|---|': '|---|---|---|',
+                            // Indicator names
+                            '布林通道%B': 'Bollinger %B', 'MACD柱狀圖': 'MACD Histogram',
+                            '均線排列': 'MA Alignment', '均線系統': 'MA System',
+                            '量比': 'Volume Ratio', '成交量': 'Volume',
+                            '布林帶': 'Bollinger Band', '布林通道': 'Bollinger Band',
+                            // Signal descriptions
+                            '短中長期向上排列': 'Short/Mid/Long-term uptrend aligned',
+                            '短期強勢向上': 'Short-term strong uptrend',
+                            '成交量正常': 'Normal volume', '成交量放大': 'Volume expanding',
+                            '成交量萎縮': 'Volume declining',
+                            'Bullish momentum持續擴大': 'Bullish momentum expanding',
+                            'Neutral偏強': 'Neutral-Bullish',
+                            'Overbought上軌': 'Overbought (upper BB)',
+                            'Overbought預警': 'Overbought warning',
+                            'RSI接近70': 'RSI near 70',
+                            '基本面與技術面背離': 'Fundamentals-technical divergence',
+                            '多頭控制': 'Bulls in control', '空頭控制': 'Bears in control',
+                            '確認買方控制': 'Confirms bull control',
+                            '確認上漲有效性': 'Confirms valid upside',
+                            '反映波動加大': 'Reflects expanding volatility',
+                            '獲利了結壓力增加': 'Profit-taking pressure building',
+                            '短期漲幅過度': 'Short-term overextended',
+                            '修正風險高': 'High correction risk',
+                            '技術面驅動': 'Technically driven',
+                            // General
+                            '超買': 'Overbought', '超賣': 'Oversold', '中性': 'Neutral',
+                            '多頭動能': 'Bullish momentum', '空頭動能': 'Bearish momentum',
+                            '黃金排列': 'Golden cross', '死亡排列': 'Death cross',
+                            '量能萎縮': 'Volume declining', '量能放大': 'Volume surging',
+                            '量能溫和': 'Moderate volume', '量能正常': 'Normal volume',
+                            '觀望': 'Hold', '買進': 'Buy', '賣出': 'Sell',
+                            '強力買進': 'Strong Buy', '強力迴避': 'Strong Sell',
+                            // Misc
+                            '區間': 'range', '預警區': 'warning zone', '上軌': 'upper band',
+                            '下軌': 'lower band', '日內': 'within days',
+                            '訊號線': 'signal line', '帶寬': 'bandwidth', '位置': 'position',
+                        };
+                            for (const [zh, en] of Object.entries(aiMap)) {
+                                analysisText = analysisText.split(zh).join(en);
+                            }
+                        }
+                        reportMarkdown += analysisText + '\n';
+
+                        count++;
+                        // Show all frameworks for now (paywall to be added via login system later)
+                    }
+                }
+
+                document.getElementById('reportContent').innerHTML = marked.parse(reportMarkdown);
+                document.getElementById('stockNewsSection').innerHTML = '';
+                const _sc = document.getElementById('scorecardSection'); if(_sc) _sc.innerHTML = '';
+                loadStockNews(ticker);
+                // Load 52W position, earnings, related stocks
+                try {
+                    const meta = (data.structured_results && Object.values(data.structured_results)[0]) || {};
+                    const r = await fetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+                    const chartD = await r.json();
+                    const chartMeta = chartD?.chart?.result?.[0]?.meta || {};
+                    loadExtraAnalysis(ticker, chartMeta.regularMarketPrice, chartMeta.fiftyTwoWeekHigh, chartMeta.fiftyTwoWeekLow);
+                } catch(e) {}
+                addWatchButton(ticker);
+                renderScorecard(data, ticker);
+
+            } catch (error) {
+                if (window._analysisTimeout) { clearTimeout(window._analysisTimeout); window._analysisTimeout = null; }
+                if (window._progressInterval) { if (window._progressInterval && window._progressInterval._stop) window._progressInterval._stop(); window._progressRunning = false; window._progressInterval = null; }
+                document.getElementById('loadingArea').classList.add('hidden');
+                document.getElementById('loadingArea').classList.remove('flex');
+                document.getElementById('resultArea').classList.remove('hidden');
+                // Check if it's a 404 (invalid ticker) or other error
+                const isNotFound = error.message && (error.message.includes('404') || error.message.includes('查無'));
+                document.getElementById('resultTitle').innerText = isNotFound ? '查無此股票代碼' : '連線失敗';
+                document.getElementById('resultPersona').innerText = '';
+                if (isNotFound) {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ❌ 查無此代碼：' + ticker + '\n\n' +
+                        '請確認：\n' +
+                        '- 美股範例：`AAPL`、`GOOGL`、`TSLA`\n' +
+                        '- 台股範例：`2330.TW`、`2303.TW`\n' +
+                        '- 注意大小寫和格式是否正確'
+                    );
+                } else {
+                    document.getElementById('reportContent').innerHTML = marked.parse(
+                        '### ⚠️ 無法連線到分析伺服器\n\n' +
+                        '錯誤：' + error.message + '\n\n' +
+                        '請稍後再試'
+                    );
+                }
+            }
+        }
+
+        async function loadDailyFlows() {
+            var el = document.getElementById('dailyFlowsContent');
+            if (!el || el.dataset.loaded) return;
+            try {
+                var r = await fetch('/data/daily_flows.json?t=' + Date.now());
+                if (!r.ok) return;
+                var data = await r.json();
+                var sectors = data.sectors || [];
+                if (!sectors.length) { el.innerHTML = '<p style="color:#94a3b8;text-align:center">暫無數據</p>'; return; }
+                
+                var netFlow = data.net_flow_b || 0;
+                var netColor = netFlow > 0 ? '#16a34a' : '#dc2626';
+                var netLabel = netFlow > 0 ? '淨流入' : '淨流出';
+                
+                var out = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:8px 12px;background:' + (netFlow > 0 ? '#f0fdf4' : '#fef2f2') + ';border-radius:8px">';
+                var dateStr = data.date || data.generated_at || '';
+                if (dateStr && dateStr.length >= 10) dateStr = dateStr.substring(0, 10);
+                out += '<span style="font-size:13px;color:#64748b">市場整體 <span style="font-size:11px;color:#94a3b8">(' + dateStr + ' 更新)</span></span>';
+                out += '<span style="font-size:16px;font-weight:800;color:' + netColor + '">' + netLabel + ' $' + Math.abs(netFlow).toFixed(1) + 'B</span>';
+                out += '</div>';
+                
+                out += '<table style="width:100%;border-collapse:collapse;font-size:12px">';
+                out += '<tr style="background:#f8fafc"><th style="padding:5px 8px;text-align:left">板塊</th><th>ETF</th><th>流向</th><th style="text-align:right">今日</th><th style="text-align:right">資金流</th><th>幅度</th></tr>';
+                sectors.forEach(function(s) {
+                    var chg = s.daily_chg || 0;
+                    var dollar = s.dollar_flow_b || 0;
+                    var color = chg > 0 ? '#16a34a' : chg < 0 ? '#dc2626' : '#6b7280';
+                    var barW = Math.min(Math.abs(chg) * 15, 80);
+                    var barC = chg > 0 ? '#22c55e' : '#ef4444';
+                    out += '<tr style="border-bottom:1px solid #f1f5f9">';
+                    out += '<td style="padding:5px 8px;font-weight:600">' + s.name + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:center;color:#64748b;font-size:11px">' + s.etf + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:center">' + (s.flow || '') + '</td>';
+                    out += '<td style="padding:5px 8px;text-align:right;font-weight:700;color:' + color + '">' + (chg > 0 ? '+' : '') + chg.toFixed(2) + '%</td>';
+                    out += '<td style="padding:5px 8px;text-align:right;color:' + color + ';font-size:11px">' + (dollar > 0 ? '+' : '') + dollar.toFixed(1) + 'B</td>';
+                    out += '<td style="padding:5px 8px"><div style="background:#e5e7eb;border-radius:3px;height:8px;width:80px;display:inline-block;vertical-align:middle"><div style="background:' + barC + ';height:8px;width:' + barW + 'px;border-radius:3px"></div></div></td>';
+                    out += '</tr>';
+                });
+                out += '</table>';
+                el.innerHTML = out;
+                el.dataset.loaded = '1';
+            } catch(e) {}
+        }
+
+
+        async function loadBullBearIndicator() {
+            try {
+                var r = await fetch('/data/market_context.json?t=' + Date.now());
+                if (!r.ok) return;
+                var m = await r.json();
+                var spy200 = m.spy_vs_200sma || 0;
+                var vix = m.vix || 16;
+                var cnn = m.cnn_fg_score || 50;
+                var composite = m.composite_score || 50;
+                
+                // Bull/Bear determination
+                var regime, emoji, color, bgColor, detail;
+                if (spy200 > 5 && vix < 20) {
+                    regime = '牛市'; emoji = '🐂'; color = '#16a34a'; bgColor = '#f0fdf4';
+                    detail = 'SPY 在 200 日均線上方 ' + spy200.toFixed(1) + '%，VIX ' + vix.toFixed(1) + ' 正常';
+                } else if (spy200 > 0 && spy200 <= 5) {
+                    regime = '牛市觀望'; emoji = '🐂'; color = '#d97706'; bgColor = '#fffbeb';
+                    detail = 'SPY 略高於 200SMA ' + spy200.toFixed(1) + '%，留意轉向';
+                } else if (spy200 > -5 && spy200 <= 0) {
+                    regime = '熊市警告'; emoji = '🐻'; color = '#ea580c'; bgColor = '#fff7ed';
+                    detail = 'SPY 跌破 200 日均線 ' + spy200.toFixed(1) + '%，風險上升';
+                } else if (spy200 <= -5) {
+                    regime = '熊市'; emoji = '🐻'; color = '#dc2626'; bgColor = '#fef2f2';
+                    detail = 'SPY 遠低於 200SMA ' + spy200.toFixed(1) + '%，防禦為主';
+                } else {
+                    regime = '中性'; emoji = '🦬'; color = '#64748b'; bgColor = '#f8fafc';
+                    detail = '';
+                }
+                
+                var cnnLabel = cnn > 75 ? '極度貪婪' : cnn > 60 ? '貪婪' : cnn > 40 ? '中性' : cnn > 25 ? '恐懼' : '極度恐懼';
+                var cnnColor = cnn > 60 ? '#16a34a' : cnn > 40 ? '#d97706' : '#dc2626';
+                
+                var widget = '<div style="background:' + bgColor + ';border:1px solid ' + color + '33;border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">'
+                    + '<div style="display:flex;align-items:center;gap:12px">'
+                    + '<div style="font-size:36px">' + emoji + '</div>'
+                    + '<div>'
+                    + '<div style="font-size:16px;font-weight:800;color:' + color + '">' + regime + '</div>'
+                    + '<div style="font-size:11px;color:#64748b">' + detail + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '<div style="display:flex;gap:16px;font-size:12px">'
+                    + '<div style="text-align:center"><div style="color:#94a3b8;font-size:10px">VIX</div><div style="font-weight:700">' + vix.toFixed(1) + '</div></div>'
+                    + '<div style="text-align:center"><div style="color:#94a3b8;font-size:10px">CNN 指數</div><div style="font-weight:700;color:' + cnnColor + '">' + cnn.toFixed(0) + ' ' + cnnLabel + '</div></div>'
+                    + '<div style="text-align:center"><div style="color:#94a3b8;font-size:10px">綜合情緒</div><div style="font-weight:700">' + composite.toFixed(0) + '/100</div></div>'
+                    + '</div>'
+                    + '</div>';
+                
+                var banner = document.getElementById('marketStatusBanner');
+                if (banner) {
+                    banner.innerHTML = widget;
+                    // always visible
+                    // renders once per page load
+                }
+
+            } catch(e) {}
+        }
+
+        function searchSmartSignal() {
+            var input = document.getElementById('smartSearchInput');
+            var resultDiv = document.getElementById('smartSearchResult');
+            if (!input || !resultDiv) return;
+            
+            var ticker = input.value.trim().toUpperCase();
+            if (!ticker) return;
+            
+            resultDiv.style.display = '';
+            resultDiv.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:12px">🔍 查詢 ' + ticker + ' 中...</p>';
+            
+            // Check if in embedded data
+            var data = window._smartData || {};
+            var allStocks = (data.stocks || []).concat(data.bearish || []);
+            var found = allStocks.filter(function(s) { return s.symbol === ticker; });
+            
+            if (found.length > 0) {
+                var s = found[0];
+                var isBull = s.direction === 'bullish';
+                var color = isBull ? '#16a34a' : '#dc2626';
+                var bgColor = isBull ? '#f0fdf4' : '#fef2f2';
+                
+                var out = '<div style="background:' + bgColor + ';border-radius:12px;padding:16px;border-left:4px solid ' + color + '">';
+                out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
+                out += '<div>';
+                out += '<span style="font-size:20px;font-weight:800;color:' + color + '">' + s.symbol + '</span>';
+                out += ' <span style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:' + (isBull?'#dcfce7':'#fee2e2') + ';color:' + color + '">' + (s.signal||'') + ' ' + s.score + '/10</span>';
+                out += '<div style="font-size:12px;color:#6b7280;margin-top:4px">量比 <strong>' + s.vol_ratio + 'x</strong> · 位置 ' + s.range_position_pct + '% · 3M ' + (s.change_3m>=0?'+':'') + s.change_3m + '%</div>';
+                if (s.phase_label) out += '<div style="font-size:11px;color:#7c3aed;font-weight:600;margin-top:2px">' + s.phase_label + '</div>';
+                if (s.action) out += '<div style="font-size:12px;font-weight:600;color:' + color + ';margin-top:4px">' + s.action + '</div>';
+                if (s.action_detail) out += '<div style="font-size:11px;color:#64748b">' + s.action_detail + '</div>';
+                out += '</div>';
+                out += '<div style="text-align:right">';
+                out += '<div style="font-size:22px;font-weight:800;color:#1e293b">$' + s.price + '</div>';
+                out += '<div style="font-size:13px;color:' + (s.change_1d>=0?'#16a34a':'#dc2626') + '">' + (s.change_1d>=0?'+':'') + s.change_1d + '% 今</div>';
+                out += '</div></div>';
+                
+                // Price levels
+                if (s.entry_price) {
+                    out += '<div style="margin-top:10px;padding:8px 10px;background:white;border-radius:8px;border:1px solid #e2e8f0;display:flex;gap:10px;font-size:10px;color:#475569;flex-wrap:wrap;align-items:center">';
+                    out += '<span>📍 進場 <strong>$' + s.entry_price.toFixed(2) + '</strong></span>';
+                    out += '<span>🛑 止損 <strong style="color:#dc2626">$' + s.stop_loss.toFixed(2) + '</strong> (' + s.stop_pct.toFixed(1) + '%)</span>';
+                    out += '<span>🎯 T1 <strong style="color:#16a34a">$' + s.target_1.toFixed(2) + '</strong> (+' + s.target_1_pct.toFixed(1) + '%)</span>';
+                    out += '<span>🎯 T2 <strong style="color:#15803d">$' + s.target_2.toFixed(2) + '</strong> (+' + s.target_2_pct.toFixed(1) + '%)</span>';
+                    if (s.risk_reward) out += '<span style="background:#ede9fe;color:#7c3aed;padding:1px 6px;border-radius:4px;font-weight:700">R:R ' + s.risk_reward.toFixed(1) + '</span>';
+                    if (s.mom_health) out += '<span style="background:' + (s.mom_health==='強'?'#dcfce7':s.mom_health==='穩'?'#fef3c7':'#fee2e2') + ';padding:1px 6px;border-radius:4px;font-weight:600">動能' + s.mom_health + '</span>';
+                    out += '</div>';
+                }
+                if (s.sector_resonance && s.sector_resonance !== 'N/A') {
+                    out += '<div style="margin-top:6px;font-size:11px;color:#64748b">' + s.sector_resonance + ' (' + (s.sector_etf||'') + ' ' + (s.sector_flow||'') + ')</div>';
+                }
+                out += '</div>';
+                resultDiv.innerHTML = out;
+            } else {
+                // Check if in scan list but just no signal
+                var scanList = (data.scan_list || []);
+                var inList = scanList.indexOf(ticker) >= 0;
+                
+                if (inList) {
+                    resultDiv.innerHTML = '<div style="background:#f0f9ff;border-radius:12px;padding:16px;border-left:4px solid #0ea5e9;text-align:center">'
+                        + '<div style="font-size:16px;font-weight:700;color:#0c4a6e;margin-bottom:6px">' + ticker + ' 目前無訊號</div>'
+                        + '<div style="font-size:12px;color:#0369a1">' + ticker + ' 在掃描清單中，但今日未觸發吸籌或出貨條件。</div>'
+                        + '<div style="font-size:12px;color:#64748b;margin-top:4px">可能原因：動能不足、未突破 MA20、或波動區間不在最佳範圍</div>'
+                        + '<button onclick="document.getElementById(\'tickerInput\').value=\'' + ticker + '\';showTab(\'analyze\')" '
+                        + 'style="margin-top:8px;background:#4f46e5;color:white;border:none;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px">📊 前往分析 ' + ticker + '</button>'
+                        + '</div>';
+                } else {
+                resultDiv.innerHTML = '<div style="background:#fefce8;border-radius:12px;padding:16px;border-left:4px solid #f59e0b;text-align:center">'
+                    + '<div style="font-size:16px;font-weight:700;color:#92400e;margin-bottom:6px">' + ticker + ' 不在掃描清單中</div>'
+                    + '<div style="font-size:12px;color:#a16207">目前金流密碼掃描 S&P500 前50 + Nasdaq100 + 題材股，共 160 支。</div>'
+                    + '<div style="font-size:12px;color:#a16207;margin-top:4px">如需分析此股票，請使用「股票分析」功能。</div>'
+                    + '<button onclick="document.getElementById(\'tickerInput\').value=\'' + ticker + '\';showTab(\'analyze\')" '
+                    + 'style="margin-top:8px;background:#4f46e5;color:white;border:none;border-radius:8px;padding:6px 16px;cursor:pointer;font-size:12px">📊 前往分析 ' + ticker + '</button>'
+                    + '</div>';
+                }
+            }
+        }
+
+    </script>
+
+        <!-- Google AdSense Banner -->
+        <div id="adBanner" class="w-full bg-gray-50 border-t border-gray-200 py-2 px-4 text-center" style="min-height:0;overflow:hidden">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5306345121020754"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});
+            // Hide ad banner if no ad loaded after 3 seconds
+            setTimeout(function() {
+                var ins = document.querySelector('#adBanner ins.adsbygoogle');
+                if (ins && ins.offsetHeight < 10) {
+                    document.getElementById('adBanner').style.display = 'none';
+                }
+            }, 3000);</script>
+        </div>
+
+        <!-- Static content for search crawlers (hidden visually) -->
+        <noscript>
+<div style="max-width:900px;margin:0 auto;padding:20px;font-family:sans-serif;color:#333">
+
+<h1 style="color:#4f46e5">StockIQ.TW — AI 美股多框架深度分析平台</h1>
+<p>StockIQ 是專為台灣投資人設計的 AI 股票分析工具，提供業界最完整的多框架分析方法，讓您不需要看財報、不需要自己算指標，只要輸入股票代號，就能獲得專業級的深度分析報告與投資評級。</p>
+
+<h2>🔬 七大分析框架</h2>
+
+<h3>1. 財務結構分析</h3>
+<p>深度解析企業財務健康狀況。分析自由現金流（FCF）、毛利率、淨利率、D/E 債務比率、EV/FCF 估值倍數、股本稀釋速度（SBC%）等核心財務指標。透過三情境 DCF 現金流折現模型，計算悲觀、基準、樂觀三個目標價，給出具體的投資評級。</p>
+<p>適合：想了解企業基本面健康度的長期投資人</p>
+
+<h3>2. 技術面分析（RSI + MACD + 布林通道）</h3>
+<p>整合主要技術指標，全面評估股票的技術面狀況。分析 RSI(14) 相對強弱指數（超買/超賣判斷）、MACD 指數平滑移動平均（黃金/死亡交叉）、布林通道%B（上軌/下軌突破）、均線系統（MA20/MA50/MA200 排列方式）、成交量量比分析。</p>
+<p>適合：重視進出場時機的波段交易者</p>
+
+<h3>3. Piotroski F-Score 財務健康量化</h3>
+<p>由芝加哥大學教授 Joseph Piotroski 開發的量化評分系統。透過 9 個財務健康指標（ROA 正向、OCF 正向、ROA 年增、現金流質量、槓桿率下降、流動性改善、無股份稀釋、毛利率改善、資產週轉改善）計算 0-9 分評分。8-9 分為財務優質，0-4 分為財務警示。</p>
+<p>適合：重視企業財務品質的價值投資人</p>
+
+<h3>4. Peter Lynch GARP 合理成長股評估</h3>
+<p>採用傳奇基金經理人 Peter Lynch 的 GARP（Growth at a Reasonable Price）投資哲學。核心指標包括 PEG 比率（P/E÷盈餘成長率，< 1.0 為低估）、Lynch 合理股價（EPS × 盈餘成長率）、D/E 債務比率（< 0.8 為安全）、庫存成長 vs 營收成長對比。</p>
+<p>適合：尋找具合理估值成長股的中長期投資人</p>
+
+<h3>5. Cathie Wood 破壞性創新模型</h3>
+<p>仿照 ARK Invest 創辦人 Cathie Wood 的投資方法論，聚焦於具顛覆性技術的高成長公司。分析指標包括：3年營收複合年增長率（CAGR）、研發費用佔比（R&D/Revenue）、毛利率擴張趨勢（季對季）、5年目標價計算（成熟期 P/S 倍數 × 預期營收）、潛在報酬倍數。</p>
+<p>適合：願意承受高波動、尋求高成長機會的積極型投資人</p>
+
+<h3>6. Howard Marks 宏觀週期分析</h3>
+<p>參考橡樹資本創辦人 Howard Marks 的市場週期理論，評估當前宏觀環境對個股的影響。整合 Fear & Greed Index、VIX 波動率指數、板塊 ETF 近期動能、利率趨勢、市場情緒周期位置等因素，給出宏觀面操作建議。</p>
+<p>適合：重視宏觀環境與市場時機的投資人</p>
+
+<h3>7. 供應鏈結構分析</h3>
+<p>深度解析企業在供應鏈中的定位與競爭優勢。分析指標包括：自製率（垂直整合程度）、CapEx 強度（資本支出/營收）、客戶集中度（前三大客戶佔比）、GAAP vs Non-GAAP 毛利率差距、前後向整合能力。</p>
+<p>適合：關注企業護城河與供應鏈穩定性的投資人</p>
+
+<h2>📊 板塊資金流動追蹤</h2>
+<p>每日更新的美股板塊資金流向分析，追蹤11大板塊（科技、醫療、金融、能源、非必需消費、必需消費、工業、通訊、公用事業、原材料、房地產）及數十個細分 ETF 子板塊的 52 週表現、近4週動能、週對週漲跌趨勢。幫助投資人了解機構資金正在流入或流出哪個產業，作為選股方向的重要參考。</p>
+
+<h2>🌐 宏觀指標監控</h2>
+<p>即時監控影響美股的關鍵宏觀指標：美國10年期公債殖利率、CBOE VIX 波動率指數、S&P 500 指數、NASDAQ 綜合指數、道瓊工業平均指數、美元指數（DXY）、黃金現貨價格。每個指標均顯示當前值、52週變化幅度、近期動能方向。</p>
+
+<h2>⚡ 快速評分卡</h2>
+<p>每次完成個股分析後，系統自動整合所有選用框架的分析結果，產生一張快速評分卡，顯示：綜合投資評級（強力買進/買進/觀望/賣出/強力迴避）、0-100 綜合評分、共識悲觀/基準/樂觀目標價（多框架平均值）、各框架個別評級標籤。讓投資人可以在5秒內掌握核心投資觀點。</p>
+
+<h2>📰 即時相關新聞</h2>
+<p>分析完成後自動抓取該股票最新4篇相關新聞，整合來自 Yahoo Finance、Bloomberg、Reuters 等主流財經媒體的報導，幫助投資人了解驅動股價的最新事件與催化劑。</p>
+
+<h2>💰 定價方案</h2>
+<ul>
+<li><strong>免費方案</strong>：每月3次完整分析、大板塊資金流動、市場速報，含廣告，NT$0</li>
+<li><strong>體驗包</strong>：10次分析，NT$29，不過期不訂閱</li>
+<li><strong>標準包</strong>：50次分析，NT$99，不過期不訂閱</li>
+<li><strong>進階包</strong>：200次分析，NT$299，不過期不訂閱</li>
+</ul>
+
+<h2>🎯 適合哪些人使用</h2>
+<ul>
+<li>忙碌的上班族投資人，沒時間深入研究財報</li>
+<li>美股新手，需要系統性框架建立投資邏輯</li>
+<li>希望快速做多支股票比較的主動投資人</li>
+<li>想要第二意見參考的個人投資者</li>
+<li>需要中文介面美股分析工具的台灣投資人</li>
+</ul>
+
+<h2>🔗 開始使用</h2>
+<p>網址：<a href="https://stockiq.tw">https://stockiq.tw</a><br>
+登入方式：Google 帳號一鍵登入，無需信用卡<br>
+支援股市：NYSE、NASDAQ 所有上市股票<br>
+語言：繁體中文 / English 雙語介面<br>
+客服：smartlifecalendar@gmail.com</p>
+
+<p><em>⚠️ 免責聲明：本平台提供之分析報告僅供參考，不構成任何投資建議。投資涉及風險，過去績效不代表未來表現。使用者應自行評估並承擔投資損益責任。</em></p>
+
+</div>
+</noscript>
+
+        <!-- Daily Market Briefing (auto-loads for content richness) -->
+<!-- Daily Briefing (pre-generated 2026/05/31 16:16) -->
+
+
+
+        <!-- Earnings Calendar in Today Tab -->
+        
+        <!-- Daily Sector Flows -->
+        <div id="dailyFlowsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0 0 12px">🌊 今日板塊資金流動 <span id="dailyFlowsDate" style="font-size:11px;color:#94a3b8;font-weight:400"></span></h3>
+                <div id="dailyFlowsContent"><p style="color:#94a3b8;text-align:center;padding:12px">載入中...</p></div>
+            </div>
+        </div>
+
+
+
+        <!-- SmartLife Calendar App Ad -->
+        <div id="smartlifeAd" class="max-w-5xl mx-auto mt-6 px-4">
+            <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+                <div style="display:flex;align-items:center;gap:16px">
+                    <div style="background:white;border-radius:14px;padding:10px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        <span style="font-size:32px">📅</span>
+                    </div>
+                    <div>
+                        <div style="font-weight:800;font-size:16px;margin-bottom:4px">SmartLife Calendar</div>
+                        <div style="font-size:12px;opacity:0.9;line-height:1.5">口語輸入行程 · AI 一鍵生成旅遊計畫 · 穿搭建議 · 日記功能</div>
+                        <div style="font-size:11px;opacity:0.75;margin-top:2px">iOS &amp; Android 免費下載</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-shrink:0">
+                    <a href="https://apps.apple.com/tw/app/smartlife-calendar/id6762165674" target="_blank" rel="noopener"
+                       style="background:white;color:#4f46e5;font-weight:700;font-size:12px;padding:10px 18px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px">
+                        <span>🍎</span> App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=app.smartlifecalendar" target="_blank" rel="noopener"
+                       style="background:rgba(255,255,255,0.15);color:white;font-weight:700;font-size:12px;padding:10px 18px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3)">
+                        <span>🤖</span> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Smart Money Section -->
+        <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+                    <div>
+                        <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">💡 金流密碼</h2>
+                        
+                        <p style="font-size:12px;color:#64748b;margin:4px 0 0">AI 量化偵測主力資金動向 · S&P500 + Nasdaq100 + 題材股</p>
+                        <details style="margin-top:8px">
+                            <summary style="font-size:12px;color:#4f46e5;cursor:pointer;font-weight:600">📋 評估項目說明 ▾</summary>
+                            <div style="margin-top:8px;font-size:11px;color:#374151;line-height:1.8;background:#f8fafc;border-radius:8px;padding:12px;border:1px solid #e2e8f0">
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                                    <div>
+                                        <div style="font-weight:700;color:#16a34a;margin-bottom:6px">📈 動能突破評分 v5（滿分10）</div>
+                                        <div>• <strong>動能確認</strong>（0-3）：區間位置+突破MA20</div>
+                                        <div>• <strong>量能擴張</strong>（0-2）：近20天量>前40天量</div>
+                                        <div>• <strong>波動甜蜜點</strong>（0-2）：15-35%區間最佳</div>
+                                        <div>• <strong>突破訊號</strong>（0-2）：穿越MA20+量能確認</div>
+                                        <div>• <strong>趨勢對齊</strong>（0-1）：MA10 > MA20</div>
+                                        <div style="margin-top:6px;color:#16a34a;font-size:10px">基於1,795筆歷史回測最佳化</div>
+                                        <div style="margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0">
+                                            <div style="font-weight:700;color:#4f46e5;margin-bottom:6px">📖 操作指南</div>
+                                            <div>• <strong>分數 7+</strong>：動能強，可考慮進場，設 -5% 止損</div>
+                                            <div>• <strong>分數 5-6</strong>：趨勢形成中，持續觀察等突破確認</div>
+                                            <div>• <strong>進場</strong>：在訊號出現後的回調買入（不追高）</div>
+                                            <div>• <strong>止損</strong>：跌破進場價 -5% 出場</div>
+                                            <div>• <strong>止盈</strong>：分批止盈 +5% / +10%</div>
+                                            <div>• <strong>持有期</strong>：建議 10-20 交易日</div>
+                                            <div>• <strong>倉位</strong>：單筆不超過總資金 5%</div>
+                                            <div style="margin-top:4px;color:#94a3b8;font-size:10px">回測績效：20天平均+3.25%，勝率55.5%，20份組合年化+51%</div>
+                                            <div style="margin-top:4px;color:#dc2626;font-size:10px;font-weight:600">⚠️ 以上為歷史回測數據，不保證未來績效。投資有風險，請自行評估。</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:700;color:#dc2626;margin-bottom:6px">📉 出貨評分（滿分10）</div>
+                                        <div>• <strong>前提</strong>：OBV必須下降 或 下跌日量>上漲日量</div>
+                                        <div>• <strong>量能擴張</strong>（0-3）：成交量放大</div>
+                                        <div>• <strong>高位確認</strong>（0-2）：股價在6M高點附近</div>
+                                        <div>• <strong>趨勢延伸</strong>（0-2）：3個月漲幅過大</div>
+                                        <div>• <strong>OBV下降</strong>（0-2）：量在出但價還撐</div>
+                                        <div>• <strong>出貨量能</strong>（0-2）：下跌日量>上漲日量</div>
+                                        <div>• <strong>均線死叉</strong>（0-2）：短均破長均</div>
+                                        <div>• <strong>相對弱勢</strong>（0-1）：強勢轉弱</div>
+                                        <div>• <strong>頂部放量</strong>（0-1）：高位成交密集</div>
+                                        <div style="margin-top:6px;color:#94a3b8;font-size:10px">⚠️ 無OBV下降+無出貨量能 = 自動排除</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                        <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish"
+                            style="padding:8px 18px;border-radius:20px;border:none;cursor:pointer;font-weight:700;font-size:13px;background:#dcfce7;color:#16a34a;transition:all 0.2s">
+                            📈 吸籌偵測
+                        </button>
+                        <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish"
+                            style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
+                            📉 出貨偵測
+                        </button>
+                        <button onclick="switchSmartTab('backtest')" id="smart-tab-backtest"
+                            style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
+                            📊 績效回測
+                        </button>
+                        <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
+                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
+                    </div>
+                </div>
+                <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                    <input type="text" id="smartSearchInput" placeholder="輸入代號查詢，如 SNDK" 
+                        style="flex:1;min-width:150px;max-width:250px;border:2px solid #e2e8f0;border-radius:10px;padding:8px 14px;font-size:13px;outline:none;transition:border 0.2s"
+                        onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e2e8f0'"
+                        onkeydown="if(event.key==='Enter')searchSmartSignal()">
+                    <button onclick="searchSmartSignal()" 
+                        style="background:#4f46e5;color:white;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap">
+                        🔍 查詢
+                    </button>
+                    <div id="smartSearchResult" style="display:none;width:100%"></div>
+                </div>
+                <div id="smartMoneyContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+            </div>
+        </div>
+
+        <!-- News Section -->
+        <div id="newsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 財金新聞</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">即時美股財經新聞 · 產業動態 · 個股事件</p>
+                <div id="newsContent"><p style="color:#94a3b8;text-align:center;padding:24px">點擊「財金新聞」標籤載入</p></div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="historySection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📅 歷史資料</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日市場速報和事件分析完整存檔 · 由 Railway 機器人每天 09:00 和 21:00 更新</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
+                    <a href="/daily/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#4f46e5">📰 每日速報存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">查看歷史市場速報</div>
+                    </a>
+                    <a href="/news/" style="display:block;padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b">
+                        <div style="font-weight:700;color:#0891b2">🌐 財金新聞存檔</div>
+                        <div style="font-size:12px;color:#64748b;margin-top:4px">每日新聞摘要</div>
+                    </a>
+                </div>
+                <p style="font-size:12px;color:#94a3b8;margin-top:16px">💡 每天 09:00 開盤速報 · 21:00 收盤總結，資料永久保存供追溯</p>
+            </div>
+        </div>
+        <!-- Daily Archive Section (市場日報) -->
+        <div id="dailyArchiveSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
+                <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 市場日報存檔</h2>
+                <p style="font-size:13px;color:#64748b;margin-bottom:16px">每日速報存檔，供回顧查閱</p>
+                <div id="dailyArchiveContent">
+                    <div style="display:flex;flex-direction:column;gap:8px" id="dailyArchiveList">
+                        <p style="color:#94a3b8;text-align:center">⏳ 載入中...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="guideSection" style="display:none;max-width:900px;margin:0 auto;padding:20px">
+            <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);padding:24px;border-radius:16px;color:white;margin-bottom:20px">
+                <h1 style="margin:0;font-size:22px">📖 StockIQ 學習中心</h1>
+                <p style="margin:8px 0 0;color:#818cf8;font-size:13px">投資教學資源與所有指標的計算方式、判讀標準與操作建議</p>
+            </div>
+
+            <!-- 學習資源卡片 -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+                <a href="/learn/" target="_blank" style="display:block;background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:16px;text-decoration:none;color:#0c4a6e">
+                    <div style="font-size:24px;margin-bottom:8px">📖</div>
+                    <div style="font-weight:700;margin-bottom:4px">入門基礎</div>
+                    <div style="font-size:12px;color:#64748b">股票、ETF、基本術語</div>
+                </a>
+                <a href="/learn/frameworks.html" target="_blank" style="display:block;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:16px;text-decoration:none;color:#14532d">
+                    <div style="font-size:24px;margin-bottom:8px">🧠</div>
+                    <div style="font-weight:700;margin-bottom:4px">分析框架</div>
+                    <div style="font-size:12px;color:#64748b">7大AI分析框架詳解</div>
+                </a>
+                <a href="/learn/fundamental.html" target="_blank" style="display:block;background:#fefce8;border:1px solid #fde68a;border-radius:12px;padding:16px;text-decoration:none;color:#713f12">
+                    <div style="font-size:24px;margin-bottom:8px">📊</div>
+                    <div style="font-weight:700;margin-bottom:4px">基本面分析</div>
+                    <div style="font-size:12px;color:#64748b">財報、本益比、估值</div>
+                </a>
+                <a href="/learn/technical.html" target="_blank" style="display:block;background:#fdf4ff;border:1px solid #e9d5ff;border-radius:12px;padding:16px;text-decoration:none;color:#581c87">
+                    <div style="font-size:24px;margin-bottom:8px">📈</div>
+                    <div style="font-weight:700;margin-bottom:4px">技術分析</div>
+                    <div style="font-size:12px;color:#64748b">K線、均線、指標</div>
+                </a>
+            </div>
+
+            <details open style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    一、市場環境指標 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">1. VIX 恐慌指數</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">標普500選擇權隱含波動率，反映市場未來30天的預期波動</p>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;font-size:12px">
+                        <span style="background:#dcfce7;color:#16a34a;padding:6px 10px;border-radius:8px;text-align:center">&lt;15 極度平靜</span>
+                        <span style="background:#f0fdf4;color:#166534;padding:6px 10px;border-radius:8px;text-align:center">15-20 正常</span>
+                        <span style="background:#fef9c3;color:#a16207;padding:6px 10px;border-radius:8px;text-align:center">20-25 警戒</span>
+                        <span style="background:#fee2e2;color:#dc2626;padding:6px 10px;border-radius:8px;text-align:center">25-30 恐慌</span>
+                        <span style="background:#991b1b;color:white;padding:6px 10px;border-radius:8px;text-align:center">&gt;30 極度恐慌</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">2. CNN 恐懼貪婪指數</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">綜合7個市場情緒指標的複合分數（0-100）</p>
+                    <div style="background:#f8fafc;border-radius:8px;padding:12px;font-size:12px;line-height:2">
+                        <strong>0-25</strong> 極度恐懼 → 反向指標，可能是買點 · 
+                        <strong>25-45</strong> 恐懼 · 
+                        <strong>45-55</strong> 中性 · 
+                        <strong>55-75</strong> 貪婪 · 
+                        <strong>75-100</strong> 極度貪婪 → 可能要減碼
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. 綜合情緒分數 (Composite)</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">StockIQ 自研，加權平均：VIX + CNN F&G + SPY vs 200MA + 動能 + 避險</p>
+                    <p style="color:#64748b;font-size:12px;margin:0"><strong>用途：</strong>決定整體倉位大小的核心指標。&gt;80 極度貪婪風險高；&lt;20 歷史最佳買點</p>
+                </div>
+
+                <div>
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">4. SPY vs 200MA</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 4px">標普500距離200日均線的百分比</p>
+                    <div style="font-size:12px;color:#475569">🐂 &gt;5% 牛市 · 0-5% 偏多 · -5%-0% 警告 · 🐻 &lt;-5% 熊市</div>
+                </div>
+            
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    二、板塊資金流動 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="display:grid;gap:12px;font-size:13px;color:#475569">
+                    <div><strong>板塊日漲跌：</strong>11大 SPDR 板塊 ETF (XLK/XLF/XLV 等) 當日價格變動。門檻：&gt;+0.3% 🟢流入, &lt;-0.3% 🔴流出</div>
+                    <div><strong>資金流向：</strong>成交量 × 收盤價 × 方向（上漲=+, 下跌=-）。判斷資金往哪個板塊轉移</div>
+                    <div><strong>量比：</strong>5日均量 / 20日均量。&gt;1.5x 異常放量（有事件）; &lt;0.8x 縮量觀望</div>
+                </div>
+            
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    三、金流密碼（吸籌/出貨偵測） <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#16a34a;font-size:15px;margin:0 0 8px">吸籌分數 (0-10)</h3>
+                    <div style="background:#f0fdf4;border-radius:8px;padding:12px;font-size:12px;margin-bottom:8px">
+                        <div style="margin-bottom:4px">• <strong>動能確認 (0-3)</strong>: 價格在均線上方 + 52週區間上段</div>
+                        <div style="margin-bottom:4px">• <strong>成交量擴張 (0-2)</strong>: 近期量大於前期</div>
+                        <div style="margin-bottom:4px">• <strong>波動率甜蜜點 (0-2)</strong>: 52週區間 15-35% 最理想</div>
+                        <div style="margin-bottom:4px">• <strong>突破訊號 (0-2)</strong>: 帶量突破20日均線</div>
+                        <div>• <strong>市場對齊 (0-1)</strong>: CNN F&G &gt; 30</div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px">
+                        <span style="background:#e2e8f0;padding:4px 10px;border-radius:12px">5-6分 觀察中</span>
+                        <span style="background:#bbf7d0;padding:4px 10px;border-radius:12px;font-weight:700">7-8分 強訊號 🔥</span>
+                        <span style="background:#86efac;padding:4px 10px;border-radius:12px;font-weight:700">9-10分 極強 🚀</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#f59e0b;font-size:15px;margin:0 0 8px">Phase 階段</h3>
+                    <div style="display:grid;gap:8px;font-size:13px">
+                        <div style="background:#f8fafc;padding:10px 14px;border-radius:8px;border-left:4px solid #94a3b8"><strong>P1 觀望</strong> — 初始訊號，量價尚未確認 → 加入觀察名單</div>
+                        <div style="background:#fef9c3;padding:10px 14px;border-radius:8px;border-left:4px solid #eab308"><strong>P2 動能確認</strong> — 連續訊號 + 量能擴張 → 準備進場</div>
+                        <div style="background:#dcfce7;padding:10px 14px;border-radius:8px;border-left:4px solid #16a34a"><strong>P3 突破確認</strong> — 帶量突破壓力位 → <strong>最佳進場點</strong> 🎯</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color:#64748b;font-size:15px;margin:0 0 8px">連續天數</h3>
+                    <p style="color:#475569;font-size:12px;margin:0">1-3天 新訊號待確認 · 5-10天 持續操作中 · 15+天 長期佈局 · <strong>20+天 機構非常堅定</strong></p>
+                </div>
+            
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    四、Alpha 框架（三層量化分析） <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">敘事層 (Narrative)</h3>
+                    <p style="color:#64748b;font-size:12px;margin:0 0 8px">核心：EPS 修正趨勢（90天內分析師對全年 EPS 預估變化%）</p>
+                    <div style="display:grid;gap:6px;font-size:12px">
+                        <div style="padding:6px 12px;background:#dcfce7;border-radius:6px">✅ <strong>完好 (Intact)</strong>: EPS 被上修或持平 → 基本面假設成立</div>
+                        <div style="padding:6px 12px;background:#fef9c3;border-radius:6px">⚠️ <strong>轉弱 (Weakening)</strong>: EPS 下修 5-15% → 需要關注</div>
+                        <div style="padding:6px 12px;background:#fee2e2;border-radius:6px">❌ <strong>破裂 (Broken)</strong>: EPS 下修 &gt;15% → 原始假設失效，考慮出場</div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">Alpha 層 (Expected Return)</h3>
+                    <p style="color:#64748b;font-size:12px;margin:0 0 4px"><strong>ER = Upside% × Probability × TimeFactor − Downside%</strong></p>
+                    <p style="color:#475569;font-size:12px;margin:0">Upside=分析師目標價空間 · Probability=敘事+EPS趨勢+評級 · TimeFactor=結構擁擠度 · Downside=最低目標價空間</p>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">部位結構層 (Positioning)</h3>
+                    <div style="font-size:12px;color:#475569;line-height:1.8">
+                        <div><strong>Put/Call Ratio (OI):</strong> &gt;1.5 🛡️重度避險 · 0.7-1.5 正常 · &lt;0.5 ⚠️多頭擁擠</div>
+                        <div><strong>IV Skew:</strong> ATM Put IV − Call IV，正值=恐慌</div>
+                        <div><strong>Short % Float:</strong> &gt;10% 高空頭（可能軋空或基本面問題）</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">四象限分類矩陣</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+                        <div style="background:#dcfce7;padding:10px;border-radius:8px"><strong>🟢 Type 4 加碼</strong><br>敘事✅ Alpha高 結構OK<br>→ 系統性加碼</div>
+                        <div style="background:#fef9c3;padding:10px;border-radius:8px"><strong>🟡 Type 3 持有</strong><br>敘事✅ Alpha高 擁擠<br>→ 保留核心，不加碼</div>
+                        <div style="background:#fed7aa;padding:10px;border-radius:8px"><strong>🟠 Type 2 減碼</strong><br>敘事✅ Alpha低<br>→ 調降權重</div>
+                        <div style="background:#fee2e2;padding:10px;border-radius:8px"><strong>🔴 Type 1 清倉</strong><br>敘事❌ Alpha低 惡化<br>→ 立即減碼</div>
+                    </div>
+                </div>
+            
+                
+                    <div style="margin-top:16px;padding-top:16px;border-top:2px solid #e2e8f0">
+                        <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">多模型估值比較</h3>
+                        <p style="color:#64748b;font-size:12px;margin:0 0 8px">每支股票用 3 種獨立模型定價，取平均避免單一偏差</p>
+                        <div style="display:grid;gap:8px;font-size:12px;color:#475569">
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>📊 分析師共識</strong> — 華爾街賣方分析師 12 個月目標價平均（傾向偏樂觀）
+                            </div>
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>📐 板塊 PE</strong> — Forward EPS × 板塊平均本益比。同產業公司應有相近估值<br>
+                                <span style="font-size:11px;color:#94a3b8">Tech 30x · ConsDisc 25x · Comm 22x · Indust 20x · Health 18x · ConsDef 24x · Financial 14x · Energy 12x · REIT 35x</span>
+                            </div>
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>💰 DDM 股利折現</strong> — Div×(1+g)/(r-g)，r=10%。高殖利率 g=4%、中 g=6%、低 g=8%。僅適用配息股
+                            </div>
+                            <div style="background:#eff6ff;padding:10px;border-radius:8px;border-left:3px solid #4f46e5">
+                                <strong>🎯 綜合估值</strong> = 可用模型平均<br>
+                                <span style="color:#16a34a">■</span> &gt;+20% 低估 · 
+                                <span style="color:#a16207">■</span> +5%~+20% 偏低 · 
+                                <span style="color:#64748b">■</span> ±5% 合理 · 
+                                <span style="color:#dc2626">■</span> &lt;-10% 高估
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    五、交易訊號 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="display:grid;gap:12px;font-size:13px;color:#475569">
+                    <div style="background:#fef2f2;padding:12px;border-radius:8px"><strong>🚨 訊號消失：</strong>昨天有吸籌訊號，今天消失 → 機構可能停止買入。回測：及時出場可避免平均 -2% 虧損</div>
+                    <div style="background:#f0fdf4;padding:12px;border-radius:8px"><strong>🎯 +15% 目標價：</strong>從訊號首次出現日計算。回測最佳止盈點。達標+訊號仍強 → 移動停利；達標+訊號消失 → 全部出場</div>
+                    <div style="background:#eff6ff;padding:12px;border-radius:8px"><strong>🚀 強力買賣訊號：</strong>量比 ≥ 1.5x AND 漲跌 &gt; ±3%。量比 ≥ 2.0x = 機構級資金</div>
+                </div>
+            
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    六、Signal Map 座標圖 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="display:grid;gap:8px;font-size:13px;color:#475569">
+                    <div><strong>X 軸</strong> Signal Score（5-10，訊號強度）</div>
+                    <div><strong>Y 軸</strong> 1-Month Change %（月漲跌幅）</div>
+                    <div><strong>顏色</strong> 🟢P3突破 🟡P2動能 ⚪P1觀望 🔴出貨</div>
+                    <div><strong>大小</strong> 連續天數（越大=越持久）</div>
+                    <div><strong>右上 BUY ZONE</strong> = 高分數 + 正報酬 → 最佳候選</div>
+                    <div><strong>左下 DANGER</strong> = 低分數 + 負報酬 → 避開</div>
+                </div>
+            
+                </div>
+            </details>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    八、回測驗證的交易規則 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px">
+                    <div>
+                        <h3 style="color:#818cf8;font-size:14px;margin:0 0 8px">📈 買入條件</h3>
+                        <div style="line-height:1.8;color:#cbd5e1">
+                            • Score ≥ 8 AND Phase ≥ 2<br>
+                            • Alpha Type 4（加碼區）<br>
+                            • 敘事完好 + 上行空間大
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color:#f87171;font-size:14px;margin:0 0 8px">📉 賣出條件</h3>
+                        <div style="line-height:1.8;color:#cbd5e1">
+                            • 訊號消失 → 立刻出場<br>
+                            • 漲 +15% → 獲利了結<br>
+                            • 跌 -10% → 停損<br>
+                            • 持有 &gt;30天 → 重新評估
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.1);border-radius:8px;font-size:12px;color:#94a3b8">
+                    📊 回測結果（152交易日）: 勝率 44% · 平均報酬 +1.85%/筆 · 勝敗比 3:1（贏+7.45% vs 輸-2.52%）
+                </div>
+            
+                </div>
+            </details>
+
+            <div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px">
+                ⚠️ 僅供參考，不構成投資建議。過去績效不代表未來表現。<br>
+                最後更新: 2026-07-20 · StockIQ
+            </div>
+        </div>
+
+
+        <!-- Product Info HIDDEN -->
+<div style="display:none">
+<!-- Product Info + Policies (for payment platform review) -->
+        <div class="max-w-3xl mx-auto mt-10 px-4">
+            <!-- Service Introduction -->
+            <div class="bg-gray-50 rounded-xl p-6 mb-4 text-sm text-gray-600">
+                <h3 class="font-bold text-gray-800 mb-3">📋 服務說明</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+                        <div class="text-2xl mb-1">🆓</div>
+                        <div class="font-bold text-gray-800">免費方案</div>
+                        <div class="text-xs text-gray-500 mt-1">每月 3 次分析<br>大板塊資金流動<br>含廣告</div>
+                        <div class="text-lg font-bold text-green-600 mt-2">NT$0</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm border-2 border-indigo-200">
+                        <div class="text-2xl mb-1">📦</div>
+                        <div class="font-bold text-gray-800">次數包</div>
+                        <div class="text-xs text-gray-500 mt-1">體驗包 10次 NT$29<br>標準包 50次 NT$99<br>進階包 200次 NT$299</div>
+                        <div class="text-xs text-indigo-600 mt-2 font-medium">不過期・不訂閱</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 text-center shadow-sm border border-green-100">
+                        <div class="text-2xl mb-1">🎁</div>
+                        <div class="font-bold text-gray-800">子板塊追蹤</div>
+                        <div class="text-xs text-gray-500 mt-1">細分 ETF 資金流向<br>週對週趨勢分析<br>登入即可使用</div>
+                        <div class="text-lg font-bold text-green-600 mt-2">完全免費</div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">服務內容：AI 多框架股票分析報告，包含財務結構、技術面（RSI/MACD/布林）、Piotroski F-Score、Peter Lynch GARP、Howard Marks 宏觀週期等 7 大分析框架，提供悲觀/基準/樂觀三情境估值目標價及投資評級。</p>
+            </div>
+            <!-- Policies -->
+            <div class="text-xs text-gray-500 flex flex-wrap justify-center gap-4 mb-4">
+                <a href="#privacy" class="hover:text-gray-700">隱私權政策</a>
+                <a href="#terms" class="hover:text-gray-700">服務條款</a>
+                <a href="#refund" class="hover:text-gray-700">退款政策</a>
+                <a href="#consumer" class="hover:text-gray-700">消費者保護</a>
+                <a href="mailto:smartlifecalendar@gmail.com" class="hover:text-gray-700">客服信箱: smartlifecalendar@gmail.com</a>
+            </div>
+            <!-- Policy Content (collapsed) -->
+            <div id="privacy" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">隱私權政策：</strong>本平台收集用戶電子郵件（登入用）及使用記錄（分析次數統計）。個人資料不會出售或分享給第三方。用戶可隨時要求刪除帳號及相關資料，請寄信至 smartlifecalendar@gmail.com。
+            </div>
+            <div id="terms" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">服務條款：</strong>本平台提供之分析報告僅供參考，不構成任何投資建議或勸誘。投資涉及風險，過去績效不保證未來表現。使用者應自行評估投資決策，本平台不負擔任何投資損益責任。使用本服務即代表同意本條款。
+            </div>
+            <div id="refund" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">退款政策：</strong>次數包購買後如未使用，可於購買後 7 日內申請全額退款。已使用的次數按比例扣除。退款申請請寄信至 smartlifecalendar@gmail.com，處理時間 3-5 個工作天。
+            </div>
+            <div id="consumer" class="text-xs text-gray-500 bg-gray-50 rounded-lg p-4 mb-2">
+                <strong class="text-gray-700">消費者權益：</strong>依消費者保護法，數位商品（分析次數包）購買後如有品質問題，可於 7 日內申請退款。如有任何消費爭議，可聯繫客服 smartlifecalendar@gmail.com 或向消費者保護委員會申訴。
+            </div>
+        </div>
+</div>
+
+        <!-- Footer Disclaimer -->
+        
+        
+        <!-- Daily Column: 2026/06/25 09:57 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+              <div style="font-size:18px;font-weight:800;color:#1f2937">⚡ 今日事件快速分析</div>
+              <span style="color:#9ca3af;font-size:12px">2026/07/20 09:51</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+              <div style="background:white;border-left:4px solid #10b981;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
+  <div style="font-size:15px;font-weight:700;color:#059669;margin-bottom:14px">📈 LCID +13.9%（量比2.3x）</div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">Lucid Motors宣布與沙烏地PIF達成新融資協議，確保資金充裕度至2026年底，消除破產疑慮</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 沙烏地公共投資基金(PIF)額外注資$1.5B，解決現金流危機</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 量比2.3x創近期高位，顯示機構投資者建倉信心</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 電動豪華車市場需求回溫，Lucid Air銷售環比成長</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ TSLA：豪華電動車競爭加劇，提升Tesla市場地位和定價權</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ RIVN：新興EV廠商獲利機會提升，投資者重估整個高端EV板塊</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ F：傳統車廠電動化轉型急迫性增強，F-150 Lightning銷售拉動</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ CCIV：Lucid與PIF融資稀釋現有股東權益約12-15%</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ NIO：中國EV龍頭在全球豪華車市場的競爭優勢被削弱</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">融資確保營運延續，但高稀釋率和燒錢模式未改善，反彈存在20%下行風險</span></div>
+</div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
+  <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:14px">📉 NFLX -7.3%（量比3.3x）</div>
+  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">Netflix Q2財報下修全年付費用戶增長指引，廣告業務增速未達市場預期</span></div>
+  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 付費用戶成長率從預估1200萬下調至900萬，環比衰退18-25%</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 成熟市場(北美、歐洲)飽和，漲價政策導致主動流失加速</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 量比3.3x創高，機構投資者大規模減碼，單日賣出超600萬股</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ GOOGL：YouTube Premium和YouTube TV使用者轉移，廣告分配份額提升</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ AMZN：Prime Video補完內容庫投資，從Netflix挖角優質製作人</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ DIS：Disney+束縛政策調整後，訂閱用戶成長恢復至2.3%</div>
+  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ ROKU：Netflix廣告預算縮減，串流平台廣告支出整體下滑8%</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ SPOT：Netflix競爭壓力蔓延至音樂串流，用戶付費意願減弱</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ PARA：Paramount+燒錢轉虧，市場對串流服務整體獲利前景悲觀</div>
+  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">Netflix從成長股淪為價值股，估值從27倍PE跌至18倍，空頭目標價$58，仍有15%下檔空間</span></div>
+</div>
+            </div>
+            <p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 本分析僅供參考，不構成投資建議｜AI輔助生成｜stockiq.tw</p>
+          </div></div>
+
+        <!-- Daily Briefing: 2026/06/25 09:57 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a5f 100%);border-radius:16px;padding:24px;color:white;margin-bottom:24px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <h2 style="font-size:20px;font-weight:800;margin:0">📰 🌅 早報 市場速報</h2>
+    <span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/07/20 09:51 （週一）</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+    <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px">
+      <div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div>
+      <div onclick="document.getElementById('tickerInput').value='LCID';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">LCID</span> <span style="color:#94a3b8;font-size:12px">$7.36 (+13.9%) ｜ 量比2.3x</span></div>
+    </div>
+    <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div>
+      <div onclick="document.getElementById('tickerInput').value='NFLX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NFLX</span> <span style="color:#94a3b8;font-size:12px">$68.95 (-7.3%) ｜ 量比3.3x</span></div>
+<div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AAL</span> <span style="color:#94a3b8;font-size:12px">$14.98 (-4.0%) ｜ 量比1.7x</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='LCID';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">LCID</span> <span style="color:#94a3b8;font-size:12px">$7.36 (+13.9%) ｜ 量比2.3x</span></div>
+<div onclick="document.getElementById('tickerInput').value='SLS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SLS</span> <span style="color:#94a3b8;font-size:12px">$13.19 (+12.3%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='ORKA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ORKA</span> <span style="color:#94a3b8;font-size:12px">$92.70 (+11.6%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='DNTH';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">DNTH</span> <span style="color:#94a3b8;font-size:12px">$105.60 (+10.8%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='COAG';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">COAG</span> <span style="color:#94a3b8;font-size:12px">$49.29 (+10.7%)</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px">
+      <div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div>
+      <div onclick="document.getElementById('tickerInput').value='ISRG';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ISRG</span> <span style="color:#94a3b8;font-size:12px">$345.42 (-14.2%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='CDNS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">CDNS</span> <span style="color:#94a3b8;font-size:12px">$330.11 (-9.5%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='PENG';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">PENG</span> <span style="color:#94a3b8;font-size:12px">$60.41 (-8.4%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='SNPS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">SNPS</span> <span style="color:#94a3b8;font-size:12px">$384.27 (-7.8%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='NFLX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NFLX</span> <span style="color:#94a3b8;font-size:12px">$68.95 (-7.3%) ｜ 量比3.3x</span></div>
+    </div>
+    <div style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);border-radius:10px;padding:14px">
+      <div style="color:#fdba74;font-weight:700;margin-bottom:10px;font-size:13px">🔥 熱搜話題股</div>
+      <div onclick="document.getElementById('tickerInput').value='ONDS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">ONDS</span> <span style="color:#94a3b8;font-size:12px">$6.53 (-1.9%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='AAL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">AAL</span> <span style="color:#94a3b8;font-size:12px">$14.98 (-4.0%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='NVDA';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NVDA</span> <span style="color:#94a3b8;font-size:12px">$202.81 (-2.2%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='NFLX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">NFLX</span> <span style="color:#94a3b8;font-size:12px">$68.95 (-7.3%)</span></div>
+<div onclick="document.getElementById('tickerInput').value='INTC';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px"><span style="font-weight:700;color:#c7d2fe">INTC</span> <span style="color:#94a3b8;font-size:12px">$95.04 (-2.0%)</span></div>
+    </div>
+  </div>
+  <p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance 數據 ｜ 量比=今日量÷近3月均量 ｜ 點代號直接分析 ｜ stockiq.tw 每日更新</p>
+</div></div>
+
+        <!-- Disclaimer -->
+        <div style="max-width:960px;margin:24px auto;padding:0 20px">
+            <div style="background:#fefce8;border:1px solid #fde68a;border-radius:12px;padding:16px 20px">
+                <div style="font-weight:700;color:#92400e;font-size:13px;margin-bottom:8px">⚠️ 免責聲明 Disclaimer</div>
+                <div style="font-size:11px;color:#78350f;line-height:1.8">
+                    本網站所提供之資訊僅供參考，<strong>不構成任何投資建議或買賣推薦</strong>。所有分析結果由 AI 模型自動生成，可能存在誤差。
+                    過去績效不代表未來表現。投資人應自行判斷風險，並承擔所有投資決策之責任。
+                    本站不對任何因使用本站資訊而導致之損失負責。投資一定有風險，基金投資有賺有賠，申購前應詳閱公開說明書。
+                    <br><br>
+                    <span style="color:#a16207">The information provided on this website is for reference only and does not constitute investment advice. 
+                    All analysis results are automatically generated by AI models and may contain errors. 
+                    Past performance does not guarantee future results. Users are solely responsible for their investment decisions.</span>
+                </div>
+            </div>
+        </div>
+<footer class="text-center text-xs text-gray-400 mt-6 pb-6">
+            <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+            <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+            <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-451f589</p>
+        </footer>
+
+
+        <!-- Login Modal -->
+        
+
+
+        <!-- Watch List Toggle Button -->
+        <button onclick="document.getElementById('watchListPanel').classList.toggle('hidden')" 
+            style="position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;border:none;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100">
+            📋 追蹤清單
+        </button>
+
+        <!-- Watch List Panel -->
+        <div id="watchListPanel" class="hidden" style="position:fixed;bottom:70px;right:20px;width:220px;background:white;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:200;overflow:hidden">
+            <div style="background:#1e293b;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+                <span style="color:white;font-weight:700;font-size:14px">📋 追蹤清單</span>
+                <button onclick="document.getElementById('watchListPanel').classList.add('hidden')" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:18px">×</button>
+            </div>
+            <div id="watchListContent" style="padding:8px 12px;max-height:300px;overflow-y:auto">
+                <p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">尚未追蹤任何股票</p>
+            </div>
+            <div style="padding:10px 12px;border-top:1px solid #f1f5f9">
+                <div style="display:flex;gap:6px">
+                    <input id="watchAddInput" placeholder="輸入代號..." style="flex:1;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;font-size:13px;outline:none">
+                    <button onclick="addToWatchList(document.getElementById('watchAddInput').value);document.getElementById('watchAddInput').value=''" 
+                        style="background:#4f46e5;color:white;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer">+</button>
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+    // Pre-loaded smart money data (updated daily)
+    window._smartData = {"generated_at":"2026-07-18T10:00:02+08:00","stocks":[{"symbol":"ABBV","direction":"bullish","score":10,"score_max":10,"price":254.49,"change_1d":0.04,"change_1m":14.4,"vol_ratio":1.62,"price_range_pct":32.3,"range_position_pct":89.7,"consec_days":22,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置90% · 量比1.6x · 突破MA20","score_vol":2,"score_comp":2,"score_pos":3,"score_obv":2,"score_mom":1,"change_3m":22.1,"phase":3,"phase_label":"突破確認","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":249.3,"stop_loss":223.55,"stop_pct":-10.3,"target_1":266.29,"target_1_pct":6.8,"target_2":279.6,"target_2_pct":12.2,"risk_reward":0.7,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":10,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"JNJ","direction":"bullish","score":9,"score_max":10,"price":253.04,"change_1d":1.23,"change_1m":7.6,"vol_ratio":1.21,"price_range_pct":22.6,"range_position_pct":71.2,"consec_days":22,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置71% · 量比1.2x · 突破MA20","score_vol":1,"score_comp":2,"score_pos":3,"score_obv":2,"score_mom":1,"change_3m":6.0,"phase":3,"phase_label":"突破確認","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":253.04,"stop_loss":233.89,"stop_pct":-7.6,"target_1":272.58,"target_1_pct":7.7,"target_2":286.21,"target_2_pct":13.1,"risk_reward":1.0,"mom_health":"強","transition":"持續看多","momentum_change":"🔺 動能轉強","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ABT","direction":"bullish","score":7,"score_max":10,"price":100.68,"change_1d":1.87,"change_1m":11.1,"vol_ratio":1.17,"price_range_pct":49.6,"range_position_pct":44.2,"consec_days":1,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置44% · 量比1.2x · 突破MA20","score_vol":1,"score_comp":1,"score_pos":2,"score_obv":2,"score_mom":1,"change_3m":-0.9,"phase":3,"phase_label":"突破確認","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":93.95,"stop_loss":87.86,"stop_pct":-6.5,"target_1":102.69,"target_1_pct":9.3,"target_2":126.0,"target_2_pct":34.1,"risk_reward":1.4,"mom_health":"強","transition":"持續看多","momentum_change":"🔺 動能轉強","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PG","direction":"bullish","score":6,"score_max":10,"price":149.98,"change_1d":-1.0,"change_1m":-1.6,"vol_ratio":1.14,"price_range_pct":19.3,"range_position_pct":36.2,"consec_days":1,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置36% · 量比1.1x · 突破MA20","score_vol":1,"score_comp":2,"score_pos":1,"score_obv":2,"score_mom":0,"change_3m":4.6,"phase":3,"phase_label":"突破確認","sector_etf":"XLP","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":149.98,"stop_loss":143.7,"stop_pct":-4.2,"target_1":155.81,"target_1_pct":3.9,"target_2":170.54,"target_2_pct":13.7,"risk_reward":0.9,"mom_health":"弱","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"COST","direction":"bullish","score":6,"score_max":10,"price":940.87,"change_1d":-0.5,"change_1m":-4.6,"vol_ratio":1.33,"price_range_pct":19.9,"range_position_pct":15.4,"consec_days":1,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置15% · 量比1.3x · 突破MA20","score_vol":1,"score_comp":2,"score_pos":1,"score_obv":2,"score_mom":0,"change_3m":-4.5,"phase":3,"phase_label":"突破確認","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":940.87,"stop_loss":894.71,"stop_pct":-4.9,"target_1":980.31,"target_1_pct":4.2,"target_2":1116.21,"target_2_pct":18.6,"risk_reward":0.9,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"NKE","direction":"bullish","score":6,"score_max":10,"price":43.76,"change_1d":-1.82,"change_1m":-2.8,"vol_ratio":1.44,"price_range_pct":61.0,"range_position_pct":12.1,"consec_days":1,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置12% · 量比1.4x · 突破MA20","score_vol":2,"score_comp":0,"score_pos":1,"score_obv":2,"score_mom":1,"change_3m":-3.7,"phase":3,"phase_label":"突破確認","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":43.34,"stop_loss":42.76,"stop_pct":-1.3,"target_1":46.1,"target_1_pct":6.4,"target_2":66.92,"target_2_pct":54.4,"risk_reward":4.8,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"BMY","direction":"bullish","score":8,"score_max":10,"price":60.74,"change_1d":0.38,"change_1m":8.6,"vol_ratio":1.24,"price_range_pct":15.5,"range_position_pct":80.5,"consec_days":18,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置81% · 量比1.2x · 趨勢向上","score_vol":1,"score_comp":2,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":4.9,"phase":2,"phase_label":"動能累積","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":57.92,"stop_loss":55.82,"stop_pct":-3.6,"target_1":61.95,"target_1_pct":7.0,"target_2":65.05,"target_2_pct":12.3,"risk_reward":1.9,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":9,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PAYX","direction":"bullish","score":8,"score_max":10,"price":114.39,"change_1d":-0.27,"change_1m":14.1,"vol_ratio":1.22,"price_range_pct":34.0,"range_position_pct":98.9,"consec_days":17,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置99% · 量比1.2x · 趨勢向上","score_vol":1,"score_comp":2,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":26.7,"phase":2,"phase_label":"動能累積","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":105.32,"stop_loss":97.62,"stop_pct":-7.3,"target_1":116.99,"target_1_pct":11.1,"target_2":122.84,"target_2_pct":16.6,"risk_reward":1.5,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":8,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"VRSK","direction":"bullish","score":8,"score_max":10,"price":200.68,"change_1d":-0.4,"change_1m":11.7,"vol_ratio":1.43,"price_range_pct":41.6,"range_position_pct":67.2,"consec_days":17,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置67% · 量比1.4x · 趨勢向上","score_vol":2,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":13.5,"phase":2,"phase_label":"動能累積","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":187.26,"stop_loss":175.16,"stop_pct":-6.5,"target_1":205.52,"target_1_pct":9.8,"target_2":226.49,"target_2_pct":20.9,"risk_reward":1.5,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":8,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"AAPL","direction":"bullish","score":7,"score_max":10,"price":333.74,"change_1d":0.14,"change_1m":11.5,"vol_ratio":1.37,"price_range_pct":35.3,"range_position_pct":100.0,"consec_days":24,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置100% · 量比1.4x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":25.3,"phase":2,"phase_label":"動能累積","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":308.57,"stop_loss":296.6,"stop_pct":-3.9,"target_1":340.41,"target_1_pct":10.3,"target_2":357.43,"target_2_pct":15.8,"risk_reward":2.7,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"JPM","direction":"bullish","score":7,"score_max":10,"price":341.1,"change_1d":-0.6,"change_1m":3.0,"vol_ratio":1.31,"price_range_pct":22.7,"range_position_pct":90.9,"consec_days":25,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置91% · 量比1.3x · 趨勢向上","score_vol":1,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":11.5,"phase":2,"phase_label":"動能累積","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":338.44,"stop_loss":318.72,"stop_pct":-5.8,"target_1":353.85,"target_1_pct":4.6,"target_2":371.54,"target_2_pct":9.8,"risk_reward":0.8,"mom_health":"穩","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":8,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"V","direction":"bullish","score":7,"score_max":10,"price":358.56,"change_1d":-1.8,"change_1m":7.6,"vol_ratio":1.27,"price_range_pct":23.6,"range_position_pct":90.5,"consec_days":25,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置91% · 量比1.3x · 趨勢向上","score_vol":1,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":13.5,"phase":2,"phase_label":"動能累積","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":349.76,"stop_loss":326.44,"stop_pct":-6.7,"target_1":372.44,"target_1_pct":6.5,"target_2":391.06,"target_2_pct":11.8,"risk_reward":1.0,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PYPL","direction":"bullish","score":7,"score_max":10,"price":56.56,"change_1d":-0.3,"change_1m":29.6,"vol_ratio":1.33,"price_range_pct":46.2,"range_position_pct":96.7,"consec_days":4,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置97% · 量比1.3x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":14.1,"phase":2,"phase_label":"動能累積","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":46.64,"stop_loss":43.82,"stop_pct":-6.0,"target_1":57.86,"target_1_pct":24.1,"target_2":60.75,"target_2_pct":30.3,"risk_reward":4.0,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"DOCU","direction":"bullish","score":7,"score_max":10,"price":52.74,"change_1d":-1.2,"change_1m":18.7,"vol_ratio":1.1,"price_range_pct":43.0,"range_position_pct":61.3,"consec_days":2,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置61% · 量比1.1x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":12.6,"phase":2,"phase_label":"動能累積","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":47.36,"stop_loss":46.57,"stop_pct":-1.7,"target_1":54.45,"target_1_pct":15.0,"target_2":60.88,"target_2_pct":28.5,"risk_reward":9.0,"mom_health":"穩","transition":"持續看多","momentum_change":"▲ 動能略升","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"AMZN","direction":"bullish","score":6,"score_max":10,"price":247.23,"change_1d":-1.06,"change_1m":0.5,"vol_ratio":1.4,"price_range_pct":38.3,"range_position_pct":63.6,"consec_days":13,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置64% · 量比1.4x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":-0.5,"phase":2,"phase_label":"動能累積","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":244.48,"stop_loss":222.47,"stop_pct":-9.0,"target_1":260.06,"target_1_pct":6.4,"target_2":280.49,"target_2_pct":14.7,"risk_reward":0.7,"mom_health":"穩","transition":"持續看多","momentum_change":"🔻 動能轉弱","prev_score":8,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"META","direction":"bullish","score":6,"score_max":10,"price":646.01,"change_1d":-2.79,"change_1m":7.6,"vol_ratio":1.21,"price_range_pct":40.4,"range_position_pct":56.6,"consec_days":12,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置57% · 量比1.2x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":-3.8,"phase":2,"phase_label":"動能累積","sector_etf":"XLC","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":611.31,"stop_loss":592.44,"stop_pct":-3.1,"target_1":694.94,"target_1_pct":13.7,"target_2":753.08,"target_2_pct":23.2,"risk_reward":4.4,"mom_health":"弱","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"KO","direction":"bullish","score":6,"score_max":10,"price":81.56,"change_1d":-3.96,"change_1m":1.6,"vol_ratio":1.33,"price_range_pct":20.6,"range_position_pct":76.8,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置77% · 量比1.3x · 趨勢向上","score_vol":1,"score_comp":2,"score_pos":2,"score_obv":0,"score_mom":1,"change_3m":8.3,"phase":2,"phase_label":"動能累積","sector_etf":"XLP","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":81.56,"stop_loss":79.44,"stop_pct":-2.6,"target_1":86.62,"target_1_pct":6.2,"target_2":90.95,"target_2_pct":11.5,"risk_reward":2.4,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"MNST","direction":"bullish","score":6,"score_max":10,"price":97.5,"change_1d":-2.44,"change_1m":4.9,"vol_ratio":1.2,"price_range_pct":40.1,"range_position_pct":91.5,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置91% · 量比1.2x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":30.1,"phase":2,"phase_label":"動能累積","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":97.32,"stop_loss":89.51,"stop_pct":-8.0,"target_1":101.94,"target_1_pct":4.7,"target_2":107.04,"target_2_pct":10.0,"risk_reward":0.6,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"RIVN","direction":"bullish","score":6,"score_max":10,"price":17.45,"change_1d":2.14,"change_1m":9.6,"vol_ratio":1.41,"price_range_pct":56.1,"range_position_pct":62.9,"consec_days":14,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置63% · 量比1.4x · 趨勢向上","score_vol":2,"score_comp":0,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":6.4,"phase":2,"phase_label":"動能累積","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":17.05,"stop_loss":15.59,"stop_pct":-8.6,"target_1":20.54,"target_1_pct":20.5,"target_2":21.57,"target_2_pct":26.5,"risk_reward":2.4,"mom_health":"弱","transition":"持續看多","momentum_change":"▲ 動能略升","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"LCID","direction":"bullish","score":6,"score_max":10,"price":7.36,"change_1d":13.93,"change_1m":46.6,"vol_ratio":1.56,"price_range_pct":148.3,"range_position_pct":40.0,"consec_days":2,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置40% · 量比1.6x · 趨勢向上","score_vol":2,"score_comp":0,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":-10.4,"phase":2,"phase_label":"動能累積","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":5.94,"stop_loss":5.7,"stop_pct":-4.0,"target_1":7.51,"target_1_pct":26.4,"target_2":11.7,"target_2_pct":97.0,"risk_reward":6.5,"mom_health":"強","transition":"持續看多","momentum_change":"▲ 動能略升","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"MS","direction":"bullish","score":5,"score_max":10,"price":215.5,"change_1d":-1.31,"change_1m":-2.4,"vol_ratio":1.16,"price_range_pct":48.1,"range_position_pct":82.4,"consec_days":4,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置82% · 量比1.2x · 趨勢向上","score_vol":1,"score_comp":1,"score_pos":2,"score_obv":0,"score_mom":1,"change_3m":12.5,"phase":2,"phase_label":"動能累積","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":215.5,"stop_loss":206.13,"stop_pct":-4.3,"target_1":233.12,"target_1_pct":8.2,"target_2":244.78,"target_2_pct":13.6,"risk_reward":1.9,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"BAC","direction":"bullish","score":7,"score_max":10,"price":61.27,"change_1d":-0.36,"change_1m":7.8,"vol_ratio":1.03,"price_range_pct":31.8,"range_position_pct":97.8,"consec_days":27,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置98% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":12.8,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":59.52,"stop_loss":55.08,"stop_pct":-7.5,"target_1":62.82,"target_1_pct":5.5,"target_2":65.96,"target_2_pct":10.8,"risk_reward":0.7,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PM","direction":"bullish","score":7,"score_max":10,"price":192.98,"change_1d":1.65,"change_1m":4.8,"vol_ratio":1.08,"price_range_pct":25.9,"range_position_pct":100.0,"consec_days":24,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置100% · 量比1.1x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":22.8,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":183.55,"stop_loss":177.93,"stop_pct":-3.1,"target_1":196.84,"target_1_pct":7.2,"target_2":206.68,"target_2_pct":12.6,"risk_reward":2.4,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"XLE","direction":"bullish","score":7,"score_max":10,"price":57.68,"change_1d":1.16,"change_1m":4.2,"vol_ratio":0.83,"price_range_pct":31.4,"range_position_pct":67.4,"consec_days":5,"signal":"🔥 強勢突破","action":"🟢 動能確認，可考慮進場","action_detail":"區間位置67% · 量比0.8x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":3.4,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":55.28,"stop_loss":51.75,"stop_pct":-6.4,"target_1":58.83,"target_1_pct":6.4,"target_2":63.81,"target_2_pct":15.4,"risk_reward":1.0,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"XOM","direction":"bullish","score":6,"score_max":10,"price":147.36,"change_1d":0.97,"change_1m":3.9,"vol_ratio":1.04,"price_range_pct":32.8,"range_position_pct":43.1,"consec_days":2,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置43% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":-1.1,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLE","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":141.21,"stop_loss":133.34,"stop_pct":-5.6,"target_1":150.31,"target_1_pct":6.4,"target_2":174.9,"target_2_pct":23.9,"risk_reward":1.2,"mom_health":"強","transition":"持續看多","momentum_change":"▲ 動能略升","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"MA","direction":"bullish","score":6,"score_max":10,"price":543.6,"change_1d":-1.44,"change_1m":8.4,"vol_ratio":1.04,"price_range_pct":17.8,"range_position_pct":86.0,"consec_days":19,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置86% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":4.5,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":523.68,"stop_loss":493.08,"stop_pct":-5.8,"target_1":562.57,"target_1_pct":7.4,"target_2":590.7,"target_2_pct":12.8,"risk_reward":1.3,"mom_health":"穩","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"CVX","direction":"bullish","score":6,"score_max":10,"price":187.38,"change_1d":1.91,"change_1m":4.0,"vol_ratio":1.02,"price_range_pct":27.7,"range_position_pct":48.2,"consec_days":3,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置48% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":1.3,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLE","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":176.44,"stop_loss":162.38,"stop_pct":-8.0,"target_1":191.13,"target_1_pct":8.3,"target_2":215.37,"target_2_pct":22.1,"risk_reward":1.0,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"AMGN","direction":"bullish","score":6,"score_max":10,"price":366.29,"change_1d":-1.42,"change_1m":5.3,"vol_ratio":0.93,"price_range_pct":19.9,"range_position_pct":66.0,"consec_days":21,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置66% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":5.2,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":363.17,"stop_loss":339.57,"stop_pct":-6.5,"target_1":381.63,"target_1_pct":5.1,"target_2":400.71,"target_2_pct":10.3,"risk_reward":0.8,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"UNP","direction":"bullish","score":6,"score_max":10,"price":301.75,"change_1d":0.78,"change_1m":12.8,"vol_ratio":0.88,"price_range_pct":36.1,"range_position_pct":100.0,"consec_days":22,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置100% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":21.7,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLI","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":280.87,"stop_loss":266.25,"stop_pct":-5.2,"target_1":307.79,"target_1_pct":9.6,"target_2":323.18,"target_2_pct":15.1,"risk_reward":1.8,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PCAR","direction":"bullish","score":6,"score_max":10,"price":126.2,"change_1d":-0.37,"change_1m":4.3,"vol_ratio":1.07,"price_range_pct":18.4,"range_position_pct":83.7,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置84% · 量比1.1x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":2.2,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":123.25,"stop_loss":114.92,"stop_pct":-6.8,"target_1":129.2,"target_1_pct":4.8,"target_2":135.66,"target_2_pct":10.1,"risk_reward":0.7,"mom_health":"弱","transition":"持續看多","momentum_change":"🔻 動能轉弱","prev_score":8,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ODFL","direction":"bullish","score":6,"score_max":10,"price":233.84,"change_1d":-1.4,"change_1m":1.0,"vol_ratio":0.84,"price_range_pct":46.3,"range_position_pct":81.1,"consec_days":5,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置81% · 量比0.8x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":14.0,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":224.69,"stop_loss":216.32,"stop_pct":-3.7,"target_1":241.89,"target_1_pct":7.7,"target_2":253.98,"target_2_pct":13.0,"risk_reward":2.1,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ABNB","direction":"bullish","score":6,"score_max":10,"price":145.98,"change_1d":-1.23,"change_1m":3.4,"vol_ratio":1.0,"price_range_pct":28.4,"range_position_pct":91.1,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置91% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":6.2,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLY","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":145.98,"stop_loss":136.31,"stop_pct":-6.6,"target_1":151.91,"target_1_pct":4.1,"target_2":159.51,"target_2_pct":9.3,"risk_reward":0.6,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"GD","direction":"bullish","score":6,"score_max":10,"price":368.58,"change_1d":-0.07,"change_1m":1.2,"vol_ratio":1.03,"price_range_pct":20.6,"range_position_pct":87.1,"consec_days":22,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置87% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":8.8,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLI","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":365.57,"stop_loss":345.16,"stop_pct":-5.6,"target_1":384.42,"target_1_pct":5.2,"target_2":403.64,"target_2_pct":10.4,"risk_reward":0.9,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"XLF","direction":"bullish","score":6,"score_max":10,"price":56.26,"change_1d":-0.86,"change_1m":3.5,"vol_ratio":0.95,"price_range_pct":18.7,"range_position_pct":94.5,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置95% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":7.8,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":55.54,"stop_loss":52.38,"stop_pct":-5.7,"target_1":57.88,"target_1_pct":4.2,"target_2":60.77,"target_2_pct":9.4,"risk_reward":0.7,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":7,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"NVDA","direction":"bullish","score":5,"score_max":10,"price":202.81,"change_1d":-2.21,"change_1m":-2.2,"vol_ratio":0.88,"price_range_pct":42.7,"range_position_pct":53.3,"consec_days":4,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置53% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":2.0,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":202.81,"stop_loss":188.68,"stop_pct":-7.0,"target_1":216.75,"target_1_pct":6.9,"target_2":240.45,"target_2_pct":18.6,"risk_reward":1.0,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"LLY","direction":"bullish","score":5,"score_max":10,"price":1179.11,"change_1d":0.85,"change_1m":5.0,"vol_ratio":0.93,"price_range_pct":45.2,"range_position_pct":85.3,"consec_days":0,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置85% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":30.3,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":1179.11,"stop_loss":1087.23,"stop_pct":-7.8,"target_1":1260.27,"target_1_pct":6.9,"target_2":1323.28,"target_2_pct":12.2,"risk_reward":0.9,"mom_health":"穩","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ACN","direction":"bullish","score":5,"score_max":10,"price":143.57,"change_1d":-0.72,"change_1m":-13.3,"vol_ratio":2.52,"price_range_pct":131.3,"range_position_pct":11.7,"consec_days":3,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置12% · 量比2.5x · 趨勢向上","score_vol":2,"score_comp":0,"score_pos":1,"score_obv":1,"score_mom":1,"change_3m":-26.0,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":134.85,"stop_loss":121.95,"stop_pct":-9.6,"target_1":147.5,"target_1_pct":9.4,"target_2":293.53,"target_2_pct":117.7,"risk_reward":1.0,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"TMO","direction":"bullish","score":5,"score_max":10,"price":532.48,"change_1d":-1.97,"change_1m":12.7,"vol_ratio":0.85,"price_range_pct":45.9,"range_position_pct":46.8,"consec_days":9,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置47% · 量比0.8x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":0.2,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":516.27,"stop_loss":474.46,"stop_pct":-8.1,"target_1":554.05,"target_1_pct":7.3,"target_2":652.24,"target_2_pct":26.3,"risk_reward":0.9,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"LIN","direction":"bullish","score":5,"score_max":10,"price":513.22,"change_1d":-1.44,"change_1m":-1.0,"vol_ratio":1.07,"price_range_pct":26.2,"range_position_pct":70.6,"consec_days":27,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置71% · 量比1.1x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":2,"score_obv":0,"score_mom":1,"change_3m":3.1,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLB","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":513.22,"stop_loss":503.9,"stop_pct":-1.8,"target_1":557.57,"target_1_pct":8.6,"target_2":585.45,"target_2_pct":14.1,"risk_reward":4.8,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"DHR","direction":"bullish","score":5,"score_max":10,"price":203.83,"change_1d":-0.58,"change_1m":12.4,"vol_ratio":0.9,"price_range_pct":49.5,"range_position_pct":52.3,"consec_days":4,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置52% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":2.9,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLV","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":195.43,"stop_loss":179.05,"stop_pct":-8.4,"target_1":209.11,"target_1_pct":7.0,"target_2":246.89,"target_2_pct":26.3,"risk_reward":0.8,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"NEE","direction":"bullish","score":5,"score_max":10,"price":88.8,"change_1d":-0.62,"change_1m":3.0,"vol_ratio":1.03,"price_range_pct":19.1,"range_position_pct":42.1,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置42% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":2,"score_obv":0,"score_mom":1,"change_3m":-2.7,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLU","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":88.77,"stop_loss":86.56,"stop_pct":-2.5,"target_1":91.33,"target_1_pct":2.9,"target_2":99.84,"target_2_pct":12.5,"risk_reward":1.2,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"RTX","direction":"bullish","score":5,"score_max":10,"price":193.51,"change_1d":-0.44,"change_1m":3.6,"vol_ratio":0.77,"price_range_pct":23.9,"range_position_pct":54.5,"consec_days":24,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置54% · 量比0.8x · 趨勢向上","score_vol":0,"score_comp":2,"score_pos":2,"score_obv":0,"score_mom":1,"change_3m":-2.5,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLI","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":193.51,"stop_loss":180.28,"stop_pct":-6.8,"target_1":205.4,"target_1_pct":6.1,"target_2":216.4,"target_2_pct":11.8,"risk_reward":0.9,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"COP","direction":"bullish","score":5,"score_max":10,"price":114.71,"change_1d":1.66,"change_1m":3.0,"vol_ratio":1.03,"price_range_pct":40.1,"range_position_pct":50.1,"consec_days":2,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置50% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":2,"score_obv":1,"score_mom":1,"change_3m":-3.5,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLE","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":109.4,"stop_loss":101.16,"stop_pct":-7.5,"target_1":117.0,"target_1_pct":6.9,"target_2":136.48,"target_2_pct":24.8,"risk_reward":0.9,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"GS","direction":"bullish","score":5,"score_max":10,"price":1065.22,"change_1d":-2.76,"change_1m":-2.3,"vol_ratio":1.08,"price_range_pct":47.3,"range_position_pct":76.5,"consec_days":3,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置77% · 量比1.1x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":18.4,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLF","sector_flow":"⚪中性","sector_resonance":"➖ 中性","entry_price":1065.22,"stop_loss":1007.98,"stop_pct":-5.4,"target_1":1175.11,"target_1_pct":10.3,"target_2":1233.87,"target_2_pct":15.8,"risk_reward":1.9,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"NET","direction":"bullish","score":5,"score_max":10,"price":277.66,"change_1d":1.91,"change_1m":20.2,"vol_ratio":0.75,"price_range_pct":75.9,"range_position_pct":96.6,"consec_days":9,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置97% · 量比0.8x · 趨勢向上","score_vol":0,"score_comp":0,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":46.0,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":254.57,"stop_loss":232.01,"stop_pct":-8.9,"target_1":287.38,"target_1_pct":12.9,"target_2":301.75,"target_2_pct":18.5,"risk_reward":1.5,"mom_health":"弱","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"SNOW","direction":"bullish","score":5,"score_max":10,"price":268.9,"change_1d":-0.41,"change_1m":12.8,"vol_ratio":0.67,"price_range_pct":131.3,"range_position_pct":92.9,"consec_days":18,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置93% · 量比0.7x · 趨勢向上","score_vol":0,"score_comp":0,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":86.1,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":257.01,"stop_loss":221.43,"stop_pct":-13.8,"target_1":281.46,"target_1_pct":9.5,"target_2":295.53,"target_2_pct":15.0,"risk_reward":0.7,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"FAST","direction":"bullish","score":5,"score_max":10,"price":45.49,"change_1d":-2.53,"change_1m":-1.2,"vol_ratio":1.41,"price_range_pct":15.4,"range_position_pct":43.8,"consec_days":25,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置44% · 量比1.4x · 趨勢向上","score_vol":2,"score_comp":2,"score_pos":1,"score_obv":0,"score_mom":0,"change_3m":2.5,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":45.49,"stop_loss":44.69,"stop_pct":-1.8,"target_1":49.57,"target_1_pct":9.0,"target_2":52.05,"target_2_pct":14.4,"risk_reward":5.1,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"EBAY","direction":"bullish","score":5,"score_max":10,"price":112.06,"change_1d":1.04,"change_1m":2.5,"vol_ratio":0.57,"price_range_pct":49.8,"range_position_pct":82.6,"consec_days":0,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置83% · 量比0.6x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":12.0,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":112.06,"stop_loss":109.04,"stop_pct":-2.7,"target_1":119.68,"target_1_pct":6.8,"target_2":125.66,"target_2_pct":12.1,"risk_reward":2.5,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"S","direction":"bullish","score":5,"score_max":10,"price":19.57,"change_1d":-0.31,"change_1m":30.2,"vol_ratio":0.88,"price_range_pct":66.8,"range_position_pct":95.6,"consec_days":10,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置96% · 量比0.9x · 趨勢向上","score_vol":0,"score_comp":0,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":47.6,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"✅ 順勢","entry_price":17.56,"stop_loss":16.51,"stop_pct":-6.0,"target_1":20.32,"target_1_pct":15.7,"target_2":21.34,"target_2_pct":21.5,"risk_reward":2.6,"mom_health":"強","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"PINS","direction":"bullish","score":5,"score_max":10,"price":23.2,"change_1d":0.48,"change_1m":9.6,"vol_ratio":0.72,"price_range_pct":73.7,"range_position_pct":68.4,"consec_days":2,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置68% · 量比0.7x · 趨勢向上","score_vol":0,"score_comp":0,"score_pos":3,"score_obv":1,"score_mom":1,"change_3m":14.5,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":21.91,"stop_loss":20.56,"stop_pct":-6.2,"target_1":24.15,"target_1_pct":10.2,"target_2":27.33,"target_2_pct":24.7,"risk_reward":1.7,"mom_health":"穩","transition":"持續看多","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"WCLD","direction":"bullish","score":5,"score_max":10,"price":34.79,"change_1d":-0.2,"change_1m":14.4,"vol_ratio":1.0,"price_range_pct":49.2,"range_position_pct":90.2,"consec_days":15,"signal":"📈 動能上升","action":"🟡 趨勢形成中，持續觀察","action_detail":"區間位置90% · 量比1.0x · 趨勢向上","score_vol":0,"score_comp":1,"score_pos":3,"score_obv":0,"score_mom":1,"change_3m":30.8,"phase":1,"phase_label":"趨勢萌芽","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":32.92,"stop_loss":30.74,"stop_pct":-6.6,"target_1":35.68,"target_1_pct":8.4,"target_2":37.46,"target_2_pct":13.8,"risk_reward":1.3,"mom_health":"強","transition":"持續看多","momentum_change":"▼ 動能略降","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77}],"bearish":[{"symbol":"ORCL","direction":"bearish","score":5,"score_max":10,"price":126.41,"change_1d":1.77,"change_1m":-32.9,"vol_ratio":1.56,"price_range_pct":99.8,"range_position_pct":1.8,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.8x","score_vol":2,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":-25.6,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":126.41,"stop_loss":132.73,"stop_pct":5.0,"target_1":124.21,"target_1_pct":-1.7,"target_2":111.79,"target_2_pct":-11.6,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"TXN","direction":"bearish","score":5,"score_max":10,"price":284.02,"change_1d":-2.47,"change_1m":-7.1,"vol_ratio":1.14,"price_range_pct":78.2,"range_position_pct":66.9,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.3x","score_vol":1,"score_comp":0,"score_pos":1,"score_obv":1,"score_mom":0,"change_3m":31.3,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":284.02,"stop_loss":298.22,"stop_pct":5.0,"target_1":284.02,"target_1_pct":0.0,"target_2":255.62,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"⚡ 多翻空","momentum_change":"▼ 動能略降","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"CRWD","direction":"bearish","score":5,"score_max":10,"price":203.08,"change_1d":-0.33,"change_1m":19.5,"vol_ratio":0.86,"price_range_pct":140.7,"range_position_pct":93.8,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV→ · 下跌量比1.6x","score_vol":0,"score_comp":0,"score_pos":2,"score_obv":0,"score_mom":0,"change_3m":97.6,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":203.08,"stop_loss":213.23,"stop_pct":5.0,"target_1":168.26,"target_1_pct":-17.1,"target_2":151.43,"target_2_pct":-25.4,"risk_reward":0,"mom_health":"","transition":"⚡ 多翻空","momentum_change":"➡️ 動能持平","prev_score":5,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"INTC","direction":"bearish","score":5,"score_max":10,"price":95.04,"change_1d":-2.0,"change_1m":-18.8,"vol_ratio":0.8,"price_range_pct":242.2,"range_position_pct":54.0,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比2.8x","score_vol":0,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":46.4,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":95.04,"stop_loss":99.79,"stop_pct":5.0,"target_1":95.04,"target_1_pct":-0.0,"target_2":85.54,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"AMAT","direction":"bearish","score":5,"score_max":10,"price":529.66,"change_1d":-5.57,"change_1m":-6.8,"vol_ratio":1.5,"price_range_pct":142.9,"range_position_pct":54.6,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.6x","score_vol":2,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":34.3,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":529.66,"stop_loss":556.14,"stop_pct":5.0,"target_1":529.66,"target_1_pct":0.0,"target_2":476.69,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ON","direction":"bearish","score":5,"score_max":10,"price":87.37,"change_1d":-0.85,"change_1m":-26.1,"vol_ratio":1.1,"price_range_pct":140.6,"range_position_pct":40.5,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.4x","score_vol":1,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":20.6,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":87.37,"stop_loss":91.74,"stop_pct":5.0,"target_1":87.37,"target_1_pct":-0.0,"target_2":78.63,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"WOLF","direction":"bearish","score":5,"score_max":10,"price":29.89,"change_1d":-4.14,"change_1m":-33.6,"vol_ratio":0.51,"price_range_pct":396.6,"range_position_pct":25.7,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比3.0x","score_vol":0,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":25.1,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":29.89,"stop_loss":31.38,"stop_pct":5.0,"target_1":29.89,"target_1_pct":0.0,"target_2":26.9,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"STM","direction":"bearish","score":5,"score_max":10,"price":62.06,"change_1d":-1.13,"change_1m":-16.8,"vol_ratio":0.87,"price_range_pct":194.7,"range_position_pct":66.2,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.5x","score_vol":0,"score_comp":0,"score_pos":1,"score_obv":1,"score_mom":0,"change_3m":52.6,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":62.06,"stop_loss":65.16,"stop_pct":5.0,"target_1":62.06,"target_1_pct":-0.0,"target_2":55.85,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"ARM","direction":"bearish","score":5,"score_max":10,"price":267.19,"change_1d":1.98,"change_1m":-32.6,"vol_ratio":0.68,"price_range_pct":320.3,"range_position_pct":48.6,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比2.2x","score_vol":0,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":67.7,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":267.19,"stop_loss":280.55,"stop_pct":5.0,"target_1":262.01,"target_1_pct":-1.9,"target_2":235.81,"target_2_pct":-11.7,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"JOBY","direction":"bearish","score":5,"score_max":10,"price":7.23,"change_1d":-1.5,"change_1m":-22.6,"vol_ratio":1.51,"price_range_pct":113.4,"range_position_pct":0.0,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比2.5x","score_vol":2,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":-20.8,"phase":0,"phase_label":"","sector_etf":"XLI","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":7.23,"stop_loss":7.59,"stop_pct":5.0,"target_1":7.23,"target_1_pct":-0.0,"target_2":6.51,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"BFLY","direction":"bearish","score":5,"score_max":10,"price":6.62,"change_1d":-5.56,"change_1m":17.2,"vol_ratio":2.6,"price_range_pct":203.1,"range_position_pct":61.6,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV↓ · 下跌量比1.9x","score_vol":2,"score_comp":0,"score_pos":0,"score_obv":1,"score_mom":0,"change_3m":36.2,"phase":0,"phase_label":"","sector_etf":"","sector_flow":"","sector_resonance":"N/A","entry_price":6.62,"stop_loss":6.95,"stop_pct":5.0,"target_1":6.62,"target_1_pct":0.0,"target_2":5.96,"target_2_pct":-10.0,"risk_reward":0,"mom_health":"","transition":"🆕 新訊號","momentum_change":"","prev_score":null,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77},{"symbol":"QLYS","direction":"bearish","score":5,"score_max":10,"price":159.43,"change_1d":1.19,"change_1m":40.3,"vol_ratio":1.14,"price_range_pct":115.4,"range_position_pct":94.7,"consec_days":0,"signal":"⚠️ 出貨中","action":"🟠 注意風險","action_detail":"OBV→ · 下跌量比1.4x","score_vol":1,"score_comp":0,"score_pos":2,"score_obv":0,"score_mom":0,"change_3m":87.2,"phase":0,"phase_label":"","sector_etf":"XLK","sector_flow":"🟢流入","sector_resonance":"⚠️ 逆勢","entry_price":159.43,"stop_loss":167.4,"stop_pct":5.0,"target_1":108.51,"target_1_pct":-31.9,"target_2":97.66,"target_2_pct":-38.7,"risk_reward":0,"mom_health":"","transition":"⚡ 多翻空","momentum_change":"▼ 動能略降","prev_score":6,"market_sentiment":68.3,"cnn_fg":37.1,"vix":18.77}],"total_scanned":160,"scan_list":["AAPL","MSFT","NVDA","AMZN","GOOGL","META","TSLA","AVGO","JPM","LLY","V","XOM","UNH","MA","JNJ","PG","HD","ABBV","WMT","BAC","NFLX","CRM","CVX","ORCL","KO","PEP","ACN","MCD","COST","ADBE","TMO","CSCO","ABT","LIN","NKE","DHR","AMGN","TXN","NEE","PM","BMY","RTX","UNP","HON","COP","QCOM","INTU","MS","GS","PLTR","AMD","LRCX","KLAC","MRVL","CDNS","SNPS","FTNT","PANW","CRWD","DDOG","ZS","OKTA","NET","SNOW","MDB","MNST","PCAR","PAYX","FAST","ODFL","CSGP","VRSK","IDXX","WDAY","PYPL","EBAY","TEAM","TTD","DOCU","ZM","ABNB","DASH","RIVN","LCID","HOOD","MSTR","COIN","INTC","AMAT","MU","ON","WOLF","SWKS","MCHP","STM","ASML","TER","ARM","SMCI","BTDR","RDW","RKLB","ASTS","SATL","LUNR","ACHR","JOBY","LMT","NOC","GD","BA","IONQ","RGTI","QUBT","QBTS","ARQQ","MARA","RIOT","CLSK","SQ","CIFR","BTBT","SOUN","BBAI","RXRX","HIMS","CRSP","BEAM","EDIT","PACB","MRNA","BNTX","NVAX","BFLY","NIO","FSLR","ENPH","PLUG","BLNK","CHPT","SEDG","CRNC","S","TENB","QLYS","CYBR","RBLX","LYFT","PINS","SNAP","U","SOXX","ARKK","WCLD","BOTZ","UFO","ICLN","XLK","XLF","XLE"]};
+        
+        
+        
+
+    
+        // Auto-display site version from meta tag
+        (function() {
+            var meta = document.querySelector('meta[name="stockiq-version"]');
+            var el = document.getElementById('siteVersion');
+            if (meta && el) el.textContent = meta.getAttribute('data-version') || meta.getAttribute('content');
+        })();
+</script>
+</body>
+</html>
+
+            <details style="margin-bottom:16px">
+                <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
+                    七、多模型估值比較 <span style="font-size:14px;color:#94a3b8">▾</span>
+                </summary>
+                <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
+                    <p style="color:#64748b;font-size:13px;margin:0 0 16px">每支股票使用 3 種獨立模型估值，取平均作為「綜合估值」，避免單一模型偏差</p>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">1. 分析師共識目標價</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>來源：</strong>Yahoo Finance（華爾街賣方分析師 12 個月目標價）</div>
+                            <div><strong>計算：</strong>所有分析師目標價的算術平均</div>
+                            <div><strong>優點：</strong>反映市場共識，覆蓋人數越多越可靠</div>
+                            <div><strong>缺點：</strong>分析師傾向偏樂觀（常給 buy），目標價通常偏高</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">2. 板塊 PE 估值</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>公式：</strong>Forward EPS × 板塊平均 PE</div>
+                            <div><strong>邏輯：</strong>同板塊公司應有相近的估值倍數</div>
+                        </div>
+                        <div style="margin-top:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;font-size:11px">
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Technology</strong> 30x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Consumer Cyclical</strong> 25x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Communication</strong> 22x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Industrials</strong> 20x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Healthcare</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Basic Materials</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Utilities</strong> 18x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Consumer Defensive</strong> 24x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Financial</strong> 14x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Energy</strong> 12x</div>
+                            <div style="background:#eff6ff;padding:6px 10px;border-radius:6px"><strong>Real Estate</strong> 35x</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom:16px">
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. DDM 股利折現模型</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>公式：</strong>DDM = Dividend × (1+g) / (r-g)</div>
+                            <div><strong>參數：</strong>r=10%（要求報酬率），g=4-8%（依殖利率調整）</div>
+                            <div><strong>適用：</strong>穩定配息股（PG, JNJ, KO）。不配息股無法計算</div>
+                            <div><strong>殖利率 &gt;3%</strong> → g=4% · <strong>1.5-3%</strong> → g=6% · <strong>&lt;1.5%</strong> → g=8%</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">4. 綜合估值</h3>
+                        <div style="font-size:12px;color:#475569;line-height:1.8">
+                            <div><strong>計算：</strong>可用模型（分析師 + 板塊PE + DDM）的算術平均</div>
+                            <div><strong>判讀：</strong></div>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:4px">
+                            <span style="background:#dcfce7;padding:4px 10px;border-radius:12px">綜合 &gt;+20% 明顯低估</span>
+                            <span style="background:#fef9c3;padding:4px 10px;border-radius:12px">+5%~+20% 合理偏低</span>
+                            <span style="background:#e2e8f0;padding:4px 10px;border-radius:12px">±5% 合理價位</span>
+                            <span style="background:#fee2e2;padding:4px 10px;border-radius:12px">&lt;-10% 可能高估</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
+
+            
+
+            
