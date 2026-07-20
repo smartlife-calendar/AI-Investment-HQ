@@ -2,7 +2,196 @@
 <html lang="zh-TW">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-92YNV369H8"></script>
+    
+        <div id="guideSection" style="display:none;max-width:900px;margin:0 auto;padding:20px">
+            <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);padding:24px;border-radius:16px;color:white;margin-bottom:20px">
+                <h1 style="margin:0;font-size:22px">📖 StockIQ 指標說明手冊</h1>
+                <p style="margin:8px 0 0;color:#818cf8;font-size:13px">所有指標的計算方式、判讀標準與操作建議</p>
+            </div>
+            
+            <!-- 市場環境 -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #4f46e5;padding-bottom:8px">一、市場環境指標</h2>
+                
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">1. VIX 恐慌指數</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">標普500選擇權隱含波動率，反映市場未來30天的預期波動</p>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;font-size:12px">
+                        <span style="background:#dcfce7;color:#16a34a;padding:6px 10px;border-radius:8px;text-align:center">&lt;15 極度平靜</span>
+                        <span style="background:#f0fdf4;color:#166534;padding:6px 10px;border-radius:8px;text-align:center">15-20 正常</span>
+                        <span style="background:#fef9c3;color:#a16207;padding:6px 10px;border-radius:8px;text-align:center">20-25 警戒</span>
+                        <span style="background:#fee2e2;color:#dc2626;padding:6px 10px;border-radius:8px;text-align:center">25-30 恐慌</span>
+                        <span style="background:#991b1b;color:white;padding:6px 10px;border-radius:8px;text-align:center">&gt;30 極度恐慌</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">2. CNN 恐懼貪婪指數</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">綜合7個市場情緒指標的複合分數（0-100）</p>
+                    <div style="background:#f8fafc;border-radius:8px;padding:12px;font-size:12px;line-height:2">
+                        <strong>0-25</strong> 極度恐懼 → 反向指標，可能是買點 · 
+                        <strong>25-45</strong> 恐懼 · 
+                        <strong>45-55</strong> 中性 · 
+                        <strong>55-75</strong> 貪婪 · 
+                        <strong>75-100</strong> 極度貪婪 → 可能要減碼
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:20px">
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">3. 綜合情緒分數 (Composite)</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 8px">StockIQ 自研，加權平均：VIX + CNN F&G + SPY vs 200MA + 動能 + 避險</p>
+                    <p style="color:#64748b;font-size:12px;margin:0"><strong>用途：</strong>決定整體倉位大小的核心指標。&gt;80 極度貪婪風險高；&lt;20 歷史最佳買點</p>
+                </div>
+
+                <div>
+                    <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">4. SPY vs 200MA</h3>
+                    <p style="color:#64748b;font-size:13px;margin:0 0 4px">標普500距離200日均線的百分比</p>
+                    <div style="font-size:12px;color:#475569">🐂 &gt;5% 牛市 · 0-5% 偏多 · -5%-0% 警告 · 🐻 &lt;-5% 熊市</div>
+                </div>
+            </div>
+            
+            <!-- 板塊資金 -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #f59e0b;padding-bottom:8px">二、板塊資金流動</h2>
+                <div style="display:grid;gap:12px;font-size:13px;color:#475569">
+                    <div><strong>板塊日漲跌：</strong>11大 SPDR 板塊 ETF (XLK/XLF/XLV 等) 當日價格變動。門檻：&gt;+0.3% 🟢流入, &lt;-0.3% 🔴流出</div>
+                    <div><strong>資金流向：</strong>成交量 × 收盤價 × 方向（上漲=+, 下跌=-）。判斷資金往哪個板塊轉移</div>
+                    <div><strong>量比：</strong>5日均量 / 20日均量。&gt;1.5x 異常放量（有事件）; &lt;0.8x 縮量觀望</div>
+                </div>
+            </div>
+            
+            <!-- 金流密碼 -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #16a34a;padding-bottom:8px">三、金流密碼（吸籌/出貨偵測）</h2>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#16a34a;font-size:15px;margin:0 0 8px">吸籌分數 (0-10)</h3>
+                    <div style="background:#f0fdf4;border-radius:8px;padding:12px;font-size:12px;margin-bottom:8px">
+                        <div style="margin-bottom:4px">• <strong>動能確認 (0-3)</strong>: 價格在均線上方 + 52週區間上段</div>
+                        <div style="margin-bottom:4px">• <strong>成交量擴張 (0-2)</strong>: 近期量大於前期</div>
+                        <div style="margin-bottom:4px">• <strong>波動率甜蜜點 (0-2)</strong>: 52週區間 15-35% 最理想</div>
+                        <div style="margin-bottom:4px">• <strong>突破訊號 (0-2)</strong>: 帶量突破20日均線</div>
+                        <div>• <strong>市場對齊 (0-1)</strong>: CNN F&G &gt; 30</div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px">
+                        <span style="background:#e2e8f0;padding:4px 10px;border-radius:12px">5-6分 觀察中</span>
+                        <span style="background:#bbf7d0;padding:4px 10px;border-radius:12px;font-weight:700">7-8分 強訊號 🔥</span>
+                        <span style="background:#86efac;padding:4px 10px;border-radius:12px;font-weight:700">9-10分 極強 🚀</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#f59e0b;font-size:15px;margin:0 0 8px">Phase 階段</h3>
+                    <div style="display:grid;gap:8px;font-size:13px">
+                        <div style="background:#f8fafc;padding:10px 14px;border-radius:8px;border-left:4px solid #94a3b8"><strong>P1 觀望</strong> — 初始訊號，量價尚未確認 → 加入觀察名單</div>
+                        <div style="background:#fef9c3;padding:10px 14px;border-radius:8px;border-left:4px solid #eab308"><strong>P2 動能確認</strong> — 連續訊號 + 量能擴張 → 準備進場</div>
+                        <div style="background:#dcfce7;padding:10px 14px;border-radius:8px;border-left:4px solid #16a34a"><strong>P3 突破確認</strong> — 帶量突破壓力位 → <strong>最佳進場點</strong> 🎯</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color:#64748b;font-size:15px;margin:0 0 8px">連續天數</h3>
+                    <p style="color:#475569;font-size:12px;margin:0">1-3天 新訊號待確認 · 5-10天 持續操作中 · 15+天 長期佈局 · <strong>20+天 機構非常堅定</strong></p>
+                </div>
+            </div>
+            
+            <!-- Alpha 框架 -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #7c3aed;padding-bottom:8px">四、Alpha 框架（三層量化分析）</h2>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">敘事層 (Narrative)</h3>
+                    <p style="color:#64748b;font-size:12px;margin:0 0 8px">核心：EPS 修正趨勢（90天內分析師對全年 EPS 預估變化%）</p>
+                    <div style="display:grid;gap:6px;font-size:12px">
+                        <div style="padding:6px 12px;background:#dcfce7;border-radius:6px">✅ <strong>完好 (Intact)</strong>: EPS 被上修或持平 → 基本面假設成立</div>
+                        <div style="padding:6px 12px;background:#fef9c3;border-radius:6px">⚠️ <strong>轉弱 (Weakening)</strong>: EPS 下修 5-15% → 需要關注</div>
+                        <div style="padding:6px 12px;background:#fee2e2;border-radius:6px">❌ <strong>破裂 (Broken)</strong>: EPS 下修 &gt;15% → 原始假設失效，考慮出場</div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">Alpha 層 (Expected Return)</h3>
+                    <p style="color:#64748b;font-size:12px;margin:0 0 4px"><strong>ER = Upside% × Probability × TimeFactor − Downside%</strong></p>
+                    <p style="color:#475569;font-size:12px;margin:0">Upside=分析師目標價空間 · Probability=敘事+EPS趨勢+評級 · TimeFactor=結構擁擠度 · Downside=最低目標價空間</p>
+                </div>
+                
+                <div style="margin-bottom:16px">
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">部位結構層 (Positioning)</h3>
+                    <div style="font-size:12px;color:#475569;line-height:1.8">
+                        <div><strong>Put/Call Ratio (OI):</strong> &gt;1.5 🛡️重度避險 · 0.7-1.5 正常 · &lt;0.5 ⚠️多頭擁擠</div>
+                        <div><strong>IV Skew:</strong> ATM Put IV − Call IV，正值=恐慌</div>
+                        <div><strong>Short % Float:</strong> &gt;10% 高空頭（可能軋空或基本面問題）</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">四象限分類矩陣</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+                        <div style="background:#dcfce7;padding:10px;border-radius:8px"><strong>🟢 Type 4 加碼</strong><br>敘事✅ Alpha高 結構OK<br>→ 系統性加碼</div>
+                        <div style="background:#fef9c3;padding:10px;border-radius:8px"><strong>🟡 Type 3 持有</strong><br>敘事✅ Alpha高 擁擠<br>→ 保留核心，不加碼</div>
+                        <div style="background:#fed7aa;padding:10px;border-radius:8px"><strong>🟠 Type 2 減碼</strong><br>敘事✅ Alpha低<br>→ 調降權重</div>
+                        <div style="background:#fee2e2;padding:10px;border-radius:8px"><strong>🔴 Type 1 清倉</strong><br>敘事❌ Alpha低 惡化<br>→ 立即減碼</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 交易訊號 -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #dc2626;padding-bottom:8px">五、交易訊號</h2>
+                <div style="display:grid;gap:12px;font-size:13px;color:#475569">
+                    <div style="background:#fef2f2;padding:12px;border-radius:8px"><strong>🚨 訊號消失：</strong>昨天有吸籌訊號，今天消失 → 機構可能停止買入。回測：及時出場可避免平均 -2% 虧損</div>
+                    <div style="background:#f0fdf4;padding:12px;border-radius:8px"><strong>🎯 +15% 目標價：</strong>從訊號首次出現日計算。回測最佳止盈點。達標+訊號仍強 → 移動停利；達標+訊號消失 → 全部出場</div>
+                    <div style="background:#eff6ff;padding:12px;border-radius:8px"><strong>🚀 強力買賣訊號：</strong>量比 ≥ 1.5x AND 漲跌 &gt; ±3%。量比 ≥ 2.0x = 機構級資金</div>
+                </div>
+            </div>
+            
+            <!-- Signal Map -->
+            <div style="background:white;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px;border-bottom:2px solid #0ea5e9;padding-bottom:8px">六、Signal Map 座標圖</h2>
+                <div style="display:grid;gap:8px;font-size:13px;color:#475569">
+                    <div><strong>X 軸</strong> Signal Score（5-10，訊號強度）</div>
+                    <div><strong>Y 軸</strong> 1-Month Change %（月漲跌幅）</div>
+                    <div><strong>顏色</strong> 🟢P3突破 🟡P2動能 ⚪P1觀望 🔴出貨</div>
+                    <div><strong>大小</strong> 連續天數（越大=越持久）</div>
+                    <div><strong>右上 BUY ZONE</strong> = 高分數 + 正報酬 → 最佳候選</div>
+                    <div><strong>左下 DANGER</strong> = 低分數 + 負報酬 → 避開</div>
+                </div>
+            </div>
+            
+            <!-- 回測規則 -->
+            <div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:12px;padding:20px;margin-bottom:16px;color:white">
+                <h2 style="font-size:18px;margin:0 0 16px;border-bottom:2px solid #818cf8;padding-bottom:8px">七、回測驗證的交易規則</h2>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px">
+                    <div>
+                        <h3 style="color:#818cf8;font-size:14px;margin:0 0 8px">📈 買入條件</h3>
+                        <div style="line-height:1.8;color:#cbd5e1">
+                            • Score ≥ 8 AND Phase ≥ 2<br>
+                            • Alpha Type 4（加碼區）<br>
+                            • 敘事完好 + 上行空間大
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color:#f87171;font-size:14px;margin:0 0 8px">📉 賣出條件</h3>
+                        <div style="line-height:1.8;color:#cbd5e1">
+                            • 訊號消失 → 立刻出場<br>
+                            • 漲 +15% → 獲利了結<br>
+                            • 跌 -10% → 停損<br>
+                            • 持有 &gt;30天 → 重新評估
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.1);border-radius:8px;font-size:12px;color:#94a3b8">
+                    📊 回測結果（152交易日）: 勝率 44% · 平均報酬 +1.85%/筆 · 勝敗比 3:1（贏+7.45% vs 輸-2.52%）
+                </div>
+            </div>
+            
+            <div style="text-align:center;padding:16px;color:#94a3b8;font-size:11px">
+                ⚠️ 僅供參考，不構成投資建議。過去績效不代表未來表現。<br>
+                最後更新: 2026-07-20 · StockIQ
+            </div>
+        </div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-92YNV369H8"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -247,6 +436,7 @@
             <button onclick="showTab('history')" id="tab-history" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📅 歷史資料</button>
             <button onclick="showTab('learn')" id="tab-learn" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📚 投資教學</button>
             <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
+            <button onclick="showTab('guide')" id="tab-guide" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📖 指標說明</button>
         </div>
     </div>
 
@@ -1088,7 +1278,7 @@
 
 
         function showTab(tabName) {
-            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection'];
+            const allIds = ['topBriefing','dailyColumn','analyzeSection','analyzeFormSection','analyzeDisclaimer','macroSection','smartSection','newsSection','historySection','dailyFlowsSection','smartlifeAd','adBanner','learnSection','dailyArchiveSection','guideSection'];
             const showIds = {
                 'today': ['topBriefing','dailyColumn','dailyFlowsSection','smartlifeAd','adBanner'],
                 'analyze': ['analyzeSection','analyzeDisclaimer','analyzeFormSection'],
@@ -1097,7 +1287,8 @@
                 'news': ['newsSection'],
                 'history': ['historySection'],
                 'learn': ['learnSection'],
-                'daily_archive': ['dailyArchiveSection']
+                'daily_archive': ['dailyArchiveSection'],
+                'guide': ['guideSection']
             }[tabName] || [];
             
             allIds.forEach(id => {
