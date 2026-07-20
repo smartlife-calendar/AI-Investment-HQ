@@ -207,7 +207,7 @@
     }
     </style>
 
-    <meta name="stockiq-version" content="bf3a12e-clean" data-date="2026-07-20">
+    <meta name="stockiq-version" content="640dfbb" data-date="2026-07-20" data-version="v2026.07.20-640dfbb">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -2865,6 +2865,31 @@ async function loadSmartBacktest() {
                     </div>
                 </div>
             
+                
+                    <div style="margin-top:16px;padding-top:16px;border-top:2px solid #e2e8f0">
+                        <h3 style="color:#7c3aed;font-size:15px;margin:0 0 8px">多模型估值比較</h3>
+                        <p style="color:#64748b;font-size:12px;margin:0 0 8px">每支股票用 3 種獨立模型定價，取平均避免單一偏差</p>
+                        <div style="display:grid;gap:8px;font-size:12px;color:#475569">
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>📊 分析師共識</strong> — 華爾街賣方分析師 12 個月目標價平均（傾向偏樂觀）
+                            </div>
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>📐 板塊 PE</strong> — Forward EPS × 板塊平均本益比。同產業公司應有相近估值<br>
+                                <span style="font-size:11px;color:#94a3b8">Tech 30x · ConsDisc 25x · Comm 22x · Indust 20x · Health 18x · ConsDef 24x · Financial 14x · Energy 12x · REIT 35x</span>
+                            </div>
+                            <div style="background:#f8fafc;padding:10px;border-radius:8px">
+                                <strong>💰 DDM 股利折現</strong> — Div×(1+g)/(r-g)，r=10%。高殖利率 g=4%、中 g=6%、低 g=8%。僅適用配息股
+                            </div>
+                            <div style="background:#eff6ff;padding:10px;border-radius:8px;border-left:3px solid #4f46e5">
+                                <strong>🎯 綜合估值</strong> = 可用模型平均<br>
+                                <span style="color:#16a34a">■</span> &gt;+20% 低估 · 
+                                <span style="color:#a16207">■</span> +5%~+20% 偏低 · 
+                                <span style="color:#64748b">■</span> ±5% 合理 · 
+                                <span style="color:#dc2626">■</span> &lt;-10% 高估
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </details>
 
@@ -3082,7 +3107,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="versionDisplay">v5.6.0</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.20-640dfbb</p>
         </footer>
 
 
@@ -3122,7 +3147,14 @@ async function loadSmartBacktest() {
         
         
 
-    </script>
+    
+        // Auto-display site version from meta tag
+        (function() {
+            var meta = document.querySelector('meta[name="stockiq-version"]');
+            var el = document.getElementById('siteVersion');
+            if (meta && el) el.textContent = meta.getAttribute('data-version') || meta.getAttribute('content');
+        })();
+</script>
 </body>
 </html>
 
