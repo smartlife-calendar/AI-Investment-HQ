@@ -1490,7 +1490,7 @@
                     const c1m = (s.change_1m >= 0 ? '+' : '') + (s.change_1m || 0);
                     const scoreDetail = s.score_vol != null ? '量+' + s.score_vol + ' 壓縮+' + s.score_comp + ' 位置+' + s.score_pos + ' OBV+' + s.score_obv : '';
                     
-                    out += '<div style="background:' + cardBg + ';border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-left:4px solid ' + borderColor + '">';
+                    out += '<div class="smart-card" style="background:' + cardBg + ';border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border-left:4px solid ' + borderColor + '">';
                     out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
                     out += '<div>';
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
@@ -1558,6 +1558,23 @@
                 }
                 out += '</div>';
                 content.innerHTML = out;
+                // Collapse if more than 10 items
+                var cards = content.querySelectorAll('.smart-card');
+                if (cards.length > 10) {
+                    for (var i = 10; i < cards.length; i++) {
+                        cards[i].style.display = 'none';
+                        cards[i].setAttribute('data-hidden', '1');
+                    }
+                    var showMoreBtn = document.createElement('div');
+                    showMoreBtn.style.cssText = 'text-align:center;padding:12px;cursor:pointer;color:#4f46e5;font-weight:700;font-size:13px;background:white;border-radius:12px;margin-top:8px;border:2px dashed #e2e8f0';
+                    showMoreBtn.innerHTML = '⬇️ 展開更多 (' + (cards.length - 10) + ' 支) ▾';
+                    showMoreBtn.onclick = function() {
+                        var hidden = content.querySelectorAll('[data-hidden]');
+                        hidden.forEach(function(el) { el.style.display = ''; el.removeAttribute('data-hidden'); });
+                        showMoreBtn.remove();
+                    };
+                    content.appendChild(showMoreBtn);
+                }
                 
             } catch(e) {
                 console.error('loadSmartDirection error:', e);
@@ -1565,7 +1582,6 @@
             }
         }
         
-        async 
         function loadSignalMap() {
             var content = document.getElementById('smartMoneyContent');
             if (!content) return;
