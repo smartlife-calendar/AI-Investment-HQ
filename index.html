@@ -837,7 +837,7 @@
         let _currentUser = null;
         let _userCredits = 0;
 
-        async async function initAuth() {
+        async function initAuth() {
             const { data: { session } } = await _sb.auth.getSession();
             if (session) {
                 _currentUser = session.user;
