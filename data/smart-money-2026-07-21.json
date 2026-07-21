@@ -1,0 +1,53 @@
+{
+  "date": "2026-07-21",
+  "generated_at": "2026-07-21T10:01:58.015944+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 5,
+  "stocks": [
+    {
+      "symbol": "AMC",
+      "name": "AMC Entertainment Holdings, Inc",
+      "price": 2.46,
+      "change_pct": 26.8,
+      "vol_ratio": 4.7,
+      "volume": 181884068,
+      "avg_volume": 38698737
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 6.87,
+      "change_pct": 5.29,
+      "vol_ratio": 2.4,
+      "volume": 186157416,
+      "avg_volume": 77565590
+    },
+    {
+      "symbol": "ACHR",
+      "name": "Archer Aviation Inc.",
+      "price": 5.31,
+      "change_pct": 19.59,
+      "vol_ratio": 2.3,
+      "volume": 95667839,
+      "avg_volume": 41594712
+    },
+    {
+      "symbol": "WBD",
+      "name": "Warner Bros. Discovery, Inc. - ",
+      "price": 25.86,
+      "change_pct": -3.76,
+      "vol_ratio": 2.2,
+      "volume": 44572296,
+      "avg_volume": 20260134
+    },
+    {
+      "symbol": "JOBY",
+      "name": "Joby Aviation, Inc.",
+      "price": 7.47,
+      "change_pct": 3.32,
+      "vol_ratio": 2.0,
+      "volume": 76805958,
+      "avg_volume": 38402979
+    }
+  ]
+}
