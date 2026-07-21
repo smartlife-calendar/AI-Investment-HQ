@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-20T08:23:30+08:00",
+  "generated_at": "2026-07-21T10:00:02+08:00",
   "news": [
+    {
+      "title": "Vanguard ETFs vs Mutual Funds: Which Are Better Investments?",
+      "url": "https://finance.yahoo.com/m/7a1fbbe7-f371-3e6e-a6c6-a3c0131e4d29/vanguard-etfs-vs-mutual.html",
+      "publisher": "Kiplinger",
+      "published": 1784581897
+    },
     {
       "title": "Not Sure Which Stocks to Buy? This Vanguard ETF Makes It Simple.",
       "url": "https://finance.yahoo.com/m/addad311-1aff-3389-a142-69f18ab5fc81/not-sure-which-stocks-to-buy%3F.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/3732c5d5-df40-3734-a182-7389be7def3a/1-vanguard-etf-that-has-never.html",
       "publisher": "Motley Fool",
       "published": 1783897920
-    },
-    {
-      "title": "This Overlooked Investment Could Set You Up for Life. Here's How.",
-      "url": "https://finance.yahoo.com/m/2e7217ff-fff2-374a-96c0-6b629414fc65/this-overlooked-investment.html",
-      "publisher": "Motley Fool",
-      "published": 1783753500
     }
   ]
 }
