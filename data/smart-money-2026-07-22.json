@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-22",
+  "generated_at": "2026-07-22T10:01:50.277405+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 7.66,
+      "change_pct": 11.5,
+      "vol_ratio": 3.5,
+      "volume": 281506682,
+      "avg_volume": 80430480
+    },
+    {
+      "symbol": "HL",
+      "name": "Hecla Mining Company",
+      "price": 15.29,
+      "change_pct": 7.0,
+      "vol_ratio": 2.9,
+      "volume": 74401643,
+      "avg_volume": 25655738
+    },
+    {
+      "symbol": "MARA",
+      "name": "MARA Holdings, Inc.",
+      "price": 12.25,
+      "change_pct": 4.97,
+      "vol_ratio": 2.2,
+      "volume": 97975300,
+      "avg_volume": 44534227
+    }
+  ]
+}
