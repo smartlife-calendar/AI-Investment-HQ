@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T09:07:33+08:00",
+  "generated_at": "2026-07-23T10:00:03+08:00",
   "gainers": [
     {
       "symbol": "SMCI",
@@ -293,7 +293,7 @@
       "price": 23.04,
       "change_pct": 3.5,
       "volume": 187232347,
-      "vr": 3.3
+      "vr": 3.2
     },
     {
       "symbol": "ONDS",
@@ -309,7 +309,7 @@
       "price": 30.56,
       "change_pct": 19.84,
       "volume": 162073657,
-      "vr": 3.2
+      "vr": 3.0
     },
     {
       "symbol": "CDE",
@@ -317,7 +317,7 @@
       "price": 15.84,
       "change_pct": 3.53,
       "volume": 49532390,
-      "vr": 1.7
+      "vr": 1.6
     }
   ],
   "strong_sell": [
