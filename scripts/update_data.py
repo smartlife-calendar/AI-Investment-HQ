@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 StockIQ Data Preloader v1.1
