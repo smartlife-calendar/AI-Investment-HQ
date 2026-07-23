@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T10:00:03+08:00",
+  "generated_at": "2026-07-23T12:03:37+08:00",
   "gainers": [
     {
       "symbol": "SMCI",
@@ -15,14 +15,6 @@
       "price": 88.7,
       "change_pct": 19.03,
       "volume": 6988383,
-      "vr": ""
-    },
-    {
-      "symbol": "WEGZY",
-      "name": "Weg SA",
-      "price": 9.25,
-      "change_pct": 10.78,
-      "volume": 28481,
       "vr": ""
     },
     {
@@ -55,6 +47,14 @@
       "price": 441.8,
       "change_pct": 9.32,
       "volume": 7151847,
+      "vr": ""
+    },
+    {
+      "symbol": "WEGZY",
+      "name": "Weg SA",
+      "price": 9.12,
+      "change_pct": 9.0,
+      "volume": 28481,
       "vr": ""
     },
     {
