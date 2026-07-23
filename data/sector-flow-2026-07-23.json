@@ -1,0 +1,124 @@
+{
+  "date": "2026-07-23",
+  "generated_at": "2026-07-23T10:02:01.398865+08:00",
+  "sector_count": 11,
+  "summary": {
+    "inflow_count": 4,
+    "outflow_count": 4,
+    "neutral_count": 3,
+    "top_sector": "公用事業",
+    "bottom_sector": "通訊服務"
+  },
+  "sectors": [
+    {
+      "symbol": "XLU",
+      "sector_zh": "公用事業",
+      "sector_en": "Utilities",
+      "price": 45.93,
+      "change_pct": 2.25,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLB",
+      "sector_zh": "原物料",
+      "sector_en": "Materials",
+      "price": 50.82,
+      "change_pct": 1.44,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLE",
+      "sector_zh": "能源",
+      "sector_en": "Energy",
+      "price": 59.2,
+      "change_pct": 1.2,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLP",
+      "sector_zh": "必需消費",
+      "sector_en": "Consumer Staples",
+      "price": 84.38,
+      "change_pct": 0.38,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLI",
+      "sector_zh": "工業",
+      "sector_en": "Industrials",
+      "price": 178.85,
+      "change_pct": 0.11,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLF",
+      "sector_zh": "金融",
+      "sector_en": "Financials",
+      "price": 56.05,
+      "change_pct": -0.11,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLK",
+      "sector_zh": "科技",
+      "sector_en": "Technology",
+      "price": 180.27,
+      "change_pct": -0.28,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLRE",
+      "sector_zh": "房地產",
+      "sector_en": "Real Estate",
+      "price": 45.01,
+      "change_pct": -0.42,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLV",
+      "sector_zh": "醫療保健",
+      "sector_en": "Healthcare",
+      "price": 159.43,
+      "change_pct": -0.51,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLY",
+      "sector_zh": "非必需消費",
+      "sector_en": "Consumer Discretionary",
+      "price": 114.02,
+      "change_pct": -0.74,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLC",
+      "sector_zh": "通訊服務",
+      "sector_en": "Communication Services",
+      "price": 109.2,
+      "change_pct": -0.75,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    }
+  ]
+}

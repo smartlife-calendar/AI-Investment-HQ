@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-23",
+  "generated_at": "2026-07-23T10:02:01.072369+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 23.04,
+      "change_pct": 3.5,
+      "vol_ratio": 3.2,
+      "volume": 187232347,
+      "avg_volume": 58510108
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 30.56,
+      "change_pct": 19.84,
+      "vol_ratio": 3.0,
+      "volume": 162073657,
+      "avg_volume": 54024552
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 8.0,
+      "change_pct": 4.44,
+      "vol_ratio": 2.1,
+      "volume": 171868206,
+      "avg_volume": 81842002
+    }
+  ]
+}
