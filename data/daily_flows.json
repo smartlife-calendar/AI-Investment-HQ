@@ -1,56 +1,55 @@
 {
-  "date": "2026-07-23",
-  "generated_at": "2026-07-23T10:00:03.135859+00:00",
+  "generated_at": "2026-07-23T12:03:37+08:00",
   "sectors": [
     {
       "etf": "XLU",
       "name": "公用事業 Utilities",
       "price": 45.93,
       "daily_chg": 2.25,
-      "vol_ratio": 1.03,
+      "vol_ratio": 1.04,
       "flow": "🟢 流入",
       "mcap_b": 65,
-      "dollar_flow_b": 0.8
+      "dollar_flow_b": 1.5
     },
     {
       "etf": "XLB",
       "name": "原材料 Materials",
       "price": 50.82,
       "daily_chg": 1.44,
-      "vol_ratio": 1.12,
+      "vol_ratio": 1.13,
       "flow": "🟢 流入",
       "mcap_b": 45,
-      "dollar_flow_b": 0.5
+      "dollar_flow_b": 0.6
     },
     {
       "etf": "XLE",
       "name": "能源 Energy",
       "price": 59.2,
       "daily_chg": 1.2,
-      "vol_ratio": 1.03,
+      "vol_ratio": 1.09,
       "flow": "🟢 流入",
       "mcap_b": 90,
-      "dollar_flow_b": 1.6
+      "dollar_flow_b": 1.1
     },
     {
       "etf": "XLP",
       "name": "必需消費 Staples",
       "price": 84.38,
       "daily_chg": 0.38,
-      "vol_ratio": 0.63,
+      "vol_ratio": 0.65,
       "flow": "🟢 流入",
       "mcap_b": 85,
-      "dollar_flow_b": 0.5
+      "dollar_flow_b": 0.3
     },
     {
       "etf": "XLI",
       "name": "工業 Industrial",
       "price": 178.85,
       "daily_chg": 0.11,
-      "vol_ratio": 0.71,
+      "vol_ratio": 0.74,
       "flow": "⚪ 持平",
       "mcap_b": 145,
-      "dollar_flow_b": 0.7
+      "dollar_flow_b": 0.2
     },
     {
       "etf": "XLF",
@@ -60,17 +59,17 @@
       "vol_ratio": 0.79,
       "flow": "⚪ 持平",
       "mcap_b": 165,
-      "dollar_flow_b": -1.4
+      "dollar_flow_b": -0.2
     },
     {
       "etf": "XLK",
       "name": "科技 Tech",
       "price": 180.27,
       "daily_chg": -0.28,
-      "vol_ratio": 0.61,
+      "vol_ratio": 0.65,
       "flow": "⚪ 持平",
       "mcap_b": 680,
-      "dollar_flow_b": -0.9
+      "dollar_flow_b": -1.9
     },
     {
       "etf": "XLRE",
@@ -80,7 +79,7 @@
       "vol_ratio": 1.09,
       "flow": "🔴 流出",
       "mcap_b": 35,
-      "dollar_flow_b": -0.2
+      "dollar_flow_b": -0.1
     },
     {
       "etf": "XLV",
@@ -90,7 +89,7 @@
       "vol_ratio": 0.7,
       "flow": "🔴 流出",
       "mcap_b": 195,
-      "dollar_flow_b": -0.9
+      "dollar_flow_b": -1.0
     },
     {
       "etf": "XLY",
@@ -100,7 +99,7 @@
       "vol_ratio": 0.94,
       "flow": "🔴 流出",
       "mcap_b": 185,
-      "dollar_flow_b": -0.8
+      "dollar_flow_b": -1.4
     },
     {
       "etf": "XLC",
@@ -110,10 +109,10 @@
       "vol_ratio": 0.79,
       "flow": "🔴 流出",
       "mcap_b": 130,
-      "dollar_flow_b": -0.4
+      "dollar_flow_b": -1.0
     }
   ],
-  "net_flow_b": -0.5,
-  "total_in_b": 4.1,
-  "total_out_b": -4.6
+  "net_flow_b": -1.9,
+  "total_in_b": 3.7,
+  "total_out_b": -5.6
 }
