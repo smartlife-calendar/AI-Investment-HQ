@@ -210,7 +210,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.23-restore">
+    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-fresh">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -3136,7 +3136,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.23-restore</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-fresh</p>
         </footer>
 
 
@@ -3183,6 +3183,76 @@ async function loadSmartBacktest() {
             var el = document.getElementById('siteVersion');
             if (meta && el) el.textContent = meta.getAttribute('data-version') || meta.getAttribute('content');
         })();
+
+        // ── Data Freshness Monitor ──
+        (function checkDataFreshness() {
+            function showStale(section, msg) {
+                var el = document.getElementById(section);
+                if (!el) return;
+                var banner = document.createElement('div');
+                banner.style.cssText = 'background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 16px;margin:8px 0;font-size:13px;color:#92400e;display:flex;align-items:center;gap:8px';
+                banner.innerHTML = '⚠️ ' + msg;
+                banner.className = 'stale-warning';
+                el.insertBefore(banner, el.firstChild);
+            }
+            
+            function checkAge(dateStr, maxHours) {
+                if (!dateStr) return { stale: true, age: null, msg: '無更新時間' };
+                try {
+                    var d = new Date(dateStr);
+                    var age = (Date.now() - d.getTime()) / 3600000;
+                    if (age > maxHours) {
+                        var days = Math.floor(age / 24);
+                        var label = days > 0 ? days + '天前' : Math.floor(age) + '小時前';
+                        return { stale: true, age: age, msg: '資料更新於 ' + label + '（可能未正常更新）' };
+                    }
+                    return { stale: false, age: age };
+                } catch(e) { return { stale: true, age: null, msg: '日期解析錯誤' }; }
+            }
+            
+            // Check _smartData (金流密碼)
+            if (window._smartData) {
+                var r = checkAge(window._smartData.generated_at, 48);
+                if (r.stale) showStale('smartMoneyContent', r.msg);
+            }
+            
+            // Check JSON files when tabs load
+            var origLoadMacro = window.loadMacro;
+            if (typeof origLoadMacro === 'function') {
+                window.loadMacro = async function() {
+                    await origLoadMacro.apply(this, arguments);
+                    try {
+                        var resp = await fetch('/data/macro.json?t=' + Date.now());
+                        var data = await resp.json();
+                        var r = checkAge(data.generated_at, 48);
+                        if (r.stale) showStale('macroContent', r.msg);
+                    } catch(e) {}
+                };
+            }
+            
+            // Check alpha.json when Alpha tab loads
+            var origAlpha = window.loadAlphaFramework;
+            if (typeof origAlpha === 'function') {
+                window.loadAlphaFramework = async function() {
+                    await origAlpha.apply(this, arguments);
+                    try {
+                        var resp = await fetch('/data/alpha.json?t=' + Date.now());
+                        var data = await resp.json();
+                        var r = checkAge(data.generated_at, 48);
+                        if (r.stale) {
+                            var container = document.getElementById('smartMoneyContent');
+                            if (container) {
+                                var existing = container.querySelectorAll('.stale-warning');
+                                var hasAlpha = false;
+                                existing.forEach(function(el) { if (el.textContent.indexOf('Alpha') >= 0) hasAlpha = true; });
+                                if (!hasAlpha) showStale('smartMoneyContent', 'Alpha 框架' + r.msg);
+                            }
+                        }
+                    } catch(e) {}
+                };
+            }
+        })();
+
 </script>
 </body>
 </html>
