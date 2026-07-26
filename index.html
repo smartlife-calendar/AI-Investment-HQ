@@ -2938,17 +2938,132 @@ async function loadSmartBacktest() {
                 </div>
             </details>
 
-            <details style="margin-bottom:16px">
+            <details style="margin-bottom:16px" open>
                 <summary style="cursor:pointer;font-size:18px;font-weight:700;color:#1e293b;padding:12px 20px;background:white;border-radius:12px;border:1px solid #e2e8f0;list-style:none;display:flex;justify-content:space-between;align-items:center">
-                    五、交易訊號 <span style="font-size:14px;color:#94a3b8">▾</span>
+                五、操作訊號系統 📡 <span style="font-size:14px;color:#94a3b8">▾</span>
                 </summary>
                 <div style="background:white;border-radius:0 0 12px 12px;padding:20px;border:1px solid #e2e8f0;border-top:none">
-                <div style="display:grid;gap:12px;font-size:13px;color:#475569">
-                    <div style="background:#fef2f2;padding:12px;border-radius:8px"><strong>🚨 訊號消失：</strong>昨天有吸籌訊號，今天消失 → 機構可能停止買入。回測：及時出場可避免平均 -2% 虧損</div>
-                    <div style="background:#f0fdf4;padding:12px;border-radius:8px"><strong>🎯 +15% 目標價：</strong>從訊號首次出現日計算。回測最佳止盈點。達標+訊號仍強 → 移動停利；達標+訊號消失 → 全部出場</div>
-                    <div style="background:#eff6ff;padding:12px;border-radius:8px"><strong>🚀 強力買賣訊號：</strong>量比 ≥ 1.5x AND 漲跌 &gt; ±3%。量比 ≥ 2.0x = 機構級資金</div>
+                
+                <p style="font-size:13px;color:#64748b;margin:0 0 16px">操作訊號整合大盤環境、吸籌偵測、Alpha框架三層分析，提供具體買賣建議。位於 <strong>金流密碼 → 📡 操作訊號</strong> tab。</p>
+                
+                <!-- 5.1 Market Regime -->
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">🌍 第一層：大盤環境過濾器</div>
+                <p style="font-size:12px;color:#64748b;margin:0 0 10px">系統根據 SPY（S&P 500 ETF）的技術面自動判定市場狀態，控制是否允許新建倉。</p>
+                <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px">
+                <thead><tr style="background:#e2e8f0">
+                <th style="padding:6px 8px;text-align:left">狀態</th>
+                <th style="padding:6px 8px">條件</th>
+                <th style="padding:6px 8px">建議倉位</th>
+                <th style="padding:6px 8px">新建倉</th>
+                <th style="padding:6px 8px;text-align:left">操作建議</th>
+                </tr></thead>
+                <tbody>
+                <tr style="background:#f0fdf4"><td style="padding:5px 8px">🟢 強勢多頭</td><td style="padding:5px 8px;text-align:center">SPY > 20MA > 50MA</td><td style="padding:5px 8px;text-align:center">100%</td><td style="padding:5px 8px;text-align:center">✅</td><td style="padding:5px 8px">積極做多，加碼強勢股</td></tr>
+                <tr style="background:#f0fdf4"><td style="padding:5px 8px">🟢 多頭</td><td style="padding:5px 8px;text-align:center">SPY > 20MA & 50MA</td><td style="padding:5px 8px;text-align:center">80%</td><td style="padding:5px 8px;text-align:center">✅</td><td style="padding:5px 8px">正常做多，跟隨趨勢</td></tr>
+                <tr style="background:#fffbeb"><td style="padding:5px 8px">🟡 中性</td><td style="padding:5px 8px;text-align:center">SPY > 50MA</td><td style="padding:5px 8px;text-align:center">50%</td><td style="padding:5px 8px;text-align:center">✅ 精選</td><td style="padding:5px 8px">精選個股，控制倉位</td></tr>
+                <tr style="background:#fff7ed"><td style="padding:5px 8px">🟠 警戒</td><td style="padding:5px 8px;text-align:center">SPY 接近 50MA</td><td style="padding:5px 8px;text-align:center">30%</td><td style="padding:5px 8px;text-align:center">❌</td><td style="padding:5px 8px">停止新建倉，持倉設停損</td></tr>
+                <tr style="background:#fef2f2"><td style="padding:5px 8px">🔴 防守</td><td style="padding:5px 8px;text-align:center">SPY < 50MA</td><td style="padding:5px 8px;text-align:center">0%</td><td style="padding:5px 8px;text-align:center">❌</td><td style="padding:5px 8px">全面防守，現金為王</td></tr>
+                </tbody></table>
+                <div style="font-size:11px;color:#94a3b8">※ VIX > 30 時自動降至防守模式（最高 20% 倉位）</div>
                 </div>
-            
+                
+                <!-- 5.2 Signal Types -->
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">📡 第二層：操作訊號類型</div>
+                <div style="display:grid;gap:8px">
+                
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border-left:4px solid #16a34a">
+                <div style="font-weight:700;color:#16a34a">🟢 買入 (BUY)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">吸籌 score≥7 + 基本面完好 + 估值合理 + 大盤多頭</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：以訊號價 -2% 設限價單買入</div>
+                </div>
+                
+                <div style="background:#f0fdf4;padding:12px;border-radius:8px;border-left:4px solid #22c55e">
+                <div style="font-weight:700;color:#22c55e">🟡 分批買 (SCALE_IN)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">吸籌訊號存在但有部分風險（基本面轉弱或估值偏高）</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：分 2~3 次進場，不要一次 all-in</div>
+                </div>
+                
+                <div style="background:#eff6ff;padding:12px;border-radius:8px;border-left:4px solid #3b82f6">
+                <div style="font-weight:700;color:#3b82f6">📦 持有 (HOLD)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">已持倉，尚未觸發停損或停利</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：維持持倉，確認停損單已設好</div>
+                </div>
+                
+                <div style="background:#fffbeb;padding:12px;border-radius:8px;border-left:4px solid #f59e0b">
+                <div style="font-weight:700;color:#f59e0b">⏳ 等待 (WAIT)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">個股吸籌訊號良好，但大盤環境不允許新建倉</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：加入觀察清單，等 SPY 站回 20 日均線再進場</div>
+                </div>
+                
+                <div style="background:#f8fafc;padding:12px;border-radius:8px;border-left:4px solid #94a3b8">
+                <div style="font-weight:700;color:#94a3b8">👀 觀望 (WATCH)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">量能 OK 但品質不足（基本面弱或估值過高）</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：僅觀察，不進場</div>
+                </div>
+                
+                <div style="background:#fef2f2;padding:12px;border-radius:8px;border-left:4px solid #dc2626">
+                <div style="font-weight:700;color:#dc2626">🔴 賣出 (SELL)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">空頭吸籌 score≥7，或 Alpha 框架判定應出場</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：全部出場，不要猶豫</div>
+                </div>
+                
+                <div style="background:#fef2f2;padding:12px;border-radius:8px;border-left:4px solid #dc2626">
+                <div style="font-weight:700;color:#dc2626">🚨 停損 (STOP_LOSS)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">持倉從進場價下跌超過 5%</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：立即全部出場，停損是鐵律</div>
+                </div>
+                
+                <div style="background:#fffbeb;padding:12px;border-radius:8px;border-left:4px solid #f59e0b">
+                <div style="font-weight:700;color:#f59e0b">💰 停利 (TAKE_PROFIT)</div>
+                <div style="font-size:12px;color:#475569;margin-top:4px">持倉從進場價上漲超過 15%</div>
+                <div style="font-size:11px;color:#64748b;margin-top:2px">操作：賣出一半鎖利，剩餘設移動停損（回撤 5% 就出）</div>
+                </div>
+                
+                </div>
+                </div>
+                
+                <!-- 5.3 How to Read Signals -->
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">📋 第三層：每筆訊號提供的資訊</div>
+                <div style="display:grid;gap:6px;font-size:12px;color:#475569">
+                <div>📍 <strong>建議進場價</strong> — 訊號價格 ×0.98（不追高，設限價單等回撤）</div>
+                <div>🛑 <strong>停損價</strong> — 進場價 ×0.95（-5% 硬停損，絕對不移動）</div>
+                <div>🎯 <strong>目標價</strong> — 分析師共識價，或進場價 +15%（取較高者）</div>
+                <div>📐 <strong>倉位大小</strong> — 根據大盤狀態 × 訊號信心度自動建議</div>
+                <div>⚠️ <strong>風險提示</strong> — 追高風險、基本面轉弱等注意事項</div>
+                <div>🔍 <strong>PE 訊號</strong> — Forward PE vs Trailing PE 差距分析</div>
+                </div>
+                </div>
+                
+                <!-- 5.4 Decision Flow -->
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px">🧠 決策流程圖</div>
+                <div style="font-size:12px;color:#475569;line-height:2">
+                <div style="background:white;border-radius:8px;padding:12px;border:1px solid #e2e8f0">
+                <div><strong>Step 1</strong> 看大盤 → 🟢🟡 才能買，🟠🔴 只能賣或等</div>
+                <div><strong>Step 2</strong> 找訊號 → 🟢買入 或 🟡分批買 的標的</div>
+                <div><strong>Step 3</strong> 設限價單 → 在「建議進場價」掛單，不追高</div>
+                <div><strong>Step 4</strong> 設停損單 → 成交後立即在「停損價」設 stop-loss order</div>
+                <div><strong>Step 5</strong> 等目標 → 到「目標價」賣一半，剩餘設移動停損</div>
+                <div><strong>Step 6</strong> 每日檢查 → 看有無 🚨停損 或 🔴賣出 訊號</div>
+                </div>
+                </div>
+                </div>
+                
+                <!-- 5.5 Risk Management -->
+                <div style="background:linear-gradient(135deg,#fef2f2,#fff1f2);border-radius:10px;padding:16px;border:1px solid #fecaca">
+                <div style="font-weight:700;font-size:15px;margin-bottom:10px;color:#dc2626">⚠️ 風險管理鐵律</div>
+                <div style="display:grid;gap:6px;font-size:12px;color:#475569">
+                <div>1. <strong>單筆不超過總資金 10%</strong> — 分散是活下去的前提</div>
+                <div>2. <strong>停損是鐵律</strong> — -5% 就走，不猶豫、不攤平、不期待反彈</div>
+                <div>3. <strong>大盤 🔴 時 100% 現金</strong> — 空手也是一種倉位</div>
+                <div>4. <strong>不追漲超過 20% 的股票</strong> — 1月已漲 20% 以上，風險報酬比太差</div>
+                <div>5. <strong>訊號是參考，不是聖旨</strong> — 結合自己的研究判斷</div>
+                </div>
+                </div>
+                
                 </div>
             </details>
 
