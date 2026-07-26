@@ -1146,7 +1146,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','backtest','signalmap','alpha','signals'].forEach(t => {
+            ['bullish','bearish','signalmap','alpha','signals'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
@@ -2683,10 +2683,7 @@ async function loadSmartBacktest() {
                             style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
                             📉 出貨偵測
                         </button>
-                        <button onclick="switchSmartTab('backtest')" id="smart-tab-backtest"
-                            style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">
-                            📊 績效回測
-                        </button>
+                        
                         <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
                         <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
                 <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📡 📡 操作訊號</button>
@@ -3753,6 +3750,60 @@ async function loadSmartBacktest() {
                 }
                 
                 // Footer
+                // ── Inline Backtest Summary ──
+                try {
+                    var btResp = await fetch('/data/backtest.json?t=' + Date.now());
+                    if (btResp.ok) {
+                        var bt = await btResp.json();
+                        var btResults = bt.results || {};
+                        var btAlerts = bt.alerts || [];
+                        var btStatus = bt.status || '';
+                        
+                        out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-top:16px">';
+                        out += '<div style="padding:12px 16px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">';
+                        out += '<span style="font-weight:700;font-size:14px">📊 模型績效回測（30天滾動）</span>';
+                        var stColor = btStatus.indexOf('ON TARGET') >= 0 ? '#16a34a' : '#eab308';
+                        var stText = btStatus.indexOf('ON TARGET') >= 0 ? '✅ 達標' : '⚠️ 需檢視';
+                        out += '<span style="background:' + stColor + '15;color:' + stColor + ';padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">' + stText + '</span>';
+                        out += '</div>';
+                        
+                        out += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e2e8f0">';
+                        ['5d','10d','20d'].forEach(function(p) {
+                            var r = btResults[p] || {};
+                            var pName = {'5d':'5天','10d':'10天','20d':'20天'}[p];
+                            var avgC = (r.avg_return||0) >= 0 ? '#16a34a' : '#dc2626';
+                            out += '<div style="background:white;padding:12px;text-align:center">';
+                            out += '<div style="font-size:11px;color:#94a3b8">' + pName + ' (n=' + (r.n||0) + ')</div>';
+                            out += '<div style="font-size:20px;font-weight:700;color:' + avgC + '">' + ((r.avg_return||0)>0?'+':'') + (r.avg_return||0).toFixed(1) + '%</div>';
+                            out += '<div style="font-size:11px;color:#64748b">勝率 ' + (r.win_rate||0).toFixed(0) + '% · 中位 ' + ((r.median_return||0)>0?'+':'') + (r.median_return||0).toFixed(1) + '%</div>';
+                            out += '</div>';
+                        });
+                        out += '</div>';
+                        
+                        // Best/worst
+                        var best = (btResults['5d']||{}).best;
+                        var worst = (btResults['5d']||{}).worst;
+                        if (best || worst) {
+                            out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 16px">';
+                            if (best) out += '<div style="background:#f0fdf4;border-radius:6px;padding:8px;font-size:11px"><span style="color:#16a34a;font-weight:600">🏆 最佳</span> ' + best.symbol + ' +' + best.return_pct.toFixed(1) + '% (' + best.entry + ')</div>';
+                            if (worst) out += '<div style="background:#fef2f2;border-radius:6px;padding:8px;font-size:11px"><span style="color:#dc2626;font-weight:600">💀 最差</span> ' + worst.symbol + ' ' + worst.return_pct.toFixed(1) + '% (' + worst.entry + ')</div>';
+                            out += '</div>';
+                        }
+                        
+                        // Alerts
+                        if (btAlerts && btAlerts.length > 0) {
+                            out += '<div style="padding:8px 16px 12px">';
+                            btAlerts.forEach(function(a) {
+                                var msg = typeof a === 'string' ? a : (a.msg || JSON.stringify(a));
+                                out += '<div style="background:#fef9c3;padding:4px 8px;border-radius:4px;font-size:11px;margin-bottom:3px">⚠️ ' + msg + '</div>';
+                            });
+                            out += '</div>';
+                        }
+                        
+                        out += '</div>';
+                    }
+                } catch(e) { console.log('Inline backtest error:', e); }
+                
                 out += '<div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:12px">';
                 out += '⚠️ 以上訊號僅供參考，不構成投資建議 · ' + genDate;
                 out += '</div>';
