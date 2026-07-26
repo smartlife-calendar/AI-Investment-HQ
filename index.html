@@ -814,7 +814,7 @@
                 const wow4 = (s.wow || []).slice(-4);
                 const perf4w = wow4.length >= 2 ? wow4.reduce((sum, w) => sum + (w[2] || 0), 0).toFixed(1) : '0.0';
                 const _wow = s.wow || []; const _r4 = _wow.slice(-4).reduce((a,w)=>a+(w[2]||0),0); const _p4 = _wow.slice(-8,-4).reduce((a,w)=>a+(w[2]||0),0); const recent4 = _wow.length >= 4 ? `近4週: ${_r4 > 0 ? '+' : ''}${_r4.toFixed(1)}%` : '';
-                const prior4 = _wow.length >= 8 ? `前4週: ${_p4 > 0 ? '+' : ''}${_p4.toFixed(1)}%` : '';
+                const prior4 = _wow.length >= 8 ? `前4-8週: ${_p4 > 0 ? '+' : ''}${_p4.toFixed(1)}%` : '';
 
                 html += `<div class="border rounded-lg ${color} overflow-hidden">
                     <div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleSector(${i})">
@@ -836,7 +836,7 @@
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
                         <div class="flex gap-4 mb-2 text-gray-600">
                             <span>💰 近4W: ${(function(){ var w=s.wow||[]; if(w.length<4) return '資料不足'; var v=w.slice(-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
-                            <span>📊 前4W: ${(function(){ var w=s.wow||[]; if(w.length<8) return '資料不足'; var v=w.slice(-8,-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
+                            <span>📊 前4-8週: ${(function(){ var w=s.wow||[]; if(w.length<8) return '資料不足'; var v=w.slice(-8,-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
                             <span>📈 動能: ${s.momentum || 'N/A'}</span>
                         </div>
                         <table class="w-full text-xs border-collapse">
@@ -1146,7 +1146,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','backtest','signalmap','alpha'].forEach(t => {
+            ['bullish','bearish','backtest','signalmap','alpha','signals'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
@@ -1162,6 +1162,7 @@
             else if (tab === 'bearish') loadSmartDirection('bearish');
             else if (tab === 'signalmap') loadSignalMap();
             else if (tab === 'alpha') { loadAlphaFramework(); setTimeout(loadCyclicalBreakout, 500); }
+            else if (tab === 'signals') loadTradingSignals();
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
@@ -2688,6 +2689,7 @@ async function loadSmartBacktest() {
                         </button>
                         <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
                         <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
+                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📡 📡 操作訊號</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
@@ -3626,6 +3628,140 @@ async function loadSmartBacktest() {
             });
             observer.observe(el, { childList: true, subtree: true });
         })();
+
+
+        // ── Trading Signals Display ──
+        async function loadTradingSignals() {
+            var container = document.getElementById('smartMoneyContent');
+            if (!container) return;
+            container.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8">載入操作訊號...</div>';
+            
+            try {
+                var resp = await fetch('/data/signals.json?t=' + Date.now());
+                if (!resp.ok) throw new Error('signals.json: ' + resp.status);
+                var data = await resp.json();
+                var market = data.market_regime || {};
+                var signals = data.signals || [];
+                var rules = data.trading_rules || {};
+                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleDateString('zh-TW') : '';
+                
+                var out = '';
+                
+                // ── Market Regime Banner ──
+                var regimeColors = {
+                    'STRONG_BULL': '#16a34a', 'BULL': '#22c55e',
+                    'NEUTRAL': '#eab308', 'CAUTION': '#f97316', 'BEAR': '#dc2626'
+                };
+                var rc = regimeColors[market.regime] || '#64748b';
+                out += '<div style="background:linear-gradient(135deg,' + rc + '15,' + rc + '08);border:2px solid ' + rc + ';border-radius:12px;padding:16px;margin-bottom:16px">';
+                out += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+                out += '<div>';
+                out += '<div style="font-size:20px;font-weight:700;color:' + rc + '">' + (market.regime_zh || market.regime) + '</div>';
+                out += '<div style="font-size:13px;color:#475569;margin-top:4px">' + (market.action_note || '') + '</div>';
+                out += '</div>';
+                out += '<div style="text-align:right;font-size:12px;color:#64748b">';
+                out += 'SPY $' + (market.spy_price || '?') + ' ';
+                out += (market.spy_above_ma20 ? '🟢' : '🔴') + '20MA ';
+                out += (market.spy_above_ma50 ? '🟢' : '🔴') + '50MA · ';
+                out += 'VIX ' + (market.vix || '?');
+                out += '<br>建議倉位: ' + ((market.position_size || 0) * 100).toFixed(0) + '%';
+                out += ' · 新建倉: ' + (market.allow_new_entries ? '✅' : '❌');
+                out += '</div></div></div>';
+                
+                // ── Trading Rules ──
+                out += '<div style="background:#f8fafc;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#64748b;display:flex;gap:16px;flex-wrap:wrap">';
+                out += '<span>📏 停損: ' + (rules.stop_loss || '-5%') + '</span>';
+                out += '<span>🎯 停利: ' + (rules.take_profit || '+15%') + '</span>';
+                out += '<span>📐 倉位: ' + (rules.position_size || '?') + '</span>';
+                out += '<span>📊 進場: ' + (rules.entry_method || '?') + '</span>';
+                out += '</div>';
+                
+                // ── Signal Cards ──
+                if (signals.length === 0) {
+                    out += '<div style="text-align:center;padding:30px;color:#94a3b8">目前無操作訊號</div>';
+                } else {
+                    // Group by action type
+                    var groups = [
+                        { key: 'urgent', label: '🚨 緊急操作', actions: ['STOP_LOSS', 'SELL', 'TAKE_PROFIT'], color: '#dc2626' },
+                        { key: 'buy', label: '🟢 買入訊號', actions: ['BUY', 'SCALE_IN'], color: '#16a34a' },
+                        { key: 'hold', label: '📦 持倉管理', actions: ['HOLD'], color: '#3b82f6' },
+                        { key: 'wait', label: '⏳ 等待進場', actions: ['WAIT', 'WATCH'], color: '#94a3b8' },
+                    ];
+                    
+                    groups.forEach(function(g) {
+                        var items = signals.filter(function(s) { return g.actions.indexOf(s.action) >= 0; });
+                        if (items.length === 0) return;
+                        
+                        out += '<div style="margin-bottom:16px">';
+                        out += '<div style="font-weight:700;font-size:14px;color:' + g.color + ';margin-bottom:8px;padding-left:4px">' + g.label + ' (' + items.length + ')</div>';
+                        out += '<div style="display:grid;gap:8px">';
+                        
+                        items.forEach(function(s) {
+                            var actionColors = {
+                                'BUY': '#16a34a', 'SCALE_IN': '#22c55e', 'HOLD': '#3b82f6',
+                                'WATCH': '#94a3b8', 'WAIT': '#f59e0b', 'SELL': '#dc2626',
+                                'STOP_LOSS': '#dc2626', 'TAKE_PROFIT': '#f59e0b'
+                            };
+                            var ac = actionColors[s.action] || '#64748b';
+                            
+                            out += '<div style="background:white;border-radius:10px;border:1px solid #e2e8f0;border-left:4px solid ' + ac + ';padding:12px 14px">';
+                            
+                            // Header row
+                            out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+                            out += '<div>';
+                            out += '<span style="font-weight:700;font-size:15px">' + s.symbol + '</span>';
+                            out += '<span style="background:' + ac + '18;color:' + ac + ';padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;margin-left:8px">' + (s.action_zh || s.action) + '</span>';
+                            out += '<span style="font-size:11px;color:#94a3b8;margin-left:8px">信心 ' + s.confidence + '%</span>';
+                            out += '</div>';
+                            out += '<span style="font-size:13px;color:#475569">$' + (s.price || '?') + '</span>';
+                            out += '</div>';
+                            
+                            // Reasons
+                            out += '<div style="font-size:12px;color:#475569;margin-bottom:6px">';
+                            (s.reasons || []).forEach(function(r) {
+                                out += '<span style="margin-right:8px">• ' + r + '</span>';
+                            });
+                            out += '</div>';
+                            
+                            // Levels (for buy/hold)
+                            if (s.entry_price || s.stop_loss || s.target_price) {
+                                out += '<div style="display:flex;gap:12px;font-size:11px;flex-wrap:wrap">';
+                                if (s.entry_price) out += '<span style="background:#f0fdf4;padding:2px 8px;border-radius:6px">📍 進場 ≤$' + s.entry_price + '</span>';
+                                if (s.stop_loss) out += '<span style="background:#fef2f2;padding:2px 8px;border-radius:6px">🛑 停損 $' + s.stop_loss + '</span>';
+                                if (s.target_price) out += '<span style="background:#eff6ff;padding:2px 8px;border-radius:6px">🎯 目標 $' + s.target_price + '</span>';
+                                if (s.size) out += '<span style="background:#f8fafc;padding:2px 8px;border-radius:6px">📐 ' + s.size + '</span>';
+                                out += '</div>';
+                            }
+                            
+                            // Risk notes
+                            if (s.risk_notes && s.risk_notes.length > 0) {
+                                out += '<div style="margin-top:4px;font-size:11px;color:#f59e0b">';
+                                s.risk_notes.forEach(function(n) { out += '⚠️ ' + n + ' '; });
+                                out += '</div>';
+                            }
+                            
+                            // PE signal
+                            if (s.pe_signal) {
+                                out += '<div style="margin-top:4px;font-size:11px;color:#8b5cf6">' + s.pe_signal + '</div>';
+                            }
+                            
+                            out += '</div>';
+                        });
+                        
+                        out += '</div></div>';
+                    });
+                }
+                
+                // Footer
+                out += '<div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:12px">';
+                out += '⚠️ 以上訊號僅供參考，不構成投資建議 · ' + genDate;
+                out += '</div>';
+                
+                container.innerHTML = out;
+            } catch(e) {
+                container.innerHTML = '<div style="text-align:center;padding:40px;color:#dc2626">❌ 載入失敗: ' + e.message + '</div>';
+            }
+        }
 
 </script>
 </body>
