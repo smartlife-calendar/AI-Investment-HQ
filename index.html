@@ -210,7 +210,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-audit">
+    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-pe">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -1087,7 +1087,7 @@
                 btn.style.fontWeight = active ? '700' : '600';
             });
             
-            if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); }
+            if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); setTimeout(loadSectorPETable, 500); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
                     loadDailyFlows(); // daily sector flows
@@ -1162,7 +1162,7 @@
             else if (tab === 'bearish') loadSmartDirection('bearish');
             else if (tab === 'signalmap') loadSignalMap();
             else if (tab === 'alpha') loadAlphaFramework();
-            else loadSmartBacktest();
+            else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
         async function loadSmartDirection(direction) {
@@ -3178,7 +3178,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-audit</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-pe</p>
         </footer>
 
 
@@ -3341,6 +3341,259 @@ async function loadSmartBacktest() {
             }
         })();
 
+
+
+        // ── Sector PE Comparison Table ──
+        async function loadSectorPETable() {
+            var container = document.getElementById('macroContent');
+            if (!container) return;
+            try {
+                var resp = await fetch('/data/alpha.json?t=' + Date.now());
+                if (!resp.ok) return;
+                var data = await resp.json();
+                var stocks = data.stocks || {};
+                
+                // Aggregate PE by sector
+                var sectors = {};
+                Object.entries(stocks).forEach(function(entry) {
+                    var sym = entry[0], s = entry[1];
+                    var a = s.alpha || {};
+                    var v = s.valuation || {};
+                    var sector = v.sector || '';
+                    var industry = a.industry || '';
+                    var fpe = a.forward_pe;
+                    var tpe = a.trailing_pe;
+                    var baseline = v.sector_pe_used;
+                    if (!sector || !fpe || fpe <= 0 || fpe > 200) return;
+                    
+                    var key = industry && ['Semiconductors','Software - Infrastructure','Software - Application'].indexOf(industry) >= 0 ? industry : sector;
+                    if (!sectors[key]) sectors[key] = { pes: [], baseline: baseline || 20, sector: sector };
+                    sectors[key].pes.push({ sym: sym, fpe: fpe, tpe: tpe, gap: a.pe_gap_pct, signal: a.pe_signal });
+                });
+                
+                // Build table HTML
+                var out = '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-top:16px">';
+                out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                out += '<span style="font-weight:700;font-size:14px">📊 板塊 PE 估值比較</span>';
+                out += '<span style="float:right;font-size:11px;color:#94a3b8">Forward PE vs 基準 | 分析師共識</span>';
+                out += '</div>';
+                out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
+                out += '<thead><tr style="background:#f1f5f9">';
+                out += '<th style="padding:8px;text-align:left">板塊</th>';
+                out += '<th style="padding:8px;text-align:right">平均 FwdPE</th>';
+                out += '<th style="padding:8px;text-align:right">基準 PE</th>';
+                out += '<th style="padding:8px;text-align:right">vs 基準</th>';
+                out += '<th style="padding:8px;text-align:left">最低PE股</th>';
+                out += '<th style="padding:8px;text-align:left">最高PE股</th>';
+                out += '</tr></thead><tbody>';
+                
+                var sorted = Object.entries(sectors).sort(function(a,b) { return b[1].pes.length - a[1].pes.length; });
+                sorted.forEach(function(entry) {
+                    var key = entry[0], info = entry[1];
+                    if (info.pes.length < 2) return;
+                    var avg = info.pes.reduce(function(s,p){return s+p.fpe;},0) / info.pes.length;
+                    var baseline = info.baseline;
+                    var diff = ((avg / baseline) - 1) * 100;
+                    var diffColor = diff > 20 ? '#dc2626' : diff < -20 ? '#16a34a' : '#64748b';
+                    var sorted_pes = info.pes.slice().sort(function(a,b){return a.fpe-b.fpe;});
+                    var lo = sorted_pes[0];
+                    var hi = sorted_pes[sorted_pes.length-1];
+                    
+                    out += '<tr style="border-bottom:1px solid #f1f5f9">';
+                    out += '<td style="padding:6px 8px;font-weight:600">' + key + ' (' + info.pes.length + ')</td>';
+                    out += '<td style="padding:6px 8px;text-align:right">' + avg.toFixed(1) + 'x</td>';
+                    out += '<td style="padding:6px 8px;text-align:right;color:#94a3b8">' + baseline + 'x</td>';
+                    out += '<td style="padding:6px 8px;text-align:right;color:' + diffColor + ';font-weight:600">' + (diff>0?'+':'') + diff.toFixed(0) + '%</td>';
+                    out += '<td style="padding:6px 8px;font-size:11px">' + lo.sym + ' ' + lo.fpe.toFixed(1) + 'x</td>';
+                    out += '<td style="padding:6px 8px;font-size:11px">' + hi.sym + ' ' + hi.fpe.toFixed(1) + 'x</td>';
+                    out += '</tr>';
+                });
+                
+                out += '</tbody></table></div>';
+                
+                // PE expansion/contraction signals
+                var signals = [];
+                Object.entries(stocks).forEach(function(entry) {
+                    var sym = entry[0], s = entry[1];
+                    var a = s.alpha || {};
+                    if (a.pe_signal) signals.push({ sym: sym, fpe: a.forward_pe, tpe: a.trailing_pe, gap: a.pe_gap_pct, signal: a.pe_signal });
+                });
+                
+                if (signals.length > 0) {
+                    signals.sort(function(a,b){ return (a.gap||0) - (b.gap||0); });
+                    out += '<div style="padding:12px 16px;border-top:1px solid #e2e8f0">';
+                    out += '<div style="font-weight:600;font-size:13px;margin-bottom:8px">🔍 PE 異動訊號</div>';
+                    out += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+                    signals.slice(0, 10).forEach(function(s) {
+                        var bg = (s.gap||0) < -20 ? '#dcfce7' : '#fee2e2';
+                        out += '<span style="background:' + bg + ';padding:4px 8px;border-radius:6px;font-size:11px">';
+                        out += s.sym + ' FwdPE=' + (s.fpe||0).toFixed(1) + ' TrailPE=' + (s.tpe||0).toFixed(1) + ' (' + (s.gap>0?'+':'') + (s.gap||0).toFixed(0) + '%) ' + s.signal;
+                        out += '</span>';
+                    });
+                    out += '</div></div>';
+                }
+                
+                out += '</div>';
+                container.insertAdjacentHTML('beforeend', out);
+            } catch(e) { console.log('PE table error:', e); }
+        }
+
+        // ── Cyclical Breakout Display ──
+        async function loadCyclicalBreakout() {
+            try {
+                var resp = await fetch('/data/alpha.json?t=' + Date.now());
+                if (!resp.ok) return;
+                var data = await resp.json();
+                var breakouts = data.cyclical_breakout || [];
+                if (!breakouts.length) return;
+                
+                var container = document.getElementById('smartMoneyContent');
+                if (!container) return;
+                
+                var out = '<div style="background:linear-gradient(135deg,#fef3c7,#fff7ed);border-radius:12px;border:1px solid #f59e0b;overflow:hidden;margin:16px 0">';
+                out += '<div style="padding:12px 16px;border-bottom:1px solid #fcd34d">';
+                out += '<span style="font-weight:700;font-size:14px">🔄 景氣循環脫離偵測</span>';
+                out += '<span style="float:right;font-size:11px;color:#92400e">PE > 基準×2 = 可能脫離循環</span>';
+                out += '</div>';
+                out += '<div style="padding:12px 16px;display:grid;gap:8px">';
+                
+                breakouts.forEach(function(b) {
+                    var statusColor = b.breakout_confirmed ? '#16a34a' : '#f59e0b';
+                    var statusIcon = b.breakout_confirmed ? '🚀' : '👀';
+                    var eg = b.earnings_growth ? ' EPS' + (b.earnings_growth>0?'+':'') + b.earnings_growth.toFixed(0) + '%' : '';
+                    
+                    out += '<div style="background:white;border-radius:8px;padding:10px 14px;border-left:3px solid ' + statusColor + '">';
+                    out += '<div style="display:flex;justify-content:space-between;align-items:center">';
+                    out += '<span style="font-weight:700">' + statusIcon + ' ' + b.symbol + '</span>';
+                    out += '<span style="font-size:12px;color:#64748b">' + (b.sector||'') + ' · ' + (b.industry||'') + '</span>';
+                    out += '</div>';
+                    out += '<div style="font-size:12px;margin-top:4px">';
+                    out += 'FwdPE=<strong>' + (b.forward_pe||b.fwd_pe||0).toFixed(1) + 'x</strong>';
+                    out += ' vs 基準=' + (b.sector_baseline_pe||b.normal_pe_range||'?') + 'x';
+                    out += ' · 擴張 <strong style="color:' + statusColor + '">' + (b.pe_expansion||'?') + 'x</strong>';
+                    out += eg;
+                    out += '</div>';
+                    if (b.signal) out += '<div style="font-size:11px;color:#92400e;margin-top:2px">' + b.signal + '</div>';
+                    out += '</div>';
+                });
+                
+                out += '</div></div>';
+                container.insertAdjacentHTML('beforeend', out);
+            } catch(e) { console.log('Cyclical error:', e); }
+        }
+
+        // ── Backtest Performance Chart (SVG) ──
+        async function loadBacktestChart() {
+            var container = document.getElementById('smartMoneyContent');
+            if (!container) return;
+            try {
+                var resp = await fetch('/data/backtest.json?t=' + Date.now());
+                if (!resp.ok) return;
+                var data = await resp.json();
+                
+                var trades = data.recent_trades_5d || [];
+                if (trades.length < 3) return;
+                
+                // Sort by entry date
+                trades.sort(function(a,b) { return a.entry_date.localeCompare(b.entry_date); });
+                
+                // Calculate cumulative return
+                var cumulative = [0];
+                trades.forEach(function(t) {
+                    cumulative.push(cumulative[cumulative.length-1] + (t.return_pct || 0));
+                });
+                
+                var W = 600, H = 200, PAD = 40;
+                var maxY = Math.max(Math.abs(Math.min.apply(null, cumulative)), Math.abs(Math.max.apply(null, cumulative)), 5);
+                maxY = Math.ceil(maxY / 5) * 5;
+                
+                function x(i) { return PAD + (i / (cumulative.length-1)) * (W - PAD*2); }
+                function y(v) { return PAD + ((maxY - v) / (maxY * 2)) * (H - PAD*2); }
+                
+                var out = '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin:16px 0">';
+                out += '<div style="padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                out += '<span style="font-weight:700;font-size:14px">📈 策略績效曲線（累計報酬%）</span>';
+                
+                // Status badge
+                var status = data.alert_status || 'ok';
+                var badgeColor = status === 'ok' ? '#16a34a' : '#dc2626';
+                var badgeText = status === 'ok' ? '✅ 達標' : '⚠️ 低於目標';
+                out += '<span style="float:right;background:' + badgeColor + '15;color:' + badgeColor + ';padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">' + badgeText + '</span>';
+                out += '</div>';
+                
+                out += '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block;padding:8px">';
+                
+                // Zero line
+                out += '<line x1="' + PAD + '" y1="' + y(0) + '" x2="' + (W-PAD) + '" y2="' + y(0) + '" stroke="#94a3b8" stroke-dasharray="4,4" />';
+                out += '<text x="' + (PAD-4) + '" y="' + (y(0)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">0%</text>';
+                out += '<text x="' + (PAD-4) + '" y="' + (y(maxY)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">+' + maxY + '%</text>';
+                out += '<text x="' + (PAD-4) + '" y="' + (y(-maxY)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">-' + maxY + '%</text>';
+                
+                // Area fill
+                var pathD = 'M' + x(0) + ',' + y(0);
+                cumulative.forEach(function(v, i) { pathD += ' L' + x(i) + ',' + y(v); });
+                pathD += ' L' + x(cumulative.length-1) + ',' + y(0) + ' Z';
+                var lastVal = cumulative[cumulative.length-1];
+                var areaColor = lastVal >= 0 ? 'rgba(34,197,94,0.15)' : 'rgba(220,38,38,0.15)';
+                out += '<path d="' + pathD + '" fill="' + areaColor + '" />';
+                
+                // Line
+                var lineD = 'M';
+                cumulative.forEach(function(v, i) {
+                    lineD += (i>0?' L':'') + x(i) + ',' + y(v);
+                });
+                var lineColor = lastVal >= 0 ? '#16a34a' : '#dc2626';
+                out += '<path d="' + lineD + '" fill="none" stroke="' + lineColor + '" stroke-width="2" />';
+                
+                // Data points
+                trades.forEach(function(t, i) {
+                    var cx = x(i+1), cy = y(cumulative[i+1]);
+                    var dotColor = t.return_pct >= 0 ? '#16a34a' : '#dc2626';
+                    out += '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="' + dotColor + '" />';
+                    // Show symbol on hover via title
+                    out += '<title>' + t.symbol + ' ' + (t.return_pct>0?'+':'') + t.return_pct.toFixed(1) + '% (' + t.entry_date + ')</title>';
+                });
+                
+                // End value label
+                out += '<text x="' + (x(cumulative.length-1)+8) + '" y="' + (y(lastVal)+4) + '" fill="' + lineColor + '" font-size="12" font-weight="700">' + (lastVal>0?'+':'') + lastVal.toFixed(1) + '%</text>';
+                
+                out += '</svg>';
+                
+                // Strategy summary cards
+                var strats = data.strategies || {};
+                out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding:0 16px 12px">';
+                Object.entries(strats).forEach(function(entry) {
+                    var name = entry[0], s = entry[1];
+                    var h5 = s.hold_5d || {};
+                    var h10 = s.hold_10d || {};
+                    var nameZh = name === 'conservative' ? '保守' : name === 'moderate' ? '穩健' : '積極';
+                    var avgColor = (h5.avg_return||0) >= 0 ? '#16a34a' : '#dc2626';
+                    out += '<div style="background:#f8fafc;border-radius:8px;padding:10px;text-align:center">';
+                    out += '<div style="font-weight:600;font-size:13px">' + nameZh + '</div>';
+                    out += '<div style="font-size:11px;color:#64748b">score≥' + (s.min_score||'?') + ' phase≥' + (s.min_phase||'?') + '</div>';
+                    out += '<div style="font-size:18px;font-weight:700;color:' + avgColor + ';margin:4px 0">' + ((h5.avg_return||0)>0?'+':'') + (h5.avg_return||0).toFixed(1) + '%</div>';
+                    out += '<div style="font-size:11px;color:#64748b">5d avg · 勝率 ' + (h5.win_rate||0).toFixed(0) + '%</div>';
+                    if (h10.avg_return != null) out += '<div style="font-size:11px;color:#64748b">10d: ' + ((h10.avg_return||0)>0?'+':'') + (h10.avg_return||0).toFixed(1) + '% · ' + (h10.win_rate||0).toFixed(0) + '%</div>';
+                    out += '</div>';
+                });
+                out += '</div>';
+                
+                // Performance alerts
+                var alerts = data.performance_alerts || [];
+                if (alerts.length > 0) {
+                    out += '<div style="padding:0 16px 12px">';
+                    alerts.forEach(function(a) {
+                        var bg = a.level === 'warning' ? '#fee2e2' : '#fef9c3';
+                        var icon = a.level === 'warning' ? '🚨' : 'ℹ️';
+                        out += '<div style="background:' + bg + ';padding:6px 10px;border-radius:6px;font-size:11px;margin-bottom:4px">' + icon + ' ' + a.msg + '</div>';
+                    });
+                    out += '</div>';
+                }
+                
+                out += '</div>';
+                container.insertAdjacentHTML('beforeend', out);
+            } catch(e) { console.log('Backtest chart error:', e); }
+        }
 
 </script>
 </body>
