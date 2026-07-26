@@ -210,7 +210,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-bt">
+    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-audit">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -3178,7 +3178,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-bt</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-audit</p>
         </footer>
 
 
@@ -3226,74 +3226,121 @@ async function loadSmartBacktest() {
             if (meta && el) el.textContent = meta.getAttribute('data-version') || meta.getAttribute('content');
         })();
 
-        // ── Data Freshness Monitor ──
+        // ── Data Freshness Monitor (全面版) ──
         (function checkDataFreshness() {
-            function showStale(section, msg) {
-                var el = document.getElementById(section);
+            var STALE_HOURS = 48; // 超過48小時視為過期
+            var WEEKEND_EXTRA = 48; // 週末多給48小時寬限
+            
+            function getMaxHours() {
+                var day = new Date().getDay(); // 0=Sun, 6=Sat
+                return (day === 0 || day === 6) ? STALE_HOURS + WEEKEND_EXTRA : STALE_HOURS;
+            }
+            
+            function showStale(sectionId, msg) {
+                var el = document.getElementById(sectionId);
                 if (!el) return;
+                // Don't add duplicate warnings
+                if (el.querySelector('.stale-warning')) return;
                 var banner = document.createElement('div');
+                banner.className = 'stale-warning';
                 banner.style.cssText = 'background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 16px;margin:8px 0;font-size:13px;color:#92400e;display:flex;align-items:center;gap:8px';
                 banner.innerHTML = '⚠️ ' + msg;
-                banner.className = 'stale-warning';
                 el.insertBefore(banner, el.firstChild);
             }
             
-            function checkAge(dateStr, maxHours) {
-                if (!dateStr) return { stale: true, age: null, msg: '無更新時間' };
+            function checkAge(dateStr) {
+                if (!dateStr) return { stale: true, msg: '無更新時間資訊' };
                 try {
                     var d = new Date(dateStr);
-                    var age = (Date.now() - d.getTime()) / 3600000;
-                    if (age > maxHours) {
-                        var days = Math.floor(age / 24);
-                        var label = days > 0 ? days + '天前' : Math.floor(age) + '小時前';
-                        return { stale: true, age: age, msg: '資料更新於 ' + label + '（可能未正常更新）' };
+                    if (isNaN(d.getTime())) return { stale: true, msg: '日期格式錯誤' };
+                    var ageH = (Date.now() - d.getTime()) / 3600000;
+                    var maxH = getMaxHours();
+                    if (ageH > maxH) {
+                        var days = Math.floor(ageH / 24);
+                        var label = days > 0 ? days + '天前' : Math.floor(ageH) + '小時前';
+                        return { stale: true, msg: '資料更新於 ' + label + '（超過' + Math.floor(maxH/24) + '天未更新）' };
                     }
-                    return { stale: false, age: age };
-                } catch(e) { return { stale: true, age: null, msg: '日期解析錯誤' }; }
+                    return { stale: false };
+                } catch(e) { return { stale: true, msg: '日期解析異常' }; }
             }
             
-            // Check _smartData (金流密碼)
+            // 1. 金流密碼 (_smartData)
             if (window._smartData) {
-                var r = checkAge(window._smartData.generated_at, 48);
-                if (r.stale) showStale('smartMoneyContent', r.msg);
+                var r = checkAge(window._smartData.generated_at);
+                if (r.stale) showStale('smartMoneyContent', '金流密碼 ' + r.msg);
             }
             
-            // Check JSON files when tabs load
-            var origLoadMacro = window.loadMacro;
-            if (typeof origLoadMacro === 'function') {
-                window.loadMacro = async function() {
-                    await origLoadMacro.apply(this, arguments);
+            // 2. Wrap async loaders with freshness checks
+            function wrapLoader(fnName, jsonUrl, sectionId, label) {
+                var orig = window[fnName];
+                if (typeof orig !== 'function') return;
+                window[fnName] = async function() {
+                    var result = await orig.apply(this, arguments);
                     try {
-                        var resp = await fetch('/data/macro.json?t=' + Date.now());
-                        var data = await resp.json();
-                        var r = checkAge(data.generated_at, 48);
-                        if (r.stale) showStale('macroContent', r.msg);
-                    } catch(e) {}
+                        var resp = await fetch(jsonUrl + '?t=' + Date.now());
+                        if (resp.ok) {
+                            var data = await resp.json();
+                            var genAt = data.generated_at || data.generatedAt;
+                            var r = checkAge(genAt);
+                            if (r.stale) showStale(sectionId, label + ' ' + r.msg);
+                            // Backtest performance alert
+                            if (data.alerts && data.alerts.length > 0) {
+                                showStale(sectionId, '績效警報：' + data.alerts.join(' | '));
+                            }
+                        } else {
+                            showStale(sectionId, label + ' 資料載入失敗 (HTTP ' + resp.status + ')');
+                        }
+                    } catch(e) {
+                        // Don't show error for missing optional files
+                    }
+                    return result;
                 };
             }
             
-            // Check alpha.json when Alpha tab loads
-            var origAlpha = window.loadAlphaFramework;
-            if (typeof origAlpha === 'function') {
-                window.loadAlphaFramework = async function() {
-                    await origAlpha.apply(this, arguments);
+            // 3. 板塊資金 (macro.json)
+            wrapLoader('loadMacro', '/data/macro.json', 'macroContent', '板塊資金');
+            
+            // 4. Alpha 框架 (alpha.json)
+            wrapLoader('loadAlphaFramework', '/data/alpha.json', 'smartMoneyContent', 'Alpha 框架');
+            
+            // 5. 財金新聞 (news.json)
+            wrapLoader('loadNewsSection', '/data/news.json', 'newsContent', '財金新聞');
+            
+            // 6. 回測績效 (backtest.json) — check on smart tab
+            wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回測績效');
+            
+            // 7. 今日速報 — check daily report freshness
+            var origDaily = window.loadDailyReport;
+            if (typeof origDaily === 'function') {
+                window.loadDailyReport = async function() {
+                    var result = await origDaily.apply(this, arguments);
+                    // Check if the loaded report matches a recent date
+                    var el = document.getElementById('dailyColumn');
+                    if (el && el.innerHTML.length < 100) {
+                        showStale('dailyColumn', '今日速報 尚無今日報告');
+                    }
+                    return result;
+                };
+            }
+            
+            // 8. Daily flows — check inside loadDailyFlows
+            var origFlows = window.loadDailyFlows;
+            if (typeof origFlows === 'function') {
+                window.loadDailyFlows = async function() {
+                    var result = await origFlows.apply(this, arguments);
                     try {
-                        var resp = await fetch('/data/alpha.json?t=' + Date.now());
-                        var data = await resp.json();
-                        var r = checkAge(data.generated_at, 48);
-                        if (r.stale) {
-                            var container = document.getElementById('smartMoneyContent');
-                            if (container) {
-                                var existing = container.querySelectorAll('.stale-warning');
-                                var hasAlpha = false;
-                                existing.forEach(function(el) { if (el.textContent.indexOf('Alpha') >= 0) hasAlpha = true; });
-                                if (!hasAlpha) showStale('smartMoneyContent', 'Alpha 框架' + r.msg);
-                            }
+                        var resp = await fetch('/data/daily_flows.json?t=' + Date.now());
+                        if (resp.ok) {
+                            var data = await resp.json();
+                            var r = checkAge(data.generated_at);
+                            if (r.stale) showStale('dailyFlowsContent', '板塊資金流向 ' + r.msg);
                         }
                     } catch(e) {}
+                    return result;
                 };
             }
         })();
+
 
 </script>
 </body>
