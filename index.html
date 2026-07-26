@@ -1161,7 +1161,7 @@
             if (tab === 'bullish') loadSmartDirection('bullish');
             else if (tab === 'bearish') loadSmartDirection('bearish');
             else if (tab === 'signalmap') loadSignalMap();
-            else if (tab === 'alpha') loadAlphaFramework();
+            else if (tab === 'alpha') { loadAlphaFramework(); setTimeout(loadCyclicalBreakout, 500); }
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
