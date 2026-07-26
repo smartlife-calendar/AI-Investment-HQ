@@ -1,102 +1,403 @@
 {
-  "generated_at": "2026-06-22T07:31:36.126236+00:00",
-  "algorithm": "v5_momentum_fixed",
-  "signal_count": 6210,
-  "data_points": 17778,
-  "hold_5d": {
-    "all": {
-      "n": 5926,
-      "mean": 1.08,
-      "p50": 0.46,
-      "p75": 3.34,
-      "win_pos": 54.8,
-      "win_rate_5pct": 16.6,
-      "win_rate_pos": 54.8
+  "generated_at": "2026-07-26T10:01:39+08:00",
+  "signal_count": 4731,
+  "strategies": {
+    "conservative": {
+      "hold_5d": {
+        "n": 12,
+        "avg_return": 0.32,
+        "win_rate": 66.7,
+        "p50": 2.01,
+        "p75": 2.6,
+        "avg_win": 3.27,
+        "avg_loss": -5.59,
+        "best": 11.87,
+        "worst": -11.37
+      },
+      "hold_10d": {
+        "n": 11,
+        "avg_return": 1.25,
+        "win_rate": 63.6,
+        "p50": 2.35,
+        "p75": 6.03,
+        "avg_win": 5.9,
+        "avg_loss": -6.89,
+        "best": 12.49,
+        "worst": -17.73
+      },
+      "min_score": 8,
+      "min_phase": 2
     },
-    "strong": {
-      "n": 2072,
-      "mean": 1.24,
-      "p50": 0.65,
-      "p75": 3.16,
-      "win_pos": 57.2,
-      "win_rate_5pct": 14.5,
-      "win_rate_pos": 57.2
+    "moderate": {
+      "hold_5d": {
+        "n": 57,
+        "avg_return": 0.98,
+        "win_rate": 57.9,
+        "p50": 0.48,
+        "p75": 4.18,
+        "avg_win": 6.89,
+        "avg_loss": -7.14,
+        "best": 35.65,
+        "worst": -20.81
+      },
+      "hold_10d": {
+        "n": 56,
+        "avg_return": 5.14,
+        "win_rate": 69.6,
+        "p50": 4.23,
+        "p75": 12.02,
+        "avg_win": 11.86,
+        "avg_loss": -10.29,
+        "best": 57.54,
+        "worst": -26.95
+      },
+      "min_score": 7,
+      "min_phase": 2
     },
-    "medium": {
-      "n": 3854,
-      "mean": 0.99,
-      "p50": 0.31,
-      "p75": 3.46,
-      "win_pos": 53.5,
-      "win_rate_5pct": 17.7,
-      "win_rate_pos": 53.5
+    "aggressive": {
+      "hold_5d": {
+        "n": 57,
+        "avg_return": 0.98,
+        "win_rate": 57.9,
+        "p50": 0.48,
+        "p75": 4.18,
+        "avg_win": 6.89,
+        "avg_loss": -7.14,
+        "best": 35.65,
+        "worst": -20.81
+      },
+      "hold_10d": {
+        "n": 56,
+        "avg_return": 5.14,
+        "win_rate": 69.6,
+        "p50": 4.23,
+        "p75": 12.02,
+        "avg_win": 11.86,
+        "avg_loss": -10.29,
+        "best": 57.54,
+        "worst": -26.95
+      },
+      "min_score": 6,
+      "min_phase": 1
     }
   },
-  "hold_10d": {
-    "all": {
-      "n": 5926,
-      "mean": 2.09,
-      "p50": 0.91,
-      "p75": 5.47,
-      "win_pos": 55.9,
-      "win_rate_5pct": 26.7,
-      "win_rate_pos": 55.9
+  "performance_alerts": [
+    {
+      "level": "info",
+      "msg": "conservative: 近30天僅 0 筆交易，樣本不足"
     },
-    "strong": {
-      "n": 2072,
-      "mean": 2.53,
-      "p50": 1.41,
-      "p75": 5.11,
-      "win_pos": 61.0,
-      "win_rate_5pct": 25.5,
-      "win_rate_pos": 61.0
+    {
+      "level": "info",
+      "msg": "moderate: 近30天僅 0 筆交易，樣本不足"
+    }
+  ],
+  "alert_status": "ok",
+  "targets": {
+    "conservative": {
+      "min_avg_return": 1.0,
+      "min_win_rate": 40.0,
+      "max_avg_loss": -8.0,
+      "min_trades_30d": 3
     },
-    "medium": {
-      "n": 3854,
-      "mean": 1.86,
-      "p50": 0.53,
-      "p75": 5.72,
-      "win_pos": 53.2,
-      "win_rate_5pct": 27.4,
-      "win_rate_pos": 53.2
+    "moderate": {
+      "min_avg_return": 0.8,
+      "min_win_rate": 38.0,
+      "max_avg_loss": -6.0,
+      "min_trades_30d": 5
     }
   },
-  "hold_20d": {
-    "all": {
-      "n": 5926,
-      "mean": 3.25,
-      "p50": 1.14,
-      "p75": 8.29,
-      "win_pos": 55.5,
-      "win_rate_5pct": 35.5,
-      "win_rate_pos": 55.5
+  "cyclical_breakouts": [
+    {
+      "symbol": "CAT",
+      "sector": "Industrials",
+      "price": 888.73,
+      "fwd_pe": 29.2,
+      "trailing_pe": 44.2,
+      "normal_pe_range": "12-20",
+      "breakout_pe": 28,
+      "status": "breakout",
+      "breakout_confirmed": true,
+      "earnings_growth": 30.2,
+      "revenue_growth": 22.2,
+      "fwd_eps": 30.45379
     },
-    "strong": {
-      "n": 2072,
-      "mean": 3.14,
-      "p50": 1.95,
-      "p75": 7.52,
-      "win_pos": 59.0,
-      "win_rate_5pct": 35.0,
-      "win_rate_pos": 59.0
+    {
+      "symbol": "DE",
+      "sector": "Industrials",
+      "price": 628.16,
+      "fwd_pe": 27.6,
+      "trailing_pe": 35.6,
+      "normal_pe_range": "12-20",
+      "breakout_pe": 28,
+      "status": "expanding",
+      "breakout_confirmed": false,
+      "earnings_growth": -8.5,
+      "revenue_growth": -11.1,
+      "fwd_eps": 22.73272
     },
-    "medium": {
-      "n": 3854,
-      "mean": 3.31,
-      "p50": 0.7,
-      "p75": 9.02,
-      "win_pos": 53.5,
-      "win_rate_5pct": 35.7,
-      "win_rate_pos": 53.5
+    {
+      "symbol": "TXN",
+      "sector": "Semiconductors",
+      "price": 279.58,
+      "fwd_pe": 26.7,
+      "trailing_pe": 42.6,
+      "normal_pe_range": "15-25",
+      "breakout_pe": 32,
+      "status": "expanding",
+      "breakout_confirmed": false,
+      "earnings_growth": 51.8,
+      "revenue_growth": 22.8,
+      "fwd_eps": 10.47312
+    },
+    {
+      "symbol": "HON",
+      "sector": "Industrials",
+      "price": 243.15,
+      "fwd_pe": 24.7,
+      "trailing_pe": 9.3,
+      "normal_pe_range": "16-24",
+      "breakout_pe": 30,
+      "status": "expanding",
+      "breakout_confirmed": false,
+      "earnings_growth": 263.9,
+      "revenue_growth": 4.3,
+      "fwd_eps": 9.86279
+    },
+    {
+      "symbol": "NEM",
+      "sector": "Materials",
+      "price": 93.19,
+      "fwd_pe": 8.8,
+      "trailing_pe": 11.8,
+      "normal_pe_range": "10-20",
+      "breakout_pe": 28,
+      "status": "compressed",
+      "breakout_confirmed": false,
+      "earnings_growth": 11.4,
+      "revenue_growth": 15.1,
+      "fwd_eps": 10.57399
     }
-  },
-  "portfolio_sim": {
-    "positions": 20,
-    "hold_days": 20,
-    "avg_return": 3.32,
-    "median_return": 3.08,
-    "prob_profit": 84.0,
-    "annual_estimate": 51.0
-  },
-  "symbols_analyzed": 130
+  ],
+  "recent_trades_5d": [
+    {
+      "symbol": "ARQQ",
+      "entry_date": "2026-06-18",
+      "exit_date": "2026-06-23",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 24.38,
+      "exit_price": 29.04,
+      "return_pct": 19.11,
+      "hold_days": 5
+    },
+    {
+      "symbol": "BFLY",
+      "entry_date": "2026-06-18",
+      "exit_date": "2026-06-23",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 8.9,
+      "exit_price": 7.67,
+      "return_pct": -13.82,
+      "hold_days": 5
+    },
+    {
+      "symbol": "CHPT",
+      "entry_date": "2026-06-18",
+      "exit_date": "2026-06-23",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 8.31,
+      "exit_price": 6.79,
+      "return_pct": -18.29,
+      "hold_days": 5
+    },
+    {
+      "symbol": "MS",
+      "entry_date": "2026-06-18",
+      "exit_date": "2026-06-23",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 223.17,
+      "exit_price": 226.03,
+      "return_pct": 1.28,
+      "hold_days": 5
+    },
+    {
+      "symbol": "OKTA",
+      "entry_date": "2026-06-18",
+      "exit_date": "2026-06-23",
+      "score": 8,
+      "phase": 3,
+      "entry_price": 117.81,
+      "exit_price": 118.16,
+      "return_pct": 0.3,
+      "hold_days": 5
+    },
+    {
+      "symbol": "WMT",
+      "entry_date": "2026-06-15",
+      "exit_date": "2026-06-22",
+      "score": 8,
+      "phase": 3,
+      "entry_price": 120.82,
+      "exit_price": 117.18,
+      "return_pct": -3.01,
+      "hold_days": 7
+    },
+    {
+      "symbol": "XLK",
+      "entry_date": "2026-06-12",
+      "exit_date": "2026-06-17",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 184.8,
+      "exit_price": 185.58,
+      "return_pct": 0.42,
+      "hold_days": 5
+    },
+    {
+      "symbol": "PCAR",
+      "entry_date": "2026-06-11",
+      "exit_date": "2026-06-16",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 117.58,
+      "exit_price": 121.04,
+      "return_pct": 2.94,
+      "hold_days": 5
+    },
+    {
+      "symbol": "BAC",
+      "entry_date": "2026-06-08",
+      "exit_date": "2026-06-15",
+      "score": 8,
+      "phase": 2,
+      "entry_price": 53.63,
+      "exit_price": 55.87,
+      "return_pct": 4.18,
+      "hold_days": 7
+    },
+    {
+      "symbol": "GS",
+      "entry_date": "2026-06-08",
+      "exit_date": "2026-06-15",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 1045.0,
+      "exit_price": 1076.17,
+      "return_pct": 2.98,
+      "hold_days": 7
+    },
+    {
+      "symbol": "SOXX",
+      "entry_date": "2026-06-08",
+      "exit_date": "2026-06-15",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 571.45,
+      "exit_price": 628.45,
+      "return_pct": 9.97,
+      "hold_days": 7
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2026-06-05",
+      "exit_date": "2026-06-10",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 310.78,
+      "exit_price": 318.92,
+      "return_pct": 2.62,
+      "hold_days": 5
+    },
+    {
+      "symbol": "EDIT",
+      "entry_date": "2026-06-04",
+      "exit_date": "2026-06-09",
+      "score": 8,
+      "phase": 3,
+      "entry_price": 2.99,
+      "exit_price": 2.65,
+      "return_pct": -11.37,
+      "hold_days": 5
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2026-06-03",
+      "exit_date": "2026-06-08",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 312.97,
+      "exit_price": 309.71,
+      "return_pct": -1.04,
+      "hold_days": 5
+    },
+    {
+      "symbol": "SNPS",
+      "entry_date": "2026-06-02",
+      "exit_date": "2026-06-08",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 508.35,
+      "exit_price": 473.48,
+      "return_pct": -6.86,
+      "hold_days": 6
+    },
+    {
+      "symbol": "ABNB",
+      "entry_date": "2026-06-01",
+      "exit_date": "2026-06-08",
+      "score": 8,
+      "phase": 3,
+      "entry_price": 137.87,
+      "exit_price": 134.43,
+      "return_pct": -2.5,
+      "hold_days": 7
+    },
+    {
+      "symbol": "EDIT",
+      "entry_date": "2026-06-01",
+      "exit_date": "2026-06-08",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 3.34,
+      "exit_price": 2.64,
+      "return_pct": -20.81,
+      "hold_days": 7
+    },
+    {
+      "symbol": "S",
+      "entry_date": "2026-06-01",
+      "exit_date": "2026-06-08",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 17.81,
+      "exit_price": 15.75,
+      "return_pct": -11.57,
+      "hold_days": 7
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2026-05-28",
+      "exit_date": "2026-06-02",
+      "score": 7,
+      "phase": 3,
+      "entry_price": 321.21,
+      "exit_price": 309.2,
+      "return_pct": -3.74,
+      "hold_days": 5
+    },
+    {
+      "symbol": "SNOW",
+      "entry_date": "2026-05-28",
+      "exit_date": "2026-06-02",
+      "score": 7,
+      "phase": 2,
+      "entry_price": 239.2,
+      "exit_price": 261.14,
+      "return_pct": 9.17,
+      "hold_days": 5
+    }
+  ]
 }
