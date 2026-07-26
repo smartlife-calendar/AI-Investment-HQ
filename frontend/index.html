@@ -813,8 +813,8 @@
                 // Compute 4W performance from wow data
                 const wow4 = (s.wow || []).slice(-4);
                 const perf4w = wow4.length >= 2 ? wow4.reduce((sum, w) => sum + (w[2] || 0), 0).toFixed(1) : '0.0';
-                const recent4 = s.recent_4w !== null ? `近4週: ${s.recent_4w > 0 ? '+' : ''}${s.recent_4w}%` : '';
-                const prior4 = s.prior_4w !== null ? `前4週: ${s.prior_4w > 0 ? '+' : ''}${s.prior_4w}%` : '';
+                const _wow = s.wow || []; const _r4 = _wow.slice(-4).reduce((a,w)=>a+(w[2]||0),0); const _p4 = _wow.slice(-8,-4).reduce((a,w)=>a+(w[2]||0),0); const recent4 = _wow.length >= 4 ? `近4週: ${_r4 > 0 ? '+' : ''}${_r4.toFixed(1)}%` : '';
+                const prior4 = _wow.length >= 8 ? `前4週: ${_p4 > 0 ? '+' : ''}${_p4.toFixed(1)}%` : '';
 
                 html += `<div class="border rounded-lg ${color} overflow-hidden">
                     <div class="p-3 cursor-pointer flex items-center justify-between" onclick="toggleSector(${i})">
@@ -835,8 +835,8 @@
                     </div>
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
                         <div class="flex gap-4 mb-2 text-gray-600">
-                            <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
-                            <span>📊 前4W: ${s.prior_4w !== null && s.prior_4w !== undefined ? (s.prior_4w > 0 ? '+' : '') + s.prior_4w + '%' : '計算中'}</span>
+                            <span>💰 近4W: ${(function(){ var w=s.wow||[]; if(w.length<4) return '資料不足'; var v=w.slice(-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
+                            <span>📊 前4W: ${(function(){ var w=s.wow||[]; if(w.length<8) return '資料不足'; var v=w.slice(-8,-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
                             <span>📈 動能: ${s.momentum || 'N/A'}</span>
                         </div>
                         <table class="w-full text-xs border-collapse">
@@ -888,7 +888,7 @@
                             </div>
                             <div id="sector-${subIdx}" class="hidden px-3 pb-3 text-xs">
                                 <div class="flex gap-4 mb-2 text-gray-600">
-                                    <span>💰 近4W: ${s.recent_4w !== null && s.recent_4w !== undefined ? (s.recent_4w > 0 ? '+' : '') + s.recent_4w + '%' : '計算中'}</span>
+                                    <span>💰 近4W: ${(function(){ var w=s.wow||[]; if(w.length<4) return '資料不足'; var v=w.slice(-4).reduce(function(a,x){return a+(x[2]||0)},0); return (v>0?'+':'') + v.toFixed(1) + '%'; })()}</span>
                                     <span>📈 動能: ${s.momentum || 'N/A'}</span>
                                 </div>
                                 <table class="w-full text-xs border-collapse">
