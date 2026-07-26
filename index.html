@@ -3952,6 +3952,55 @@ async function loadSmartBacktest() {
                     }
                 } catch(e) { console.log('Inline backtest error:', e); }
                 
+                // ── Simulation Results ──
+                try {
+                    var simResp = await fetch('/data/simulation.json?t=' + Date.now());
+                    if (simResp.ok) {
+                        var sim = await simResp.json();
+                        var ec = sim.equity_curve || [];
+                        
+                        out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-top:16px">';
+                        out += '<div style="padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                        out += '<span style="font-weight:700;font-size:14px">📈 訊號系統模擬績效</span>';
+                        out += '<span style="float:right;font-size:11px;color:#94a3b8">' + (sim.period||'') + ' · $100K</span>';
+                        out += '</div>';
+                        
+                        var alphaC = (sim.alpha_pct||0) >= 0 ? '#16a34a' : '#dc2626';
+                        var retC = (sim.total_return_pct||0) >= 0 ? '#16a34a' : '#dc2626';
+                        out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:1px;background:#e2e8f0">';
+                        [{l:'總報酬',v:((sim.total_return_pct||0)>0?'+':'')+(sim.total_return_pct||0).toFixed(1)+'%',c:retC},{l:'SPY同期',v:((sim.spy_return_pct||0)>0?'+':'')+(sim.spy_return_pct||0).toFixed(1)+'%',c:'#64748b'},{l:'Alpha',v:((sim.alpha_pct||0)>0?'+':'')+(sim.alpha_pct||0).toFixed(1)+'%',c:alphaC},{l:'回撤',v:(sim.max_drawdown_pct||0).toFixed(1)+'%',c:'#dc2626'},{l:'勝率',v:(sim.win_rate||0).toFixed(0)+'%',c:'#3b82f6'},{l:'利潤因子',v:(sim.profit_factor||0).toFixed(1)+'x',c:'#8b5cf6'}].forEach(function(m){out+='<div style="background:white;padding:8px;text-align:center"><div style="font-size:9px;color:#94a3b8">'+m.l+'</div><div style="font-size:15px;font-weight:700;color:'+m.c+'">'+m.v+'</div></div>';});
+                        out += '</div>';
+                        
+                        if (ec.length > 3) {
+                            var W=560,H=140,P=45;
+                            var eVals=ec.map(function(e){return e.equity;});
+                            var mn=Math.min.apply(null,eVals)*0.998,mx=Math.max.apply(null,eVals)*1.002;
+                            function sX(i){return P+(i/(ec.length-1))*(W-P*2);}
+                            function sY(v){return 10+((mx-v)/(mx-mn))*(H-25);}
+                            out+='<div style="padding:6px 12px"><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;display:block">';
+                            var rcMap={STRONG_BULL:'rgba(34,197,94,0.08)',BULL:'rgba(34,197,94,0.05)',NEUTRAL:'rgba(234,179,8,0.05)',CAUTION:'rgba(249,115,22,0.08)',BEAR:'rgba(220,38,38,0.08)'};
+                            for(var ri=0;ri<ec.length-1;ri++){out+='<rect x="'+sX(ri)+'" y="0" width="'+(sX(ri+1)-sX(ri))+'" height="'+H+'" fill="'+(rcMap[ec[ri].regime]||'transparent')+'"/>';}
+                            out+='<line x1="'+P+'" y1="'+sY(100000)+'" x2="'+(W-P)+'" y2="'+sY(100000)+'" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="0.5"/>';
+                            var ld='M';ec.forEach(function(e,i){ld+=(i>0?' L':'')+sX(i)+','+sY(e.equity);});
+                            var le=ec[ec.length-1].equity,lc=le>=100000?'#16a34a':'#dc2626';
+                            out+='<path d="'+ld+' L'+sX(ec.length-1)+','+sY(100000)+' L'+sX(0)+','+sY(100000)+' Z" fill="'+lc+'10"/>';
+                            out+='<path d="'+ld+'" fill="none" stroke="'+lc+'" stroke-width="2"/>';
+                            out+='<text x="'+(sX(ec.length-1)+5)+'" y="'+(sY(le)+4)+'" fill="'+lc+'" font-size="10" font-weight="700">$'+(le/1000).toFixed(1)+'K</text>';
+                            [0,Math.floor(ec.length/3),Math.floor(ec.length*2/3),ec.length-1].forEach(function(i){if(i<ec.length)out+='<text x="'+sX(i)+'" y="'+(H-2)+'" text-anchor="middle" fill="#94a3b8" font-size="8">'+ec[i].date.slice(2,7)+'</text>';});
+                            out+='</svg>';
+                            out+='<div style="display:flex;gap:6px;justify-content:center;font-size:9px;color:#94a3b8;margin-top:2px"><span>🟢多頭</span><span>🟡中性</span><span>🟠警戒</span><span>🔴防守</span></div></div>';
+                        }
+                        
+                        var mr=sim.monthly_returns||{};var ms=Object.keys(mr).sort();
+                        if(ms.length>0){out+='<div style="padding:6px 16px 10px"><div style="font-size:11px;font-weight:600;margin-bottom:4px">月報酬</div><div style="display:flex;gap:3px;flex-wrap:wrap">';ms.forEach(function(m){var v=mr[m];var bg=v>=0?'#dcfce7':'#fee2e2';var tc=v>=0?'#16a34a':'#dc2626';out+='<div style="background:'+bg+';padding:3px 6px;border-radius:4px;text-align:center;min-width:48px"><div style="font-size:8px;color:#64748b">'+m.slice(5)+'月</div><div style="font-size:11px;font-weight:700;color:'+tc+'">'+(v>0?'+':'')+v.toFixed(1)+'%</div></div>';});out+='</div></div>';}
+                        
+                        var et=sim.exit_types||{};var ek=Object.keys(et);
+                        if(ek.length>0){var etL={STOP_LOSS:'🛑停損',TAKE_PROFIT_HALF:'💰停利',TRAILING_STOP:'📏移停',BEARISH_EXIT:'🔴空頭',CLOSE_EOD:'📦結算'};out+='<div style="padding:0 16px 10px"><div style="font-size:11px;font-weight:600;margin-bottom:4px">出場統計</div><div style="display:flex;gap:3px;flex-wrap:wrap">';ek.forEach(function(k){var e=et[k];var ac=(e.avg_return||0)>=0?'#16a34a':'#dc2626';out+='<div style="background:#f8fafc;padding:4px 6px;border-radius:4px;font-size:10px">'+(etL[k]||k)+' '+e.count+'筆 <span style="color:'+ac+';font-weight:600">'+(e.avg_return>0?'+':'')+e.avg_return.toFixed(1)+'%</span></div>';});out+='</div></div>';}
+                        
+                        out+='</div>';
+                    }
+                } catch(e) { console.log('Sim error:', e); }
+                
                 out += '<div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:12px">';
                 out += '⚠️ 以上訊號僅供參考，不構成投資建議 · ' + genDate;
                 out += '</div>';
