@@ -210,7 +210,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-fresh">
+    <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-bt">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- Market Index Ticker Bar -->
@@ -1453,96 +1453,138 @@
         }
 
 async function loadSmartBacktest() {
-            const content = document.getElementById('smartMoneyContent');
-            if (!content) return;
-            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:16px">⏳ 載入回測數據...</p>';
-            
+            var container = document.getElementById('smartMoneyContent');
+            if (!container) return;
             try {
-                // Load pre-computed backtest stats (no waiting!)
-                let bt = null;
-                const r = await fetch('/data/backtest.json?t=' + Date.now());
-                if (r.ok) bt = await r.json();
+                var resp = await fetch('/data/backtest.json?t=' + Date.now());
+                if (!resp.ok) throw new Error('backtest.json: ' + resp.status);
+                var data = await resp.json();
+                var out = '';
                 
-                if (!bt) {
-                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">回測資料準備中</p>';
-                    return;
+                // Header with date
+                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleString('zh-TW') : '未知';
+                out += '<div style="text-align:right;font-size:11px;color:#94a3b8;margin-bottom:8px">更新: ' + genDate + '</div>';
+                
+                // Performance alerts
+                if (data.performance_alerts && data.performance_alerts.length > 0) {
+                    out += '<div style="margin-bottom:16px">';
+                    data.performance_alerts.forEach(function(a) {
+                        var bg = a.level === 'critical' ? '#fef2f2' : a.level === 'warning' ? '#fef3c7' : '#eff6ff';
+                        var border = a.level === 'critical' ? '#dc2626' : a.level === 'warning' ? '#f59e0b' : '#3b82f6';
+                        out += '<div style="background:' + bg + ';border-left:3px solid ' + border + ';padding:10px 14px;border-radius:6px;margin-bottom:6px;font-size:13px">' + a.msg + '</div>';
+                    });
+                    out += '</div>';
                 }
                 
-                const updatedAt = new Date(bt.generated_at).toLocaleString('zh-TW');
-                
-                let out = '<div style="margin-bottom:16px">';
-                out += '<h3 style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:4px">📊 吸籌訊號績效回測</h3>';
-                out += '<p style="font-size:12px;color:#64748b">基於 ' + bt.signal_count + ' 筆歷史訊號 · ' + bt.symbols_analyzed + ' 支股票 · 更新：' + updatedAt + '</p>';
-                out += '</div>';
-                
-                // Win rate summary cards
-                out += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">';
-                const holds = [
-                    {key:'hold_5d', label:'持有 5 天', days:5},
-                    {key:'hold_10d', label:'持有 10 天', days:10},
-                    {key:'hold_20d', label:'持有 20 天', days:20},
-                ];
-                holds.forEach(h => {
-                    const s = bt[h.key]?.all || {};
-                    const wr = s.win_rate_5pct || 0;
-                    const med = s.p50 || 0;
-                    const p75 = s.p75 || 0;
-                    const color = wr > 30 ? '#15803d' : wr > 20 ? '#d97706' : '#64748b';
-                    out += '<div style="background:white;border-radius:10px;padding:14px;border:1px solid #e2e8f0;text-align:center">';
-                    out += '<div style="font-size:11px;color:#64748b;margin-bottom:6px">' + h.label + '</div>';
-                    out += '<div style="font-size:22px;font-weight:800;color:' + color + '">' + wr + '%</div>';
-                    out += '<div style="font-size:10px;color:#94a3b8">漲幅 >5% 勝率</div>';
-                    out += '<div style="font-size:12px;color:#475569;margin-top:6px">中位數 ' + (med>=0?'+':'') + med + '%</div>';
-                    out += '<div style="font-size:11px;color:#94a3b8">P75: ' + (p75>=0?'+':'') + p75 + '%</div>';
+                // Strategy comparison table
+                if (data.strategies) {
+                    out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                    out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                    out += '<span style="font-weight:700;font-size:14px">📊 策略績效比較 (5日持有)</span>';
                     out += '</div>';
-                });
-                out += '</div>';
-                
-                // Comparison table: strong vs medium
-                out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
-                out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
-                out += '<span style="font-weight:700;font-size:14px">強吸籌(7+分) vs 吸籌中(5-6分) 對比</span>';
-                out += '</div>';
-                out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">';
-                out += '<tr style="background:#f8fafc"><th style="padding:10px 12px;text-align:left;color:#64748b;font-weight:600">指標</th>';
-                ['5天後','10天後','20天後'].forEach(h => {
-                    out += '<th style="padding:10px 12px;text-align:center;color:#64748b;font-weight:600">' + h + '</th>';
-                });
-                out += '</tr>';
-                
-                const rows = [
-                    {label:'🔥 強吸籌 中位數', tier:'strong', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
-                    {label:'📈 吸籌中 中位數', tier:'medium', field:'p50', fmt: v => (v>=0?'+':'')+v+'%'},
-                    {label:'🔥 強吸籌 P75', tier:'strong', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
-                    {label:'📈 吸籌中 P75', tier:'medium', field:'p75', fmt: v => (v>=0?'+':'')+v+'%'},
-                    {label:'🔥 強吸籌 勝率>5%', tier:'strong', field:'win_rate_5pct', fmt: v => v+'%'},
-                    {label:'📈 吸籌中 勝率>5%', tier:'medium', field:'win_rate_5pct', fmt: v => v+'%'},
-                ];
-                rows.forEach((row, i) => {
-                    const bg = i % 2 === 0 ? 'white' : '#fafafa';
-                    out += '<tr style="background:' + bg + '">';
-                    out += '<td style="padding:9px 12px;color:#374151">' + row.label + '</td>';
-                    holds.forEach(h => {
-                        const val = bt[h.key]?.[row.tier]?.[row.field];
-                        const formatted = val !== undefined ? row.fmt(val) : '-';
-                        out += '<td style="padding:9px 12px;text-align:center;font-weight:600">' + formatted + '</td>';
+                    out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">';
+                    out += '<thead><tr style="background:#f1f5f9"><th style="padding:8px;text-align:left">策略</th><th style="padding:8px;text-align:right">交易數</th><th style="padding:8px;text-align:right">平均報酬</th><th style="padding:8px;text-align:right">勝率</th><th style="padding:8px;text-align:right">平均獲利</th><th style="padding:8px;text-align:right">平均虧損</th><th style="padding:8px;text-align:right">最佳</th><th style="padding:8px;text-align:right">最差</th></tr></thead><tbody>';
+                    
+                    var nameMap = {conservative: '🛡️ 保守 (8分+)', moderate: '⚖️ 穩健 (7分+)', aggressive: '🔥 積極 (6分+)'};
+                    ['conservative', 'moderate', 'aggressive'].forEach(function(key) {
+                        var s = data.strategies[key];
+                        if (!s) return;
+                        var d = s.hold_5d;
+                        var retColor = d.avg_return > 0 ? '#16a34a' : '#dc2626';
+                        out += '<tr style="border-bottom:1px solid #f1f5f9">';
+                        out += '<td style="padding:8px;font-weight:600">' + (nameMap[key]||key) + '</td>';
+                        out += '<td style="padding:8px;text-align:right">' + d.n + '</td>';
+                        out += '<td style="padding:8px;text-align:right;color:' + retColor + ';font-weight:700">' + (d.avg_return > 0 ? '+' : '') + d.avg_return.toFixed(2) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right">' + d.win_rate.toFixed(0) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#16a34a">' + (d.avg_win > 0 ? '+' : '') + d.avg_win.toFixed(2) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#dc2626">' + d.avg_loss.toFixed(2) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#16a34a">+' + d.best.toFixed(1) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#dc2626">' + d.worst.toFixed(1) + '%</td>';
+                        out += '</tr>';
                     });
-                    out += '</tr>';
-                });
-                out += '</table></div></div>';
+                    out += '</tbody></table></div></div>';
+                    
+                    // 10-day comparison
+                    out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                    out += '<div style="background:#f8fafc;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                    out += '<span style="font-weight:700;font-size:14px">📈 策略績效比較 (10日持有)</span>';
+                    out += '</div>';
+                    out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">';
+                    out += '<thead><tr style="background:#f1f5f9"><th style="padding:8px;text-align:left">策略</th><th style="padding:8px;text-align:right">交易數</th><th style="padding:8px;text-align:right">平均報酬</th><th style="padding:8px;text-align:right">勝率</th><th style="padding:8px;text-align:right">平均獲利</th><th style="padding:8px;text-align:right">平均虧損</th></tr></thead><tbody>';
+                    ['conservative', 'moderate', 'aggressive'].forEach(function(key) {
+                        var s = data.strategies[key];
+                        if (!s) return;
+                        var d = s.hold_10d;
+                        var retColor = d.avg_return > 0 ? '#16a34a' : '#dc2626';
+                        out += '<tr style="border-bottom:1px solid #f1f5f9">';
+                        out += '<td style="padding:8px;font-weight:600">' + (nameMap[key]||key) + '</td>';
+                        out += '<td style="padding:8px;text-align:right">' + d.n + '</td>';
+                        out += '<td style="padding:8px;text-align:right;color:' + retColor + ';font-weight:700">' + (d.avg_return > 0 ? '+' : '') + d.avg_return.toFixed(2) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right">' + d.win_rate.toFixed(0) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#16a34a">' + (d.avg_win > 0 ? '+' : '') + d.avg_win.toFixed(2) + '%</td>';
+                        out += '<td style="padding:8px;text-align:right;color:#dc2626">' + d.avg_loss.toFixed(2) + '%</td>';
+                        out += '</tr>';
+                    });
+                    out += '</tbody></table></div></div>';
+                }
                 
-                out += '<div style="background:#fffbeb;border-radius:10px;padding:12px 16px;border:1px solid #fde68a">';
-                out += '<p style="font-size:12px;color:#92400e;margin:0">⚠️ 回測結果基於歷史數據，不代表未來績效。市場條件、流動性、交易成本未納入計算。本數據僅供研究參考，不構成投資建議。</p>';
+                // Cyclical breakouts
+                if (data.cyclical_breakouts && data.cyclical_breakouts.length > 0) {
+                    out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                    out += '<div style="background:#fef3c7;padding:12px 16px;border-bottom:1px solid #e2e8f0">';
+                    out += '<span style="font-weight:700;font-size:14px">🔄 景氣循環股 PE 監控</span>';
+                    out += '<div style="font-size:11px;color:#92400e;margin-top:2px">偵測景氣循環股是否脫離循環 — PE 持續高於歷史區間可能代表結構性轉變</div>';
+                    out += '</div>';
+                    out += '<div style="padding:12px">';
+                    data.cyclical_breakouts.forEach(function(b) {
+                        var icon = b.breakout_confirmed ? "🚀" : b.status === "breakout" ? "📈" : b.status === "compressed" ? "📉" : "📊";
+                        var statusText = b.status === "breakout" ? "突破" : b.status === "expanding" ? "擴張中" : b.status === "compressed" ? "壓縮" : "正常";
+                        var statusColor = b.breakout_confirmed ? "#7c3aed" : b.status === "breakout" ? "#dc2626" : b.status === "compressed" ? "#16a34a" : "#f59e0b";
+                        var bg = b.breakout_confirmed ? "#f5f3ff" : "#fff";
+                        out += '<div style="background:' + bg + ';border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">';
+                        out += '<div><span style="font-weight:700;font-size:14px">' + icon + ' ' + b.symbol + '</span> <span style="color:#94a3b8;font-size:12px">' + b.sector + '</span></div>';
+                        out += '<div style="display:flex;gap:12px;font-size:12px;flex-wrap:wrap">';
+                        out += '<span>FwdPE: <strong style="color:' + statusColor + '">' + b.fwd_pe + 'x</strong></span>';
+                        out += '<span>正常: ' + b.normal_pe_range + 'x</span>';
+                        if (b.earnings_growth != null) out += '<span>EG: <strong>' + (b.earnings_growth > 0 ? "+" : "") + b.earnings_growth + '%</strong></span>';
+                        if (b.revenue_growth != null) out += '<span>RG: ' + (b.revenue_growth > 0 ? "+" : "") + b.revenue_growth + '%</span>';
+                        out += '<span style="background:' + statusColor + ';color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">' + statusText + (b.breakout_confirmed ? " ✓確認" : "") + '</span>';
+                        out += '</div></div>';
+                    });
+                    out += '</div></div>';
+                }
+                
+                // Recent trades
+                if (data.recent_trades_5d && data.recent_trades_5d.length > 0) {
+                    out += '<details style="margin-bottom:16px"><summary style="cursor:pointer;font-size:14px;font-weight:700;padding:12px 16px;background:white;border-radius:12px;border:1px solid #e2e8f0">📋 最近交易明細 (' + data.recent_trades_5d.length + '筆)</summary>';
+                    out += '<div style="background:white;border-radius:0 0 12px 12px;border:1px solid #e2e8f0;border-top:none;overflow-x:auto">';
+                    out += '<table style="width:100%;border-collapse:collapse;font-size:12px">';
+                    out += '<thead><tr style="background:#f1f5f9"><th style="padding:6px">代號</th><th style="padding:6px">進場</th><th style="padding:6px">出場</th><th style="padding:6px;text-align:right">報酬</th><th style="padding:6px">分數</th></tr></thead><tbody>';
+                    data.recent_trades_5d.forEach(function(t) {
+                        var color = t.return_pct > 0 ? '#16a34a' : '#dc2626';
+                        out += '<tr style="border-bottom:1px solid #f1f5f9">';
+                        out += '<td style="padding:6px;font-weight:600">' + t.symbol + '</td>';
+                        out += '<td style="padding:6px">' + t.entry_date.slice(5) + '</td>';
+                        out += '<td style="padding:6px">' + t.exit_date.slice(5) + '</td>';
+                        out += '<td style="padding:6px;text-align:right;color:' + color + ';font-weight:600">' + (t.return_pct > 0 ? '+' : '') + t.return_pct.toFixed(2) + '%</td>';
+                        out += '<td style="padding:6px;text-align:center">' + t.score + '</td>';
+                        out += '</tr>';
+                    });
+                    out += '</tbody></table></div></details>';
+                }
+                
+                // Performance targets reference
+                out += '<div style="font-size:11px;color:#94a3b8;padding:8px 12px;background:#f8fafc;border-radius:8px">';
+                out += '📌 績效門檻: 保守策略 — 報酬 ≥1.0%, 勝率 ≥40% | 穩健策略 — 報酬 ≥0.8%, 勝率 ≥38%<br>';
+                out += '🔄 景氣循環脫離判定: FwdPE > 歷史上限 + EPS成長 >20% + 營收成長 >10%';
                 out += '</div>';
                 
-                content.innerHTML = out;
+                container.innerHTML = out;
             } catch(e) {
-                content.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗：' + e.message + '</p>';
+                container.innerHTML = '<div style="background:#fef2f2;border:1px solid #dc2626;border-radius:8px;padding:16px;text-align:center;color:#dc2626">❌ 回測資料載入失敗: ' + e.message + '</div>';
             }
         }
-        
-        // OLD switchSmartTab removed
-        
+
         async function loadOptionsData() {
             const ticker = (document.getElementById('optionsTicker').value || '').toUpperCase().trim();
             if (!ticker) return;
@@ -3136,7 +3178,7 @@ async function loadSmartBacktest() {
             <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
             <p class="mt-1">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
             <p class="mt-1">客服：smartlifecalendar@gmail.com</p>
-            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-fresh</p>
+            <p class="mt-1 text-xs text-gray-300" id="siteVersion">v2026.07.26-bt</p>
         </footer>
 
 
