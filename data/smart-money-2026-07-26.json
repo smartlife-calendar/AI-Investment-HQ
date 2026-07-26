@@ -1,0 +1,26 @@
+{
+  "date": "2026-07-26",
+  "generated_at": "2026-07-26T09:48:54.133655+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "CLF",
+      "name": "Cleveland-Cliffs Inc.",
+      "price": 11.93,
+      "change_pct": 8.85,
+      "vol_ratio": 3.4,
+      "volume": 69852797,
+      "avg_volume": 20544940
+    },
+    {
+      "symbol": "FRMI",
+      "name": "Fermi Inc.",
+      "price": 7.4,
+      "change_pct": 17.09,
+      "vol_ratio": 2.1,
+      "volume": 38201154,
+      "avg_volume": 18191025
+    }
+  ]
+}
