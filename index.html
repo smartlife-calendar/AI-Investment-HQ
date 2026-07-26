@@ -3482,7 +3482,7 @@ async function loadSmartBacktest() {
             } catch(e) { console.log('Cyclical error:', e); }
         }
 
-        // ── Backtest Performance Chart (SVG) ──
+        // ── Backtest Performance Chart ──
         async function loadBacktestChart() {
             var container = document.getElementById('smartMoneyContent');
             if (!container) return;
@@ -3490,102 +3490,120 @@ async function loadSmartBacktest() {
                 var resp = await fetch('/data/backtest.json?t=' + Date.now());
                 if (!resp.ok) return;
                 var data = await resp.json();
+                var results = data.results || {};
+                var targets = data.targets || {};
+                var alerts = data.alerts || [];
                 
-                var trades = data.recent_trades_5d || [];
-                if (trades.length < 3) return;
-                
-                // Sort by entry date
-                trades.sort(function(a,b) { return a.entry_date.localeCompare(b.entry_date); });
-                
-                // Calculate cumulative return
-                var cumulative = [0];
-                trades.forEach(function(t) {
-                    cumulative.push(cumulative[cumulative.length-1] + (t.return_pct || 0));
-                });
-                
-                var W = 600, H = 200, PAD = 40;
-                var maxY = Math.max(Math.abs(Math.min.apply(null, cumulative)), Math.abs(Math.max.apply(null, cumulative)), 5);
-                maxY = Math.ceil(maxY / 5) * 5;
-                
-                function x(i) { return PAD + (i / (cumulative.length-1)) * (W - PAD*2); }
-                function y(v) { return PAD + ((maxY - v) / (maxY * 2)) * (H - PAD*2); }
+                // Build bar chart comparing periods
+                var periods = ['5d', '10d', '20d'];
+                var periodNames = {'5d': '5天', '10d': '10天', '20d': '20天'};
+                var W = 500, H = 220, PAD = 50, BPAD = 30;
                 
                 var out = '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin:16px 0">';
                 out += '<div style="padding:12px 16px;border-bottom:1px solid #e2e8f0">';
-                out += '<span style="font-weight:700;font-size:14px">📈 策略績效曲線（累計報酬%）</span>';
+                out += '<span style="font-weight:700;font-size:14px">📈 策略績效總覽</span>';
                 
-                // Status badge
-                var status = data.alert_status || 'ok';
-                var badgeColor = status === 'ok' ? '#16a34a' : '#dc2626';
-                var badgeText = status === 'ok' ? '✅ 達標' : '⚠️ 低於目標';
-                out += '<span style="float:right;background:' + badgeColor + '15;color:' + badgeColor + ';padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">' + badgeText + '</span>';
+                var status = data.status || 'ok';
+                var badgeColor = status === 'ok' ? '#16a34a' : '#eab308';
+                var badgeText = status === 'ok' ? '✅ 達標' : '⚠️ 需關注';
+                out += '<span style="float:right;background:' + badgeColor + '18;color:' + badgeColor + ';padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">' + badgeText + '</span>';
                 out += '</div>';
                 
-                out += '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block;padding:8px">';
+                // SVG chart
+                var maxVal = 5;
+                var minVal = -5;
+                periods.forEach(function(p) {
+                    var r = results[p] || {};
+                    if (r.avg_return > maxVal) maxVal = Math.ceil(r.avg_return + 2);
+                    if (r.avg_return < minVal) minVal = Math.floor(r.avg_return - 2);
+                    var t = targets[p] || {};
+                    if (t.avg_return > maxVal) maxVal = Math.ceil(t.avg_return + 2);
+                });
+                var range = maxVal - minVal;
+                
+                function yPos(v) { return PAD + ((maxVal - v) / range) * (H - PAD - BPAD); }
+                
+                out += '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:500px;display:block;margin:8px auto">';
                 
                 // Zero line
-                out += '<line x1="' + PAD + '" y1="' + y(0) + '" x2="' + (W-PAD) + '" y2="' + y(0) + '" stroke="#94a3b8" stroke-dasharray="4,4" />';
-                out += '<text x="' + (PAD-4) + '" y="' + (y(0)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">0%</text>';
-                out += '<text x="' + (PAD-4) + '" y="' + (y(maxY)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">+' + maxY + '%</text>';
-                out += '<text x="' + (PAD-4) + '" y="' + (y(-maxY)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">-' + maxY + '%</text>';
+                out += '<line x1="' + PAD + '" y1="' + yPos(0) + '" x2="' + (W-20) + '" y2="' + yPos(0) + '" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4" />';
+                out += '<text x="' + (PAD-4) + '" y="' + (yPos(0)+4) + '" text-anchor="end" fill="#94a3b8" font-size="10">0%</text>';
                 
-                // Area fill
-                var pathD = 'M' + x(0) + ',' + y(0);
-                cumulative.forEach(function(v, i) { pathD += ' L' + x(i) + ',' + y(v); });
-                pathD += ' L' + x(cumulative.length-1) + ',' + y(0) + ' Z';
-                var lastVal = cumulative[cumulative.length-1];
-                var areaColor = lastVal >= 0 ? 'rgba(34,197,94,0.15)' : 'rgba(220,38,38,0.15)';
-                out += '<path d="' + pathD + '" fill="' + areaColor + '" />';
+                // Y axis labels
+                for (var y = Math.ceil(minVal); y <= Math.floor(maxVal); y += 2) {
+                    if (y === 0) continue;
+                    out += '<text x="' + (PAD-4) + '" y="' + (yPos(y)+4) + '" text-anchor="end" fill="#cbd5e1" font-size="9">' + (y>0?'+':'') + y + '%</text>';
+                    out += '<line x1="' + PAD + '" y1="' + yPos(y) + '" x2="' + (W-20) + '" y2="' + yPos(y) + '" stroke="#f1f5f9" />';
+                }
                 
-                // Line
-                var lineD = 'M';
-                cumulative.forEach(function(v, i) {
-                    lineD += (i>0?' L':'') + x(i) + ',' + y(v);
+                var barW = 40;
+                var groupW = 130;
+                
+                periods.forEach(function(p, i) {
+                    var r = results[p] || {};
+                    var t = targets[p] || {};
+                    var cx = PAD + 40 + i * groupW;
+                    var avg = r.avg_return || 0;
+                    var tgt = t.avg_return || 0;
+                    var win = r.win_rate || 0;
+                    var n = r.n || 0;
+                    
+                    // Actual bar
+                    var barColor = avg >= tgt ? '#16a34a' : '#dc2626';
+                    var barTop = Math.min(yPos(avg), yPos(0));
+                    var barH = Math.abs(yPos(avg) - yPos(0));
+                    out += '<rect x="' + cx + '" y="' + barTop + '" width="' + barW + '" height="' + Math.max(barH, 2) + '" fill="' + barColor + '" rx="4" opacity="0.8" />';
+                    
+                    // Target line
+                    out += '<line x1="' + (cx-5) + '" y1="' + yPos(tgt) + '" x2="' + (cx+barW+5) + '" y2="' + yPos(tgt) + '" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3" />';
+                    
+                    // Value label
+                    var labelY = avg >= 0 ? yPos(avg) - 6 : yPos(avg) + 14;
+                    out += '<text x="' + (cx + barW/2) + '" y="' + labelY + '" text-anchor="middle" fill="' + barColor + '" font-size="12" font-weight="700">' + (avg>0?'+':'') + avg.toFixed(1) + '%</text>';
+                    
+                    // Period label + stats
+                    out += '<text x="' + (cx + barW/2) + '" y="' + (H - 12) + '" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">' + periodNames[p] + '</text>';
+                    out += '<text x="' + (cx + barW/2) + '" y="' + (H - 1) + '" text-anchor="middle" fill="#94a3b8" font-size="9">勝率' + win.toFixed(0) + '% · n=' + n + '</text>';
                 });
-                var lineColor = lastVal >= 0 ? '#16a34a' : '#dc2626';
-                out += '<path d="' + lineD + '" fill="none" stroke="' + lineColor + '" stroke-width="2" />';
                 
-                // Data points
-                trades.forEach(function(t, i) {
-                    var cx = x(i+1), cy = y(cumulative[i+1]);
-                    var dotColor = t.return_pct >= 0 ? '#16a34a' : '#dc2626';
-                    out += '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="' + dotColor + '" />';
-                    // Show symbol on hover via title
-                    out += '<title>' + t.symbol + ' ' + (t.return_pct>0?'+':'') + t.return_pct.toFixed(1) + '% (' + t.entry_date + ')</title>';
-                });
-                
-                // End value label
-                out += '<text x="' + (x(cumulative.length-1)+8) + '" y="' + (y(lastVal)+4) + '" fill="' + lineColor + '" font-size="12" font-weight="700">' + (lastVal>0?'+':'') + lastVal.toFixed(1) + '%</text>';
+                // Legend
+                out += '<rect x="' + (W-140) + '" y="8" width="10" height="10" fill="#16a34a" rx="2" />';
+                out += '<text x="' + (W-126) + '" y="17" fill="#64748b" font-size="10">實際報酬</text>';
+                out += '<line x1="' + (W-70) + '" y1="13" x2="' + (W-50) + '" y2="13" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3" />';
+                out += '<text x="' + (W-46) + '" y="17" fill="#64748b" font-size="10">目標</text>';
                 
                 out += '</svg>';
                 
-                // Strategy summary cards
-                var strats = data.strategies || {};
-                out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding:0 16px 12px">';
-                Object.entries(strats).forEach(function(entry) {
-                    var name = entry[0], s = entry[1];
-                    var h5 = s.hold_5d || {};
-                    var h10 = s.hold_10d || {};
-                    var nameZh = name === 'conservative' ? '保守' : name === 'moderate' ? '穩健' : '積極';
-                    var avgColor = (h5.avg_return||0) >= 0 ? '#16a34a' : '#dc2626';
-                    out += '<div style="background:#f8fafc;border-radius:8px;padding:10px;text-align:center">';
-                    out += '<div style="font-weight:600;font-size:13px">' + nameZh + '</div>';
-                    out += '<div style="font-size:11px;color:#64748b">score≥' + (s.min_score||'?') + ' phase≥' + (s.min_phase||'?') + '</div>';
-                    out += '<div style="font-size:18px;font-weight:700;color:' + avgColor + ';margin:4px 0">' + ((h5.avg_return||0)>0?'+':'') + (h5.avg_return||0).toFixed(1) + '%</div>';
-                    out += '<div style="font-size:11px;color:#64748b">5d avg · 勝率 ' + (h5.win_rate||0).toFixed(0) + '%</div>';
-                    if (h10.avg_return != null) out += '<div style="font-size:11px;color:#64748b">10d: ' + ((h10.avg_return||0)>0?'+':'') + (h10.avg_return||0).toFixed(1) + '% · ' + (h10.win_rate||0).toFixed(0) + '%</div>';
+                // Best & worst trades
+                out += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 12px">';
+                
+                var best5 = (results['5d'] || {}).best;
+                var worst5 = (results['5d'] || {}).worst;
+                if (best5) {
+                    out += '<div style="background:#f0fdf4;border-radius:8px;padding:10px">';
+                    out += '<div style="font-size:11px;color:#16a34a;font-weight:600">🏆 最佳 (5d)</div>';
+                    out += '<div style="font-weight:700">' + best5.symbol + ' +' + best5.return_pct.toFixed(1) + '%</div>';
+                    out += '<div style="font-size:10px;color:#64748b">' + best5.entry + ' · score=' + (best5.score||'?') + '</div>';
                     out += '</div>';
-                });
+                }
+                if (worst5) {
+                    out += '<div style="background:#fef2f2;border-radius:8px;padding:10px">';
+                    out += '<div style="font-size:11px;color:#dc2626;font-weight:600">💀 最差 (5d)</div>';
+                    out += '<div style="font-weight:700">' + worst5.symbol + ' ' + worst5.return_pct.toFixed(1) + '%</div>';
+                    out += '<div style="font-size:10px;color:#64748b">' + worst5.entry + ' · score=' + (worst5.score||'?') + '</div>';
+                    out += '</div>';
+                }
                 out += '</div>';
                 
-                // Performance alerts
-                var alerts = data.performance_alerts || [];
+                // Alerts
                 if (alerts.length > 0) {
                     out += '<div style="padding:0 16px 12px">';
                     alerts.forEach(function(a) {
-                        var bg = a.level === 'warning' ? '#fee2e2' : '#fef9c3';
-                        var icon = a.level === 'warning' ? '🚨' : 'ℹ️';
-                        out += '<div style="background:' + bg + ';padding:6px 10px;border-radius:6px;font-size:11px;margin-bottom:4px">' + icon + ' ' + a.msg + '</div>';
+                        var msg = typeof a === 'string' ? a : (a.msg || a.message || JSON.stringify(a));
+                        var isWarn = msg.indexOf('<') >= 0;
+                        var bg = isWarn ? '#fef9c3' : '#f0fdf4';
+                        var icon = isWarn ? '⚠️' : '✅';
+                        out += '<div style="background:' + bg + ';padding:6px 10px;border-radius:6px;font-size:11px;margin-bottom:4px">' + icon + ' ' + msg + '</div>';
                     });
                     out += '</div>';
                 }
@@ -3594,8 +3612,6 @@ async function loadSmartBacktest() {
                 container.insertAdjacentHTML('beforeend', out);
             } catch(e) { console.log('Backtest chart error:', e); }
         }
-
-
         // ── Weekly Report Link ──
         (function addWeeklyLink() {
             var el = document.getElementById('dailyArchiveSection');
