@@ -1,53 +1,21 @@
 {
-  "generated_at": "2026-07-20T08:13:31+08:00",
+  "generated_at": "2026-07-28T10:00:03+08:00",
   "events": [
-    {
-      "sym": "GOOGL",
-      "date": "2026-07-22",
-      "type": "earnings",
-      "note": "GOOGL Q財報 盤後",
-      "eps_forecast": "$2.86",
-      "market_cap": "$4,294,637,360,000"
-    },
-    {
-      "sym": "TSLA",
-      "date": "2026-07-22",
-      "type": "earnings",
-      "note": "TSLA Q財報 盤後",
-      "eps_forecast": "$0.31",
-      "market_cap": "$1,468,713,376,993"
-    },
-    {
-      "sym": "NOW",
-      "date": "2026-07-22",
-      "type": "earnings",
-      "note": "NOW Q財報 盤後",
-      "eps_forecast": "$0.40",
-      "market_cap": "$107,234,310,000"
-    },
-    {
-      "sym": "INTC",
-      "date": "2026-07-23",
-      "type": "earnings",
-      "note": "INTC Q財報 盤後",
-      "eps_forecast": "$0.10",
-      "market_cap": "$487,421,480,000"
-    },
     {
       "sym": "MSFT",
       "date": "2026-07-29",
       "type": "earnings",
       "note": "MSFT Q財報 盤後",
       "eps_forecast": "$4.21",
-      "market_cap": "$2,979,545,159,774"
+      "market_cap": "$2,835,433,526,517"
     },
     {
       "sym": "META",
       "date": "2026-07-29",
       "type": "earnings",
       "note": "META Q財報 盤後",
-      "eps_forecast": "$7.09",
-      "market_cap": "$1,686,883,822,440"
+      "eps_forecast": "$7.13",
+      "market_cap": "$1,510,844,166,308"
     },
     {
       "sym": "ARM",
@@ -55,7 +23,7 @@
       "type": "earnings",
       "note": "ARM Q財報 盤後",
       "eps_forecast": "$0.18",
-      "market_cap": "$278,793,116,577"
+      "market_cap": "$276,665,006,073"
     },
     {
       "sym": "QCOM",
@@ -63,7 +31,7 @@
       "type": "earnings",
       "note": "QCOM Q財報 盤後",
       "eps_forecast": "$1.54",
-      "market_cap": "$179,822,940,000"
+      "market_cap": "$175,986,380,000"
     },
     {
       "sym": "AAPL",
@@ -71,15 +39,15 @@
       "type": "earnings",
       "note": "AAPL Q財報 盤後",
       "eps_forecast": "$1.88",
-      "market_cap": "$4,894,708,260,560"
+      "market_cap": "$4,891,183,295,120"
     },
     {
       "sym": "AMZN",
       "date": "2026-07-30",
       "type": "earnings",
-      "note": "AMZN Q財報",
-      "eps_forecast": "$1.82",
-      "market_cap": "$2,688,094,076,962"
+      "note": "AMZN Q財報 盤後",
+      "eps_forecast": "$1.81",
+      "market_cap": "$2,496,832,671,190"
     },
     {
       "sym": "📌",
@@ -93,7 +61,7 @@
       "type": "earnings",
       "note": "PLTR Q財報 盤後",
       "eps_forecast": "$0.28",
-      "market_cap": "$322,294,622,188"
+      "market_cap": "$294,677,588,213"
     },
     {
       "sym": "AMD",
@@ -101,15 +69,7 @@
       "type": "earnings",
       "note": "AMD Q財報 盤後",
       "eps_forecast": "$1.35",
-      "market_cap": "$816,833,084,101"
-    },
-    {
-      "sym": "SMCI",
-      "date": "2026-08-04",
-      "type": "earnings",
-      "note": "SMCI Q財報",
-      "eps_forecast": "$0.59",
-      "market_cap": "$14,843,008,136"
+      "market_cap": "$851,092,003,526"
     },
     {
       "sym": "NET",
@@ -117,15 +77,23 @@
       "type": "earnings",
       "note": "NET Q財報 盤後",
       "eps_forecast": "($0.03)",
-      "market_cap": "$96,305,421,559"
+      "market_cap": "$92,661,184,253"
     },
     {
       "sym": "DDOG",
       "date": "2026-08-06",
       "type": "earnings",
-      "note": "DDOG Q財報",
+      "note": "DDOG Q財報 盤前",
       "eps_forecast": "$0.13",
-      "market_cap": "$93,375,476,778"
+      "market_cap": "$87,872,332,257"
+    },
+    {
+      "sym": "SMCI",
+      "date": "2026-08-11",
+      "type": "earnings",
+      "note": "SMCI Q財報 盤後",
+      "eps_forecast": "$0.56",
+      "market_cap": "$18,102,696,308"
     },
     {
       "sym": "PANW",
@@ -133,7 +101,7 @@
       "type": "earnings",
       "note": "PANW Q財報",
       "eps_forecast": "$0.51",
-      "market_cap": "$288,501,850,000"
+      "market_cap": "$263,888,850,000"
     },
     {
       "sym": "NVDA",
@@ -141,7 +109,7 @@
       "type": "earnings",
       "note": "NVDA Q財報",
       "eps_forecast": "$2.01",
-      "market_cap": "$5,019,080,000,000"
+      "market_cap": "$5,005,528,000,000"
     },
     {
       "sym": "CRWD",
@@ -149,7 +117,7 @@
       "type": "earnings",
       "note": "CRWD Q財報",
       "eps_forecast": "$0.05",
-      "market_cap": "$207,480,510,893"
+      "market_cap": "$186,626,560,838"
     },
     {
       "sym": "SNOW",
@@ -157,7 +125,7 @@
       "type": "earnings",
       "note": "SNOW Q財報",
       "eps_forecast": "($0.51)",
-      "market_cap": "$93,588,932,000"
+      "market_cap": "$92,909,596,000"
     },
     {
       "sym": "ZS",
@@ -165,7 +133,7 @@
       "type": "earnings",
       "note": "ZS Q財報",
       "eps_forecast": "$0.06",
-      "market_cap": "$23,679,125,746"
+      "market_cap": "$23,014,499,598"
     },
     {
       "sym": "CRM",
@@ -173,21 +141,37 @@
       "type": "earnings",
       "note": "CRM Q財報",
       "eps_forecast": "$2.35",
-      "market_cap": "$141,424,920,000"
+      "market_cap": "$134,037,540,000"
     },
     {
       "sym": "AVGO",
       "date": "2026-09-03",
       "type": "earnings",
       "note": "AVGO Q財報",
-      "eps_forecast": "$2.84",
-      "market_cap": "$1,781,475,905,141"
+      "eps_forecast": "$2.83",
+      "market_cap": "$1,817,015,029,220"
     },
     {
       "sym": "📌",
       "date": "2026-09-05",
       "type": "event",
       "note": "勞動節（休市）"
+    },
+    {
+      "sym": "ORCL",
+      "date": "2026-09-08",
+      "type": "earnings",
+      "note": "ORCL Q財報",
+      "eps_forecast": "$1.39",
+      "market_cap": "$331,225,360,290"
+    },
+    {
+      "sym": "ADBE",
+      "date": "2026-09-10",
+      "type": "earnings",
+      "note": "ADBE Q財報",
+      "eps_forecast": "$4.86",
+      "market_cap": "$89,481,225,000"
     },
     {
       "sym": "📌",
@@ -202,5 +186,5 @@
       "note": "四巫日（指數期貨/期權結算）"
     }
   ],
-  "earnings_count": 22
+  "earnings_count": 20
 }
