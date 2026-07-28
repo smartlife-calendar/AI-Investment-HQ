@@ -1,0 +1,26 @@
+{
+  "date": "2026-07-28",
+  "generated_at": "2026-07-28T10:03:01.227064+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "INFY",
+      "name": "Infosys Limited",
+      "price": 11.7,
+      "change_pct": 5.31,
+      "vol_ratio": 2.3,
+      "volume": 47792484,
+      "avg_volume": 20779340
+    },
+    {
+      "symbol": "JBLU",
+      "name": "JetBlue Airways Corporation",
+      "price": 5.43,
+      "change_pct": 3.04,
+      "vol_ratio": 2.1,
+      "volume": 58270638,
+      "avg_volume": 27747922
+    }
+  ]
+}
