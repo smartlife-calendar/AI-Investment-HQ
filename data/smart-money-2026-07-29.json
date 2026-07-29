@@ -1,0 +1,26 @@
+{
+  "date": "2026-07-29",
+  "generated_at": "2026-07-29T10:01:30.688651+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "JBLU",
+      "name": "JetBlue Airways Corporation",
+      "price": 6.0,
+      "change_pct": 10.5,
+      "vol_ratio": 2.9,
+      "volume": 85524503,
+      "avg_volume": 29491207
+    },
+    {
+      "symbol": "GLW",
+      "name": "Corning Incorporated",
+      "price": 126.01,
+      "change_pct": -12.1,
+      "vol_ratio": 2.9,
+      "volume": 44125982,
+      "avg_volume": 15215855
+    }
+  ]
+}
