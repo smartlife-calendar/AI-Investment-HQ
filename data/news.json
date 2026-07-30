@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-07-29T10:00:03+08:00",
+  "generated_at": "2026-07-30T10:00:02+08:00",
   "news": [
+    {
+      "title": "This ETF Just Undercut VTI on Fees. Should You Actually Switch?",
+      "url": "https://finance.yahoo.com/m/250910f6-4843-3cc0-b4aa-b85f994953ba/this-etf-just-undercut-vti-on.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1785329133
+    },
     {
       "title": "VUG vs. VTI: Which Vanguard ETF Is the Better Buy for Growth Stocks?",
       "url": "https://finance.yahoo.com/m/8e9b0f93-0255-3e65-b42f-4f88a35c2f0e/vug-vs.-vti%3A-which-vanguard.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/ed36bf39-220a-31f2-a589-897be30f2ae9/thank-asia-for-international.html",
       "publisher": "etf.com",
       "published": 1784769618
-    },
-    {
-      "title": "My 3 Favorite Vanguard ETFs to Buy Right Now",
-      "url": "https://finance.yahoo.com/m/69d4dd13-1fa3-3732-a741-4948e420abe0/my-3-favorite-vanguard-etfs.html",
-      "publisher": "Motley Fool",
-      "published": 1784753280
     }
   ]
 }

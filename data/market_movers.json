@@ -1,309 +1,316 @@
 {
-  "generated_at": "2026-07-29T10:00:03+08:00",
+  "generated_at": "2026-07-30T10:00:02+08:00",
   "gainers": [
     {
-      "symbol": "ITRI",
-      "name": "Itron, Inc.",
-      "price": 107.02,
-      "change_pct": 26.23,
-      "volume": 6379061,
+      "symbol": "HURN",
+      "name": "Huron Consulting Group Inc.",
+      "price": 170.37,
+      "change_pct": 40.37,
+      "volume": 1445822,
       "vr": ""
     },
     {
-      "symbol": "IOND",
-      "name": "Ionic Digital Inc. Class A Common Stock",
-      "price": 62.9,
-      "change_pct": 25.8,
-      "volume": 1561606,
+      "symbol": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "price": 204.02,
+      "change_pct": 21.32,
+      "volume": 2837843,
       "vr": ""
     },
     {
-      "symbol": "KNSA",
-      "name": "Kiniksa Pharmaceuticals Interna",
-      "price": 79.44,
-      "change_pct": 25.03,
-      "volume": 2838856,
+      "symbol": "LAD",
+      "name": "Lithia Motors, Inc.",
+      "price": 427.48,
+      "change_pct": 19.3,
+      "volume": 1640357,
       "vr": ""
     },
     {
-      "symbol": "LCID",
-      "name": "Lucid Group, Inc.",
-      "price": 7.9,
-      "change_pct": 21.54,
-      "volume": 39606602,
+      "symbol": "EXLS",
+      "name": "ExlService Holdings, Inc.",
+      "price": 35.99,
+      "change_pct": 17.88,
+      "volume": 7620699,
       "vr": ""
     },
     {
-      "symbol": "IQV",
-      "name": "IQVIA Holdings, Inc.",
-      "price": 242.94,
-      "change_pct": 13.94,
-      "volume": 4675230,
+      "symbol": "CBZ",
+      "name": "CBIZ, Inc.",
+      "price": 54.9,
+      "change_pct": 17.56,
+      "volume": 15117537,
       "vr": ""
     },
     {
-      "symbol": "RGEN",
-      "name": "Repligen Corporation",
-      "price": 145.34,
-      "change_pct": 10.9,
-      "volume": 2437089,
+      "symbol": "GRMN",
+      "name": "Garmin Ltd.",
+      "price": 294.83,
+      "change_pct": 16.23,
+      "volume": 3141680,
       "vr": ""
     },
     {
-      "symbol": "OSCR",
-      "name": "Oscar Health, Inc.",
-      "price": 31.4,
-      "change_pct": 10.8,
-      "volume": 6490463,
+      "symbol": "AVTR",
+      "name": "Avantor, Inc.",
+      "price": 14.38,
+      "change_pct": 15.78,
+      "volume": 39792379,
       "vr": ""
     },
     {
-      "symbol": "JBLU",
-      "name": "JetBlue Airways Corporation",
-      "price": 6.0,
-      "change_pct": 10.5,
-      "volume": 85524503,
+      "symbol": "EDU",
+      "name": "New Oriental Education & Techno",
+      "price": 58.58,
+      "change_pct": 15.34,
+      "volume": 1439152,
       "vr": ""
     },
     {
-      "symbol": "CLS",
-      "name": "Celestica, Inc.",
-      "price": 350.2,
-      "change_pct": 10.04,
-      "volume": 7523007,
+      "symbol": "CAKE",
+      "name": "The Cheesecake Factory Incorpor",
+      "price": 101.14,
+      "change_pct": 13.63,
+      "volume": 5376674,
       "vr": ""
     },
     {
-      "symbol": "FOUR",
-      "name": "Shift4 Payments, Inc.",
-      "price": 54.84,
-      "change_pct": 9.75,
-      "volume": 1878338,
+      "symbol": "GEHC",
+      "name": "GE HealthCare Technologies Inc.",
+      "price": 71.9,
+      "change_pct": 12.15,
+      "volume": 15217194,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "AMKR",
-      "name": "Amkor Technology, Inc.",
-      "price": 45.69,
-      "change_pct": -24.74,
-      "volume": 19983479,
+      "symbol": "PSN",
+      "name": "Parsons Corporation",
+      "price": 40.32,
+      "change_pct": -35.0,
+      "volume": 11669547,
       "vr": ""
     },
     {
-      "symbol": "CVLT",
-      "name": "Commvault Systems, Inc.",
-      "price": 120.02,
-      "change_pct": -19.7,
-      "volume": 2251260,
+      "symbol": "LMND",
+      "name": "Lemonade, Inc.",
+      "price": 47.38,
+      "change_pct": -23.72,
+      "volume": 6802341,
       "vr": ""
     },
     {
-      "symbol": "SANM",
-      "name": "Sanmina Corporation",
-      "price": 172.43,
-      "change_pct": -17.46,
-      "volume": 2035574,
+      "symbol": "LII",
+      "name": "Lennox International, Inc.",
+      "price": 430.02,
+      "change_pct": -20.97,
+      "volume": 1764765,
       "vr": ""
     },
     {
-      "symbol": "STRL",
-      "name": "Sterling Infrastructure, Inc.",
-      "price": 538.09,
-      "change_pct": -15.21,
-      "volume": 2755043,
+      "symbol": "FRVO",
+      "name": "Fervo Energy Company",
+      "price": 17.08,
+      "change_pct": -19.13,
+      "volume": 6842431,
       "vr": ""
     },
     {
-      "symbol": "SNDK",
-      "name": "Sandisk Corporation",
-      "price": 1096.1,
-      "change_pct": -14.25,
-      "volume": 25404136,
+      "symbol": "AAUC",
+      "name": "Allied Gold Corporation",
+      "price": 17.03,
+      "change_pct": -18.28,
+      "volume": 3068940,
       "vr": ""
     },
     {
-      "symbol": "MTRN",
-      "name": "Materion Corporation",
-      "price": 209.7,
-      "change_pct": -13.28,
-      "volume": 692915,
+      "symbol": "VFC",
+      "name": "V.F. Corporation",
+      "price": 15.08,
+      "change_pct": -17.37,
+      "volume": 27814721,
       "vr": ""
     },
     {
-      "symbol": "FRMI",
-      "name": "Fermi Inc.",
-      "price": 6.28,
-      "change_pct": -13.14,
-      "volume": 21876970,
+      "symbol": "PLBL",
+      "name": "Polibeli Group Ltd",
+      "price": 5.58,
+      "change_pct": -17.33,
+      "volume": 390833,
       "vr": ""
     },
     {
-      "symbol": "ICHR",
-      "name": "Ichor Holdings",
-      "price": 68.1,
-      "change_pct": -13.03,
-      "volume": 1474936,
+      "symbol": "VRT",
+      "name": "Vertiv Holdings, LLC",
+      "price": 223.04,
+      "change_pct": -17.26,
+      "volume": 21107703,
       "vr": ""
     },
     {
-      "symbol": "SKM",
-      "name": "SK Telecom Co., Ltd.",
-      "price": 30.73,
-      "change_pct": -12.8,
-      "volume": 3559592,
+      "symbol": "DBD",
+      "name": "Diebold Nixdorf Incorporated",
+      "price": 75.17,
+      "change_pct": -17.17,
+      "volume": 593858,
       "vr": ""
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp.",
-      "price": 59.21,
-      "change_pct": -12.45,
-      "volume": 2002342,
+      "symbol": "INIO",
+      "name": "INNIO N.V.",
+      "price": 21.77,
+      "change_pct": -16.97,
+      "volume": 7347985,
       "vr": ""
     }
   ],
   "most_active": [
     {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 15.25,
+      "change_pct": -8.9,
+      "volume": 190825010,
+      "vr": ""
+    },
+    {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 86.3,
-      "change_pct": -5.86,
-      "volume": 148828659,
+      "price": 81.88,
+      "change_pct": -5.12,
+      "volume": 146515373,
       "vr": ""
     },
     {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
-      "price": 197.01,
-      "change_pct": 0.25,
-      "volume": 125138253,
-      "vr": ""
-    },
-    {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 8.93,
-      "change_pct": -3.3,
-      "volume": 107823243,
-      "vr": ""
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 15.36,
-      "change_pct": 2.74,
-      "volume": 85985836,
-      "vr": ""
-    },
-    {
-      "symbol": "JBLU",
-      "name": "JetBlue Airways Corporation",
-      "price": 6.0,
-      "change_pct": 10.5,
-      "volume": 85524503,
-      "vr": ""
-    },
-    {
-      "symbol": "PLUG",
-      "name": "Plug Power, Inc.",
-      "price": 1.96,
-      "change_pct": -4.85,
-      "volume": 82651405,
-      "vr": ""
-    },
-    {
-      "symbol": "SOFI",
-      "name": "SoFi Technologies, Inc.",
-      "price": 16.74,
-      "change_pct": -0.83,
-      "volume": 80973236,
-      "vr": ""
-    },
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 116.41,
-      "change_pct": 2.56,
-      "volume": 80968276,
+      "price": 190.01,
+      "change_pct": -3.55,
+      "volume": 136609393,
       "vr": ""
     },
     {
       "symbol": "F",
       "name": "Ford Motor Company",
-      "price": 14.96,
-      "change_pct": 1.91,
-      "volume": 74031557,
+      "price": 15.28,
+      "change_pct": 2.14,
+      "volume": 97775130,
       "vr": ""
     },
     {
-      "symbol": "ONDS",
-      "name": "Ondas Inc",
-      "price": 7.86,
-      "change_pct": -2.0,
-      "volume": 61574729,
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 8.41,
+      "change_pct": -5.82,
+      "volume": 93509619,
       "vr": ""
     },
     {
-      "symbol": "AMC",
-      "name": "AMC Entertainment Holdings, Inc",
-      "price": 2.67,
-      "change_pct": 6.37,
-      "volume": 61823883,
-      "vr": ""
-    },
-    {
-      "symbol": "MARA",
-      "name": "MARA Holdings, Inc.",
-      "price": 11.38,
-      "change_pct": -3.31,
-      "volume": 61773115,
-      "vr": ""
-    },
-    {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 14.68,
-      "change_pct": 1.03,
-      "volume": 59169581,
-      "vr": ""
-    },
-    {
-      "symbol": "MU",
-      "name": "Micron Technology, Inc.",
-      "price": 820.53,
-      "change_pct": -8.85,
-      "volume": 58476265,
+      "symbol": "JBLU",
+      "name": "JetBlue Airways Corporation",
+      "price": 5.72,
+      "change_pct": -4.67,
+      "volume": 89253024,
       "vr": ""
     },
     {
       "symbol": "T",
       "name": "AT&T Inc.",
-      "price": 24.66,
-      "change_pct": 0.98,
-      "volume": 50553014,
+      "price": 23.94,
+      "change_pct": -2.92,
+      "volume": 68646338,
+      "vr": ""
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 29.31,
+      "change_pct": -13.62,
+      "volume": 69575723,
+      "vr": ""
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix Inc.",
+      "price": 126.79,
+      "change_pct": -2.6,
+      "volume": 64325800,
+      "vr": ""
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology, Inc.",
+      "price": 739.0,
+      "change_pct": -9.94,
+      "volume": 67355489,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 14.84,
+      "change_pct": -3.39,
+      "volume": 64626602,
+      "vr": ""
+    },
+    {
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 1.9,
+      "change_pct": -3.06,
+      "volume": 60495071,
+      "vr": ""
+    },
+    {
+      "symbol": "PATH",
+      "name": "UiPath, Inc.",
+      "price": 12.59,
+      "change_pct": 3.28,
+      "volume": 60630317,
+      "vr": ""
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.35,
+      "change_pct": -2.9,
+      "volume": 62396116,
+      "vr": ""
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 6.8,
+      "change_pct": -13.49,
+      "volume": 57968263,
       "vr": ""
     }
   ],
-  "strong_buy": [
+  "strong_buy": [],
+  "strong_sell": [
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 15.25,
+      "change_pct": -8.9,
+      "volume": 190825010,
+      "vr": 2.4
+    },
     {
       "symbol": "JBLU",
       "name": "JetBlue Airways Corporation",
-      "price": 6.0,
-      "change_pct": 10.5,
-      "volume": 85524503,
+      "price": 5.72,
+      "change_pct": -4.67,
+      "volume": 89253024,
       "vr": 2.9
-    }
-  ],
-  "strong_sell": [
+    },
     {
-      "symbol": "GLW",
-      "name": "Corning Incorporated",
-      "price": 126.01,
-      "change_pct": -12.1,
-      "volume": 44125982,
-      "vr": 2.9
+      "symbol": "SOUN",
+      "name": "SoundHound AI, Inc.",
+      "price": 5.7,
+      "change_pct": -8.65,
+      "volume": 46327436,
+      "vr": 1.5
     }
   ]
 }
