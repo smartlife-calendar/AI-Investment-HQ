@@ -1,0 +1,26 @@
+{
+  "date": "2026-07-30",
+  "generated_at": "2026-07-30T10:01:32.513394+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "JBLU",
+      "name": "JetBlue Airways Corporation",
+      "price": 5.72,
+      "change_pct": -4.67,
+      "vol_ratio": 2.9,
+      "volume": 89253024,
+      "avg_volume": 30776904
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 15.25,
+      "change_pct": -8.9,
+      "vol_ratio": 2.4,
+      "volume": 190825010,
+      "avg_volume": 79510420
+    }
+  ]
+}
