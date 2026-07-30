@@ -3788,7 +3788,7 @@ async function loadSmartBacktest() {
                 var market = data.market_regime || {};
                 var signals = data.signals || [];
                 var rules = data.trading_rules || {};
-                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleDateString('zh-TW') : '';
+                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
                 
                 var out = '';
                 
@@ -3803,6 +3803,7 @@ async function loadSmartBacktest() {
                 out += '<div>';
                 out += '<div style="font-size:20px;font-weight:700;color:' + rc + '">' + (market.regime_zh || market.regime) + '</div>';
                 out += '<div style="font-size:13px;color:#475569;margin-top:4px">' + (market.action_note || '') + '</div>';
+                        out += '<div style="font-size:11px;color:#94a3b8;margin-top:4px">📅 更新時間: ' + genDate + ' · 每交易日 10:00 (台灣時間) 自動更新</div>';
                 out += '</div>';
                 out += '<div style="text-align:right;font-size:12px;color:#64748b">';
                 out += 'SPY $' + (market.spy_price || '?') + ' ';
