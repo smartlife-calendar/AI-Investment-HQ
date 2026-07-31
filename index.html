@@ -1550,7 +1550,9 @@ async function loadSmartBacktest() {
                         if (b.earnings_growth != null) out += '<span>EG: <strong>' + (b.earnings_growth > 0 ? "+" : "") + b.earnings_growth + '%</strong></span>';
                         if (b.revenue_growth != null) out += '<span>RG: ' + (b.revenue_growth > 0 ? "+" : "") + b.revenue_growth + '%</span>';
                         out += '<span style="background:' + statusColor + ';color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">' + statusText + (b.breakout_confirmed ? " ✓確認" : "") + '</span>';
-                        out += '</div></div>';
+                        out += '</div>';
+                        if (g.collapse) out += '</details>';
+                        out += '</div>';
                     });
                     out += '</div></div>';
                 }
@@ -3826,12 +3828,26 @@ async function loadSmartBacktest() {
                 if (signals.length === 0) {
                     out += '<div style="text-align:center;padding:30px;color:#94a3b8">目前無操作訊號</div>';
                 } else {
+                    // Summary counts
+                    var actionCounts = {};
+                    signals.forEach(function(s) { actionCounts[s.action] = (actionCounts[s.action]||0) + 1; });
+                    out += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;font-size:11px">';
+                    var countLabels = {SELL:'🔴賣',BUY:'🟢買',SCALE_IN:'🟡分批',WAIT:'⏳等待',WATCH:'👀觀望',REDUCE:'🟠減碼',AVOID:'⛔迴避',MONITOR:'📋追蹤',NEUTRAL:'⚪中性',HOLD:'📦持倉',STOP_LOSS:'🚨停損',TAKE_PROFIT:'💰停利'};
+                    ['STOP_LOSS','SELL','BUY','SCALE_IN','WAIT','WATCH','REDUCE','AVOID','MONITOR','NEUTRAL'].forEach(function(a) {
+                        if (actionCounts[a]) out += '<span style="background:#f1f5f9;padding:2px 8px;border-radius:10px">' + (countLabels[a]||a) + ' ' + actionCounts[a] + '</span>';
+                    });
+                    out += '<span style="color:#94a3b8">· 共 ' + signals.length + ' 支</span></div>';
+                    
                     // Group by action type
                     var groups = [
-                        { key: 'urgent', label: '🚨 緊急操作', actions: ['STOP_LOSS', 'SELL', 'TAKE_PROFIT'], color: '#dc2626' },
-                        { key: 'buy', label: '🟢 買入訊號', actions: ['BUY', 'SCALE_IN'], color: '#16a34a' },
-                        { key: 'hold', label: '📦 持倉管理', actions: ['HOLD'], color: '#3b82f6' },
-                        { key: 'wait', label: '⏳ 等待進場', actions: ['WAIT', 'WATCH'], color: '#94a3b8' },
+                        { key: 'urgent', label: '🚨 緊急操作', actions: ['STOP_LOSS', 'SELL', 'TAKE_PROFIT'], color: '#dc2626', collapse: false },
+                        { key: 'buy', label: '🟢 買入訊號', actions: ['BUY', 'SCALE_IN'], color: '#16a34a', collapse: false },
+                        { key: 'hold', label: '📦 持倉管理', actions: ['HOLD'], color: '#3b82f6', collapse: false },
+                        { key: 'wait', label: '⏳ 等待進場', actions: ['WAIT'], color: '#f59e0b', collapse: false },
+                        { key: 'watch', label: '👀 觀望', actions: ['WATCH'], color: '#8b5cf6', collapse: true },
+                        { key: 'avoid', label: '⛔ 迴避 / 🟠 減碼', actions: ['AVOID', 'REDUCE'], color: '#f97316', collapse: true },
+                        { key: 'monitor', label: '📋 追蹤中', actions: ['MONITOR'], color: '#64748b', collapse: true },
+                        { key: 'neutral', label: '⚪ 中性（無明顯訊號）', actions: ['NEUTRAL'], color: '#94a3b8', collapse: true },
                     ];
                     
                     groups.forEach(function(g) {
@@ -3839,7 +3855,11 @@ async function loadSmartBacktest() {
                         if (items.length === 0) return;
                         
                         out += '<div style="margin-bottom:16px">';
-                        out += '<div style="font-weight:700;font-size:14px;color:' + g.color + ';margin-bottom:8px;padding-left:4px">' + g.label + ' (' + items.length + ')</div>';
+                        if (g.collapse) {
+                            out += '<details><summary style="cursor:pointer;font-weight:700;font-size:14px;color:' + g.color + ';margin-bottom:8px;padding-left:4px;list-style:none;display:flex;justify-content:space-between">' + g.label + ' (' + items.length + ') <span style="font-size:12px;color:#94a3b8">▸ 展開</span></summary>';
+                        } else {
+                            out += '<div style="font-weight:700;font-size:14px;color:' + g.color + ';margin-bottom:8px;padding-left:4px">' + g.label + ' (' + items.length + ')</div>';
+                        }
                         out += '<div style="display:grid;gap:8px">';
                         
                         items.forEach(function(s) {
