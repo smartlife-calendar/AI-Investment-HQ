@@ -1,0 +1,17 @@
+{
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31T10:01:24.614919+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "price": 451.1,
+      "change_pct": 15.51,
+      "vol_ratio": 2.8,
+      "volume": 109342280,
+      "avg_volume": 39050814
+    }
+  ]
+}
