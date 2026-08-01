@@ -129,6 +129,20 @@ function stockCard(s,color){
   var ml=mf?(mf>0?'<span style="color:#16a34a">月+</span>':'<span style="color:#dc2626">月-</span>'):'';
   h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl+'</div>';
   if(wl||ml)h+='<div style="font-size:10px;color:#94a3b8">趨勢: '+wl+(wl&&ml?' ':'')+ml+(tr.wf?' 周外資'+(tr.wf>0?'+':'')+((tr.wf||0)/1000).toFixed(0)+'K':'')+'</div>';
+  var fpct=s.foreign_pct,ipct=(s.yahoo||{}).inst_pct;
+  if(fpct||ipct){
+    var fi=fpct||0,ii=(ipct?ipct*100:0),re=Math.max(0,100-Math.max(fi,ii));
+    h+='<div style="font-size:10px;margin-top:2px">';
+    if(fpct)h+='外資<b>'+fi.toFixed(1)+'%</b> ';
+    if(ipct)h+='法人<b>'+ii.toFixed(0)+'%</b> 散戶<b>'+re.toFixed(0)+'%</b>';
+    h+='</div>';
+    h+='<div style="display:flex;height:4px;border-radius:2px;overflow:hidden;margin-top:2px">';
+    if(fpct)h+='<div style="width:'+fi+'%;background:#dc2626" title="外資'+fi.toFixed(1)+'%"></div>';
+    var other_inst=Math.max(0,ii-fi);
+    if(other_inst>0)h+='<div style="width:'+other_inst+'%;background:#7c3aed" title="其他法人'+other_inst.toFixed(0)+'%"></div>';
+    h+='<div style="width:'+re+'%;background:#e2e8f0" title="散戶'+re.toFixed(0)+'%"></div>';
+    h+='</div>';
+  }
   // Price levels
   if(pl.entry)h+='<div style="font-size:10px;margin-top:2px">📍$'+pl.entry+' 🔴$'+pl.stop_loss+' 🎯$'+pl.target1+' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b></div>';
   h+='</div>';
