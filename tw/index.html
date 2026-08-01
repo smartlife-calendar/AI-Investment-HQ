@@ -205,13 +205,20 @@ function rSignals(){
     var items=sigs.filter(function(s){return s.action===g.k});
     if(!items.length)return;
     o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:'+g.c+'">'+g.l+' ('+items.length+')</summary>'+
-    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>分數</th></tr>'+
-    items.slice(0,30).map(function(s){
-      return '<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:700">'+s.code+'</td><td style="padding:3px">'+s.name.substring(0,4)+'</td><td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td><td style="padding:3px;color:'+g.c+';font-weight:700">'+(s.score>0?'+':'')+s.score+'</td></tr>'
+    items.slice(0,20).map(function(s){
+      var reasons=(s.reasons||[]).join(' · ');
+      return '<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:11px">'+
+        '<div><b>'+s.code+'</b> '+s.name.substring(0,4)+
+        (reasons?'<div style="font-size:10px;color:#94a3b8;margin-top:1px">'+reasons+'</div>':'')+
+        '</div>'+
+        '<div style="text-align:right;white-space:nowrap;margin-left:8px"><div>$'+(s.price||0).toLocaleString()+'</div>'+
+        '<div style="color:'+g.c+';font-weight:700">'+(s.score>0?'+':'')+s.score+'</div></div></div>';
     }).join('')+
-    (items.length>30?'<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:4px">...還有'+(items.length-30)+'支</td></tr>':'')+
-    '</table></div></details>';
+    (items.length>20?'<details style="margin-top:4px"><summary style="cursor:pointer;text-align:center;color:'+g.c+';font-size:11px;font-weight:700;padding:6px;background:#f8fafc;border-radius:8px;list-style:none">展開更多 ('+(items.length-20)+'支) ▼</summary>'+
+    items.slice(20).map(function(s){
+      var reasons=(s.reasons||[]).join(' · ');
+      return '<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:3px 0;border-bottom:1px solid #f1f5f9;font-size:11px"><div><b>'+s.code+'</b> '+s.name.substring(0,4)+(reasons?'<div style="font-size:10px;color:#94a3b8">'+reasons+'</div>':'')+'</div><div style="text-align:right;white-space:nowrap;margin-left:8px"><div>$'+(s.price||0).toLocaleString()+'</div><div style="color:'+g.c+';font-weight:700">'+(s.score>0?'+':'')+s.score+'</div></div></div>';
+    }).join('')+'</details>':'')+'</details>';
   });
   return o;
 }
@@ -258,12 +265,50 @@ function rIndustry(){
 }
 
 function rSignalMap(){
-  if(!D||!D.signal_map_svg)return card('<p style="color:#94a3b8;text-align:center">無散點圖資料</p>');
-  return card('<div style="font-size:14px;font-weight:700;margin-bottom:8px">📊 Signal Map — 法人動向 vs 評分</div>'+
-  '<div style="font-size:11px;color:#64748b;margin-bottom:8px">X軸: 法人買賣超(千股) · Y軸: 綜合評分 · 右上角=最佳機會</div>'+
-  '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:10px">'+
-  '<span style="color:#16a34a">● 買入</span> <span style="color:#7c3aed">● 觀望</span> <span style="color:#94a3b8">● 中性</span> <span style="color:#f59e0b">● 減碼</span> <span style="color:#dc2626">● 迴避</span></div>'+
-  D.signal_map_svg);
+  if(!D||!D.signals)return card('<p style="color:#94a3b8;text-align:center">無資料</p>');
+  var sigs=D.signals||[];
+  var q1=[],q2=[],q3=[],q4=[];
+  sigs.forEach(function(s){
+    var inst=s.institutional||{};
+    var flow=(inst.foreign_net||0)+(inst.trust_net||0);
+    if(flow>0&&s.score>0)q1.push(s);
+    else if(flow<=0&&s.score>0)q2.push(s);
+    else if(flow>0&&s.score<=0)q4.push(s);
+    else q3.push(s);
+  });
+  q1.sort(function(a,b){return b.score-a.score});
+  q2.sort(function(a,b){return b.score-a.score});
+  q3.sort(function(a,b){return a.score-b.score});
+  q4.sort(function(a,b){return a.score-b.score});
+  function qList(items,n,color){
+    var h=items.slice(0,n).map(function(s){
+      var inst=s.institutional||{};
+      var flow=((inst.foreign_net||0)+(inst.trust_net||0))/1000;
+      var reasons=(s.reasons||[]).slice(0,2).join(' ');
+      return '<div style="padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px">'+
+        '<div style="display:flex;justify-content:space-between"><span><b>'+s.code+'</b> '+s.name.substring(0,4)+'</span>'+
+        '<span style="color:'+color+';font-weight:700">'+(s.score>0?'+':'')+s.score+'</span></div>'+
+        (reasons?'<div style="font-size:10px;color:#64748b;margin-top:1px">'+reasons+'</div>':'')+
+        '</div>';
+    }).join('');
+    if(items.length>n)h+='<details style="margin-top:2px"><summary style="cursor:pointer;text-align:center;color:#64748b;font-size:10px;list-style:none;padding:4px">展開更多 ('+(items.length-n)+'支) ▼</summary>'+
+      items.slice(n).map(function(s){
+        var reasons=(s.reasons||[]).slice(0,2).join(' ');
+        return '<div style="padding:2px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:11px"><div style="display:flex;justify-content:space-between"><span><b>'+s.code+'</b> '+s.name.substring(0,4)+'</span><span style="color:'+color+'">'+(s.score>0?'+':'')+s.score+'</span></div>'+(reasons?'<div style="font-size:10px;color:#64748b">'+reasons+'</div>':'')+'</div>';
+      }).join('')+'</details>';
+    return h;
+  }
+  var o='';
+  o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:8px">📊 Signal Map — 法人動向 vs 評分</div>'+
+  '<div style="font-size:11px;color:#64748b;margin-bottom:8px">X軸: 法人買賣超 · Y軸: 綜合評分 · 右上=最佳 · 左下=最危</div>'+
+  (D.signal_map_svg||''));
+  o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:10px">📋 象限清單</div>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+  '<div style="background:#f0fdf4;border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#16a34a;margin-bottom:6px">🟢 法人買+高分 ('+q1.length+')</div>'+qList(q1,15,'#16a34a')+'</div>'+
+  '<div style="background:#fefce8;border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#f59e0b;margin-bottom:6px">⚠️ 法人賣+高分 ('+q2.length+')</div>'+qList(q2,15,'#f59e0b')+'</div>'+
+  '<div style="background:#fef2f2;border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:6px">🔴 法人賣+低分 ('+q3.length+')</div>'+qList(q3,15,'#dc2626')+'</div>'+
+  '<div style="background:#eff6ff;border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:6px">👀 法人買+低分 ('+q4.length+')</div>'+qList(q4,15,'#7c3aed')+'</div></div>');
+  return o;
 }
 
 function rAccum(){
@@ -315,7 +360,7 @@ function rNews(){
     o+=card('<div style="font-size:14px;font-weight:700;color:'+cat.c+';margin-bottom:4px">'+cat.icon+' '+cat.k+' ('+items.length+')</div>'+
     items.map(function(n){
       return '<div style="padding:4px 0;border-bottom:1px solid #f1f5f9">'+
-        '<a href="'+(n.url||'#')+'" target="_blank" style="color:#1e293b;text-decoration:none;font-size:12px;font-weight:600">'+n.title+'</a>'+
+        '<a href="'+(n.url||'#')+'" target="_blank" style="color:#1e293b;text-decoration:none;font-size:12px;font-weight:600;word-break:break-word;overflow-wrap:break-word;display:block">'+n.title+'</a>'+
         '<div style="font-size:10px;color:#94a3b8">'+(n.source||'')+'</div></div>'
     }).join(''));
   });
