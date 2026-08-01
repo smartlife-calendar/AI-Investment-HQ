@@ -1380,20 +1380,50 @@
         async function loadSignalMap() {
             var content = document.getElementById('smartMoneyContent');
             if (!content) return;
-            var ts = new Date().getTime();
-            var dateStr = '';
+            var ts = Date.now();
+            var dateStr = '', stocks = [];
             try {
                 var r = await fetch('/data/accumulation.json?t=' + ts);
                 if (r.ok) {
                     var d = await r.json();
                     if (d.generated_at) dateStr = new Date(d.generated_at).toLocaleDateString('zh-TW', {year:'numeric',month:'2-digit',day:'2-digit'});
+                    stocks = d.stocks || [];
                 }
             } catch(e) {}
-            content.innerHTML = '<div style="text-align:center;padding:16px">'
-                + '<h3 style="color:#e2e8f0;margin:0 0 12px;font-size:16px">📊 Signal Map' + (dateStr ? ' — ' + dateStr : '') + '</h3>'
-                + '<p style="color:#94a3b8;font-size:12px;margin:0 0 16px">X=訊號分數 | Y=月漲跌% | 顏色=Phase階段 | 大小=連續天數</p>'
-                + '<img src="/data/signal_map.png?' + ts + '" style="max-width:100%;border-radius:12px;border:1px solid #334155" alt="Signal Map">'
-                + '</div>';
+            var q1=[],q2=[],q3=[],q4=[];
+            stocks.forEach(function(s) {
+                var sc = s.score || 0, chg = s.change_1m || 0;
+                if (sc > 3 && chg > 0) q1.push(s);
+                else if (sc > 3 && chg <= 0) q2.push(s);
+                else if (sc <= 3 && chg > 0) q4.push(s);
+                else q3.push(s);
+            });
+            q1.sort(function(a,b){return (b.score||0)-(a.score||0)});
+            q2.sort(function(a,b){return (b.score||0)-(a.score||0)});
+            q3.sort(function(a,b){return (a.score||0)-(b.score||0)});
+            q4.sort(function(a,b){return (a.score||0)-(b.score||0)});
+            function qRow(s) {
+                var ph = ['','🌱萌芽','📈成長','🔥強勢'][s.phase||0] || '';
+                return '<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px">'
+                    +'<span><b>'+s.symbol+'</b> '+ph+'</span>'
+                    +'<span>'+s.score+' '+(((s.change_1m||0)>0)?'+':'')+((s.change_1m||0)).toFixed(1)+'%</span></div>';
+            }
+            function qList(items, n) {
+                var h = items.slice(0,n).map(qRow).join('');
+                if (items.length > n) h += '<details style="margin-top:2px"><summary style="cursor:pointer;text-align:center;color:#94a3b8;font-size:10px;list-style:none;padding:4px">展開 ('+(items.length-n)+'支)</summary>'+items.slice(n).map(qRow).join('')+'</details>';
+                return h;
+            }
+            content.innerHTML = '<div style="padding:16px">'
+                +'<h3 style="color:#e2e8f0;margin:0 0 12px;font-size:16px;text-align:center">📊 Signal Map'+(dateStr?' — '+dateStr:'')+'</h3>'
+                +'<p style="color:#94a3b8;font-size:12px;margin:0 0 16px;text-align:center">X=訊號分數 | Y=月漲跌% | 顏色=Phase階段 | 大小=連續天數</p>'
+                +'<div style="text-align:center"><img src="/data/signal_map.png?'+ts+'" style="max-width:100%;border-radius:12px;border:1px solid #334155" alt="Signal Map"></div>'
+                +'<h3 style="color:#e2e8f0;margin:20px 0 12px;font-size:15px">📋 象限清單</h3>'
+                +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+                +'<div style="background:rgba(22,163,74,.1);border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#4ade80;margin-bottom:4px">🟢 高分+漲 ('+q1.length+')</div>'+qList(q1,10)+'</div>'
+                +'<div style="background:rgba(245,158,11,.1);border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:4px">💎 高分+跌 ('+q2.length+')<div style="font-size:9px;color:#94a3b8;font-weight:400">逢低佈局</div></div>'+qList(q2,10)+'</div>'
+                +'<div style="background:rgba(220,38,38,.1);border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#f87171;margin-bottom:4px">🔴 低分+跌 ('+q3.length+')</div>'+qList(q3,10)+'</div>'
+                +'<div style="background:rgba(124,58,237,.1);border-radius:8px;padding:8px"><div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px">⚠️ 低分+漲 ('+q4.length+')<div style="font-size:9px;color:#94a3b8;font-weight:400">追高風險</div></div>'+qList(q4,10)+'</div>'
+                +'</div></div>';
         }
         
 
