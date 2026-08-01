@@ -4298,6 +4298,58 @@ async function loadSmartBacktest() {
                     out += '</div>';
                 }
                 
+                // Pricing Power + Capacity section
+                var pp = data.pricing_power || {};
+                var ppKeys = Object.keys(pp);
+                if (ppKeys.length > 0) {
+                    out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:10px;margin-top:14px">';
+                    out += '<div style="background:#fef3c7;padding:8px 14px;border-bottom:1px solid #e2e8f0;font-weight:700;font-size:14px">🔒 定價權 + 產能分析</div>';
+                    
+                    out += '<div style="padding:8px 14px;font-size:11px;color:#64748b;border-bottom:1px solid #f1f5f9">';
+                    out += '毛利率趨勢↑ = 有定價權 · 庫存<60天 = 供不應求 · CapEx↑ = 擴產中';
+                    out += '</div>';
+                    
+                    ppKeys.forEach(function(segName) {
+                        var seg = pp[segName];
+                        var stocks = seg.stocks || [];
+                        if (stocks.length === 0) return;
+                        
+                        out += '<div style="padding:6px 14px;border-bottom:1px solid #f1f5f9">';
+                        out += '<div style="font-weight:600;font-size:12px;color:#92400e;margin-bottom:4px">' + segName + '</div>';
+                        
+                        stocks.forEach(function(s) {
+                            var gmTrend = s.gm_trend || [];
+                            var gmLine = gmTrend.map(function(v){return v+'%'}).join('→');
+                            var gmChg = s.gm_change_2q;
+                            var gmE = '';
+                            if (gmChg !== null && gmChg !== undefined) {
+                                gmE = gmChg > 3 ? ' 🟢定價權↑' : gmChg > 0 ? '' : gmChg > -3 ? '' : ' 🔴壓縮';
+                            }
+                            
+                            var invE = '';
+                            if (s.inventory_days !== null && s.inventory_days !== undefined) {
+                                invE = s.inventory_days < 60 ? ' 📦' + s.inventory_days + '天(緊)' : s.inventory_days > 120 ? ' 📦' + s.inventory_days + '天(堆積)' : ' 📦' + s.inventory_days + '天';
+                            }
+                            
+                            var capE = '';
+                            if (s.capex_growth !== null && s.capex_growth !== undefined) {
+                                capE = s.capex_growth > 30 ? ' 🏗️擴產+' + s.capex_growth.toFixed(0) + '%' : s.capex_growth > 0 ? ' CapEx+' + s.capex_growth.toFixed(0) + '%' : '';
+                            }
+                            
+                            out += '<div style="font-size:11px;padding:2px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center">';
+                            out += '<strong style="min-width:45px">' + s.symbol + '</strong>';
+                            out += '<span style="color:#64748b">毛利 ' + gmLine + gmE + '</span>';
+                            if (invE) out += '<span style="color:#f59e0b">' + invE + '</span>';
+                            if (capE) out += '<span style="color:#6366f1">' + capE + '</span>';
+                            out += '</div>';
+                        });
+                        
+                        out += '</div>';
+                    });
+                    
+                    out += '</div>';
+                }
+                
                 // Legend
                 out += '<div style="font-size:10px;color:#94a3b8;margin-top:8px">';
                 out += '⭐搶佔 = 成長>產業均值+10% · 加速🚀 = QoQ加速>5% · 估值效率 = EV/Rev÷成長率(低=便宜)';
