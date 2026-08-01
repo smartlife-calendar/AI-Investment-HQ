@@ -129,18 +129,29 @@ function stockCard(s,color){
   var ml=mf?(mf>0?'<span style="color:#16a34a">月+</span>':'<span style="color:#dc2626">月-</span>'):'';
   h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl+'</div>';
   if(wl||ml)h+='<div style="font-size:10px;color:#94a3b8">趨勢: '+wl+(wl&&ml?' ':'')+ml+(tr.wf?' 周外資'+(tr.wf>0?'+':'')+((tr.wf||0)/1000).toFixed(0)+'K':'')+'</div>';
-  var fpct=s.foreign_pct,ipct=(s.yahoo||{}).inst_pct;
+  var fpct=s.foreign_pct,y=s.yahoo||{},ipct=y.inst_pct,insdr=y.insider_pct;
   if(fpct||ipct){
-    var fi=fpct||0,ii=(ipct?ipct*100:0),re=Math.max(0,100-Math.max(fi,ii));
-    h+='<div style="font-size:10px;margin-top:2px">';
-    if(fpct)h+='外資<b>'+fi.toFixed(1)+'%</b> ';
-    if(ipct)h+='法人<b>'+ii.toFixed(0)+'%</b> 散戶<b>'+re.toFixed(0)+'%</b>';
+    var fi=fpct||0;
+    var ii=ipct?ipct*100:0;
+    var id_pct=insdr?insdr*100:0;
+    var retail=Math.max(0,100-ii-id_pct);
+    h+='<div style="font-size:10px;margin-top:3px;background:#f8fafc;border-radius:4px;padding:4px">';
+    h+='<div style="display:flex;justify-content:space-between;margin-bottom:2px">';
+    h+='<span>📊 持股結構</span>';
     h+='</div>';
-    h+='<div style="display:flex;height:4px;border-radius:2px;overflow:hidden;margin-top:2px">';
+    h+='<div style="display:flex;gap:6px;flex-wrap:wrap">';
+    if(fpct)h+='<span>🔴外資<b>'+fi.toFixed(1)+'%</b></span>';
+    if(ipct)h+='<span>🟣法人<b>'+ii.toFixed(0)+'%</b></span>';
+    if(insdr&&id_pct>1)h+='<span>🟡董監<b>'+id_pct.toFixed(1)+'%</b></span>';
+    if(ipct)h+='<span>⚪散戶<b>'+retail.toFixed(0)+'%</b></span>';
+    h+='</div>';
+    h+='<div style="display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:3px">';
     if(fpct)h+='<div style="width:'+fi+'%;background:#dc2626" title="外資'+fi.toFixed(1)+'%"></div>';
     var other_inst=Math.max(0,ii-fi);
-    if(other_inst>0)h+='<div style="width:'+other_inst+'%;background:#7c3aed" title="其他法人'+other_inst.toFixed(0)+'%"></div>';
-    h+='<div style="width:'+re+'%;background:#e2e8f0" title="散戶'+re.toFixed(0)+'%"></div>';
+    if(other_inst>0)h+='<div style="width:'+other_inst+'%;background:#7c3aed" title="其他法人"></div>';
+    if(id_pct>0)h+='<div style="width:'+id_pct+'%;background:#f59e0b" title="董監'+id_pct.toFixed(1)+'%"></div>';
+    h+='<div style="flex:1;background:#e2e8f0" title="散戶'+retail.toFixed(0)+'%"></div>';
+    h+='</div>';
     h+='</div>';
   }
   // Price levels
