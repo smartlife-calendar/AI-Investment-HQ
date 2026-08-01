@@ -4135,6 +4135,7 @@ async function loadSmartBacktest() {
                     }
                 });
                 roeList.sort(function(a,b) { return b.roe - a.roe; });
+                var sectorMedianROE = {'Consumer Defensive':30,'Basic Materials':18,'Communication Services':17,'Financial Services':14,'Industrials':13,'Utilities':12,'Technology':11,'Consumer Cyclical':10,'Energy':10,'Healthcare':2,'Real Estate':1};
                 
                 out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
                 out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between">';
@@ -4143,10 +4144,10 @@ async function loadSmartBacktest() {
                 out += '</div>';
                 
                 // High ROE Low PE section
-                var bargains = roeList.filter(function(r) { return r.roe > 25 && r.fpe < 20 && r.fpe > 0; });
+                var bargains = roeList.filter(function(r) { var sm = sectorMedianROE[r.sector]||12; return r.roe > (sm + 15) && r.fpe < 20 && r.fpe > 0; });
                 if (bargains.length > 0) {
                     out += '<div style="padding:10px 16px;border-bottom:1px solid #e2e8f0">';
-                    out += '<div style="font-weight:600;font-size:13px;color:#16a34a;margin-bottom:6px">🔥 高ROE低PE（可能低估）</div>';
+                    out += '<div style="font-weight:600;font-size:13px;color:#16a34a;margin-bottom:6px">🔥 ROE遠超板塊中位 + 低PE（可能低估）</div>';
                     out += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
                     bargains.forEach(function(r) {
                         var sig = sigData[r.sym] || {};
@@ -4162,7 +4163,7 @@ async function loadSmartBacktest() {
                 // Full ROE table (collapsible)
                 out += '<details style="padding:10px 16px"><summary style="cursor:pointer;font-weight:600;font-size:13px;margin-bottom:8px;list-style:none">📋 完整ROE排名 (' + roeList.length + '支) ▸</summary>';
                 out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">';
-                out += '<thead><tr style="background:#f1f5f9"><th style="padding:5px;text-align:left">股票</th><th style="padding:5px;text-align:right">ROE</th><th style="padding:5px;text-align:right">FwdPE</th><th style="padding:5px;text-align:right">P/B</th><th style="padding:5px;text-align:left">板塊</th><th style="padding:5px;text-align:left">操作</th></tr></thead><tbody>';
+                out += '<thead><tr style="background:#f1f5f9"><th style="padding:5px;text-align:left">股票</th><th style="padding:5px;text-align:right">ROE</th><th style="padding:5px;text-align:right">FwdPE</th><th style="padding:5px;text-align:right">P/B</th><th style="padding:5px;text-align:left">板塊</th><th style="padding:5px;text-align:right">vs中位</th><th style="padding:5px;text-align:left">操作</th></tr></thead><tbody>';
                 
                 roeList.forEach(function(r) {
                     var roeC = r.roe > 25 ? '#16a34a' : r.roe > 10 ? '#475569' : '#dc2626';
@@ -4172,7 +4173,9 @@ async function loadSmartBacktest() {
                     out += '<td style="padding:4px 5px;text-align:right;color:' + roeC + ';font-weight:600">' + r.roe.toFixed(1) + '%</td>';
                     out += '<td style="padding:4px 5px;text-align:right">' + r.fpe.toFixed(1) + '</td>';
                     out += '<td style="padding:4px 5px;text-align:right">' + (r.pb ? r.pb.toFixed(1) : '-') + '</td>';
+                    var secMed = sectorMedianROE[r.sector] || 12; var vsV = r.roe - secMed; var vsStr = vsV >= 0 ? '+' + vsV.toFixed(0) : vsV.toFixed(0); var vsC = vsV > 15 ? '#16a34a' : vsV < -10 ? '#dc2626' : '#94a3b8';
                     out += '<td style="padding:4px 5px;font-size:10px;color:#94a3b8">' + (r.sector||'').slice(0,10) + '</td>';
+                    out += '<td style="padding:4px 5px;text-align:right;font-size:10px;color:' + vsC + '">' + vsStr + '%</td>';
                     out += '<td style="padding:4px 5px;font-size:10px">' + (sig.action_zh||'') + '</td>';
                     out += '</tr>';
                 });
@@ -4183,9 +4186,9 @@ async function loadSmartBacktest() {
                 out += '<div style="background:#eff6ff;border-radius:10px;padding:12px 16px;border:1px solid #93c5fd;font-size:12px;color:#1e40af">';
                 out += '<div style="font-weight:700;margin-bottom:6px">💡 ROE 與股價的關係</div>';
                 out += '<div style="line-height:1.8">';
-                out += '• <strong>ROE > 25%</strong> = 資本效率優秀，每投入$1股東權益產出$0.25+利潤<br>';
-                out += '• <strong>高ROE + 低PE</strong> = 市場可能低估（如 MU ROE=67% PE=5.4）<br>';
-                out += '• <strong>高ROE + 高P/B</strong> = 市場已充分定價（如 AAPL ROE=149% P/B=43）<br>';
+                out += '• <strong>ROE 要看板塊</strong>：必需消費 30% · 科技 11% · 醫療 2%（中位數差異大）<br>';
+                out += '• <strong>高於板塊中位 15%+</strong> = 同行佼佼者（如 MU 在科技板塊 ROE=67% vs 中位11%）<br>';
+                out += '• <strong>高ROE + 高P/B</strong> = 市場已充分定價（如 AAPL ROE=149% P/B=43）· 低ROE可能是板塊特性非公司問題<br>';
                 out += '• <strong>ROE vs PE 相關性 = -0.15</strong>（弱負相關）→ ROE 高不代表 PE 也高<br>';
                 out += '• ⚠️ 超高ROE可能是高槓桿造成（如 MA ROE=232% 因為大量回購降低股東權益）';
                 out += '</div></div>';
