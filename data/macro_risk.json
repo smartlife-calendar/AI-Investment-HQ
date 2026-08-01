@@ -1,0 +1,292 @@
+{
+  "generated_at": "2026-08-01T14:15:14+08:00",
+  "indicators": {
+    "rates": {
+      "^TNX": {
+        "current": 4.74,
+        "chg_1w": 1.4,
+        "chg_1m": 5.8,
+        "chg_3m": 7.5,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "10Y殖利率"
+      },
+      "^FVX": {
+        "current": 4.46,
+        "chg_1w": 0.8,
+        "chg_1m": 5.4,
+        "chg_3m": 9.5,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "5Y殖利率"
+      },
+      "^TYX": {
+        "current": 5.28,
+        "chg_1w": 2.2,
+        "chg_1m": 5.8,
+        "chg_3m": 5.8,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "30Y殖利率"
+      },
+      "^IRX": {
+        "current": 3.68,
+        "chg_1w": -3.2,
+        "chg_1m": 0.4,
+        "chg_3m": 2.3,
+        "above_20ma": false,
+        "above_50ma": true,
+        "name": "13W利率"
+      }
+    },
+    "credit": {
+      "HYG": {
+        "current": 79.48,
+        "chg_1w": 0.3,
+        "chg_1m": -0.3,
+        "chg_3m": 0.4,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "高收益債"
+      },
+      "LQD": {
+        "current": 106.25,
+        "chg_1w": 0.0,
+        "chg_1m": -2.2,
+        "chg_3m": -1.5,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "投資等級債"
+      },
+      "TLT": {
+        "current": 82.25,
+        "chg_1w": -1.2,
+        "chg_1m": -3.8,
+        "chg_3m": -3.0,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "長債"
+      }
+    },
+    "fear": {
+      "^VIX": {
+        "current": 15.99,
+        "chg_1w": -13.9,
+        "chg_1m": -1.0,
+        "chg_3m": -8.1,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "VIX恐慌"
+      }
+    },
+    "fx": {
+      "DX-Y.NYB": {
+        "current": 99.8,
+        "chg_1w": -1.6,
+        "chg_1m": -1.1,
+        "chg_3m": 1.3,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "美元指數"
+      },
+      "GLD": {
+        "current": 371.54,
+        "chg_1w": -0.1,
+        "chg_1m": -1.7,
+        "chg_3m": -11.2,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "黃金"
+      },
+      "BTC-USD": {
+        "current": 62967.43,
+        "chg_1w": -3.6,
+        "chg_1m": -1.3,
+        "chg_3m": -11.7,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "比特幣"
+      }
+    },
+    "regional": {
+      "EWY": {
+        "current": 157.1,
+        "chg_1w": -3.6,
+        "chg_1m": -12.8,
+        "chg_3m": -9.4,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "韓國"
+      },
+      "EWJ": {
+        "current": 92.39,
+        "chg_1w": 1.3,
+        "chg_1m": -0.8,
+        "chg_3m": 4.1,
+        "above_20ma": true,
+        "above_50ma": false,
+        "name": "日本"
+      },
+      "FXI": {
+        "current": 36.5,
+        "chg_1w": 5.6,
+        "chg_1m": 14.4,
+        "chg_3m": 0.8,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "中國"
+      },
+      "EEM": {
+        "current": 64.09,
+        "chg_1w": 1.2,
+        "chg_1m": -2.5,
+        "chg_3m": -1.5,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "新興市場"
+      },
+      "EWT": {
+        "current": 96.55,
+        "chg_1w": -1.5,
+        "chg_1m": -7.9,
+        "chg_3m": 4.1,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "台灣"
+      },
+      "EWG": {
+        "current": 42.85,
+        "chg_1w": 4.2,
+        "chg_1m": 1.3,
+        "chg_3m": 3.1,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "德國"
+      }
+    },
+    "rotation": {
+      "XLU": {
+        "current": 44.35,
+        "chg_1w": -4.2,
+        "chg_1m": -3.1,
+        "chg_3m": -3.7,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "公用事業"
+      },
+      "XLP": {
+        "current": 85.05,
+        "chg_1w": 1.1,
+        "chg_1m": 0.1,
+        "chg_3m": 1.9,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "必需消費"
+      },
+      "XLY": {
+        "current": 116.09,
+        "chg_1w": 6.1,
+        "chg_1m": -0.9,
+        "chg_3m": -1.5,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "非必需消費"
+      },
+      "XLK": {
+        "current": 175.35,
+        "chg_1w": -0.3,
+        "chg_1m": -2.9,
+        "chg_3m": 6.0,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "科技"
+      }
+    },
+    "commodity": {
+      "USO": {
+        "current": 129.17,
+        "chg_1w": -5.5,
+        "chg_1m": 24.2,
+        "chg_3m": -10.4,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "原油"
+      },
+      "UNG": {
+        "current": 10.06,
+        "chg_1w": -4.6,
+        "chg_1m": -13.1,
+        "chg_3m": -5.5,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "天然氣"
+      }
+    },
+    "us_index": {
+      "^GSPC": {
+        "current": 7489.72,
+        "chg_1w": 1.0,
+        "chg_1m": 0.1,
+        "chg_3m": 3.2,
+        "above_20ma": true,
+        "above_50ma": true,
+        "name": "S&P500"
+      },
+      "^RUT": {
+        "current": 2931.34,
+        "chg_1w": 0.0,
+        "chg_1m": -2.2,
+        "chg_3m": 3.0,
+        "above_20ma": false,
+        "above_50ma": false,
+        "name": "Russell2000"
+      }
+    }
+  },
+  "risk_signals": [
+    {
+      "name": "利率快速上升",
+      "score": -3,
+      "detail": "10Y=4.74% 月升5.8%"
+    },
+    {
+      "name": "殖利率曲線正常",
+      "score": 1,
+      "detail": "10Y-13W=1.06%"
+    },
+    {
+      "name": "韓國崩跌",
+      "score": -2,
+      "detail": "EWY -12.8% 1M",
+      "exposed": [
+        "MU",
+        "SNDK",
+        "NVDA",
+        "AMD"
+      ],
+      "logic": "韓國=Samsung/SK Hynix，記憶體供應鏈"
+    },
+    {
+      "name": "台灣偏弱",
+      "score": -1,
+      "detail": "EWT -7.9% 1M"
+    }
+  ],
+  "total_score": -5,
+  "verdict": "🟠 警戒",
+  "action": "降低至70%倉位，偏好有FCF的價值股",
+  "regional_alerts": [
+    {
+      "region": "韓國",
+      "etf": "EWY",
+      "change": -12.8,
+      "exposed_stocks": [
+        "MU",
+        "SNDK",
+        "NVDA",
+        "AMD"
+      ],
+      "logic": "韓國=Samsung/SK Hynix，記憶體供應鏈"
+    }
+  ]
+}
