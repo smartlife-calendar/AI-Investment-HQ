@@ -142,7 +142,7 @@ function renderOverview() {
     if (buys.length > 0) {
         out += '<div class="card"><h3 style="font-size:15px;margin-bottom:8px">🟢 買入訊號 Top 15</h3>';
         out += '<div style="overflow-x:auto"><table>';
-        out += '<tr><th>代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>PE</th><th>殖利率</th><th>外資</th><th>投信</th><th>原因</th></tr>';
+        out += '<tr><th>代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>📍進場</th><th>🔴止損</th><th>🎯目標</th><th>RR</th><th>外資</th><th>原因</th></tr>';
         buys.forEach(function(s) {
             var chg = s.change || 0;
             var cc = chg > 0 ? 'pos' : chg < 0 ? 'neg' : '';
@@ -154,10 +154,12 @@ function renderOverview() {
             out += '<td>' + (s.name||'').substring(0,6) + '</td>';
             out += '<td>$' + (s.price||0).toLocaleString() + '</td>';
             out += '<td class="' + cc + '">' + (chg>0?'+':'') + chg.toFixed(1) + '</td>';
-            out += '<td>' + (s.pe ? s.pe.toFixed(1) : '-') + '</td>';
-            out += '<td>' + (s.div_yield ? s.div_yield.toFixed(1)+'%' : '-') + '</td>';
+            var pl = s.price_levels || {};
+            out += '<td style="color:#1e40af;font-weight:700">' + (pl.entry ? '$'+pl.entry.toLocaleString() : '-') + '</td>';
+            out += '<td style="color:#dc2626;font-size:11px">' + (pl.stop_loss ? '$'+pl.stop_loss.toLocaleString()+'<br>('+pl.stop_pct+'%)' : '-') + '</td>';
+            out += '<td style="color:#16a34a;font-size:11px">' + (pl.target1 ? '$'+pl.target1.toLocaleString()+'<br>(+'+pl.target1_pct+'%)' : '-') + '</td>';
+            out += '<td style="font-weight:700;color:' + (pl.rr_ratio>=1.5?'#16a34a':pl.rr_ratio>=1?'#f59e0b':'#dc2626') + '">' + (pl.rr_ratio ? pl.rr_ratio.toFixed(1) : '-') + '</td>';
             out += '<td class="' + (fn>0?'pos':fn<0?'neg':'') + '">' + (fn>0?'+':'') + (fn/1000).toFixed(0) + 'K</td>';
-            out += '<td class="' + (tn>0?'pos':tn<0?'neg':'') + '">' + (tn>0?'+':'') + (tn/1000).toFixed(0) + 'K</td>';
             out += '<td style="font-size:11px">' + (s.reasons||[]).slice(0,2).join(', ') + '</td>';
             out += '</tr>';
         });
@@ -221,16 +223,22 @@ function renderSignals() {
             out += '<h3 style="font-size:15px;color:' + g.color + ';margin-bottom:8px">' + g.label + ' (' + items.length + ')</h3>';
         }
         out += '<div style="overflow-x:auto"><table>';
-        out += '<tr><th>代號</th><th>名稱</th><th>產業</th><th>價格</th><th>PE</th><th>PB</th><th>殖利率</th><th>分數</th><th>原因</th></tr>';
+        out += '<tr><th>代號</th><th>名稱</th><th>產業</th><th>價格</th><th>📍進場</th><th>🔴止損</th><th>🎯目標</th><th>RR</th><th>分數</th><th>原因</th></tr>';
         items.slice(0,50).forEach(function(s) {
             out += '<tr>';
             out += '<td><strong>' + s.code + '</strong></td>';
             out += '<td>' + (s.name||'').substring(0,6) + '</td>';
             out += '<td style="font-size:11px">' + (s.industry||'') + '</td>';
             out += '<td>$' + (s.price||0).toLocaleString() + '</td>';
-            out += '<td>' + (s.pe?s.pe.toFixed(1):'-') + '</td>';
-            out += '<td>' + (s.pb?s.pb.toFixed(2):'-') + '</td>';
-            out += '<td>' + (s.div_yield?s.div_yield.toFixed(1)+'%':'-') + '</td>';
+            var pl2 = s.price_levels || {};
+            if (g.key==='BUY'||g.key==='WATCH') {
+                out += '<td style="color:#1e40af;font-weight:700">' + (pl2.entry?'$'+pl2.entry.toLocaleString():'-') + '</td>';
+                out += '<td style="color:#dc2626">' + (pl2.stop_loss?'$'+pl2.stop_loss.toLocaleString():'-') + '</td>';
+                out += '<td style="color:#16a34a">' + (pl2.target1?'$'+pl2.target1.toLocaleString():'-') + '</td>';
+                out += '<td style="font-weight:700">' + (pl2.rr_ratio?pl2.rr_ratio.toFixed(1):'-') + '</td>';
+            } else {
+                out += '<td colspan="4" style="font-size:11px;color:#94a3b8">PE:' + (s.pe?s.pe.toFixed(1):'-') + ' PB:' + (s.pb?s.pb.toFixed(2):'-') + ' 殖:' + (s.div_yield?s.div_yield.toFixed(1)+'%':'-') + '</td>';
+            }
             out += '<td style="font-weight:700;color:' + (s.score>0?'#16a34a':s.score<0?'#dc2626':'#64748b') + '">' + (s.score>0?'+':'') + s.score + '</td>';
             out += '<td style="font-size:11px">' + (s.reasons||[]).slice(0,2).join(', ') + '</td>';
             out += '</tr>';
