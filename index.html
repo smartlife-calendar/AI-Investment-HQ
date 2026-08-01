@@ -2659,7 +2659,98 @@ async function loadSmartBacktest() {
 
 
 
-        <!-- <!-- Taiwan Stock Link -->
+        <!-- 
+                <!-- New Indicator Sections (Added 2026-08-01) -->
+                <div style="margin-top:24px;padding-top:20px;border-top:2px solid #e2e8f0">
+                <h2 style="color:#1e293b;font-size:18px;margin:0 0 16px">📊 新增指標說明 (v2026.08)</h2>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">六、ROE 效率指標 (ROE÷P/B)</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">用 ROE 除以股價淨值比，衡量「每單位估值能帶來多少回報」。自動跨產業標準化，無需手動設定行業基準。</p>
+                <table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0"><thead><tr style="background:#e2e8f0"><th style="padding:6px">ROE÷P/B</th><th>評級</th><th>分數影響</th></tr></thead><tbody>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">&gt; 5.0</td><td>🔥 極度低估</td><td style="color:#16a34a">+12</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">3.0 ~ 5.0</td><td>✅ 低估</td><td style="color:#16a34a">+8</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">1.5 ~ 3.0</td><td>📊 合理</td><td style="color:#16a34a">+3</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">1.0 ~ 1.5</td><td>⚠️ 偏高</td><td>0</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">&lt; 1.0</td><td>🔴 過高</td><td style="color:#dc2626">-3</td></tr>
+                <tr><td style="padding:4px">&lt; 0.5</td><td>⛔ 極度高估</td><td style="color:#dc2626">-8</td></tr>
+                </tbody></table>
+                <p style="font-size:11px;color:#94a3b8;margin:8px 0 0">例：MU ROE 67%、P/B 5.4 → 效率 12.4 🔥 · TSLA ROE 21%、P/B 16 → 效率 1.3 ⚠️</p>
+                </div>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">七、財務健康指標</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">自由現金流(FCF)、負債率(D/E)、流動比率等基本面指標，用於質量篩選。</p>
+                <table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0"><thead><tr style="background:#e2e8f0"><th style="padding:6px">指標</th><th>條件</th><th>影響</th></tr></thead><tbody>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">FCF 自由現金流</td><td>&gt; $5B</td><td style="color:#16a34a">+5 現金牛</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">FCF</td><td>&lt; -$1B</td><td style="color:#dc2626">-5 燒錢中</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">D/E 負債率</td><td>&gt; 200%</td><td style="color:#dc2626">-5 高槓桿</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">流動比率</td><td>&lt; 1.0</td><td style="color:#dc2626">-5 償債風險</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">淨現金</td><td>&gt; $10B</td><td style="color:#16a34a">+3</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">內部人持股</td><td>&gt; 10%</td><td style="color:#16a34a">+3</td></tr>
+                <tr><td style="padding:4px">空頭佔比</td><td>&gt; 15%</td><td style="color:#dc2626">-3 空頭壓力</td></tr>
+                </tbody></table>
+                </div>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">八、同業排名與產業趨勢</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">系統自動按 Yahoo Finance 的 industry 欄位分組，計算同業 ROE 效率排名與產業營收成長趨勢。</p>
+                <div style="font-size:12px;margin:8px 0">
+                <div><strong>產業趨勢判定：</strong></div>
+                <div style="margin:4px 0">🔥🔥 strong_growth: 產業平均營收成長 &gt; 25%</div>
+                <div style="margin:4px 0">📈 growth: 10% ~ 25%</div>
+                <div style="margin:4px 0">➡️ moderate: 0% ~ 10%</div>
+                <div style="margin:4px 0">⚠️ stagnant: &lt; 0%</div>
+                </div>
+                <p style="font-size:11px;color:#94a3b8;margin:8px 0 0">同業排名高 + 產業成長 = 雙重利多。排名低 + 產業衰退 = 雙重利空。</p>
+                </div>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">九、定價權分析</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">透過季度毛利率趨勢判斷企業定價能力。毛利率擴張=有定價權，壓縮=以價搶量。</p>
+                <div style="font-size:12px;margin:8px 0">
+                <div><strong>訊號評分：</strong></div>
+                <div style="margin:4px 0">毛利率 &gt; 60% + 營收成長 &gt; 20%: <span style="color:#16a34a">+8 買入分</span> (高毛利高成長)</div>
+                <div style="margin:4px 0">毛利率 &lt; 20% + 營收成長 &gt; 30%: <span style="color:#f59e0b">⚠️ 風險警告</span> (以價搶量)</div>
+                </div>
+                <div style="font-size:12px;margin:8px 0">
+                <div><strong>供應鏈指標：</strong></div>
+                <div style="margin:4px 0">庫存天數 &lt; 60天 = 供不應求 🟢</div>
+                <div style="margin:4px 0">庫存天數 &gt; 120天 = 堆積 🔴</div>
+                <div style="margin:4px 0">CapEx成長 &gt; 30% = 擴產中</div>
+                </div>
+                </div>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">十、總經風險評分</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">追蹤 25+ 總經指標（利率、信用、恐慌、匯率、區域、輪動、原物料），生成綜合風險分數。</p>
+                <table style="width:100%;border-collapse:collapse;font-size:12px;margin:8px 0"><thead><tr style="background:#e2e8f0"><th style="padding:6px">分數</th><th>判定</th><th>倉位影響</th></tr></thead><tbody>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">≤ -6</td><td>🔴 高風險</td><td>所有買入分 -15</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">≤ -3</td><td>🟠 警戒</td><td>所有買入分 -8</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">≤ 0</td><td>🟡 中性偏空</td><td>無額外懲罰</td></tr>
+                <tr><td style="padding:4px;border-bottom:1px solid #f1f5f9">≤ 3</td><td>🟢 中性偏多</td><td>無額外懲罰</td></tr>
+                <tr><td style="padding:4px">&gt; 3</td><td>🟢🟢 有利</td><td>無額外獎勵</td></tr>
+                </tbody></table>
+                <p style="font-size:11px;color:#94a3b8;margin:8px 0 0">區域風險觸發: 韓國/台灣 ETF 月跌 &gt;10% → 相關美股個股 -5 分（MU、NVDA、AMD等）</p>
+                </div>
+                
+                <div style="background:#f8fafc;border-radius:10px;padding:16px;margin-bottom:16px">
+                <h3 style="color:#4f46e5;font-size:15px;margin:0 0 8px">十一、做空候選偵測</h3>
+                <p style="font-size:12px;color:#64748b;margin:0 0 8px">基於回測發現: REDUCE 高 beta 小型股做空勝率 89%、平均獲利 +20.48%。系統自動篩選做空候選。</p>
+                <div style="font-size:12px;margin:8px 0">
+                <div><strong>篩選條件（分數 ≥ 5 為候選）：</strong></div>
+                <div style="margin:4px 0">市值 &lt; $10B: +3 · 市值 &lt; $50B: +2</div>
+                <div style="margin:4px 0">Beta &gt; 1.5: +3 · Beta &gt; 2.5: +2</div>
+                <div style="margin:4px 0">FCF 為負: +2 · 營利率為負: +2</div>
+                <div style="margin:4px 0">敘事面破壞: +2 · Alpha exit: +2</div>
+                <div style="margin:4px 0;color:#dc2626">空頭佔比 &gt; 20%: -2 (軋空風險)</div>
+                </div>
+                <p style="font-size:11px;color:#dc2626;margin:8px 0 0">⚠️ 做空風險無限！目前僅紙上追蹤，需 6 個月跨週期數據驗證。</p>
+                </div>
+                
+                </div>
+
+            <!-- Taiwan Stock Link -->
             <div style="text-align:center;padding:12px;background:linear-gradient(135deg,#1e40af,#7c3aed);border-radius:12px;margin:12px 0">
                 <a href="/tw/" style="color:white;text-decoration:none;font-weight:700;font-size:14px">
                     🇹🇼 台股版 StockIQ — 1,969 支全市場分析 · 三大法人 · 吸籌出貨 →
@@ -2742,21 +2833,21 @@ async function loadSmartBacktest() {
                             </div>
                         </details>
                     </div>
-                    <div style="display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:8px 4px;scrollbar-width:thin;flex-wrap:nowrap">
+                    <div style="display:flex;gap:4px;padding:8px 4px;flex-wrap:wrap">
                         <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish"
-                            style="padding:6px 12px;border-radius:16px;border:none;cursor:pointer;font-weight:700;font-size:11px;white-space:nowrap;flex-shrink:0;min-width:max-content;background:#dcfce7;color:#16a34a;transition:all 0.2s">
+                            style="padding:6px 12px;border-radius:16px;border:none;cursor:pointer;font-weight:700;font-size:11px;white-space:nowrap;flex-shrink:0;;background:#dcfce7;color:#16a34a;transition:all 0.2s">
                             📈 吸籌偵測
                         </button>
                         <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish"
-                            style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">
+                            style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">
                             📉 出貨偵測
                         </button>
                         
-                        <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
-                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
-                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
-                <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
-                <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;min-width:max-content;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
+                        <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
+                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
+                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
+                <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
+                <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
