@@ -122,13 +122,13 @@ function stockCard(s,color){
   // Institutional flow
   var tr=s.inst_trend||{};
   var tl='';
-  if(tr.consecutive_buy>=3)tl=' <span style="color:#16a34a;font-weight:700">連買'+tr.consecutive_buy+'日</span>';
-  else if(tr.consecutive_sell>=3)tl=' <span style="color:#dc2626;font-weight:700">連賣'+tr.consecutive_sell+'日</span>';
-  var wf=tr.week_foreign||0,mf=tr.month_foreign||0;
+  if(tr.cb>=3)tl=' <span style="color:#16a34a;font-weight:700">連買'+tr.cb+'日</span>';
+  else if(tr.cs>=3)tl=' <span style="color:#dc2626;font-weight:700">連賣'+tr.cs+'日</span>';
+  var wf=tr.wf||0,mf=tr.mf||0;
   var wl=wf?(wf>0?'<span style="color:#16a34a">周+</span>':'<span style="color:#dc2626">周-</span>'):'';
   var ml=mf?(mf>0?'<span style="color:#16a34a">月+</span>':'<span style="color:#dc2626">月-</span>'):'';
   h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl+'</div>';
-  if(wl||ml)h+='<div style="font-size:10px;color:#94a3b8">趨勢: '+wl+(wl&&ml?' ':'')+ml+(tr.week_foreign?' 周外資'+(tr.week_foreign>0?'+':'')+((tr.week_foreign||0)/1000).toFixed(0)+'K':'')+'</div>';
+  if(wl||ml)h+='<div style="font-size:10px;color:#94a3b8">趨勢: '+wl+(wl&&ml?' ':'')+ml+(tr.wf?' 周外資'+(tr.wf>0?'+':'')+((tr.wf||0)/1000).toFixed(0)+'K':'')+'</div>';
   // Price levels
   if(pl.entry)h+='<div style="font-size:10px;margin-top:2px">📍$'+pl.entry+' 🔴$'+pl.stop_loss+' 🎯$'+pl.target1+' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b></div>';
   h+='</div>';
@@ -180,8 +180,8 @@ function rOverview(){
       // Institutional
       var tr2=s.inst_trend||{};
       var tl2='';
-      if(tr2.consecutive_buy>=3)tl2=' · <b style="color:#16a34a">連買'+tr2.consecutive_buy+'日</b>';
-      else if(tr2.consecutive_sell>=3)tl2=' · <b style="color:#dc2626">連賣'+tr2.consecutive_sell+'日</b>';
+      if(tr2.cb>=3)tl2=' · <b style="color:#16a34a">連買'+tr2.cb+'日</b>';
+      else if(tr2.cs>=3)tl2=' · <b style="color:#dc2626">連賣'+tr2.cs+'日</b>';
       h+='<div style="font-size:11px;color:#64748b;margin:2px 0">外資 '+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K · 投信 '+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl2+'</div>';
       // Price levels
       if(pl.entry){
