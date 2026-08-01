@@ -116,6 +116,7 @@ function stockCard(s,color){
   if(s.div_yield&&s.div_yield>2)tags.push('殖利率'+s.div_yield.toFixed(1)+'%');
   if(y.roe)tags.push('ROE '+(y.roe*100).toFixed(0)+'%');
   if(y.rev_growth)tags.push('營收'+(y.rev_growth>0?'+':'')+(y.rev_growth*100).toFixed(0)+'%');
+  if(s.chip&&s.chip!=='⚪一般')tags.push(s.chip);
   if(tags.length)h+='<div style="font-size:10px;color:#64748b;margin:2px 0">'+tags.join(' · ')+'</div>';
   // Reasons
   h+='<div style="font-size:11px;color:'+color+';font-weight:600;margin:2px 0">'+(s.reasons||[]).join(' · ')+'</div>';
