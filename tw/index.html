@@ -36,7 +36,8 @@ var TABS=[
   {id:'accumulation',label:'💡 吸籌'},
   {id:'news',label:'📰 新聞'},
   {id:'crossmarket',label:'🔗 聯動'},
-  {id:'search',label:'🔍 搜尋'}
+  {id:'search',label:'🔍 搜尋'},
+  {id:'guide',label:'📖 學習'}
 ];
 
 function initTabs(){
@@ -75,10 +76,38 @@ function render(){
     case 'news': m.innerHTML=rNews(); break;
     case 'crossmarket': m.innerHTML=rCross(); break;
     case 'search': m.innerHTML=rSearch(); break;
+    case 'guide': m.innerHTML=rGuide(); break;
   }
 }
 
 function card(h){return '<div style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)">'+h+'</div>'}
+
+function stockCard(s,color){
+  var pl=s.price_levels||{};
+  var y=s.yahoo||{};
+  var inst=s.institutional||{};
+  var h='<div style="border-left:3px solid '+color+';background:#f8fafc;border-radius:0 8px 8px 0;padding:8px;margin:4px 0">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center">';
+  h+='<div><b style="font-size:13px">'+s.code+'</b> <span style="font-size:11px;color:#64748b">'+s.name+'</span>';
+  if(s.industry)h+=' <span style="font-size:9px;background:#e2e8f0;padding:0 4px;border-radius:6px">'+s.industry+'</span>';
+  h+='</div>';
+  h+='<b style="font-size:14px">$'+(s.price||0).toLocaleString()+'</b></div>';
+  // Tags
+  var tags=[];
+  if(s.pe)tags.push('PE '+s.pe.toFixed(1));
+  if(s.div_yield&&s.div_yield>2)tags.push('殖利率'+s.div_yield.toFixed(1)+'%');
+  if(y.roe)tags.push('ROE '+(y.roe*100).toFixed(0)+'%');
+  if(y.rev_growth)tags.push('營收'+(y.rev_growth>0?'+':'')+(y.rev_growth*100).toFixed(0)+'%');
+  if(tags.length)h+='<div style="font-size:10px;color:#64748b;margin:2px 0">'+tags.join(' · ')+'</div>';
+  // Reasons
+  h+='<div style="font-size:11px;color:'+color+';font-weight:600;margin:2px 0">'+(s.reasons||[]).join(' · ')+'</div>';
+  // Institutional flow
+  h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K</div>';
+  // Price levels
+  if(pl.entry)h+='<div style="font-size:10px;margin-top:2px">📍$'+pl.entry+' 🔴$'+pl.stop_loss+' 🎯$'+pl.target1+' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b></div>';
+  h+='</div>';
+  return h;
+}
 
 function rOverview(){
   var s=D.summary||{},o='';
@@ -102,20 +131,36 @@ function rOverview(){
   // Top BUY signals - compact table
   var buys=(D.signals||[]).filter(function(x){return x.action==='BUY'}).slice(0,10);
   if(buys.length){
-    o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:6px">🟢 買入 Top 10</div>'+
-    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:4px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>進場</th><th>止損</th><th>目標</th><th>RR</th></tr>'+
+    o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:8px">🟢 買入訊號 Top 10</div>'+
     buys.map(function(s){
       var pl=s.price_levels||{};
-      return '<tr style="border-bottom:1px solid #f1f5f9">'+
-        '<td style="padding:4px;font-weight:700">'+s.code+'</td>'+
-        '<td style="padding:4px;max-width:48px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+s.name.substring(0,4)+'</td>'+
-        '<td style="padding:4px">$'+(s.price||0).toLocaleString()+'</td>'+
-        '<td style="padding:4px;color:#1e40af;font-weight:700">'+(pl.entry?'$'+pl.entry:'-')+'</td>'+
-        '<td style="padding:4px;color:#dc2626;font-size:10px">'+(pl.stop_loss?'$'+pl.stop_loss:'-')+'</td>'+
-        '<td style="padding:4px;color:#16a34a;font-size:10px">'+(pl.target1?'$'+pl.target1:'-')+'</td>'+
-        '<td style="padding:4px;font-weight:700">'+(pl.rr_ratio?pl.rr_ratio.toFixed(1):'-')+'</td></tr>'
-    }).join('')+'</table></div>');
+      var y=s.yahoo||{};
+      var inst=s.institutional||{};
+      var bc=s.score>=8?'#16a34a':s.score>=6?'#22c55e':'#86efac';
+      var h='<div style="border-left:4px solid '+bc+';background:#f8fafc;border-radius:0 8px 8px 0;padding:10px;margin-bottom:6px">';
+      h+='<div style="display:flex;justify-content:space-between;align-items:center">';
+      h+='<div><span style="font-weight:800;font-size:14px">'+s.code+'</span> <span style="font-size:12px;color:#64748b">'+s.name+'</span></div>';
+      h+='<div style="font-size:16px;font-weight:800">$'+(s.price||0).toLocaleString()+'</div></div>';
+      // Tags
+      h+='<div style="display:flex;gap:4px;flex-wrap:wrap;margin:4px 0">';
+      if(s.industry)h+='<span style="font-size:10px;background:#e2e8f0;padding:1px 6px;border-radius:8px">'+s.industry+'</span>';
+      if(s.pe)h+='<span style="font-size:10px;background:#dbeafe;padding:1px 6px;border-radius:8px">PE '+s.pe.toFixed(1)+'</span>';
+      if(s.div_yield)h+='<span style="font-size:10px;background:#dcfce7;padding:1px 6px;border-radius:8px">殖利率'+s.div_yield.toFixed(1)+'%</span>';
+      if(y.roe)h+='<span style="font-size:10px;background:#fef3c7;padding:1px 6px;border-radius:8px">ROE '+(y.roe*100).toFixed(0)+'%</span>';
+      h+='<span style="font-size:10px;background:'+(s.score>=8?'#dcfce7':'#f0fdf4')+';padding:1px 6px;border-radius:8px;font-weight:700">分數 +'+s.score+'</span>';
+      h+='</div>';
+      // Analysis
+      h+='<div style="font-size:11px;color:#16a34a;font-weight:600;margin:4px 0">🟢 '+(s.reasons||[]).join(' · ')+'</div>';
+      // Institutional
+      h+='<div style="font-size:11px;color:#64748b;margin:2px 0">外資 '+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K · 投信 '+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K</div>';
+      // Price levels
+      if(pl.entry){
+        h+='<div style="font-size:11px;margin:4px 0">📍 進場 <b style="color:#1e40af">$'+pl.entry+'</b> · 🔴 止損 <b style="color:#dc2626">$'+pl.stop_loss+'</b> ('+pl.stop_pct+'%) · 🎯 目標 <b style="color:#16a34a">$'+pl.target1+'</b> (+'+pl.target1_pct+'%)';
+        h+=' · RR <b style="color:'+(pl.rr_ratio>=1.5?'#16a34a':'#f59e0b')+'">'+pl.rr_ratio.toFixed(1)+'</b></div>';
+      }
+      h+='</div>';
+      return h;
+    }).join(''));
   }
 
   // Foreign top buy/sell - compact
@@ -134,35 +179,37 @@ function rOverview(){
 
 function rSignals(){
   var sigs=D.signals||[],o='';
-  var groups=[
-    {k:'BUY',l:'🟢 買入',c:'#16a34a',open:true},
-    {k:'WATCH',l:'👀 觀望',c:'#7c3aed',open:true},
-    {k:'NEUTRAL',l:'⚪ 中性',c:'#64748b',open:false},
-    {k:'REDUCE',l:'🟠 減碼',c:'#f59e0b',open:false},
-    {k:'AVOID',l:'⛔ 迴避',c:'#dc2626',open:false}
+  // BUY: rich cards (top 20)
+  var buys=sigs.filter(function(s){return s.action==='BUY'});
+  if(buys.length){
+    o+=card('<div style="font-size:14px;font-weight:700;color:#16a34a;margin-bottom:6px">🟢 買入 ('+buys.length+')</div>'+
+    buys.slice(0,20).map(function(s){return stockCard(s,'#16a34a')}).join('')+
+    (buys.length>20?'<div style="text-align:center;color:#94a3b8;font-size:11px;padding:4px">...還有'+(buys.length-20)+'支</div>':''));
+  }
+  // WATCH: compact cards (top 15)
+  var watches=sigs.filter(function(s){return s.action==='WATCH'});
+  if(watches.length){
+    o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:#7c3aed">👀 觀望 ('+watches.length+')</summary>'+
+    watches.slice(0,15).map(function(s){return stockCard(s,'#7c3aed')}).join('')+
+    (watches.length>15?'<div style="text-align:center;color:#94a3b8;font-size:11px;padding:4px">...還有'+(watches.length-15)+'支</div>':'')+'</details>';
+  }
+  // Others: compact table
+  var others=[
+    {k:'NEUTRAL',l:'⚪ 中性',c:'#64748b'},
+    {k:'REDUCE',l:'🟠 減碼',c:'#f59e0b'},
+    {k:'AVOID',l:'⛔ 迴避',c:'#dc2626'}
   ];
-  groups.forEach(function(g){
+  others.forEach(function(g){
     var items=sigs.filter(function(s){return s.action===g.k});
     if(!items.length)return;
-    var tbl='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-      '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>產業</th><th>價格</th><th>分數</th><th>原因</th></tr>'+
-      items.slice(0,30).map(function(s){
-        var sc=s.score>0?'#16a34a':s.score<0?'#dc2626':'#64748b';
-        return '<tr style="border-bottom:1px solid #f1f5f9">'+
-          '<td style="padding:3px;font-weight:700">'+s.code+'</td>'+
-          '<td style="padding:3px;max-width:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+s.name.substring(0,4)+'</td>'+
-          '<td style="padding:3px;font-size:10px;max-width:50px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(s.industry||'')+'</td>'+
-          '<td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td>'+
-          '<td style="padding:3px;font-weight:700;color:'+sc+'">'+(s.score>0?'+':'')+s.score+'</td>'+
-          '<td style="padding:3px;font-size:10px;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(s.reasons||[]).slice(0,2).join(', ')+'</td></tr>'
-      }).join('');
-    if(items.length>30) tbl+='<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:4px">...還有'+(items.length-30)+'支</td></tr>';
-    tbl+='</table></div>';
-    if(g.open){
-      o+=card('<div style="font-size:14px;font-weight:700;color:'+g.c+';margin-bottom:4px">'+g.l+' ('+items.length+')</div>'+tbl);
-    } else {
-      o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:'+g.c+'">'+g.l+' ('+items.length+')</summary>'+tbl+'</details>';
-    }
+    o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:'+g.c+'">'+g.l+' ('+items.length+')</summary>'+
+    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
+    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>分數</th></tr>'+
+    items.slice(0,30).map(function(s){
+      return '<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:700">'+s.code+'</td><td style="padding:3px">'+s.name.substring(0,4)+'</td><td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td><td style="padding:3px;color:'+g.c+';font-weight:700">'+(s.score>0?'+':'')+s.score+'</td></tr>'
+    }).join('')+
+    (items.length>30?'<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:4px">...還有'+(items.length-30)+'支</td></tr>':'')+
+    '</table></div></details>';
   });
   return o;
 }
@@ -302,6 +349,73 @@ function rCross(){
         '<b>'+l.tw_code+'</b> '+l.tw_name+' <span style="font-size:10px;color:#64748b">('+l.relation+')</span></div>'
     }).join(''));
   }
+  return o;
+}
+
+function rGuide(){
+  var o='';
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">📖 台股 StockIQ 學習中心</h2>'+
+  '<p style="font-size:12px;color:#64748b;margin:0 0 12px">所有指標的計算方式、判讀標準與操作建議</p>'+
+  
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">一、訊號評分系統</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<p>系統綜合法人動向、估值、基本面生成 -10 ~ +10 分的評分：</p>'+
+  '<div style="margin:6px 0"><b>法人訊號（最重要！台股獨有）：</b></div>'+
+  '<div style="margin:2px 0">• 外資+投信同買: +2（雙主力認同）</div>'+
+  '<div style="margin:2px 0">• 法人佔成交 &gt;10%: +3（大量吃貨）</div>'+
+  '<div style="margin:2px 0">• 外資+投信同賣: -2（主力撤退）</div>'+
+  '<div style="margin:6px 0"><b>估值訊號：</b></div>'+
+  '<div style="margin:2px 0">• PE &lt; 10: +1 低估</div>'+
+  '<div style="margin:2px 0">• PE &gt; 40: -1 過高</div>'+
+  '<div style="margin:2px 0">• PB &lt; 1: +1 低於淨值</div>'+
+  '<div style="margin:2px 0">• 殖利率 &gt; 5%: +1</div>'+
+  '<div style="margin:6px 0"><b>基本面（前200大，Yahoo Finance）：</b></div>'+
+  '<div style="margin:2px 0">• ROE &gt; 25%: +2 · ROE &lt; 0: -2</div>'+
+  '<div style="margin:2px 0">• 營收成長 &gt; 30%: +1</div>'+
+  '<div style="margin:2px 0">• FCF 為負: 風險警告</div>'+
+  '</div></details>'+
+  
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">二、吸籌/出貨偵測</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<p>利用台股獨有的<b>三大法人買賣超</b>數據（美股沒有！），偵測機構吸籌/出貨行為：</p>'+
+  '<div style="margin:6px 0"><b>🟢 吸籌條件（分數 ≥ 3）：</b></div>'+
+  '<div style="margin:2px 0">• 外資+投信同買 (+3)</div>'+
+  '<div style="margin:2px 0">• 法人佔成交量 &gt;20% (+3) / &gt;10% (+2) / &gt;3% (+1)</div>'+
+  '<div style="margin:2px 0">• 股價上漲 &gt;2% (+1)</div>'+
+  '<div style="margin:2px 0">• 融資減少（散戶退場）+法人買 (+1) ← 聰明錢訊號</div>'+
+  '<div style="margin:6px 0"><b>🔴 出貨條件：</b>以上反轉</div>'+
+  '<div style="margin:6px 0"><b>關鍵概念：</b>法人佔成交量越高，代表主力意圖越明確。40%+ 是極強訊號。</div>'+
+  '</div></details>'+
+  
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">三、價格區間</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<div style="margin:2px 0">📍 <b>進場價</b>: 20日均線附近或近期支撐上方 2%</div>'+
+  '<div style="margin:2px 0">🔴 <b>止損價</b>: 進場價 ×0.92（-8%，台股漲跌幅10%內留彈性）</div>'+
+  '<div style="margin:2px 0">🎯 <b>目標價T1</b>: 近期壓力位或進場+15%</div>'+
+  '<div style="margin:2px 0">🎯 <b>目標價T2</b>: 52週高點或進場+25%</div>'+
+  '<div style="margin:2px 0">📊 <b>RR值</b>: (目標-進場)÷(進場-止損)，≥1.5為佳，&lt;1不建議</div>'+
+  '</div></details>'+
+  
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">四、美台聯動</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<p>追蹤14支美股隔夜變動，映射到台灣供應鏈：</p>'+
+  '<div style="margin:2px 0">• NVDA → 台積電(2330)、聯發科(2454)、創意(3443)</div>'+
+  '<div style="margin:2px 0">• AAPL → 鴻海(2317)、日月光(3711)</div>'+
+  '<div style="margin:2px 0">• MSFT/GOOGL/META → 廣達(2382)、緯創(3231)</div>'+
+  '<div style="margin:2px 0">• 費半指數(SOX) → 全半導體族群</div>'+
+  '<div style="margin:2px 0">• TSM ADR → 台積電(2330) 直接連動</div>'+
+  '<div style="margin:6px 0"><b>觸發條件：</b>美股變動 &gt; ±1% 才產生聯動訊號</div>'+
+  '<div style="margin:2px 0"><b>🔴 強關聯</b> = 直接供應鏈 · <b>🟡 中關聯</b> = 間接</div>'+
+  '</div></details>'+
+  
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">五、融資融券解讀</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<div style="margin:2px 0">• <b>融資增+法人賣</b> = 散戶追高，主力出貨 🔴 最危險</div>'+
+  '<div style="margin:2px 0">• <b>融資減+法人買</b> = 散戶退場，主力吃貨 🟢 最佳訊號</div>'+
+  '<div style="margin:2px 0">• <b>融券大量</b> = 市場看空，但軋空風險高</div>'+
+  '<div style="margin:2px 0">• <b>融資維持率低</b> = 斷頭風險，可能引發急跌</div>'+
+  '</div></details>');
+  
   return o;
 }
 
