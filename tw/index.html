@@ -13,8 +13,8 @@
         .header .sub { font-size: 12px; opacity: 0.8; margin-top: 2px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 12px; }
         .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-        .tabs { display: flex; gap: 4px; overflow-x: auto; padding: 8px 12px; background: white; border-bottom: 1px solid #e2e8f0; }
-        .tab { padding: 8px 16px; border-radius: 20px; border: 2px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px; font-weight: 700; white-space: nowrap; }
+        .tabs { display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 8px 12px; background: white; border-bottom: 1px solid #e2e8f0; scrollbar-width: thin; }
+        .tab { padding: 8px 12px; border-radius: 20px; border: 2px solid #e2e8f0; background: white; cursor: pointer; font-size: 12px; font-weight: 700; white-space: nowrap; flex-shrink: 0;
         .tab.active { background: #1e40af; color: white; border-color: #1e40af; }
         .section { display: none; }
         .section.active { display: block; }
@@ -43,7 +43,7 @@
 <body>
     <div class="header">
         <h1>🇹🇼 StockIQ 台股</h1>
-        <div class="sub">全市場智能分析 · TWSE + TPEx · <span id="updateTime">載入中...</span></div>
+        <div class="sub">全市場智能分析 · TWSE + TPEx · <span id="updateTime">載入中...</span> · <a href="/" style="color:rgba(255,255,255,0.7);text-decoration:none">美股版→</a></div>
     </div>
     
     <div class="tabs">
