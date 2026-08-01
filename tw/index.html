@@ -34,6 +34,7 @@ var TABS=[
   {id:'institutional',label:'🏦 法人'},
   {id:'industry',label:'🏭 產業'},
   {id:'accumulation',label:'💡 吸籌'},
+  {id:'signalmap',label:'📊 散點圖'},
   {id:'news',label:'📰 新聞'},
   {id:'crossmarket',label:'🔗 聯動'},
   {id:'search',label:'🔍 搜尋'},
@@ -73,6 +74,7 @@ function render(){
     case 'institutional': m.innerHTML=rInst(); break;
     case 'industry': m.innerHTML=rIndustry(); break;
     case 'accumulation': m.innerHTML=rAccum(); break;
+    case 'signalmap': m.innerHTML=rSignalMap(); break;
     case 'news': m.innerHTML=rNews(); break;
     case 'crossmarket': m.innerHTML=rCross(); break;
     case 'search': m.innerHTML=rSearch(); break;
@@ -253,6 +255,15 @@ function rIndustry(){
       '<td style="padding:3px;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'
   }).join('')+'</table></div>');
   return o;
+}
+
+function rSignalMap(){
+  if(!D||!D.signal_map_svg)return card('<p style="color:#94a3b8;text-align:center">無散點圖資料</p>');
+  return card('<div style="font-size:14px;font-weight:700;margin-bottom:8px">📊 Signal Map — 法人動向 vs 評分</div>'+
+  '<div style="font-size:11px;color:#64748b;margin-bottom:8px">X軸: 法人買賣超(千股) · Y軸: 綜合評分 · 右上角=最佳機會</div>'+
+  '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:10px">'+
+  '<span style="color:#16a34a">● 買入</span> <span style="color:#7c3aed">● 觀望</span> <span style="color:#94a3b8">● 中性</span> <span style="color:#f59e0b">● 減碼</span> <span style="color:#dc2626">● 迴避</span></div>'+
+  D.signal_map_svg);
 }
 
 function rAccum(){
