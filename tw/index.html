@@ -120,7 +120,15 @@ function stockCard(s,color){
   // Reasons
   h+='<div style="font-size:11px;color:'+color+';font-weight:600;margin:2px 0">'+(s.reasons||[]).join(' · ')+'</div>';
   // Institutional flow
-  h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K</div>';
+  var tr=s.inst_trend||{};
+  var tl='';
+  if(tr.consecutive_buy>=3)tl=' <span style="color:#16a34a;font-weight:700">連買'+tr.consecutive_buy+'日</span>';
+  else if(tr.consecutive_sell>=3)tl=' <span style="color:#dc2626;font-weight:700">連賣'+tr.consecutive_sell+'日</span>';
+  var wf=tr.week_foreign||0,mf=tr.month_foreign||0;
+  var wl=wf?(wf>0?'<span style="color:#16a34a">周+</span>':'<span style="color:#dc2626">周-</span>'):'';
+  var ml=mf?(mf>0?'<span style="color:#16a34a">月+</span>':'<span style="color:#dc2626">月-</span>'):'';
+  h+='<div style="font-size:10px;color:#94a3b8">外資'+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K 投信'+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl+'</div>';
+  if(wl||ml)h+='<div style="font-size:10px;color:#94a3b8">趨勢: '+wl+(wl&&ml?' ':'')+ml+(tr.week_foreign?' 周外資'+(tr.week_foreign>0?'+':'')+((tr.week_foreign||0)/1000).toFixed(0)+'K':'')+'</div>';
   // Price levels
   if(pl.entry)h+='<div style="font-size:10px;margin-top:2px">📍$'+pl.entry+' 🔴$'+pl.stop_loss+' 🎯$'+pl.target1+' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b></div>';
   h+='</div>';
@@ -170,7 +178,11 @@ function rOverview(){
       // Analysis
       h+='<div style="font-size:11px;color:#16a34a;font-weight:600;margin:4px 0">🟢 '+(s.reasons||[]).join(' · ')+'</div>';
       // Institutional
-      h+='<div style="font-size:11px;color:#64748b;margin:2px 0">外資 '+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K · 投信 '+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K</div>';
+      var tr2=s.inst_trend||{};
+      var tl2='';
+      if(tr2.consecutive_buy>=3)tl2=' · <b style="color:#16a34a">連買'+tr2.consecutive_buy+'日</b>';
+      else if(tr2.consecutive_sell>=3)tl2=' · <b style="color:#dc2626">連賣'+tr2.consecutive_sell+'日</b>';
+      h+='<div style="font-size:11px;color:#64748b;margin:2px 0">外資 '+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K · 投信 '+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl2+'</div>';
       // Price levels
       if(pl.entry){
         h+='<div style="font-size:11px;margin:4px 0">📍 進場 <b style="color:#1e40af">$'+pl.entry+'</b> · 🔴 止損 <b style="color:#dc2626">$'+pl.stop_loss+'</b> ('+pl.stop_pct+'%) · 🎯 目標 <b style="color:#16a34a">$'+pl.target1+'</b> (+'+pl.target1_pct+'%)';
