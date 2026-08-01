@@ -270,7 +270,7 @@ function rInst(){
   function instTable(items,label,color){
     return card('<div style="font-size:14px;font-weight:700;color:'+color+';margin-bottom:4px">'+label+'</div>'+
     '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>外資</th><th>外資趨勢</th><th>投信</th><th>投信趨勢</th><th>訊號</th></tr>'+
+    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>外資</th><th>趨勢</th><th>持股%</th><th>投信</th><th>投信趨勢</th><th>訊號</th></tr>'+
     items.map(function(s){
       var fi=s.institutional||{};
       var tr=s.inst_trend||{};
