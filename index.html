@@ -1097,8 +1097,66 @@
                 }, 300); 
             }
             if (tabName === 'smart') { loadSmartMoney(); }
-            if (tabName === 'news') loadNewsSection();
+            if (tabName === 'news') loadNewsIntel(); loadNewsSection();
             if (tabName === 'daily_archive') loadDailyArchive();
+        }
+        
+        
+        async function loadNewsIntel() {
+            var el = document.getElementById('newsIntelContent');
+            if (!el || el.dataset.loaded) return;
+            el.dataset.loaded = '1';
+            try {
+                var resp = await fetch('/data/news_intel.json?t=' + Date.now());
+                var data = await resp.json();
+                var out = '';
+                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleString('zh-TW', {timeZone:'Asia/Taipei'}) : '';
+                out += '<div style="margin-bottom:12px">';
+                out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+                out += '<h3 style="margin:0;font-size:15px">🔍 新聞情報分析</h3>';
+                out += '<span style="font-size:10px;color:#94a3b8">' + genDate + '</span></div>';
+                if (data.geo_alerts && data.geo_alerts.length > 0) {
+                    out += '<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:8px;border-radius:0 8px 8px 0;margin-bottom:8px">';
+                    out += '<div style="font-size:13px;font-weight:700;color:#dc2626;margin-bottom:4px">🚨 地緣政治/總經警報</div>';
+                    data.geo_alerts.slice(0,5).forEach(function(a) {
+                        var tags = (a.geo_tags||[]).map(function(g){return g.impact}).join(' · ');
+                        out += '<div style="padding:3px 0;border-bottom:1px solid #fecaca;font-size:12px">';
+                        out += '<div style="font-weight:600">' + a.title.substring(0,80) + '</div>';
+                        out += '<div style="font-size:10px;color:#dc2626">' + tags + '</div>';
+                        if (a.affected_stocks) out += '<div style="font-size:10px;color:#64748b">影響: ' + a.affected_stocks.join(', ') + '</div>';
+                        out += '</div>';
+                    });
+                    out += '</div>';
+                }
+                out += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px">';
+                if (data.geo_articles) {
+                    out += '<div style="background:#f8fafc;padding:8px;border-radius:6px">';
+                    out += '<div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px">🌍 總經/地緣</div>';
+                    data.geo_articles.slice(0,6).forEach(function(a) {
+                        var d2 = (a.geo_tags && a.geo_tags.length > 0) ? '🔴' : '⚪';
+                        out += '<div style="font-size:11px;padding:2px 0;border-bottom:1px solid #e2e8f0">' + d2 + ' ' + a.title.substring(0,55) + '</div>';
+                    });
+                    out += '</div>';
+                }
+                if (data.sector_articles) {
+                    out += '<div style="background:#f8fafc;padding:8px;border-radius:6px">';
+                    out += '<div style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:4px">🏭 板塊動態</div>';
+                    data.sector_articles.slice(0,6).forEach(function(a) {
+                        out += '<div style="font-size:11px;padding:2px 0;border-bottom:1px solid #e2e8f0"><span style="color:#7c3aed;font-size:9px">[' + a.feed + ']</span> ' + a.title.substring(0,50) + '</div>';
+                    });
+                    out += '</div>';
+                }
+                if (data.regional_articles) {
+                    out += '<div style="background:#f8fafc;padding:8px;border-radius:6px">';
+                    out += '<div style="font-size:12px;font-weight:700;color:#059669;margin-bottom:4px">🌏 區域市場</div>';
+                    data.regional_articles.slice(0,6).forEach(function(a) {
+                        out += '<div style="font-size:11px;padding:2px 0;border-bottom:1px solid #e2e8f0"><span style="color:#059669;font-size:9px">[' + a.feed + ']</span> ' + a.title.substring(0,50) + '</div>';
+                    });
+                    out += '</div>';
+                }
+                out += '</div></div>';
+                el.innerHTML = out;
+            } catch(e) { el.innerHTML = ''; }
         }
         
         async function loadNewsSection() {
@@ -2715,6 +2773,7 @@ async function loadSmartBacktest() {
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 財金新聞</h2>
                 <p style="font-size:13px;color:#64748b;margin-bottom:16px">即時美股財經新聞 · 產業動態 · 個股事件</p>
+                <div id="newsIntelContent" style="margin-bottom:12px"></div>
                 <div id="newsContent"><p style="color:#94a3b8;text-align:center;padding:24px">點擊「財金新聞」標籤載入</p></div>
             </div>
         </div>
