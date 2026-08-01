@@ -51,6 +51,8 @@
         <div class="tab" onclick="showTab('signals')">📡 訊號</div>
         <div class="tab" onclick="showTab('institutional')">🏦 法人</div>
         <div class="tab" onclick="showTab('industry')">🏭 產業</div>
+        <div class="tab" onclick="showTab('accumulation')">💡 吸籌出貨</div>
+        <div class="tab" onclick="showTab('news')">📰 新聞</div>
         <div class="tab" onclick="showTab('crossmarket')">🔗 美台聯動</div>
         <div class="tab" onclick="showTab('search')">🔍 搜尋</div>
     </div>
@@ -74,6 +76,16 @@
         <!-- Industry -->
         <div id="industry" class="section">
             <div id="industryContent"><p style="text-align:center;color:#94a3b8;padding:40px">點擊「產業」載入</p></div>
+        </div>
+        
+        <!-- Accumulation -->
+        <div id="accumulation" class="section">
+            <div id="accumContent"><p style="text-align:center;color:#94a3b8;padding:40px">點擊「吸籌出貨」載入</p></div>
+        </div>
+        
+        <!-- News -->
+        <div id="news" class="section">
+            <div id="newsContent"><p style="text-align:center;color:#94a3b8;padding:40px">點擊「新聞」載入</p></div>
         </div>
         
         <!-- Cross Market -->
@@ -328,6 +340,105 @@ function renderIndustry() {
     });
     out += '</table></div></div>';
     
+    el.innerHTML = out;
+}
+
+
+function renderAccumulation() {
+    if (!_twData || !_twData.accumulation) return;
+    var el = document.getElementById('accumContent');
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = '1';
+    
+    var acc = _twData.accumulation;
+    var out = '';
+    
+    // Bullish
+    var bulls = acc.bullish || [];
+    out += '<div class="card"><h3 style="font-size:15px;color:#dc2626;margin-bottom:8px">🟢 吸籌偵測 — 法人買+量能確認 (' + bulls.length + ')</h3>';
+    out += '<div style="font-size:11px;color:#64748b;margin-bottom:8px">篩選條件: 外資投信同買 + 法人佔成交>10% + 價格確認</div>';
+    if (bulls.length > 0) {
+        out += '<div style="overflow-x:auto"><table>';
+        out += '<tr><th>代號</th><th>名稱</th><th>產業</th><th>價格</th><th>漲跌</th><th>法人佔比</th><th>外資</th><th>投信</th><th>PE</th><th>原因</th></tr>';
+        bulls.forEach(function(s) {
+            var chg = s.change_pct || 0;
+            out += '<tr>';
+            out += '<td><strong>' + s.code + '</strong></td>';
+            out += '<td>' + (s.name||'').substring(0,6) + '</td>';
+            out += '<td style="font-size:11px">' + (s.industry||'') + '</td>';
+            out += '<td>$' + (s.price||0).toLocaleString() + '</td>';
+            out += '<td class="pos">' + (chg>0?'+':'') + chg.toFixed(1) + '%</td>';
+            out += '<td style="font-weight:700;color:#dc2626">' + (s.flow_ratio||0) + '%</td>';
+            out += '<td class="pos">+' + (s.foreign_net/1000).toFixed(0) + 'K</td>';
+            out += '<td class="pos">+' + (s.trust_net/1000).toFixed(0) + 'K</td>';
+            out += '<td>' + (s.pe?s.pe.toFixed(1):'-') + '</td>';
+            out += '<td style="font-size:11px">' + (s.reasons||[]).join(', ') + '</td>';
+            out += '</tr>';
+        });
+        out += '</table></div>';
+    }
+    out += '</div>';
+    
+    // Bearish
+    var bears = acc.bearish || [];
+    out += '<details class="card"><summary style="cursor:pointer;font-size:15px;font-weight:700;color:#16a34a">🔴 出貨偵測 — 法人賣+量能確認 (' + bears.length + ')</summary>';
+    out += '<div style="font-size:11px;color:#64748b;margin:8px 0">篩選條件: 外資投信同賣 + 法人佔成交>10% + 價格確認</div>';
+    if (bears.length > 0) {
+        out += '<div style="overflow-x:auto"><table>';
+        out += '<tr><th>代號</th><th>名稱</th><th>產業</th><th>價格</th><th>漲跌</th><th>法人佔比</th><th>外資</th><th>投信</th><th>原因</th></tr>';
+        bears.forEach(function(s) {
+            var chg = s.change_pct || 0;
+            out += '<tr>';
+            out += '<td><strong>' + s.code + '</strong></td>';
+            out += '<td>' + (s.name||'').substring(0,6) + '</td>';
+            out += '<td style="font-size:11px">' + (s.industry||'') + '</td>';
+            out += '<td>$' + (s.price||0).toLocaleString() + '</td>';
+            out += '<td class="neg">' + chg.toFixed(1) + '%</td>';
+            out += '<td style="font-weight:700;color:#16a34a">' + (s.flow_ratio||0) + '%</td>';
+            out += '<td class="neg">' + (s.foreign_net/1000).toFixed(0) + 'K</td>';
+            out += '<td class="neg">' + (s.trust_net/1000).toFixed(0) + 'K</td>';
+            out += '<td style="font-size:11px">' + (s.reasons||[]).join(', ') + '</td>';
+            out += '</tr>';
+        });
+        out += '</table></div>';
+    }
+    out += '</details>';
+    
+    el.innerHTML = out;
+}
+
+function renderNews() {
+    if (!_twData || !_twData.news) return;
+    var el = document.getElementById('newsContent');
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = '1';
+    
+    var news = _twData.news;
+    var cats = news.categories || {};
+    var out = '';
+    
+    var catOrder = [
+        {key:'法人動向', icon:'🏦', color:'#7c3aed'},
+        {key:'個股焦點', icon:'🔍', color:'#1e40af'},
+        {key:'國際連動', icon:'🌍', color:'#059669'},
+        {key:'市場動態', icon:'📊', color:'#dc2626'},
+    ];
+    
+    catOrder.forEach(function(c) {
+        var items = cats[c.key] || [];
+        if (items.length === 0) return;
+        out += '<div class="card"><h3 style="font-size:15px;color:' + c.color + ';margin-bottom:8px">' + c.icon + ' ' + c.key + ' (' + items.length + ')</h3>';
+        items.forEach(function(n) {
+            out += '<div style="padding:6px 0;border-bottom:1px solid #f1f5f9">';
+            out += '<a href="' + (n.url||'#') + '" target="_blank" style="color:#1e293b;text-decoration:none;font-size:13px;font-weight:600">' + n.title + '</a>';
+            if (n.summary) out += '<div style="font-size:11px;color:#64748b;margin-top:2px">' + n.summary.substring(0,80) + '</div>';
+            out += '<div style="font-size:10px;color:#94a3b8">' + (n.source||'') + '</div>';
+            out += '</div>';
+        });
+        out += '</div>';
+    });
+    
+    if (!out) out = '<p style="text-align:center;color:#94a3b8;padding:40px">暫無新聞</p>';
     el.innerHTML = out;
 }
 
