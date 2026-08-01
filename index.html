@@ -1146,7 +1146,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','signalmap','alpha','signals'].forEach(t => {
+            ['bullish','bearish','signalmap','alpha','signals','earnings'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
@@ -1163,6 +1163,7 @@
             else if (tab === 'signalmap') loadSignalMap();
             else if (tab === 'alpha') { loadAlphaFramework(); setTimeout(loadCyclicalBreakout, 500); }
             else if (tab === 'signals') loadTradingSignals();
+            else if (tab === 'earnings') loadEarningsCalendar();
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
@@ -2689,6 +2690,7 @@ async function loadSmartBacktest() {
                         <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
                         <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
                 <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
+                <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:8px 18px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:13px;background:white;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
@@ -4029,6 +4031,168 @@ async function loadSmartBacktest() {
                 container.innerHTML = out;
             } catch(e) {
                 container.innerHTML = '<div style="text-align:center;padding:40px;color:#dc2626">❌ 載入失敗: ' + e.message + '</div>';
+            }
+        }
+
+
+        // ── Earnings Calendar + ROE ──
+        async function loadEarningsCalendar() {
+            var container = document.getElementById('smartMoneyContent');
+            if (!container) return;
+            container.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8">載入財報日曆...</div>';
+            
+            try {
+                var resp = await fetch('/data/earnings_roe.json?t=' + Date.now());
+                if (!resp.ok) throw new Error('earnings_roe.json: ' + resp.status);
+                var data = await resp.json();
+                var stocks = data.stocks || {};
+                var upcoming = data.upcoming_earnings || [];
+                var genDate = data.generated_at ? new Date(data.generated_at).toLocaleDateString('zh-TW') : '';
+                
+                // Also load signals for cross-reference
+                var sigData = {};
+                try {
+                    var sr = await fetch('/data/signals.json?t=' + Date.now());
+                    if (sr.ok) {
+                        var sd = await sr.json();
+                        (sd.signals||[]).forEach(function(s) { sigData[s.symbol] = s; });
+                    }
+                } catch(e) {}
+                
+                var out = '';
+                
+                // ── Header ──
+                out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">';
+                out += '<div style="font-size:18px;font-weight:700">📅 財報日曆</div>';
+                out += '<div style="font-size:11px;color:#94a3b8">更新: ' + genDate + ' · 共 ' + Object.keys(stocks).length + ' 支</div>';
+                out += '</div>';
+                
+                // ── Upcoming Earnings Timeline ──
+                if (upcoming.length > 0) {
+                    // Group by date
+                    var byDate = {};
+                    upcoming.forEach(function(u) {
+                        if (!byDate[u.date]) byDate[u.date] = [];
+                        byDate[u.date].push(u);
+                    });
+                    
+                    var dates = Object.keys(byDate).sort();
+                    var now = new Date();
+                    
+                    out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                    out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;font-weight:700;font-size:14px">📆 即將發布財報（60天）</div>';
+                    
+                    dates.forEach(function(date) {
+                        var items = byDate[date];
+                        var d = new Date(date + 'T00:00:00');
+                        var dayNames = ['日','一','二','三','四','五','六'];
+                        var dayStr = (d.getMonth()+1) + '/' + d.getDate() + ' 週' + dayNames[d.getDay()];
+                        var daysAway = Math.ceil((d - now) / 86400000);
+                        var urgency = daysAway <= 3 ? '#dc2626' : daysAway <= 7 ? '#f59e0b' : '#64748b';
+                        var urgLabel = daysAway <= 0 ? '今天' : daysAway <= 1 ? '明天' : daysAway + '天後';
+                        
+                        out += '<div style="padding:10px 16px;border-bottom:1px solid #f1f5f9">';
+                        out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+                        out += '<span style="font-weight:600;font-size:13px">' + dayStr + '</span>';
+                        out += '<span style="font-size:11px;color:' + urgency + ';font-weight:600">' + urgLabel + '</span>';
+                        out += '</div>';
+                        out += '<div style="display:flex;flex-wrap:wrap;gap:4px">';
+                        
+                        items.forEach(function(u) {
+                            var sym = u.symbol;
+                            var roe = u.roe;
+                            var sig = sigData[sym] || {};
+                            var sigAction = sig.action_zh || '';
+                            
+                            var chipBg = '#f1f5f9';
+                            var chipColor = '#475569';
+                            if (sig.action === 'BUY' || sig.action === 'SCALE_IN') { chipBg = '#dcfce7'; chipColor = '#16a34a'; }
+                            else if (sig.action === 'SELL' || sig.action === 'STOP_LOSS') { chipBg = '#fee2e2'; chipColor = '#dc2626'; }
+                            else if (sig.action === 'WAIT' || sig.action === 'WATCH') { chipBg = '#fef9c3'; chipColor = '#92400e'; }
+                            
+                            var roeStr = roe != null ? ' ROE=' + roe.toFixed(0) + '%' : '';
+                            var roeColor = roe > 25 ? '#16a34a' : roe > 10 ? '#64748b' : roe != null ? '#dc2626' : '#94a3b8';
+                            
+                            out += '<div style="background:' + chipBg + ';padding:4px 10px;border-radius:8px;font-size:12px;display:flex;gap:4px;align-items:center">';
+                            out += '<strong style="color:' + chipColor + '">' + sym + '</strong>';
+                            if (roeStr) out += '<span style="color:' + roeColor + ';font-size:10px">' + roeStr + '</span>';
+                            if (sigAction) out += '<span style="font-size:9px;color:#94a3b8">' + sigAction + '</span>';
+                            out += '</div>';
+                        });
+                        
+                        out += '</div></div>';
+                    });
+                    
+                    out += '</div>';
+                }
+                
+                // ── ROE Ranking ──
+                var roeList = [];
+                Object.entries(stocks).forEach(function(entry) {
+                    var sym = entry[0], s = entry[1];
+                    if (s.roe != null && s.fwd_pe != null && s.fwd_pe > 0) {
+                        roeList.push({sym:sym, roe:s.roe, fpe:s.fwd_pe, tpe:s.trail_pe, pb:s.pb, sector:s.sector, industry:s.industry, mcap:s.mcap_b});
+                    }
+                });
+                roeList.sort(function(a,b) { return b.roe - a.roe; });
+                
+                out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
+                out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between">';
+                out += '<span style="font-weight:700;font-size:14px">📊 ROE vs Forward PE</span>';
+                out += '<span style="font-size:11px;color:#94a3b8">ROE>25%+FwdPE<20 = 🔥潛力股</span>';
+                out += '</div>';
+                
+                // High ROE Low PE section
+                var bargains = roeList.filter(function(r) { return r.roe > 25 && r.fpe < 20 && r.fpe > 0; });
+                if (bargains.length > 0) {
+                    out += '<div style="padding:10px 16px;border-bottom:1px solid #e2e8f0">';
+                    out += '<div style="font-weight:600;font-size:13px;color:#16a34a;margin-bottom:6px">🔥 高ROE低PE（可能低估）</div>';
+                    out += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+                    bargains.forEach(function(r) {
+                        var sig = sigData[r.sym] || {};
+                        out += '<div style="background:#f0fdf4;padding:6px 10px;border-radius:8px;font-size:11px;border:1px solid #bbf7d0">';
+                        out += '<strong>' + r.sym + '</strong> ROE=' + r.roe.toFixed(0) + '% PE=' + r.fpe.toFixed(1);
+                        if (r.pb) out += ' P/B=' + r.pb.toFixed(1);
+                        if (sig.action_zh) out += ' <span style="color:#94a3b8">' + sig.action_zh + '</span>';
+                        out += '</div>';
+                    });
+                    out += '</div></div>';
+                }
+                
+                // Full ROE table (collapsible)
+                out += '<details style="padding:10px 16px"><summary style="cursor:pointer;font-weight:600;font-size:13px;margin-bottom:8px;list-style:none">📋 完整ROE排名 (' + roeList.length + '支) ▸</summary>';
+                out += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">';
+                out += '<thead><tr style="background:#f1f5f9"><th style="padding:5px;text-align:left">股票</th><th style="padding:5px;text-align:right">ROE</th><th style="padding:5px;text-align:right">FwdPE</th><th style="padding:5px;text-align:right">P/B</th><th style="padding:5px;text-align:left">板塊</th><th style="padding:5px;text-align:left">操作</th></tr></thead><tbody>';
+                
+                roeList.forEach(function(r) {
+                    var roeC = r.roe > 25 ? '#16a34a' : r.roe > 10 ? '#475569' : '#dc2626';
+                    var sig = sigData[r.sym] || {};
+                    out += '<tr style="border-bottom:1px solid #f8fafc">';
+                    out += '<td style="padding:4px 5px;font-weight:600">' + r.sym + '</td>';
+                    out += '<td style="padding:4px 5px;text-align:right;color:' + roeC + ';font-weight:600">' + r.roe.toFixed(1) + '%</td>';
+                    out += '<td style="padding:4px 5px;text-align:right">' + r.fpe.toFixed(1) + '</td>';
+                    out += '<td style="padding:4px 5px;text-align:right">' + (r.pb ? r.pb.toFixed(1) : '-') + '</td>';
+                    out += '<td style="padding:4px 5px;font-size:10px;color:#94a3b8">' + (r.sector||'').slice(0,10) + '</td>';
+                    out += '<td style="padding:4px 5px;font-size:10px">' + (sig.action_zh||'') + '</td>';
+                    out += '</tr>';
+                });
+                
+                out += '</tbody></table></div></details></div>';
+                
+                // ── ROE-PE Scatter Insight ──
+                out += '<div style="background:#eff6ff;border-radius:10px;padding:12px 16px;border:1px solid #93c5fd;font-size:12px;color:#1e40af">';
+                out += '<div style="font-weight:700;margin-bottom:6px">💡 ROE 與股價的關係</div>';
+                out += '<div style="line-height:1.8">';
+                out += '• <strong>ROE > 25%</strong> = 資本效率優秀，每投入$1股東權益產出$0.25+利潤<br>';
+                out += '• <strong>高ROE + 低PE</strong> = 市場可能低估（如 MU ROE=67% PE=5.4）<br>';
+                out += '• <strong>高ROE + 高P/B</strong> = 市場已充分定價（如 AAPL ROE=149% P/B=43）<br>';
+                out += '• <strong>ROE vs PE 相關性 = -0.15</strong>（弱負相關）→ ROE 高不代表 PE 也高<br>';
+                out += '• ⚠️ 超高ROE可能是高槓桿造成（如 MA ROE=232% 因為大量回購降低股東權益）';
+                out += '</div></div>';
+                
+                container.innerHTML = out;
+            } catch(e) {
+                container.innerHTML = '<div style="text-align:center;padding:40px;color:#dc2626">❌ ' + e.message + '</div>';
             }
         }
 
