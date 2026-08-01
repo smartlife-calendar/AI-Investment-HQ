@@ -4350,6 +4350,59 @@ async function loadSmartBacktest() {
                     out += '</div>';
                 }
                 
+                // ── CapEx 資金流向 ──
+                if (data.capex_flows) {
+                    var cf = data.capex_flows;
+                    out += '<div style="margin-top:20px;border-top:2px solid #6366f1;padding-top:12px">';
+                    out += '<h3 style="color:#6366f1;margin:0 0 8px">💸 科技巨頭 CapEx 資金流向</h3>';
+                    out += '<div style="font-size:11px;color:#64748b;margin-bottom:8px">追蹤大買家的錢流向哪些供應商 · 單位: 十億美元/季</div>';
+                    if (cf.total_big4_quarterly_b) {
+                        out += '<div style="background:#eef2ff;padding:8px;border-radius:6px;margin-bottom:10px;font-size:13px">';
+                        out += '四大雲 單季CapEx: <b style="color:#4f46e5">$' + cf.total_big4_quarterly_b + 'B</b>';
+                        out += ' · 年化 ~$' + Math.round(cf.total_big4_quarterly_b * 4) + 'B';
+                        out += '</div>';
+                    }
+                    if (cf.spenders) {
+                        out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:12px">';
+                        ['META','GOOGL','MSFT','AMZN','TSLA','AAPL'].forEach(function(sym) {
+                            var sp = cf.spenders[sym]; if (!sp) return;
+                            var clr = sp.qoq_change > 30 ? '#dc2626' : sp.qoq_change > 10 ? '#f59e0b' : '#10b981';
+                            out += '<div style="background:#f8fafc;padding:6px 8px;border-radius:6px;border-left:3px solid '+clr+'">';
+                            out += '<div style="font-weight:600;font-size:13px">'+sym+'</div>';
+                            out += '<div style="font-size:12px">$'+sp.latest_b+'B <span style="color:'+clr+'">QoQ'+(sp.qoq_change>0?'+':'')+sp.qoq_change+'%</span></div>';
+                            out += '<div style="font-size:10px;color:#64748b">強度'+sp.intensity_pct+'%</div></div>';
+                        });
+                        out += '</div>';
+                    }
+                    if (cf.beneficiaries) {
+                        out += '<h4 style="margin:8px 0 4px;font-size:13px">🏆 供應鏈受益排名</h4>';
+                        var bArr = Object.entries(cf.beneficiaries).sort(function(a,b){return b[1].n_customers-a[1].n_customers;});
+                        out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px">';
+                        bArr.slice(0,12).forEach(function(item) {
+                            var sym=item[0], b=item[1];
+                            out += '<div style="background:#fefce8;padding:4px 8px;border-radius:4px;font-size:12px">';
+                            out += '<b>'+sym+'</b> 供應'+b.n_customers+'家('+b.customers.join(',')+')';
+                            out += '<div style="font-size:10px;color:#92400e">'+b.categories.join(' · ')+'</div></div>';
+                        });
+                        out += '</div>';
+                    }
+                    out += '</div>';
+                }
+                if (data.earnings_watch && Object.keys(data.earnings_watch).length > 0) {
+                    out += '<div style="margin-top:20px;border-top:2px solid #f59e0b;padding-top:12px">';
+                    out += '<h3 style="color:#f59e0b;margin:0 0 8px">📋 近期財報自動解讀</h3>';
+                    var ew = data.earnings_watch;
+                    Object.keys(ew).forEach(function(sym) {
+                        var e = ew[sym]; if (!e.findings && !e.risk_flags) return;
+                        var bc = (e.verdict||'').indexOf('強勢')>=0?'#10b981':(e.verdict||'').indexOf('警戒')>=0?'#dc2626':'#f59e0b';
+                        out += '<div style="background:#fffbeb;padding:8px;border-radius:6px;margin-bottom:6px;border-left:3px solid '+bc+'">';
+                        out += '<div style="font-weight:600">'+(e.verdict||'')+' '+sym+' $'+(e.price||'?')+' | FwdPE='+(e.fwd_pe?e.fwd_pe.toFixed(1):'?')+' PEG='+(e.peg||'?')+'</div>';
+                        if (e.findings) e.findings.forEach(function(f){out+='<div style="font-size:11px;color:#166534">✅ '+f+'</div>';});
+                        if (e.risk_flags) e.risk_flags.forEach(function(f){out+='<div style="font-size:11px;color:#dc2626">⚠️ '+f+'</div>';});
+                        out += '</div>';
+                    });
+                    out += '</div>';
+                }
                 // Legend
                 out += '<div style="font-size:10px;color:#94a3b8;margin-top:8px">';
                 out += '⭐搶佔 = 成長>產業均值+10% · 加速🚀 = QoQ加速>5% · 估值效率 = EV/Rev÷成長率(低=便宜)';
