@@ -3810,6 +3810,30 @@ async function loadSmartBacktest() {
                 out += '<div style="font-size:20px;font-weight:700;color:' + rc + '">' + (market.regime_zh || market.regime) + '</div>';
                 out += '<div style="font-size:13px;color:#475569;margin-top:4px">' + (market.action_note || '') + '</div>';
                         out += '<div style="font-size:11px;color:#94a3b8;margin-top:4px">📅 更新時間: ' + genDate + ' · 每交易日 10:00 (台灣時間) 自動更新</div>';
+                // Macro risk overlay
+                if (data.macro_risk && data.macro_risk.score != null) {
+                    var mr = data.macro_risk;
+                    var mrc = mr.score <= -6 ? '#dc2626' : mr.score <= -3 ? '#f59e0b' : mr.score <= 0 ? '#eab308' : '#10b981';
+                    out += '<div style="background:' + (mr.score <= -3 ? '#fef2f2' : mr.score <= 0 ? '#fffbeb' : '#f0fdf4') + ';padding:10px;border-radius:8px;margin-top:8px;border-left:4px solid ' + mrc + '">';
+                    out += '<div style="font-size:14px;font-weight:700;color:' + mrc + '">🌍 總經風險: ' + (mr.verdict||'') + ' (分數: ' + mr.score + ')</div>';
+                    out += '<div style="font-size:12px;color:#475569;margin-top:4px">' + (mr.action||'') + '</div>';
+                    if (mr.signals && mr.signals.length > 0) {
+                        out += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">';
+                        mr.signals.forEach(function(s) {
+                            var sc = s.score > 0 ? '#10b981' : s.score <= -2 ? '#dc2626' : '#f59e0b';
+                            out += '<span style="background:white;padding:2px 8px;border-radius:4px;font-size:11px;border:1px solid ' + sc + ';color:' + sc + '">' + (s.score>0?'+':'') + s.score + ' ' + s.name + '</span>';
+                        });
+                        out += '</div>';
+                    }
+                    if (mr.regional_alerts && mr.regional_alerts.length > 0) {
+                        mr.regional_alerts.forEach(function(a) {
+                            out += '<div style="background:#fef2f2;padding:4px 8px;border-radius:4px;margin-top:6px;font-size:11px">';
+                            out += '🚨 <b>' + a.region + '</b> ' + a.etf + ' ' + a.change.toFixed(1) + '% → 影響: ' + a.exposed_stocks.join(', ');
+                            out += ' <span style="color:#64748b">(' + a.logic + ')</span></div>';
+                        });
+                    }
+                    out += '</div>';
+                }
                 out += '</div>';
                 out += '<div style="text-align:right;font-size:12px;color:#64748b">';
                 out += 'SPY $' + (market.spy_price || '?') + ' ';
