@@ -1,0 +1,44 @@
+{
+  "date": "2026-08-01",
+  "generated_at": "2026-08-01T10:01:27.354328+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "RBLX",
+      "name": "Roblox Corporation",
+      "price": 35.6,
+      "change_pct": -26.85,
+      "vol_ratio": 4.9,
+      "volume": 60912137,
+      "avg_volume": 12431048
+    },
+    {
+      "symbol": "NWL",
+      "name": "Newell Brands Inc.",
+      "price": 5.6,
+      "change_pct": 8.95,
+      "vol_ratio": 4.0,
+      "volume": 44327039,
+      "avg_volume": 11081759
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "price": 271.58,
+      "change_pct": 15.32,
+      "vol_ratio": 2.5,
+      "volume": 125921078,
+      "avg_volume": 50368431
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 308.91,
+      "change_pct": -7.35,
+      "vol_ratio": 2.2,
+      "volume": 127398021,
+      "avg_volume": 57908191
+    }
+  ]
+}
