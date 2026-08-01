@@ -1,0 +1,793 @@
+{
+  "generated_at": "2026-08-01T14:23:53+08:00",
+  "geo_articles": [
+    {
+      "title": "Jeff Bezos Stepped Down as Amazon CEO 5 Years Ago, and the Stock Has Lagged the S&P 500 Since. Could Amazon's 15.3% Gain",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 03:53:44",
+      "link": "https://www.fool.com/investing/2026/07/31/time-sensitive-jeff-bezos-stepped-down-as-amazon-c/?.tsrc=rss"
+    },
+    {
+      "title": "The 12% Yield Trap: How SPYI Returns Your Own Capital as ‘Income’",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 02:35:43",
+      "link": "https://247wallst.com/investing/etf/2026/07/31/the-12-yield-trap-how-spyi-returns-your-own-capital-as-income/?.tsrc=rss"
+    },
+    {
+      "title": "1 Software Stock to Own for Decades and 2 We Avoid",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 01:47:57",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/1-software-stock-own-decades-014757010.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Insurance ETFs Top Defensive Sector Chart In July As Investors Look To Pivot Slightly From Chips And AI",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 01:15:39",
+      "link": "https://stocktwits.com/news-articles/markets/equity/insurance-et-fs-top-defensive-sector-chart-in-july/cZ8x0xTRJ55?.tsrc=rss"
+    },
+    {
+      "title": "Review & Preview: Saved by Earnings",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:55:00",
+      "link": "https://finance.yahoo.com/m/f1803e07-4e8f-3776-9f51-316bc266481e/review-%26-preview%3A-saved-by.html?.tsrc=rss"
+    },
+    {
+      "title": "Beyond the Mag 7: Rising Q3 Estimates Signal a Market-Wide Earnings Expansion",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:24:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/beyond-mag-7-rising-q3-232400771.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "El Niño Hits the Panama Canal",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:10:00",
+      "link": "https://finance.yahoo.com/m/be4a4758-b314-3739-97c9-9712e25fec0e/el-ni%C3%B1o-hits-the-panama-canal.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Why The Bancorp Stock Beat the Market on Friday",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:08:10",
+      "link": "https://www.fool.com/investing/2026/07/31/why-the-bancorp-stock-beat-the-market-on-friday/?.tsrc=rss"
+    },
+    {
+      "title": "Caterpillar Will Remain an Important AI Stock for a Long Time",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 22:57:00",
+      "link": "https://www.fool.com/investing/2026/07/31/caterpillar-will-remain-an-important-ai-stock/?.tsrc=rss"
+    },
+    {
+      "title": "Wall Street ends higher as Amazon soothes AI jitters",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 22:41:41",
+      "link": "https://finance.yahoo.com/video/wall-street-ends-higher-amazon-224141562.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "fed_policy",
+          "impact": "Fed政策→估值倍數+流動性",
+          "severity": 2
+        },
+        {
+          "group": "inflation",
+          "impact": "通膨→Fed決策",
+          "severity": 1
+        }
+      ],
+      "affected_stocks": []
+    },
+    {
+      "title": "Japan’s stock market is facing these 3 hurdles in August",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 01:27:49",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/japan-stock-market-facing-3-012749340.html?.tsrc=rss"
+    },
+    {
+      "title": "TLT Slides as the 30-Year Yield Hits Its Highest Since 2007",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:21:16",
+      "link": "http://www.etf.com/sections/features/tlt-slides-30-year-yield-hits-its-highest-2007?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "inflation",
+          "impact": "通膨→Fed決策",
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "title": "What these consumers are paying for fast food, Dollar Menu staples",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 22:30:00",
+      "link": "https://finance.yahoo.com/video/consumers-paying-fast-food-dollar-223000057.html?.tsrc=rss"
+    },
+    {
+      "title": "Dollar Finds Support on Higher T-Note Yields",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 19:38:07",
+      "link": "https://www.barchart.com/story/news/3583741/dollar-finds-support-on-higher-t-note-yields?.tsrc=rss"
+    },
+    {
+      "title": "ASX Q2 Earnings Beat Estimates on AI-Driven LEAP, ATM Growth",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 18:12:00",
+      "link": "https://finance.yahoo.com/technology/ai/articles/asx-q2-earnings-beat-estimates-181200620.html?.tsrc=rss"
+    },
+    {
+      "title": "A Situational Awareness Selloff, a Fed Inflation Blunder and Everything Else Moving Stocks, Bonds, and the U.S. Dollar N",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 16:08:31",
+      "link": "https://www.barchart.com/story/news/3579868/a-situational-awareness-selloff-a-fed-inflation-blunder-and-everything-else-moving-stocks-bonds-and-the-u-s-dollar-now?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        },
+        {
+          "group": "fed_policy",
+          "impact": "Fed政策→估值倍數+流動性",
+          "severity": 2
+        },
+        {
+          "group": "inflation",
+          "impact": "通膨→Fed決策",
+          "severity": 1
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Why bitcoin treasury companies that tried to copy Michael Saylor's strategy are dying",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 16:08:18",
+      "link": "https://finance.yahoo.com/video/why-bitcoin-treasury-companies-tried-160818024.html?.tsrc=rss"
+    },
+    {
+      "title": "As the U.S. Continues to Fight Inflation, Make This 1 Bullish Trade Now",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 15:15:29",
+      "link": "https://www.barchart.com/story/news/3578725/as-the-u-s-continues-to-fight-inflation-make-this-1-bullish-trade-now?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "inflation",
+          "impact": "通膨→Fed決策",
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "title": "Dollar Gains on Strength in US Economic Reports and Hawkish Logan",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 14:39:51",
+      "link": "https://www.barchart.com/story/news/3577957/dollar-gains-on-strength-in-us-economic-reports-and-hawkish-logan?.tsrc=rss"
+    },
+    {
+      "title": "Market Minute 7-31-26- Tech Earnings, AI Fund Fiasco in Focus",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 14:15:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/market-minute-7-31-26-141500380.html?.tsrc=rss"
+    }
+  ],
+  "sector_articles": [
+    {
+      "title": "Here's What Billionaire Bill Ackman Would Buy if He Were Just Getting Started With $1,000",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 05:50:00",
+      "link": "https://www.fool.com/investing/2026/08/01/heres-what-billionaire-bill-ackman-would-buy-if-he/?.tsrc=rss"
+    },
+    {
+      "title": "Tesla's $99-a-Month FSD Plan Is on Pace to Generate $1.8 Billion a Year. Is This New Profit Lever a Signal to Buy the El",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 05:35:00",
+      "link": "https://www.fool.com/investing/2026/08/01/teslas-99-a-month-fsd-plan-is-on-pace-to-generate/?.tsrc=rss"
+    },
+    {
+      "title": "If You'd Invested $10,000 in Microsoft the Day Satya Nadella Became CEO, Here's What You'd Have Now.",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 04:58:00",
+      "link": "https://www.fool.com/investing/2026/08/01/if-youd-invested-10000-in-microsoft-the-day-satya/?.tsrc=rss"
+    },
+    {
+      "title": "Nvidia's Shareholder Meeting Is Aug. 26. Here's What Investors Should Be Looking Out For.",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 04:20:00",
+      "link": "https://www.fool.com/investing/2026/08/01/nvidias-shareholder-meeting-is-aug-26-heres-what-i/?.tsrc=rss"
+    },
+    {
+      "title": "1 Chart Shows Why You Should Not Buy an IPO Stock on its IPO Date",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 03:02:59",
+      "link": "https://www.fool.com/investing/2026/07/31/ipo-stocks-spacex-tech-ipo/?.tsrc=rss"
+    },
+    {
+      "title": "Jim Cramer Can’t Help But Gloat At Apple Inc (NASDAQ:AAPL)’s AI Developments",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:58:35",
+      "link": "https://finance.yahoo.com/technology/ai/articles/jim-cramer-t-help-gloat-023735112.html?.tsrc=rss"
+    },
+    {
+      "title": "Why Apple Stock Dropped on Friday",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:44:53",
+      "link": "https://www.fool.com/investing/2026/07/31/why-apple-stock-dropped-on-friday/?.tsrc=rss"
+    },
+    {
+      "title": "Believe In Elon Musk, Says Jim Cramer About Tesla, Inc. (NASDAQ:TSLA)",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:41:30",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/believe-elon-musk-says-jim-024130381.html?.tsrc=rss"
+    },
+    {
+      "title": "WEC Energy Group Q2 Earnings Call Highlights",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 06:03:41",
+      "link": "https://www.marketbeat.com/instant-alerts/wec-energy-group-q2-earnings-call-highlights-2026-08-01/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss"
+    },
+    {
+      "title": "Is Oracle (ORCL) Using Google’s Gemini Tie-Up To Reframe Its Core AI Investment Narrative?",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 04:17:54",
+      "link": "https://finance.yahoo.com/technology/ai/articles/oracle-orcl-using-google-gemini-041754696.html?.tsrc=rss"
+    },
+    {
+      "title": "Bank of America sends strong verdict to Meta stock investor",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 03:33:00",
+      "link": "https://www.thestreet.com/investing/stocks/bank-of-america-bullish-on-meta-stock?.tsrc=rss"
+    },
+    {
+      "title": "Jim Cramer Was Left “Shocked” By Alphabet Inc. (NASDAQ:GOOGL)’s Shares",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:40:36",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-left-shocked-alphabet-024036035.html?.tsrc=rss"
+    },
+    {
+      "title": "Jim Cramer Said Trouble Was Brewing As Salesforce Inc. (NYSE:CRM)’s Shares Rose",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:35:32",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-said-trouble-brewing-023532261.html?.tsrc=rss"
+    },
+    {
+      "title": "Applied Optoelectronics and Coherent Gain 7%, Lumentum Adds 5% as Risk-On Feeling Spreads to Optics Stocks",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 19:17:49",
+      "link": "https://247wallst.com/investing/2026/07/31/applied-optoelectronics-and-coherent-gain-7-lumentum-adds-5-as-risk-on-feeling-spreads-to-optics-stocks/?.tsrc=rss"
+    },
+    {
+      "title": "Will Top-Line Improvement Benefit Palantir in Q2 Earnings?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 18:12:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/top-line-improvement-benefit-palantir-181200340.html?.tsrc=rss"
+    },
+    {
+      "title": "The Bull Case For Arista Networks (ANET) Could Change Following Raised 2026 Guidance And AI Demand Momentum",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 18:07:29",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/bull-case-arista-networks-anet-180729358.html?.tsrc=rss"
+    },
+    {
+      "title": "UMAC Set to Report Q2 Results: Can Revenue Growth Boost Earnings?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 17:58:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/umac-set-report-q2-results-175800263.html?.tsrc=rss"
+    },
+    {
+      "title": "GoDaddy Q2 Earnings Beat Estimates on Revenue Growth, Airo Gains",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 17:52:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/godaddy-q2-earnings-beat-estimates-175200803.html?.tsrc=rss"
+    },
+    {
+      "title": "Reddit Q2 Earnings Beat on Ad Growth and Strong Monetization",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 17:49:00",
+      "link": "https://finance.yahoo.com/media-advertising/articles/reddit-q2-earnings-beat-ad-174900520.html?.tsrc=rss"
+    },
+    {
+      "title": "Freshworks Gears Up to Report Q2 Earnings: Here's What to Expect",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 17:47:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/freshworks-gears-report-q2-earnings-174700661.html?.tsrc=rss"
+    },
+    {
+      "title": "Satellogic Gears Up to Report Q2 Earnings: Here's What to Expect",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 17:44:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/satellogic-gears-report-q2-earnings-174400260.html?.tsrc=rss"
+    },
+    {
+      "title": "Broadridge Gears Up to Report Q4 Earnings: What's in the Cards?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 15:09:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/broadridge-gears-report-q4-earnings-150900128.html?.tsrc=rss"
+    },
+    {
+      "title": "Entegris Likely to Beat Q2 Earnings Estimates: How to Play the Stock",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 15:02:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/entegris-likely-beat-q2-earnings-150200558.html?.tsrc=rss"
+    },
+    {
+      "title": "Jim Cramer Believes Cybersecurity Stocks Like Palo Alto & CrowdStrike Will Do Well",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Sat, 01 Aug 2026 02:34:51",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-believes-cybersecurity-stocks-023451210.html?.tsrc=rss"
+    },
+    {
+      "title": "How Much CRWD Are You Really Betting On?",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 19:52:46",
+      "link": "https://www.trefis.com/articles/609651/how-much-crwd-are-you-really-betting-on/2026-07-31?.tsrc=rss"
+    },
+    {
+      "title": "Fortinet: Securing the AI Revolution",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 18:17:00",
+      "link": "https://finance.yahoo.com/technology/ai/articles/fortinet-securing-ai-revolution-181700463.html?.tsrc=rss"
+    },
+    {
+      "title": "The Quiet Surface of Synopsys Stock Hides a Turbulent Forecast",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 13:26:51",
+      "link": "https://www.trefis.com/articles/609641/the-quiet-surface-of-synopsys-stock-hides-a-turbulent-forecast/2026-07-31?.tsrc=rss"
+    },
+    {
+      "title": "1 Cash-Heavy Stock with Impressive Fundamentals and 2 We Find Risky",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 13:15:49",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/1-cash-heavy-stock-impressive-131549988.html?.tsrc=rss"
+    },
+    {
+      "title": "How AI‑Driven Falcon Demand and M&A Ambitions Could Reshape CrowdStrike Holdings’ (CRWD) Investment Narrative",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 02:09:24",
+      "link": "https://finance.yahoo.com/technology/ai/articles/ai-driven-falcon-demand-m-020924604.html?.tsrc=rss"
+    },
+    {
+      "title": "How Much Track Is Left For DDOG Stock?",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Fri, 31 Jul 2026 00:30:48",
+      "link": "https://www.trefis.com/articles/609464/how-much-track-is-left-for-ddog-stock/2026-07-30?.tsrc=rss"
+    }
+  ],
+  "regional_articles": [
+    {
+      "title": "Navigating South Korea's AI-Driven Volatility",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Wed, 29 Jul 2026 16:52:00",
+      "link": "https://finance.yahoo.com/markets/world-indices/articles/navigating-south-koreas-ai-driven-165200793.html?.tsrc=rss"
+    },
+    {
+      "title": "Market Minute 7-29-26- Wall Street Waits on Warsh, While Oil Spikes",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Wed, 29 Jul 2026 14:15:00",
+      "link": "https://finance.yahoo.com/markets/articles/market-minute-7-29-26-141500738.html?.tsrc=rss"
+    },
+    {
+      "title": "South Korea- What to Know if You're Investing in that Market",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Tue, 28 Jul 2026 05:01:00",
+      "link": "https://finance.yahoo.com/markets/world-indices/articles/south-korea-know-youre-investing-050100079.html?.tsrc=rss"
+    },
+    {
+      "title": "The Tech Bet Hiding Inside EWY ETF",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Tue, 28 Jul 2026 01:04:26",
+      "link": "https://www.trefis.com/articles/608960/the-tech-bet-hiding-inside-ewy-etf/2026-07-27?.tsrc=rss"
+    },
+    {
+      "title": "World's Best Index Falls Into Bear Market In Another Bad Sign For AI Stocks",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 27 Jul 2026 17:41:47",
+      "link": "https://finance.yahoo.com/m/41bc6ca9-4b71-36df-9fc0-06d5db9c5276/world%27s-best-index-falls-into.html?.tsrc=rss"
+    },
+    {
+      "title": "AI Chip Stocks Just Got Crushed. 3 Semiconductor ETFs to Buy the Dip On",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Thu, 23 Jul 2026 22:14:04",
+      "link": "https://247wallst.com/investing/etf/2026/07/23/ai-chip-stocks-just-got-crushed-3-semiconductor-etfs-to-buy-the-dip-on/?.tsrc=rss"
+    },
+    {
+      "title": "2 ETFs to Access the World's Best-Performing Stock Markets In 2026",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Tue, 21 Jul 2026 15:15:00",
+      "link": "https://www.marketbeat.com/articles/2-etfs-to-access-the-worlds-best-performing-stock-markets-in-2026/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss"
+    },
+    {
+      "title": "Investors Added $46B To ETFs Last Week",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 20 Jul 2026 21:00:15",
+      "link": "http://www.etf.com/sections/weekly-etf-flows/investors-added-46b-etfs-last-week?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss"
+    },
+    {
+      "title": "Daily ETF Flows: EWY Enters Top 10",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 20 Jul 2026 21:00:15",
+      "link": "http://www.etf.com/sections/daily-etf-flows/daily-etf-flows-ewy-enters-top-10?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss"
+    },
+    {
+      "title": "TSMC is quietly borrowing a page from Intel's playbook",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Sat, 01 Aug 2026 02:33:00",
+      "link": "https://www.thestreet.com/technology/tsmc-intel-emib-chip-packaging-rivalry?.tsrc=rss"
+    },
+    {
+      "title": "Reshoring, Robots Will Boost Growth",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Fri, 31 Jul 2026 22:25:00",
+      "link": "https://finance.yahoo.com/m/8346002e-8b9b-3182-bc2b-8b0064acce18/reshoring%2C-robots-will-boost.html?.tsrc=rss"
+    },
+    {
+      "title": "Taiwan Semiconductor Manufacturing (NYSE:TSM) Stock Looks Reasonable Despite Its 335% Run",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Fri, 31 Jul 2026 22:09:59",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-manufacturing-nyse-tsm-220959432.html?.tsrc=rss"
+    },
+    {
+      "title": "1 AI Stock I’d Buy Before It Hits Another All-Time High",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Fri, 31 Jul 2026 18:00:13",
+      "link": "https://247wallst.com/investing/2026/07/31/1-ai-stock-id-buy-before-it-hits-another-all-time-high/?.tsrc=rss"
+    },
+    {
+      "title": "AI’s Biggest Winners Today Will Share the Spotlight as Technology Spreads Across the Entire Market",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Fri, 31 Jul 2026 13:43:33",
+      "link": "https://247wallst.com/investing/2026/07/31/ais-biggest-winners-today-will-share-the-spotlight-as-technology-spreads-across-the-entire-market/?.tsrc=rss"
+    },
+    {
+      "title": "Why Apple Needs Intel to Overcome Supply Worries",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Fri, 31 Jul 2026 11:42:00",
+      "link": "https://finance.yahoo.com/m/32588060-6365-376c-9f7d-fd9110328510/why-apple-needs-intel-to.html?.tsrc=rss"
+    }
+  ],
+  "geo_alerts": [
+    {
+      "title": "1 Software Stock to Own for Decades and 2 We Avoid",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 01:47:57",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/1-software-stock-own-decades-014757010.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Beyond the Mag 7: Rising Q3 Estimates Signal a Market-Wide Earnings Expansion",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:24:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/beyond-mag-7-rising-q3-232400771.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "El Niño Hits the Panama Canal",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 23:10:00",
+      "link": "https://finance.yahoo.com/m/be4a4758-b314-3739-97c9-9712e25fec0e/el-ni%C3%B1o-hits-the-panama-canal.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "A Situational Awareness Selloff, a Fed Inflation Blunder and Everything Else Moving Stocks, Bonds, and the U.S. Dollar N",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 16:08:31",
+      "link": "https://www.barchart.com/story/news/3579868/a-situational-awareness-selloff-a-fed-inflation-blunder-and-everything-else-moving-stocks-bonds-and-the-u-s-dollar-now?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        },
+        {
+          "group": "fed_policy",
+          "impact": "Fed政策→估值倍數+流動性",
+          "severity": 2
+        },
+        {
+          "group": "inflation",
+          "impact": "通膨→Fed決策",
+          "severity": 1
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Iran war pushes companies to raise prices on beer, paint and fries",
+      "feed": "能源",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 05:49:06",
+      "link": "https://finance.yahoo.com/economy/policy/articles/iran-war-pushes-companies-raise-054906683.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "If a Recession Is Coming, Here's How I'm Preparing My Portfolio",
+      "feed": "能源",
+      "layer": "geo",
+      "date": "Sat, 01 Aug 2026 05:20:00",
+      "link": "https://www.fool.com/investing/2026/08/01/if-recession-coming-how-im-preparing-my-portfolio/?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "recession",
+          "impact": "衰退→全面估值壓縮",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "TLT",
+        "XLK",
+        "XLY",
+        "XLU",
+        "XLP"
+      ]
+    },
+    {
+      "title": "Boeing’s $21 billion B-52 upgrade faces cost overruns, delays, GAO says",
+      "feed": "國防",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 14:58:20",
+      "link": "https://finance.yahoo.com/economy/policy/articles/boeing-21-billion-b-52-145820826.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Lockheed Martin’s Missile Contract Brings More Jobs, Higher Production",
+      "feed": "國防",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 13:30:31",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/lockheed-martin-missile-contract-brings-133031190.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "RTX's Pratt & Whitney awarded $1.3 billion F135 sustainment contract",
+      "feed": "國防",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 12:00:00",
+      "link": "https://finance.yahoo.com/technology/articles/rtxs-pratt-whitney-awarded-1-120000428.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    },
+    {
+      "title": "Iran Tensions Illustrate Defense Supply Shortages That Will Benefit These 3 Stocks",
+      "feed": "國防",
+      "layer": "geo",
+      "date": "Fri, 31 Jul 2026 01:50:00",
+      "link": "https://www.fool.com/investing/2026/07/30/iran-tensions-illustrate-defense-supply-shortages/?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "war_conflict",
+          "impact": "戰爭風險→油價↑防禦股↑VIX↑",
+          "severity": 3
+        }
+      ],
+      "affected_stocks": [
+        "GD",
+        "LMT",
+        "RTX",
+        "XOM",
+        "NOC",
+        "CVX"
+      ]
+    }
+  ],
+  "total_scanned": 117
+}
