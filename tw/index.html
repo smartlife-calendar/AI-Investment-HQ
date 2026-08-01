@@ -255,23 +255,47 @@ function rInst(){
   var sigs=D.signals||[],o='';
   var byF=sigs.filter(function(s){return s.institutional&&s.institutional.foreign_net!==0})
     .sort(function(a,b){return(b.institutional.foreign_net||0)-(a.institutional.foreign_net||0)});
+  
+  function trendBadge(tr,type){
+    if(!tr)return '';
+    var cb=type==='f'?tr.cb:tr.tcb;
+    var cs=type==='f'?tr.cs:tr.tcs;
+    if(cb>=3)return '<span style="color:#dc2626;font-weight:700;font-size:9px">連買'+cb+'日</span>';
+    if(cs>=3)return '<span style="color:#16a34a;font-weight:700;font-size:9px">連賣'+cs+'日</span>';
+    if(cb>=1)return '<span style="font-size:9px;color:#f59e0b">買'+cb+'日</span>';
+    if(cs>=1)return '<span style="font-size:9px;color:#94a3b8">賣'+cs+'日</span>';
+    return '';
+  }
+  
   function instTable(items,label,color){
     return card('<div style="font-size:14px;font-weight:700;color:'+color+';margin-bottom:4px">'+label+'</div>'+
     '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>產業</th><th>外資</th><th>投信</th><th>訊號</th></tr>'+
+    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>外資</th><th>外資趨勢</th><th>投信</th><th>投信趨勢</th><th>訊號</th></tr>'+
     items.map(function(s){
       var fi=s.institutional||{};
+      var tr=s.inst_trend||{};
+      var wf=tr.wf||0,mf=tr.mf||0;
+      var weekTag=wf?(wf>0?'<span style="color:#dc2626;font-size:9px">周+</span>':'<span style="color:#16a34a;font-size:9px">周-</span>'):'';
+      var monthTag=mf?(mf>0?'<span style="color:#dc2626;font-size:9px">月+</span>':'<span style="color:#16a34a;font-size:9px">月-</span>'):'';
       return '<tr style="border-bottom:1px solid #f1f5f9">'+
         '<td style="padding:3px;font-weight:700">'+s.code+'</td>'+
-        '<td style="padding:3px;max-width:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+s.name.substring(0,4)+'</td>'+
-        '<td style="padding:3px;font-size:10px">'+(s.industry||'').substring(0,4)+'</td>'+
-        '<td style="padding:3px;color:'+(fi.foreign_net>0?'#dc2626':'#16a34a')+';font-weight:700">'+(fi.foreign_net>0?'+':'')+(fi.foreign_net/1000).toFixed(0)+'K</td>'+
-        '<td style="padding:3px;color:'+(fi.trust_net>0?'#dc2626':'#16a34a')+'">'+(fi.trust_net>0?'+':'')+(fi.trust_net/1000).toFixed(0)+'K</td>'+
+        '<td style="padding:3px;max-width:36px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+s.name.substring(0,4)+'</td>'+
+        '<td style="padding:3px;color:'+(fi.foreign_net>0?'#dc2626':'#16a34a')+';font-weight:700;white-space:nowrap">'+(fi.foreign_net>0?'+':'')+(fi.foreign_net/1000).toFixed(0)+'K</td>'+
+        '<td style="padding:3px;white-space:nowrap">'+trendBadge(tr,'f')+' '+weekTag+monthTag+'</td>'+
+        '<td style="padding:3px;color:'+(fi.trust_net>0?'#dc2626':'#16a34a')+';white-space:nowrap">'+(fi.trust_net>0?'+':'')+(fi.trust_net/1000).toFixed(0)+'K</td>'+
+        '<td style="padding:3px">'+trendBadge(tr,'t')+'</td>'+
         '<td style="padding:3px;font-size:10px">'+s.action_zh+'</td></tr>'
     }).join('')+'</table></div>');
   }
   o+=instTable(byF.slice(0,20),'🔴 外資買超 Top 20','#dc2626');
   o+=instTable(byF.slice(-20).reverse(),'🟢 外資賣超 Top 20','#16a34a');
+  
+  // 投信 top buy/sell
+  var byT=sigs.filter(function(s){return s.institutional&&s.institutional.trust_net!==0})
+    .sort(function(a,b){return(b.institutional.trust_net||0)-(a.institutional.trust_net||0)});
+  o+=instTable(byT.slice(0,15),'🏦 投信買超 Top 15','#7c3aed');
+  o+=instTable(byT.slice(-15).reverse(),'🏦 投信賣超 Top 15','#f59e0b');
+  
   return o;
 }
 
