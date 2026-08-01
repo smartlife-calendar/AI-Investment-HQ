@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T13:26:08+08:00",
+  "generated_at": "2026-08-01T13:56:49+08:00",
   "segments": {
     "AI基礎設施_GPU": {
       "total_rev_b": 348.0,
@@ -511,39 +511,32 @@
   "industry_news": {
     "AI基礎設施": [
       {
-        "title": "Amazon, Apple, Microsoft, Micron, Roblox, Reddit, SK Hynix, and More Stocks That Explain Today’s Mar",
-        "keywords": [
-          "AI"
-        ],
-        "link": "https://finance.yahoo.com/m/c7088c5b-b522-3124-b711-72c511e1146a/amazon%2C-apple%2C-microsoft%2C.html?.tsrc=rss"
-      },
-      {
-        "title": "Applied Optoelectronics and Coherent Gain 7%, Lumentum Adds 5% as Risk-On Feeling Spreads to Optics ",
-        "keywords": [
-          "AI"
-        ],
-        "link": "https://247wallst.com/investing/2026/07/31/applied-optoelectronics-and-coherent-gain-7-lumentum-adds-5-as-risk-on-feeling-spreads-to-optics-stocks/?.tsrc=rss"
-      },
-      {
-        "title": "The Bull Case For Arista Networks (ANET) Could Change Following Raised 2026 Guidance And AI Demand M",
-        "keywords": [
-          "AI"
-        ],
-        "link": "https://finance.yahoo.com/markets/stocks/articles/bull-case-arista-networks-anet-180729358.html?.tsrc=rss"
-      },
-      {
-        "title": "GoDaddy Q2 Earnings Beat Estimates on Revenue Growth, Airo Gains",
-        "keywords": [
-          "AI"
-        ],
-        "link": "https://finance.yahoo.com/markets/stocks/articles/godaddy-q2-earnings-beat-estimates-175200803.html?.tsrc=rss"
-      },
-      {
         "title": "Jeff Bezos Stepped Down as Amazon CEO 5 Years Ago, and the Stock Has Lagged the S&P 500 Since. Could",
         "keywords": [
           "AI"
         ],
         "link": "https://www.fool.com/investing/2026/07/31/time-sensitive-jeff-bezos-stepped-down-as-amazon-c/?.tsrc=rss"
+      },
+      {
+        "title": "Jim Cramer Can’t Help But Gloat At Apple Inc (NASDAQ:AAPL)’s AI Developments",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://finance.yahoo.com/technology/ai/articles/jim-cramer-t-help-gloat-023735112.html?.tsrc=rss"
+      },
+      {
+        "title": "Reddit Beat on Revenue, Profit, and Guidance. Its U.S. Daily Users Went Backward, and the Stock Fell",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://www.fool.com/investing/2026/07/31/reddit-beat-on-revenue-profit-and-guidance-its-us/?.tsrc=rss"
+      },
+      {
+        "title": "Alibaba (NYSE:BABA) Is Supplying Moonshot With A Major Nvidia AI Cluster",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://finance.yahoo.com/technology/ai/articles/alibaba-nyse-baba-supplying-moonshot-010613054.html?.tsrc=rss"
       }
     ],
     "半導體": [
@@ -731,7 +724,7 @@
           ],
           "gm_change_2q": 4.3,
           "inventory_days": 80.0,
-          "capex_ttm_b": 12.1,
+          "capex_ttm_b": 12.11,
           "gross_margin": 38.9,
           "rev_growth": 25.4
         }
@@ -988,7 +981,7 @@
           ],
           "gm_change_2q": -1.5,
           "inventory_days": 69.0,
-          "capex_ttm_b": 1.98,
+          "capex_ttm_b": 1.99,
           "gross_margin": 54.2,
           "rev_growth": -4.0
         },
@@ -1072,6 +1065,1169 @@
           "rev_growth": 25.6
         }
       ]
+    }
+  },
+  "capex_flows": {
+    "spenders": {
+      "META": {
+        "quarterly": [
+          {
+            "date": "2025-06-30",
+            "capex_b": 16.54
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 18.83
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 21.38
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 19.0
+          },
+          {
+            "date": "2026-06-30",
+            "capex_b": 30.12
+          }
+        ],
+        "latest_b": 30.12,
+        "qoq_change": 58.5,
+        "ttm_b": 89.3,
+        "intensity_pct": 53.0,
+        "use": {
+          "GPU": [
+            "NVDA",
+            "AMD"
+          ],
+          "網通": [
+            "ANET",
+            "CIEN"
+          ],
+          "光通": [
+            "LITE",
+            "COHR",
+            "AAOI"
+          ],
+          "伺服器": [
+            "SMCI"
+          ],
+          "HBM": [
+            "MU"
+          ],
+          "光纖": [
+            "GLW"
+          ]
+        }
+      },
+      "GOOGL": {
+        "quarterly": [
+          {
+            "date": "2025-06-30",
+            "capex_b": 22.45
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 23.95
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 27.85
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 35.67
+          },
+          {
+            "date": "2026-06-30",
+            "capex_b": 44.92
+          }
+        ],
+        "latest_b": 44.92,
+        "qoq_change": 25.9,
+        "ttm_b": 132.4,
+        "intensity_pct": 40.0,
+        "use": {
+          "GPU/TPU": [
+            "NVDA",
+            "AVGO"
+          ],
+          "網通": [
+            "ANET"
+          ],
+          "光通": [
+            "LITE",
+            "COHR"
+          ],
+          "HBM": [
+            "MU"
+          ]
+        }
+      },
+      "MSFT": {
+        "quarterly": [
+          {
+            "date": "2025-06-30",
+            "capex_b": 17.08
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 19.39
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 29.88
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 30.88
+          },
+          {
+            "date": "2026-06-30",
+            "capex_b": 35.8
+          }
+        ],
+        "latest_b": 35.8,
+        "qoq_change": 15.9,
+        "ttm_b": 115.9,
+        "intensity_pct": 43.0,
+        "use": {
+          "GPU": [
+            "NVDA",
+            "AMD"
+          ],
+          "網通": [
+            "ANET",
+            "CIEN"
+          ],
+          "光通": [
+            "LITE",
+            "COHR"
+          ],
+          "HBM": [
+            "MU"
+          ]
+        }
+      },
+      "AMZN": {
+        "quarterly": [
+          {
+            "date": "2025-03-31",
+            "capex_b": 25.02
+          },
+          {
+            "date": "2025-06-30",
+            "capex_b": 32.18
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 35.09
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 39.52
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 44.2
+          }
+        ],
+        "latest_b": 44.2,
+        "qoq_change": 11.8,
+        "ttm_b": 151.0,
+        "intensity_pct": 23.0,
+        "use": {
+          "GPU/Graviton": [
+            "NVDA",
+            "AVGO"
+          ],
+          "網通": [
+            "ANET"
+          ],
+          "光通": [
+            "LITE",
+            "COHR"
+          ]
+        }
+      },
+      "AAPL": {
+        "quarterly": [
+          {
+            "date": "2025-06-30",
+            "capex_b": 3.46
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 3.24
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 2.37
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 1.97
+          },
+          {
+            "date": "2026-06-30",
+            "capex_b": 2.46
+          }
+        ],
+        "latest_b": 2.46,
+        "qoq_change": 24.9,
+        "ttm_b": 10.0,
+        "intensity_pct": 2.0,
+        "use": {
+          "記憶體": [
+            "MU"
+          ],
+          "光學": [
+            "GLW"
+          ]
+        }
+      },
+      "TSLA": {
+        "quarterly": [
+          {
+            "date": "2025-06-30",
+            "capex_b": 2.39
+          },
+          {
+            "date": "2025-09-30",
+            "capex_b": 2.25
+          },
+          {
+            "date": "2025-12-31",
+            "capex_b": 2.39
+          },
+          {
+            "date": "2026-03-31",
+            "capex_b": 2.49
+          },
+          {
+            "date": "2026-06-30",
+            "capex_b": 5.8
+          }
+        ],
+        "latest_b": 5.8,
+        "qoq_change": 132.9,
+        "ttm_b": 12.9,
+        "intensity_pct": 22.0,
+        "use": {
+          "GPU(FSD)": [
+            "NVDA"
+          ],
+          "半導體": [
+            "TXN",
+            "ON",
+            "STM"
+          ]
+        }
+      }
+    },
+    "beneficiaries": {
+      "NVDA": {
+        "customers": [
+          "META",
+          "GOOGL",
+          "MSFT",
+          "AMZN",
+          "TSLA"
+        ],
+        "total_customer_capex_b": 160.8,
+        "categories": [
+          "GPU",
+          "GPU/TPU",
+          "GPU/Graviton",
+          "GPU(FSD)"
+        ],
+        "n_customers": 5
+      },
+      "AMD": {
+        "customers": [
+          "META",
+          "MSFT"
+        ],
+        "total_customer_capex_b": 65.9,
+        "categories": [
+          "GPU"
+        ],
+        "n_customers": 2
+      },
+      "ANET": {
+        "customers": [
+          "META",
+          "GOOGL",
+          "MSFT",
+          "AMZN"
+        ],
+        "total_customer_capex_b": 155.0,
+        "categories": [
+          "網通"
+        ],
+        "n_customers": 4
+      },
+      "CIEN": {
+        "customers": [
+          "META",
+          "MSFT"
+        ],
+        "total_customer_capex_b": 65.9,
+        "categories": [
+          "網通"
+        ],
+        "n_customers": 2
+      },
+      "LITE": {
+        "customers": [
+          "META",
+          "GOOGL",
+          "MSFT",
+          "AMZN"
+        ],
+        "total_customer_capex_b": 155.0,
+        "categories": [
+          "光通"
+        ],
+        "n_customers": 4
+      },
+      "COHR": {
+        "customers": [
+          "META",
+          "GOOGL",
+          "MSFT",
+          "AMZN"
+        ],
+        "total_customer_capex_b": 155.0,
+        "categories": [
+          "光通"
+        ],
+        "n_customers": 4
+      },
+      "AAOI": {
+        "customers": [
+          "META"
+        ],
+        "total_customer_capex_b": 30.1,
+        "categories": [
+          "光通"
+        ],
+        "n_customers": 1
+      },
+      "SMCI": {
+        "customers": [
+          "META"
+        ],
+        "total_customer_capex_b": 30.1,
+        "categories": [
+          "伺服器"
+        ],
+        "n_customers": 1
+      },
+      "MU": {
+        "customers": [
+          "META",
+          "GOOGL",
+          "MSFT",
+          "AAPL"
+        ],
+        "total_customer_capex_b": 113.3,
+        "categories": [
+          "HBM",
+          "記憶體"
+        ],
+        "n_customers": 4
+      },
+      "GLW": {
+        "customers": [
+          "META",
+          "AAPL"
+        ],
+        "total_customer_capex_b": 32.6,
+        "categories": [
+          "光纖",
+          "光學"
+        ],
+        "n_customers": 2
+      },
+      "AVGO": {
+        "customers": [
+          "GOOGL",
+          "AMZN"
+        ],
+        "total_customer_capex_b": 89.1,
+        "categories": [
+          "GPU/TPU",
+          "GPU/Graviton"
+        ],
+        "n_customers": 2
+      },
+      "TXN": {
+        "customers": [
+          "TSLA"
+        ],
+        "total_customer_capex_b": 5.8,
+        "categories": [
+          "半導體"
+        ],
+        "n_customers": 1
+      },
+      "ON": {
+        "customers": [
+          "TSLA"
+        ],
+        "total_customer_capex_b": 5.8,
+        "categories": [
+          "半導體"
+        ],
+        "n_customers": 1
+      },
+      "STM": {
+        "customers": [
+          "TSLA"
+        ],
+        "total_customer_capex_b": 5.8,
+        "categories": [
+          "半導體"
+        ],
+        "n_customers": 1
+      }
+    },
+    "total_big4_quarterly_b": 155.0
+  },
+  "earnings_watch": {
+    "ARM": {
+      "symbol": "ARM",
+      "price": 239.69,
+      "mcap_b": 256.0,
+      "fwd_pe": 78.0912,
+      "peg": 1.86,
+      "rev_growth_yoy": 22.4,
+      "target_mean": 286.02756,
+      "recommendation": "buy",
+      "n_analysts": 37,
+      "rev_latest_b": 1.29,
+      "rev_qoq": -13.5,
+      "rev_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val_b": 1.05
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 1.14
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 1.24
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 1.49
+        },
+        {
+          "date": "2026-06-30",
+          "val_b": 1.29
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val": 97.2
+        },
+        {
+          "date": "2025-09-30",
+          "val": 97.4
+        },
+        {
+          "date": "2025-12-31",
+          "val": 97.6
+        },
+        {
+          "date": "2026-03-31",
+          "val": 97.9
+        },
+        {
+          "date": "2026-06-30",
+          "val": 97.2
+        }
+      ],
+      "gm_change_2q": -0.4,
+      "op_margin_latest": 7.6,
+      "op_margin_change": -21.9,
+      "capex_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val_b": 0.16
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.14
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.18
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.09
+        },
+        {
+          "date": "2026-06-30",
+          "val_b": 0.21
+        }
+      ],
+      "capex_qoq": 131.1,
+      "ni_qoq": -13.7,
+      "fcf_b": 1.3,
+      "findings": [
+        "毛利穩定但營利率跌-22% → 費用暴增（不是產品問題）",
+        "CapEx暴增+131% → 大規模投資中"
+      ],
+      "risk_flags": [
+        "營收減速 QoQ-13%"
+      ],
+      "verdict": "📊 觀察（正面居多）"
+    },
+    "AAOI": {
+      "symbol": "AAOI",
+      "price": 94.32,
+      "mcap_b": 8.0,
+      "fwd_pe": 19.765299,
+      "peg": 0.78,
+      "rev_growth_yoy": 51.4,
+      "target_mean": 157.3,
+      "recommendation": "buy",
+      "n_analysts": 5,
+      "rev_latest_b": 0.15,
+      "rev_qoq": 12.6,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 0.1
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 0.1
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.12
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.13
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.15
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 30.6
+        },
+        {
+          "date": "2025-06-30",
+          "val": 30.3
+        },
+        {
+          "date": "2025-09-30",
+          "val": 28.0
+        },
+        {
+          "date": "2025-12-31",
+          "val": 31.2
+        },
+        {
+          "date": "2026-03-31",
+          "val": 29.1
+        }
+      ],
+      "gm_change_2q": 1.1,
+      "op_margin_latest": -8.5,
+      "op_margin_change": -0.1,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 0.03
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 0.03
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.05
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.08
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.06
+        }
+      ],
+      "capex_qoq": -22.4,
+      "ni_qoq": -606.3,
+      "fcf_b": -0.4,
+      "findings": [
+        "營收加速 QoQ+13%",
+        "PEG=0.78（<1 = 成長未被充分定價）",
+        "分析師均價$157（+67%上行空間）"
+      ],
+      "risk_flags": [
+        "淨利下降-606%（非一次性）",
+        "FCF為負$-0.4B（燒錢）"
+      ],
+      "verdict": "📊 觀察（正面居多）"
+    },
+    "AMD": {
+      "symbol": "AMD",
+      "price": 476.15,
+      "mcap_b": 776.0,
+      "fwd_pe": 34.45045,
+      "peg": 1.01,
+      "rev_growth_yoy": 37.8,
+      "target_mean": 576.55316,
+      "recommendation": "strong_buy",
+      "n_analysts": 47,
+      "rev_latest_b": 10.25,
+      "rev_qoq": -0.2,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 7.44
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 7.68
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 9.25
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 10.27
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 10.25
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 50.2
+        },
+        {
+          "date": "2025-06-30",
+          "val": 39.8
+        },
+        {
+          "date": "2025-09-30",
+          "val": 51.7
+        },
+        {
+          "date": "2025-12-31",
+          "val": 54.3
+        },
+        {
+          "date": "2026-03-31",
+          "val": 52.8
+        }
+      ],
+      "gm_change_2q": 1.1,
+      "op_margin_latest": 14.4,
+      "op_margin_change": -2.7,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 0.21
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 0.28
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.26
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.22
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.39
+        }
+      ],
+      "capex_qoq": 75.2,
+      "ni_qoq": -8.5,
+      "fcf_b": 7.2,
+      "findings": [
+        "CapEx暴增+75% → 大規模投資中",
+        "分析師均價$577（+21%上行空間）"
+      ],
+      "risk_flags": [],
+      "verdict": "📊 觀察（正面居多）"
+    },
+    "ANET": {
+      "symbol": "ANET",
+      "price": 180.35,
+      "mcap_b": 227.0,
+      "fwd_pe": 40.369423,
+      "peg": 2.01,
+      "rev_growth_yoy": 35.1,
+      "target_mean": 192.31033,
+      "recommendation": "strong_buy",
+      "n_analysts": 27,
+      "rev_latest_b": 2.71,
+      "rev_qoq": 8.9,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 2.0
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 2.2
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 2.31
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 2.49
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 2.71
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 63.7
+        },
+        {
+          "date": "2025-06-30",
+          "val": 65.2
+        },
+        {
+          "date": "2025-09-30",
+          "val": 64.6
+        },
+        {
+          "date": "2025-12-31",
+          "val": 62.9
+        },
+        {
+          "date": "2026-03-31",
+          "val": 61.9
+        }
+      ],
+      "gm_change_2q": -2.7,
+      "op_margin_latest": 42.7,
+      "op_margin_change": 1.2,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 0.03
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 0.02
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.03
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.04
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.05
+        }
+      ],
+      "capex_qoq": 47.3,
+      "ni_qoq": 7.0,
+      "fcf_b": 4.4,
+      "findings": [
+        "CapEx暴增+47% → 大規模投資中"
+      ],
+      "risk_flags": [],
+      "verdict": "📊 觀察（正面居多）"
+    },
+    "FTNT": {
+      "symbol": "FTNT",
+      "price": 161.95,
+      "mcap_b": 119.0,
+      "fwd_pe": 43.175728,
+      "peg": 3.58,
+      "rev_growth_yoy": 25.6,
+      "target_mean": 153.4865,
+      "recommendation": "hold",
+      "n_analysts": 37,
+      "rev_latest_b": 2.05,
+      "rev_qoq": 10.7,
+      "rev_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val_b": 1.63
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 1.72
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 1.91
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 1.85
+        },
+        {
+          "date": "2026-06-30",
+          "val_b": 2.05
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val": 80.7
+        },
+        {
+          "date": "2025-09-30",
+          "val": 80.8
+        },
+        {
+          "date": "2025-12-31",
+          "val": 79.6
+        },
+        {
+          "date": "2026-03-31",
+          "val": 80.3
+        },
+        {
+          "date": "2026-06-30",
+          "val": 80.2
+        }
+      ],
+      "gm_change_2q": 0.6,
+      "op_margin_latest": 33.7,
+      "op_margin_change": 2.3,
+      "capex_quarterly": [
+        {
+          "date": "2025-06-30",
+          "val_b": 0.17
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.09
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.04
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.07
+        },
+        {
+          "date": "2026-06-30",
+          "val_b": 0.08
+        }
+      ],
+      "capex_qoq": 10.5,
+      "ni_qoq": 13.4,
+      "fcf_b": 2.3,
+      "findings": [
+        "營收加速 QoQ+11%"
+      ],
+      "risk_flags": [],
+      "verdict": "📊 觀察（正面居多）"
+    },
+    "LLY": {
+      "symbol": "LLY",
+      "price": 1148.84,
+      "mcap_b": 1024.0,
+      "fwd_pe": 25.497051,
+      "peg": 1.69,
+      "rev_growth_yoy": 55.5,
+      "target_mean": 1276.9615,
+      "recommendation": "buy",
+      "n_analysts": 26,
+      "rev_latest_b": 19.8,
+      "rev_qoq": 2.6,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 12.73
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 15.56
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 17.6
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 19.29
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 19.8
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 82.5
+        },
+        {
+          "date": "2025-06-30",
+          "val": 84.3
+        },
+        {
+          "date": "2025-09-30",
+          "val": 82.9
+        },
+        {
+          "date": "2025-12-31",
+          "val": 82.5
+        },
+        {
+          "date": "2026-03-31",
+          "val": 81.9
+        }
+      ],
+      "gm_change_2q": -1.0,
+      "op_margin_latest": 49.4,
+      "op_margin_change": 2.8,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 3.27
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 1.8
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 2.81
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 2.97
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 2.53
+        }
+      ],
+      "capex_qoq": -14.8,
+      "ni_qoq": 11.4,
+      "fcf_b": 9.2,
+      "findings": [],
+      "risk_flags": [],
+      "verdict": "➡️ 中性"
+    },
+    "XOM": {
+      "symbol": "XOM",
+      "price": 155.44,
+      "mcap_b": 644.0,
+      "fwd_pe": 14.692454,
+      "peg": 1.33,
+      "rev_growth_yoy": 2.6,
+      "target_mean": 167.22726,
+      "recommendation": "buy",
+      "n_analysts": 22,
+      "rev_latest_b": 83.16,
+      "rev_qoq": 3.9,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 81.06
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 79.48
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 83.33
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 80.04
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 83.16
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 22.8
+        },
+        {
+          "date": "2025-06-30",
+          "val": 22.6
+        },
+        {
+          "date": "2025-09-30",
+          "val": 22.6
+        },
+        {
+          "date": "2025-12-31",
+          "val": 20.0
+        },
+        {
+          "date": "2026-03-31",
+          "val": 16.7
+        }
+      ],
+      "gm_change_2q": -5.9,
+      "op_margin_latest": 6.4,
+      "op_margin_change": -1.1,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 5.9
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 6.28
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 8.73
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 7.45
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 6.47
+        }
+      ],
+      "capex_qoq": -13.2,
+      "ni_qoq": -35.7,
+      "fcf_b": 11.6,
+      "findings": [],
+      "risk_flags": [
+        "毛利率壓縮-5.9%（定價權↓）",
+        "淨利下降-36%（非一次性）"
+      ],
+      "verdict": "⚠️ 警戒"
+    },
+    "ABBV": {
+      "symbol": "ABBV",
+      "price": 250.94,
+      "mcap_b": 443.0,
+      "fwd_pe": 15.4131155,
+      "peg": 0.42,
+      "rev_growth_yoy": 12.4,
+      "target_mean": 268.67856,
+      "recommendation": "buy",
+      "n_analysts": 28,
+      "rev_latest_b": 15.0,
+      "rev_qoq": -9.7,
+      "rev_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 13.34
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 15.42
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 15.78
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 16.62
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 15.0
+        }
+      ],
+      "gm_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val": 70.0
+        },
+        {
+          "date": "2025-06-30",
+          "val": 71.8
+        },
+        {
+          "date": "2025-09-30",
+          "val": 66.4
+        },
+        {
+          "date": "2025-12-31",
+          "val": 72.6
+        },
+        {
+          "date": "2026-03-31",
+          "val": 71.9
+        }
+      ],
+      "gm_change_2q": 5.5,
+      "op_margin_latest": 31.6,
+      "op_margin_change": -3.4,
+      "capex_quarterly": [
+        {
+          "date": "2025-03-31",
+          "val_b": 0.23
+        },
+        {
+          "date": "2025-06-30",
+          "val_b": 0.27
+        },
+        {
+          "date": "2025-09-30",
+          "val_b": 0.38
+        },
+        {
+          "date": "2025-12-31",
+          "val_b": 0.33
+        },
+        {
+          "date": "2026-03-31",
+          "val_b": 0.27
+        }
+      ],
+      "capex_qoq": -19.5,
+      "ni_qoq": -61.7,
+      "fcf_b": 20.8,
+      "findings": [
+        "毛利率擴張+5.5%（定價權↑）",
+        "PEG=0.42（<1 = 成長未被充分定價）"
+      ],
+      "risk_flags": [
+        "營收減速 QoQ-10%",
+        "淨利下降-62%（非一次性）"
+      ],
+      "verdict": "➡️ 中性"
     }
   }
 }
