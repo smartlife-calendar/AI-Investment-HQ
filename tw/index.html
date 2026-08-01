@@ -51,6 +51,7 @@
         <div class="tab" onclick="showTab('signals')">📡 訊號</div>
         <div class="tab" onclick="showTab('institutional')">🏦 法人</div>
         <div class="tab" onclick="showTab('industry')">🏭 產業</div>
+        <div class="tab" onclick="showTab('crossmarket')">🔗 美台聯動</div>
         <div class="tab" onclick="showTab('search')">🔍 搜尋</div>
     </div>
     
@@ -73,6 +74,11 @@
         <!-- Industry -->
         <div id="industry" class="section">
             <div id="industryContent"><p style="text-align:center;color:#94a3b8;padding:40px">點擊「產業」載入</p></div>
+        </div>
+        
+        <!-- Cross Market -->
+        <div id="crossmarket" class="section">
+            <div id="crossContent"><p style="text-align:center;color:#94a3b8;padding:40px">點擊「美台聯動」載入</p></div>
         </div>
         
         <!-- Search -->
@@ -314,6 +320,81 @@ function renderIndustry() {
     });
     out += '</table></div></div>';
     
+    el.innerHTML = out;
+}
+
+function renderCrossMarket() {
+    if (!_twData || !_twData.cross_market) return;
+    var el = document.getElementById('crossContent');
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = '1';
+    
+    var cm = _twData.cross_market;
+    var us = cm.us_overnight || {};
+    var links = cm.linkage_signals || [];
+    var out = '';
+    
+    // US overnight summary
+    out += '<div class="card"><h3 style="font-size:15px;margin-bottom:8px">🇺🇸 美股隔夜表現</h3>';
+    out += '<div class="grid-3">';
+    var usKeys = Object.keys(us).sort(function(a,b){return Math.abs(us[b].change_pct)-Math.abs(us[a].change_pct)});
+    usKeys.forEach(function(sym) {
+        var d = us[sym];
+        var c = d.change_pct > 0 ? '#dc2626' : '#16a34a';
+        var bg = d.change_pct > 0 ? '#fef2f2' : '#f0fdf4';
+        if (Math.abs(d.change_pct) > 3) bg = d.change_pct > 0 ? '#fee2e2' : '#dcfce7';
+        out += '<div style="background:'+bg+';padding:8px;border-radius:8px;text-align:center">';
+        out += '<div style="font-weight:700;font-size:14px">' + sym + '</div>';
+        out += '<div style="font-size:12px;color:#64748b">$' + d.price + '</div>';
+        out += '<div style="font-size:16px;font-weight:800;color:'+c+'">' + (d.change_pct>0?'+':'') + d.change_pct.toFixed(2) + '%</div>';
+        out += '</div>';
+    });
+    out += '</div></div>';
+    
+    // Linkage signals
+    if (links.length > 0) {
+        // Group by direction
+        var bullish = links.filter(function(l){return l.direction==='利多'});
+        var bearish = links.filter(function(l){return l.direction==='利空'});
+        
+        if (bullish.length > 0) {
+            out += '<div class="card"><h3 style="font-size:15px;color:#dc2626;margin-bottom:8px">📈 利多聯動 (' + bullish.length + ')</h3>';
+            out += '<div style="overflow-x:auto"><table>';
+            out += '<tr><th>美股</th><th>漲幅</th><th>→</th><th>台股</th><th>關係</th><th>強度</th></tr>';
+            bullish.forEach(function(l) {
+                var sc = l.strength==='strong'?'🔴':l.strength==='medium'?'🟡':'⚪';
+                out += '<tr>';
+                out += '<td><strong>' + l.us_stock + '</strong></td>';
+                out += '<td class="pos" style="font-weight:700">' + (l.us_change>0?'+':'') + l.us_change.toFixed(1) + '%</td>';
+                out += '<td>→</td>';
+                out += '<td><strong>' + l.tw_code + '</strong> ' + l.tw_name + '</td>';
+                out += '<td style="font-size:11px">' + l.relation + '</td>';
+                out += '<td>' + sc + '</td>';
+                out += '</tr>';
+            });
+            out += '</table></div></div>';
+        }
+        
+        if (bearish.length > 0) {
+            out += '<div class="card"><h3 style="font-size:15px;color:#16a34a;margin-bottom:8px">📉 利空聯動 (' + bearish.length + ')</h3>';
+            out += '<div style="overflow-x:auto"><table>';
+            out += '<tr><th>美股</th><th>跌幅</th><th>→</th><th>台股</th><th>關係</th><th>強度</th></tr>';
+            bearish.forEach(function(l) {
+                var sc = l.strength==='strong'?'🔴':l.strength==='medium'?'🟡':'⚪';
+                out += '<tr>';
+                out += '<td><strong>' + l.us_stock + '</strong></td>';
+                out += '<td class="neg" style="font-weight:700">' + l.us_change.toFixed(1) + '%</td>';
+                out += '<td>→</td>';
+                out += '<td><strong>' + l.tw_code + '</strong> ' + l.tw_name + '</td>';
+                out += '<td style="font-size:11px">' + l.relation + '</td>';
+                out += '<td>' + sc + '</td>';
+                out += '</tr>';
+            });
+            out += '</table></div></div>';
+        }
+    }
+    
+    out += '<div style="font-size:11px;color:#94a3b8;padding:8px">🔴強關聯 🟡中關聯 ⚪弱關聯 · 美股收盤後、台股開盤前更新</div>';
     el.innerHTML = out;
 }
 
