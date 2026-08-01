@@ -1,0 +1,622 @@
+{
+  "generated_at": "2026-08-01T13:12:15+08:00",
+  "segments": {
+    "AI基礎設施_GPU": {
+      "total_rev_b": 348.0,
+      "avg_growth": 49.5,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "NVDA",
+          "rev_b": 253.49,
+          "market_share": 72.8,
+          "rev_growth": 85.2,
+          "gross_margin": 74.1,
+          "ev_rev": 19.0,
+          "peg": 0.52,
+          "acceleration": 0.3,
+          "val_efficiency": 22.3
+        },
+        {
+          "symbol": "INTC",
+          "rev_b": 57.03,
+          "market_share": 16.4,
+          "rev_growth": 25.4,
+          "gross_margin": 38.9,
+          "ev_rev": 8.6,
+          "peg": 1.36,
+          "acceleration": 19.5,
+          "val_efficiency": 33.9
+        },
+        {
+          "symbol": "AMD",
+          "rev_b": 37.45,
+          "market_share": 10.8,
+          "rev_growth": 37.8,
+          "gross_margin": 53.1,
+          "ev_rev": 20.5,
+          "peg": 1.01,
+          "acceleration": -11.2,
+          "val_efficiency": 54.2
+        }
+      ]
+    },
+    "AI基礎設施_光通": {
+      "total_rev_b": 9.6,
+      "avg_growth": 54.0,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "COHR",
+          "rev_b": 6.6,
+          "market_share": 68.8,
+          "rev_growth": 20.5,
+          "gross_margin": 37.0,
+          "ev_rev": 8.0,
+          "peg": 0.92,
+          "acceleration": 0.5,
+          "val_efficiency": 39.0
+        },
+        {
+          "symbol": "LITE",
+          "rev_b": 2.49,
+          "market_share": 25.9,
+          "rev_growth": 90.1,
+          "gross_margin": 40.8,
+          "ev_rev": 20.6,
+          "peg": 0.63,
+          "acceleration": -3.2,
+          "val_efficiency": 22.9
+        },
+        {
+          "symbol": "AAOI",
+          "rev_b": 0.51,
+          "market_share": 5.3,
+          "rev_growth": 51.4,
+          "gross_margin": 29.6,
+          "ev_rev": 14.6,
+          "peg": 0.78,
+          "acceleration": -0.6,
+          "val_efficiency": 28.4
+        }
+      ]
+    },
+    "AI基礎設施_網通": {
+      "total_rev_b": 15.3,
+      "avg_growth": 37.3,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "ANET",
+          "rev_b": 9.71,
+          "market_share": 63.6,
+          "rev_growth": 35.1,
+          "gross_margin": 63.5,
+          "ev_rev": 22.1,
+          "peg": 2.01,
+          "acceleration": 1.1,
+          "val_efficiency": 63.0
+        },
+        {
+          "symbol": "CIEN",
+          "rev_b": 5.57,
+          "market_share": 36.4,
+          "rev_growth": 39.5,
+          "gross_margin": 43.0,
+          "ev_rev": 9.7,
+          "peg": 0.57,
+          "acceleration": 4.5,
+          "val_efficiency": 24.6
+        }
+      ]
+    },
+    "AI基礎設施_伺服器": {
+      "total_rev_b": 33.7,
+      "avg_growth": 122.7,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "SMCI",
+          "rev_b": 33.7,
+          "market_share": 100.0,
+          "rev_growth": 122.7,
+          "gross_margin": 8.4,
+          "ev_rev": 0.7,
+          "peg": 0.91,
+          "acceleration": -172.0,
+          "val_efficiency": 0.6
+        }
+      ]
+    },
+    "半導體設備": {
+      "total_rev_b": 105.6,
+      "avg_growth": 36.4,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "ASML",
+          "rev_b": 35.33,
+          "market_share": 33.4,
+          "rev_growth": 21.3,
+          "gross_margin": 52.7,
+          "ev_rev": 983.8,
+          "peg": 1.9,
+          "acceleration": 16.2,
+          "val_efficiency": 4618.8
+        },
+        {
+          "symbol": "AMAT",
+          "rev_b": 29.02,
+          "market_share": 27.5,
+          "rev_growth": 11.4,
+          "gross_margin": 49.0,
+          "ev_rev": 13.9,
+          "peg": 1.1,
+          "acceleration": 9.7,
+          "val_efficiency": 121.9
+        },
+        {
+          "symbol": "LRCX",
+          "rev_b": 23.23,
+          "market_share": 22.0,
+          "rev_growth": 30.0,
+          "gross_margin": 50.5,
+          "ev_rev": 15.7,
+          "peg": 1.46,
+          "acceleration": 8.9,
+          "val_efficiency": 52.3
+        },
+        {
+          "symbol": "KLAC",
+          "rev_b": 13.58,
+          "market_share": 12.9,
+          "rev_growth": 15.2,
+          "gross_margin": 61.3,
+          "ev_rev": 17.7,
+          "peg": 1.75,
+          "acceleration": 0.9,
+          "val_efficiency": 116.4
+        },
+        {
+          "symbol": "TER",
+          "rev_b": 4.46,
+          "market_share": 4.2,
+          "rev_growth": 103.9,
+          "gross_margin": 59.2,
+          "ev_rev": 12.8,
+          "peg": 1.26,
+          "acceleration": -22.5,
+          "val_efficiency": 12.3
+        }
+      ]
+    },
+    "記憶體": {
+      "total_rev_b": 90.3,
+      "avg_growth": 345.7,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "MU",
+          "rev_b": 90.27,
+          "market_share": 100.0,
+          "rev_growth": 345.7,
+          "gross_margin": 72.6,
+          "ev_rev": 10.1,
+          "peg": 0.11,
+          "acceleration": -1.1,
+          "val_efficiency": 2.9
+        }
+      ]
+    },
+    "IP設計": {
+      "total_rev_b": 72.5,
+      "avg_growth": 22.4,
+      "trend": "growth",
+      "stocks": [
+        {
+          "symbol": "QCOM",
+          "rev_b": 44.07,
+          "market_share": 60.8,
+          "rev_growth": -4.0,
+          "gross_margin": 54.2,
+          "ev_rev": 3.7,
+          "peg": 0.49,
+          "acceleration": 7.3,
+          "val_efficiency": null
+        },
+        {
+          "symbol": "MRVL",
+          "rev_b": 8.72,
+          "market_share": 12.0,
+          "rev_growth": 27.6,
+          "gross_margin": 51.5,
+          "ev_rev": 19.0,
+          "peg": 0.92,
+          "acceleration": 2.0,
+          "val_efficiency": 68.8
+        },
+        {
+          "symbol": "SNPS",
+          "rev_b": 8.68,
+          "market_share": 12.0,
+          "rev_growth": 41.9,
+          "gross_margin": 82.6,
+          "ev_rev": 9.5,
+          "peg": 2.01,
+          "acceleration": -12.3,
+          "val_efficiency": 22.7
+        },
+        {
+          "symbol": "CDNS",
+          "rev_b": 5.84,
+          "market_share": 8.1,
+          "rev_growth": 24.2,
+          "gross_margin": 85.9,
+          "ev_rev": 16.2,
+          "peg": 3.04,
+          "acceleration": 5.1,
+          "val_efficiency": 66.9
+        },
+        {
+          "symbol": "ARM",
+          "rev_b": 5.16,
+          "market_share": 7.1,
+          "rev_growth": 22.4,
+          "gross_margin": 97.5,
+          "ev_rev": 49.0,
+          "peg": 1.86,
+          "acceleration": -33.5,
+          "val_efficiency": 218.8
+        }
+      ]
+    },
+    "網路安全": {
+      "total_rev_b": 30.4,
+      "avg_growth": 23.3,
+      "trend": "growth",
+      "stocks": [
+        {
+          "symbol": "PANW",
+          "rev_b": 10.61,
+          "market_share": 34.8,
+          "rev_growth": 31.1,
+          "gross_margin": 72.0,
+          "ev_rev": 25.4,
+          "peg": 3.48,
+          "acceleration": 10.9,
+          "val_efficiency": 81.7
+        },
+        {
+          "symbol": "FTNT",
+          "rev_b": 7.53,
+          "market_share": 24.7,
+          "rev_growth": 25.6,
+          "gross_margin": 80.2,
+          "ev_rev": 15.3,
+          "peg": 3.58,
+          "acceleration": 13.6,
+          "val_efficiency": 59.8
+        },
+        {
+          "symbol": "CRWD",
+          "rev_b": 5.09,
+          "market_share": 16.7,
+          "rev_growth": 25.6,
+          "gross_margin": 75.1,
+          "ev_rev": 37.4,
+          "peg": 5.83,
+          "acceleration": 0.4,
+          "val_efficiency": 146.1
+        },
+        {
+          "symbol": "ZS",
+          "rev_b": 3.17,
+          "market_share": 10.4,
+          "rev_growth": 25.4,
+          "gross_margin": 76.7,
+          "ev_rev": 7.2,
+          "peg": 1.68,
+          "acceleration": 0.7,
+          "val_efficiency": 28.3
+        },
+        {
+          "symbol": "OKTA",
+          "rev_b": 3.0,
+          "market_share": 9.8,
+          "rev_growth": 11.2,
+          "gross_margin": 77.4,
+          "ev_rev": 7.5,
+          "peg": 1.3,
+          "acceleration": -2.0,
+          "val_efficiency": 67.0
+        },
+        {
+          "symbol": "S",
+          "rev_b": 1.05,
+          "market_share": 3.4,
+          "rev_growth": 20.8,
+          "gross_margin": 73.2,
+          "ev_rev": 5.6,
+          "peg": null,
+          "acceleration": -2.7,
+          "val_efficiency": 26.9
+        }
+      ]
+    },
+    "SaaS軟體": {
+      "total_rev_b": 64.0,
+      "avg_growth": 23.5,
+      "trend": "growth",
+      "stocks": [
+        {
+          "symbol": "CRM",
+          "rev_b": 42.83,
+          "market_share": 66.9,
+          "rev_growth": 13.3,
+          "gross_margin": 77.6,
+          "ev_rev": 4.2,
+          "peg": 0.78,
+          "acceleration": -9.8,
+          "val_efficiency": 31.6
+        },
+        {
+          "symbol": "WDAY",
+          "rev_b": 9.85,
+          "market_share": 15.4,
+          "rev_growth": 13.5,
+          "gross_margin": 75.8,
+          "ev_rev": 4.0,
+          "peg": 0.66,
+          "acceleration": -3.7,
+          "val_efficiency": 29.6
+        },
+        {
+          "symbol": "SNOW",
+          "rev_b": 5.03,
+          "market_share": 7.9,
+          "rev_growth": 33.5,
+          "gross_margin": 67.1,
+          "ev_rev": 20.2,
+          "peg": 7.14,
+          "acceleration": 2.5,
+          "val_efficiency": 60.3
+        },
+        {
+          "symbol": "DDOG",
+          "rev_b": 3.67,
+          "market_share": 5.7,
+          "rev_growth": 32.2,
+          "gross_margin": 79.9,
+          "ev_rev": 25.0,
+          "peg": 1.65,
+          "acceleration": -2.0,
+          "val_efficiency": 77.6
+        },
+        {
+          "symbol": "MDB",
+          "rev_b": 2.6,
+          "market_share": 4.1,
+          "rev_growth": 25.2,
+          "gross_margin": 72.0,
+          "ev_rev": 9.5,
+          "peg": 1.67,
+          "acceleration": -11.7,
+          "val_efficiency": 37.7
+        }
+      ]
+    },
+    "藥廠": {
+      "total_rev_b": 256.6,
+      "avg_growth": 18.4,
+      "trend": "growth",
+      "stocks": [
+        {
+          "symbol": "JNJ",
+          "rev_b": 97.93,
+          "market_share": 38.2,
+          "rev_growth": 6.6,
+          "gross_margin": 68.1,
+          "ev_rev": 6.6,
+          "peg": 4.38,
+          "acceleration": 7.2,
+          "val_efficiency": 100.0
+        },
+        {
+          "symbol": "LLY",
+          "rev_b": 72.25,
+          "market_share": 28.2,
+          "rev_growth": 55.5,
+          "gross_margin": 82.8,
+          "ev_rev": 14.7,
+          "peg": 1.69,
+          "acceleration": -7.0,
+          "val_efficiency": 26.5
+        },
+        {
+          "symbol": "BMY",
+          "rev_b": 49.19,
+          "market_share": 19.2,
+          "rev_growth": 5.7,
+          "gross_margin": 71.7,
+          "ev_rev": 3.4,
+          "peg": 1.64,
+          "acceleration": 21.0,
+          "val_efficiency": 59.6
+        },
+        {
+          "symbol": "AMGN",
+          "rev_b": 37.22,
+          "market_share": 14.5,
+          "rev_growth": 5.8,
+          "gross_margin": 71.4,
+          "ev_rev": 6.8,
+          "peg": 2.06,
+          "acceleration": -15.9,
+          "val_efficiency": 117.2
+        }
+      ]
+    },
+    "電動車": {
+      "total_rev_b": 211.9,
+      "avg_growth": 46.3,
+      "trend": "strong_growth",
+      "stocks": [
+        {
+          "symbol": "TSLA",
+          "rev_b": 103.62,
+          "market_share": 48.9,
+          "rev_growth": 25.5,
+          "gross_margin": 18.9,
+          "ev_rev": 11.6,
+          "peg": 4.37,
+          "acceleration": 36.2,
+          "val_efficiency": 45.5
+        },
+        {
+          "symbol": "NIO",
+          "rev_b": 100.99,
+          "market_share": 47.7,
+          "rev_growth": 112.2,
+          "gross_margin": 15.7,
+          "ev_rev": 0.2,
+          "peg": null,
+          "acceleration": -85.3,
+          "val_efficiency": 0.2
+        },
+        {
+          "symbol": "RIVN",
+          "rev_b": 5.88,
+          "market_share": 2.8,
+          "rev_growth": 27.2,
+          "gross_margin": 7.5,
+          "ev_rev": 3.4,
+          "peg": null,
+          "acceleration": 12.7,
+          "val_efficiency": 12.5
+        },
+        {
+          "symbol": "LCID",
+          "rev_b": 1.4,
+          "market_share": 0.7,
+          "rev_growth": 20.2,
+          "gross_margin": -95.6,
+          "ev_rev": 5.5,
+          "peg": null,
+          "acceleration": -101.3,
+          "val_efficiency": 27.2
+        }
+      ]
+    }
+  },
+  "industry_news": {
+    "AI基礎設施": [
+      {
+        "title": "Jeff Bezos Stepped Down as Amazon CEO 5 Years Ago, and the Stock Has Lagged the S&P 500 Since. Could",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://www.fool.com/investing/2026/07/31/time-sensitive-jeff-bezos-stepped-down-as-amazon-c/?.tsrc=rss"
+      },
+      {
+        "title": "Jim Cramer Can’t Help But Gloat At Apple Inc (NASDAQ:AAPL)’s AI Developments",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://finance.yahoo.com/technology/ai/articles/jim-cramer-t-help-gloat-023735112.html?.tsrc=rss"
+      },
+      {
+        "title": "Reddit Beat on Revenue, Profit, and Guidance. Its U.S. Daily Users Went Backward, and the Stock Fell",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://www.fool.com/investing/2026/07/31/reddit-beat-on-revenue-profit-and-guidance-its-us/?.tsrc=rss"
+      },
+      {
+        "title": "Alibaba (NYSE:BABA) Is Supplying Moonshot With A Major Nvidia AI Cluster",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://finance.yahoo.com/technology/ai/articles/alibaba-nyse-baba-supplying-moonshot-010613054.html?.tsrc=rss"
+      },
+      {
+        "title": "Caterpillar Will Remain an Important AI Stock for a Long Time",
+        "keywords": [
+          "AI"
+        ],
+        "link": "https://www.fool.com/investing/2026/07/31/caterpillar-will-remain-an-important-ai-stock/?.tsrc=rss"
+      }
+    ],
+    "半導體": [
+      {
+        "title": "Jim Cramer Reveals Why Intel Corporation (NASDAQ:INTC) Is About More Than Just Selling Computer Chip",
+        "keywords": [
+          "chip"
+        ],
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-reveals-why-intel-024013757.html?.tsrc=rss"
+      }
+    ],
+    "光通訊": [
+      {
+        "title": "Applied Optoelectronics and Coherent Gain 7%, Lumentum Adds 5% as Risk-On Feeling Spreads to Optics ",
+        "keywords": [
+          "coherent"
+        ],
+        "link": "https://247wallst.com/investing/2026/07/31/applied-optoelectronics-and-coherent-gain-7-lumentum-adds-5-as-risk-on-feeling-spreads-to-optics-stocks/?.tsrc=rss"
+      },
+      {
+        "title": "STARTRADER expands AI offering with 31 New US Share & ETF CFDs in Semiconductors, Optical Networking",
+        "keywords": [
+          "optical"
+        ],
+        "link": "https://finance.yahoo.com/markets/stocks/articles/startrader-expands-ai-offering-31-094500034.html?.tsrc=rss"
+      },
+      {
+        "title": "Corning (GLW) Crashed 20% Despite 32% Optical Growth. Should Coherent (COHR) Investors Worry?",
+        "keywords": [
+          "optical",
+          "coherent"
+        ],
+        "link": "https://finance.yahoo.com/markets/stocks/articles/corning-glw-crashed-20-despite-151127643.html?.tsrc=rss"
+      },
+      {
+        "title": "AI Infrastructure Demand is Reshaping Coherent's Growth Story",
+        "keywords": [
+          "coherent"
+        ],
+        "link": "https://finance.yahoo.com/technology/ai/articles/ai-infrastructure-demand-reshaping-coherents-165000033.html?.tsrc=rss"
+      },
+      {
+        "title": "Coherent Sinks 11%, Applied Optoelectronics Falls 10%, Lumentum Drops 9% as Traders Question AI Spen",
+        "keywords": [
+          "coherent"
+        ],
+        "link": "https://247wallst.com/investing/2026/07/28/coherent-sinks-11-applied-optoelectronics-falls-10-lumentum-drops-9-as-traders-question-ai-spending-spree/?.tsrc=rss"
+      }
+    ],
+    "網路安全": [
+      {
+        "title": "Jim Cramer Believes Cybersecurity Stocks Like Palo Alto & CrowdStrike Will Do Well",
+        "keywords": [
+          "cyber",
+          "security"
+        ],
+        "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-believes-cybersecurity-stocks-023451210.html?.tsrc=rss"
+      },
+      {
+        "title": "Move Over Memory, Fortinet Earnings Show Cybersecurity Stocks Are Red-Hot AI Plays",
+        "keywords": [
+          "cyber",
+          "security"
+        ],
+        "link": "https://finance.yahoo.com/m/c256ab6f-9fe4-33f8-bea5-5e19d41b0d79/move-over-memory%2C-fortinet.html?.tsrc=rss"
+      },
+      {
+        "title": "'Unprecedented' OpenAI Cyberattack Brings Palo Alto, CrowdStrike Into Focus",
+        "keywords": [
+          "cyber"
+        ],
+        "link": "https://finance.yahoo.com/m/3a30f8cb-36fc-340c-aa1b-5a870510e104/%27unprecedented%27-openai.html?.tsrc=rss"
+      }
+    ]
+  }
+}
