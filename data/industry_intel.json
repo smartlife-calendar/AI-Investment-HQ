@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-01T13:12:15+08:00",
+  "generated_at": "2026-08-01T13:24:51+08:00",
   "segments": {
     "AI基礎設施_GPU": {
       "total_rev_b": 348.0,
@@ -548,6 +548,13 @@
     ],
     "半導體": [
       {
+        "title": "Taiwan Semiconductor Manufacturing (NYSE:TSM) Stock Looks Reasonable Despite Its 335% Run",
+        "keywords": [
+          "semiconductor"
+        ],
+        "link": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-manufacturing-nyse-tsm-220959432.html?.tsrc=rss"
+      },
+      {
         "title": "Jim Cramer Reveals Why Intel Corporation (NASDAQ:INTC) Is About More Than Just Selling Computer Chip",
         "keywords": [
           "chip"
@@ -621,510 +628,40 @@
   },
   "pricing_power": {
     "光纖原料(寡佔)": {
-      "stocks": [
-        {
-          "symbol": "GLW",
-          "gross_margin": 36.4,
-          "op_margin": 15.6,
-          "gm_trend": [
-            36.9,
-            35.5,
-            37.1,
-            36.0
-          ],
-          "gm_change_2q": 0.5,
-          "capex_ttm_b": 1.52,
-          "capex_growth": 0.0,
-          "inventory_days": 74.0,
-          "asset_turnover": 0.51,
-          "rev_growth": 16.6
-        }
-      ]
+      "stocks": []
     },
     "光通模組": {
-      "stocks": [
-        {
-          "symbol": "LITE",
-          "gross_margin": 40.8,
-          "op_margin": 21.8,
-          "gm_trend": [
-            36.1,
-            34.0,
-            33.3,
-            28.8
-          ],
-          "gm_change_2q": -5.2,
-          "capex_ttm_b": 0.34,
-          "capex_growth": 0.0,
-          "inventory_days": 93.0,
-          "asset_turnover": 0.35,
-          "rev_growth": 90.1
-        },
-        {
-          "symbol": "COHR",
-          "gross_margin": 37.0,
-          "op_margin": 13.6,
-          "gm_trend": [
-            36.9,
-            36.6,
-            35.7,
-            35.2
-          ],
-          "gm_change_2q": -1.4,
-          "capex_ttm_b": 0.68,
-          "capex_growth": 0.0,
-          "inventory_days": 118.0,
-          "asset_turnover": 0.38,
-          "rev_growth": 20.5
-        },
-        {
-          "symbol": "AAOI",
-          "gross_margin": 29.6,
-          "op_margin": -8.6,
-          "gm_trend": [
-            31.2,
-            28.0,
-            30.3,
-            30.6
-          ],
-          "gm_change_2q": 2.6,
-          "capex_ttm_b": 0.21,
-          "capex_growth": 0.0,
-          "inventory_days": 148.0,
-          "asset_turnover": 0.32,
-          "rev_growth": 51.4
-        }
-      ]
+      "stocks": []
     },
     "GPU(壟斷)": {
-      "stocks": [
-        {
-          "symbol": "NVDA",
-          "gross_margin": 74.1,
-          "op_margin": 65.6,
-          "gm_trend": [
-            75.0,
-            73.4,
-            72.4,
-            60.5
-          ],
-          "gm_change_2q": -12.9,
-          "capex_ttm_b": 6.57,
-          "capex_growth": 0.0,
-          "inventory_days": 37.0,
-          "asset_turnover": 0.98,
-          "rev_growth": 85.2
-        },
-        {
-          "symbol": "AMD",
-          "gross_margin": 53.1,
-          "op_margin": 14.4,
-          "gm_trend": [
-            54.3,
-            51.7,
-            39.8,
-            50.2
-          ],
-          "gm_change_2q": -1.5,
-          "capex_ttm_b": 1.15,
-          "capex_growth": 0.0,
-          "inventory_days": 78.0,
-          "asset_turnover": 0.47,
-          "rev_growth": 37.8
-        },
-        {
-          "symbol": "INTC",
-          "gross_margin": 38.9,
-          "op_margin": 12.2,
-          "gm_trend": [
-            39.4,
-            36.1,
-            38.2,
-            27.5
-          ],
-          "gm_change_2q": -8.6,
-          "capex_ttm_b": 12.1,
-          "capex_growth": 0.0,
-          "inventory_days": 80.0,
-          "asset_turnover": 0.28,
-          "rev_growth": 25.4
-        }
-      ]
+      "stocks": []
     },
     "EDA工具(雙寡佔)": {
-      "stocks": [
-        {
-          "symbol": "SNPS",
-          "gross_margin": 82.6,
-          "op_margin": 10.4,
-          "gm_trend": [
-            73.5,
-            71.0,
-            78.1,
-            80.2
-          ],
-          "gm_change_2q": 9.2,
-          "capex_ttm_b": 0.16,
-          "capex_growth": 0.0,
-          "inventory_days": 19.0,
-          "asset_turnover": 0.19,
-          "rev_growth": 41.9
-        },
-        {
-          "symbol": "CDNS",
-          "gross_margin": 85.9,
-          "op_margin": 28.6,
-          "gm_trend": [
-            85.4,
-            86.9,
-            86.4,
-            85.6
-          ],
-          "gm_change_2q": -1.3,
-          "capex_ttm_b": 0.18,
-          "capex_growth": 0.0,
-          "inventory_days": 24.0,
-          "asset_turnover": 0.48,
-          "rev_growth": 24.2
-        }
-      ]
+      "stocks": []
     },
     "光刻機(壟斷)": {
-      "stocks": [
-        {
-          "symbol": "ASML",
-          "gross_margin": 52.7,
-          "op_margin": 37.1,
-          "gm_trend": [
-            53.0,
-            52.2,
-            51.6,
-            53.7
-          ],
-          "gm_change_2q": 1.5,
-          "capex_ttm_b": 1.64,
-          "capex_growth": 0.0,
-          "inventory_days": 121.0,
-          "asset_turnover": 0.7,
-          "rev_growth": 21.3
-        }
-      ]
+      "stocks": []
     },
     "半導體設備": {
-      "stocks": [
-        {
-          "symbol": "AMAT",
-          "gross_margin": 49.0,
-          "op_margin": 31.9,
-          "gm_trend": [
-            49.0,
-            48.0,
-            48.8,
-            49.1
-          ],
-          "gm_change_2q": 1.1,
-          "capex_ttm_b": 2.65,
-          "capex_growth": 0.0,
-          "inventory_days": 80.0,
-          "asset_turnover": 0.72,
-          "rev_growth": 11.4
-        },
-        {
-          "symbol": "LRCX",
-          "gross_margin": 50.5,
-          "op_margin": 37.4,
-          "gm_trend": [
-            49.6,
-            50.4,
-            50.1,
-            49.0
-          ],
-          "gm_change_2q": -1.4,
-          "capex_ttm_b": 0.95,
-          "capex_growth": 0.0,
-          "inventory_days": 63.0,
-          "asset_turnover": 1.12,
-          "rev_growth": 30.0
-        },
-        {
-          "symbol": "KLAC",
-          "gross_margin": 61.3,
-          "op_margin": 42.5,
-          "gm_trend": [
-            61.4,
-            61.3,
-            62.0,
-            61.6
-          ],
-          "gm_change_2q": 0.3,
-          "capex_ttm_b": 0.39,
-          "capex_growth": 0.0,
-          "inventory_days": 92.0,
-          "asset_turnover": 0.8,
-          "rev_growth": 15.2
-        },
-        {
-          "symbol": "TER",
-          "gross_margin": 59.2,
-          "op_margin": 33.2,
-          "gm_trend": [
-            57.2,
-            58.4,
-            57.2,
-            60.6
-          ],
-          "gm_change_2q": 2.2,
-          "capex_ttm_b": 0.22,
-          "capex_growth": 0.0,
-          "inventory_days": 30.0,
-          "asset_turnover": 1.01,
-          "rev_growth": 103.9
-        }
-      ]
+      "stocks": []
     },
     "記憶體(寡佔)": {
-      "stocks": [
-        {
-          "symbol": "MU",
-          "gross_margin": 72.6,
-          "op_margin": 80.4,
-          "gm_trend": [
-            74.4,
-            56.0,
-            44.7,
-            37.7
-          ],
-          "gm_change_2q": -18.3,
-          "capex_ttm_b": 25.26,
-          "capex_growth": 0.0,
-          "inventory_days": 35.0,
-          "asset_turnover": 0.67,
-          "rev_growth": 345.7
-        }
-      ]
+      "stocks": []
     },
     "IP授權(壟斷)": {
-      "stocks": [
-        {
-          "symbol": "ARM",
-          "gross_margin": 97.5,
-          "op_margin": 7.6,
-          "gm_trend": [
-            97.9,
-            97.6,
-            97.4,
-            97.2
-          ],
-          "gm_change_2q": -0.4,
-          "capex_ttm_b": 0.62,
-          "capex_growth": 0.0,
-          "inventory_days": null,
-          "asset_turnover": 0.46,
-          "rev_growth": 22.4
-        }
-      ]
+      "stocks": []
     },
     "網通(雙寡佔)": {
-      "stocks": [
-        {
-          "symbol": "ANET",
-          "gross_margin": 63.5,
-          "op_margin": 42.7,
-          "gm_trend": [
-            62.9,
-            64.6,
-            65.2,
-            63.7
-          ],
-          "gm_change_2q": -0.9,
-          "capex_ttm_b": 0.15,
-          "capex_growth": 0.0,
-          "inventory_days": 89.0,
-          "asset_turnover": 0.45,
-          "rev_growth": 35.1
-        },
-        {
-          "symbol": "CIEN",
-          "gross_margin": 43.0,
-          "op_margin": 15.2,
-          "gm_trend": [
-            43.8,
-            42.7,
-            41.3,
-            40.2
-          ],
-          "gm_change_2q": -2.5,
-          "capex_ttm_b": 0.2,
-          "capex_growth": 0.0,
-          "inventory_days": 53.0,
-          "asset_turnover": 0.92,
-          "rev_growth": 39.5
-        }
-      ]
+      "stocks": []
     },
     "AI伺服器": {
-      "stocks": [
-        {
-          "symbol": "SMCI",
-          "gross_margin": 8.4,
-          "op_margin": 6.1,
-          "gm_trend": [
-            6.3,
-            9.3,
-            9.5,
-            9.6
-          ],
-          "gm_change_2q": 0.3,
-          "capex_ttm_b": 0.16,
-          "capex_growth": 0.0,
-          "inventory_days": 120.0,
-          "asset_turnover": 1.44,
-          "rev_growth": 122.7
-        }
-      ]
+      "stocks": []
     },
     "晶片設計": {
-      "stocks": [
-        {
-          "symbol": "AVGO",
-          "gross_margin": 76.3,
-          "op_margin": 49.0,
-          "gm_trend": [
-            68.1,
-            68.0,
-            67.1,
-            68.0
-          ],
-          "gm_change_2q": 0.0,
-          "capex_ttm_b": 0.86,
-          "capex_growth": 0.0,
-          "inventory_days": 21.0,
-          "asset_turnover": 0.42,
-          "rev_growth": 47.9
-        },
-        {
-          "symbol": "MRVL",
-          "gross_margin": 51.5,
-          "op_margin": 14.5,
-          "gm_trend": [
-            51.7,
-            51.6,
-            50.4,
-            50.3
-          ],
-          "gm_change_2q": -1.3,
-          "capex_ttm_b": 0.39,
-          "capex_growth": 0.0,
-          "inventory_days": 59.0,
-          "asset_turnover": 0.32,
-          "rev_growth": 27.6
-        },
-        {
-          "symbol": "QCOM",
-          "gross_margin": 54.2,
-          "op_margin": 18.5,
-          "gm_trend": [
-            54.6,
-            55.3,
-            55.6
-          ],
-          "gm_change_2q": 1.0,
-          "capex_ttm_b": 1.98,
-          "capex_growth": 0.0,
-          "inventory_days": 69.0,
-          "asset_turnover": 0.77,
-          "rev_growth": -4.0
-        },
-        {
-          "symbol": "TXN",
-          "gross_margin": 58.3,
-          "op_margin": 42.6,
-          "gm_trend": [
-            58.0,
-            55.9,
-            57.4,
-            57.9
-          ],
-          "gm_change_2q": 2.0,
-          "capex_ttm_b": 3.31,
-          "capex_growth": 0.0,
-          "inventory_days": 86.0,
-          "asset_turnover": 0.54,
-          "rev_growth": 22.8
-        }
-      ]
+      "stocks": []
     },
     "網路安全": {
-      "stocks": [
-        {
-          "symbol": "CRWD",
-          "gross_margin": 75.1,
-          "op_margin": -2.2,
-          "gm_trend": [
-            76.1,
-            75.1,
-            73.5,
-            73.9
-          ],
-          "gm_change_2q": -1.2,
-          "capex_ttm_b": 0.39,
-          "capex_growth": 0.0,
-          "inventory_days": null,
-          "asset_turnover": 0.45,
-          "rev_growth": 25.6
-        },
-        {
-          "symbol": "PANW",
-          "gross_margin": 72.0,
-          "op_margin": -2.5,
-          "gm_trend": [
-            73.6,
-            74.2,
-            73.2,
-            73.0
-          ],
-          "gm_change_2q": -1.2,
-          "capex_ttm_b": 0.42,
-          "capex_growth": 0.0,
-          "inventory_days": null,
-          "asset_turnover": 0.23,
-          "rev_growth": 31.1
-        },
-        {
-          "symbol": "ZS",
-          "gross_margin": 76.7,
-          "op_margin": -3.3,
-          "gm_trend": [
-            76.6,
-            76.6,
-            76.1,
-            77.0
-          ],
-          "gm_change_2q": 0.4,
-          "capex_ttm_b": 0.21,
-          "capex_growth": 0.0,
-          "inventory_days": null,
-          "asset_turnover": 0.45,
-          "rev_growth": 25.4
-        },
-        {
-          "symbol": "FTNT",
-          "gross_margin": 80.2,
-          "op_margin": 33.6,
-          "gm_trend": [
-            80.3,
-            79.6,
-            80.8,
-            80.7
-          ],
-          "gm_change_2q": 1.1,
-          "capex_ttm_b": 0.28,
-          "capex_growth": 0.0,
-          "inventory_days": 21.0,
-          "asset_turnover": 0.69,
-          "rev_growth": 25.6
-        }
-      ]
+      "stocks": []
     }
   }
 }
