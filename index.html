@@ -4109,6 +4109,30 @@ async function loadSmartBacktest() {
                     }
                 } catch(e) { console.log('Sim error:', e); }
                 
+                // Short Candidates Section
+                var shortCands = signals.filter(function(s) { return s.short_candidate; }).sort(function(a,b) { return (b.short_score||0)-(a.short_score||0); });
+                if (shortCands.length > 0) {
+                    out += '<details style="margin-top:12px"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:#7c3aed;padding:8px;background:#f5f3ff;border-radius:8px">🩳 做空觀察名單 (' + shortCands.length + '支) <span style="font-size:11px;color:#94a3b8;font-weight:400">· Beta>1.5 + 小型股 + 基本面弱 · 紙上操作追蹤中</span></summary>';
+                    out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:6px;margin-top:8px">';
+                    shortCands.slice(0,20).forEach(function(s) {
+                        var bg = s.short_score >= 8 ? '#fef2f2' : '#faf5ff';
+                        var bc = s.short_score >= 8 ? '#dc2626' : '#7c3aed';
+                        out += '<div style="background:' + bg + ';padding:8px;border-radius:6px;border-left:3px solid ' + bc + '">';
+                        out += '<div style="display:flex;justify-content:space-between;align-items:center">';
+                        out += '<span style="font-weight:700;font-size:13px">' + s.symbol + '</span>';
+                        out += '<span style="font-size:10px;background:' + bc + ';color:white;padding:1px 6px;border-radius:8px">分數 ' + s.short_score + '</span>';
+                        out += '</div>';
+                        if (s.short_reasons) {
+                            out += '<div style="font-size:10px;color:#64748b;margin-top:2px">' + s.short_reasons.join(' · ') + '</div>';
+                        }
+                        if (s.price) out += '<div style="font-size:10px;color:#94a3b8;margin-top:2px">現價 $' + s.price + ' · ' + (s.action_zh||'') + '</div>';
+                        out += '</div>';
+                    });
+                    out += '</div>';
+                    out += '<div style="font-size:10px;color:#dc2626;margin-top:6px;padding:4px 8px;background:#fef2f2;border-radius:4px">⚠️ 做空風險無限！此為紙上追蹤，非操作建議。軋空可能造成巨大虧損。建議僅用 put options 或反向 ETF 避險。</div>';
+                    out += '</details>';
+                }
+                
                 out += '<div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:12px">';
                 out += '⚠️ 以上訊號僅供參考，不構成投資建議 · ' + genDate;
                 out += '</div>';
