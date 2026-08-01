@@ -183,15 +183,15 @@ function rSignals(){
   var buys=sigs.filter(function(s){return s.action==='BUY'});
   if(buys.length){
     o+=card('<div style="font-size:14px;font-weight:700;color:#16a34a;margin-bottom:6px">🟢 買入 ('+buys.length+')</div>'+
-    buys.slice(0,20).map(function(s){return stockCard(s,'#16a34a')}).join('')+
-    (buys.length>20?'<div style="text-align:center;color:#94a3b8;font-size:11px;padding:4px">...還有'+(buys.length-20)+'支</div>':''));
+    buys.slice(0,10).map(function(s){return stockCard(s,'#16a34a')}).join('')+
+    (buys.length>10?'<details style="margin-top:4px"><summary style="cursor:pointer;text-align:center;color:#1e40af;font-size:12px;font-weight:700;padding:8px;background:#f0f4ff;border-radius:8px;list-style:none">展開更多 ('+buys.slice(10).length+'支) ▼</summary>'+buys.slice(10).map(function(s){return stockCard(s,'#16a34a')}).join('')+'</details>':''));
   }
   // WATCH: compact cards (top 15)
   var watches=sigs.filter(function(s){return s.action==='WATCH'});
   if(watches.length){
     o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:#7c3aed">👀 觀望 ('+watches.length+')</summary>'+
-    watches.slice(0,15).map(function(s){return stockCard(s,'#7c3aed')}).join('')+
-    (watches.length>15?'<div style="text-align:center;color:#94a3b8;font-size:11px;padding:4px">...還有'+(watches.length-15)+'支</div>':'')+'</details>';
+    watches.slice(0,10).map(function(s){return stockCard(s,'#7c3aed')}).join('')+
+    (watches.length>10?'<details style="margin-top:4px"><summary style="cursor:pointer;text-align:center;color:#7c3aed;font-size:12px;font-weight:700;padding:8px;background:#f5f3ff;border-radius:8px;list-style:none">展開更多 ('+watches.slice(10).length+'支) ▼</summary>'+watches.slice(10).map(function(s){return stockCard(s,'#7c3aed')}).join('')+'</details>':'')+'</details>';
   }
   // Others: compact table
   var others=[
@@ -258,36 +258,34 @@ function rIndustry(){
 function rAccum(){
   if(!D.accumulation)return card('<p style="color:#94a3b8;text-align:center">無吸籌資料</p>');
   var o='',acc=D.accumulation;
-  function accTable(items,label,color){
-    return card('<div style="font-size:14px;font-weight:700;color:'+color+';margin-bottom:4px">'+label+' ('+items.length+')</div>'+
-    '<div style="font-size:10px;color:#64748b;margin-bottom:6px">外資投信同買+法人佔成交>10%</div>'+
-    '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>法人%</th><th>原因</th></tr>'+
-    items.slice(0,30).map(function(s){
+  
+  function accRows(items){
+    return items.map(function(s){
       return '<tr style="border-bottom:1px solid #f1f5f9">'+
         '<td style="padding:3px;font-weight:700">'+s.code+'</td>'+
         '<td style="padding:3px;max-width:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(s.name||'').substring(0,4)+'</td>'+
         '<td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td>'+
-        '<td style="padding:3px;color:'+(s.change_pct>0?'#dc2626':'#16a34a')+'">'+(s.change_pct>0?'+':'')+s.change_pct+'%</td>'+
+        '<td style="padding:3px;color:'+((s.change_pct||0)>0?'#dc2626':'#16a34a')+'">'+(s.change_pct>0?'+':'')+s.change_pct+'%</td>'+
         '<td style="padding:3px;font-weight:700;color:#dc2626">'+(s.flow_ratio||0)+'%</td>'+
         '<td style="padding:3px;font-size:10px;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(s.reasons||[]).slice(0,2).join(', ')+'</td></tr>'
-    }).join('')+'</table></div>');
+    }).join('');
   }
-  o+=accTable(acc.bullish||[],'🟢 吸籌偵測','#16a34a');
-  o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:#dc2626">🔴 出貨偵測 ('+(acc.bearish||[]).length+')</summary>';
-  if((acc.bearish||[]).length){
-    o+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>法人%</th></tr>'+
-    (acc.bearish||[]).slice(0,30).map(function(s){
-      return '<tr style="border-bottom:1px solid #f1f5f9">'+
-        '<td style="padding:3px;font-weight:700">'+s.code+'</td>'+
-        '<td style="padding:3px">'+(s.name||'').substring(0,4)+'</td>'+
-        '<td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td>'+
-        '<td style="padding:3px;color:#16a34a">'+s.change_pct+'%</td>'+
-        '<td style="padding:3px;color:#16a34a;font-weight:700">'+(s.flow_ratio||0)+'%</td></tr>'
-    }).join('')+'</table></div>';
-  }
-  o+='</details>';
+  
+  var tblHead='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>漲跌</th><th>法人%</th><th>原因</th></tr>';
+  
+  // Bullish: top 10 + expandable rest
+  var bulls=acc.bullish||[];
+  o+=card('<div style="font-size:14px;font-weight:700;color:#16a34a;margin-bottom:4px">🟢 吸籌偵測 ('+bulls.length+')</div>'+
+  '<div style="font-size:10px;color:#64748b;margin-bottom:6px">外資投信同買+法人佔成交&gt;10%</div>'+
+  tblHead+accRows(bulls.slice(0,10))+'</table></div>'+
+  (bulls.length>10?'<details style="margin-top:4px"><summary style="cursor:pointer;text-align:center;color:#16a34a;font-size:12px;font-weight:700;padding:8px;background:#f0fdf4;border-radius:8px;list-style:none">展開更多 ('+(bulls.length-10)+'支) ▼</summary>'+tblHead+accRows(bulls.slice(10))+'</table></div></details>':''));
+  
+  // Bearish: collapsible
+  var bears=acc.bearish||[];
+  o+='<details style="background:#fff;border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08)"><summary style="cursor:pointer;font-size:14px;font-weight:700;color:#dc2626">🔴 出貨偵測 ('+bears.length+')</summary>'+
+  tblHead+accRows(bears.slice(0,10))+'</table></div>'+
+  (bears.length>10?'<details style="margin-top:4px"><summary style="cursor:pointer;text-align:center;color:#dc2626;font-size:12px;font-weight:700;padding:8px;background:#fef2f2;border-radius:8px;list-style:none">展開更多 ('+(bears.length-10)+'支) ▼</summary>'+tblHead+accRows(bears.slice(10))+'</table></div></details>':'')+'</details>';
+  
   return o;
 }
 
