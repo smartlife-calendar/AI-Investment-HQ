@@ -86,7 +86,7 @@ function render(){
   if(!D){m.innerHTML='<p style="text-align:center;color:#94a3b8;padding:40px">⏳ 載入中...</p>';return}
   switch(CT){
     case 'overview': m.innerHTML=rOverview(); break;
-    case 'signals': m.innerHTML=rSignals(); break;
+    case 'signals': m.innerHTML=rSignals()+'<div id="tw-backtest" style="margin-top:12px"></div>'; setTimeout(loadTwBacktest,100); break;
     case 'institutional': m.innerHTML=rInst(); break;
     case 'industry': m.innerHTML=rIndustry(); break;
     case 'accumulation': m.innerHTML=rAccum(); break;
@@ -557,6 +557,44 @@ function rSearch(){
     'oninput="doSearch()"><div id="sr" style="margin-top:8px"></div>');
 }
 
+
+async function loadTwBacktest(){
+  var el=document.getElementById('tw-backtest');
+  if(!el)return;
+  try{
+    var r=await fetch('/tw/data/tw_backtest.json?t='+Date.now());
+    if(!r.ok)return;
+    var d=await r.json();
+    var bm=d.benchmark||{};
+    var h='<div style="background:#fff;border-radius:12px;padding:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)">';
+    h+='<div style="font-size:14px;font-weight:700;margin-bottom:8px">📊 訊號回測績效</div>';
+    h+='<div style="font-size:10px;color:#94a3b8;margin-bottom:8px">回顧式：目前訊號的股票過去N日實際表現 · '+(d.generated_at||'?').substring(0,10)+'</div>';
+    h+='<table style="width:100%;border-collapse:collapse;font-size:12px">';
+    h+='<tr style="background:#f1f5f9"><th style="padding:4px;text-align:left">訊號</th><th>5日</th><th>10日</th><th>20日</th></tr>';
+    var cats=[{k:'BUY',l:'🟢買入',c:'#16a34a'},{k:'WATCH',l:'👀觀望',c:'#7c3aed'},{k:'NEUTRAL',l:'⚪中性',c:'#64748b'},{k:'REDUCE',l:'🟠減碼',c:'#f59e0b'},{k:'AVOID',l:'⛔迴避',c:'#dc2626'}];
+    cats.forEach(function(cat){
+      var s=(d[cat.k]||{}).summary||{};
+      h+='<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:4px;color:'+cat.c+';font-weight:700">'+cat.l+'</td>';
+      ['5d','10d','20d'].forEach(function(p){
+        var v=s[p];
+        if(v){
+          var c2=v.avg>0?'#16a34a':'#dc2626';
+          h+='<td style="padding:4px;text-align:center"><div style="color:'+c2+';font-weight:700">'+(v.avg>0?'+':'')+v.avg.toFixed(1)+'%</div><div style="font-size:9px;color:#94a3b8">勝'+v.win_rate.toFixed(0)+'% (n='+v.n+')</div></td>';
+        }else{h+='<td style="padding:4px;text-align:center;color:#94a3b8">-</td>';}
+      });
+      h+='</tr>';
+    });
+    h+='<tr style="background:#f8fafc"><td style="padding:4px;font-weight:700">📈大盤</td>';
+    ['5d','10d','20d'].forEach(function(p){
+      var v=bm[p];
+      if(v!==undefined){h+='<td style="padding:4px;text-align:center;font-weight:700;color:'+(v>0?'#16a34a':'#dc2626')+'">'+(v>0?'+':'')+v.toFixed(1)+'%</td>';}
+      else{h+='<td style="padding:4px;text-align:center">-</td>';}
+    });
+    h+='</tr></table></div>';
+    el.innerHTML=h;
+  }catch(e){console.error('backtest',e);}
+}
+
 function doSearch(){
   if(!D)return;
   var q=document.getElementById('si').value.trim().toLowerCase();
@@ -566,17 +604,7 @@ function doSearch(){
     return s.code.toLowerCase().indexOf(q)>=0||(s.name||'').toLowerCase().indexOf(q)>=0
   }).slice(0,15);
   if(!r.length){el.innerHTML='<p style="color:#94a3b8">找不到</p>';return}
-  el.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:11px">'+
-    '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">代號</th><th>名稱</th><th>價格</th><th>訊號</th><th>分數</th></tr>'+
-    r.map(function(s){
-      var sc=s.score>0?'#16a34a':s.score<0?'#dc2626':'#64748b';
-      return '<tr style="border-bottom:1px solid #f1f5f9">'+
-        '<td style="padding:3px;font-weight:700">'+s.code+'</td>'+
-        '<td style="padding:3px">'+s.name+'</td>'+
-        '<td style="padding:3px">$'+(s.price||0).toLocaleString()+'</td>'+
-        '<td style="padding:3px">'+s.action_zh+'</td>'+
-        '<td style="padding:3px;font-weight:700;color:'+sc+'">'+(s.score>0?'+':'')+s.score+'</td></tr>'
-    }).join('')+'</table>';
+  el.innerHTML=r.map(function(s){return stockCard(s);}).join('');
 }
 
 async function load(){
