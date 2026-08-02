@@ -1331,6 +1331,8 @@
                             actionHtml += '<span>🛑 止損 <strong style="color:#dc2626">' + stopLoss + '</strong> (' + stopPct + '%)</span>';
                             actionHtml += '<span>🎯 T1 <strong style="color:#16a34a">' + target1 + '</strong> (' + t1Pct + '%)</span>';
                             actionHtml += '<span>🎯 T2 <strong style="color:#15803d">' + target2 + '</strong> (' + t2Pct + '%)</span>';
+                            if (s.trailing_stop) actionHtml += '<span>📐 追蹤停利 <strong style="color:#7c3aed">$' + s.trailing_stop.toFixed(2) + '</strong></span>';
+                            if (s.trailing_stop) actionHtml += '<span>📐 追蹤停利 <strong style="color:#7c3aed">$' + s.trailing_stop.toFixed(2) + '</strong></span>';
                             if (rrRatio) actionHtml += '<span style="background:#ede9fe;color:#7c3aed;padding:1px 6px;border-radius:4px;font-weight:700">R:R ' + rrRatio + '</span>';
                             if (momHealth) actionHtml += '<span style="background:' + (momHealth==='強'?'#dcfce7':momHealth==='穩'?'#fef3c7':'#fee2e2') + ';padding:1px 6px;border-radius:4px;font-weight:600">動能' + momHealth + '</span>';
                             actionHtml += '</div>';
