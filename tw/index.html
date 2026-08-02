@@ -159,7 +159,15 @@ function stockCard(s,color){
     h+='</div>';
   }
   // Price levels
-  if(pl.entry)h+='<div style="font-size:10px;margin-top:2px">📍$'+pl.entry+' 🔴$'+pl.stop_loss+' 🎯$'+pl.target1+' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b></div>';
+  if(pl.entry){
+    h+='<div style="font-size:10px;margin-top:2px;background:#f0fdf4;padding:3px 6px;border-radius:4px">';
+    h+='📍進場$'+pl.entry+' 🔴停損$'+pl.stop_loss;
+    h+=' T1<b>$'+pl.target1+'</b>(半倉) T2<b>$'+pl.target2+'</b>';
+    if(pl.trailing_stop)h+=' 📐追蹤停利$'+pl.trailing_stop;
+    h+=' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b>';
+    h+='</div>';
+    h+='<div style="font-size:9px;color:#64748b;margin-top:1px">策略: T1+15%賣半 → T2+25%後高點-20%出場</div>';
+  }
   h+='</div>';
   return h;
 }
