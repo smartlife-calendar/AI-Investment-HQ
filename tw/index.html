@@ -497,68 +497,226 @@ function rCross(){
 
 function rGuide(){
   var o='';
-  o+=card('<h2 style="font-size:16px;margin:0 0 8px">📖 台股 StockIQ 學習中心</h2>'+
-  '<p style="font-size:12px;color:#64748b;margin:0 0 12px">所有指標的計算方式、判讀標準與操作建議</p>'+
   
-  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">一、訊號評分系統</summary>'+
-  '<div style="font-size:12px;padding:8px 0">'+
-  '<p>系統綜合法人動向、估值、基本面生成 -10 ~ +10 分的評分：</p>'+
-  '<div style="margin:6px 0"><b>法人訊號（最重要！台股獨有）：</b></div>'+
-  '<div style="margin:2px 0">• 外資+投信同買: +2（雙主力認同）</div>'+
-  '<div style="margin:2px 0">• 法人佔成交 &gt;10%: +3（大量吃貨）</div>'+
-  '<div style="margin:2px 0">• 外資+投信同賣: -2（主力撤退）</div>'+
-  '<div style="margin:6px 0"><b>估值訊號：</b></div>'+
-  '<div style="margin:2px 0">• PE &lt; 10: +1 低估</div>'+
-  '<div style="margin:2px 0">• PE &gt; 40: -1 過高</div>'+
-  '<div style="margin:2px 0">• PB &lt; 1: +1 低於淨值</div>'+
-  '<div style="margin:2px 0">• 殖利率 &gt; 5%: +1</div>'+
-  '<div style="margin:6px 0"><b>基本面（前200大，Yahoo Finance）：</b></div>'+
-  '<div style="margin:2px 0">• ROE &gt; 25%: +2 · ROE &lt; 0: -2</div>'+
-  '<div style="margin:2px 0">• 營收成長 &gt; 30%: +1</div>'+
-  '<div style="margin:2px 0">• FCF 為負: 風險警告</div>'+
-  '</div></details>'+
+  // 0. Quick Start — 最重要的操作流程
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">🚀 快速上手：每天 3 分鐘看盤指南</h2>'+
+  '<div style="font-size:12px;padding:4px 0">'+
+  '<div style="background:#f0fdf4;border-radius:8px;padding:10px;margin-bottom:8px">'+
+  '<div style="font-weight:700;color:#16a34a;margin-bottom:6px">📋 每日操作流程（台灣時間 14:00 後更新）</div>'+
+  '<div style="margin:4px 0"><b>Step 1.</b> 開 📊總覽 看大盤方向 — 買入/觀望/迴避各幾支？BUY多=偏多</div>'+
+  '<div style="margin:4px 0"><b>Step 2.</b> 看 📡訊號 找 🟢買入 — 只看分數 ≥5 的股票</div>'+
+  '<div style="margin:4px 0"><b>Step 3.</b> 點開股票卡片，確認：</div>'+
+  '<div style="margin:2px 0;padding-left:20px">✅ RR值 ≥ 1.5（值得冒險）</div>'+
+  '<div style="margin:2px 0;padding-left:20px">✅ 籌碼集中 🟠 或 🔴（法人在買）</div>'+
+  '<div style="margin:2px 0;padding-left:20px">✅ 外資連買 ≥ 3 日（趨勢確認）</div>'+
+  '<div style="margin:4px 0"><b>Step 4.</b> 用卡片上的價格操作：</div>'+
+  '<div style="margin:2px 0;padding-left:20px">📍 在「進場價」附近掛限價單</div>'+
+  '<div style="margin:2px 0;padding-left:20px">🔴「停損價」設為條件單 — 觸價立刻賣</div>'+
+  '<div style="margin:2px 0;padding-left:20px">🎯 到 T1 賣一半，到 T2 啟動追蹤停利</div>'+
+  '<div style="margin:4px 0"><b>Step 5.</b> 看 🏦法人 — 你持有的股票有沒有被法人連賣？</div>'+
+  '</div>'+
   
-  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">二、吸籌/出貨偵測</summary>'+
-  '<div style="font-size:12px;padding:8px 0">'+
-  '<p>利用台股獨有的<b>三大法人買賣超</b>數據（美股沒有！），偵測機構吸籌/出貨行為：</p>'+
-  '<div style="margin:6px 0"><b>🟢 吸籌條件（分數 ≥ 3）：</b></div>'+
-  '<div style="margin:2px 0">• 外資+投信同買 (+3)</div>'+
-  '<div style="margin:2px 0">• 法人佔成交量 &gt;20% (+3) / &gt;10% (+2) / &gt;3% (+1)</div>'+
-  '<div style="margin:2px 0">• 股價上漲 &gt;2% (+1)</div>'+
-  '<div style="margin:2px 0">• 融資減少（散戶退場）+法人買 (+1) ← 聰明錢訊號</div>'+
-  '<div style="margin:6px 0"><b>🔴 出貨條件：</b>以上反轉</div>'+
-  '<div style="margin:6px 0"><b>關鍵概念：</b>法人佔成交量越高，代表主力意圖越明確。40%+ 是極強訊號。</div>'+
-  '</div></details>'+
+  '<div style="background:#fef2f2;border-radius:8px;padding:10px;margin-bottom:8px">'+
+  '<div style="font-weight:700;color:#dc2626;margin-bottom:6px">⚠️ 絕對不要做的事</div>'+
+  '<div style="margin:2px 0">❌ 不要買 AVOID / REDUCE 的股票（即使別人推薦）</div>'+
+  '<div style="margin:2px 0">❌ 不要追已經漲超過 T1 的股票（風險報酬比變差）</div>'+
+  '<div style="margin:2px 0">❌ 單一股票不超過總資金 10%</div>'+
+  '<div style="margin:2px 0">❌ 不要移動停損線（設了就不改）</div>'+
+  '<div style="margin:2px 0">❌ 法人連賣 5 日以上的股票不要接</div>'+
+  '</div></div>');
   
-  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">三、價格區間</summary>'+
+  // 1. 完整停利策略
+  o+=card(
+  '<details open style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">一、停利停損策略（最重要！）</summary>'+
   '<div style="font-size:12px;padding:8px 0">'+
-  '<div style="margin:2px 0">📍 <b>進場價</b>: 20日均線附近或近期支撐上方 2%</div>'+
-  '<div style="margin:2px 0">🔴 <b>止損價</b>: 進場價 ×0.92（-8%，台股漲跌幅10%內留彈性）</div>'+
-  '<div style="margin:2px 0">🎯 <b>目標價T1</b>: 近期壓力位或進場+15%</div>'+
-  '<div style="margin:2px 0">🎯 <b>目標價T2</b>: 52週高點或進場+25%</div>'+
-  '<div style="margin:2px 0">📊 <b>RR值</b>: (目標-進場)÷(進場-止損)，≥1.5為佳，&lt;1不建議</div>'+
-  '</div></details>'+
   
-  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">四、美台聯動</summary>'+
-  '<div style="font-size:12px;padding:8px 0">'+
-  '<p>追蹤14支美股隔夜變動，映射到台灣供應鏈：</p>'+
-  '<div style="margin:2px 0">• NVDA → 台積電(2330)、聯發科(2454)、創意(3443)</div>'+
-  '<div style="margin:2px 0">• AAPL → 鴻海(2317)、日月光(3711)</div>'+
-  '<div style="margin:2px 0">• MSFT/GOOGL/META → 廣達(2382)、緯創(3231)</div>'+
-  '<div style="margin:2px 0">• 費半指數(SOX) → 全半導體族群</div>'+
-  '<div style="margin:2px 0">• TSM ADR → 台積電(2330) 直接連動</div>'+
-  '<div style="margin:6px 0"><b>觸發條件：</b>美股變動 &gt; ±1% 才產生聯動訊號</div>'+
-  '<div style="margin:2px 0"><b>🔴 強關聯</b> = 直接供應鏈 · <b>🟡 中關聯</b> = 間接</div>'+
-  '</div></details>'+
+  '<div style="background:#ede9fe;border-radius:8px;padding:10px;margin-bottom:8px">'+
+  '<div style="font-weight:700;margin-bottom:6px">📐 三階段出場法</div>'+
+  '<div style="margin:4px 0">1️⃣ <b>停損 -5%</b>（從進場價算）→ 跌到就砍，不猶豫</div>'+
+  '<div style="margin:4px 0">2️⃣ <b>T1 +15%</b> → 到了賣一半，鎖住利潤</div>'+
+  '<div style="margin:4px 0">3️⃣ <b>T2 +25%</b> → 啟動「高點 -20% 追蹤停利」</div>'+
+  '</div>'+
   
-  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#4f46e5">五、融資融券解讀</summary>'+
-  '<div style="font-size:12px;padding:8px 0">'+
-  '<div style="margin:2px 0">• <b>融資增+法人賣</b> = 散戶追高，主力出貨 🔴 最危險</div>'+
-  '<div style="margin:2px 0">• <b>融資減+法人買</b> = 散戶退場，主力吃貨 🟢 最佳訊號</div>'+
-  '<div style="margin:2px 0">• <b>融券大量</b> = 市場看空，但軋空風險高</div>'+
-  '<div style="margin:2px 0">• <b>融資維持率低</b> = 斷頭風險，可能引發急跌</div>'+
+  '<div style="margin:8px 0"><b>什麼是「高點 -20% 追蹤停利」？</b></div>'+
+  '<div style="background:#f8fafc;border-radius:6px;padding:8px;margin:4px 0;font-family:monospace;font-size:11px">'+
+  '進場 $100 → 漲到 $125（過T2）→ 追蹤啟動<br>'+
+  '繼續漲到 $150（新高）→ 停利線 = $150 × 0.80 = <b>$120</b><br>'+
+  '繼續漲到 $200 → 停利線升到 $200 × 0.80 = <b>$160</b><br>'+
+  '回跌到 $160 → <b>出場！</b>鎖住 +60% 利潤<br>'+
+  '<br>'+
+  '⚡ 重點：停利線只會往上，永遠不會往下！'+
+  '</div>'+
+  
+  '<div style="margin:8px 0"><b>為什麼不直接設固定目標價？</b></div>'+
+  '<div style="margin:2px 0">• 固定 +15% 出場 → 如果股票漲到 +80% 你只賺 15%</div>'+
+  '<div style="margin:2px 0">• 追蹤停利 → 讓利潤奔跑，只在趨勢反轉時出場</div>'+
+  '<div style="margin:2px 0">• 回測結果：美股用 -20% 追蹤，平均報酬從 +3% → <b>+6.8%</b></div>'+
+  
+  '<div style="margin:8px 0"><b>台股注意：10% 漲跌幅限制</b></div>'+
+  '<div style="margin:2px 0">• 一天最多跌 10%，所以 -20% 至少要連跌 2 天</div>'+
+  '<div style="margin:2px 0">• 反而是好事：給你更多反應時間，不會像美股一天暴跌穿越停利線</div>'+
+  '<div style="margin:2px 0">• 但遇到跌停鎖死賣不掉時，隔天開盤立刻賣</div>'+
+  
   '</div></details>');
   
+  // 2. 讀懂卡片
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">二、怎麼讀股票卡片</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  
+  '<div style="background:#f8fafc;border-radius:6px;padding:8px;margin:4px 0;font-size:11px;line-height:1.6">'+
+  '<b>2330 台積電</b> $2,380 +1.2% &nbsp; <span style="color:#16a34a">🟢買入 +8</span><br>'+
+  '法人大買(34%) · 外資+投信同買 · 營收+36%<br>'+
+  '外資連買3日 · 周外資-18,709K · 月外資-129,081K<br>'+
+  '📊持股: 🔴外資69.2% 🟣法人43% ⚪散戶57% &nbsp; 🟠籌碼集中<br>'+
+  '📍$2,380 🔴$2,190 T1 $2,535 T2 $2,975 RR:0.8'+
+  '</div>'+
+  
+  '<div style="margin:8px 0"><b>逐行解讀：</b></div>'+
+  '<div style="margin:4px 0">第1行：<b>代號 名稱 現價 漲跌% 訊號 分數</b></div>'+
+  '<div style="margin:2px 0;padding-left:12px">分數 ≥5 值得關注，≥7 強烈買入，≤-5 建議迴避</div>'+
+  '<div style="margin:4px 0">第2行：<b>買入/迴避原因</b>（綠色=正面，紅色=風險）</div>'+
+  '<div style="margin:4px 0">第3行：<b>法人趨勢</b></div>'+
+  '<div style="margin:2px 0;padding-left:12px">連買N日 = 外資連續N天淨買超，趨勢越長越可靠</div>'+
+  '<div style="margin:2px 0;padding-left:12px">周外資 = 過去5天外資累計買賣（K=千股）</div>'+
+  '<div style="margin:2px 0;padding-left:12px">月外資 = 過去20天外資累計（判斷中期方向）</div>'+
+  '<div style="margin:4px 0">第4行：<b>持股結構 + 籌碼集中度</b></div>'+
+  '<div style="margin:2px 0;padding-left:12px">🔴外資% = TWSE公布的外資持股比率</div>'+
+  '<div style="margin:2px 0;padding-left:12px">🟠籌碼集中 = 法人持續買入、散戶減少</div>'+
+  '<div style="margin:2px 0;padding-left:12px">🟢籌碼分散 = 法人出貨、散戶接盤 ← 危險</div>'+
+  '<div style="margin:4px 0">第5行：<b>操作價位</b></div>'+
+  '<div style="margin:2px 0;padding-left:12px">📍進場價 · 🔴停損價 · T1半倉 · T2追蹤 · RR風險報酬比</div>'+
+  
+  '</div></details>');
+
+  // 3. 訊號系統
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">三、訊號評分系統</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<p>系統綜合法人動向、估值、基本面生成 -10 ~ +10 分的評分：</p>'+
+  
+  '<div style="margin:6px 0"><b>🏦 法人訊號（權重最高）：</b></div>'+
+  '<div style="margin:2px 0">• 外資+投信同買: +2</div>'+
+  '<div style="margin:2px 0">• 法人佔成交量 &gt;10%: +3</div>'+
+  '<div style="margin:2px 0">• 外資連買 ≥5日 + 月淨買: +2</div>'+
+  '<div style="margin:2px 0">• 外資連賣 ≥5日 + 月淨賣: -2</div>'+
+  '<div style="margin:2px 0">• 融資增+法人賣: -2（散戶追高，法人出貨）</div>'+
+  
+  '<div style="margin:6px 0"><b>📊 估值訊號：</b></div>'+
+  '<div style="margin:2px 0">• ROE÷PB &gt; 5.0: +3（極度低估）</div>'+
+  '<div style="margin:2px 0">• ROE÷PB 3.0~5.0: +2（低估）</div>'+
+  '<div style="margin:2px 0">• ROE÷PB &lt; 0.5: -2（高估）</div>'+
+  '<div style="margin:2px 0">• PE &lt; 10: +1 · PE &gt; 40: -1</div>'+
+  '<div style="margin:2px 0">• 殖利率 &gt; 5%: +1</div>'+
+  
+  '<div style="margin:6px 0"><b>💰 基本面（前200大）：</b></div>'+
+  '<div style="margin:2px 0">• 營收成長 &gt; 30%: +1</div>'+
+  '<div style="margin:2px 0">• FCF 為負: 風險警告</div>'+
+  
+  '<div style="margin:8px 0"><b>什麼是 ROE÷PB？</b></div>'+
+  '<div style="margin:2px 0">ROE = 公司賺錢效率，PB = 市場給的溢價</div>'+
+  '<div style="margin:2px 0">ROE÷PB 高 = 賺很多但市場沒反映 → 可能低估</div>'+
+  '<div style="margin:2px 0">比單看 ROE 好：自動消除產業差異（銀行 PB 低、科技 PB 高）</div>'+
+  
+  '</div></details>');
+
+  // 4. 吸籌出貨
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">四、吸籌/出貨偵測</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<p>台股獨有優勢：<b>三大法人買賣超</b>是公開資料（美股沒有！）</p>'+
+  '<div style="margin:6px 0"><b>🟢 吸籌判定（分數 ≥ 3）：</b></div>'+
+  '<div style="margin:2px 0">• 外資+投信同買 (+3)</div>'+
+  '<div style="margin:2px 0">• 法人佔成交量 &gt;20% (+3) / &gt;10% (+2)</div>'+
+  '<div style="margin:2px 0">• 融資減少+法人買 (+1) ← 散戶跑、法人接=最佳</div>'+
+  '<div style="margin:6px 0"><b>🔴 出貨判定：</b>以上條件反轉</div>'+
+  '<div style="margin:6px 0;background:#fef3c7;padding:6px;border-radius:4px"><b>實戰案例：</b>南亞(1303)漲停+10%，但法人賣296萬股(佔36%)、融資增3萬張 → 系統評-8分AVOID → 這是法人趁漲停出貨給散戶</div>'+
+  '</div></details>');
+
+  // 5. 籌碼集中度
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">五、籌碼集中度</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<div style="margin:2px 0">🔴 <b>籌碼極集中</b>：外資 &gt;50% + 法人持續買超 → 主力控盤</div>'+
+  '<div style="margin:2px 0">🟠 <b>籌碼集中</b>：外資 &gt;30% + 買超趨勢 → 偏多</div>'+
+  '<div style="margin:2px 0">⚪ <b>一般</b>：無明顯方向</div>'+
+  '<div style="margin:2px 0">🟢 <b>籌碼分散</b>：法人賣超 + 融資高 → 散戶持有多=危險</div>'+
+  '<div style="margin:8px 0"><b>為什麼重要？</b></div>'+
+  '<div style="margin:2px 0">• 籌碼集中的股票：拉抬容易、跌了有人接 → 穩</div>'+
+  '<div style="margin:2px 0">• 籌碼分散的股票：沒人護盤、跌了散戶互砍 → 危險</div>'+
+  '<div style="margin:2px 0">• 最佳買點：籌碼集中 + BUY 訊號 + 外資連買</div>'+
+  '</div></details>');
+
+  // 6. 實戰範例 SOP
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">六、完整實戰 SOP 範例</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  
+  '<div style="background:#f0fdf4;border-radius:6px;padding:8px;margin:4px 0">'+
+  '<div style="font-weight:700;color:#16a34a;margin-bottom:4px">✅ 範例：東和鋼鐵(2006) BUY +7</div>'+
+  '<div style="margin:4px 0"><b>看到訊號後的操作：</b></div>'+
+  '<div style="margin:2px 0">1. 確認 RR ≥ 1.5 ✓</div>'+
+  '<div style="margin:2px 0">2. 確認外資趨勢：連買 → ✓</div>'+
+  '<div style="margin:2px 0">3. 在「進場價」$71.1 附近掛限價買單</div>'+
+  '<div style="margin:2px 0">4. 成交後，<b>立刻</b>掛條件單：跌破 $65.4（停損）自動賣出</div>'+
+  '<div style="margin:2px 0">5. 漲到 T1 $74.8 → 賣一半，鎖住利潤</div>'+
+  '<div style="margin:2px 0">6. 繼續漲到 T2 $79.2 → 開始追蹤，不急著賣</div>'+
+  '<div style="margin:2px 0">7. 漲到 $95（高點），回落到 $95×0.80=$76 → 出場</div>'+
+  '<div style="margin:2px 0">8. 結果：一半賺 +15%，一半賺 +7% → <b>總報酬 +11%</b></div>'+
+  '</div>'+
+  
+  '<div style="background:#fef2f2;border-radius:6px;padding:8px;margin:8px 0">'+
+  '<div style="font-weight:700;color:#dc2626;margin-bottom:4px">❌ 錯誤示範：追南亞(1303)漲停</div>'+
+  '<div style="margin:2px 0">1. 看到漲停 +10%，想追進去</div>'+
+  '<div style="margin:2px 0">2. 但系統顯示 AVOID -8，法人賣 296 萬股</div>'+
+  '<div style="margin:2px 0">3. 忽略警告，隔天追買 $159</div>'+
+  '<div style="margin:2px 0">4. 法人繼續倒貨，3天後跌到 $140 → <b>虧 -12%</b></div>'+
+  '<div style="margin:2px 0">5. <b>教訓：</b>漲停≠好股票，要看「誰在買」</div>'+
+  '</div>'+
+  
+  '</div></details>');
+
+  // 7. 資金管理
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">七、資金管理</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<div style="margin:4px 0"><b>核心原則：活下來比賺錢重要</b></div>'+
+  '<div style="margin:6px 0">• 單一股票 ≤ 總資金 10%（50萬帳戶 → 單股最多5萬）</div>'+
+  '<div style="margin:2px 0">• 同時最多持有 5~8 檔</div>'+
+  '<div style="margin:2px 0">• 保留 30% 現金（等回調加碼用）</div>'+
+  '<div style="margin:2px 0">• 虧損超過總資金 5% → 暫停交易一週，冷靜</div>'+
+  
+  '<div style="margin:8px 0"><b>為什麼 -5% 停損 +15% 停利？</b></div>'+
+  '<div style="margin:2px 0">• -5% 虧損需要 +5.3% 才回本</div>'+
+  '<div style="margin:2px 0">• -10% 虧損需要 +11.1% 才回本</div>'+
+  '<div style="margin:2px 0">• -20% 虧損需要 +25% 才回本 ← 越虧越難翻</div>'+
+  '<div style="margin:2px 0">• 所以<b>小虧大贏</b>是唯一正確策略</div>'+
+  
+  '<div style="margin:8px 0"><b>期望值計算：</b></div>'+
+  '<div style="margin:2px 0">• 假設勝率 45%（BUY訊號的勝率）</div>'+
+  '<div style="margin:2px 0">• 均贏 +20%，均虧 -5%</div>'+
+  '<div style="margin:2px 0">• 期望值 = 45%×20% - 55%×5% = <b>+6.25%</b> 每筆</div>'+
+  '<div style="margin:2px 0">• 每月做 4 筆 → 年化 <b>+300%</b>（理想值，實際會低一些）</div>'+
+  '</div></details>');
+
+  // 8. 常見問題
+  o+=card(
+  '<details style="margin-bottom:8px"><summary style="cursor:pointer;font-weight:700;font-size:14px;color:#4f46e5">八、常見問題 FAQ</summary>'+
+  '<div style="font-size:12px;padding:8px 0">'+
+  '<div style="margin:6px 0"><b>Q: 為什麼很多股票是 REDUCE/AVOID？</b></div>'+
+  '<div style="margin:2px 0">A: 台股 1,969 支裡大部分基本面不好或法人在出貨。BUY只有~200支是正常的，寧可錯過也不要買錯。</div>'+
+  '<div style="margin:6px 0"><b>Q: 系統說 BUY 但我覺得太貴了？</b></div>'+
+  '<div style="margin:2px 0">A: 看 RR 值。如果 &lt;1.0 代表風險大於報酬，即使是 BUY 也不適合追。等回到「進場價」附近再買。</div>'+
+  '<div style="margin:6px 0"><b>Q: 外資在賣但系統說 BUY？</b></div>'+
+  '<div style="margin:2px 0">A: 可能是投信在買、基本面很好。但如果外資連賣 5 天以上，建議等外資轉買再進場。</div>'+
+  '<div style="margin:6px 0"><b>Q: 一天能看幾次？</b></div>'+
+  '<div style="margin:2px 0">A: 收盤後（14:00）更新一次。盤中看沒意義，數據不會變。設好條件單讓它自己跑。</div>'+
+  '<div style="margin:6px 0"><b>Q: 這個系統能保證賺錢嗎？</b></div>'+
+  '<div style="margin:2px 0">A: 不能。沒有任何系統能保證。回測 BUY 訊號 5 日勝率約 60%，代表還有 40% 會虧。重點是用停損控制虧損幅度，讓勝率×盈虧比 &gt; 1。</div>'+
+  '<div style="margin:6px 0"><b>Q: 資料從哪來？</b></div>'+
+  '<div style="margin:2px 0">A: 證交所(TWSE)+櫃買中心(TPEx)公開資料 + Yahoo Finance。三大法人買賣超、融資融券、外資持股比率都是官方數據。</div>'+
+  '</div></details>');
+
   return o;
 }
 
