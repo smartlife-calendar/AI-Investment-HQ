@@ -196,6 +196,26 @@ function rOverview(){
     if(noChange>D.signals.length*0.8)warns.push('⚠️ '+noChange+'支漲跌為0（可能為假日）');
   }
   var s=D.summary||{},o='';
+  // Market regime banner
+  var mr=D.market_regime||{};
+  if(mr.regime){
+    var rc={'STRONG_BULL':'#16a34a','BULL':'#22c55e','NEUTRAL':'#eab308','CAUTION':'#f59e0b','BEAR':'#dc2626'}[mr.regime]||'#64748b';
+    o+='<div style="background:linear-gradient(135deg,'+rc+'15,'+rc+'08);border:2px solid '+rc+';border-radius:12px;padding:12px;margin-bottom:8px">';
+    o+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">';
+    o+='<div>';
+    o+='<div style="font-size:18px;font-weight:700;color:'+rc+'">'+mr.regime_zh+'</div>';
+    o+='<div style="font-size:12px;color:#475569;margin-top:2px">'+mr.action_note+'</div>';
+    o+='</div>';
+    o+='<div style="text-align:right;font-size:11px;color:#64748b">';
+    if(mr.taiex)o+='加權 '+mr.taiex.toLocaleString()+' ';
+    if(mr.above_ma20!==undefined)o+=(mr.above_ma20?'🟢':'🔴')+'月線 ';
+    if(mr.above_ma50!==undefined)o+=(mr.above_ma50?'🟢':'🔴')+'季線';
+    if(mr.vix)o+='<br>VIX '+mr.vix;
+    if(mr.change_5d!==undefined)o+=' · 週漲跌 '+(mr.change_5d>0?'+':'')+mr.change_5d.toFixed(1)+'%';
+    o+='<br>建議倉位: '+(mr.position_size*100).toFixed(0)+'%';
+    o+=' · 新建倉: '+(mr.allow_new_entries?'✅':'❌');
+    o+='</div></div></div>';
+  }
   // Stats grid - use explicit inline grid
   if(warns.length)o+='<div style="background:#fef2f2;border-radius:8px;padding:8px;margin-bottom:8px;font-size:11px;color:#dc2626">'+warns.join('<br>')+'</div>';
   o+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px">';
@@ -411,6 +431,16 @@ function rSignalMap(){
     return h;
   }
   var o='';
+  var mr=D.market_regime||{};
+  if(mr.regime){
+    var rc={'STRONG_BULL':'#16a34a','BULL':'#22c55e','NEUTRAL':'#eab308','CAUTION':'#f59e0b','BEAR':'#dc2626'}[mr.regime]||'#64748b';
+    o+='<div style="background:'+rc+'12;border-left:4px solid '+rc+';padding:8px 12px;margin-bottom:8px;border-radius:0 8px 8px 0;font-size:12px">';
+    o+='<span style="font-weight:700;color:'+rc+'">'+mr.regime_zh+'</span>';
+    o+=' · <span style="color:#64748b">'+mr.action_note+'</span>';
+    o+=' · 倉位'+(mr.position_size*100).toFixed(0)+'%';
+    if(!mr.allow_new_entries)o+=' · <span style="color:#dc2626;font-weight:700">❌ 不建議新建倉</span>';
+    o+='</div>';
+  }
   o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:8px">📊 Signal Map — 法人動向 vs 評分</div>'+
   '<div style="font-size:11px;color:#64748b;margin-bottom:8px">X軸: 法人買賣超 · Y軸: 綜合評分 · 右上=最佳 · 左下=最危</div>'+
   (D.signal_map_svg||''));
