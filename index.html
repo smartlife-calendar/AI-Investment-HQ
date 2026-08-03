@@ -832,14 +832,13 @@
                             <span class="text-xs text-gray-500">${s.etf}</span>
                             <span class="text-xs">${s.flow}</span>
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2" style="flex-wrap:wrap;justify-content:flex-end;min-width:0">
                             <div style="height:32px;display:flex;align-items:flex-end">${weekBars}</div>
-                            <span class="text-xs text-gray-500">${s.momentum || ''}</span>
-                            <span class="font-semibold text-sm" style="color:${perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280'}">${perf4w > 0 ? '+' : ''}${perf4w}%</span>
-                            <span class="text-xs text-gray-400">4W</span>
-                            <span style="margin-left:4px" class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
-                            <span class="text-xs text-gray-400">52W</span>
-                            <span class="text-xs text-gray-400">▼</span>
+                            <span class="text-xs text-gray-500" style="white-space:nowrap">${s.momentum || ''}</span>
+                            <span style="white-space:nowrap" class="font-semibold text-sm" style="color:${perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280'}">${perf4w > 0 ? '+' : ''}${perf4w}%</span>
+                            <span class="text-xs text-gray-400" style="white-space:nowrap">4W</span>
+                            <span style="white-space:nowrap" class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
+                            <span class="text-xs text-gray-400" style="white-space:nowrap">52W ▼</span>
                         </div>
                     </div>
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
@@ -3981,8 +3980,19 @@ async function loadSmartBacktest() {
                 out += '<div style="background:linear-gradient(135deg,' + rc + '15,' + rc + '08);border:2px solid ' + rc + ';border-radius:12px;padding:16px;margin-bottom:16px">';
                 out += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
                 out += '<div>';
+                // Reconcile regime vs macro risk
+                var effectiveAdvice = market.action_note || '';
+                if (data.macro_risk && data.macro_risk.score != null) {
+                    var ms = data.macro_risk.score;
+                    if (ms <= -6 && market.regime !== 'BEAR') {
+                        effectiveAdvice = '⚠️ 技術面多頭但總經高風險，減倉至50%，偏好防禦型';
+                        rc = '#f59e0b';
+                    } else if (ms <= -3 && (market.regime === 'STRONG_BULL' || market.regime === 'BULL')) {
+                        effectiveAdvice = '⚠️ 技術面多頭但總經警戒，維持倉位但偏好有FCF的價值股';
+                    }
+                }
                 out += '<div style="font-size:20px;font-weight:700;color:' + rc + '">' + (market.regime_zh || market.regime) + '</div>';
-                out += '<div style="font-size:13px;color:#475569;margin-top:4px">' + (market.action_note || '') + '</div>';
+                out += '<div style="font-size:13px;color:#475569;margin-top:4px">' + effectiveAdvice + '</div>';
                         out += '<div style="font-size:11px;color:#94a3b8;margin-top:4px">📅 更新時間: ' + genDate + ' · 每交易日 10:00 (台灣時間) 自動更新</div>';
                 // Macro risk overlay
                 if (data.macro_risk && data.macro_risk.score != null) {
