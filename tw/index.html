@@ -214,7 +214,35 @@ function rOverview(){
     if(mr.change_5d!==undefined)o+=' · 週漲跌 '+(mr.change_5d>0?'+':'')+mr.change_5d.toFixed(1)+'%';
     o+='<br>建議倉位: '+(mr.position_size*100).toFixed(0)+'%';
     o+=' · 新建倉: '+(mr.allow_new_entries?'✅':'❌');
-    o+='</div></div></div>';
+    o+='</div></div>';
+    // Futures data
+    var ft=mr.futures;
+    if(ft&&ft.foreign_net_short){
+      var ns=ft.foreign_net_short;
+      var ch=ft.foreign_net_short_change_5d||0;
+      var chColor=ch>0?'#dc2626':'#16a34a';
+      o+='<div style="background:'+(ns>80000?'#fef2f2':'#f8fafc')+';padding:8px 12px;border-radius:8px;margin-top:8px;border-left:4px solid '+(ns>80000?'#dc2626':'#f59e0b')+'">';
+      o+='<div style="font-size:13px;font-weight:700;color:'+(ns>80000?'#dc2626':'#475569')+'">📊 外資期貨淨空單: '+ns.toLocaleString()+' 口</div>';
+      o+='<div style="font-size:11px;color:#64748b;margin-top:2px">多單 '+ft.foreign_long.toLocaleString()+' · 空單 '+ft.foreign_short.toLocaleString()+'</div>';
+      if(ch!==0)o+='<div style="font-size:11px;margin-top:2px">5日變化: <span style="color:'+chColor+';font-weight:700">'+(ch>0?'+':'')+ch.toLocaleString()+' 口</span> '+(ch>0?'🔴增空':'🟢減空')+'</div>';
+      if(ft.trust_net_long)o+='<div style="font-size:11px;color:#64748b;margin-top:2px">投信期貨淨多單: '+ft.trust_net_long.toLocaleString()+' 口</div>';
+      // Mini chart of net short history
+      var hist=ft.history||[];
+      if(hist.length>5){
+        var maxNs=Math.max.apply(null,hist.map(function(h){return h.net_short}));
+        var minNs=Math.min.apply(null,hist.map(function(h){return h.net_short}));
+        var range=maxNs-minNs||1;
+        o+='<div style="display:flex;align-items:flex-end;gap:1px;height:24px;margin-top:4px" title="外資淨空單趨勢(20日)">';
+        hist.forEach(function(h){
+          var pct=(h.net_short-minNs)/range*100;
+          o+='<div style="flex:1;height:'+Math.max(2,pct)+'%;background:'+(h.net_short>85000?'#dc2626':'#f59e0b')+';border-radius:1px" title="'+h.date+': '+h.net_short.toLocaleString()+'口"></div>';
+        });
+        o+='</div>';
+        o+='<div style="display:flex;justify-content:space-between;font-size:9px;color:#94a3b8"><span>'+hist[0].date.substring(5)+'</span><span>'+hist[hist.length-1].date.substring(5)+'</span></div>';
+      }
+      o+='</div>';
+    }
+    o+='</div>';
   }
   // Stats grid - use explicit inline grid
   if(warns.length)o+='<div style="background:#fef2f2;border-radius:8px;padding:8px;margin-bottom:8px;font-size:11px;color:#dc2626">'+warns.join('<br>')+'</div>';
