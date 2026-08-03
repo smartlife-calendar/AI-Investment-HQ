@@ -835,10 +835,9 @@
                         <div class="flex items-center gap-2" style="flex-wrap:wrap;justify-content:flex-end;min-width:0">
                             <div style="height:32px;display:flex;align-items:flex-end">${weekBars}</div>
                             <span class="text-xs text-gray-500" style="white-space:nowrap">${s.momentum || ''}</span>
-                            <span style="white-space:nowrap" class="font-semibold text-sm" style="color:${perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280'}">${perf4w > 0 ? '+' : ''}${perf4w}%</span>
-                            <span class="text-xs text-gray-400" style="white-space:nowrap">4W</span>
-                            <span style="white-space:nowrap" class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
-                            <span class="text-xs text-gray-400" style="white-space:nowrap">52W ▼</span>
+                            <span style="white-space:nowrap;font-size:13px"><span style="font-weight:600;color:${perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280'}">${perf4w > 0 ? '+' : ''}${perf4w}%</span> <span style="color:#9ca3af;font-size:10px">4W</span></span>
+                            <span style="white-space:nowrap;font-size:13px"><span class="font-semibold ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span> <span style="color:#9ca3af;font-size:10px">52W</span></span>
+                            <span class="text-xs text-gray-400">▼</span>
                         </div>
                     </div>
                     <div id="sector-${i}" class="hidden px-3 pb-3 text-xs">
@@ -872,6 +871,9 @@
                     html += '<div class="space-y-1">';
                     for (const s of subs) {
                         const perf = s.perf_52w;
+                        const wow4 = (s.wow || s.weekly_detail || []).slice(-4);
+                        const perf4w = wow4.length >= 2 ? Math.round(wow4.reduce((sum, w) => sum + (w[2] || 0), 0) * 10) / 10 : null;
+                        const color4w = perf4w > 0 ? '#16a34a' : perf4w < 0 ? '#dc2626' : '#6b7280';
                         const color = perf > 10 ? 'bg-green-50 border-green-200' : perf < -10 ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200';
                         const perfColor = perf > 0 ? 'text-green-600' : 'text-red-600';
                         const weekBars = (s.wow || s.weekly_detail || []).slice(-8).map(([date, price, wow]) => {
@@ -886,11 +888,11 @@
                                     <span class="text-xs text-gray-400">${s.etf}</span>
                                     <span class="text-xs">${s.flow || ''}</span>
                                 </div>
-                                <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-2" style="flex-wrap:wrap;justify-content:flex-end;min-width:0">
                                     <div style="height:28px;display:flex;align-items:flex-end">${weekBars}</div>
-                                    <span class="text-xs text-gray-500">${s.momentum || ''}</span>
-                                    <span class="font-semibold text-sm ${perfColor}">${perf > 0 ? '+' : ''}${perf}%</span>
-                                    <span class="text-xs text-gray-400">52W</span>
+                                    <span class="text-xs text-gray-500" style="white-space:nowrap">${s.momentum || ''}</span>
+                                    <span style="white-space:nowrap;font-size:12px"><span style="color:${color4w};font-weight:600">${perf4w !== null ? (perf4w > 0 ? '+' : '') + perf4w + '%' : '—'}</span> <span style="color:#9ca3af;font-size:10px">4W</span></span>
+                                    <span style="white-space:nowrap;font-size:12px" class="${perfColor}"><span style="font-weight:600">${perf > 0 ? '+' : ''}${perf}%</span> <span style="color:#9ca3af;font-size:10px">52W</span></span>
                                     <span class="text-xs text-gray-400">▼</span>
                                 </div>
                             </div>
@@ -3692,7 +3694,9 @@ async function loadSmartBacktest() {
                     var baseline = v.sector_pe_used;
                     if (!sector || !fpe || fpe <= 0 || fpe > 200) return;
                     
-                    var key = industry && ['Semiconductors','Software - Infrastructure','Software - Application'].indexOf(industry) >= 0 ? industry : sector;
+                    var industryRemap = {'Computer Hardware': 'Semiconductors'};
+                    var mappedIndustry = industryRemap[industry] || industry;
+                    var key = mappedIndustry && ['Semiconductors','Software - Infrastructure','Software - Application'].indexOf(mappedIndustry) >= 0 ? mappedIndustry : sector;
                     if (!sectors[key]) sectors[key] = { pes: [], baseline: baseline || 20, sector: sector };
                     sectors[key].pes.push({ sym: sym, fpe: fpe, tpe: tpe, gap: a.pe_gap_pct, signal: a.pe_signal });
                 });
