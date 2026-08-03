@@ -15,13 +15,21 @@
             const today = new Date();
             const tw_offset = 8 * 60;
             const tw_time = new Date(today.getTime() + (tw_offset - today.getTimezoneOffset()) * 60000);
-            const dateStr = tw_time.toISOString().split('T')[0];
             
-            // Try loading today's daily report
+            // Try today and previous 5 days (weekends/holidays)
+            let html2 = null;
+            let dateStr = '';
+            for (let d = 0; d < 5; d++) {
+                const checkDate = new Date(tw_time.getTime() - d * 86400000);
+                dateStr = checkDate.toISOString().split('T')[0];
+                try {
+                    const r = await fetch('/daily/' + dateStr + '.html');
+                    if (r.ok) { html2 = await r.text(); break; }
+                } catch(e) {}
+            }
+            if (!html2) return;
+            
             try {
-                const r = await fetch('/daily/' + dateStr + '.html');
-                if (!r.ok) return; // No report yet for today
-                const html2 = await r.text();
                 
                 // Extract the main content from the daily report
                 const parser = new DOMParser();
@@ -34,6 +42,7 @@
                 // Update dailyColumn with the full daily report content
                 const dc = document.getElementById('dailyColumn');
                 if (dc && mainContent.innerHTML.length > 500) {
+                    dc.style.display = 'block';
                     // Wrap in a styled container
                     dc.innerHTML = '<div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">'
                         + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">'
@@ -3472,30 +3481,7 @@ async function loadSmartBacktest() {
         
         
         <!-- Daily Column: 2026/06/25 09:57 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:24px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-              <div style="font-size:18px;font-weight:800;color:#1f2937">⚡ 今日事件快速分析</div>
-              <span style="color:#9ca3af;font-size:12px">2026/07/20 09:51</span>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-              <div style="background:white;border-left:4px solid #10b981;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
-  <div style="font-size:15px;font-weight:700;color:#059669;margin-bottom:14px">📈 LCID +13.9%（量比2.3x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">Lucid Motors宣布與沙烏地PIF達成新融資協議，確保資金充裕度至2026年底，消除破產疑慮</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 沙烏地公共投資基金(PIF)額外注資$1.5B，解決現金流危機</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 量比2.3x創近期高位，顯示機構投資者建倉信心</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 電動豪華車市場需求回溫，Lucid Air銷售環比成長</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ TSLA：豪華電動車競爭加劇，提升Tesla市場地位和定價權</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ RIVN：新興EV廠商獲利機會提升，投資者重估整個高端EV板塊</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ F：傳統車廠電動化轉型急迫性增強，F-150 Lightning銷售拉動</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ CCIV：Lucid與PIF融資稀釋現有股東權益約12-15%</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ NIO：中國EV龍頭在全球豪華車市場的競爭優勢被削弱</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">融資確保營運延續，但高稀釋率和燒錢模式未改善，反彈存在20%下行風險</span></div>
-</div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 12px 12px 0;padding:20px;margin-bottom:12px">
-  <div style="font-size:15px;font-weight:700;color:#dc2626;margin-bottom:14px">📉 NFLX -7.3%（量比3.3x）</div>
-  <div style="margin-bottom:10px"><span style="font-weight:600;font-size:13px;color:#1f2937">觸發事件：</span><span style="font-size:13px;color:#374151">Netflix Q2財報下修全年付費用戶增長指引，廣告業務增速未達市場預期</span></div>
-  <div style="margin-bottom:6px;font-weight:600;font-size:13px;color:#1f2937">主要原因：</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">1. 付費用戶成長率從預估1200萬下調至900萬，環比衰退18-25%</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">2. 成熟市場(北美、歐洲)飽和，漲價政策導致主動流失加速</div><div style="padding-left:12px;font-size:13px;color:#374151;margin:3px 0;line-height:1.6">3. 量比3.3x創高，機構投資者大規模減碼，單日賣出超600萬股</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#059669">受惠個股：</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ GOOGL：YouTube Premium和YouTube TV使用者轉移，廣告分配份額提升</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ AMZN：Prime Video補完內容庫投資，從Netflix挖角優質製作人</div><div style="padding-left:12px;font-size:13px;color:#059669;margin:2px 0;line-height:1.6">▲ DIS：Disney+束縛政策調整後，訂閱用戶成長恢復至2.3%</div>
-  <div style="margin-top:10px;margin-bottom:6px;font-weight:600;font-size:13px;color:#dc2626">受害個股：</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ ROKU：Netflix廣告預算縮減，串流平台廣告支出整體下滑8%</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ SPOT：Netflix競爭壓力蔓延至音樂串流，用戶付費意願減弱</div><div style="padding-left:12px;font-size:13px;color:#dc2626;margin:2px 0;line-height:1.6">▼ PARA：Paramount+燒錢轉虧，市場對串流服務整體獲利前景悲觀</div>
-  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #e5e7eb"><span style="font-weight:600;font-size:13px;color:#1f2937">結論：</span><span style="font-size:13px;color:#374151">Netflix從成長股淪為價值股，估值從27倍PE跌至18倍，空頭目標價$58，仍有15%下檔空間</span></div>
-</div>
-            </div>
-            <p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 本分析僅供參考，不構成投資建議｜AI輔助生成｜stockiq.tw</p>
-          </div></div>
+        <div id="dailyColumn" style="display:none"><div style="text-align:center;padding:40px;color:#94a3b8">📋 載入市場日報中...</div></div>
 
         <!-- Daily Briefing: 2026/06/25 09:57 -->
         <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📅 非交易日</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/07/26 09:46（Sunday）</span></div><div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:20px;text-align:center"><div style="font-size:40px;margin-bottom:12px">😴</div><div style="font-size:16px;font-weight:700;margin-bottom:8px">美股今日休市</div><div style="font-size:13px;color:#a5b4fc;line-height:1.6">下一個交易日速報將於開市前自動更新<br>台灣時間週一–週五 <strong style="color:#4ade80">09:30</strong> 更新早報</div></div><div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:14px;margin-top:14px"><div style="color:#fde68a;font-weight:700;font-size:13px;margin-bottom:10px">🌐 週末財金新聞</div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/9fae82c4-6001-38aa-9a87-d35727408891/how-is-spacex-%28spcx%29-already.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">How Is SpaceX (SPCX) Already the Largest of 3,372 Holdings in This $97.7 Billion Vanguard ETF?</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">Motley Fool</span></div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/459405a2-5d3a-3792-bb06-b9a3991db48b/etf-zoo%3A-leveraged-lunacy.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">ETF Zoo: Leveraged Lunacy Surpasses $65B in Gains</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">etf.com</span></div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/8e2dece6-fd79-32cc-9ac7-75e1fe958427/these-3-total-market-etfs.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">These 3 Total Market ETFs Look Interchangeable but Picking the Wrong One Costs You Real Money Over a Lifetime</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">24/7 Wall St.</span></div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/c96644d6-d751-3510-b280-780f3a909c9d/3-undervalued-vanguard-etfs.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">3 Undervalued Vanguard ETFs to Buy Before the End of July</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">24/7 Wall St.</span></div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/ed36bf39-220a-31f2-a589-897be30f2ae9/thank-asia-for-international.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">Thank Asia for International Stocks' Outperformance This Year</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">etf.com</span></div><div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)"><a href="https://finance.yahoo.com/m/69d4dd13-1fa3-3732-a741-4948e420abe0/my-3-favorite-vanguard-etfs.html" target="_blank" rel="noopener" style="color:#a5b4fc;font-size:12px;text-decoration:none;line-height:1.5">My 3 Favorite Vanguard ETFs to Buy Right Now</a><span style="color:#4f46e5;font-size:10px;margin-left:6px">Motley Fool</span></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜stockiq.tw</p></div></div>
