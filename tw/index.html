@@ -466,6 +466,9 @@ function rSignalMap(){
     o+='<span style="font-weight:700;color:'+rc+'">'+mr.regime_zh+'</span>';
     o+=' · <span style="color:#64748b">'+mr.action_note+'</span>';
     o+=' · 倉位'+(mr.position_size*100).toFixed(0)+'%';
+    var thresholds={'STRONG_BULL':7,'BULL':6,'NEUTRAL':5,'CAUTION':6,'BEAR':8};
+    var thr=thresholds[mr.regime]||5;
+    o+=' · BUY門檻≥'+thr+'分';
     if(!mr.allow_new_entries)o+=' · <span style="color:#dc2626;font-weight:700">❌ 不建議新建倉</span>';
     o+='</div>';
   }
