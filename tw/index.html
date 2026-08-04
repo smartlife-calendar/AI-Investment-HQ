@@ -54,6 +54,7 @@ var TABS=[
   {id:'industry',label:'🏭 產業'},
   {id:'accumulation',label:'💡 吸籌'},
   {id:'signalmap',label:'📊 散點圖'},
+  {id:'r40',label:'📐 Rule of 40'},
   {id:'news',label:'📰 新聞'},
   {id:'crossmarket',label:'🔗 聯動'},
   {id:'search',label:'🔍 搜尋'},
@@ -107,6 +108,7 @@ function render(){
     case 'industry': m.innerHTML=rIndustry()+ts(); break;
     case 'accumulation': m.innerHTML=rAccum()+ts(); break;
     case 'signalmap': m.innerHTML=rSignalMap(); break;
+    case 'r40': m.innerHTML=rRuleOf40()+ts(); break;
     case 'news': m.innerHTML=rNews()+ts(); break;
     case 'crossmarket': m.innerHTML=rCross(); break;
     case 'search': m.innerHTML=rSearch(); break;
@@ -421,6 +423,99 @@ function rIndustry(){
       '<td style="padding:3px;color:#16a34a;font-weight:700">'+s.buy+'</td>'+
       '<td style="padding:3px;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'
   }).join('')+'</table></div>');
+  return o;
+}
+
+
+function rRuleOf40(){
+  var sigs=D.signals||[];
+  var points=[];
+  sigs.forEach(function(s){
+    var y=s.yahoo||{};
+    var om=y.op_margin, rg=y.rev_growth;
+    if(om==null||rg==null) return;
+    om=om*100; rg=rg*100;
+    var r40=rg+om;
+    points.push({code:s.code,name:s.name,x:om,y:rg,r40:r40,
+      fpe:y.fwd_pe||y.pe||0, action:s.action,score:s.score||0,
+      mcap:y.mcap_b||0});
+  });
+  
+  if(!points.length) return card('無 Rule of 40 數據（僅前200大有深度數據）');
+  
+  var W=700,H=500,P=60;
+  var xMin=-20,xMax=60,yMin=-40,yMax=160;
+  function sx(x){return P+(x-xMin)/(xMax-xMin)*(W-P*2)}
+  function sy(y){return H-P-(y-yMin)/(yMax-yMin)*(H-P*2)}
+  
+  var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
+  
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:700px;background:white;border-radius:12px">';
+  
+  // Grid
+  for(var x=0;x<=60;x+=20){
+    svg+='<line x1="'+sx(x)+'" y1="'+sy(yMin)+'" x2="'+sx(x)+'" y2="'+sy(yMax)+'" stroke="#f1f5f9"/>';
+    svg+='<text x="'+sx(x)+'" y="'+(H-P+18)+'" text-anchor="middle" font-size="10" fill="#94a3b8">'+x+'%</text>';
+  }
+  for(var y=0;y<=160;y+=40){
+    svg+='<line x1="'+sx(xMin)+'" y1="'+sy(y)+'" x2="'+sx(xMax)+'" y2="'+sy(y)+'" stroke="#f1f5f9"/>';
+    svg+='<text x="'+(P-8)+'" y="'+(sy(y)+4)+'" text-anchor="end" font-size="10" fill="#94a3b8">'+y+'%</text>';
+  }
+  
+  // Diagonal lines
+  [{v:40,c:'#94a3b8',l:'Rule of 40'},{v:80,c:'#3b82f6',l:'Rule of 80'},{v:120,c:'#16a34a',l:'Rule of 120'}].forEach(function(ln){
+    var x1=Math.max(xMin,ln.v-yMax),y1=Math.min(yMax,ln.v-x1);
+    var x2=Math.min(xMax,ln.v-yMin),y2=Math.max(yMin,ln.v-x2);
+    svg+='<line x1="'+sx(x1)+'" y1="'+sy(y1)+'" x2="'+sx(x2)+'" y2="'+sy(y2)+'" stroke="'+ln.c+'" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>';
+    svg+='<text x="'+(sx(x2)-4)+'" y="'+(sy(y2)-6)+'" font-size="9" fill="'+ln.c+'" text-anchor="end">'+ln.l+'</text>';
+  });
+  
+  // Points
+  points.sort(function(a,b){return b.mcap-a.mcap});
+  points.forEach(function(p){
+    var cx=sx(Math.min(xMax,Math.max(xMin,p.x)));
+    var cy=sy(Math.min(yMax,Math.max(yMin,p.y)));
+    var r=Math.max(3,Math.min(12,Math.sqrt(p.mcap||1)*1.5));
+    var color=ac[p.action]||'#d1d5db';
+    var op=p.action==='BUY'?0.9:0.5;
+    svg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+color+'" opacity="'+op+'" stroke="white" stroke-width="0.5">';
+    svg+='<title>'+p.code+' '+p.name+' R40='+p.r40.toFixed(0)+'% (營收+'+p.y.toFixed(0)+'% 利潤'+p.x.toFixed(0)+'%) FPE='+(p.fpe||'?')+'x '+p.action+'</title>';
+    svg+='</circle>';
+    if(p.r40>80||p.mcap>10||p.action==='BUY'){
+      svg+='<text x="'+(cx+r+2)+'" y="'+(cy-2)+'" font-size="7" fill="#475569">'+p.code+'</text>';
+    }
+  });
+  
+  svg+='<text x="'+(W/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="#475569">營業利潤率 (Operating Margin)</text>';
+  svg+='<text x="14" y="'+(H/2)+'" text-anchor="middle" font-size="11" fill="#475569" transform="rotate(-90,14,'+(H/2)+')">營收成長率 (Revenue Growth)</text>';
+  svg+='</svg>';
+  
+  // Build output
+  var o='<div style="padding:12px">';
+  o+='<h3 style="font-size:18px;font-weight:800;margin-bottom:4px">📐 Rule of 40 散佈圖</h3>';
+  o+='<p style="font-size:12px;color:#64748b;margin-bottom:4px">營收成長率 + 營業利潤率 ≥ 40% = 成長與獲利兼具。點大小=市值，顏色=訊號。</p>';
+  o+='<p style="font-size:10px;color:#f59e0b;margin-bottom:10px">⚠️ 適用範圍：僅涵蓋前200大（有Yahoo深度數據，共'+points.length+'支）。Rule of 40 最適合科技/軟體/半導體業；傳統產業(金融/航運/營建)利潤結構不同，分數偏低不代表差。高 R40 + 低本益比 = 最有價值。</p>';
+  o+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:10px">';
+  o+='<span style="color:#16a34a">● BUY</span><span style="color:#eab308">● WATCH</span><span style="color:#f97316">● REDUCE</span><span style="color:#dc2626">● AVOID</span><span style="color:#94a3b8">● NEUTRAL</span>';
+  o+='</div>';
+  o+=svg;
+  
+  // Top 20 ranking
+  var sorted=points.slice().sort(function(a,b){return b.r40-a.r40});
+  o+='<div style="margin-top:16px"><h4 style="font-size:14px;font-weight:700;margin-bottom:8px">🏆 Rule of 40 排行 (前20)</h4>';
+  o+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px">';
+  sorted.slice(0,20).forEach(function(p,i){
+    var c=ac[p.action]||'#d1d5db';
+    var val=p.fpe>0?(p.r40/p.fpe).toFixed(1):'?';
+    o+='<div style="background:#f8fafc;padding:8px 10px;border-radius:8px;border-left:3px solid '+c+';font-size:12px">';
+    o+='<div style="font-weight:700">#'+(i+1)+' '+p.code+' '+p.name+' <span style="color:'+c+'">'+p.action+'</span></div>';
+    o+='<div style="color:#475569">R40: <b>'+p.r40.toFixed(0)+'%</b> (營收+'+p.y.toFixed(0)+'% 利潤'+p.x.toFixed(0)+'%)</div>';
+    o+='<div style="color:#64748b">PE: '+(p.fpe?p.fpe.toFixed(1)+'x':'N/A')+' · R40/PE: '+val+'</div>';
+    o+='</div>';
+  });
+  o+='</div></div>';
+  
+  o+='</div>';
   return o;
 }
 
