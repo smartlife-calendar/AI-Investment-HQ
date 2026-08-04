@@ -198,17 +198,24 @@ function rOverview(){
     if(noChange>D.signals.length*0.8)warns.push('⚠️ '+noChange+'支漲跌為0（可能為假日）');
   }
   var s=D.summary||{},o='';
+  // US market link
+  o+='<a href="/" style="display:block;text-decoration:none;margin-bottom:8px">';
+  o+='<div style="background:linear-gradient(135deg,#1e3a5f,#2563eb);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">';
+  o+='<div><span style="font-size:14px;font-weight:700;color:white">🇺🇸 美股版</span>';
+  o+='<span style="font-size:11px;color:rgba(255,255,255,.7);margin-left:8px">S&P · NASDAQ · 161支追蹤</span></div>';
+  o+='<span style="color:rgba(255,255,255,.8);font-size:13px">→</span>';
+  o+='</div></a>';
   // Market regime banner
   var mr=D.market_regime||{};
   if(mr.regime){
     var rc={'STRONG_BULL':'#16a34a','BULL':'#22c55e','NEUTRAL':'#eab308','CAUTION':'#f59e0b','BEAR':'#dc2626'}[mr.regime]||'#64748b';
-    o+='<div style="background:linear-gradient(135deg,'+rc+'15,'+rc+'08);border:2px solid '+rc+';border-radius:12px;padding:12px;margin-bottom:8px">';
-    o+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">';
-    o+='<div>';
+    o+='<div style="background:linear-gradient(135deg,'+rc+'15,'+rc+'08);border:2px solid '+rc+';border-radius:12px;padding:12px;margin-bottom:8px;overflow:hidden">';
+    o+='<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px">';
+    o+='<div style="flex:1;min-width:0">';
     o+='<div style="font-size:18px;font-weight:700;color:'+rc+'">'+mr.regime_zh+'</div>';
-    o+='<div style="font-size:12px;color:#475569;margin-top:2px">'+mr.action_note+'</div>';
+    o+='<div style="font-size:12px;color:#475569;margin-top:2px;word-break:break-word">'+mr.action_note+'</div>';
     o+='</div>';
-    o+='<div style="text-align:right;font-size:11px;color:#64748b">';
+    o+='<div style="text-align:right;font-size:11px;color:#64748b;flex-shrink:0">';
     if(mr.taiex)o+='加權 '+mr.taiex.toLocaleString()+' ';
     if(mr.above_ma20!==undefined)o+=(mr.above_ma20?'🟢':'🔴')+'月線 ';
     if(mr.above_ma50!==undefined)o+=(mr.above_ma50?'🟢':'🔴')+'季線';
