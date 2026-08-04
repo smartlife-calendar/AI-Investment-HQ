@@ -1214,7 +1214,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','signalmap','alpha','signals','earnings','intel'].forEach(t => {
+            ['bullish','bearish','signalmap','alpha','signals','earnings','intel','r40'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
@@ -1233,6 +1233,7 @@
             else if (tab === 'signals') loadTradingSignals();
             else if (tab === 'earnings') loadEarningsCalendar();
             else if (tab === 'intel') loadIndustryIntel();
+            else if (tab === 'r40') loadRuleOf40();
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
@@ -2799,6 +2800,7 @@ async function loadSmartBacktest() {
                         <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
                 <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
                 <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
+                <button onclick="switchSmartTab('r40')" id="smart-tab-r40" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📐 Rule of 40</button>
                 <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
                     </div>
                 </div>
@@ -4274,6 +4276,165 @@ async function loadSmartBacktest() {
 
 
         // ── Earnings Calendar + ROE ──
+        
+        async function loadRuleOf40() {
+            const content = document.getElementById('smartMoneyContent');
+            if (!content) return;
+            content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入 Rule of 40 散佈圖...</p>';
+            
+            try {
+                const [erRes, sigRes] = await Promise.all([
+                    fetch('/data/earnings_roe.json'),
+                    fetch('/data/signals.json')
+                ]);
+                const erData = await erRes.json();
+                const sigData = await sigRes.json();
+                
+                const stocks = erData.stocks || {};
+                const sigMap = {};
+                (sigData.signals || []).forEach(s => { sigMap[s.symbol] = s; });
+                
+                // Build data points
+                const points = [];
+                for (const [sym, d] of Object.entries(stocks)) {
+                    const om = d.op_margin;
+                    const rg = d.rev_growth;
+                    if (om == null || rg == null) continue;
+                    const r40 = rg + om;
+                    const fpe = d.fwd_pe || d.trail_pe;
+                    const sig = sigMap[sym] || {};
+                    points.push({
+                        sym, name: d.industry || '',
+                        x: om, y: rg, r40,
+                        fpe: fpe || 0,
+                        mcap: d.mcap_b || 0,
+                        action: sig.action || 'N/A',
+                        score: sig.score || 0,
+                        sector: d.sector || ''
+                    });
+                }
+                
+                if (points.length === 0) {
+                    content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">無 Rule of 40 數據</p>';
+                    return;
+                }
+                
+                // SVG scatter plot
+                const W = 700, H = 500, P = 60;
+                const xMin = -20, xMax = 80, yMin = -30, yMax = 100;
+                const sx = x => P + (x - xMin) / (xMax - xMin) * (W - P * 2);
+                const sy = y => H - P - (y - yMin) / (yMax - yMin) * (H - P * 2);
+                
+                const actionColors = {
+                    'BUY': '#16a34a', 'SCALE_IN': '#22c55e', 'HOLD': '#3b82f6',
+                    'WATCH': '#eab308', 'WAIT': '#f59e0b',
+                    'NEUTRAL': '#94a3b8', 'MONITOR': '#94a3b8',
+                    'SELL': '#ef4444', 'REDUCE': '#f97316', 'AVOID': '#dc2626',
+                    'N/A': '#d1d5db'
+                };
+                
+                let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:700px;background:white;border-radius:12px">';
+                
+                // Grid
+                for (let x = 0; x <= 80; x += 20) {
+                    svg += '<line x1="' + sx(x) + '" y1="' + sy(yMin) + '" x2="' + sx(x) + '" y2="' + sy(yMax) + '" stroke="#f1f5f9" stroke-width="1"/>';
+                    svg += '<text x="' + sx(x) + '" y="' + (H - P + 18) + '" text-anchor="middle" font-size="10" fill="#94a3b8">' + x + '%</text>';
+                }
+                for (let y = 0; y <= 100; y += 20) {
+                    svg += '<line x1="' + sx(xMin) + '" y1="' + sy(y) + '" x2="' + sx(xMax) + '" y2="' + sy(y) + '" stroke="#f1f5f9" stroke-width="1"/>';
+                    svg += '<text x="' + (P - 8) + '" y="' + (sy(y) + 4) + '" text-anchor="end" font-size="10" fill="#94a3b8">' + y + '%</text>';
+                }
+                
+                // Rule of 40 diagonal lines
+                const lines = [
+                    {val: 40, color: '#94a3b8', label: 'Rule of 40'},
+                    {val: 80, color: '#3b82f6', label: 'Rule of 80'},
+                    {val: 120, color: '#16a34a', label: 'Rule of 120'}
+                ];
+                lines.forEach(l => {
+                    // y + x = val → y = val - x
+                    const x1 = Math.max(xMin, l.val - yMax);
+                    const y1 = Math.min(yMax, l.val - x1);
+                    const x2 = Math.min(xMax, l.val - yMin);
+                    const y2 = Math.max(yMin, l.val - x2);
+                    svg += '<line x1="' + sx(x1) + '" y1="' + sy(y1) + '" x2="' + sx(x2) + '" y2="' + sy(y2) + '" stroke="' + l.color + '" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>';
+                    svg += '<text x="' + (sx(x2) - 4) + '" y="' + (sy(y2) - 6) + '" font-size="9" fill="' + l.color + '" text-anchor="end">' + l.label + '</text>';
+                });
+                
+                // Data points — size by mcap, color by signal
+                points.sort((a, b) => b.mcap - a.mcap); // draw small on top
+                points.forEach(p => {
+                    const cx = sx(Math.min(xMax, Math.max(xMin, p.x)));
+                    const cy = sy(Math.min(yMax, Math.max(yMin, p.y)));
+                    const r = Math.max(3, Math.min(12, Math.sqrt(p.mcap) * 0.8));
+                    const color = actionColors[p.action] || '#d1d5db';
+                    const opacity = p.action === 'BUY' || p.action === 'SCALE_IN' ? 0.9 : 0.5;
+                    svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + color + '" opacity="' + opacity + '" stroke="white" stroke-width="0.5">';
+                    svg += '<title>' + p.sym + ' R40=' + p.r40.toFixed(0) + '% (營收+' + p.y.toFixed(0) + '% 利潤' + p.x.toFixed(0) + '%) FPE=' + (p.fpe||'?') + 'x ' + p.action + '</title>';
+                    svg += '</circle>';
+                    // Label top stocks
+                    if (p.r40 > 80 || p.mcap > 500 || p.action === 'BUY') {
+                        svg += '<text x="' + (cx + r + 2) + '" y="' + (cy - 2) + '" font-size="8" fill="#475569">' + p.sym + '</text>';
+                    }
+                });
+                
+                // Axes labels
+                svg += '<text x="' + (W / 2) + '" y="' + (H - 8) + '" text-anchor="middle" font-size="12" fill="#475569">營業利潤率 (Operating Margin)</text>';
+                svg += '<text x="14" y="' + (H / 2) + '" text-anchor="middle" font-size="12" fill="#475569" transform="rotate(-90,' + 14 + ',' + (H/2) + ')">營收成長率 (Revenue Growth)</text>';
+                svg += '</svg>';
+                
+                // Legend and stats
+                let out = '<div style="padding:16px">';
+                out += '<h3 style="font-size:18px;font-weight:800;margin-bottom:4px">📐 Rule of 40 散佈圖</h3>';
+                out += '<p style="font-size:12px;color:#64748b;margin-bottom:12px">營收成長 + 營業利潤率 ≥ 40% = 成長與獲利兼具。點大小=市值，顏色=訊號。</p>';
+                out += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;font-size:10px">';
+                out += '<span style="color:#16a34a">● BUY</span>';
+                out += '<span style="color:#eab308">● WATCH</span>';
+                out += '<span style="color:#f97316">● REDUCE</span>';
+                out += '<span style="color:#dc2626">● AVOID</span>';
+                out += '<span style="color:#94a3b8">● NEUTRAL</span>';
+                out += '</div>';
+                out += svg;
+                
+                // Top Rule of 40 table
+                const sorted = [...points].sort((a, b) => b.r40 - a.r40);
+                out += '<div style="margin-top:16px">';
+                out += '<h4 style="font-size:14px;font-weight:700;margin-bottom:8px">🏆 Rule of 40 排行</h4>';
+                out += '<div style="font-size:10px;color:#94a3b8;margin-bottom:8px">⚠️ 適用範圍：Rule of 40 最適合評估 SaaS/科技成長股。傳統產業(金融/能源/公用)獲利模式不同，分數偏低不代表差。高 R40 + 低 FPE = 最有價值。</div>';
+                
+                // Show top 20
+                out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px">';
+                sorted.slice(0, 20).forEach((p, i) => {
+                    const c = actionColors[p.action] || '#d1d5db';
+                    const valuation = p.fpe > 0 ? (p.r40 / p.fpe).toFixed(1) : '?';
+                    out += '<div style="background:#f8fafc;padding:8px 10px;border-radius:8px;border-left:3px solid ' + c + ';font-size:12px">';
+                    out += '<div style="font-weight:700">#' + (i+1) + ' ' + p.sym + ' <span style="color:' + c + '">' + p.action + '</span></div>';
+                    out += '<div style="color:#475569">R40: <b>' + p.r40.toFixed(0) + '%</b> (營收+' + p.y.toFixed(0) + '% 利潤' + p.x.toFixed(0) + '%)</div>';
+                    out += '<div style="color:#64748b">FPE: ' + (p.fpe ? p.fpe.toFixed(1) + 'x' : 'N/A') + ' · R40/PE: ' + valuation + '</div>';
+                    out += '</div>';
+                });
+                out += '</div>';
+                
+                // R40 < 40 warning list
+                const below40 = sorted.filter(p => p.r40 < 40 && (p.action === 'BUY' || p.action === 'SCALE_IN'));
+                if (below40.length > 0) {
+                    out += '<div style="margin-top:12px;background:#fef2f2;padding:10px;border-radius:8px">';
+                    out += '<div style="font-size:12px;font-weight:700;color:#dc2626">⚠️ BUY 訊號但 R40 < 40% (' + below40.length + '支)</div>';
+                    out += '<div style="font-size:11px;color:#475569;margin-top:4px">';
+                    below40.forEach(p => {
+                        out += p.sym + '(' + p.r40.toFixed(0) + '%) ';
+                    });
+                    out += '</div></div>';
+                }
+                
+                out += '</div></div>';
+                content.innerHTML = out;
+                
+            } catch (e) {
+                content.innerHTML = '<p style="color:#dc2626;text-align:center;padding:24px">❌ Rule of 40 載入失敗: ' + e.message + '</p>';
+            }
+        }
+
         async function loadEarningsCalendar() {
             var container = document.getElementById('smartMoneyContent');
             if (!container) return;
