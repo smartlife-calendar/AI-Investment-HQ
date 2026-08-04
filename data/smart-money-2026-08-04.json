@@ -1,0 +1,17 @@
+{
+  "date": "2026-08-04",
+  "generated_at": "2026-08-04T10:02:50.754563+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "GME",
+      "name": "GameStop Corporation",
+      "price": 19.06,
+      "change_pct": -12.25,
+      "vol_ratio": 6.9,
+      "volume": 41598573,
+      "avg_volume": 6028778
+    }
+  ]
+}
