@@ -49,8 +49,22 @@ StockIQ 台股 · 資料: 證交所/櫃買中心/Yahoo Finance · ⚠️ 僅供�
 var D=null, CT='overview';
 function safeDate(s){
   if(!s)return new Date();
-  // Safari can't parse +08:00, replace with +0800
-  return new Date(s.replace(/([+-]\d{2}):(\d{2})$/,'$1$2'));
+  try{
+    // Try native first
+    var d=new Date(s);
+    if(!isNaN(d.getTime()))return d;
+  }catch(e){}
+  try{
+    // Safari: replace +08:00 with +0800
+    var d2=new Date(s.replace(/([+-]\d{2}):(\d{2})$/,'$1$2'));
+    if(!isNaN(d2.getTime()))return d2;
+  }catch(e){}
+  try{
+    // Fallback: strip timezone, treat as local
+    var d3=new Date(s.replace(/[+-]\d{2}:?\d{2}$/,''));
+    if(!isNaN(d3.getTime()))return d3;
+  }catch(e){}
+  return new Date();
 }
 var TABS=[
   {id:'overview',label:'📊 總覽'},
@@ -989,7 +1003,7 @@ async function load(){
   try{
     var r=await fetch('/tw/data/tw_signals.json?t='+Date.now());
     D=await r.json();
-    document.getElementById('ut').textContent=safeDate(D.generated_at).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});
+    document.getElementById('ut').textContent=(function(){try{return safeDate(D.generated_at).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}catch(e){return safeDate(D.generated_at).toLocaleString()}})();
     render();
   }catch(e){
     document.getElementById('main').innerHTML='<p style="color:#dc2626;text-align:center;padding:40px">❌ '+e.message+'</p>';
