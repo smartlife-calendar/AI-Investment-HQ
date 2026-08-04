@@ -47,6 +47,11 @@ StockIQ 台股 · 資料: 證交所/櫃買中心/Yahoo Finance · ⚠️ 僅供�
 
 <script>
 var D=null, CT='overview';
+function safeDate(s){
+  if(!s)return new Date();
+  // Safari can't parse +08:00, replace with +0800
+  return new Date(s.replace(/([+-]\d{2}):(\d{2})$/,'$1$2'));
+}
 var TABS=[
   {id:'overview',label:'📊 總覽'},
   {id:'signals',label:'📡 訊號'},
@@ -88,7 +93,7 @@ function switchTab(id){
 
 function ts(){
   if(!D||!D.generated_at)return '';
-  var ga=new Date(D.generated_at);
+  var ga=safeDate(D.generated_at);
   var now=new Date();
   var hrs=Math.floor((now-ga)/3600000);
   var tStr=ga.toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
@@ -984,7 +989,7 @@ async function load(){
   try{
     var r=await fetch('/tw/data/tw_signals.json?t='+Date.now());
     D=await r.json();
-    document.getElementById('ut').textContent=new Date(D.generated_at).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});
+    document.getElementById('ut').textContent=safeDate(D.generated_at).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'});
     render();
   }catch(e){
     document.getElementById('main').innerHTML='<p style="color:#dc2626;text-align:center;padding:40px">❌ '+e.message+'</p>';
