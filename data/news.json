@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-01T10:00:05+08:00",
+  "generated_at": "2026-08-04T10:00:03+08:00",
   "news": [
+    {
+      "title": "At 59 1/2 the 401(k) Penalty Disappears. These 4 ETFs Are the First Move With Money You Can Touch",
+      "url": "https://finance.yahoo.com/m/007901b3-bb3a-3450-9931-a830c36c4bd8/at-59-1%2F2-the-401%28k%29-penalty.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1785573376
+    },
     {
       "title": "Kip ETF 20: The Best Cheap ETFs You Can Buy",
       "url": "https://finance.yahoo.com/m/64e24134-a37b-39b2-8b61-08108bae5635/kip-etf-20%3A-the-best-cheap.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/9fae82c4-6001-38aa-9a87-d35727408891/how-is-spacex-%28spcx%29-already.html",
       "publisher": "Motley Fool",
       "published": 1784982000
-    },
-    {
-      "title": "ETF Zoo: Leveraged Lunacy Surpasses $65B in Gains",
-      "url": "https://finance.yahoo.com/m/459405a2-5d3a-3792-bb06-b9a3991db48b/etf-zoo%3A-leveraged-lunacy.html",
-      "publisher": "etf.com",
-      "published": 1784957615
     }
   ]
 }

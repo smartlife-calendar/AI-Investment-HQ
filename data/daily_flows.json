@@ -1,119 +1,119 @@
 {
-  "date": "2026-08-01",
-  "generated_at": "2026-08-01T10:00:05.170406+00:00",
+  "date": "2026-08-04",
+  "generated_at": "2026-08-04T10:00:03.121363+00:00",
   "sectors": [
-    {
-      "etf": "XLY",
-      "name": "非必需消費 Cyclical",
-      "price": 116.09,
-      "daily_chg": 3.29,
-      "vol_ratio": 1.53,
-      "flow": "🟢 流入",
-      "mcap_b": 185,
-      "dollar_flow_b": 1.5
-    },
     {
       "etf": "XLC",
       "name": "通訊 Comm",
-      "price": 108.24,
-      "daily_chg": 1.56,
-      "vol_ratio": 0.73,
+      "price": 111.34,
+      "daily_chg": 2.86,
+      "vol_ratio": 1.1,
       "flow": "🟢 流入",
       "mcap_b": 130,
-      "dollar_flow_b": 0.5
-    },
-    {
-      "etf": "XLE",
-      "name": "能源 Energy",
-      "price": 59.55,
-      "daily_chg": 1.0,
-      "vol_ratio": 0.82,
-      "flow": "🟢 流入",
-      "mcap_b": 90,
-      "dollar_flow_b": 1.4
+      "dollar_flow_b": 0.9
     },
     {
       "etf": "XLI",
       "name": "工業 Industrial",
-      "price": 179.84,
-      "daily_chg": 0.81,
-      "vol_ratio": 0.81,
+      "price": 183.16,
+      "daily_chg": 1.85,
+      "vol_ratio": 1.13,
       "flow": "🟢 流入",
       "mcap_b": 145,
-      "dollar_flow_b": 1.0
+      "dollar_flow_b": 1.6
     },
     {
-      "etf": "XLF",
-      "name": "金融 Finance",
-      "price": 56.94,
-      "daily_chg": -0.11,
-      "vol_ratio": 0.9,
-      "flow": "⚪ 持平",
-      "mcap_b": 165,
-      "dollar_flow_b": -1.8
+      "etf": "XLY",
+      "name": "非必需消費 Cyclical",
+      "price": 118.21,
+      "daily_chg": 1.83,
+      "vol_ratio": 1.12,
+      "flow": "🟢 流入",
+      "mcap_b": 185,
+      "dollar_flow_b": 1.2
     },
     {
       "etf": "XLK",
       "name": "科技 Tech",
-      "price": 175.35,
-      "daily_chg": -0.22,
-      "vol_ratio": 0.8,
-      "flow": "⚪ 持平",
+      "price": 178.04,
+      "daily_chg": 1.53,
+      "vol_ratio": 0.79,
+      "flow": "🟢 流入",
       "mcap_b": 680,
-      "dollar_flow_b": -1.6
-    },
-    {
-      "etf": "XLP",
-      "name": "必需消費 Staples",
-      "price": 85.05,
-      "daily_chg": -0.49,
-      "vol_ratio": 0.69,
-      "flow": "🔴 流出",
-      "mcap_b": 85,
-      "dollar_flow_b": -0.9
-    },
-    {
-      "etf": "XLRE",
-      "name": "房地產 RE",
-      "price": 45.07,
-      "daily_chg": -0.51,
-      "vol_ratio": 1.12,
-      "flow": "🔴 流出",
-      "mcap_b": 35,
-      "dollar_flow_b": -0.3
-    },
-    {
-      "etf": "XLV",
-      "name": "醫療 Health",
-      "price": 162.55,
-      "daily_chg": -0.59,
-      "vol_ratio": 0.85,
-      "flow": "🔴 流出",
-      "mcap_b": 195,
-      "dollar_flow_b": -1.5
-    },
-    {
-      "etf": "XLU",
-      "name": "公用事業 Utilities",
-      "price": 44.35,
-      "daily_chg": -0.69,
-      "vol_ratio": 1.03,
-      "flow": "🔴 流出",
-      "mcap_b": 65,
-      "dollar_flow_b": -0.9
+      "dollar_flow_b": 1.6
     },
     {
       "etf": "XLB",
       "name": "原材料 Materials",
-      "price": 50.43,
-      "daily_chg": -2.34,
-      "vol_ratio": 1.44,
-      "flow": "🔴 流出",
+      "price": 51.01,
+      "daily_chg": 1.15,
+      "vol_ratio": 0.88,
+      "flow": "🟢 流入",
       "mcap_b": 45,
-      "dollar_flow_b": -0.9
+      "dollar_flow_b": 0.6
+    },
+    {
+      "etf": "XLF",
+      "name": "金融 Finance",
+      "price": 57.38,
+      "daily_chg": 0.77,
+      "vol_ratio": 0.85,
+      "flow": "🟢 流入",
+      "mcap_b": 165,
+      "dollar_flow_b": 1.7
+    },
+    {
+      "etf": "XLRE",
+      "name": "房地產 RE",
+      "price": 45.18,
+      "daily_chg": 0.24,
+      "vol_ratio": 1.14,
+      "flow": "⚪ 持平",
+      "mcap_b": 35,
+      "dollar_flow_b": 0.3
+    },
+    {
+      "etf": "XLU",
+      "name": "公用事業 Utilities",
+      "price": 44.36,
+      "daily_chg": 0.02,
+      "vol_ratio": 1.13,
+      "flow": "⚪ 持平",
+      "mcap_b": 65,
+      "dollar_flow_b": 1.1
+    },
+    {
+      "etf": "XLV",
+      "name": "醫療 Health",
+      "price": 162.24,
+      "daily_chg": -0.19,
+      "vol_ratio": 0.94,
+      "flow": "⚪ 持平",
+      "mcap_b": 195,
+      "dollar_flow_b": -1.7
+    },
+    {
+      "etf": "XLP",
+      "name": "必需消費 Staples",
+      "price": 84.86,
+      "daily_chg": -0.22,
+      "vol_ratio": 0.76,
+      "flow": "⚪ 持平",
+      "mcap_b": 85,
+      "dollar_flow_b": -1.0
+    },
+    {
+      "etf": "XLE",
+      "name": "能源 Energy",
+      "price": 58.79,
+      "daily_chg": -1.28,
+      "vol_ratio": 0.95,
+      "flow": "🔴 流出",
+      "mcap_b": 90,
+      "dollar_flow_b": -1.5
     }
   ],
-  "net_flow_b": -3.5,
-  "total_in_b": 4.4,
-  "total_out_b": -7.9
+  "net_flow_b": 4.8,
+  "total_in_b": 9.0,
+  "total_out_b": -4.2
 }
