@@ -269,6 +269,16 @@
         <div id="marketStatusBanner"></div>
     </div>
 
+
+        <div id="twLinkSection" style="display:none">
+            <a href="/tw/" style="display:block;text-decoration:none;margin-bottom:16px">
+                <div style="background:linear-gradient(135deg,#1e40af,#7c3aed);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+                    <div><span style="font-size:15px;font-weight:700;color:white">🇹🇼 台股版 StockIQ</span>
+                    <span style="font-size:12px;color:rgba(255,255,255,.8);margin-left:8px">1,969 支 · 三大法人 · 期貨籌碼</span></div>
+                    <span style="color:white;font-size:16px">→</span>
+                </div>
+            </a>
+        </div>
     <div class="max-w-5xl mx-auto mt-3 px-4" id="earningsSection" style="display:none">
         <div style="background:white;border-radius:14px;padding:16px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -1071,9 +1081,9 @@
 
 
         function showTab(tabName) {
-            const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['twLinkSection','dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','smartlifeAd','adBanner','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
-                'today': ['dailyColumn','earningsSection','dailyFlowsSection','smartlifeAd','adBanner'],
+                'today': ['twLinkSection','dailyColumn','earningsSection','dailyFlowsSection','smartlifeAd','adBanner'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
@@ -2702,13 +2712,7 @@ async function loadSmartBacktest() {
 
 
 
-        <!-- 
-                <!-- Taiwan Stock Link -->
-            <div style="text-align:center;padding:12px;background:linear-gradient(135deg,#1e40af,#7c3aed);border-radius:12px;margin:12px 0">
-                <a href="/tw/" style="color:white;text-decoration:none;font-weight:700;font-size:14px">
-                    🇹🇼 台股版 StockIQ — 1,969 支全市場分析 · 三大法人 · 吸籌出貨 →
-                </a>
-            </div>
+        
             <!-- SmartLife Calendar App Ad -->
         <div id="smartlifeAd" style="display:none" class="max-w-5xl mx-auto mt-6 px-4">
             <div style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#2563eb 100%);border-radius:16px;padding:20px 24px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
@@ -3516,9 +3520,9 @@ async function loadSmartBacktest() {
         
 
 
-        <!-- Watch List Toggle Button -->
+        <!-- Watch List Toggle Button (hidden — localStorage only, not useful) -->
         <button onclick="document.getElementById('watchListPanel').classList.toggle('hidden')" 
-            style="position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;border:none;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100">
+            style="display:none;position:fixed;bottom:20px;right:20px;background:#1e293b;color:white;border:none;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100">
             📋 追蹤清單
         </button>
 
