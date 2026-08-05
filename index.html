@@ -4502,14 +4502,15 @@ async function loadSmartBacktest() {
                     out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
                     out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;font-weight:700;font-size:14px">📆 即將發布財報（60天）</div>';
                     
+                    var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     dates.forEach(function(date) {
                         var items = byDate[date];
                         var d = new Date(date + 'T00:00:00');
                         var dayNames = ['日','一','二','三','四','五','六'];
                         var dayStr = (d.getMonth()+1) + '/' + d.getDate() + ' 週' + dayNames[d.getDay()];
-                        var daysAway = Math.ceil((d - now) / 86400000);
-                        var urgency = daysAway <= 3 ? '#dc2626' : daysAway <= 7 ? '#f59e0b' : '#64748b';
-                        var urgLabel = daysAway <= 0 ? '今天' : daysAway <= 1 ? '明天' : daysAway + '天後';
+                        var daysAway = Math.round((d - nowMid) / 86400000);
+                        var urgency = daysAway <= 3 && daysAway >= 0 ? '#dc2626' : daysAway <= 7 && daysAway >= 0 ? '#f59e0b' : '#64748b';
+                        var urgLabel = daysAway === 0 ? '今天' : daysAway === 1 ? '明天' : daysAway === -1 ? '昨天' : daysAway < 0 ? Math.abs(daysAway) + '天前' : daysAway + '天後';
                         
                         out += '<div style="padding:10px 16px;border-bottom:1px solid #f1f5f9">';
                         out += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
