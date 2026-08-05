@@ -264,6 +264,15 @@
         </div>
     </div>
 
+    <div id="twLinkSection" class="max-w-5xl mx-auto px-4" style="margin-top:8px">
+        <a href="/tw/" style="display:block;text-decoration:none;margin-bottom:12px">
+            <div style="background:linear-gradient(135deg,#1e40af,#7c3aed);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+                <div><span style="font-size:15px;font-weight:700;color:white">🇹🇼 台股版 StockIQ</span>
+                <span style="font-size:12px;color:rgba(255,255,255,.8);margin-left:8px">1,969 支 · 三大法人 · 期貨籌碼</span></div>
+                <span style="color:white;font-size:16px">→</span>
+            </div>
+        </a>
+    </div>
     <!-- Bull/Bear Indicator (always visible) -->
     <div class="max-w-5xl mx-auto mt-3 px-4">
         <div id="marketStatusBanner"></div>
@@ -1072,9 +1081,9 @@
 
 
         function showTab(tabName) {
-            const allIds = ['twLinkSection','dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
-                'today': ['twLinkSection','dailyColumn','earningsSection','dailyFlowsSection'],
+                'today': ['dailyColumn','earningsSection','dailyFlowsSection'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
@@ -2844,15 +2853,7 @@ async function loadSmartBacktest() {
         </div>
         <!-- Daily Archive Section (市場日報) -->
 
-    <div id="twLinkSection" class="max-w-5xl mx-auto px-4" style="display:none;margin-top:8px">
-        <a href="/tw/" style="display:block;text-decoration:none;margin-bottom:12px">
-            <div style="background:linear-gradient(135deg,#1e40af,#7c3aed);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
-                <div><span style="font-size:15px;font-weight:700;color:white">🇹🇼 台股版 StockIQ</span>
-                <span style="font-size:12px;color:rgba(255,255,255,.8);margin-left:8px">1,969 支 · 三大法人 · 期貨籌碼</span></div>
-                <span style="color:white;font-size:16px">→</span>
-            </div>
-        </a>
-    </div>
+    
         <div id="dailyArchiveSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin-bottom:6px">📰 市場日報存檔</h2>
