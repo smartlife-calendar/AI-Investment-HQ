@@ -431,12 +431,48 @@ function rInst(){
 
 function rIndustry(){
   var stats=D.industry_stats||{},sigs=D.signals||[],o='';
-  // Group stocks with yahoo data by industry
+  // Yahoo industry → 中文子產業 mapping
+  var indMap={
+    'Electronic Components':'電子零組件',
+    'Semiconductors':'IC設計/晶圓代工',
+    'Semiconductor Equipment & Materials':'半導體設備/封測/載板',
+    'Computer Hardware':'伺服器/筆電/電腦',
+    'Banks - Regional':'銀行/金控',
+    'Insurance - Life':'壽險/金控',
+    'Financial Conglomerates':'金控',
+    'Capital Markets':'證券',
+    'Chemicals':'石化/化工',
+    'Specialty Chemicals':'特化/塑膠',
+    'Steel':'鋼鐵',
+    'Marine Shipping':'航運',
+    'Airlines':'航空',
+    'Building Materials':'水泥/建材',
+    'Solar':'太陽能',
+    'Communication Equipment':'網通設備',
+    'Telecom Services':'電信',
+    'Consumer Electronics':'消費電子',
+    'Textile Manufacturing':'紡織',
+    'Electrical Equipment & Parts':'電線電纜/電機',
+    'Electronics & Computer Distribution':'電子通路',
+    'Specialty Industrial Machinery':'工具機/機械',
+    'Tools & Accessories':'工具機/精密',
+    'Auto Parts':'汽車零件',
+    'Auto Manufacturers':'汽車',
+    'Packaged Foods':'食品',
+    'Conglomerates':'集團/綜合',
+    'Oil & Gas Refining & Marketing':'石油',
+    'Aerospace & Defense':'航太/國防',
+    'Footwear & Accessories':'製鞋/紡織',
+    'Real Estate Services':'營建/地產',
+    'Engineering & Construction':'工程/營建',
+  };
+  // Group stocks with yahoo data by sub-industry
   var byInd={};
   sigs.forEach(function(s){
     var y=s.yahoo||{};
     if(!y.rev_growth&&y.rev_growth!==0) return;
-    var ind=s.industry||'未分類';
+    var yInd=y.industry||'';
+    var ind=indMap[yInd]||yInd||s.industry||'未分類';
     if(!byInd[ind])byInd[ind]={stocks:[],totalRev:0,avgGrowth:0};
     var revB=y.mcap_b?(y.mcap_b/((y.fwd_pe||20))):0;
     byInd[ind].stocks.push({code:s.code,name:s.name,action:s.action,score:s.score||0,
