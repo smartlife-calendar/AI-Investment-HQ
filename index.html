@@ -1083,7 +1083,7 @@
         function showTab(tabName) {
             const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
-                'today': ['dailyColumn','earningsSection','dailyFlowsSection'],
+                'today': ['dailyColumn'],
                 'macro': ['macroSection'],
                 'smart': ['smartSection'],
                 'news': ['newsSection'],
@@ -1110,7 +1110,7 @@
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); setTimeout(loadSectorPETable, 500); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
-                    loadDailyFlows(); // daily sector flows
+                    // loadDailyFlows moved to macro tab
                     // checkMarketStatus handled separately 
                     loadDailyReport();
                     checkMarketStatus();
