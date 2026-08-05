@@ -442,75 +442,75 @@ function rIndustry(){
   }
   var sKeys=Object.keys(stats).sort(function(a,b){return(stats[b].buy||0)-(stats[a].buy||0)||(stats[b].avg_score||0)-(stats[a].avg_score||0)});
   o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">產業</th><th>家數</th><th style="color:#16a34a">買入</th><th>均分</th></tr>'+sKeys.map(function(k){var s=stats[k];var c=s.avg_score>0?'#16a34a':s.avg_score<-1?'#dc2626':'#64748b';return'<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:600">'+k+'</td><td style="padding:3px;text-align:center">'+s.count+'</td><td style="padding:3px;text-align:center;color:#16a34a;font-weight:700">'+(s.buy||0)+'</td><td style="padding:3px;text-align:center;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'}).join('')+'</table></div>');
-  var byTwse={};
+  // Group directly by sub-industry (cross-TWSE)
+  var bySub={};
   stocks.forEach(function(s){
-    var twse=s.industry||'未分類';
-    if(twse.indexOf('其他')===0&&twse!=='其他電子')twse='其他';
-    if(!byTwse[twse])byTwse[twse]={subs:{},total:0,buys:0,ts:0,counted:{}};
-    if(!byTwse[twse].counted[s.code]){byTwse[twse].total++;byTwse[twse].counted[s.code]=1;if(s.action==='BUY')byTwse[twse].buys++;byTwse[twse].ts+=(s.score||0)}
-    var subList=SUB[s.code]||['一般'];
+    var subList=SUB[s.code]||[s.industry||'未分類'];
     var y=s.yahoo||{};var hd=y.rev_growth!=null;
     var stk={code:s.code,name:s.name,action:s.action,score:s.score||0,price:s.price||0,pe:s.pe,pb:s.pb,dv:s.div_yield,chip:s.chip||'',
       rg:hd?(y.rev_growth*100).toFixed(0)+'%':null,om:hd&&y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':null,gm:hd&&y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':null,roe:hd&&y.roe!=null?(y.roe*100).toFixed(0)+'%':null,
-      mcap:y.mcap_b,hd:hd,tp:y.target_price||null,fpe:y.fwd_pe||null,na:y.n_analysts||0};
+      mcap:y.mcap_b,hd:hd,tp:y.target_price||null,na:y.n_analysts||0,
+      ma:s.ma_status||null};
     subList.forEach(function(sub){
-      if(!byTwse[twse].subs[sub])byTwse[twse].subs[sub]=[];
-      byTwse[twse].subs[sub].push(stk);
+      if(!bySub[sub])bySub[sub]={stocks:[],buys:0,ts:0,counted:{}};
+      if(!bySub[sub].counted[s.code]){bySub[sub].counted[s.code]=1;bySub[sub].ts+=(s.score||0);if(s.action==='BUY')bySub[sub].buys++}
+      bySub[sub].stocks.push(stk);
     });
   });
   var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
   var aL={'BUY':'買','WATCH':'觀望','NEUTRAL':'中性','REDUCE':'減','AVOID':'避'};
-  var tl=Object.keys(byTwse).sort(function(a,b){return byTwse[b].buys-byTwse[a].buys||(byTwse[b].ts/byTwse[b].total)-(byTwse[a].ts/byTwse[a].total)});
+  var subList=Object.keys(bySub).map(function(k){
+    var g=bySub[k];var n=Object.keys(g.counted).length;
+    return{name:k,count:n,buys:g.buys,avgS:+(g.ts/n).toFixed(1),stocks:g.stocks};
+  }).sort(function(a,b){return b.buys-a.buys||b.avgS-a.avgS});
   o+='<div style="font-size:14px;font-weight:700;margin:12px 0 6px">📊 產業競爭分析 <span style="font-size:10px;color:#94a3b8;font-weight:400">(按營業項目分類，跨業務股票重複出現)</span></div>';
   var gid=0;
-  tl.forEach(function(twse){
-    var grp=byTwse[twse];if(grp.total<2)return;
-    var avgS=+(grp.ts/grp.total).toFixed(1);
-    var fire=grp.buys>=3?'🔥🔥':grp.buys>=1?'🔥':'';
-    var sc=avgS>0?'#16a34a':avgS<-1?'#dc2626':'#64748b';
-    var sks=Object.keys(grp.subs).sort(function(a,b){return grp.subs[b].length-grp.subs[a].length});
-    var hasSubs=sks.length>1||(sks.length===1&&sks[0]!=='一般');
-    var h='<div style="font-size:14px;font-weight:700;margin-bottom:4px;border-bottom:2px solid #e2e8f0;padding-bottom:4px">'+fire+' '+twse+' <span style="font-size:10px;color:#94a3b8;font-weight:400">('+grp.total+'支 · <span style="color:#16a34a">'+grp.buys+'買</span> · 均分 <span style="color:'+sc+'">'+(avgS>0?'+':'')+avgS+'</span>)</span></div>';
-    sks.forEach(function(sub){
-      gid++;var ss=grp.subs[sub];
-      ss.sort(function(a,b){return b.score-a.score||(b.mcap||0)-(a.mcap||0)});
-      var pes=ss.filter(function(s){return s.pe&&s.pe>0&&s.pe<500}).map(function(s){return s.pe}).sort(function(a,b){return a-b});
-      var medPE=pes.length>=3?pes[Math.floor(pes.length/2)]:null;
-      if(hasSubs){
-        var sb=ss.filter(function(s){return s.action==='BUY'}).length;
-        h+='<div style="font-size:11px;font-weight:700;color:#4f46e5;margin:6px 0 2px;padding-left:4px;border-left:3px solid #818cf8">'+sub+' <span style="color:#94a3b8;font-weight:400">('+ss.length+'支'+(sb?', '+sb+'買':'')+(medPE?', 中位PE '+medPE.toFixed(0):'')+')</span></div>';
+  subList.forEach(function(sub){
+    if(sub.count<2)return;
+    gid++;
+    var ss=sub.stocks;
+    ss.sort(function(a,b){return b.score-a.score||(b.mcap||0)-(a.mcap||0)});
+    // Deduplicate (same stock in same sub via multi-TWSE)
+    var seen={};ss=ss.filter(function(s){if(seen[s.code])return false;seen[s.code]=1;return true});
+    var pes=ss.filter(function(s){return s.pe&&s.pe>0&&s.pe<500}).map(function(s){return s.pe}).sort(function(a,b){return a-b});
+    var medPE=pes.length>=3?pes[Math.floor(pes.length/2)]:null;
+    var fire=sub.buys>=3?'🔥🔥':sub.buys>=1?'🔥':'';
+    var sc=sub.avgS>0?'#16a34a':sub.avgS<-1?'#dc2626':'#64748b';
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap">';
+    h+='<div style="font-size:13px;font-weight:700">'+fire+' '+sub.name+' <span style="font-size:10px;color:#94a3b8;font-weight:400">('+sub.count+'支'+(medPE?', 中位PE '+medPE.toFixed(0):'')+')</span></div>';
+    h+='<div style="font-size:10px"><span style="color:#16a34a;font-weight:700">'+sub.buys+'買</span> · 均分 <b style="color:'+sc+'">'+(sub.avgS>0?'+':'')+sub.avgS+'</b></div></div>';
+    h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">';
+    h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>PE</th><th>PB</th><th>殖利</th><th>成長</th><th>毛利</th><th>ROE</th><th>目標價</th><th>空間</th><th>訊號</th></tr>';
+    ss.forEach(function(s,i){
+      var sc2=ac[s.action]||'#94a3b8';
+      var vis=i>=10?'display:none;':'';
+      var dg=i>=10?' data-g="g'+gid+'"':'';
+      var peC='#64748b';
+      if(medPE&&s.pe){if(s.pe<medPE*0.7)peC='#16a34a';else if(s.pe>medPE*1.5)peC='#dc2626'}
+      h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
+      h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span>';
+      if(s.ma)h+=' <span style="font-size:8px;color:#f59e0b" title="均線">'+s.ma+'</span>';
+      h+='</td>';
+      h+='<td style="padding:2px;color:'+peC+'">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
+      h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
+      h+='<td style="padding:2px;color:'+(s.dv&&s.dv>5?'#16a34a':'#64748b')+'">'+(s.dv?s.dv.toFixed(1)+'%':'-')+'</td>';
+      h+='<td style="padding:2px;color:'+(s.rg&&parseFloat(s.rg)>10?'#16a34a':s.rg&&parseFloat(s.rg)<0?'#dc2626':'#64748b')+'">'+(s.rg||'-')+'</td>';
+      h+='<td style="padding:2px">'+(s.gm||'-')+'</td>';
+      h+='<td style="padding:2px">'+(s.roe||'-')+'</td>';
+      if(s.tp&&s.na>0){
+        var up=((s.tp-s.price)/s.price*100).toFixed(0);
+        var upc=up>10?'#16a34a':up<-10?'#dc2626':'#64748b';
+        h+='<td style="padding:2px;font-size:9px">$'+s.tp.toFixed(0)+'<span style="color:#94a3b8">('+s.na+')</span></td>';
+        h+='<td style="padding:2px;color:'+upc+';font-weight:700;font-size:9px">'+(up>0?'+':'')+up+'%</td>';
+      }else{
+        h+='<td style="padding:2px;color:#d4d4d4;font-size:9px">-</td><td style="padding:2px;color:#d4d4d4">-</td>';
       }
-      h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">';
-      h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>PE</th><th>PB</th><th>殖利</th><th>成長</th><th>毛利</th><th>ROE</th><th>目標價</th><th>空間</th><th>訊號</th></tr>';
-      ss.forEach(function(s,i){
-        var sc2=ac[s.action]||'#94a3b8';
-        var vis=i>=8?'display:none;':'';
-        var dg=i>=8?' data-g="g'+gid+'"':'';
-        var peC='#64748b';
-        if(medPE&&s.pe){if(s.pe<medPE*0.7)peC='#16a34a';else if(s.pe>medPE*1.5)peC='#dc2626'}
-        h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
-        h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
-        h+='<td style="padding:2px;color:'+peC+'">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
-        h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
-        h+='<td style="padding:2px;color:'+(s.dv&&s.dv>5?'#16a34a':'#64748b')+'">'+(s.dv?s.dv.toFixed(1)+'%':'-')+'</td>';
-        h+='<td style="padding:2px;color:'+(s.rg&&parseFloat(s.rg)>10?'#16a34a':s.rg&&parseFloat(s.rg)<0?'#dc2626':'#64748b')+'">'+(s.rg||'-')+'</td>';
-        h+='<td style="padding:2px">'+(s.gm||'-')+'</td>';
-        h+='<td style="padding:2px">'+(s.roe||'-')+'</td>';
-        if(s.tp&&s.na>0){
-          var up=((s.tp-s.price)/s.price*100).toFixed(0);
-          var upc=up>10?'#16a34a':up<-10?'#dc2626':'#64748b';
-          h+='<td style="padding:2px;font-size:9px">$'+s.tp.toFixed(0)+'<span style="color:#94a3b8">('+s.na+')</span></td>';
-          h+='<td style="padding:2px;color:'+upc+';font-weight:700;font-size:9px">'+(up>0?'+':'')+up+'%</td>';
-        }else{
-          h+='<td style="padding:2px;color:#d4d4d4;font-size:9px">-</td><td style="padding:2px;color:#d4d4d4">-</td>';
-        }
-        h+='<td style="padding:2px"><span style="color:'+sc2+';font-weight:700;font-size:9px">'+(aL[s.action]||s.action)+'</span></td></tr>';
-      });
-      h+='</table></div>';
-      if(ss.length>8){
-        h+='<button onclick="toggleIndGrp(this)" data-gid="g'+gid+'" data-total="'+ss.length+'" style="display:block;margin:2px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:6px;padding:2px 10px;cursor:pointer;font-size:10px">展開 ('+ss.length+') ▼</button>';
-      }
+      h+='<td style="padding:2px"><span style="color:'+sc2+';font-weight:700;font-size:9px">'+(aL[s.action]||s.action)+'</span></td></tr>';
     });
+    h+='</table></div>';
+    if(ss.length>10){
+      h+='<button onclick="toggleIndGrp(this)" data-gid="g'+gid+'" data-total="'+ss.length+'" style="display:block;margin:2px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:6px;padding:2px 10px;cursor:pointer;font-size:10px">展開 ('+ss.length+') ▼</button>';
+    }
     o+=card(h);
   });
   return o;
@@ -523,6 +523,7 @@ function toggleIndGrp(btn){
   for(var i=0;i<rows.length;i++){rows[i].style.display=expanding?'':'none'}
   btn.textContent=expanding?'收合 ▲':'展開 ('+total+') ▼';
 }
+
 
 
 
