@@ -431,9 +431,9 @@ function rInst(){
 
 function rIndustry(){
   var stats=D.industry_stats||{},sigs=D.signals||[],o='';
-  // Yahoo industry → 中文子產業 mapping
+  // Yahoo industry → Chinese sub-industry
   var indMap={
-    'Electronic Components':'電子零組件',
+    'Electronic Components':'電子零組件(PCB/被動/連接器)',
     'Semiconductors':'IC設計/晶圓代工',
     'Semiconductor Equipment & Materials':'半導體設備/封測/載板',
     'Computer Hardware':'伺服器/筆電/電腦',
@@ -462,35 +462,64 @@ function rIndustry(){
     'Conglomerates':'集團/綜合',
     'Oil & Gas Refining & Marketing':'石油',
     'Aerospace & Defense':'航太/國防',
-    'Footwear & Accessories':'製鞋/紡織',
+    'Footwear & Accessories':'製鞋',
     'Real Estate Services':'營建/地產',
     'Engineering & Construction':'工程/營建',
+    'Copper':'銅/金屬',
+    'Packaging & Containers':'包裝/容器',
+    'Furnishings, Fixtures & Appliances':'家電/衛浴',
+    'Specialty Retail':'零售/通路'
   };
-  // Group stocks with yahoo data by sub-industry
-  var byInd={};
+  // Separate ETFs
+  var etfs=[],stocks=[];
   sigs.forEach(function(s){
+    if(s.code&&s.code.match(/^00/))etfs.push(s);
+    else stocks.push(s);
+  });
+  // Group ALL stocks by industry (use Yahoo sub-industry if available, else TWSE)
+  var byInd={};
+  stocks.forEach(function(s){
     var y=s.yahoo||{};
-    if(!y.rev_growth&&y.rev_growth!==0) return;
     var yInd=y.industry||'';
     var ind=indMap[yInd]||yInd||s.industry||'未分類';
-    if(!byInd[ind])byInd[ind]={stocks:[],totalRev:0,avgGrowth:0};
-    var revB=y.mcap_b?(y.mcap_b/((y.fwd_pe||20))):0;
-    byInd[ind].stocks.push({code:s.code,name:s.name,action:s.action,score:s.score||0,
-      rev_growth:y.rev_growth,op_margin:y.op_margin,gross_margin:y.gross_margin,
-      roe:y.roe,mcap_b:y.mcap_b,fwd_pe:y.fwd_pe,peg:y.peg,price:s.price||0});
+    if(!byInd[ind])byInd[ind]={stocks:[],buys:0,avgScore:0};
+    var st={code:s.code,name:s.name,action:s.action,score:s.score||0,
+      price:s.price||0,pe:s.pe,pb:s.pb,div_yield:s.div_yield,
+      rev_growth:y.rev_growth!=null?(y.rev_growth*100).toFixed(0)+'%':null,
+      op_margin:y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':null,
+      gross_margin:y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':null,
+      roe:y.roe!=null?(y.roe*100).toFixed(0)+'%':null,
+      fwd_pe:y.fwd_pe,peg:y.peg,mcap_b:y.mcap_b,
+      hasYahoo:!!y.rev_growth,
+      inst:s.institutional||{},chip:s.chip||''};
+    byInd[ind].stocks.push(st);
+    if(s.action==='BUY')byInd[ind].buys++;
   });
-  // Industry summary cards (sorted by avg growth)
+  // Sort industries by BUY count then avg score
   var indList=Object.keys(byInd).map(function(k){
     var d=byInd[k];
     var n=d.stocks.length;
-    var avgG=d.stocks.reduce(function(a,s){return a+(s.rev_growth||0)},0)/n;
-    var avgM=d.stocks.reduce(function(a,s){return a+(s.op_margin||0)},0)/n;
-    d.stocks.sort(function(a,b){return (b.mcap_b||0)-(a.mcap_b||0)});
-    return {name:k,count:n,avgGrowth:avgG,avgMargin:avgM,stocks:d.stocks};
-  }).sort(function(a,b){return b.avgGrowth-a.avgGrowth});
-  // Sector overview table (keep the simple one)
-  var sKeys=Object.keys(stats).sort(function(a,b){return (stats[b].avg_score||0)-(stats[a].avg_score||0)});
-  o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽</div>'+
+    var totalScore=d.stocks.reduce(function(a,s){return a+s.score},0);
+    d.avgScore=+(totalScore/n).toFixed(1);
+    d.stocks.sort(function(a,b){return b.score-a.score||(b.mcap_b||0)-(a.mcap_b||0)});
+    return {name:k,count:n,buys:d.buys,avgScore:d.avgScore,stocks:d.stocks};
+  }).sort(function(a,b){return b.buys-a.buys||b.avgScore-a.avgScore});
+  // ETF section
+  if(etfs.length){
+    var eh='<div style="font-size:14px;font-weight:700;margin-bottom:6px">📦 ETF <span style="font-size:10px;color:#94a3b8;font-weight:400">('+etfs.length+'支，不列入產業分析)</span></div>';
+    eh+='<div style="display:flex;flex-wrap:wrap;gap:4px">';
+    etfs.sort(function(a,b){return (b.score||0)-(a.score||0)});
+    etfs.forEach(function(e){
+      var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
+      var c=ac[e.action]||'#94a3b8';
+      eh+='<span style="background:'+c+'15;border:1px solid '+c+';color:'+c+';padding:2px 6px;border-radius:6px;font-size:10px;font-weight:600">'+e.code+' '+e.name+' $'+(e.price||0)+' ('+e.score+')</span>';
+    });
+    eh+='</div>';
+    o+=card(eh);
+  }
+  // Industry overview table (all 1960 stocks)
+  var sKeys=Object.keys(stats).sort(function(a,b){return (stats[b].buy||0)-(stats[a].buy||0)||(stats[b].avg_score||0)-(stats[a].avg_score||0)});
+  o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽 <span style="font-size:10px;color:#94a3b8;font-weight:400">(證交所分類，'+sigs.length+'支)</span></div>'+
   '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
   '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">產業</th><th>家數</th><th style="color:#16a34a">買入</th><th>均分</th></tr>'+
   sKeys.map(function(k){
@@ -502,52 +531,65 @@ function rIndustry(){
       '<td style="padding:3px;text-align:center;color:#16a34a;font-weight:700">'+(s.buy||0)+'</td>'+
       '<td style="padding:3px;text-align:center;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'
   }).join('')+'</table></div>');
-  // Detailed industry cards (only for industries with yahoo data)
-  o+='<div style="font-size:14px;font-weight:700;margin:12px 0 6px">📊 產業競爭分析 <span style="font-size:10px;color:#94a3b8;font-weight:400">涵蓋前200大（有Yahoo深度數據）</span></div>';
-  var shown=0;
+  // Detailed industry cards — ALL stocks
+  o+='<div style="font-size:14px;font-weight:700;margin:12px 0 6px">📊 產業競爭分析 <span style="font-size:10px;color:#94a3b8;font-weight:400">('+stocks.length+'支個股，依子產業分類)</span></div>';
+  var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
+  var aLabels={'BUY':'買','WATCH':'觀望','NEUTRAL':'中性','REDUCE':'減','AVOID':'避'};
   indList.forEach(function(ind){
     if(ind.count<2)return;
-    var fire=ind.avgGrowth>0.5?'🔥🔥':ind.avgGrowth>0.2?'🔥':'';
-    var gc=ind.avgGrowth>0.2?'#16a34a':ind.avgGrowth>0?'#64748b':'#dc2626';
-    var mc=ind.avgMargin>0.15?'#16a34a':ind.avgMargin>0.05?'#64748b':'#dc2626';
-    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap">';
+    var fire=ind.buys>=3?'🔥🔥':ind.buys>=1?'🔥':'';
+    var sc=ind.avgScore>0?'#16a34a':ind.avgScore<-1?'#dc2626':'#64748b';
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap">';
     h+='<div style="font-size:13px;font-weight:700">'+fire+' '+ind.name+' <span style="font-size:10px;color:#94a3b8;font-weight:400">('+ind.count+'支)</span></div>';
-    h+='<div style="font-size:10px;color:#94a3b8">均成長 <b style="color:'+gc+'">'+(ind.avgGrowth*100).toFixed(0)+'%</b> · 均利潤 <b style="color:'+mc+'">'+(ind.avgMargin*100).toFixed(0)+'%</b></div>';
+    h+='<div style="font-size:10px"><span style="color:#16a34a;font-weight:700">'+ind.buys+'買</span> · 均分 <b style="color:'+sc+'">'+(ind.avgScore>0?'+':'')+ind.avgScore+'</b></div>';
     h+='</div>';
-    // Stock table
+    // Table with all stocks
     h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">';
-    h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>市值</th><th>成長</th><th>毛利</th><th>營利</th><th>ROE</th><th>PE</th><th>PEG</th><th>訊號</th></tr>';
-    ind.stocks.forEach(function(s){
-      var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
-      var sc=ac[s.action]||'#94a3b8';
-      var aLabels={'BUY':'買','WATCH':'觀望','NEUTRAL':'中性','REDUCE':'減','AVOID':'避'};
-      var gv=s.rev_growth!=null?(s.rev_growth*100).toFixed(0)+'%':'-';
-      var gmv=s.gross_margin!=null?(s.gross_margin*100).toFixed(0)+'%':'-';
-      var omv=s.op_margin!=null?(s.op_margin*100).toFixed(0)+'%':'-';
-      var rv=s.roe!=null?(s.roe*100).toFixed(0)+'%':'-';
-      var pev=s.fwd_pe?s.fwd_pe.toFixed(0)+'x':'-';
-      var pegv=s.peg?s.peg.toFixed(1):'-';
-      var mcv=s.mcap_b?(s.mcap_b>100?s.mcap_b.toFixed(0):s.mcap_b.toFixed(1))+'B':'-';
-      h+='<tr style="border-bottom:1px solid #f1f5f9">';
-      h+='<td style="padding:2px;font-weight:600">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
-      h+='<td style="padding:2px;color:#64748b">$'+mcv+'</td>';
-      h+='<td style="padding:2px;color:'+(s.rev_growth>0.1?'#16a34a':s.rev_growth<0?'#dc2626':'#64748b')+'">'+gv+'</td>';
-      h+='<td style="padding:2px">'+gmv+'</td>';
-      h+='<td style="padding:2px">'+omv+'</td>';
-      h+='<td style="padding:2px">'+rv+'</td>';
-      h+='<td style="padding:2px">'+pev+'</td>';
-      h+='<td style="padding:2px">'+pegv+'</td>';
-      h+='<td style="padding:2px"><span style="color:'+sc+';font-weight:700;font-size:9px">'+(aLabels[s.action]||s.action)+'</span></td>';
-      h+='</tr>';
+    // Check if any stock in this industry has Yahoo data
+    var hasDeep=ind.stocks.some(function(s){return s.hasYahoo});
+    if(hasDeep){
+      h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>PE</th><th>PB</th><th>殖利</th><th>成長</th><th>毛利</th><th>營利</th><th>ROE</th><th>訊號</th></tr>';
+    }else{
+      h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>價格</th><th>PE</th><th>PB</th><th>殖利率</th><th>籌碼</th><th>訊號</th></tr>';
+    }
+    // Show top 10, collapse rest
+    var showN=10;
+    ind.stocks.forEach(function(s,i){
+      var sc2=ac[s.action]||'#94a3b8';
+      var cls=i>=showN?' style="display:none" class="ind-extra-'+ind.name.replace(/[^a-zA-Z0-9\u4e00-\u9fff]/g,'')+'"':'';
+      if(hasDeep){
+        h+='<tr'+cls+' style="border-bottom:1px solid #f1f5f9'+(i>=showN?';display:none':'')+'" data-indgrp="'+ind.name.replace(/"/g,'')+'">';
+        h+='<td style="padding:2px;font-weight:600">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
+        h+='<td style="padding:2px">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
+        h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
+        h+='<td style="padding:2px;color:'+(s.div_yield&&s.div_yield>5?'#16a34a':'#64748b')+'">'+(s.div_yield?s.div_yield.toFixed(1)+'%':'-')+'</td>';
+        h+='<td style="padding:2px;color:'+(s.rev_growth&&parseFloat(s.rev_growth)>10?'#16a34a':s.rev_growth&&parseFloat(s.rev_growth)<0?'#dc2626':'#64748b')+'">'+(s.rev_growth||'-')+'</td>';
+        h+='<td style="padding:2px">'+(s.gross_margin||'-')+'</td>';
+        h+='<td style="padding:2px">'+(s.op_margin||'-')+'</td>';
+        h+='<td style="padding:2px">'+(s.roe||'-')+'</td>';
+        h+='<td style="padding:2px"><span style="color:'+sc2+';font-weight:700;font-size:9px">'+(aLabels[s.action]||s.action)+'</span></td>';
+        h+='</tr>';
+      }else{
+        h+='<tr style="border-bottom:1px solid #f1f5f9'+(i>=showN?';display:none':'')+'" data-indgrp="'+ind.name.replace(/"/g,'')+'">';
+        h+='<td style="padding:2px;font-weight:600">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
+        h+='<td style="padding:2px">$'+(s.price||0).toLocaleString()+'</td>';
+        h+='<td style="padding:2px">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
+        h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
+        h+='<td style="padding:2px;color:'+(s.div_yield&&s.div_yield>5?'#16a34a':'#64748b')+'">'+(s.div_yield?s.div_yield.toFixed(1)+'%':'-')+'</td>';
+        h+='<td style="padding:2px;font-size:9px">'+(s.chip||'')+'</td>';
+        h+='<td style="padding:2px"><span style="color:'+sc2+';font-weight:700;font-size:9px">'+(aLabels[s.action]||s.action)+'</span></td>';
+        h+='</tr>';
+      }
     });
     h+='</table></div>';
+    if(ind.count>showN){
+      var grp=ind.name.replace(/"/g,'');
+      h+='<button onclick="var rows=document.querySelectorAll(\'tr[data-indgrp=\"'+grp+'\"]\');var show=this.textContent.includes(\'展開\');for(var i=10;i<rows.length;i++)rows[i].style.display=show?\'\':\'none\';this.textContent=show?\'收合 ▲\':\'展開更多 ('+ind.count+') ▼\'" style="display:block;margin:4px auto 0;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:6px;padding:3px 12px;cursor:pointer;font-size:10px">展開更多 ('+ind.count+') ▼</button>';
+    }
     o+=card(h);
-    shown++;
   });
-  if(!shown)o+=card('<p style="color:#94a3b8;text-align:center">暫無深度產業數據</p>');
   return o;
 }
-
 
 function rRuleOf40(){
   var sigs=D.signals||[];
