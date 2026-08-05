@@ -431,52 +431,9 @@ function rInst(){
 
 function rIndustry(){
   var stats=D.industry_stats||{},sigs=D.signals||[],o='';
-  // Yahoo → 中文子產業
-  var subMap={
-    'Electronic Components':'PCB/連接器/被動元件',
-    'Semiconductors':'IC設計/晶圓代工/記憶體',
-    'Semiconductor Equipment & Materials':'封測/載板/設備',
-    'Computer Hardware':'伺服器/筆電/電腦',
-    'Banks - Regional':'銀行',
-    'Insurance - Life':'壽險',
-    'Financial Conglomerates':'金控',
-    'Capital Markets':'證券',
-    'Chemicals':'基礎化工',
-    'Specialty Chemicals':'特用化學',
-    'Steel':'鋼鐵',
-    'Marine Shipping':'海運',
-    'Airlines':'航空',
-    'Building Materials':'建材/水泥',
-    'Solar':'太陽能',
-    'Communication Equipment':'網通設備',
-    'Telecom Services':'電信服務',
-    'Consumer Electronics':'消費電子',
-    'Textile Manufacturing':'紡織製造',
-    'Electrical Equipment & Parts':'電力設備',
-    'Electronics & Computer Distribution':'電子通路',
-    'Specialty Industrial Machinery':'工具機/機械',
-    'Tools & Accessories':'精密工具',
-    'Auto Parts':'汽車零件',
-    'Auto Manufacturers':'汽車製造',
-    'Packaged Foods':'食品',
-    'Conglomerates':'綜合企業',
-    'Oil & Gas Refining & Marketing':'石油煉製',
-    'Aerospace & Defense':'航太國防',
-    'Footwear & Accessories':'製鞋',
-    'Real Estate Services':'不動產',
-    'Engineering & Construction':'工程營造',
-    'Copper':'銅/金屬加工',
-    'Packaging & Containers':'包裝容器',
-    'Furnishings, Fixtures & Appliances':'家電衛浴',
-    'Specialty Retail':'零售通路'
-  };
-  // Separate ETFs
+  var SUB={"2302":"類比IC","2303":"晶圓代工","2329":"封測","2330":"晶圓代工","2337":"記憶體","2338":"半導體材料","2340":"功率元件","2342":"晶圓代工","2344":"記憶體","2351":"封測","2363":"IC設計","2369":"封測","2379":"IC設計","2388":"IC設計","2401":"IC設計","2408":"記憶體","2434":"封測","2436":"IC設計","2441":"封測","2449":"封測","2451":"記憶體","2454":"IC設計","2458":"IC設計","2481":"功率元件","3006":"IC設計","3014":"IC設計","3016":"半導體材料","3034":"驅動IC","3035":"ASIC/IP","3041":"IC設計","3094":"IC設計","3135":"IC設計","3150":"IC設計","3189":"載板/基板","3257":"IC設計","3413":"半導體設備","3443":"ASIC/IP","3450":"封測","3530":"IC設計","3532":"半導體材料","3545":"驅動IC","3583":"半導體設備","3588":"類比IC","3592":"驅動IC","3661":"ASIC/IP","3686":"半導體材料","3711":"封測","4919":"IC設計","4952":"IC設計","4961":"類比IC","4967":"記憶體","4968":"IC設計","5222":"IC設計","5236":"IC設計","5269":"IC設計","5285":"封測","5471":"IC設計","6202":"IC設計","6239":"封測","6243":"IC設計","6257":"封測","6271":"封測","6415":"類比IC","6451":"封測","6515":"半導體設備","6525":"功率元件","6526":"IC設計","6531":"封測","6533":"ASIC/IP","6552":"半導體材料","6573":"IC設計","6695":"IC設計","6719":"類比IC","6756":"IC設計","6770":"晶圓代工","6789":"半導體材料","6799":"類比IC","6854":"LED","6909":"IC設計","6921":"IC設計","6937":"半導體設備","6962":"驅動IC","7730":"半導體設備","7749":"IC設計","7768":"IC設計","7769":"半導體設備","7822":"半導體設備","8016":"驅動IC","8028":"半導體材料","8081":"類比IC","8110":"半導體設備","8131":"封測","8150":"封測","8162":"IC設計","8261":"功率元件","8271":"記憶體","1471":"連接器","1582":"機殼/機構件","2059":"散熱","2308":"電源供應器","2313":"PCB","2316":"PCB","2327":"被動元件","2328":"連接器","2355":"PCB","2367":"PCB","2368":"PCB","2375":"被動元件","2383":"CCL銅箔基板","2385":"電源供應器","2392":"連接器","2402":"軟板FPC","2413":"PCB","2415":"被動元件","2420":"電源供應器","2421":"散熱","2428":"被動元件","2431":"連接器","2440":"連接器","2457":"電源供應器","2460":"連接器","2462":"連接器","2467":"PCB設備","2472":"被動元件","2476":"機殼/機構件","2478":"被動元件","2483":"被動元件","2484":"被動元件","2492":"被動元件","2493":"被動元件","3003":"連接器","3011":"連接器","3015":"電源供應器","3021":"連接器","3023":"連接器","3026":"被動元件","3032":"電源供應器","3037":"PCB","3042":"被動元件","3044":"PCB","3058":"連接器","3090":"被動元件","3092":"連接器","3229":"被動元件","3296":"被動元件","3308":"連接器","3321":"PCB","3338":"散熱","3376":"連接器","3432":"連接器","3501":"連接器","3533":"連接器","3550":"連接器","3593":"連接器","3605":"連接器","3607":"連接器","3645":"光學膜/材料","3653":"散熱","3679":"連接器","3715":"PCB","4545":"機殼/機構件","4912":"連接器","4915":"連接器","4927":"PCB","4943":"連接器","4958":"PCB","4989":"PCB","4999":"PCB","5469":"PCB","6108":"PCB","6115":"機殼/機構件","6133":"連接器","6141":"PCB","6153":"軟板FPC","6155":"連接器","6191":"PCB","6197":"連接器","6205":"連接器","6213":"CCL銅箔基板","6224":"被動元件","6269":"軟板FPC","6272":"散熱","6282":"電源供應器","6412":"電源供應器","6449":"被動元件","6672":"CCL銅箔基板","6715":"連接器","6781":"電源供應器","6805":"連接器","6834":"被動元件","6835":"連接器","6862":"連接器","6924":"連接器","7788":"連接器","7795":"連接器","8039":"軟板FPC","8046":"PCB/載板","8103":"連接器","8213":"PCB","8249":"散熱","2301":"電源/LED照明","2305":"周邊裝置","2324":"伺服器/AI","2331":"主機板/顯卡","2352":"品牌電腦","2353":"品牌電腦","2356":"伺服器/AI","2357":"品牌電腦","2362":"品牌電腦","2364":"品牌電腦","2365":"周邊裝置","2376":"主機板/顯卡","2377":"主機板/顯卡","2380":"周邊裝置","2382":"伺服器/AI","2387":"周邊裝置","2395":"工業電腦IPC","2397":"工業電腦IPC","2399":"主機板/顯卡","2405":"周邊裝置","2417":"周邊裝置","2425":"主機板/顯卡","2432":"品牌電腦","2465":"主機板/顯卡","2495":"儲存設備","3002":"品牌電腦","3005":"工業電腦IPC","3013":"機殼/機構件","3017":"散熱","3022":"工業電腦IPC","3046":"品牌電腦","3057":"儲存設備","3060":"機殼/機構件","3231":"伺服器/AI","3416":"工業電腦IPC","3494":"周邊裝置","3515":"主機板/顯卡","3652":"周邊裝置","3701":"品牌電腦","3706":"伺服器/AI","3712":"電源/LED照明","4916":"電源供應器","4938":"伺服器/AI","5215":"連接器","5258":"周邊裝置","6117":"機殼/機構件","6128":"散熱","6166":"工業電腦IPC","6206":"工業電腦IPC","6230":"散熱","6235":"周邊裝置","6277":"周邊裝置","6414":"工業電腦IPC","6579":"工業電腦IPC","6591":"電源供應器","6669":"伺服器/AI","6831":"工業電腦IPC","6928":"伺服器/AI","6933":"伺服器/AI","7711":"伺服器/AI","8114":"工業電腦IPC","8163":"周邊裝置","8210":"機殼/機構件","9912":"周邊裝置","2323":"光碟/儲存媒體","2349":"光碟/儲存媒體","2374":"光學鏡頭","2393":"LED","2406":"太陽能","2409":"面板","2426":"LED","2429":"LED","2438":"LED","2466":"LED","2486":"連接器","2489":"面板","2491":"背光/導光板","3008":"光學鏡頭","3019":"光學鏡頭","3024":"周邊裝置","3031":"LED","3038":"LED","3049":"機殼/機構件","3050":"光碟/儲存媒體","3051":"LED","3059":"光學鏡頭","3149":"光學膜/材料","3168":"LED","3356":"周邊裝置","3406":"光學鏡頭","3437":"LED","3481":"面板","3504":"光學鏡頭","3535":"LED","3543":"機殼/機構件","3563":"檢測設備","3576":"太陽能","3591":"LED","3622":"觸控","3673":"觸控","3714":"LED","4934":"LED","4935":"背光/導光板","4942":"連接器","4949":"機殼/機構件","4956":"LED","4960":"光學膜/材料","4976":"光學鏡頭","5234":"光學膜/材料","5243":"機殼/機構件","5244":"LED","5484":"周邊裝置","6116":"面板","6120":"背光/導光板","6164":"面板","6168":"LED","6176":"背光/導光板","6209":"光學鏡頭","6225":"周邊裝置","6226":"LED","6278":"PCB","6405":"LED","6443":"太陽能","6456":"觸控","6477":"太陽能","6668":"LED","6706":"半導體設備","6742":"LED","6916":"面板","8104":"LED","8105":"面板","8215":"光學膜/材料","2314":"天線/RF","2321":"網通設備","2332":"網通設備","2345":"網通設備","2412":"電信服務","2419":"網通設備","2424":"連接器","2439":"音訊/視訊","2444":"網通設備","2450":"手機/消費電子","2455":"天線/RF","2485":"天線/RF","2498":"手機/消費電子","3025":"天線/RF","3027":"電源供應器","3045":"電信服務","3047":"網通設備","3062":"網通設備","3138":"天線/RF","3311":"連接器","3380":"網通設備","3419":"連接器","3447":"天線/RF","3596":"網通設備","3669":"音訊/視訊","3694":"網通設備","3704":"網通設備","4904":"電信服務","4906":"網通設備","4977":"連接器","5388":"網通設備","6136":"音訊/視訊","6142":"電源供應器","6152":"連接器","6216":"網通設備","6285":"網通設備","6416":"網通設備","6426":"連接器","6442":"連接器","6674":"連接器","6792":"網通設備","6863":"網通設備","7689":"網通設備","8011":"連接器","8045":"LED","2312":"EMS代工","2317":"EMS代工","2354":"機殼/機構件","2359":"自動化設備","2360":"檢測設備","2373":"周邊裝置","2390":"電子材料","2404":"半導體設備","2423":"檢測設備","2433":"周邊裝置","2459":"電子材料","2461":"電子材料","2464":"自動化設備","2474":"機殼/機構件","2477":"連接器","2482":"連接器","2488":"機殼/機構件","3018":"電源/LED照明","3030":"檢測設備","3043":"UPS/電力","3305":"電子材料","3518":"檢測設備","3617":"UPS/電力","3665":"連接器","4585":"自動化設備","4588":"UPS/電力","5225":"檢測設備","6139":"半導體設備","6192":"電源供應器","6196":"半導體設備","6201":"連接器","6215":"自動化設備","6283":"電子材料","6409":"電源供應器","6438":"自動化設備","6558":"電池/儲能","6658":"自動化設備","6691":"半導體設備","6698":"電子材料","6722":"自動化設備","6743":"電源供應器","6830":"檢測設備","7631":"IC設計","8021":"機殼/機構件","8201":"周邊裝置","8499":"檢測設備","1503":"重電","1504":"馬達/壓縮機","1506":"馬達/壓縮機","1513":"重電","1514":"重電","1515":"工具機","1517":"其他機械","1519":"重電","1526":"其他機械","1527":"其他機械","1528":"其他機械","1529":"其他機械","1530":"工具機","1531":"其他機械","1532":"其他機械","1535":"其他機械","1537":"電池/儲能","1539":"其他機械","1540":"工具機","1541":"其他機械","1558":"其他機械","1560":"半導體材料","1583":"工具機","1590":"自動化/傳動","1597":"自動化/傳動","2049":"工具機","2371":"重電","3167":"其他機械","4526":"工具機","4532":"馬達/壓縮機","4540":"自動化/傳動","4552":"其他機械","4555":"自動化/傳動","4560":"其他機械","4562":"工具機","4564":"自動化/傳動","4566":"其他機械","4571":"其他機械","4572":"其他機械","4576":"自動化/傳動","4583":"自動化/傳動","4590":"馬達/壓縮機","5288":"其他機械","6606":"其他機械","7750":"自動化/傳動","8222":"其他機械","8374":"自動化/傳動","8996":"散熱"};
   var etfs=[],stocks=[];
-  sigs.forEach(function(s){
-    if(s.code&&s.code.match(/^00/))etfs.push(s);
-    else stocks.push(s);
-  });
-  // ETF
+  sigs.forEach(function(s){if(s.code&&s.code.match(/^00/))etfs.push(s);else stocks.push(s)});
   if(etfs.length){
     var eh='<div style="font-size:14px;font-weight:700;margin-bottom:6px">📦 ETF <span style="font-size:10px;color:#94a3b8;font-weight:400">('+etfs.length+'支)</span></div>';
     eh+='<div style="display:flex;flex-wrap:wrap;gap:4px">';
@@ -489,84 +446,77 @@ function rIndustry(){
     eh+='</div>';
     o+=card(eh);
   }
-  // Overview table
   var sKeys=Object.keys(stats).sort(function(a,b){return(stats[b].buy||0)-(stats[a].buy||0)||(stats[b].avg_score||0)-(stats[a].avg_score||0)});
   o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽</div>'+
   '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">'+
   '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">產業</th><th>家數</th><th style="color:#16a34a">買入</th><th>均分</th></tr>'+
   sKeys.map(function(k){
-    var s=stats[k];
-    var c=s.avg_score>0?'#16a34a':s.avg_score<-1?'#dc2626':'#64748b';
+    var s=stats[k];var c=s.avg_score>0?'#16a34a':s.avg_score<-1?'#dc2626':'#64748b';
     return '<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:600">'+k+'</td><td style="padding:3px;text-align:center">'+s.count+'</td><td style="padding:3px;text-align:center;color:#16a34a;font-weight:700">'+(s.buy||0)+'</td><td style="padding:3px;text-align:center;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'
   }).join('')+'</table></div>');
-  // Two-level grouping: TWSE → Yahoo sub-industry
   var byTwse={};
   stocks.forEach(function(s){
     var twse=s.industry||'未分類';
-    if(twse.indexOf('其他')===0)twse='其他';
-    if(!byTwse[twse])byTwse[twse]={subs:{},total:0,buys:0,totalScore:0};
+    if(twse.indexOf('其他')===0&&twse!=='其他電子')twse='其他';
+    if(!byTwse[twse])byTwse[twse]={subs:{},total:0,buys:0,ts:0};
     byTwse[twse].total++;
     if(s.action==='BUY')byTwse[twse].buys++;
-    byTwse[twse].totalScore+=(s.score||0);
-    var y=s.yahoo||{};
-    var sub=subMap[y.industry||'']||'一般';
+    byTwse[twse].ts+=(s.score||0);
+    var sub=SUB[s.code]||'一般';
     if(!byTwse[twse].subs[sub])byTwse[twse].subs[sub]=[];
-    var hasDeep=y.rev_growth!=null;
+    var y=s.yahoo||{};var hd=y.rev_growth!=null;
     byTwse[twse].subs[sub].push({code:s.code,name:s.name,action:s.action,score:s.score||0,
       price:s.price||0,pe:s.pe,pb:s.pb,div_yield:s.div_yield,chip:s.chip||'',
-      rev_growth:hasDeep?(y.rev_growth*100).toFixed(0)+'%':null,
-      op_margin:hasDeep&&y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':null,
-      gross_margin:hasDeep&&y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':null,
-      roe:hasDeep&&y.roe!=null?(y.roe*100).toFixed(0)+'%':null,
-      mcap_b:y.mcap_b,hasDeep:hasDeep});
+      rg:hd?(y.rev_growth*100).toFixed(0)+'%':null,
+      om:hd&&y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':null,
+      gm:hd&&y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':null,
+      roe:hd&&y.roe!=null?(y.roe*100).toFixed(0)+'%':null,
+      mcap:y.mcap_b,hd:hd});
   });
   var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
   var aL={'BUY':'買','WATCH':'觀望','NEUTRAL':'中性','REDUCE':'減','AVOID':'避'};
-  var twseList=Object.keys(byTwse).sort(function(a,b){
-    return byTwse[b].buys-byTwse[a].buys||(byTwse[b].totalScore/byTwse[b].total)-(byTwse[a].totalScore/byTwse[a].total);
-  });
-  o+='<div style="font-size:14px;font-weight:700;margin:12px 0 6px">📊 產業競爭分析 <span style="font-size:10px;color:#94a3b8;font-weight:400">('+stocks.length+'支，按子產業分類)</span></div>';
+  var tl=Object.keys(byTwse).sort(function(a,b){return byTwse[b].buys-byTwse[a].buys||(byTwse[b].ts/byTwse[b].total)-(byTwse[a].ts/byTwse[a].total)});
+  o+='<div style="font-size:14px;font-weight:700;margin:12px 0 6px">📊 產業競爭分析 <span style="font-size:10px;color:#94a3b8;font-weight:400">(按營業項目分類)</span></div>';
   var gid=0;
-  twseList.forEach(function(twse){
-    var grp=byTwse[twse];
-    if(grp.total<2)return;
-    var avgS=+(grp.totalScore/grp.total).toFixed(1);
+  tl.forEach(function(twse){
+    var grp=byTwse[twse];if(grp.total<2)return;
+    var avgS=+(grp.ts/grp.total).toFixed(1);
     var fire=grp.buys>=3?'🔥🔥':grp.buys>=1?'🔥':'';
     var sc=avgS>0?'#16a34a':avgS<-1?'#dc2626':'#64748b';
-    var subKeys=Object.keys(grp.subs).sort(function(a,b){return grp.subs[b].length-grp.subs[a].length});
-    var hasSubs=subKeys.length>1||(subKeys.length===1&&subKeys[0]!=='一般');
+    var sks=Object.keys(grp.subs).sort(function(a,b){return grp.subs[b].length-grp.subs[a].length});
+    var hasSubs=sks.length>1||(sks.length===1&&sks[0]!=='一般');
     var h='<div style="font-size:14px;font-weight:700;margin-bottom:4px;border-bottom:2px solid #e2e8f0;padding-bottom:4px">'+fire+' '+twse+' <span style="font-size:10px;color:#94a3b8;font-weight:400">('+grp.total+'支 · <span style="color:#16a34a">'+grp.buys+'買</span> · 均分 <span style="color:'+sc+'">'+(avgS>0?'+':'')+avgS+'</span>)</span></div>';
-    subKeys.forEach(function(sub){
-      gid++;
-      var sStocks=grp.subs[sub];
-      sStocks.sort(function(a,b){return b.score-a.score||(b.mcap_b||0)-(a.mcap_b||0)});
-      var hasDeep=sStocks.some(function(s){return s.hasDeep});
+    sks.forEach(function(sub){
+      gid++;var ss=grp.subs[sub];
+      ss.sort(function(a,b){return b.score-a.score||(b.mcap||0)-(a.mcap||0)});
+      var hd=ss.some(function(s){return s.hd});
       if(hasSubs){
-        var subBuys=sStocks.filter(function(s){return s.action==='BUY'}).length;
-        h+='<div style="font-size:11px;font-weight:700;color:#4f46e5;margin:6px 0 2px;padding-left:4px;border-left:3px solid #818cf8">'+sub+' <span style="color:#94a3b8;font-weight:400">('+sStocks.length+'支'+(subBuys?', '+subBuys+'買':'')+')</span></div>';
+        var sb=ss.filter(function(s){return s.action==='BUY'}).length;
+        h+='<div style="font-size:11px;font-weight:700;color:#4f46e5;margin:6px 0 2px;padding-left:4px;border-left:3px solid #818cf8">'+sub+' <span style="color:#94a3b8;font-weight:400">('+ss.length+'支'+(sb?', '+sb+'買':'')+')</span></div>';
       }
       h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">';
-      if(hasDeep){
+      if(hd){
         h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>PE</th><th>PB</th><th>殖利</th><th>成長</th><th>毛利</th><th>營利</th><th>ROE</th><th>訊號</th></tr>';
       }else{
         h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>價格</th><th>PE</th><th>PB</th><th>殖利率</th><th>籌碼</th><th>訊號</th></tr>';
       }
-      sStocks.forEach(function(s,i){
+      ss.forEach(function(s,i){
         var sc2=ac[s.action]||'#94a3b8';
-        var hide=i>=8?' data-g="g'+gid+'" style="display:none;border-bottom:1px solid #f1f5f9"':'';
-        if(hasDeep){
-          h+='<tr'+(i<8?' style="border-bottom:1px solid #f1f5f9"':hide)+(i>=8?' data-g="g'+gid+'"':'')+'>';
+        var vis=i>=8?'display:none;':'';
+        var dg=i>=8?' data-g="g'+gid+'"':'';
+        if(hd){
+          h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
           h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
           h+='<td style="padding:2px">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
           h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
           h+='<td style="padding:2px;color:'+(s.div_yield&&s.div_yield>5?'#16a34a':'#64748b')+'">'+(s.div_yield?s.div_yield.toFixed(1)+'%':'-')+'</td>';
-          h+='<td style="padding:2px;color:'+(s.rev_growth&&parseFloat(s.rev_growth)>10?'#16a34a':s.rev_growth&&parseFloat(s.rev_growth)<0?'#dc2626':'#64748b')+'">'+(s.rev_growth||'-')+'</td>';
-          h+='<td style="padding:2px">'+(s.gross_margin||'-')+'</td>';
-          h+='<td style="padding:2px">'+(s.op_margin||'-')+'</td>';
+          h+='<td style="padding:2px;color:'+(s.rg&&parseFloat(s.rg)>10?'#16a34a':s.rg&&parseFloat(s.rg)<0?'#dc2626':'#64748b')+'">'+(s.rg||'-')+'</td>';
+          h+='<td style="padding:2px">'+(s.gm||'-')+'</td>';
+          h+='<td style="padding:2px">'+(s.om||'-')+'</td>';
           h+='<td style="padding:2px">'+(s.roe||'-')+'</td>';
           h+='<td style="padding:2px"><span style="color:'+sc2+';font-weight:700;font-size:9px">'+(aL[s.action]||s.action)+'</span></td></tr>';
         }else{
-          h+='<tr'+(i<8?' style="border-bottom:1px solid #f1f5f9"':hide)+(i>=8?' data-g="g'+gid+'"':'')+'>';
+          h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
           h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span></td>';
           h+='<td style="padding:2px">$'+(s.price||0).toLocaleString()+'</td>';
           h+='<td style="padding:2px">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
@@ -577,23 +527,25 @@ function rIndustry(){
         }
       });
       h+='</table></div>';
-      if(sStocks.length>8){
-        h+='<button onclick="toggleIndGrp(\'g'+gid+'\',this,'+sStocks.length+')" style="display:block;margin:2px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:6px;padding:2px 10px;cursor:pointer;font-size:10px">展開 ('+sStocks.length+') ▼</button>';
+      if(ss.length>8){
+        h+='<button onclick="toggleIndGrp(this)" data-gid="g'+gid+'" data-total="'+ss.length+'" style="display:block;margin:2px auto;background:#f0f9ff;border:1px solid #bae6fd;color:#0369a1;border-radius:6px;padding:2px 10px;cursor:pointer;font-size:10px">展開 ('+ss.length+') ▼</button>';
       }
     });
     o+=card(h);
   });
   return o;
 }
-
-function toggleIndGrp(g,btn,total){
+function toggleIndGrp(btn){
+  var g=btn.getAttribute('data-gid');
+  var total=btn.getAttribute('data-total');
   var rows=document.querySelectorAll('tr[data-g="'+g+'"]');
   var expanding=btn.textContent.indexOf('展開')>=0;
-  for(var i=10;i<rows.length;i++){
+  for(var i=0;i<rows.length;i++){
     rows[i].style.display=expanding?'':'none';
   }
-  btn.textContent=expanding?'收合 ▲':'展開更多 ('+total+') ▼';
+  btn.textContent=expanding?'收合 ▲':'展開 ('+total+') ▼';
 }
+
 
 function rRuleOf40(){
   var sigs=D.signals||[];
