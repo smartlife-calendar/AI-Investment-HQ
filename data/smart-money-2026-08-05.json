@@ -1,0 +1,53 @@
+{
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T10:01:31.535184+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 5,
+  "stocks": [
+    {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies Inc.",
+      "price": 162.66,
+      "change_pct": 29.45,
+      "vol_ratio": 4.2,
+      "volume": 172005673,
+      "avg_volume": 40953731
+    },
+    {
+      "symbol": "NVO",
+      "name": "Novo Nordisk A/S",
+      "price": 44.28,
+      "change_pct": -5.97,
+      "vol_ratio": 3.7,
+      "volume": 45688713,
+      "avg_volume": 12348300
+    },
+    {
+      "symbol": "CMG",
+      "name": "Chipotle Mexican Grill, Inc.",
+      "price": 33.82,
+      "change_pct": -9.72,
+      "vol_ratio": 2.5,
+      "volume": 48013338,
+      "avg_volume": 19205335
+    },
+    {
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 20.38,
+      "change_pct": -15.65,
+      "vol_ratio": 2.2,
+      "volume": 58994705,
+      "avg_volume": 26815774
+    },
+    {
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "price": 5.79,
+      "change_pct": 14.88,
+      "vol_ratio": 2.1,
+      "volume": 88440851,
+      "avg_volume": 42114690
+    }
+  ]
+}
