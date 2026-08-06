@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-05T10:00:03+08:00",
+  "generated_at": "2026-08-06T10:00:02+08:00",
   "news": [
+    {
+      "title": "VOO’s 0.03% Fee Hides the Real Cost: 28.7% of Your Money in Seven Stocks",
+      "url": "https://finance.yahoo.com/m/e6a879a9-e7d8-3a82-9c0c-2d5d4f7e7882/voo%E2%80%99s-0.03%25-fee-hides-the.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1785901506
+    },
     {
       "title": "History Says This 1 Investing Move Can Set You Up for Life. Here's How.",
       "url": "https://finance.yahoo.com/m/2f2c5984-c491-356c-bb0b-d3c2d0b27be9/history-says-this-1-investing.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/f0951b68-a2c5-3f6a-bdbc-67fb8e90b3d6/the-vanguard-etf-built-for.html",
       "publisher": "Motley Fool",
       "published": 1785153900
-    },
-    {
-      "title": "The Vanguard Total Stock Market ETF (VTI) Now Holds 18,738,438 Shares of SpaceX Stock. Here's What That Means for Investors.",
-      "url": "https://finance.yahoo.com/m/13399ef3-18d8-36d8-90bf-5aded8282950/the-vanguard-total-stock.html",
-      "publisher": "Motley Fool",
-      "published": 1785071460
     }
   ]
 }
