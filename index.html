@@ -1326,7 +1326,8 @@
                         transHtml += '<span style="color:#94a3b8;font-size:9px;margin-left:4px">(前:' + s.prev_score + ')</span>';
                     out += transHtml;
                     }
-                    // Entry/exit price suggestions based on current price and ATR
+                    // Entry/exit price suggestions — only for BUY/WATCH signals
+                    var showPriceLevels = (s.action === 'BUY' || s.action === 'WATCH' || s.action === 'MONITOR');
                     var entryPrice = s.entry_price ? '$' + s.entry_price.toFixed(2) : (s.price ? '$' + s.price.toFixed(2) : '');
                     var stopLoss = s.stop_loss ? '$' + s.stop_loss.toFixed(2) : (s.price ? '$' + (s.price * 0.95).toFixed(2) : '');
                     var stopPct = s.stop_pct ? s.stop_pct.toFixed(1) : '-5.0';
@@ -1346,7 +1347,7 @@
                         actionHtml = '<div style="margin-top:6px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">';
                         actionHtml += '<div style="font-size:12px;font-weight:700;color:' + actionColor + ';margin-bottom:4px">' + s.action + '</div>';
                         if (s.action_detail) actionHtml += '<div style="font-size:11px;color:#64748b;margin-bottom:4px">' + s.action_detail + '</div>';
-                        if (isBull && s.price) {
+                        if (showPriceLevels && s.price) {
                             actionHtml += '<div style="display:flex;gap:10px;font-size:10px;color:#475569;flex-wrap:wrap;align-items:center">';
                             actionHtml += '<span>📍 進場 <strong>' + entryPrice + '</strong></span>';
                             actionHtml += '<span>🛑 止損 <strong style="color:#dc2626">' + stopLoss + '</strong> (' + stopPct + '%)</span>';
