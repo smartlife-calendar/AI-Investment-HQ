@@ -4130,6 +4130,20 @@ async function loadSmartBacktest() {
                                 if (s.size) out += '<span style="background:#f8fafc;padding:2px 8px;border-radius:6px">📐 ' + s.size + '</span>';
                                 out += '</div>';
                             }
+                            // Analyst target + fair value
+                            if (s.analyst_target) {
+                                var atUp = ((s.analyst_target - s.price) / s.price * 100).toFixed(0);
+                                var atC = atUp > 10 ? '#16a34a' : atUp < -10 ? '#dc2626' : '#64748b';
+                                out += '<div style="font-size:11px;margin-top:2px">';
+                                out += '<span style="color:' + atC + '">🎯 分析師目標 $' + s.analyst_target.toFixed(0) + ' (' + (atUp > 0 ? '+' : '') + atUp + '%)</span>';
+                                if (s.fair_value) {
+                                    var fvUp = ((s.fair_value - s.price) / s.price * 100).toFixed(0);
+                                    var fvC = fvUp > 10 ? '#16a34a' : fvUp < -10 ? '#dc2626' : '#64748b';
+                                    out += ' · <span style="color:' + fvC + '">📊 公允 $' + s.fair_value.toFixed(0) + ' (' + (fvUp > 0 ? '+' : '') + fvUp + '%)</span>';
+                                }
+                                out += '</div>';
+                            }
+
                             
                             // Risk notes
                             if (s.risk_notes && s.risk_notes.length > 0) {
