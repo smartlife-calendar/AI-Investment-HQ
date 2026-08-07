@@ -1,26 +1,71 @@
 {
   "date": "2026-08-07",
-  "generated_at": "2026-08-07T09:03:04.945843+08:00",
+  "generated_at": "2026-08-07T10:01:49.177884+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 7,
   "stocks": [
     {
-      "symbol": "SHOP",
-      "name": "Shopify Inc.",
-      "price": 144.24,
-      "change_pct": 16.98,
-      "vol_ratio": 4.0,
-      "volume": 40474936,
-      "avg_volume": 10118734
+      "symbol": "IOVA",
+      "name": "Iovance Biotherapeutics, Inc.",
+      "price": 6.21,
+      "change_pct": 43.09,
+      "vol_ratio": 4.8,
+      "volume": 72531624,
+      "avg_volume": 15110755
     },
     {
-      "symbol": "UBER",
-      "name": "Uber Technologies, Inc.",
-      "price": 68.18,
-      "change_pct": -5.29,
+      "symbol": "U",
+      "name": "Unity Software Inc.",
+      "price": 40.81,
+      "change_pct": 15.05,
+      "vol_ratio": 4.5,
+      "volume": 40981371,
+      "avg_volume": 9106971
+    },
+    {
+      "symbol": "CELH",
+      "name": "Celsius Holdings, Inc.",
+      "price": 23.77,
+      "change_pct": -18.46,
+      "vol_ratio": 4.5,
+      "volume": 43275897,
+      "avg_volume": 9616866
+    },
+    {
+      "symbol": "SOUN",
+      "name": "SoundHound AI, Inc.",
+      "price": 7.08,
+      "change_pct": 10.11,
+      "vol_ratio": 3.0,
+      "volume": 88361647,
+      "avg_volume": 29453882
+    },
+    {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "price": 17.67,
+      "change_pct": -6.8,
+      "vol_ratio": 2.6,
+      "volume": 49485821,
+      "avg_volume": 19033008
+    },
+    {
+      "symbol": "FIG",
+      "name": "Figma, Inc.",
+      "price": 23.97,
+      "change_pct": -14.85,
       "vol_ratio": 2.3,
-      "volume": 46161399,
-      "avg_volume": 20070173
+      "volume": 52085393,
+      "avg_volume": 22645823
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 114.92,
+      "change_pct": 6.14,
+      "vol_ratio": 2.2,
+      "volume": 250825841,
+      "avg_volume": 114011745
     }
   ]
 }
