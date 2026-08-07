@@ -1246,6 +1246,7 @@
             else if (tab === 'earnings') loadEarningsCalendar();
             else if (tab === 'intel') loadIndustryIntel();
             else if (tab === 'r40') loadRuleOf40();
+            else if (tab === 'sectorcomp') loadSectorComp();
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
@@ -2815,7 +2816,7 @@ async function loadSmartBacktest() {
                 <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
                 <button onclick="switchSmartTab('r40')" id="smart-tab-r40" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📐 Rule of 40</button>
                 <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
-                <button onclick="switchSmartView('sectorcomp')" id="btn-sectorcomp" style="padding:6px 12px;border-radius:8px;border:1px solid #e2e8f0;background:white;cursor:pointer;font-size:12px;color:#64748b;transition:all 0.2s">🏢 板塊個股</button>
+                <button onclick="switchSmartTab('sectorcomp')" id="smart-tab-sectorcomp" style="padding:6px 12px;border-radius:8px;border:1px solid #e2e8f0;background:white;cursor:pointer;font-size:12px;color:#64748b;transition:all 0.2s">🏢 板塊個股</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
@@ -4308,7 +4309,120 @@ async function loadSmartBacktest() {
 
         // ── Earnings Calendar + ROE ──
         
-        async function loadRuleOf40() {
+        async 
+        function loadSectorComp() {
+            var el = document.getElementById('smartMoneyContent');
+            if (!el) return;
+            
+            Promise.all([
+                fetch('data/alpha.json').then(function(r){return r.json()}),
+                fetch('data/signals.json').then(function(r){return r.json()}),
+                fetch('data/earnings_roe.json').then(function(r){return r.json()})
+            ]).then(function(arr){
+                var alpha=arr[0], sigs=arr[1], er=arr[2];
+                var stocks=alpha.stocks||{};
+                var sigMap={};
+                (sigs.signals||[]).forEach(function(s){sigMap[s.symbol]=s});
+                var erStocks=er.stocks||{};
+                
+                var sectors={};
+                Object.keys(stocks).forEach(function(sym){
+                    var s=stocks[sym];
+                    var sig=sigMap[sym]||{};
+                    var e=erStocks[sym]||{};
+                    var sec=sig.sector||e.sector||'';
+                    if(!sec||sec.length<2)return;
+                    if(!sectors[sec])sectors[sec]={stocks:[],count:0};
+                    var v=s.valuation||{};
+                    sectors[sec].stocks.push({
+                        sym:sym,price:s.price||sig.price||0,
+                        action:sig.action||'',score:sig.score||0,
+                        analyst:v.analyst||0,composite:v.composite||0,
+                        upside:v.composite_upside||0,
+                        pe:e.trail_pe||0,fwd_pe:e.fwd_pe||0,pb:e.pb||0,
+                        roe:e.roe||0,
+                        gm:e.gross_margin?Math.round(e.gross_margin*100):0,
+                        om:e.op_margin?Math.round(e.op_margin*100):0,
+                        peg:e.peg||0,mcap:e.mcap_b||0,
+                        rev_g:e.rev_growth?Math.round(e.rev_growth*100):0
+                    });
+                    sectors[sec].count++;
+                });
+                
+                var secArr=Object.keys(sectors).sort(function(a,b){return sectors[b].count-sectors[a].count});
+                var ac={'BUY':'#16a34a','WATCH':'#ca8a04','MONITOR':'#3b82f6','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626','SELL':'#dc2626'};
+                var gid=0;
+                
+                var h='<div style="margin-bottom:12px"><div style="font-size:18px;font-weight:700">🏢 板塊個股對比</div>';
+                h+='<div style="font-size:11px;color:#94a3b8">Alpha框架 + 訊號系統 | 點擊板塊展開</div></div>';
+                
+                secArr.forEach(function(sec){
+                    var g=sectors[sec];
+                    var ss=g.stocks.sort(function(a,b){return b.score-a.score||b.upside-a.upside});
+                    gid++;
+                    
+                    var avgPE=0,avgUp=0,n=0;
+                    ss.forEach(function(s){if(s.pe>0){avgPE+=s.pe;n++} avgUp+=s.upside});
+                    avgPE=n?Math.round(avgPE/n*10)/10:0;
+                    avgUp=ss.length?Math.round(avgUp/ss.length*10)/10:0;
+                    var buys=ss.filter(function(s){return s.action==='BUY'}).length;
+                    var avoids=ss.filter(function(s){return s.action==='AVOID'||s.action==='SELL'}).length;
+                    
+                    h+='<div style="background:white;border-radius:12px;padding:12px;margin-bottom:8px;border:1px solid #e2e8f0">';
+                    h+='<div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="var c=this.nextElementSibling;c.style.display=c.style.display===\'none\'?\'block\':\'none\'">';
+                    h+='<div><span style="font-size:15px;font-weight:700">'+sec+'</span> <span style="color:#94a3b8;font-size:12px">('+ss.length+')</span></div>';
+                    h+='<div style="font-size:11px;display:flex;gap:8px;align-items:center">';
+                    if(buys)h+='<span style="color:#16a34a;font-weight:600">BUY:'+buys+'</span>';
+                    if(avoids)h+='<span style="color:#dc2626">AVOID:'+avoids+'</span>';
+                    h+='<span>PE:'+avgPE+'</span>';
+                    h+='<span style="color:'+(avgUp>0?'#16a34a':'#dc2626')+'">空間:'+(avgUp>0?'+':'')+avgUp+'%</span>';
+                    h+='<span style="color:#94a3b8">▼</span></div></div>';
+                    
+                    h+='<div style="display:'+(gid<=2?'block':'none')+';margin-top:8px">';
+                    h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">';
+                    h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:3px;text-align:left">股票</th><th>價格</th><th>PE</th><th>PB</th><th>ROE</th><th>毛利</th><th>成長</th><th>PEG</th><th>目標價</th><th>空間</th><th>訊號</th></tr>';
+                    
+                    var medPE=0;
+                    var pes=ss.map(function(s){return s.pe}).filter(function(v){return v>0}).sort(function(a,b){return a-b});
+                    if(pes.length)medPE=pes[Math.floor(pes.length/2)];
+                    
+                    ss.forEach(function(s,i){
+                        var vis=i>=15?'display:none;':'';
+                        var dg=i>=15?' data-g=\"usg'+gid+'\"':'';
+                        var sc2=ac[s.action]||'#94a3b8';
+                        var peC='#64748b';
+                        if(medPE&&s.pe>0){if(s.pe<medPE*0.7)peC='#16a34a';else if(s.pe>medPE*1.5)peC='#dc2626'}
+                        
+                        h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
+                        h+='<td style="padding:2px;font-weight:600">'+s.sym+'</td>';
+                        h+='<td style="padding:2px;text-align:right">$'+(s.price?s.price.toFixed(0):'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right;color:'+peC+'">'+(s.pe?s.pe.toFixed(1):'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right">'+(s.roe?s.roe.toFixed(0)+'%':'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right">'+(s.gm?s.gm+'%':'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right;color:'+(s.rev_g>0?'#16a34a':'#dc2626')+'">'+(s.rev_g?(s.rev_g>0?'+':'')+s.rev_g+'%':'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right">'+(s.peg?s.peg.toFixed(1):'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:right">'+(s.analyst?'$'+s.analyst.toFixed(0):'-')+'</td>';
+                        var upC=s.upside>0?'#16a34a':'#dc2626';
+                        h+='<td style="padding:2px;text-align:right;color:'+upC+';font-weight:600">'+(s.upside?(s.upside>0?'+':'')+s.upside.toFixed(0)+'%':'-')+'</td>';
+                        h+='<td style="padding:2px;text-align:center"><span style="color:'+sc2+';font-weight:700;font-size:10px">'+s.action+'</span></td>';
+                        h+='</tr>';
+                    });
+                    
+                    h+='</table></div>';
+                    if(ss.length>15){
+                        h+='<div style="text-align:center;margin-top:4px"><button onclick="document.querySelectorAll(\'[data-g=usg'+gid+']\').forEach(function(e){e.style.display=e.style.display===\'none\'?\'table-row\':\'none\'});this.textContent=this.textContent===\'Show All\'?\'Collapse\':\'Show All\'" style="font-size:11px;color:#6366f1;background:none;border:none;cursor:pointer">Show All</button></div>';
+                    }
+                    h+='</div></div>';
+                });
+                
+                el.innerHTML=h;
+            }).catch(function(e){
+                el.innerHTML='<div style="color:#dc2626;padding:16px">載入失敗: '+e.message+'</div>';
+            });
+        }
+
+        function loadRuleOf40() {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
             content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入 Rule of 40 散佈圖...</p>';
