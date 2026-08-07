@@ -144,6 +144,8 @@ function render(){
         var ac=s.avg_change>=0?'#16a34a':'#dc2626';
         o+='<span style="color:'+ac+'">均'+(s.avg_change>=0?'+':'')+s.avg_change.toFixed(1)+'%</span>';
         o+='<span>'+s.up+'↑'+s.down+'↓</span>';
+        if(s.w4_chg!=null){var w4c=s.w4_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w4c+'">4W'+(s.w4_chg>=0?'+':'')+s.w4_chg.toFixed(1)+'%</span>';}
+        if(s.w52_chg!=null){var w52c=s.w52_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w52c+'">52W'+(s.w52_chg>=0?'+':'')+s.w52_chg.toFixed(1)+'%</span>';}
         if(s.foreign_net_k)o+='<span style="color:'+(s.foreign_net_k>0?'#16a34a':'#dc2626')+'">外資'+(s.foreign_net_k>0?'+':'')+s.foreign_net_k+'K</span>';
         o+='</div></div>';
         // Strongest in sector
