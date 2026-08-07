@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://stockiq.tw/sitemap.xml
+Sitemap: https://stockiq.tw/tw/sitemap.xml
