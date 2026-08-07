@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-06T10:00:02+08:00",
+  "generated_at": "2026-08-07T10:00:04+08:00",
   "news": [
+    {
+      "title": "$500 a Month Into SCHD for 20 Years: the Dividend Snowball Will Shock You",
+      "url": "https://finance.yahoo.com/m/3e6bbfea-7eeb-3d3d-ac5f-ce265d03f84f/%24500-a-month-into-schd-for-20.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1786044600
+    },
     {
       "title": "VOO’s 0.03% Fee Hides the Real Cost: 28.7% of Your Money in Seven Stocks",
       "url": "https://finance.yahoo.com/m/e6a879a9-e7d8-3a82-9c0c-2d5d4f7e7882/voo%E2%80%99s-0.03%25-fee-hides-the.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/4e8715a5-b7b2-33ca-a430-a1a82febda65/cash%2C-chips%2C-and-chaos%3A.html",
       "publisher": "etf.com",
       "published": 1785178800
-    },
-    {
-      "title": "The Vanguard ETF Built for Long-Term Investors Who Want Reliable Results",
-      "url": "https://finance.yahoo.com/m/f0951b68-a2c5-3f6a-bdbc-67fb8e90b3d6/the-vanguard-etf-built-for.html",
-      "publisher": "Motley Fool",
-      "published": 1785153900
     }
   ]
 }
