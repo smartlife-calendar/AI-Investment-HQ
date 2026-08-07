@@ -519,7 +519,7 @@ function rIndustry(){
   // Recompute stats from filtered stocks
   var fStats={};
   stocks.forEach(function(s){
-    var ind=s.industry||'';if(!ind||ind.length<1)return;
+    var ind=s.industry||s.sub_industry||'';if(!ind||ind.length<1)return;
     if(!fStats[ind])fStats[ind]={count:0,buy:0,total_score:0,avg_score:0};
     fStats[ind].count++;fStats[ind].total_score+=s.score||0;
     if(s.action==='BUY')fStats[ind].buy++;
