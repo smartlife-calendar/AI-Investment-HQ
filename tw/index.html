@@ -541,9 +541,9 @@ function rIndustry(){
     var stk={code:s.code,name:s.name,action:s.action,score:s.score||0,price:s.price||0,pe:peVal,peIsFwd:!s.pe&&!s.twse_pe&&y.fwd_pe>0,pb:pbVal,dv:s.div_yield,
       rg:rgVal,
       om:y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':'-',
-      gm:y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':'-',
+      gm:s.gm!=null?s.gm.toFixed(1)+'%':(y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':'-'),
       roe:roeVal,peg:s.peg||null,roe_eff:s.roe_efficiency||null,
-      mcap:y.mcap_b,tp:y.target_price||null,na:y.n_analysts||0,ma:s.ma_status||null,
+      eps:s.eps||null,mcap:y.mcap_b,tp:y.target_price||null,na:y.n_analysts||0,ma:s.ma_status||null,
       rev_accel:s.rev_acceleration||null};
     subList.forEach(function(sub){
       if(!bySub[sub])bySub[sub]={stocks:[],buys:0,ts:0,counted:{}};
@@ -581,7 +581,13 @@ function rIndustry(){
       if(medPE&&s.pe){if(s.pe<medPE*0.7)peC='#16a34a';else if(s.pe>medPE*1.5)peC='#dc2626'}
       h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
       h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span>';
-      if(s.ma)h+=' <span style="font-size:8px;color:#f59e0b" title="均線">'+s.ma+'</span>';
+      if(s.ma){
+        var maTags=s.ma.split(' ');
+        maTags.forEach(function(mt){
+          var mc=mt.indexOf('▲')>=0||mt.indexOf('多頭')>=0?'#16a34a':'#dc2626';
+          h+=' <span style="font-size:7px;padding:1px 3px;border-radius:3px;background:'+mc+';color:white;white-space:nowrap">'+mt+'</span>';
+        });
+      }
       h+='</td>';
       h+='<td style="padding:2px;font-weight:600">$'+s.price+'</td>';
       var peStr=s.pe?s.pe.toFixed(1):'-';
