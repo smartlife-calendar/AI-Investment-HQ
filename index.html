@@ -4341,10 +4341,10 @@ async function loadSmartBacktest() {
                         upside:v.composite_upside||0,
                         pe:e.trail_pe||0,fwd_pe:e.fwd_pe||0,pb:e.pb||0,
                         roe:e.roe||0,
-                        gm:e.gross_margin?Math.round(e.gross_margin*100):0,
-                        om:e.op_margin?Math.round(e.op_margin*100):0,
+                        gm:e.gross_margin?Math.round(e.gross_margin):0,
+                        om:e.op_margin?Math.round(e.op_margin):0,
                         peg:e.peg||0,mcap:e.mcap_b||0,
-                        rev_g:e.rev_growth?Math.round(e.rev_growth*100):0
+                        rev_g:e.rev_growth?Math.round(e.rev_growth):0
                     });
                     sectors[sec].count++;
                 });
