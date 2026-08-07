@@ -1253,6 +1253,15 @@
         async function loadSmartDirection(direction) {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
+            // Load signal actions for conflict detection
+            if (!window._sigActions) {
+                try {
+                    const sr = await fetch('data/signals.json');
+                    const sd = await sr.json();
+                    window._sigActions = {};
+                    (sd.signals||[]).forEach(function(s){window._sigActions[s.symbol]={action:s.action,score:s.score}});
+                } catch(e) { window._sigActions = {}; }
+            }
             const label = direction === 'bullish' ? '吸籌' : '出貨';
             content.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入' + label + '偵測...</p>';
             
@@ -1313,6 +1322,13 @@
                     out += '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">';
                     out += '<div>';
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
+                    // Signal conflict warning
+                    var _sa = (window._sigActions||{})[s.symbol];
+                    if (_sa && direction === 'bullish' && (_sa.action === 'SELL' || _sa.action === 'AVOID')) {
+                        out += ' <span style="font-size:10px;background:#dc2626;color:white;padding:1px 6px;border-radius:4px">⚠️ 訊號: ' + _sa.action + '</span>';
+                    } else if (_sa && direction === 'bearish' && (_sa.action === 'BUY' || _sa.action === 'SCALE_IN')) {
+                        out += ' <span style="font-size:10px;background:#16a34a;color:white;padding:1px 6px;border-radius:4px">⚠️ 訊號: ' + _sa.action + '</span>';
+                    }
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
                     var transHtml = '';
