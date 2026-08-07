@@ -130,25 +130,26 @@ function render(){
     case 'sectorflow':
       var sf=D.sector_flows||[];
       if(!sf.length){m.innerHTML='<p style="color:#94a3b8">暫無資金流向數據</p>'+ts();break;}
-      o='<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">📅 '+fmtGenAt(D.generated_at)+' 更新 · 依子板塊成交額排序</div>';
+      o='<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">📅 '+fmtGenAt(D.generated_at)+' · TWSE 官方產業指數 · 依成交額排序</div>';
       sf.forEach(function(s){
-        var flowC=s.flow_pct>15?'#16a34a':s.flow_pct<-15?'#dc2626':'#64748b';
-        var bg=s.flow_pct>15?'#f0fdf4':s.flow_pct<-15?'#fef2f2':'#f8fafc';
-        var border=s.flow_pct>15?'#16a34a':s.flow_pct<-15?'#dc2626':'#e2e8f0';
+        var cp=s.change_pct||0;
+        var flowC=cp>0.5?'#16a34a':cp<-0.5?'#dc2626':'#64748b';
+        var bg=cp>0.5?'#f0fdf4':cp<-0.5?'#fef2f2':'#f8fafc';
+        var border=cp>0.5?'#16a34a':cp<-0.5?'#dc2626':'#e2e8f0';
         o+='<div style="background:'+bg+';border:1px solid '+border+';border-radius:10px;padding:10px;margin-bottom:6px">';
+        // Header row
         o+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">';
         o+='<div><b style="font-size:14px">'+s.sector+'</b> <span style="font-size:11px;color:#94a3b8">('+s.n+'支)</span></div>';
-        o+='<div style="display:flex;gap:8px;font-size:12px;flex-wrap:wrap">';
-        o+='<span style="font-weight:700;color:'+flowC+'">'+s.flow_label+'</span>';
-        o+='<span>成交'+(s.turnover_m/100).toFixed(0)+'億</span>';
-        var ac=s.avg_change>=0?'#16a34a':'#dc2626';
-        o+='<span style="color:'+ac+'">均'+(s.avg_change>=0?'+':'')+s.avg_change.toFixed(1)+'%</span>';
+        o+='<div style="display:flex;gap:8px;font-size:12px;flex-wrap:wrap;align-items:center">';
+        o+='<span style="font-weight:700;color:'+flowC+'">'+(cp>=0?'+':'')+cp.toFixed(1)+'%</span>';
+        o+='<span>成交'+s.amount_b+'億</span>';
+        // 4W 52W
+        if(s.w4_chg!=null){var w4c=s.w4_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w4c+';font-size:11px">4W'+(s.w4_chg>=0?'+':'')+s.w4_chg.toFixed(1)+'%</span>';}
+        if(s.w52_chg!=null){var w52c=s.w52_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w52c+';font-size:11px">52W'+(s.w52_chg>=0?'+':'')+s.w52_chg.toFixed(1)+'%</span>';}
         o+='<span>'+s.up+'↑'+s.down+'↓</span>';
-        if(s.w4_chg!=null){var w4c=s.w4_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w4c+'">4W'+(s.w4_chg>=0?'+':'')+s.w4_chg.toFixed(1)+'%</span>';}
-        if(s.w52_chg!=null){var w52c=s.w52_chg>=0?'#16a34a':'#dc2626';o+='<span style="color:'+w52c+'">52W'+(s.w52_chg>=0?'+':'')+s.w52_chg.toFixed(1)+'%</span>';}
-        if(s.foreign_net_k)o+='<span style="color:'+(s.foreign_net_k>0?'#16a34a':'#dc2626')+'">外資'+(s.foreign_net_k>0?'+':'')+s.foreign_net_k+'K</span>';
+        if(s.foreign_net_k){var fC=s.foreign_net_k>0?'#16a34a':'#dc2626';o+='<span style="color:'+fC+'">外資'+(s.foreign_net_k>0?'+':'')+s.foreign_net_k+'K</span>';}
         o+='</div></div>';
-        // Strongest in sector
+        // Strongest
         if(s.strongest&&s.strongest.length){
           o+='<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">';
           o+='<span style="font-size:10px;color:#16a34a;font-weight:600">強勢:</span>';
@@ -159,6 +160,7 @@ function render(){
           });
           o+='</div>';
         }
+        // Weakest
         if(s.weakest&&s.weakest.length){
           o+='<div style="display:flex;gap:6px;margin-top:3px;flex-wrap:wrap">';
           o+='<span style="font-size:10px;color:#dc2626;font-weight:600">弱勢:</span>';
@@ -172,6 +174,7 @@ function render(){
         o+='</div>';
       });
       m.innerHTML=o+ts();
+      break;m.innerHTML=o+ts();
       break;
     
     case 'accumulation': m.innerHTML=rAccum()+ts(); break;
