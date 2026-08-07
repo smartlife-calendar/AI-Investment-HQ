@@ -580,13 +580,15 @@ function rIndustry(){
       var peC='#64748b';
       if(medPE&&s.pe){if(s.pe<medPE*0.7)peC='#16a34a';else if(s.pe>medPE*1.5)peC='#dc2626'}
       h+='<tr style="'+vis+'border-bottom:1px solid #f1f5f9"'+dg+'>';
-      h+='<td style="padding:2px;font-weight:600;white-space:nowrap">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span>';
+      h+='<td style="padding:2px;font-weight:600">'+s.code+' <span style="color:#64748b;font-weight:400">'+s.name.substring(0,4)+'</span>';
       if(s.ma){
+        h+='<div style="margin-top:1px">';
         var maTags=s.ma.split(' ');
         maTags.forEach(function(mt){
           var mc=mt.indexOf('▲')>=0||mt.indexOf('多頭')>=0?'#16a34a':'#dc2626';
-          h+=' <span style="font-size:7px;padding:1px 3px;border-radius:3px;background:'+mc+';color:white;white-space:nowrap">'+mt+'</span>';
+          h+='<span style="font-size:7px;padding:1px 3px;border-radius:3px;background:'+mc+';color:white;margin-right:2px">'+mt+'</span>';
         });
+        h+='</div>';
       }
       h+='</td>';
       h+='<td style="padding:2px;font-weight:600">$'+s.price+'</td>';
