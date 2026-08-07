@@ -134,7 +134,7 @@ function render(){
       var sf=D.sector_flows||[];
       if(!sf.length){m.innerHTML='<p style="color:#94a3b8">暫無資金流向數據</p>'+ts();break;}
       o='<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">📅 '+fmtGenAt(D.generated_at)+' · TWSE 官方產業指數 · 依成交額排序</div>';
-      sf.forEach(function(s){
+      sf.filter(function(s){return s.sector!=='櫃買'}).forEach(function(s){
         var cp=s.change_pct||0;
         var flowC=cp>0.5?'#16a34a':cp<-0.5?'#dc2626':'#64748b';
         var bg=cp>0.5?'#f0fdf4':cp<-0.5?'#fef2f2':'#f8fafc';
@@ -502,11 +502,8 @@ function rInst(){
 
 function rIndustry(){
   var stats=D.industry_stats||{},sigs=D.signals||[],o='';
-  var mkt=window._indMkt||'listed';
-  o+='<div style="display:flex;gap:8px;margin-bottom:10px">';
-  o+='<button onclick="window._indMkt=\'listed\';render()" style="padding:6px 16px;border-radius:8px;border:1px solid '+(mkt==='listed'?'#3b82f6':'#e2e8f0')+';background:'+(mkt==='listed'?'#3b82f6':'white')+';color:'+(mkt==='listed'?'white':'#333')+';font-weight:600;cursor:pointer">🏛️ 上市</button>';
-  o+='<button onclick="window._indMkt=\'otc\';render()" style="padding:6px 16px;border-radius:8px;border:1px solid '+(mkt==='otc'?'#7c3aed':'#e2e8f0')+';background:'+(mkt==='otc'?'#7c3aed':'white')+';color:'+(mkt==='otc'?'white':'#333')+';font-weight:600;cursor:pointer">🏪 櫃買</button>';
-  o+='</div>';
+  var mkt='listed';
+  // 只顯示上市
   // SUB mapping moved to server-side (sub_industry field)
   var etfs=[],stocks=[];
   sigs.forEach(function(s){if(s.code&&s.code.match(/^00/))etfs.push(s);else if((mkt==='listed'&&s.market!=='櫃買')||(mkt==='otc'&&s.market==='櫃買'))stocks.push(s)});
