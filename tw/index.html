@@ -516,6 +516,16 @@ function rIndustry(){
     etfs.forEach(function(e){var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};var c=ac[e.action]||'#94a3b8';eh+='<span style="background:'+c+'15;border:1px solid '+c+';color:'+c+';padding:2px 6px;border-radius:6px;font-size:10px;font-weight:600">'+e.code+' '+e.name+' ('+e.score+')</span>'});
     o+=card(eh+'</div>');
   }
+  // Recompute stats from filtered stocks
+  var fStats={};
+  stocks.forEach(function(s){
+    var ind=s.industry||'';if(!ind||ind.length<1)return;
+    if(!fStats[ind])fStats[ind]={count:0,buy:0,total_score:0,avg_score:0};
+    fStats[ind].count++;fStats[ind].total_score+=s.score||0;
+    if(s.action==='BUY')fStats[ind].buy++;
+  });
+  Object.keys(fStats).forEach(function(k){var f=fStats[k];f.avg_score=Math.round(f.total_score/f.count*10)/10});
+  stats=fStats;
   var sKeys=Object.keys(stats).filter(function(k){return k&&k.length>1}).sort(function(a,b){return(stats[b].buy||0)-(stats[a].buy||0)||(stats[b].avg_score||0)-(stats[a].avg_score||0)});
   o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">產業</th><th>家數</th><th style="color:#16a34a">買入</th><th>均分</th></tr>'+sKeys.map(function(k){var s=stats[k];var c=s.avg_score>0?'#16a34a':s.avg_score<-1?'#dc2626':'#64748b';return'<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:600">'+k+'</td><td style="padding:3px;text-align:center">'+s.count+'</td><td style="padding:3px;text-align:center;color:#16a34a;font-weight:700">'+(s.buy||0)+'</td><td style="padding:3px;text-align:center;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'}).join('')+'</table></div>');
   var bySub={};var deepCount=0;
