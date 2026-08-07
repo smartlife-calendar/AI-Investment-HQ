@@ -1359,6 +1359,13 @@
                             if (momHealth) actionHtml += '<span style="background:' + (momHealth==='強'?'#dcfce7':momHealth==='穩'?'#fef3c7':'#fee2e2') + ';padding:1px 6px;border-radius:4px;font-weight:600">動能' + momHealth + '</span>';
                             actionHtml += '</div>';
                         }
+                        if (s.analyst_target || s.fair_value) {
+                            actionHtml += '<div style="display:flex;gap:8px;font-size:10px;flex-wrap:wrap;margin-top:2px">';
+                            if (s.analyst_target) { var aUp2=((s.analyst_target-(s.price||0))/(s.price||1)*100).toFixed(0); var aC2=aUp2>10?'#16a34a':aUp2<-10?'#dc2626':'#64748b'; actionHtml += '<span style="color:'+aC2+'">🎯 分析師 $' + s.analyst_target.toFixed(0) + ' (' + (aUp2>0?'+':'') + aUp2 + '%)</span>'; }
+                            if (s.fair_value) { var fUp2=((s.fair_value-(s.price||0))/(s.price||1)*100).toFixed(0); var fC2=fUp2>10?'#16a34a':fUp2<-10?'#dc2626':'#64748b'; actionHtml += '<span style="color:'+fC2+'">📊 公允 $' + s.fair_value.toFixed(0) + ' (' + (fUp2>0?'+':'') + fUp2 + '%)</span>'; }
+                            actionHtml += '</div>';
+                        }
+
                         actionHtml += '</div>';
                     }
                     var sectorHtml = s.sector_resonance && s.sector_resonance !== 'N/A' ? '<span style="font-size:10px;background:#f1f5f9;padding:2px 6px;border-radius:4px;margin-left:4px">' + s.sector_resonance + '</span>' : '';
