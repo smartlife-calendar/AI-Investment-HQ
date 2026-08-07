@@ -73,6 +73,7 @@ var TABS=[
   {id:'signals',label:'📡 訊號'},
   {id:'institutional',label:'🏦 法人'},
   {id:'industry',label:'🏭 產業'},
+  {id:'sectorflow',label:'💰 資金流'},
   {id:'accumulation',label:'💡 吸籌'},
   {id:'signalmap',label:'📊 散點圖'},
   {id:'r40',label:'📐 Rule of 40'},
@@ -125,6 +126,51 @@ function render(){
     case 'signals': m.innerHTML=rSignals()+'<div id="tw-backtest" style="margin-top:12px"></div>'+ts(); setTimeout(loadTwBacktest,100); break;
     case 'institutional': m.innerHTML=rInst()+ts(); break;
     case 'industry': m.innerHTML=rIndustry()+ts(); break;
+    
+    case 'sectorflow':
+      var sf=D.sector_flows||[];
+      if(!sf.length){o='<p style="color:#94a3b8">暫無資金流向數據</p>';break;}
+      o='<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">📅 '+fmtGenAt(D.generated_at)+' 更新 · 依子板塊成交額排序</div>';
+      sf.forEach(function(s){
+        var flowC=s.flow_pct>15?'#16a34a':s.flow_pct<-15?'#dc2626':'#64748b';
+        var bg=s.flow_pct>15?'#f0fdf4':s.flow_pct<-15?'#fef2f2':'#f8fafc';
+        var border=s.flow_pct>15?'#16a34a':s.flow_pct<-15?'#dc2626':'#e2e8f0';
+        o+='<div style="background:'+bg+';border:1px solid '+border+';border-radius:10px;padding:10px;margin-bottom:6px">';
+        o+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">';
+        o+='<div><b style="font-size:14px">'+s.sector+'</b> <span style="font-size:11px;color:#94a3b8">('+s.n+'支)</span></div>';
+        o+='<div style="display:flex;gap:8px;font-size:12px;flex-wrap:wrap">';
+        o+='<span style="font-weight:700;color:'+flowC+'">'+s.flow_label+'</span>';
+        o+='<span>成交'+(s.turnover_m/100).toFixed(0)+'億</span>';
+        var ac=s.avg_change>=0?'#16a34a':'#dc2626';
+        o+='<span style="color:'+ac+'">均'+(s.avg_change>=0?'+':'')+s.avg_change.toFixed(1)+'%</span>';
+        o+='<span>'+s.up+'↑'+s.down+'↓</span>';
+        if(s.foreign_net_k)o+='<span style="color:'+(s.foreign_net_k>0?'#16a34a':'#dc2626')+'">外資'+(s.foreign_net_k>0?'+':'')+s.foreign_net_k+'K</span>';
+        o+='</div></div>';
+        // Strongest in sector
+        if(s.strongest&&s.strongest.length){
+          o+='<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">';
+          o+='<span style="font-size:10px;color:#16a34a;font-weight:600">強勢:</span>';
+          s.strongest.forEach(function(st){
+            if(st.rs<=0)return;
+            var c2=st.change>=0?'#16a34a':'#dc2626';
+            o+='<span style="font-size:10px;background:#dcfce7;padding:1px 6px;border-radius:8px"><b>'+st.code+'</b>'+st.name+' <span style="color:'+c2+'">'+(st.change>=0?'+':'')+st.change.toFixed(1)+'%</span> RS+'+(st.rs).toFixed(1)+'</span>';
+          });
+          o+='</div>';
+        }
+        if(s.weakest&&s.weakest.length){
+          o+='<div style="display:flex;gap:6px;margin-top:3px;flex-wrap:wrap">';
+          o+='<span style="font-size:10px;color:#dc2626;font-weight:600">弱勢:</span>';
+          s.weakest.forEach(function(st){
+            if(st.rs>=0)return;
+            var c3=st.change>=0?'#16a34a':'#dc2626';
+            o+='<span style="font-size:10px;background:#fee2e2;padding:1px 6px;border-radius:8px"><b>'+st.code+'</b>'+st.name+' <span style="color:'+c3+'">'+(st.change>=0?'+':'')+st.change.toFixed(1)+'%</span> RS'+(st.rs).toFixed(1)+'</span>';
+          });
+          o+='</div>';
+        }
+        o+='</div>';
+      });
+      break;
+    
     case 'accumulation': m.innerHTML=rAccum()+ts(); break;
     case 'signalmap': m.innerHTML=rSignalMap()+ts(); break;
     case 'r40': m.innerHTML=rRuleOf40()+ts(); break;
