@@ -211,6 +211,7 @@ function stockCard(s,color){
   if(s.eps)tags.push('EPS '+s.eps.toFixed(2));
   if(s.dso){var dsc=s.dso_chg;var dsl=dsc>10?'🔴':dsc<-10?'🟢':'';tags.push(dsl+'收現'+s.dso.toFixed(0)+'天'+(dsc?'('+(dsc>0?'+':'')+dsc.toFixed(0)+')':''))}
   if(s.dio){var dic=s.dio_chg;var dil=dic>15?'🔴':dic<-15?'🟢':'';tags.push(dil+'售貨'+s.dio.toFixed(0)+'天'+(dic?'('+(dic>0?'+':'')+dic.toFixed(0)+')':''))}
+  if(s.gm){var gc=s.gm_chg;var gl=gc>5?'🟢':gc<-5?'🔴':'';tags.push(gl+'毛利'+s.gm.toFixed(1)+'%'+(gc?'('+(gc>0?'+':'')+gc.toFixed(1)+'pp)':''))}
   if(s.div_yield&&s.div_yield>0)tags.push('殖'+s.div_yield.toFixed(1)+'%');
   var _roe=y.roe;
   if(_roe)tags.push('ROE '+(_roe>1?_roe.toFixed(0):(_roe*100).toFixed(0))+'%');
