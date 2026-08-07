@@ -531,7 +531,7 @@ function rIndustry(){
   var bySub={};var deepCount=0;
   stocks.forEach(function(s){
     var y=s.yahoo||{};var rv=s.revenue||{};
-    if(y.rev_growth==null&&rv.yoy_pct==null&&!s.twse_pe)return;deepCount++;
+    var hasDeep=y.rev_growth!=null||rv.yoy_pct!=null||s.twse_pe;if(hasDeep)deepCount++;
     var subList=[s.sub_industry||s.industry||'未分類'];
     var peVal=s.twse_pe||s.pe||(y.fwd_pe&&y.fwd_pe>0?y.fwd_pe:null);
     var pbVal=s.twse_pb||s.pb||(y.pb);
