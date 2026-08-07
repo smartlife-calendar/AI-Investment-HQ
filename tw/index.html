@@ -208,6 +208,9 @@ function stockCard(s,color){
   if(_pe)tags.push('PE '+_pe.toFixed(1));
   var _pb=s.twse_pb||(y.pb);
   if(_pb)tags.push('PB '+_pb.toFixed(1));
+  if(s.eps)tags.push('EPS '+s.eps.toFixed(2));
+  if(s.dso){var dsc=s.dso_chg;var dsl=dsc>10?'🔴':dsc<-10?'🟢':'';tags.push(dsl+'收現'+s.dso.toFixed(0)+'天'+(dsc?'('+(dsc>0?'+':'')+dsc.toFixed(0)+')':''))}
+  if(s.dio){var dic=s.dio_chg;var dil=dic>15?'🔴':dic<-15?'🟢':'';tags.push(dil+'售貨'+s.dio.toFixed(0)+'天'+(dic?'('+(dic>0?'+':'')+dic.toFixed(0)+')':''))}
   if(s.div_yield&&s.div_yield>0)tags.push('殖'+s.div_yield.toFixed(1)+'%');
   var _roe=y.roe;
   if(_roe)tags.push('ROE '+(_roe>1?_roe.toFixed(0):(_roe*100).toFixed(0))+'%');
@@ -568,7 +571,7 @@ function rIndustry(){
     h+='<div style="font-size:13px;font-weight:700">'+fire+' '+sub.name+' <span style="font-size:10px;color:#94a3b8;font-weight:400">('+sub.count+'支'+(medPE?', 中位PE '+medPE.toFixed(0):'')+')</span></div>';
     h+='<div style="font-size:10px"><span style="color:#16a34a;font-weight:700">'+sub.buys+'買</span> · 均分 <b style="color:'+sc+'">'+(sub.avgS>0?'+':'')+sub.avgS+'</b></div></div>';
     h+='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:10px">';
-    h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>收盤</th><th>PE</th><th>PB</th><th>殖利</th><th>成長</th><th>毛利</th><th>ROE</th><th>目標價</th><th>空間</th><th>訊號</th></tr>';
+    h+='<tr style="background:#f8fafc;color:#64748b"><th style="padding:2px;text-align:left">股票</th><th>收盤</th><th>PE</th><th>PB</th><th>EPS</th><th>殖利</th><th>成長</th><th>毛利</th><th>ROE</th><th>目標價</th><th>空間</th><th>訊號</th></tr>';
     ss.forEach(function(s,i){
       var sc2=ac[s.action]||'#94a3b8';
       var vis=i>=10?'display:none;':'';
