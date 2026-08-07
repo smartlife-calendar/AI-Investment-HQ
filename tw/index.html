@@ -252,7 +252,7 @@ function stockCard(s,color){
   // Price levels
   if(pl.entry){
     h+='<div style="font-size:10px;margin-top:2px;background:#f0fdf4;padding:3px 6px;border-radius:4px">';
-    h+='📍進場$'+pl.entry+' 🔴停損$'+pl.stop_loss;
+    h+='📍建議進場$'+pl.entry+' 🔴停損$'+pl.stop_loss;
     h+=' T1<b>$'+pl.target1+'</b>(半倉) T2<b>$'+pl.target2+'</b>';
     if(pl.trailing_stop)h+=' 📐追蹤停利$'+pl.trailing_stop;
     h+=' RR:<b>'+(pl.rr_ratio||0).toFixed(1)+'</b>';
@@ -378,7 +378,7 @@ function rOverview(){
       h+='<div style="font-size:11px;color:#64748b;margin:2px 0">外資 '+(inst.foreign_net>0?'+':'')+(inst.foreign_net/1000).toFixed(0)+'K · 投信 '+(inst.trust_net>0?'+':'')+(inst.trust_net/1000).toFixed(0)+'K'+tl2+'</div>';
       // Price levels
       if(pl.entry){
-        h+='<div style="font-size:11px;margin:4px 0">📍 進場 <b style="color:#1e40af">$'+pl.entry+'</b> · 🔴 止損 <b style="color:#dc2626">$'+pl.stop_loss+'</b> ('+pl.stop_pct+'%) · 🎯 目標 <b style="color:#16a34a">$'+pl.target1+'</b> (+'+pl.target1_pct+'%)';
+        h+='<div style="font-size:11px;margin:4px 0">📍 建議進場 <b style="color:#1e40af">$'+pl.entry+'</b> · 🔴 止損 <b style="color:#dc2626">$'+pl.stop_loss+'</b> ('+pl.stop_pct+'%) · 🎯 目標 <b style="color:#16a34a">$'+pl.target1+'</b> (+'+pl.target1_pct+'%)';
         h+=' · RR <b style="color:'+(pl.rr_ratio>=1.5?'#16a34a':'#f59e0b')+'">'+pl.rr_ratio.toFixed(1)+'</b></div>';
       }
       h+='</div>';
@@ -956,7 +956,7 @@ function rGuide(){
   '<div style="margin:2px 0;padding-left:12px">🟠籌碼集中 = 法人持續買入、散戶減少</div>'+
   '<div style="margin:2px 0;padding-left:12px">🟢籌碼分散 = 法人出貨、散戶接盤 ← 危險</div>'+
   '<div style="margin:4px 0">第5行：<b>操作價位</b></div>'+
-  '<div style="margin:2px 0;padding-left:12px">📍進場價 · 🔴停損價 · T1半倉 · T2追蹤 · RR風險報酬比</div>'+
+  '<div style="margin:2px 0;padding-left:12px">📍建議進場價 · 🔴停損價 · T1半倉 · T2追蹤 · RR風險報酬比</div>'+
   
   '</div></details>');
 
