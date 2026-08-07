@@ -1122,6 +1122,91 @@ function rGuide(){
   '<div style="margin:2px 0">A: 證交所(TWSE)+櫃買中心(TPEx)公開資料 + Yahoo Finance。三大法人買賣超、融資融券、外資持股比率都是官方數據。</div>'+
   '</div></details>');
 
+
+  // 二、指標完整解讀
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">📊 指標完整解讀</h2>'+
+  '<div style="font-size:12px;padding:4px 0">'+
+  '<div style="font-weight:700;margin:8px 0 4px;color:#1e40af">📈 基本面指標</div>'+
+  '<div style="margin:2px 0"><b>EPS（每股盈餘）</b>：公司每股賺多少錢。來源：TWSE 季報 / Yahoo Finance / Price÷PE 推算</div>'+
+  '<div style="margin:2px 0"><b>PE（本益比）</b>：股價 ÷ EPS。PE 低=相對便宜。但不同產業 PE 水準差很大（營建 5-10x、半導體 20-30x）</div>'+
+  '<div style="margin:2px 0"><b>PB（股價淨值比）</b>：股價 ÷ 每股淨值。PB < 1 表示股價低於資產價值（可能被低估）</div>'+
+  '<div style="margin:2px 0"><b>ROE（股東權益報酬率）</b>：公司用股東的錢賺了多少。ROE > 15% 優秀</div>'+
+  '<div style="margin:2px 0"><b>ROE 效率（ROE÷PB）</b>：消除產業估值差異的指標。> 5.0 極度低估，< 0.5 偏貴</div>'+
+  '<div style="margin:2px 0"><b>PEG（PE÷成長率）</b>：考慮成長的本益比。PEG < 1 低估，> 3 偏貴</div>'+
+  '<div style="margin:2px 0"><b>殖利率</b>：現金股利 ÷ 股價。> 5% 高殖利率，穩定配息是重要的防禦指標</div>'+
+  '<div style="margin:2px 0"><b>FCF（自由現金流）</b>：公司實際可自由運用的現金。FCF 負值=公司在燒錢</div>'+
+  '<div style="font-weight:700;margin:12px 0 4px;color:#dc2626">⚠️ 景氣/需求指標（新增）</div>'+
+  '<div style="margin:2px 0"><b>收現天數 DSO</b>：應收帳款 ÷ 日營收。代表客戶平均幾天付錢給公司</div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">↑ 收現天數增加 → 客戶付款變慢（需求放緩或賒帳增加）→ <span style="color:#dc2626">警訊</span></div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">↓ 收現天數減少 → 回款加速（需求健康）→ <span style="color:#16a34a">正面</span></div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">季增 > +10天 → 訊號扣分，季減 > -10天 → 加分</div>'+
+  '<div style="margin:2px 0"><b>售貨天數 DIO</b>：庫存 ÷ 日成本。代表庫存要賣幾天才賣完</div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">↑ 售貨天數增加 → 庫存堆積（供過於求或需求下降）→ <span style="color:#dc2626">警訊</span></div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">↓ 售貨天數減少 → 去庫存成功（需求回升）→ <span style="color:#16a34a">正面</span></div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">季增 > +15天 → 訊號扣分，季減 > -15天 → 加分</div>'+
+  '<div style="margin:2px 0"><b>毛利率（季）</b>：(營收-成本)÷營收。來自 TWSE 季報（已申報）+ Yahoo Finance</div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">季增 > +5pp → 毛利擴張（加分），季減 > -5pp → 毛利壓縮（扣分）</div>'+
+  '<div style="margin:2px 0"><b>營業利益率</b>：營業利益÷營收。比毛利率更嚴格（扣掉管銷研發費用）</div>'+
+  '<div style="margin:2px 0"><b>營收 YoY</b>：月營收年增率。來自 TWSE 月營收公告，每月 10 號前更新</div>'+
+  '<div style="margin:2px 0;padding-left:12px;color:#64748b">超過 999% 的成長通常是低基期效應（去年同期營收極低），不代表真正爆發，不加分</div>'+
+  '</div>');
+
+  // 三、技術面指標
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">📉 技術面與籌碼指標</h2>'+
+  '<div style="font-size:12px;padding:4px 0">'+
+  '<div style="font-weight:700;margin:8px 0 4px;color:#1e40af">📊 均線狀態</div>'+
+  '<div style="margin:2px 0"><b>多頭排列</b> <span style="background:#16a34a;color:white;padding:1px 4px;border-radius:3px;font-size:10px">多頭排列</span>：股價 > 5日線 > 20日線 → 趨勢向上</div>'+
+  '<div style="margin:2px 0"><b>空頭排列</b> <span style="background:#dc2626;color:white;padding:1px 4px;border-radius:3px;font-size:10px">空頭排列</span>：股價 < 5日線 < 20日線 → 趨勢向下</div>'+
+  '<div style="margin:2px 0"><b>5日突破20日▲</b>：短期均線穿越長期均線 → 黃金交叉</div>'+
+  '<div style="margin:2px 0"><b>站上20MA▲</b>：股價從下方突破20日均線 → 短期轉強</div>'+
+  '<div style="margin:2px 0"><b>跌破20MA▼</b>：股價從上方跌破20日均線 → 短期轉弱</div>'+
+  '<div style="font-weight:700;margin:12px 0 4px;color:#1e40af">🏦 法人籌碼</div>'+
+  '<div style="margin:2px 0"><b>三大法人</b>：外資、投信、自營商。法人大買是最重要的買入訊號</div>'+
+  '<div style="margin:2px 0"><b>外資連買/連賣</b>：外資連續 N 日買超或賣超。連買 ≥ 3日 = 趨勢確認</div>'+
+  '<div style="margin:2px 0"><b>外資+投信同買</b>：外資和投信同時買超 → 法人共識看好（加分）</div>'+
+  '<div style="margin:2px 0"><b>融資增/減</b>：融資增加=散戶看多（通常反指標），融資減少=散戶退場（籌碼沉澱）</div>'+
+  '<div style="font-weight:700;margin:12px 0 4px;color:#1e40af">🔍 吸籌/出貨</div>'+
+  '<div style="margin:2px 0"><b>吸籌</b>：法人持續買入 + 散戶退場（融資減少）→ 主力默默佈局</div>'+
+  '<div style="margin:2px 0"><b>出貨</b>：法人持續賣出 + 散戶湧入（融資增加）→ 主力出貨給散戶</div>'+
+  '</div>');
+
+  // 四、資金流與產業分析
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">💰 資金流與產業分析</h2>'+
+  '<div style="font-size:12px;padding:4px 0">'+
+  '<div style="font-weight:700;margin:8px 0 4px;color:#1e40af">$ 板塊資金流向</div>'+
+  '<div style="margin:2px 0">使用 <b>TWSE 官方產業指數</b>（32 個板塊），依成交金額排序</div>'+
+  '<div style="margin:2px 0">🟢流入 = 板塊指數漲 >0.5%，🔴流出 = 跌 >0.5%，⚪持平</div>'+
+  '<div style="margin:2px 0"><b>4W</b>：近4週漲跌幅，<b>52W</b>：近52週漲跌幅 → 判斷中長期趨勢</div>'+
+  '<div style="margin:2px 0"><b>RS（相對強度）</b>：個股漲跌 vs 板塊平均。RS > 0 = 強於板塊</div>'+
+  '<div style="font-weight:700;margin:12px 0 4px;color:#1e40af">🏭 產業競爭分析</div>'+
+  '<div style="margin:2px 0">使用 <b>32 個子產業分類</b>（比 TWSE 官方更細：IC設計、PCB/載板、散熱/電源...）</div>'+
+  '<div style="margin:2px 0">同產業橫向比較 PE、PB、毛利、成長率 → 找出被低估的個股</div>'+
+  '<div style="margin:2px 0"><b>中位 PE</b>：產業內所有股票的 PE 中位數。個股 PE 低於中位 70% = 綠色（便宜）</div>'+
+  '</div>');
+
+  // 五、數據來源與更新時間
+  o+=card('<h2 style="font-size:16px;margin:0 0 8px">🔄 數據來源與更新時間</h2>'+
+  '<div style="font-size:12px;padding:4px 0">'+
+  '<div style="margin:2px 0"><b>更新時間</b>：每個交易日 15:00（台灣時間）收盤後自動更新</div>'+
+  '<div style="margin:2px 0"><b>範圍</b>：TWSE 上市股票（約 1,089 支）</div>'+
+  '<table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:6px">'+
+  '<tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">數據</th><th>來源</th><th>覆蓋</th></tr>'+
+  '<tr><td style="padding:2px">股價/成交量</td><td>TWSE rwd</td><td>100%</td></tr>'+
+  '<tr><td style="padding:2px">PE/PB/殖利率</td><td>TWSE BWIBBU</td><td>~80%</td></tr>'+
+  '<tr><td style="padding:2px">月營收 YoY</td><td>TWSE 月營收</td><td>~99%</td></tr>'+
+  '<tr><td style="padding:2px">三大法人買賣超</td><td>TWSE 法人</td><td>~99%</td></tr>'+
+  '<tr><td style="padding:2px">外資持股比率</td><td>TWSE 外資</td><td>~99%</td></tr>'+
+  '<tr><td style="padding:2px">融資融券</td><td>TWSE 信用交易</td><td>~98%</td></tr>'+
+  '<tr><td style="padding:2px">EPS/毛利率/營益率</td><td>TWSE 季報</td><td>~16%↑</td></tr>'+
+  '<tr><td style="padding:2px">DSO/DIO/FCF/ROE</td><td>Yahoo Finance</td><td>~65%↑</td></tr>'+
+  '<tr><td style="padding:2px">均線狀態</td><td>Yahoo 歷史價格</td><td>~65%</td></tr>'+
+  '<tr><td style="padding:2px">期貨法人</td><td>FinMind</td><td>每日</td></tr>'+
+  '</table>'+
+  '<div style="margin:6px 0;color:#64748b">↑ = 每日自動累積（Yahoo 輪替掃描 250支/天，約5個交易日全覆蓋）</div>'+
+  '<div style="margin:2px 0;color:#64748b">季報覆蓋會隨公司申報逐步提升，預計 8 月底~9 月達 90%+</div>'+
+  '</div>');
+
+  
   return o;
 }
 
