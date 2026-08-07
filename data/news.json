@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-07T10:00:04+08:00",
+  "generated_at": "2026-08-08T07:10:14+08:00",
   "news": [
+    {
+      "title": "You Thought You Owned 3,600 Stocks—You Actually Own a $1.2 Trillion Tech Bet",
+      "url": "https://finance.yahoo.com/m/ffa63184-ef50-3e14-8952-4355b77d12c1/you-thought-you-owned-3%2C600.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1786072501
+    },
     {
       "title": "$500 a Month Into SCHD for 20 Years: the Dividend Snowball Will Shock You",
       "url": "https://finance.yahoo.com/m/3e6bbfea-7eeb-3d3d-ac5f-ce265d03f84f/%24500-a-month-into-schd-for-20.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/8e9b0f93-0255-3e65-b42f-4f88a35c2f0e/vug-vs.-vti%3A-which-vanguard.html",
       "publisher": "Motley Fool",
       "published": 1785252000
-    },
-    {
-      "title": "Cash, Chips, and Chaos: What’s Really Driving ETF Flows",
-      "url": "https://finance.yahoo.com/m/4e8715a5-b7b2-33ca-a430-a1a82febda65/cash%2C-chips%2C-and-chaos%3A.html",
-      "publisher": "etf.com",
-      "published": 1785178800
     }
   ]
 }
