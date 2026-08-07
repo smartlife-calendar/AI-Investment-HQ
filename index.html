@@ -1226,7 +1226,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','signalmap','alpha','signals','earnings','intel','r40'].forEach(t => {
+            ['bullish','bearish','signalmap','alpha','signals','earnings','intel','r40','sectorcomp'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
@@ -2815,6 +2815,7 @@ async function loadSmartBacktest() {
                 <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
                 <button onclick="switchSmartTab('r40')" id="smart-tab-r40" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📐 Rule of 40</button>
                 <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
+                <button onclick="switchSmartView('sectorcomp')" id="btn-sectorcomp" style="padding:6px 12px;border-radius:8px;border:1px solid #e2e8f0;background:white;cursor:pointer;font-size:12px;color:#64748b;transition:all 0.2s">🏢 板塊個股</button>
                     </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
