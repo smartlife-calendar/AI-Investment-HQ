@@ -149,10 +149,20 @@ function stockCard(s,color){
   h+='<b style="font-size:14px">$'+(s.price||0).toLocaleString()+'</b></div>';
   // Tags
   var tags=[];
-  if(s.pe)tags.push('PE '+s.pe.toFixed(1));
-  if(s.div_yield&&s.div_yield>2)tags.push('殖利率'+s.div_yield.toFixed(1)+'%');
-  if(y.roe)tags.push('ROE '+(y.roe*100).toFixed(0)+'%');
-  if(y.rev_growth)tags.push('營收'+(y.rev_growth>0?'+':'')+(y.rev_growth*100).toFixed(0)+'%');
+  var _pe=s.twse_pe||s.pe||(y.pe);
+  if(_pe)tags.push('PE '+_pe.toFixed(1));
+  var _pb=s.twse_pb||(y.pb);
+  if(_pb)tags.push('PB '+_pb.toFixed(1));
+  if(s.div_yield&&s.div_yield>0)tags.push('殖'+s.div_yield.toFixed(1)+'%');
+  var _roe=y.roe;
+  if(_roe)tags.push('ROE '+(_roe>1?_roe.toFixed(0):(_roe*100).toFixed(0))+'%');
+  if(s.peg)tags.push('PEG '+s.peg.toFixed(1));
+  if(s.roe_efficiency)tags.push('ROE效率'+s.roe_efficiency.toFixed(1));
+  var rv=s.revenue||{};
+  if(rv.yoy_pct!=null){var ry=rv.yoy_pct;tags.push('營收YoY'+(ry>0?'+':'')+ry.toFixed(0)+'%');}
+  else if(y.rev_growth)tags.push('營收'+(y.rev_growth>0?'+':'')+(y.rev_growth*100).toFixed(0)+'%');
+  if(rv.mom_pct!=null&&Math.abs(rv.mom_pct)>10){var rm=rv.mom_pct;tags.push('MoM'+(rm>0?'+':'')+rm.toFixed(0)+'%');}
+  if(s.rev_acceleration&&Math.abs(s.rev_acceleration)>15)tags.push(s.rev_acceleration>0?'🚀加速':'📉減速');
   if(s.chip&&s.chip!=='⚪一般')tags.push(s.chip);
   if(tags.length)h+='<div style="font-size:10px;color:#64748b;margin:2px 0">'+tags.join(' · ')+'</div>';
   // Reasons
