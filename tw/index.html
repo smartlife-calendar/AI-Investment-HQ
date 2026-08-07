@@ -129,7 +129,7 @@ function render(){
     
     case 'sectorflow':
       var sf=D.sector_flows||[];
-      if(!sf.length){o='<p style="color:#94a3b8">暫無資金流向數據</p>';break;}
+      if(!sf.length){m.innerHTML='<p style="color:#94a3b8">暫無資金流向數據</p>'+ts();break;}
       o='<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">📅 '+fmtGenAt(D.generated_at)+' 更新 · 依子板塊成交額排序</div>';
       sf.forEach(function(s){
         var flowC=s.flow_pct>15?'#16a34a':s.flow_pct<-15?'#dc2626':'#64748b';
@@ -169,6 +169,7 @@ function render(){
         }
         o+='</div>';
       });
+      m.innerHTML=o+ts();
       break;
     
     case 'accumulation': m.innerHTML=rAccum()+ts(); break;
