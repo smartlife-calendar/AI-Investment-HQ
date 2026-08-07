@@ -584,6 +584,8 @@ function rIndustry(){
       if(s.peIsFwd&&s.pe)peStr=s.pe.toFixed(1)+'<span style="font-size:7px;color:#94a3b8">F</span>';
       h+='<td style="padding:2px;color:'+peC+'">'+peStr+'</td>';
       h+='<td style="padding:2px;color:'+(s.pb&&s.pb<1?'#16a34a':'#64748b')+'">'+(s.pb?s.pb.toFixed(1):'-')+'</td>';
+      var _eps=s.eps;
+      h+='<td style="padding:2px;text-align:center;font-size:10px">'+(_eps?_eps.toFixed(2):'-')+'</td>';
       h+='<td style="padding:2px;color:'+(s.dv&&s.dv>5?'#16a34a':'#64748b')+'">'+(s.dv?s.dv.toFixed(1)+'%':'-')+'</td>';
       h+='<td style="padding:2px;color:'+(parseFloat(s.rg)>10?'#16a34a':parseFloat(s.rg)<0?'#dc2626':'#64748b')+'">'+s.rg+'</td>';
       h+='<td style="padding:2px">'+s.gm+'</td>';
