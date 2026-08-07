@@ -460,15 +460,20 @@ function rIndustry(){
   o+=card('<div style="font-size:14px;font-weight:700;margin-bottom:4px">🏭 產業評分總覽</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="background:#f1f5f9"><th style="padding:3px;text-align:left">產業</th><th>家數</th><th style="color:#16a34a">買入</th><th>均分</th></tr>'+sKeys.map(function(k){var s=stats[k];var c=s.avg_score>0?'#16a34a':s.avg_score<-1?'#dc2626':'#64748b';return'<tr style="border-bottom:1px solid #f1f5f9"><td style="padding:3px;font-weight:600">'+k+'</td><td style="padding:3px;text-align:center">'+s.count+'</td><td style="padding:3px;text-align:center;color:#16a34a;font-weight:700">'+(s.buy||0)+'</td><td style="padding:3px;text-align:center;color:'+c+';font-weight:700">'+(s.avg_score>0?'+':'')+s.avg_score+'</td></tr>'}).join('')+'</table></div>');
   var bySub={};var deepCount=0;
   stocks.forEach(function(s){
-    var y=s.yahoo||{};if(y.rev_growth==null)return;deepCount++;
+    var y=s.yahoo||{};var rv=s.revenue||{};
+    if(y.rev_growth==null&&rv.yoy_pct==null&&!s.twse_pe)return;deepCount++;
     var subList=SUB[s.code]||[s.industry||'未分類'];
-    var peVal=s.pe||(y.fwd_pe&&y.fwd_pe>0?y.fwd_pe:null);
-    var stk={code:s.code,name:s.name,action:s.action,score:s.score||0,price:s.price||0,pe:peVal,peIsFwd:!s.pe&&y.fwd_pe>0,pb:s.pb,dv:s.div_yield,
-      rg:(y.rev_growth*100).toFixed(0)+'%',
+    var peVal=s.twse_pe||s.pe||(y.fwd_pe&&y.fwd_pe>0?y.fwd_pe:null);
+    var pbVal=s.twse_pb||s.pb||(y.pb);
+    var rgVal=rv.yoy_pct!=null?(rv.yoy_pct>0?'+':'')+rv.yoy_pct.toFixed(0)+'%':(y.rev_growth!=null?(y.rev_growth*100).toFixed(0)+'%':'-');
+    var roeVal=y.roe!=null?(y.roe>1?y.roe.toFixed(0):(y.roe*100).toFixed(0))+'%':'-';
+    var stk={code:s.code,name:s.name,action:s.action,score:s.score||0,price:s.price||0,pe:peVal,peIsFwd:!s.pe&&!s.twse_pe&&y.fwd_pe>0,pb:pbVal,dv:s.div_yield,
+      rg:rgVal,
       om:y.op_margin!=null?(y.op_margin*100).toFixed(0)+'%':'-',
       gm:y.gross_margin!=null?(y.gross_margin*100).toFixed(0)+'%':'-',
-      roe:y.roe!=null?(y.roe*100).toFixed(0)+'%':'-',
-      mcap:y.mcap_b,tp:y.target_price||null,na:y.n_analysts||0,ma:s.ma_status||null};
+      roe:roeVal,peg:s.peg||null,roe_eff:s.roe_efficiency||null,
+      mcap:y.mcap_b,tp:y.target_price||null,na:y.n_analysts||0,ma:s.ma_status||null,
+      rev_accel:s.rev_acceleration||null};
     subList.forEach(function(sub){
       if(!bySub[sub])bySub[sub]={stocks:[],buys:0,ts:0,counted:{}};
       if(!bySub[sub].counted[s.code]){bySub[sub].counted[s.code]=1;bySub[sub].ts+=(s.score||0);if(s.action==='BUY')bySub[sub].buys++}
