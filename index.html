@@ -4122,12 +4122,13 @@ async function loadSmartBacktest() {
                             out += '</div>';
                             
                             // Levels (for buy/hold)
-                            if (s.entry_price || s.stop_loss || s.target_price) {
-                                out += '<div style="display:flex;gap:12px;font-size:11px;flex-wrap:wrap">';
-                                if (s.entry_price) out += '<span style="background:#f0fdf4;padding:2px 8px;border-radius:6px">📍 進場 ≤$' + s.entry_price + '</span>';
-                                if (s.stop_loss) out += '<span style="background:#fef2f2;padding:2px 8px;border-radius:6px">🛑 停損 $' + s.stop_loss + '</span>';
-                                if (s.target_price) out += '<span style="background:#eff6ff;padding:2px 8px;border-radius:6px">🎯 目標 $' + s.target_price + '</span>';
-                                if (s.size) out += '<span style="background:#f8fafc;padding:2px 8px;border-radius:6px">📐 ' + s.size + '</span>';
+                            if (s.direction === 'bullish' && (s.entry_price || s.stop_loss || s.target_1)) {
+                                out += '<div style="display:flex;gap:8px;font-size:11px;flex-wrap:wrap">';
+                                if (s.entry_price) out += '<span style="background:#f0fdf4;padding:2px 8px;border-radius:6px">📍 進場 $' + Number(s.entry_price).toFixed(2) + '</span>';
+                                if (s.stop_loss) out += '<span style="background:#fef2f2;padding:2px 8px;border-radius:6px">🛑 停損 $' + Number(s.stop_loss).toFixed(2) + ' (' + s.stop_pct + '%)</span>';
+                                if (s.target_1) out += '<span style="background:#eff6ff;padding:2px 8px;border-radius:6px">🎯 T1 $' + Number(s.target_1).toFixed(2) + ' (+' + s.target_1_pct + '%)</span>';
+                                if (s.target_2) out += '<span style="background:#eff6ff;padding:2px 8px;border-radius:6px">🎯 T2 $' + Number(s.target_2).toFixed(2) + ' (+' + s.target_2_pct + '%)</span>';
+                                if (s.risk_reward) out += '<span style="background:#faf5ff;padding:2px 8px;border-radius:6px">📐 RR ' + Number(s.risk_reward).toFixed(1) + '</span>';
                                 out += '</div>';
                             }
                             // Analyst target + fair value
