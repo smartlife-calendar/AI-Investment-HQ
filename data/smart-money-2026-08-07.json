@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-07",
+  "generated_at": "2026-08-07T09:03:04.945843+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "SHOP",
+      "name": "Shopify Inc.",
+      "price": 144.24,
+      "change_pct": 16.98,
+      "vol_ratio": 4.0,
+      "volume": 40474936,
+      "avg_volume": 10118734
+    },
+    {
+      "symbol": "UBER",
+      "name": "Uber Technologies, Inc.",
+      "price": 68.18,
+      "change_pct": -5.29,
+      "vol_ratio": 2.3,
+      "volume": 46161399,
+      "avg_volume": 20070173
+    }
+  ]
+}
