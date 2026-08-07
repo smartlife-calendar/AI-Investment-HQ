@@ -40,7 +40,7 @@ a{color:#1e40af}
 <div style="font-size:18px;font-weight:800">🇹🇼 StockIQ 台股</div>
 <div style="font-size:11px;opacity:.7;font-family:monospace">stockiq.tw/tw</div>
 </div>
-<div style="font-size:11px;opacity:.8">TWSE+TPEx 1,969支 每日自動分析 · <span id="ut">載入中</span> · <a href="/" style="color:rgba(255,255,255,.7)">美股版→</a></div>
+<div style="font-size:11px;opacity:.8">TWSE 上市 每日自動分析 · <span id="ut">載入中</span> · <a href="/" style="color:rgba(255,255,255,.7)">美股版→</a></div>
 </div>
 
 <div id="tabs" style="display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:8px;background:#fff;border-bottom:1px solid #e2e8f0"></div>
@@ -520,7 +520,7 @@ function rIndustry(){
   // Recompute stats from filtered stocks
   var fStats={};
   stocks.forEach(function(s){
-    var ind=s.industry||s.sub_industry||'';if(!ind||ind.length<1)return;
+    var ind=s.sector||s.industry||s.sub_industry||'';if(!ind||ind.length<1)return;
     if(!fStats[ind])fStats[ind]={count:0,buy:0,total_score:0,avg_score:0};
     fStats[ind].count++;fStats[ind].total_score+=s.score||0;
     if(s.action==='BUY')fStats[ind].buy++;
