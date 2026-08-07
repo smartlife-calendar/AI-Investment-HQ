@@ -510,7 +510,7 @@ function rIndustry(){
   // SUB mapping moved to server-side (sub_industry field)
   var etfs=[],stocks=[];
   sigs.forEach(function(s){if(s.code&&s.code.match(/^00/))etfs.push(s);else if((mkt==='listed'&&s.market!=='櫃買')||(mkt==='otc'&&s.market==='櫃買'))stocks.push(s)});
-  if(etfs.length){
+  if(etfs.length&&mkt!=='otc'){
     var eh='<div style="font-size:14px;font-weight:700;margin-bottom:6px">📦 ETF <span style="font-size:10px;color:#94a3b8;font-weight:400">('+etfs.length+'支)</span></div><div style="display:flex;flex-wrap:wrap;gap:4px">';
     etfs.sort(function(a,b){return(b.score||0)-(a.score||0)});
     etfs.forEach(function(e){var ac={'BUY':'#16a34a','WATCH':'#eab308','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};var c=ac[e.action]||'#94a3b8';eh+='<span style="background:'+c+'15;border:1px solid '+c+';color:'+c+';padding:2px 6px;border-radius:6px;font-size:10px;font-weight:600">'+e.code+' '+e.name+' ('+e.score+')</span>'});
