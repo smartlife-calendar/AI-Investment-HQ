@@ -3,73 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SNDK 2026Q3 財報解讀 — StockIQ</title>
+<title>SNDK FQ4 2026 財報解讀 — StockIQ</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 0 auto; padding: 16px; background: #f8fafc; color: #1e293b; }
 .header { background: linear-gradient(135deg, #1e40af, #7c3aed); color: white; padding: 20px; border-radius: 12px; margin-bottom: 16px; }
 .card { background: white; border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .metric { display: inline-block; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; margin: 2px; font-size: 13px; }
 .positive { color: #16a34a; } .negative { color: #dc2626; } .neutral { color: #64748b; }
-.corr-card { display: grid; grid-template-columns: 80px 1fr; gap: 8px; padding: 8px; background: #fefce8; border-radius: 6px; margin: 4px 0; font-size: 13px; }
 .trend-chart { display: flex; align-items: flex-end; gap: 2px; height: 60px; margin: 8px 0; }
-.trend-bar { background: #6366f1; border-radius: 2px 2px 0 0; min-width: 30px; text-align: center; font-size: 9px; color: white; }
+.trend-bar { background: #6366f1; border-radius: 2px 2px 0 0; min-width: 40px; text-align: center; font-size: 9px; color: white; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th { background: #f1f5f9; padding: 6px; text-align: left; }
 td { padding: 6px; border-bottom: 1px solid #e2e8f0; }
 a { color: #6366f1; text-decoration: none; }
+.nbm-card { background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 12px; border-radius: 8px; margin: 6px 0; }
+.segment { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 8px 0; }
+.seg-card { background: #f8fafc; padding: 10px; border-radius: 8px; text-align: center; }
 </style>
 </head>
 <body>
 <div style="margin-bottom:8px"><a href="../">← StockIQ</a> · <a href="index.html">財報總覽</a></div>
+
 <div class="header">
-    <div style="font-size:28px;font-weight:700">SNDK 2026Q3</div>
-    <div style="font-size:16px;opacity:0.9">🟢 強勢 · $1212.21 · 市值$177.0B</div>
-    <div style="font-size:12px;margin-top:4px">生成時間: 2026/08/08 09:57 TW · 記憶體需求連動</div>
+    <div style="font-size:28px;font-weight:700">SNDK — Fiscal Q4 2026</div>
+    <div style="font-size:16px;opacity:0.9">🟢 強勢 · 季度結束 2026/07/03 · 發布 2026/08/05</div>
+    <div style="font-size:13px;opacity:0.8;margin-top:4px">$1,212 · 市值$177B · FwdPE 4.7 · 分析師目標$2,117 (+75%)</div>
+    <div style="font-size:11px;margin-top:4px;opacity:0.7">📄 資料來源: SEC Filing + Investor Presentation · 2026/08/08 10:05 TW</div>
 </div>
 
+<!-- ═══ 關鍵指標 ═══ -->
 <div class="card">
-    <h3 style="margin:0 0 8px">📊 關鍵指標</h3>
-    <span class="metric">FwdPE: 4.7</span>
-    <span class="metric">PEG: None</span>
-    <span class="metric">營收成長: 371.6%</span>
-    <span class="metric">推薦: buy</span>
-    <span class="metric">分析師: 22人</span>
-    <span class="metric">目標價: $2117</span>
+    <h3 style="margin:0 0 8px">📊 關鍵指標（來自實際財報）</h3>
+    <span class="metric">營收: <b>$90億</b></span>
+    <span class="metric">QoQ: <b style="color:#16a34a">+51%</b></span>
+    <span class="metric">YoY: <b style="color:#16a34a">+372%</b></span>
+    <span class="metric">Non-GAAP毛利率: <b style="color:#16a34a">84.6%</b></span>
+    <span class="metric">Non-GAAP EPS: <b>$39.25</b></span>
+    <span class="metric">Adj. FCF: <b>$50億</b></span>
+    <span class="metric">營業利潤: <b>$71億</b></span>
+    <span class="metric">22位分析師</span>
+    <span class="metric">推薦: buy (1.6)</span>
 </div>
-<div class="card"><h3 style="margin:0 0 8px">📈 季度營收趨勢</h3><div class="trend-chart"><div class="trend-bar" style="height:15px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$1.7B</div></div><div class="trend-bar" style="height:17px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$1.9B</div></div><div class="trend-bar" style="height:21px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$2.3B</div></div><div class="trend-bar" style="height:27px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$3.0B</div></div><div class="trend-bar" style="height:55px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$6.0B</div></div></div><div style="display:flex;gap:2px;font-size:9px;color:#94a3b8"><div style="min-width:30px;text-align:center">03</div><div style="min-width:30px;text-align:center">06</div><div style="min-width:30px;text-align:center">09</div><div style="min-width:30px;text-align:center">12</div><div style="min-width:30px;text-align:center">03</div></div></div><div class="card"><h3 style="margin:0 0 8px">💰 毛利率趨勢</h3><div class="trend-chart"><div class="trend-bar" style="height:12px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">22%</div></div><div class="trend-bar" style="height:14px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">26%</div></div><div class="trend-bar" style="height:16px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">30%</div></div><div class="trend-bar" style="height:27px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">51%</div></div><div class="trend-bar" style="height:43px;background:#16a34a"><div style="margin-top:-16px;color:#1e293b;font-size:10px">78%</div></div></div></div><div class="card"><h3 style="margin:0 0 8px">🔍 自動分析</h3><div class="positive" style="margin:4px 0">✅ 營收加速 QoQ+97%</div><div class="positive" style="margin:4px 0">✅ 毛利率擴張+48.6%（定價權↑）</div><div class="positive" style="margin:4px 0">✅ 分析師均價$2117（+75%上行空間）</div></div><div class="card"><h3 style="margin:0 0 8px">🏗️ 資本支出趨勢</h3><div class="trend-chart"><div class="trend-bar" style="height:43px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$0.0B</div></div><div class="trend-bar" style="height:43px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$0.0B</div></div><div class="trend-bar" style="height:55px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$0.1B</div></div><div class="trend-bar" style="height:43px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$0.0B</div></div><div class="trend-bar" style="height:43px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$0.0B</div></div></div><div style="font-size:12px;color:#92400e">QoQ: +15%</div></div><div class="card" style="border-left:4px solid #16a34a"><h3 style="margin:0 0 8px">🏰 護城河分析</h3><div style="font-size:16px;font-weight:700;color:#16a34a">🏰 寬護城河</div><div style="font-size:13px;color:#64748b;margin:4px 0">類型: 🔺 寡佔供給</div><div style="margin:6px 0"><span class="metric">RPO: $41.6B</span> <span class="metric">客戶預付: $0.51B</span> <span class="metric">採購義務: $7.1B</span> <span class="metric">R&D: $0.3B</span></div><div style="font-size:12px;margin-top:6px"><div style="margin:2px 0;color:#334155">• RPO=42B (5.7x年營收)</div><div style="margin:2px 0;color:#334155">• 採購義務$7B</div><div style="margin:2px 0;color:#334155">• 採購義務暴增+180%</div><div style="margin:2px 0;color:#334155">• R&D佔營收15%（高研發）</div><div style="margin:2px 0;color:#334155">• 毛利成長+109%</div></div></div><div class="card"><h3 style="margin:0 0 8px">🔄 科技轉換影響</h3><div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid #16a34a"><div style="font-weight:600;font-size:14px">HDD → SSD/NAND <span style="font-size:11px;color:#16a34a">🟢 受益者</span></div><div style="font-size:11px;color:#64748b">階段: ⏸️ 受阻（NAND價格過高） · Enterprise SSD取代HDD是長期趨勢，但目前NAND價格過高抑制轉換意願</div><div style="font-size:11px;margin-top:4px">受益股: SNDK, MU</div><div style="font-size:11px;color:#475569;margin-top:2px">長期趨勢不變但短期受NAND價格影響。SNDK毛利率84.6%反映供需極度緊張。等價格正常化後轉換會加速。WDC已分拆NAND業務(=SNDK)。STX純HDD。</div></div><div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid #6366f1"><div style="font-weight:600;font-size:14px">雲端AI → 邊緣AI (On-Device) <span style="font-size:11px;color:#6366f1">🔵 間接受益</span></div><div style="font-size:11px;color:#64748b">階段: 早期導入 · Apple Intelligence, Qualcomm NPU, 隱私+低延遲需求</div><div style="font-size:11px;margin-top:4px">受益股: QCOM, ARM, AAPL</div><div style="font-size:11px;color:#475569;margin-top:2px">On-device AI需要更多Flash/DRAM→SNDK/MU間接受益。QCOM在手機端NPU領先。AI PC推動換機潮。</div></div></div><div class="card">
-    <h3 style="margin:0 0 8px">🔗 關聯公司影響分析</h3>
+
+<!-- ═══ Q1 FY2027 指引 ═══ -->
+<div class="card" style="border-left:4px solid #16a34a">
+    <h3 style="margin:0 0 8px">🔮 Q1 FY2027 指引（下一季）</h3>
+    <span class="metric">營收: <b>$103-108億</b></span>
+    <span class="metric">毛利率: <b>83-85%</b></span>
+    <span class="metric">EPS: <b>$44-46</b></span>
+    <span class="metric">稀釋股數: ~155M</span>
+    <div class="positive" style="margin-top:8px;font-size:13px">
+        ✅ 指引高於本季 — 營收、EPS 持續加速中
+    </div>
+</div>
+
+<!-- ═══ 營收趨勢 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">📈 季度營收趨勢 (Non-GAAP)</h3>
+    <div class="trend-chart">
+        <div class="trend-bar" style="height:12px;background:#94a3b8"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$1.9B</div></div>
+        <div class="trend-bar" style="height:14px;background:#94a3b8"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$2.3B</div></div>
+        <div class="trend-bar" style="height:18px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$3.0B</div></div>
+        <div class="trend-bar" style="height:36px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$6.0B</div></div>
+        <div class="trend-bar" style="height:55px;background:#16a34a"><div style="margin-top:-16px;color:#1e293b;font-size:10px">$9.0B</div></div>
+    </div>
+    <div style="display:flex;gap:2px;font-size:9px;color:#94a3b8">
+        <div style="min-width:40px;text-align:center">FQ4'25</div>
+        <div style="min-width:40px;text-align:center">FQ1'26</div>
+        <div style="min-width:40px;text-align:center">FQ2'26</div>
+        <div style="min-width:40px;text-align:center">FQ3'26</div>
+        <div style="min-width:40px;text-align:center">FQ4'26</div>
+    </div>
+    <div style="font-size:11px;color:#64748b;margin-top:4px">營收增長來源: 約1/3來自出貨量增加, 2/3來自定價提升</div>
+</div>
+
+<!-- ═══ 毛利率趨勢 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">💰 毛利率趨勢 (Non-GAAP)</h3>
+    <div class="trend-chart">
+        <div class="trend-bar" style="height:15px;background:#dc2626"><div style="margin-top:-16px;color:#1e293b;font-size:10px">26%</div></div>
+        <div class="trend-bar" style="height:17px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">30%</div></div>
+        <div class="trend-bar" style="height:28px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">51%</div></div>
+        <div class="trend-bar" style="height:43px;background:#6366f1"><div style="margin-top:-16px;color:#1e293b;font-size:10px">78%</div></div>
+        <div class="trend-bar" style="height:47px;background:#16a34a"><div style="margin-top:-16px;color:#1e293b;font-size:10px">85%</div></div>
+    </div>
+    <div style="font-size:11px;color:#16a34a;margin-top:4px">毛利率從26%→85%, 一年內擴張58個百分點</div>
+</div>
+
+<!-- ═══ 終端市場分析 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🎯 終端市場分析</h3>
+    <div class="segment">
+        <div class="seg-card" style="border-left:3px solid #16a34a">
+            <div style="font-weight:700;font-size:16px;color:#16a34a">Datacenter</div>
+            <div style="font-size:20px;font-weight:800">$2,977M</div>
+            <div style="font-size:12px;color:#16a34a">QoQ +103% · YoY +1,298%</div>
+            <div style="font-size:11px;color:#64748b;margin-top:4px">佔比: 12%→38% (bits)</div>
+        </div>
+        <div class="seg-card" style="border-left:3px solid #6366f1">
+            <div style="font-weight:700;font-size:16px;color:#6366f1">Edge</div>
+            <div style="font-size:20px;font-weight:800">$5,432M</div>
+            <div style="font-size:12px;color:#6366f1">QoQ +48% · YoY +392%</div>
+            <div style="font-size:11px;color:#64748b;margin-top:4px">手機/PC/車用AI</div>
+        </div>
+        <div class="seg-card" style="border-left:3px solid #f59e0b">
+            <div style="font-weight:700;font-size:16px;color:#f59e0b">Consumer</div>
+            <div style="font-size:20px;font-weight:800">$556M</div>
+            <div style="font-size:12px;color:#f59e0b">QoQ -32% · YoY -5%</div>
+            <div style="font-size:11px;color:#64748b;margin-top:4px">主動轉移bits至DC</div>
+        </div>
+    </div>
+    <div style="font-size:12px;color:#334155;margin-top:4px">
+        ⚡ Consumer下降是<b>正面訊號</b> — 主動將低毛利bits轉移至Datacenter（毛利80%+ vs Consumer ~30%）
+    </div>
+</div>
+
+<!-- ═══ NBM 合約 ═══ -->
+<div class="card" style="border-left:4px solid #f59e0b">
+    <h3 style="margin:0 0 8px">📋 NBM 新商業模式（長約鎖定）</h3>
+    <div class="nbm-card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div><div style="font-size:11px;color:#92400e">簽約客戶</div><div style="font-size:24px;font-weight:800">8家</div></div>
+            <div><div style="font-size:11px;color:#92400e">最低保底營收</div><div style="font-size:24px;font-weight:800">$939億</div></div>
+            <div><div style="font-size:11px;color:#92400e">RPO（季末）</div><div style="font-size:24px;font-weight:800">$598億</div></div>
+            <div><div style="font-size:11px;color:#92400e">財務擔保</div><div style="font-size:24px;font-weight:800">$165億</div></div>
+        </div>
+    </div>
+    <div style="font-size:12px;margin-top:8px">
+        <div>• FY2027: <b>1/2 bits</b> 已鎖定 · FY2028: <b>~2/3 bits</b> 已鎖定</div>
+        <div>• 加權平均合約期限: <b>4+ 年</b>（最長5年）</div>
+        <div>• 定價: 固定+浮動混合, 有地板價和天花板 — <b>地板價已有吸引力毛利</b></div>
+        <div>• Q4新簽5份: 3新客戶 + 2續約擴大</div>
+        <div>• 擔保金在合約末期釋放 → 覆蓋率隨時間上升</div>
+    </div>
+    <div style="font-size:12px;color:#dc2626;margin-top:8px">
+        ⚠️ 風險: 如果NAND價格暴跌, 客戶可能試圖重新談判合約
+    </div>
+</div>
+
+<!-- ═══ 市場展望 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🌍 NAND 市場展望（管理層預期）</h3>
+    <div style="font-size:13px">
+        <div class="positive">✅ CY2026 NAND市場 > <b>$3,000億</b>（YoY 3倍）</div>
+        <div class="positive">✅ CY2027 NAND市場預期 <b>$5,000億</b></div>
+        <div class="positive">✅ Datacenter佔TAM: CY25 ~30% → CY26 ~50%</div>
+        <div class="positive">✅ 客戶需求增速 > 供給增速 → bits持續配額制至CY2027+</div>
+        <div style="color:#f59e0b;margin-top:4px">⚠️ $3,000億→$5,000億預期非常激進, 市場可能打折</div>
+    </div>
+</div>
+
+<!-- ═══ 技術領先 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🔬 技術 & 產品</h3>
+    <div style="font-size:13px">
+        <div>• <b>BiCS 8</b> 已成為產量主力（CBA + hybrid wafer bonding）</div>
+        <div>• <b>QLC Stargate</b> 平台已開始出貨產生營收</div>
+        <div>• 產品覆蓋: 高效能計算SSD ↔ 大容量AI數據湖</div>
+        <div>• 未來路線圖: 多維度scaling延續成本和效能領先</div>
+    </div>
+</div>
+
+<!-- ═══ 資本支出 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🏗️ 資本支出結構</h3>
+    <div style="font-size:13px">
+        <div><span class="metric">Total Cash CapEx: <b>$153M</b> (營收的1.7%)</span></div>
+        <div><span class="metric">Total Gross CapEx: <b>$562M</b> (營收的6.3%)</span></div>
+        <div style="margin-top:4px">• JV(Flash Ventures) CapEx由外部融資(補貼/租賃)+ 工具折舊混合支付</div>
+        <div>• FY26主要投資: BiCS 8技術</div>
+        <div>• FY27: CapEx增加(BiCS 8 + BiCS 10), 但佔營收比下降至~6%</div>
+    </div>
+</div>
+
+<!-- ═══ 股東回報 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">💵 股東回報</h3>
+    <div style="font-size:13px">
+        <div>• Q4回購: <b>$45億</b></div>
+        <div>• 分離後累計回購授權: <b>$200億</b></div>
+        <div>• 剩餘授權額度: <b>$155億</b></div>
+        <div>• 策略: 投資業務優先, 多餘現金回饋股東</div>
+    </div>
+</div>
+
+<!-- ═══ 現金流 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">💰 現金流（Non-GAAP）</h3>
+    <table>
+        <tr><th></th><th>FQ4'25</th><th>FQ3'26</th><th>FQ4'26</th></tr>
+        <tr><td>營業現金流</td><td>$94M</td><td>$3,038M</td><td style="color:#16a34a;font-weight:700">$7,126M</td></tr>
+        <tr><td>Adj. FCF</td><td>$77M</td><td>$2,417M</td><td style="color:#16a34a;font-weight:700">$5,035M</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>$0.29</td><td>$23.41</td><td style="color:#16a34a;font-weight:700">$39.25</td></tr>
+    </table>
+    <div style="font-size:11px;color:#64748b;margin-top:4px">* Adj. FCF排除NBM預付款和保證金$19.4億</div>
+</div>
+
+<!-- ═══ 護城河分析 ═══ -->
+<div class="card" style="border-left:4px solid #16a34a">
+    <h3 style="margin:0 0 8px">🏰 護城河分析</h3>
+    <div style="font-size:16px;font-weight:700;color:#16a34a">🏰 寬護城河 (Score: 9)</div>
+    <div style="font-size:13px;color:#64748b;margin:4px 0">類型: 🔺 寡佔供給 + 📋 合約鎖定</div>
+    <div style="margin:6px 0">
+        <span class="metric">RPO: $41.6B</span>
+        <span class="metric">採購義務: $7.1B</span>
+    </div>
+    <div style="font-size:12px;margin-top:6px">
+        <div style="margin:2px 0;color:#334155">• 🔺 寡佔(4家): 全球僅SNDK/Kioxia/Samsung/SK Hynix能量產NAND</div>
+        <div style="margin:2px 0;color:#334155">• RPO $420億 = 5.7x年營收 — 已鎖定數年營收</div>
+        <div style="margin:2px 0;color:#334155">• NBM長約 + 財務擔保$165億 = 客戶難以違約</div>
+        <div style="margin:2px 0;color:#334155">• BiCS技術領先 + Kioxia JV結構 = 供應鏈壁壘</div>
+        <div style="margin:2px 0;color:#334155">• 採購義務暴增+180% → 供應鏈大規模鎖定中</div>
+    </div>
+</div>
+
+<!-- ═══ JV 結構 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🤝 Flash Ventures 合資結構</h3>
+    <div style="font-size:13px">
+        <div>• SNDK 49.9% / Kioxia 50.1%</div>
+        <div>• SNDK: 共同開發Flash技術 + 貢獻IP + 購買晶圓(成本價)</div>
+        <div>• Kioxia: 製造 + R&D + 銷售晶圓</div>
+        <div>• 設備由雙方共同融資(貸款/股權/租賃擔保)</div>
+        <div style="color:#f59e0b;margin-top:4px">⚠️ 風險: SNDK不完全控制產能, 依賴Kioxia執行製造</div>
+    </div>
+</div>
+
+<!-- ═══ 科技轉換 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🔄 科技轉換影響</h3>
+    <div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid #16a34a">
+        <div style="font-weight:600;font-size:14px">傳統DRAM → HBM <span style="font-size:11px;color:#16a34a">🟢 間接受益</span></div>
+        <div style="font-size:11px;color:#64748b">階段: 主流替代（供不應求） · AI GPU需要高頻寬記憶體</div>
+        <div style="font-size:11px;margin-top:2px">SNDK雖不做HBM, 但HBM佔用DRAM產能→NAND供給更緊張→價格支撐</div>
+    </div>
+    <div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid #f59e0b">
+        <div style="font-weight:600;font-size:14px">HDD → SSD/NAND <span style="font-size:11px;color:#f59e0b">⏸️ 受阻</span></div>
+        <div style="font-size:11px;color:#64748b">階段: 受阻（NAND價格過高） · 長期趨勢不變但短期抑制轉換</div>
+        <div style="font-size:11px;margin-top:2px">SNDK毛利率84.6%反映供需極端. 價格正常化後SSD替代會加速</div>
+    </div>
+    <div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid #6366f1">
+        <div style="font-weight:600;font-size:14px">雲端AI → 邊緣AI <span style="font-size:11px;color:#6366f1">🔵 間接受益</span></div>
+        <div style="font-size:11px;color:#64748b">階段: 早期導入 · On-device AI需要更大Flash存儲</div>
+        <div style="font-size:11px;margin-top:2px">SNDK Edge營收$5.4B, AI驅動高端裝置的存儲容量提升</div>
+    </div>
+</div>
+
+<!-- ═══ 自動分析 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🔍 綜合分析</h3>
+    <div class="positive" style="margin:4px 0">✅ 營收加速 QoQ+51%, YoY+372% — 每季破紀錄</div>
+    <div class="positive" style="margin:4px 0">✅ 毛利率擴張+58pp（定價權極強）</div>
+    <div class="positive" style="margin:4px 0">✅ NBM $939億保底 → 2年營收可見性</div>
+    <div class="positive" style="margin:4px 0">✅ FCF $50億 — 現金流機器</div>
+    <div class="positive" style="margin:4px 0">✅ Q1指引: EPS $44-46 持續加速</div>
+    <div class="positive" style="margin:4px 0">✅ 分析師均價$2,117（+75%上行空間）</div>
+    <div style="border-top:1px solid #e2e8f0;margin-top:8px;padding-top:8px">
+    <div style="color:#f59e0b;margin:4px 0">⚠️ 毛利率84.6%可能接近週期頂部</div>
+    <div style="color:#f59e0b;margin:4px 0">⚠️ NAND市場$300B→$500B預期非常激進</div>
+    <div style="color:#f59e0b;margin:4px 0">⚠️ 股價已從$41→$2,354 (57倍), 獲利了結壓力大</div>
+    <div style="color:#f59e0b;margin:4px 0">⚠️ Consumer營收下降32% (主動Mix Shift但仍需關注)</div>
+    <div style="color:#f59e0b;margin:4px 0">⚠️ Kioxia JV結構 — 不完全控制產能</div>
+    </div>
+</div>
+
+<!-- ═══ 供應鏈影響 ═══ -->
+<div class="card">
+    <h3 style="margin:0 0 8px">🔗 供應鏈影響分析</h3>
     <div style="font-size:12px;color:#64748b;margin-bottom:8px">SNDK 財報正面 → 對以下公司的預期影響</div>
     <table>
-    <tr><th>股票</th><th>關係</th><th>股價</th><th>FwdPE</th><th>營收成長</th><th>影響判斷</th></tr><tr>
-            <td><b>MU</b></td>
-            <td>同產業</td>
-            <td>$877.57</td>
-            <td>5.7</td>
-            <td>345.7%</td>
-            <td style="color:#16a34a">同產業需求確認，MU可能跟漲</td>
-            </tr><tr>
-            <td><b>ASML</b></td>
-            <td>上游供應商</td>
-            <td>$1740.99</td>
-            <td>29.4</td>
-            <td>21.3%</td>
-            <td style="color:#16a34a">上游供應鏈受益</td>
-            </tr><tr>
-            <td><b>AMAT</b></td>
-            <td>上游供應商</td>
-            <td>$539.14</td>
-            <td>31.6</td>
-            <td>11.4%</td>
-            <td style="color:#16a34a">上游供應鏈受益</td>
-            </tr><tr>
-            <td><b>SMCI</b></td>
-            <td>下游客戶</td>
-            <td>$31.13</td>
-            <td>9.4</td>
-            <td>122.7%</td>
-            <td style="color:#16a34a">下游訂單可能增加</td>
-            </tr></table></div>
+    <tr><th>股票</th><th>關係</th><th>影響判斷</th></tr>
+    <tr><td><b>MU</b></td><td>同產業</td><td style="color:#16a34a">記憶體需求確認, MU可能跟漲</td></tr>
+    <tr><td><b>ASML</b></td><td>上游設備</td><td style="color:#16a34a">NAND擴產→EUV/DUV設備需求</td></tr>
+    <tr><td><b>AMAT</b></td><td>上游設備</td><td style="color:#16a34a">先進封裝+蝕刻設備需求</td></tr>
+    <tr><td><b>LRCX</b></td><td>上游設備</td><td style="color:#16a34a">蝕刻+沉積設備需求</td></tr>
+    <tr><td><b>NVDA</b></td><td>下游客戶</td><td style="color:#6366f1">AI GPU需要更多NAND存儲</td></tr>
+    <tr><td><b>SMCI</b></td><td>下游客戶</td><td style="color:#6366f1">AI伺服器需要高容量SSD</td></tr>
+    <tr><td><b>STX</b></td><td>競爭對手</td><td style="color:#dc2626">HDD份額持續被SSD侵蝕</td></tr>
+    </table>
+</div>
+
 <div style="text-align:center;padding:20px;font-size:11px;color:#94a3b8">
-StockIQ 自動財報解讀 · 僅供參考，非投資建議 · <a href="https://stockiq.tw">stockiq.tw</a>
+StockIQ 財報解讀 · 資料來源: SNDK FQ4 2026 Investor Presentation · 僅供參考 · <a href="https://stockiq.tw">stockiq.tw</a>
 </div>
 </body></html>
