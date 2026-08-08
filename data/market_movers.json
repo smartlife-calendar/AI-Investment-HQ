@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-08T10:00:01+08:00",
+  "generated_at": "2026-08-08T19:12:04+08:00",
   "gainers": [
     {
       "symbol": "TEAM",
@@ -309,7 +309,7 @@
       "price": 5.03,
       "change_pct": 22.98,
       "volume": 69156894,
-      "vr": 3.0
+      "vr": 3.1
     },
     {
       "symbol": "DOCS",
@@ -317,7 +317,7 @@
       "price": 27.4,
       "change_pct": 32.62,
       "volume": 63610166,
-      "vr": 11.8
+      "vr": 11.7
     },
     {
       "symbol": "SOUN",
@@ -335,7 +335,7 @@
       "price": 13.8,
       "change_pct": -21.9,
       "volume": 132937406,
-      "vr": 6.1
+      "vr": 6.2
     },
     {
       "symbol": "CIFR",
