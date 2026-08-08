@@ -1,53 +1,44 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T09:25:15.408331+08:00",
+  "generated_at": "2026-08-08T10:01:39.055405+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 5,
+  "count": 4,
   "stocks": [
     {
       "symbol": "DOCS",
       "name": "Doximity, Inc.",
       "price": 27.4,
       "change_pct": 32.62,
-      "vol_ratio": 15.3,
+      "vol_ratio": 11.8,
       "volume": 63610166,
-      "avg_volume": 4157527
+      "avg_volume": 5390692
     },
     {
       "symbol": "TTD",
       "name": "The Trade Desk, Inc.",
       "price": 13.8,
       "change_pct": -21.9,
-      "vol_ratio": 7.1,
+      "vol_ratio": 6.1,
       "volume": 132937406,
-      "avg_volume": 18723578
+      "avg_volume": 21793017
     },
     {
       "symbol": "BTG",
       "name": "B2Gold Corp",
       "price": 5.03,
       "change_pct": 22.98,
-      "vol_ratio": 3.2,
+      "vol_ratio": 3.0,
       "volume": 69156894,
-      "avg_volume": 21611529
+      "avg_volume": 23052298
     },
     {
       "symbol": "SOUN",
       "name": "SoundHound AI, Inc.",
       "price": 8.02,
       "change_pct": 13.28,
-      "vol_ratio": 2.2,
-      "volume": 64467360,
-      "avg_volume": 29303345
-    },
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 133.11,
-      "change_pct": 15.83,
       "vol_ratio": 2.1,
-      "volume": 235223740,
-      "avg_volume": 112011304
+      "volume": 64467360,
+      "avg_volume": 30698742
     }
   ]
 }
