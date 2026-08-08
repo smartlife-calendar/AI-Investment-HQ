@@ -1,6 +1,6 @@
 {
   "date": "2026-08-08",
-  "generated_at": "2026-08-08T10:35:52.322126+08:00",
+  "generated_at": "2026-08-08T21:01:51.417363+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 4,
   "stocks": [
@@ -9,27 +9,27 @@
       "name": "Doximity, Inc.",
       "price": 27.4,
       "change_pct": 32.62,
-      "vol_ratio": 11.8,
+      "vol_ratio": 11.7,
       "volume": 63610166,
-      "avg_volume": 5390692
+      "avg_volume": 5436766
     },
     {
       "symbol": "TTD",
       "name": "The Trade Desk, Inc.",
       "price": 13.8,
       "change_pct": -21.9,
-      "vol_ratio": 6.1,
+      "vol_ratio": 6.2,
       "volume": 132937406,
-      "avg_volume": 21793017
+      "avg_volume": 21441517
     },
     {
       "symbol": "BTG",
       "name": "B2Gold Corp",
       "price": 5.03,
       "change_pct": 22.98,
-      "vol_ratio": 3.0,
+      "vol_ratio": 3.1,
       "volume": 69156894,
-      "avg_volume": 23052298
+      "avg_volume": 22308675
     },
     {
       "symbol": "SOUN",
