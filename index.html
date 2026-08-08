@@ -1324,10 +1324,10 @@
                     out += '<span data-ticker="' + s.symbol + '" class="smart-ticker-link" style="font-weight:800;font-size:17px;color:' + borderColor + ';cursor:pointer;text-decoration:underline dotted">' + s.symbol + '</span>';
                     // Signal conflict warning
                     var _sa = (window._sigActions||{})[s.symbol];
-                    if (_sa && direction === 'bullish' && (_sa.action === 'SELL' || _sa.action === 'AVOID')) {
-                        out += ' <span style="font-size:10px;background:#dc2626;color:white;padding:1px 6px;border-radius:4px">⚠️ 訊號: ' + _sa.action + '</span>';
+                    if (_sa && direction === 'bullish' && (_sa.action === 'SELL' || _sa.action === 'AVOID' || _sa.action === 'REDUCE')) {
+                        out += ' <span style="font-size:10px;background:'+(_sa.action==='REDUCE'?'#f59e0b':'#dc2626')+';color:white;padding:1px 6px;border-radius:4px">⚠️ ' + (_sa.action==='REDUCE'?'Alpha建議減碼':'訊號衝突: '+_sa.action) + '</span>';
                     } else if (_sa && direction === 'bearish' && (_sa.action === 'BUY' || _sa.action === 'SCALE_IN')) {
-                        out += ' <span style="font-size:10px;background:#16a34a;color:white;padding:1px 6px;border-radius:4px">⚠️ 訊號: ' + _sa.action + '</span>';
+                        out += ' <span style="font-size:10px;background:#16a34a;color:white;padding:1px 6px;border-radius:4px">⚠️ ' + (_sa.action==='REDUCE'?'Alpha建議減碼':'訊號衝突: '+_sa.action) + '</span>';
                     }
                     out += ' <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:' + (isStrong?(isBull?'#bbf7d0':'#fecaca'):(isBull?'#dcfce7':'#fee2e2')) + ';color:' + borderColor + '">' + (s.signal||'') + '</span>';
                     var phaseHtml = s.phase_label ? ' · <span style="color:#7c3aed;font-weight:600">' + s.phase_label + '</span>' : '';
