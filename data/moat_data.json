@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-08T01:14:49",
+  "generated_at": "2026-08-08T01:50:17",
   "total": 154,
   "distribution": {
-    "emerging": 42,
-    "narrow": 21,
-    "wide": 4,
-    "none": 87
+    "emerging": 45,
+    "narrow": 19,
+    "wide": 7,
+    "none": 83
   },
   "stocks": {
     "AAPL": {
@@ -24,7 +24,8 @@
       "contract_liability_b": 14.9,
       "purchase_obligation_b": 27.6,
       "rd_expense_b": 11.7,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MSFT": {
       "moat_score": 7,
@@ -43,25 +44,32 @@
       "contract_liability_b": 75.71,
       "purchase_obligation_b": null,
       "rd_expense_b": 35.6,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "NVDA": {
-      "moat_score": 6,
-      "moat_grade": "narrow",
-      "moat_grade_zh": "🛡️ 窄護城河",
-      "moat_type": "scale",
-      "moat_type_zh": "🏭 規模壟斷",
+      "moat_score": 9,
+      "moat_grade": "wide",
+      "moat_grade_zh": "🏰 寬護城河",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "客戶預付$3.1B",
         "採購義務$46B",
         "R&D佔營收69%（高研發）",
-        "無形資產$24B"
+        "無形資產$24B",
+        "🔺 壟斷: AI training GPU壟斷>90%市佔"
       ],
       "rpo_b": 2.6,
       "contract_liability_b": 3.12,
       "purchase_obligation_b": 45.8,
       "rd_expense_b": 6.3,
-      "xbrl_updated": "2026-04-26"
+      "xbrl_updated": "2026-04-26",
+      "oligopoly": {
+        "competitors": 1,
+        "product": "AI訓練GPU",
+        "note": "AI training GPU壟斷>90%市佔"
+      }
     },
     "AMZN": {
       "moat_score": 4,
@@ -79,26 +87,33 @@
       "contract_liability_b": 25.0,
       "purchase_obligation_b": 32.4,
       "rd_expense_b": null,
-      "xbrl_updated": "2020-06-30"
+      "xbrl_updated": "2020-06-30",
+      "oligopoly": null
     },
     "GOOGL": {
-      "moat_score": 8,
+      "moat_score": 11,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
-      "moat_type": "scale",
-      "moat_type_zh": "🏭 規模壟斷",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=520B (1.5x年營收)",
         "客戶預付$10.1B",
         "採購義務$8B",
         "R&D佔營收17%（高研發）",
-        "無形資產$67B"
+        "無形資產$67B",
+        "🔺 壟斷: 全球搜尋市場90%+"
       ],
       "rpo_b": 519.5,
       "contract_liability_b": 10.1,
       "purchase_obligation_b": 7.7,
       "rd_expense_b": 18.2,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": {
+        "competitors": 1,
+        "product": "搜尋引擎",
+        "note": "全球搜尋市場90%+"
+      }
     },
     "META": {
       "moat_score": 7,
@@ -117,7 +132,8 @@
       "contract_liability_b": 1.12,
       "purchase_obligation_b": 182.9,
       "rd_expense_b": 17.7,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "TSLA": {
       "moat_score": 1,
@@ -132,14 +148,15 @@
       "contract_liability_b": 3.87,
       "purchase_obligation_b": null,
       "rd_expense_b": 2.4,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "AVGO": {
-      "moat_score": 11,
+      "moat_score": 13,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
-      "moat_type": "scale",
-      "moat_type_zh": "🏭 規模壟斷",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=165B (2.6x年營收)",
         "RPO成長+266%",
@@ -147,13 +164,19 @@
         "採購義務$128B",
         "採購義務暴增+237141%",
         "R&D佔營收17%（高研發）",
-        "無形資產$126B"
+        "無形資產$126B",
+        "🔺 雙寡佔: 為Google/Meta做custom AI晶片, 僅2-3家有能力"
       ],
       "rpo_b": 164.6,
       "contract_liability_b": 14.24,
       "purchase_obligation_b": 128.1,
       "rd_expense_b": 3.0,
-      "xbrl_updated": "2026-05-03"
+      "xbrl_updated": "2026-05-03",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "Custom AI ASIC",
+        "note": "為Google/Meta做custom AI晶片, 僅2-3家有能力"
+      }
     },
     "JPM": {
       "moat_score": 2,
@@ -168,7 +191,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.9,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "LLY": {
       "moat_score": 1,
@@ -183,23 +207,30 @@
       "contract_liability_b": 0.17,
       "purchase_obligation_b": null,
       "rd_expense_b": 2.4,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "V": {
-      "moat_score": 3,
-      "moat_grade": "emerging",
-      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
       "moat_type": "network",
       "moat_type_zh": "🌐 網路效應",
       "details": [
         "客戶預付$1.9B",
-        "無形資產$49B"
+        "無形資產$49B",
+        "🔺 雙寡佔: Visa/Mastercard雙寡佔全球支付"
       ],
       "rpo_b": 4.9,
       "contract_liability_b": 1.9,
       "purchase_obligation_b": 1.1,
       "rd_expense_b": null,
-      "xbrl_updated": "2025-09-30"
+      "xbrl_updated": "2025-09-30",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "支付網路",
+        "note": "Visa/Mastercard雙寡佔全球支付"
+      }
     },
     "XOM": {
       "moat_score": 0,
@@ -212,7 +243,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "UNH": {
       "moat_score": 2,
@@ -227,22 +259,29 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "MA": {
-      "moat_score": 2,
-      "moat_grade": "none",
-      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
       "moat_type": "network",
       "moat_type_zh": "🌐 網路效應",
       "details": [
-        "無形資產$15B"
+        "無形資產$15B",
+        "🔺 雙寡佔: Visa/Mastercard雙寡佔全球支付"
       ],
       "rpo_b": 1.3,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": "2020-12-31"
+      "xbrl_updated": "2020-12-31",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "支付網路",
+        "note": "Visa/Mastercard雙寡佔全球支付"
+      }
     },
     "JNJ": {
       "moat_score": 1,
@@ -257,7 +296,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PG": {
       "moat_score": 1,
@@ -272,7 +312,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 2.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "HD": {
       "moat_score": 1,
@@ -287,7 +328,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-05-03"
+      "xbrl_updated": "2026-05-03",
+      "oligopoly": null
     },
     "ABBV": {
       "moat_score": 1,
@@ -302,7 +344,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "WMT": {
       "moat_score": 1,
@@ -317,7 +360,8 @@
       "contract_liability_b": 1.86,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "BAC": {
       "moat_score": 2,
@@ -332,7 +376,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "NFLX": {
       "moat_score": 1,
@@ -347,7 +392,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 25.1,
       "rd_expense_b": 1.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CRM": {
       "moat_score": 4,
@@ -364,7 +410,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 2.0,
       "rd_expense_b": 1.6,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "CVX": {
       "moat_score": 0,
@@ -377,7 +424,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.3,
       "rd_expense_b": 0.4,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ORCL": {
       "moat_score": 8,
@@ -396,7 +444,8 @@
       "contract_liability_b": 15.39,
       "purchase_obligation_b": 13.3,
       "rd_expense_b": 10.3,
-      "xbrl_updated": "2026-05-31"
+      "xbrl_updated": "2026-05-31",
+      "oligopoly": null
     },
     "KO": {
       "moat_score": 0,
@@ -409,7 +458,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PEP": {
       "moat_score": 1,
@@ -424,7 +474,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 2.9,
       "rd_expense_b": 0.8,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ACN": {
       "moat_score": 1,
@@ -439,7 +490,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.8,
-      "xbrl_updated": "2026-05-31"
+      "xbrl_updated": "2026-05-31",
+      "oligopoly": null
     },
     "MCD": {
       "moat_score": 0,
@@ -452,7 +504,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "COST": {
       "moat_score": 1,
@@ -467,7 +520,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ADBE": {
       "moat_score": 2,
@@ -483,7 +537,8 @@
       "contract_liability_b": 7.25,
       "purchase_obligation_b": 6.8,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-05-29"
+      "xbrl_updated": "2026-05-29",
+      "oligopoly": null
     },
     "TMO": {
       "moat_score": 3,
@@ -499,7 +554,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 2.0,
       "rd_expense_b": 0.4,
-      "xbrl_updated": "2026-06-27"
+      "xbrl_updated": "2026-06-27",
+      "oligopoly": null
     },
     "CSCO": {
       "moat_score": 5,
@@ -517,7 +573,8 @@
       "contract_liability_b": 28.6,
       "purchase_obligation_b": 4.5,
       "rd_expense_b": 2.4,
-      "xbrl_updated": "2026-04-25"
+      "xbrl_updated": "2026-04-25",
+      "oligopoly": null
     },
     "ABT": {
       "moat_score": 2,
@@ -532,7 +589,8 @@
       "contract_liability_b": 0.66,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.8,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "LIN": {
       "moat_score": 4,
@@ -549,7 +607,8 @@
       "contract_liability_b": 2.41,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "NKE": {
       "moat_score": 1,
@@ -564,7 +623,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "DHR": {
       "moat_score": 5,
@@ -582,7 +642,8 @@
       "contract_liability_b": 1.7,
       "purchase_obligation_b": 1.3,
       "rd_expense_b": 0.4,
-      "xbrl_updated": "2026-06-26"
+      "xbrl_updated": "2026-06-26",
+      "oligopoly": null
     },
     "AMGN": {
       "moat_score": 1,
@@ -597,7 +658,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "TXN": {
       "moat_score": 2,
@@ -612,7 +674,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "NEE": {
       "moat_score": 0,
@@ -625,7 +688,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PM": {
       "moat_score": 1,
@@ -640,7 +704,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.8,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "BMY": {
       "moat_score": 1,
@@ -655,24 +720,31 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": 3.0,
-      "xbrl_updated": "2018-12-31"
+      "xbrl_updated": "2018-12-31",
+      "oligopoly": null
     },
     "RTX": {
-      "moat_score": 6,
-      "moat_grade": "narrow",
-      "moat_grade_zh": "🛡️ 窄護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_score": 8,
+      "moat_grade": "wide",
+      "moat_grade_zh": "🏰 寬護城河",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=289B (3.3x年營收)",
         "客戶預付$12.9B",
-        "無形資產$84B"
+        "無形資產$84B",
+        "🔺 寡佔(3家): Pratt & Whitney航空發動機三大之一"
       ],
       "rpo_b": 289.0,
       "contract_liability_b": 12.89,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": {
+        "competitors": 3,
+        "product": "航空發動機",
+        "note": "Pratt & Whitney航空發動機三大之一"
+      }
     },
     "UNP": {
       "moat_score": 0,
@@ -685,7 +757,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": "2025-12-31"
+      "xbrl_updated": "2025-12-31",
+      "oligopoly": null
     },
     "HON": {
       "moat_score": 7,
@@ -703,7 +776,8 @@
       "contract_liability_b": 4.36,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.5,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "COP": {
       "moat_score": 0,
@@ -716,7 +790,8 @@
       "contract_liability_b": 0.04,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2020-03-31"
+      "xbrl_updated": "2020-03-31",
+      "oligopoly": null
     },
     "QCOM": {
       "moat_score": 3,
@@ -732,7 +807,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 15.1,
       "rd_expense_b": 2.6,
-      "xbrl_updated": "2022-12-25"
+      "xbrl_updated": "2022-12-25",
+      "oligopoly": null
     },
     "INTU": {
       "moat_score": 3,
@@ -748,7 +824,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 4.9,
       "rd_expense_b": 0.8,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MS": {
       "moat_score": 1,
@@ -763,7 +840,8 @@
       "contract_liability_b": 0.18,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "GS": {
       "moat_score": 1,
@@ -776,7 +854,8 @@
       "contract_liability_b": 0.18,
       "purchase_obligation_b": 1.3,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PLTR": {
       "moat_score": 4,
@@ -793,7 +872,8 @@
       "contract_liability_b": 1.1,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "AMD": {
       "moat_score": 7,
@@ -812,7 +892,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": 12.2,
       "rd_expense_b": 2.5,
-      "xbrl_updated": "2026-06-27"
+      "xbrl_updated": "2026-06-27",
+      "oligopoly": null
     },
     "LRCX": {
       "moat_score": 3,
@@ -829,7 +910,8 @@
       "contract_liability_b": 2.68,
       "purchase_obligation_b": 1.5,
       "rd_expense_b": 2.4,
-      "xbrl_updated": "2026-06-28"
+      "xbrl_updated": "2026-06-28",
+      "oligopoly": null
     },
     "KLAC": {
       "moat_score": 3,
@@ -846,7 +928,8 @@
       "contract_liability_b": 1.78,
       "purchase_obligation_b": null,
       "rd_expense_b": 1.5,
-      "xbrl_updated": "2025-06-30"
+      "xbrl_updated": "2025-06-30",
+      "oligopoly": null
     },
     "MRVL": {
       "moat_score": 3,
@@ -862,7 +945,8 @@
       "contract_liability_b": 0.19,
       "purchase_obligation_b": 0.8,
       "rd_expense_b": 0.7,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CDNS": {
       "moat_score": 4,
@@ -879,7 +963,8 @@
       "contract_liability_b": 1.02,
       "purchase_obligation_b": 0.2,
       "rd_expense_b": 0.5,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "SNPS": {
       "moat_score": 6,
@@ -897,7 +982,8 @@
       "contract_liability_b": 2.81,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "FTNT": {
       "moat_score": 3,
@@ -913,7 +999,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "PANW": {
       "moat_score": 6,
@@ -931,7 +1018,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "CRWD": {
       "moat_score": 1,
@@ -946,7 +1034,8 @@
       "contract_liability_b": 4.72,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.4,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "DDOG": {
       "moat_score": 5,
@@ -963,7 +1052,8 @@
       "contract_liability_b": 0.06,
       "purchase_obligation_b": 1.4,
       "rd_expense_b": 0.5,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "ZS": {
       "moat_score": 6,
@@ -980,7 +1070,8 @@
       "contract_liability_b": 2.48,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "OKTA": {
       "moat_score": 4,
@@ -996,7 +1087,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "NET": {
       "moat_score": 4,
@@ -1012,7 +1104,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "SNOW": {
       "moat_score": 4,
@@ -1028,7 +1121,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 2.7,
       "rd_expense_b": 0.5,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "MDB": {
       "moat_score": 3,
@@ -1044,7 +1138,8 @@
       "contract_liability_b": 0.43,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "MNST": {
       "moat_score": 0,
@@ -1057,7 +1152,8 @@
       "contract_liability_b": 0.2,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PCAR": {
       "moat_score": 1,
@@ -1072,7 +1168,8 @@
       "contract_liability_b": 1.41,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PAYX": {
       "moat_score": 0,
@@ -1085,7 +1182,8 @@
       "contract_liability_b": 0.09,
       "purchase_obligation_b": 0.9,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-02-28"
+      "xbrl_updated": "2026-02-28",
+      "oligopoly": null
     },
     "FAST": {
       "moat_score": 0,
@@ -1098,7 +1196,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ODFL": {
       "moat_score": 0,
@@ -1111,7 +1210,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CSGP": {
       "moat_score": 0,
@@ -1124,7 +1224,8 @@
       "contract_liability_b": 0.23,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "VRSK": {
       "moat_score": 2,
@@ -1140,7 +1241,8 @@
       "contract_liability_b": 0.69,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "IDXX": {
       "moat_score": 0,
@@ -1153,7 +1255,8 @@
       "contract_liability_b": 0.1,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "WDAY": {
       "moat_score": 4,
@@ -1170,7 +1273,8 @@
       "contract_liability_b": 4.39,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2018-07-31"
+      "xbrl_updated": "2018-07-31",
+      "oligopoly": null
     },
     "PYPL": {
       "moat_score": 3,
@@ -1185,7 +1289,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 1.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "EBAY": {
       "moat_score": 1,
@@ -1200,7 +1305,8 @@
       "contract_liability_b": 0.1,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "TEAM": {
       "moat_score": 4,
@@ -1217,7 +1323,8 @@
       "contract_liability_b": 2.41,
       "purchase_obligation_b": 0.9,
       "rd_expense_b": 0.9,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "TTD": {
       "moat_score": 2,
@@ -1232,7 +1339,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "DOCU": {
       "moat_score": 4,
@@ -1249,7 +1357,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.2,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "ZM": {
       "moat_score": 3,
@@ -1265,7 +1374,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.5,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "ABNB": {
       "moat_score": 5,
@@ -1282,7 +1392,8 @@
       "contract_liability_b": 12.22,
       "purchase_obligation_b": 1.7,
       "rd_expense_b": 0.7,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "DASH": {
       "moat_score": 1,
@@ -1297,7 +1408,8 @@
       "contract_liability_b": 0.55,
       "purchase_obligation_b": 0.9,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "RIVN": {
       "moat_score": 3,
@@ -1313,7 +1425,8 @@
       "contract_liability_b": 1.98,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "LCID": {
       "moat_score": 2,
@@ -1328,7 +1441,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 2.5,
       "rd_expense_b": 0.3,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "HOOD": {
       "moat_score": 0,
@@ -1341,7 +1455,8 @@
       "contract_liability_b": 0.07,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.4,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MSTR": {
       "moat_score": 4,
@@ -1357,7 +1472,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.2,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "COIN": {
       "moat_score": 1,
@@ -1370,7 +1486,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.7,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "INTC": {
       "moat_score": 3,
@@ -1388,7 +1505,8 @@
       "contract_liability_b": 0.5,
       "purchase_obligation_b": 6.7,
       "rd_expense_b": 3.4,
-      "xbrl_updated": "2019-12-28"
+      "xbrl_updated": "2019-12-28",
+      "oligopoly": null
     },
     "AMAT": {
       "moat_score": 2,
@@ -1404,25 +1522,32 @@
       "contract_liability_b": 2.57,
       "purchase_obligation_b": null,
       "rd_expense_b": 1.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MU": {
-      "moat_score": 5,
+      "moat_score": 7,
       "moat_grade": "narrow",
       "moat_grade_zh": "🛡️ 窄護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO成長+2083%",
         "預付成長+150%",
         "採購義務$7B",
-        "R&D佔營收10%"
+        "R&D佔營收10%",
+        "🔺 寡佔(3家): 全球僅3家(SK Hynix/Samsung/MU), 供不應求至2027+"
       ],
       "rpo_b": 5.0,
       "contract_liability_b": 0.42,
       "purchase_obligation_b": 6.7,
       "rd_expense_b": 1.3,
-      "xbrl_updated": "2026-05-28"
+      "xbrl_updated": "2026-05-28",
+      "oligopoly": {
+        "competitors": 3,
+        "product": "HBM/DRAM",
+        "note": "全球僅3家(SK Hynix/Samsung/MU), 供不應求至2027+"
+      }
     },
     "ON": {
       "moat_score": 2,
@@ -1437,7 +1562,8 @@
       "contract_liability_b": 0.08,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-07-03"
+      "xbrl_updated": "2026-07-03",
+      "oligopoly": null
     },
     "WOLF": {
       "moat_score": 2,
@@ -1452,7 +1578,8 @@
       "contract_liability_b": 0.07,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "SWKS": {
       "moat_score": 2,
@@ -1467,7 +1594,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.2,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MCHP": {
       "moat_score": 2,
@@ -1482,7 +1610,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": 0.3,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "STM": {
       "moat_score": 0,
@@ -1495,20 +1624,28 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ASML": {
-      "moat_score": 1,
-      "moat_grade": "none",
-      "moat_grade_zh": "❌ 無明顯護城河",
-      "moat_type": "scale",
-      "moat_type_zh": "🏭 規模壟斷",
-      "details": [],
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
+      "details": [
+        "🔺 壟斷: 全球獨家EUV供應商, 壟斷"
+      ],
       "rpo_b": null,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": {
+        "competitors": 1,
+        "product": "EUV光刻機",
+        "note": "全球獨家EUV供應商, 壟斷"
+      }
     },
     "TER": {
       "moat_score": 0,
@@ -1521,7 +1658,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.8,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-06-28"
+      "xbrl_updated": "2026-06-28",
+      "oligopoly": null
     },
     "ARM": {
       "moat_score": 0,
@@ -1534,7 +1672,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "SMCI": {
       "moat_score": 3,
@@ -1551,7 +1690,8 @@
       "contract_liability_b": 0.73,
       "purchase_obligation_b": 10.1,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "BTDR": {
       "moat_score": 0,
@@ -1564,14 +1704,15 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "SNDK": {
       "moat_score": 9,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=42B (5.7x年營收)",
         "採購義務$7B",
@@ -1583,7 +1724,12 @@
       "contract_liability_b": 0.51,
       "purchase_obligation_b": 7.1,
       "rd_expense_b": 0.3,
-      "xbrl_updated": "2026-04-03"
+      "xbrl_updated": "2026-04-03",
+      "oligopoly": {
+        "competitors": 4,
+        "product": "NAND Flash",
+        "note": "全球僅4家(SNDK/MU子公司Kioxia/Samsung/SK), NBM長約鎖定"
+      }
     },
     "WDC": {
       "moat_score": -1,
@@ -1598,7 +1744,8 @@
       "contract_liability_b": 0.0,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": null,
-      "xbrl_updated": "2022-12-30"
+      "xbrl_updated": "2022-12-30",
+      "oligopoly": null
     },
     "STX": {
       "moat_score": 0,
@@ -1611,7 +1758,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.8,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "NXPI": {
       "moat_score": 2,
@@ -1626,20 +1774,28 @@
       "contract_liability_b": 0.06,
       "purchase_obligation_b": 2.9,
       "rd_expense_b": 0.6,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "TSM": {
-      "moat_score": 1,
-      "moat_grade": "none",
-      "moat_grade_zh": "❌ 無明顯護城河",
-      "moat_type": "scale",
-      "moat_type_zh": "🏭 規模壟斷",
-      "details": [],
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
+      "details": [
+        "🔺 雙寡佔: 3nm以下僅TSM/Samsung, TSM佔80%+"
+      ],
       "rpo_b": null,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "先進製程晶圓代工",
+        "note": "3nm以下僅TSM/Samsung, TSM佔80%+"
+      }
     },
     "RDW": {
       "moat_score": 3,
@@ -1655,7 +1811,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "RKLB": {
       "moat_score": 5,
@@ -1671,7 +1828,8 @@
       "contract_liability_b": 0.24,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "ASTS": {
       "moat_score": 2,
@@ -1686,7 +1844,8 @@
       "contract_liability_b": 0.23,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "SATL": {
       "moat_score": 5,
@@ -1702,7 +1861,8 @@
       "contract_liability_b": 0.02,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2025-12-31"
+      "xbrl_updated": "2025-12-31",
+      "oligopoly": null
     },
     "LUNR": {
       "moat_score": 6,
@@ -1720,7 +1880,8 @@
       "contract_liability_b": 0.21,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "ACHR": {
       "moat_score": 0,
@@ -1733,7 +1894,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.2,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "JOBY": {
       "moat_score": 2,
@@ -1748,38 +1910,51 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.2,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "LMT": {
-      "moat_score": 5,
+      "moat_score": 7,
       "moat_grade": "narrow",
       "moat_grade_zh": "🛡️ 窄護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=230B (3.9x年營收)",
-        "無形資產$13B"
+        "無形資產$13B",
+        "🔺 雙寡佔: F-35獨家供應商, 全球訂單鎖定30年"
       ],
       "rpo_b": 230.4,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 2.0,
-      "xbrl_updated": "2026-06-28"
+      "xbrl_updated": "2026-06-28",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "F-35戰機",
+        "note": "F-35獨家供應商, 全球訂單鎖定30年"
+      }
     },
     "NOC": {
-      "moat_score": 2,
-      "moat_grade": "none",
-      "moat_grade_zh": "❌ 無明顯護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
-        "無形資產$18B"
+        "無形資產$18B",
+        "🔺 雙寡佔: 美國核武/隱形轟炸機寡佔"
       ],
       "rpo_b": 104.7,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 1.1,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "B-21轟炸機/核潛艦",
+        "note": "美國核武/隱形轟炸機寡佔"
+      }
     },
     "GD": {
       "moat_score": 6,
@@ -1796,24 +1971,31 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 1.6,
-      "xbrl_updated": "2025-12-31"
+      "xbrl_updated": "2025-12-31",
+      "oligopoly": null
     },
     "BA": {
-      "moat_score": 6,
-      "moat_grade": "narrow",
-      "moat_grade_zh": "🛡️ 窄護城河",
-      "moat_type": "contract",
-      "moat_type_zh": "📋 合約鎖定",
+      "moat_score": 8,
+      "moat_grade": "wide",
+      "moat_grade_zh": "🏰 寬護城河",
+      "moat_type": "oligopoly",
+      "moat_type_zh": "🔺 寡佔供給",
       "details": [
         "RPO=715B (9.3x年營收)",
         "採購義務暴增+333%",
-        "無形資產$19B"
+        "無形資產$19B",
+        "🔺 雙寡佔: 全球僅Boeing/Airbus雙寡佔"
       ],
       "rpo_b": 715.3,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.9,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": {
+        "competitors": 2,
+        "product": "大型商用客機",
+        "note": "全球僅Boeing/Airbus雙寡佔"
+      }
     },
     "IONQ": {
       "moat_score": 5,
@@ -1829,7 +2011,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "RGTI": {
       "moat_score": 1,
@@ -1844,7 +2027,8 @@
       "contract_liability_b": 0.0,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "QUBT": {
       "moat_score": 0,
@@ -1857,7 +2041,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "QBTS": {
       "moat_score": 4,
@@ -1873,7 +2058,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "ARQQ": {
       "moat_score": 0,
@@ -1886,7 +2072,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "MARA": {
       "moat_score": 3,
@@ -1902,7 +2089,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "RIOT": {
       "moat_score": 0,
@@ -1915,7 +2103,8 @@
       "contract_liability_b": 0.03,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2025-06-30"
+      "xbrl_updated": "2025-06-30",
+      "oligopoly": null
     },
     "CLSK": {
       "moat_score": 0,
@@ -1928,7 +2117,8 @@
       "contract_liability_b": 0.0,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CIFR": {
       "moat_score": 0,
@@ -1941,7 +2131,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "BTBT": {
       "moat_score": 0,
@@ -1954,7 +2145,8 @@
       "contract_liability_b": 0.92,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": "2025-06-30"
+      "xbrl_updated": "2025-06-30",
+      "oligopoly": null
     },
     "SOUN": {
       "moat_score": 1,
@@ -1969,7 +2161,8 @@
       "contract_liability_b": 0.03,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "BBAI": {
       "moat_score": 1,
@@ -1984,7 +2177,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "RXRX": {
       "moat_score": 2,
@@ -1999,7 +2193,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "HIMS": {
       "moat_score": 0,
@@ -2012,7 +2207,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CRSP": {
       "moat_score": 2,
@@ -2027,7 +2223,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "BEAM": {
       "moat_score": 2,
@@ -2042,7 +2239,8 @@
       "contract_liability_b": 0.01,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "EDIT": {
       "moat_score": 2,
@@ -2057,7 +2255,8 @@
       "contract_liability_b": 0.04,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PACB": {
       "moat_score": 0,
@@ -2070,7 +2269,8 @@
       "contract_liability_b": 0.02,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "MRNA": {
       "moat_score": 3,
@@ -2086,7 +2286,8 @@
       "contract_liability_b": 0.44,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2020-12-31"
+      "xbrl_updated": "2020-12-31",
+      "oligopoly": null
     },
     "BNTX": {
       "moat_score": 0,
@@ -2099,7 +2300,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "NVAX": {
       "moat_score": 4,
@@ -2115,7 +2317,8 @@
       "contract_liability_b": 0.44,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2023-09-30"
+      "xbrl_updated": "2023-09-30",
+      "oligopoly": null
     },
     "BFLY": {
       "moat_score": 3,
@@ -2131,7 +2334,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "NIO": {
       "moat_score": 0,
@@ -2144,7 +2348,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "FSLR": {
       "moat_score": 0,
@@ -2157,7 +2362,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.4,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "ENPH": {
       "moat_score": 2,
@@ -2173,7 +2379,8 @@
       "contract_liability_b": 0.47,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "PLUG": {
       "moat_score": 0,
@@ -2186,7 +2393,8 @@
       "contract_liability_b": 0.23,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31"
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
     },
     "BLNK": {
       "moat_score": 1,
@@ -2201,7 +2409,8 @@
       "contract_liability_b": 0.0,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": null,
-      "xbrl_updated": "2022-03-31"
+      "xbrl_updated": "2022-03-31",
+      "oligopoly": null
     },
     "CHPT": {
       "moat_score": 3,
@@ -2217,7 +2426,8 @@
       "contract_liability_b": 0.25,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-01-31"
+      "xbrl_updated": "2026-01-31",
+      "oligopoly": null
     },
     "SEDG": {
       "moat_score": 0,
@@ -2230,7 +2440,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "CRNC": {
       "moat_score": 3,
@@ -2246,7 +2457,8 @@
       "contract_liability_b": 0.2,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "S": {
       "moat_score": 4,
@@ -2262,7 +2474,8 @@
       "contract_liability_b": 0.59,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-04-30"
+      "xbrl_updated": "2026-04-30",
+      "oligopoly": null
     },
     "TENB": {
       "moat_score": 4,
@@ -2278,7 +2491,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "QLYS": {
       "moat_score": 3,
@@ -2294,7 +2508,8 @@
       "contract_liability_b": 0.42,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     },
     "RBLX": {
       "moat_score": 4,
@@ -2310,7 +2525,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.8,
       "rd_expense_b": 0.4,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "LYFT": {
       "moat_score": 2,
@@ -2325,7 +2541,8 @@
       "contract_liability_b": 0.04,
       "purchase_obligation_b": 0.7,
       "rd_expense_b": 0.1,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "PINS": {
       "moat_score": 3,
@@ -2340,7 +2557,8 @@
       "contract_liability_b": 0.09,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.5,
-      "xbrl_updated": ""
+      "xbrl_updated": "",
+      "oligopoly": null
     },
     "SNAP": {
       "moat_score": 3,
@@ -2355,7 +2573,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.5,
-      "xbrl_updated": "2025-12-31"
+      "xbrl_updated": "2025-12-31",
+      "oligopoly": null
     },
     "U": {
       "moat_score": 3,
@@ -2371,7 +2590,8 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.4,
       "rd_expense_b": 0.3,
-      "xbrl_updated": "2026-06-30"
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
     }
   }
 }
