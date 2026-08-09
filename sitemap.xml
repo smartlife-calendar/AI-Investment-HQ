@@ -2,8 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://stockiq.tw/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://stockiq.tw/tw/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://stockiq.tw/daily/2026-07-04.html</loc><lastmod>2026-07-04</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
-  <url><loc>https://stockiq.tw/daily/2026-07-05.html</loc><lastmod>2026-07-05</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://stockiq.tw/daily/</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://stockiq.tw/earnings/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://stockiq.tw/daily/2026-07-06.html</loc><lastmod>2026-07-06</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://stockiq.tw/daily/2026-07-07.html</loc><lastmod>2026-07-07</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://stockiq.tw/daily/2026-07-08.html</loc><lastmod>2026-07-08</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
@@ -32,4 +32,6 @@
   <url><loc>https://stockiq.tw/daily/2026-08-05.html</loc><lastmod>2026-08-05</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://stockiq.tw/daily/2026-08-06.html</loc><lastmod>2026-08-06</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
   <url><loc>https://stockiq.tw/daily/2026-08-07.html</loc><lastmod>2026-08-07</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://stockiq.tw/daily/2026-08-08.html</loc><lastmod>2026-08-08</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
+  <url><loc>https://stockiq.tw/daily/2026-08-09.html</loc><lastmod>2026-08-09</lastmod><changefreq>never</changefreq><priority>0.6</priority></url>
 </urlset>
