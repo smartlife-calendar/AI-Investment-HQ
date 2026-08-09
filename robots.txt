@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /data/
+Disallow: /tw/data/
+
 Sitemap: https://stockiq.tw/sitemap.xml
 Sitemap: https://stockiq.tw/tw/sitemap.xml
