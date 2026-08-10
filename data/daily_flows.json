@@ -1,6 +1,5 @@
 {
-  "date": "2026-08-08",
-  "generated_at": "2026-08-08T19:12:04.749845+00:00",
+  "generated_at": "2026-08-10T13:48:39+08:00",
   "sectors": [
     {
       "etf": "XLY",
@@ -10,7 +9,7 @@
       "vol_ratio": 0.69,
       "flow": "🟢 流入",
       "mcap_b": 185,
-      "dollar_flow_b": 0.6
+      "dollar_flow_b": 2.8
     },
     {
       "etf": "XLK",
@@ -20,7 +19,7 @@
       "vol_ratio": 0.73,
       "flow": "🟢 流入",
       "mcap_b": 680,
-      "dollar_flow_b": 1.2
+      "dollar_flow_b": 9.7
     },
     {
       "etf": "XLB",
@@ -30,7 +29,7 @@
       "vol_ratio": 1.04,
       "flow": "🟢 流入",
       "mcap_b": 45,
-      "dollar_flow_b": 0.7
+      "dollar_flow_b": 0.6
     },
     {
       "etf": "XLV",
@@ -40,7 +39,7 @@
       "vol_ratio": 0.68,
       "flow": "🟢 流入",
       "mcap_b": 195,
-      "dollar_flow_b": 1.3
+      "dollar_flow_b": 1.5
     },
     {
       "etf": "XLU",
@@ -50,7 +49,7 @@
       "vol_ratio": 0.75,
       "flow": "🟢 流入",
       "mcap_b": 65,
-      "dollar_flow_b": 0.8
+      "dollar_flow_b": 0.3
     },
     {
       "etf": "XLRE",
@@ -60,7 +59,7 @@
       "vol_ratio": 0.68,
       "flow": "🟢 流入",
       "mcap_b": 35,
-      "dollar_flow_b": 0.2
+      "dollar_flow_b": 0.1
     },
     {
       "etf": "XLI",
@@ -70,7 +69,7 @@
       "vol_ratio": 0.84,
       "flow": "⚪ 持平",
       "mcap_b": 145,
-      "dollar_flow_b": 1.1
+      "dollar_flow_b": 0.3
     },
     {
       "etf": "XLC",
@@ -80,7 +79,7 @@
       "vol_ratio": 0.61,
       "flow": "⚪ 持平",
       "mcap_b": 130,
-      "dollar_flow_b": 0.4
+      "dollar_flow_b": 0.1
     },
     {
       "etf": "XLP",
@@ -90,7 +89,7 @@
       "vol_ratio": 0.6,
       "flow": "⚪ 持平",
       "mcap_b": 85,
-      "dollar_flow_b": 0.5
+      "dollar_flow_b": 0.0
     },
     {
       "etf": "XLF",
@@ -100,7 +99,7 @@
       "vol_ratio": 0.72,
       "flow": "🔴 流出",
       "mcap_b": 165,
-      "dollar_flow_b": -1.2
+      "dollar_flow_b": -0.6
     },
     {
       "etf": "XLE",
@@ -110,10 +109,10 @@
       "vol_ratio": 0.74,
       "flow": "🔴 流出",
       "mcap_b": 90,
-      "dollar_flow_b": -1.2
+      "dollar_flow_b": -1.0
     }
   ],
-  "net_flow_b": 4.4,
-  "total_in_b": 6.8,
-  "total_out_b": -2.4
+  "net_flow_b": 13.8,
+  "total_in_b": 15.4,
+  "total_out_b": -1.6
 }
