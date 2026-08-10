@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-08T19:12:04+08:00",
+  "generated_at": "2026-08-10T13:48:39+08:00",
   "gainers": [
     {
       "symbol": "TEAM",
       "name": "Atlassian Corporation",
       "price": 149.07,
       "change_pct": 35.31,
-      "volume": 20000013,
+      "volume": 20086002,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "Natera, Inc.",
       "price": 322.1,
       "change_pct": 21.37,
-      "volume": 3360266,
+      "volume": 3386988,
       "vr": ""
     },
     {
@@ -54,7 +54,7 @@
       "name": "Halozyme Therapeutics, Inc.",
       "price": 103.12,
       "change_pct": 20.24,
-      "volume": 7529972,
+      "volume": 7691625,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Five9, Inc.",
       "price": 33.99,
       "change_pct": 19.81,
-      "volume": 7800131,
+      "volume": 7892001,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Construction Partners, Inc.",
       "price": 119.74,
       "change_pct": 19.55,
-      "volume": 1962160,
+      "volume": 1971113,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "AXT Inc",
       "price": 88.58,
       "change_pct": 17.84,
-      "volume": 19053006,
+      "volume": 19172811,
       "vr": ""
     }
   ],
@@ -88,7 +88,7 @@
       "name": "Sezzle Inc.",
       "price": 118.02,
       "change_pct": -33.89,
-      "volume": 4199070,
+      "volume": 4241687,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "nLIGHT, Inc.",
       "price": 56.16,
       "change_pct": -25.56,
-      "volume": 5443695,
+      "volume": 5472341,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "The Trade Desk, Inc.",
       "price": 13.8,
       "change_pct": -21.9,
-      "volume": 132937406,
+      "volume": 133339609,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Dave Inc.",
       "price": 317.93,
       "change_pct": -12.96,
-      "volume": 667966,
+      "volume": 673982,
       "vr": ""
     },
     {
@@ -170,7 +170,7 @@
       "name": "Space Exploration Technologies ",
       "price": 133.11,
       "change_pct": 15.83,
-      "volume": 235223740,
+      "volume": 242130745,
       "vr": ""
     },
     {
@@ -178,7 +178,7 @@
       "name": "The Trade Desk, Inc.",
       "price": 13.8,
       "change_pct": -21.9,
-      "volume": 132937406,
+      "volume": 133339609,
       "vr": ""
     },
     {
@@ -186,23 +186,7 @@
       "name": "NVIDIA Corporation",
       "price": 223.96,
       "change_pct": 2.27,
-      "volume": 104730601,
-      "vr": ""
-    },
-    {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 101.65,
-      "change_pct": 1.84,
-      "volume": 74293938,
-      "vr": ""
-    },
-    {
-      "symbol": "ONDS",
-      "name": "Ondas Inc",
-      "price": 9.11,
-      "change_pct": 4.23,
-      "volume": 72451822,
+      "volume": 105669440,
       "vr": ""
     },
     {
@@ -210,7 +194,23 @@
       "name": "Palantir Technologies Inc.",
       "price": 172.01,
       "change_pct": 10.32,
-      "volume": 76171329,
+      "volume": 77579878,
+      "vr": ""
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 101.65,
+      "change_pct": 1.84,
+      "volume": 76760636,
+      "vr": ""
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 9.11,
+      "change_pct": 4.23,
+      "volume": 72873426,
       "vr": ""
     },
     {
@@ -234,7 +234,7 @@
       "name": "SoundHound AI, Inc.",
       "price": 8.02,
       "change_pct": 13.28,
-      "volume": 64467360,
+      "volume": 65224973,
       "vr": ""
     },
     {
@@ -250,7 +250,15 @@
       "name": "MARA Holdings, Inc.",
       "price": 10.09,
       "change_pct": -5.26,
-      "volume": 56134025,
+      "volume": 56581459,
+      "vr": ""
+    },
+    {
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 2.18,
+      "change_pct": 5.31,
+      "volume": 54678070,
       "vr": ""
     },
     {
@@ -262,19 +270,11 @@
       "vr": ""
     },
     {
-      "symbol": "EA",
-      "name": "Electronic Arts Inc.",
-      "price": 209.7,
-      "change_pct": 0.0,
-      "volume": 48430629,
-      "vr": ""
-    },
-    {
       "symbol": "SOFI",
       "name": "SoFi Technologies, Inc.",
       "price": 18.38,
       "change_pct": 1.55,
-      "volume": 50979184,
+      "volume": 51642406,
       "vr": ""
     },
     {
@@ -292,15 +292,15 @@
       "name": "Space Exploration Technologies ",
       "price": 133.11,
       "change_pct": 15.83,
-      "volume": 235223740,
-      "vr": 1.9
+      "volume": 242130745,
+      "vr": 2.0
     },
     {
       "symbol": "PLTR",
       "name": "Palantir Technologies Inc.",
       "price": 172.01,
       "change_pct": 10.32,
-      "volume": 76171329,
+      "volume": 77579878,
       "vr": 1.8
     },
     {
@@ -324,7 +324,7 @@
       "name": "SoundHound AI, Inc.",
       "price": 8.02,
       "change_pct": 13.28,
-      "volume": 64467360,
+      "volume": 65224973,
       "vr": 2.1
     }
   ],
@@ -334,7 +334,7 @@
       "name": "The Trade Desk, Inc.",
       "price": 13.8,
       "change_pct": -21.9,
-      "volume": 132937406,
+      "volume": 133339609,
       "vr": 6.2
     },
     {
@@ -342,8 +342,8 @@
       "name": "Cipher Digital Inc.",
       "price": 17.18,
       "change_pct": -5.66,
-      "volume": 44155136,
-      "vr": 1.6
+      "volume": 45182260,
+      "vr": 1.7
     }
   ]
 }
