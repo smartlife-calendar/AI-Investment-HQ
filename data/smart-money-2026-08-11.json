@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-11",
+  "generated_at": "2026-08-11T09:08:09.293134+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "ABCL",
+      "name": "AbCellera Biologics Inc.",
+      "price": 9.34,
+      "change_pct": 34.78,
+      "vol_ratio": 6.4,
+      "volume": 45715210,
+      "avg_volume": 7143001
+    },
+    {
+      "symbol": "ACHR",
+      "name": "Archer Aviation Inc.",
+      "price": 6.26,
+      "change_pct": 11.99,
+      "vol_ratio": 2.9,
+      "volume": 123374378,
+      "avg_volume": 42542888
+    }
+  ]
+}
