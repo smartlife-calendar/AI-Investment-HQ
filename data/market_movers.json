@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T08:45:22+08:00",
+  "generated_at": "2026-08-11T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "ABCL",
@@ -293,7 +293,7 @@
       "price": 6.26,
       "change_pct": 11.99,
       "volume": 123374378,
-      "vr": 2.9
+      "vr": 2.8
     },
     {
       "symbol": "RIG",
@@ -309,7 +309,7 @@
       "price": 9.34,
       "change_pct": 34.78,
       "volume": 45715210,
-      "vr": 6.4
+      "vr": 5.9
     },
     {
       "symbol": "UWMC",
