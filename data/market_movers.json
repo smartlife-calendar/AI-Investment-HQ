@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T08:34:39+08:00",
+  "generated_at": "2026-08-11T08:37:34+08:00",
   "gainers": [
     {
       "symbol": "ABCL",
@@ -310,6 +310,14 @@
       "change_pct": 34.78,
       "volume": 45715210,
       "vr": 6.4
+    },
+    {
+      "symbol": "UWMC",
+      "name": "UWM Holdings Corporation",
+      "price": 1.41,
+      "change_pct": 10.16,
+      "volume": 37585517,
+      "vr": 1.6
     }
   ],
   "strong_sell": [
