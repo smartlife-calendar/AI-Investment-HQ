@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-08T19:12:04+08:00",
+  "generated_at": "2026-08-11T08:45:22+08:00",
   "news": [
+    {
+      "title": "CLM’s 19% Yield Masks a 67% Payout Cut Since 2015",
+      "url": "https://finance.yahoo.com/m/cc06dd2a-12d5-372a-953e-3302cf107112/clm%E2%80%99s-19%25-yield-masks-a-67%25.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1786400709
+    },
     {
       "title": "You Thought You Owned 3,600 Stocks—You Actually Own a $1.2 Trillion Tech Bet",
       "url": "https://finance.yahoo.com/m/ffa63184-ef50-3e14-8952-4355b77d12c1/you-thought-you-owned-3%2C600.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/250910f6-4843-3cc0-b4aa-b85f994953ba/this-etf-just-undercut-vti-on.html",
       "publisher": "24/7 Wall St.",
       "published": 1785329133
-    },
-    {
-      "title": "VUG vs. VTI: Which Vanguard ETF Is the Better Buy for Growth Stocks?",
-      "url": "https://finance.yahoo.com/m/8e9b0f93-0255-3e65-b42f-4f88a35c2f0e/vug-vs.-vti%3A-which-vanguard.html",
-      "publisher": "Motley Fool",
-      "published": 1785252000
     }
   ]
 }
