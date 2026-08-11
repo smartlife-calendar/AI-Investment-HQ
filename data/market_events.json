@@ -1,51 +1,13 @@
 {
-  "generated_at": "2026-08-04T10:00:03+08:00",
+  "generated_at": "2026-08-11T08:45:22+08:00",
   "events": [
-    {
-      "sym": "📌",
-      "date": "2026-07-31",
-      "type": "event",
-      "note": "FOMC 利率決策"
-    },
-    {
-      "sym": "AMD",
-      "date": "2026-08-04",
-      "type": "earnings",
-      "note": "AMD Q財報 盤後",
-      "eps_forecast": "$1.35",
-      "market_cap": "$776,410,494,260"
-    },
-    {
-      "sym": "NET",
-      "date": "2026-08-06",
-      "type": "earnings",
-      "note": "NET Q財報 盤後",
-      "eps_forecast": "($0.03)",
-      "market_cap": "$98,610,021,678"
-    },
-    {
-      "sym": "DDOG",
-      "date": "2026-08-06",
-      "type": "earnings",
-      "note": "DDOG Q財報 盤前",
-      "eps_forecast": "$0.13",
-      "market_cap": "$95,386,651,846"
-    },
     {
       "sym": "SMCI",
       "date": "2026-08-11",
       "type": "earnings",
       "note": "SMCI Q財報 盤後",
       "eps_forecast": "$0.56",
-      "market_cap": "$17,080,284,889"
-    },
-    {
-      "sym": "PANW",
-      "date": "2026-08-17",
-      "type": "earnings",
-      "note": "PANW Q財報",
-      "eps_forecast": "$0.51",
-      "market_cap": "$270,441,450,000"
+      "market_cap": "$18,722,157,345"
     },
     {
       "sym": "NVDA",
@@ -53,47 +15,55 @@
       "type": "earnings",
       "note": "NVDA Q財報 盤後",
       "eps_forecast": "$2.01",
-      "market_cap": "$4,858,150,000,000"
+      "market_cap": "$5,419,832,000,000"
     },
     {
       "sym": "CRWD",
       "date": "2026-08-26",
       "type": "earnings",
-      "note": "CRWD Q財報",
+      "note": "CRWD Q財報 盤後",
       "eps_forecast": "$0.05",
-      "market_cap": "$194,344,966,181"
-    },
-    {
-      "sym": "SNOW",
-      "date": "2026-08-26",
-      "type": "earnings",
-      "note": "SNOW Q財報",
-      "eps_forecast": "($0.51)",
-      "market_cap": "$101,650,848,000"
-    },
-    {
-      "sym": "ZS",
-      "date": "2026-09-01",
-      "type": "earnings",
-      "note": "ZS Q財報",
-      "eps_forecast": "$0.06",
-      "market_cap": "$24,450,480,180"
+      "market_cap": "$218,335,154,818"
     },
     {
       "sym": "CRM",
-      "date": "2026-09-02",
+      "date": "2026-08-26",
       "type": "earnings",
-      "note": "CRM Q財報",
+      "note": "CRM Q財報 盤後",
       "eps_forecast": "$2.35",
-      "market_cap": "$150,712,380,000"
+      "market_cap": "$157,854,060,000"
+    },
+    {
+      "sym": "PANW",
+      "date": "2026-09-01",
+      "type": "earnings",
+      "note": "PANW Q財報 盤後",
+      "eps_forecast": "$0.51",
+      "market_cap": "$296,545,900,000"
     },
     {
       "sym": "AVGO",
+      "date": "2026-09-02",
+      "type": "earnings",
+      "note": "AVGO Q財報 盤後",
+      "eps_forecast": "$2.83",
+      "market_cap": "$2,035,102,505,496"
+    },
+    {
+      "sym": "SNOW",
+      "date": "2026-09-02",
+      "type": "earnings",
+      "note": "SNOW Q財報 盤後",
+      "eps_forecast": "($0.51)",
+      "market_cap": "$114,547,834,000"
+    },
+    {
+      "sym": "ZS",
       "date": "2026-09-03",
       "type": "earnings",
-      "note": "AVGO Q財報",
-      "eps_forecast": "$2.83",
-      "market_cap": "$1,852,030,819,477"
+      "note": "ZS Q財報 盤後",
+      "eps_forecast": "$0.06",
+      "market_cap": "$27,277,162,677"
     },
     {
       "sym": "📌",
@@ -107,7 +77,7 @@
       "type": "earnings",
       "note": "ORCL Q財報",
       "eps_forecast": "$1.39",
-      "market_cap": "$374,086,768,770"
+      "market_cap": "$423,486,846,420"
     },
     {
       "sym": "ADBE",
@@ -115,7 +85,7 @@
       "type": "earnings",
       "note": "ADBE Q財報",
       "eps_forecast": "$4.86",
-      "market_cap": "$99,537,975,000"
+      "market_cap": "$105,420,975,000"
     },
     {
       "sym": "📌",
@@ -128,7 +98,15 @@
       "date": "2026-09-19",
       "type": "event",
       "note": "四巫日（指數期貨/期權結算）"
+    },
+    {
+      "sym": "MU",
+      "date": "2026-09-22",
+      "type": "earnings",
+      "note": "MU Q財報",
+      "eps_forecast": "$31.17",
+      "market_cap": "$991,121,547,523"
     }
   ],
-  "earnings_count": 13
+  "earnings_count": 11
 }
