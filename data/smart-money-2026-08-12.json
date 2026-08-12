@@ -1,26 +1,53 @@
 {
   "date": "2026-08-12",
-  "generated_at": "2026-08-12T05:40:02.266216+08:00",
+  "generated_at": "2026-08-12T09:10:04.478409+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 5,
   "stocks": [
     {
-      "symbol": "ABCL",
-      "name": "AbCellera Biologics Inc.",
-      "price": 9.34,
-      "change_pct": 34.78,
-      "vol_ratio": 5.9,
-      "volume": 45715210,
-      "avg_volume": 7748340
+      "symbol": "ONON",
+      "name": "On Holding AG",
+      "price": 30.91,
+      "change_pct": -20.29,
+      "vol_ratio": 7.9,
+      "volume": 42211459,
+      "avg_volume": 5343222
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "price": 20.24,
+      "change_pct": 4.33,
+      "vol_ratio": 4.5,
+      "volume": 76064000,
+      "avg_volume": 16903111
+    },
+    {
+      "symbol": "FRMI",
+      "name": "Fermi Inc.",
+      "price": 7.12,
+      "change_pct": 21.09,
+      "vol_ratio": 2.6,
+      "volume": 48888459,
+      "avg_volume": 18803253
+    },
+    {
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 2.22,
+      "change_pct": 5.21,
+      "vol_ratio": 2.3,
+      "volume": 145101679,
+      "avg_volume": 63087686
     },
     {
       "symbol": "ACHR",
       "name": "Archer Aviation Inc.",
-      "price": 6.26,
-      "change_pct": 11.99,
-      "vol_ratio": 2.8,
-      "volume": 123374378,
-      "avg_volume": 44062277
+      "price": 6.79,
+      "change_pct": 8.47,
+      "vol_ratio": 2.0,
+      "volume": 87198792,
+      "avg_volume": 43599396
     }
   ]
 }
