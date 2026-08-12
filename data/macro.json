@@ -1,11 +1,15 @@
 {
-  "generated_at": "2026-08-12T13:57:44+08:00",
+  "generated_at": "2026-08-12T16:47:13+08:00",
   "from_cache": false,
   "macro": [
     {
       "name": "10年債殖利率",
       "ticker": "^TNX",
       "current": 4.68,
+      "change_1d": -0.32,
+      "volume_1d": 0,
+      "avg_volume_5d": 0,
+      "fund_flow": 0,
       "perf_52w": 8.2,
       "flow": "⚪中性",
       "momentum": "📉 趨緩",
@@ -55,7 +59,11 @@
     {
       "name": "美元指數 DXY",
       "ticker": "DX-Y.NYB",
-      "current": 99.89,
+      "current": 99.86,
+      "change_1d": 0.04,
+      "volume_1d": 0,
+      "avg_volume_5d": 0,
+      "fund_flow": 0,
       "perf_52w": 2.1,
       "flow": "⚪中性",
       "momentum": "📉 加速下跌",
@@ -97,16 +105,20 @@
         ],
         [
           "08/12",
-          99.89,
-          0.1
+          99.86,
+          0.0
         ]
       ]
     },
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 4447.5,
-      "perf_52w": 33.3,
+      "current": 4465.4,
+      "change_1d": 1.88,
+      "volume_1d": 41329,
+      "avg_volume_5d": 11089,
+      "fund_flow": 184550513,
+      "perf_52w": 33.9,
       "flow": "🟢流入",
       "momentum": "📈 加速",
       "wow": [
@@ -147,15 +159,19 @@
         ],
         [
           "08/12",
-          4447.5,
-          1.5
+          4465.4,
+          1.9
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 83.68,
+      "current": 83.64,
+      "change_1d": 0.53,
+      "volume_1d": 33320,
+      "avg_volume_5d": 204202,
+      "fund_flow": 2786885,
       "perf_52w": 33.2,
       "flow": "🟢流入",
       "momentum": "📈 跌勢趨緩",
@@ -197,16 +213,20 @@
         ],
         [
           "08/12",
-          83.68,
-          0.6
+          83.64,
+          0.5
         ]
       ]
     },
     {
       "name": "VIX 恐慌指數",
       "ticker": "^VIX",
-      "current": 15.28,
-      "perf_52w": 1.3,
+      "current": 15.3,
+      "change_1d": 0.13,
+      "volume_1d": 0,
+      "avg_volume_5d": 0,
+      "fund_flow": 0,
+      "perf_52w": 1.4,
       "flow": "⚪中性",
       "momentum": "📉 加速下跌",
       "wow": [
@@ -246,9 +266,9 @@
           2.6
         ],
         [
-          "08/11",
-          15.28,
-          0.0
+          "08/12",
+          15.3,
+          0.1
         ]
       ]
     },
@@ -256,6 +276,10 @@
       "name": "S&P 500",
       "ticker": "^GSPC",
       "current": 7728.2,
+      "change_1d": -0.32,
+      "volume_1d": 4739500000,
+      "avg_volume_5d": 5117096000,
+      "fund_flow": -36627804825684,
       "perf_52w": 19.8,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -306,6 +330,10 @@
       "name": "NASDAQ",
       "ticker": "^IXIC",
       "current": 26445.45,
+      "change_1d": -0.6,
+      "volume_1d": 7684920000,
+      "avg_volume_5d": 8319402000,
+      "fund_flow": -203231161610156,
       "perf_52w": 22.3,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -358,6 +386,10 @@
       "name": "能源 Energy",
       "etf": "XLE",
       "current": 60.93,
+      "change_1d": 1.25,
+      "volume_1d": 22396800,
+      "avg_volume_5d": 27093020,
+      "fund_flow": 1364637031,
       "perf_52w": 42.4,
       "flow": "🟢流入",
       "momentum": "📉 趨緩",
@@ -408,6 +440,10 @@
       "name": "科技 Tech",
       "etf": "XLK",
       "current": 186.09,
+      "change_1d": -0.12,
+      "volume_1d": 5755300,
+      "avg_volume_5d": 6576140,
+      "fund_flow": -1071003756,
       "perf_52w": 40.1,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -458,6 +494,10 @@
       "name": "工業 Industrial",
       "etf": "XLI",
       "current": 185.7,
+      "change_1d": 0.6,
+      "volume_1d": 4893700,
+      "avg_volume_5d": 5132760,
+      "fund_flow": 908760075,
       "perf_52w": 23.4,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -508,6 +548,10 @@
       "name": "醫療 Health",
       "etf": "XLV",
       "current": 168.01,
+      "change_1d": -0.26,
+      "volume_1d": 6680100,
+      "avg_volume_5d": 9259780,
+      "fund_flow": -1122323564,
       "perf_52w": 23.3,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -558,6 +602,10 @@
       "name": "原材料 Materials",
       "etf": "XLB",
       "current": 53.24,
+      "change_1d": 0.11,
+      "volume_1d": 11449700,
+      "avg_volume_5d": 11504280,
+      "fund_flow": 609582047,
       "perf_52w": 18.3,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -608,6 +656,10 @@
       "name": "金融 Finance",
       "etf": "XLF",
       "current": 57.8,
+      "change_1d": -0.02,
+      "volume_1d": 19755300,
+      "avg_volume_5d": 25724520,
+      "fund_flow": -1141856325,
       "perf_52w": 10.2,
       "flow": "🟢流入",
       "momentum": "📉 趨緩",
@@ -658,6 +710,10 @@
       "name": "房地產 RE",
       "etf": "XLRE",
       "current": 44.08,
+      "change_1d": -1.29,
+      "volume_1d": 5550789,
+      "avg_volume_5d": 5138618,
+      "fund_flow": -246455040,
       "perf_52w": 6.7,
       "flow": "⚪中性",
       "momentum": "📉 加速下跌",
@@ -694,13 +750,13 @@
         ],
         [
           "08/10",
-          44.08,
-          -2.0
+          44.4,
+          -1.3
         ],
         [
           "08/11",
           44.08,
-          0.0
+          -0.7
         ]
       ]
     },
@@ -708,6 +764,10 @@
       "name": "非必需消費 Cyclical",
       "etf": "XLY",
       "current": 119.24,
+      "change_1d": -0.36,
+      "volume_1d": 3788600,
+      "avg_volume_5d": 4855460,
+      "fund_flow": -451752656,
       "perf_52w": 4.1,
       "flow": "⚪中性",
       "momentum": "📈 加速",
@@ -758,6 +818,10 @@
       "name": "必需消費 Staples",
       "etf": "XLP",
       "current": 84.69,
+      "change_1d": -0.31,
+      "volume_1d": 7358300,
+      "avg_volume_5d": 7196260,
+      "fund_flow": -623174445,
       "perf_52w": 3.3,
       "flow": "⚪中性",
       "momentum": "➡️ 穩定",
@@ -808,6 +872,10 @@
       "name": "公用事業 Utilities",
       "etf": "XLU",
       "current": 43.63,
+      "change_1d": 1.16,
+      "volume_1d": 19675200,
+      "avg_volume_5d": 23377920,
+      "fund_flow": 858428997,
       "perf_52w": 1.9,
       "flow": "⚪中性",
       "momentum": "📉 加速下跌",
@@ -858,9 +926,13 @@
       "name": "通訊 Comm",
       "etf": "XLC",
       "current": 111.27,
+      "change_1d": 0.52,
+      "volume_1d": 3369385,
+      "avg_volume_5d": 4094777,
+      "fund_flow": 376798331,
       "perf_52w": -0.2,
       "flow": "⚪中性",
-      "momentum": "➡️ 穩定",
+      "momentum": "📈 加速",
       "wow": [
         [
           "06/29",
@@ -894,13 +966,13 @@
         ],
         [
           "08/10",
-          111.27,
-          0.0
+          111.83,
+          0.5
         ],
         [
           "08/11",
           111.27,
-          0.0
+          -0.5
         ]
       ]
     }
@@ -911,6 +983,10 @@
         "name": "半導體",
         "etf": "SOXX",
         "current": 534.2,
+        "change_1d": 0.91,
+        "volume_1d": 7169600,
+        "avg_volume_5d": 7699940,
+        "fund_flow": 3830000408,
         "perf_52w": 115.1,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -941,6 +1017,10 @@
         "name": "半導體設備",
         "etf": "SMH",
         "current": 572.93,
+        "change_1d": 0.62,
+        "volume_1d": 5019500,
+        "avg_volume_5d": 6088460,
+        "fund_flow": 2875822098,
         "perf_52w": 93.8,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -971,6 +1051,10 @@
         "name": "AI廣泛",
         "etf": "AIQ",
         "current": 63.2,
+        "change_1d": 0.25,
+        "volume_1d": 569951,
+        "avg_volume_5d": 950310,
+        "fund_flow": 36197587,
         "perf_52w": 39.8,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -987,13 +1071,13 @@
           ],
           [
             "08/10",
-            63.2,
-            -0.2
+            63.51,
+            0.3
           ],
           [
             "08/11",
             63.2,
-            0.0
+            -0.5
           ]
         ]
       },
@@ -1001,6 +1085,10 @@
         "name": "雲端",
         "etf": "WCLD",
         "current": 40.01,
+        "change_1d": 2.67,
+        "volume_1d": 427276,
+        "avg_volume_5d": 775155,
+        "fund_flow": 17112403,
         "perf_52w": 18.7,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -1017,13 +1105,13 @@
           ],
           [
             "08/10",
-            40.01,
-            2.6
+            40.05,
+            2.7
           ],
           [
             "08/11",
             40.01,
-            0.0
+            -0.1
           ]
         ]
       },
@@ -1031,6 +1119,10 @@
         "name": "機器人/AI",
         "etf": "BOTZ",
         "current": 37.48,
+        "change_1d": -0.51,
+        "volume_1d": 395554,
+        "avg_volume_5d": 609511,
+        "fund_flow": -14801630,
         "perf_52w": 10.0,
         "flow": "⚪中性",
         "momentum": "📈 加速",
@@ -1061,6 +1153,10 @@
         "name": "軟體",
         "etf": "IGV",
         "current": 103.92,
+        "change_1d": -1.04,
+        "volume_1d": 8253000,
+        "avg_volume_5d": 10424200,
+        "fund_flow": -857651745,
         "perf_52w": -4.8,
         "flow": "⚪中性",
         "momentum": "📈 加速",
@@ -1093,6 +1189,10 @@
         "name": "太空",
         "etf": "UFO",
         "current": 47.95,
+        "change_1d": -0.52,
+        "volume_1d": 292707,
+        "avg_volume_5d": 316001,
+        "fund_flow": -14014811,
         "perf_52w": 56.3,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -1109,13 +1209,13 @@
           ],
           [
             "08/10",
-            47.95,
-            -0.4
+            47.88,
+            -0.5
           ],
           [
             "08/11",
             47.95,
-            0.0
+            0.1
           ]
         ]
       },
@@ -1123,6 +1223,10 @@
         "name": "國防",
         "etf": "ITA",
         "current": 251.9,
+        "change_1d": 0.31,
+        "volume_1d": 372200,
+        "avg_volume_5d": 624120,
+        "fund_flow": 93757178,
         "perf_52w": 29.1,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -1155,6 +1259,10 @@
         "name": "製藥",
         "etf": "XPH",
         "current": 69.74,
+        "change_1d": -0.53,
+        "volume_1d": 115400,
+        "avg_volume_5d": 96660,
+        "fund_flow": -8047996,
         "perf_52w": 51.3,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -1185,6 +1293,10 @@
         "name": "生技",
         "etf": "IBB",
         "current": 199.74,
+        "change_1d": -0.14,
+        "volume_1d": 1647100,
+        "avg_volume_5d": 1645400,
+        "fund_flow": -328991763,
         "perf_52w": 43.9,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -1217,6 +1329,10 @@
         "name": "區域銀行",
         "etf": "KRE",
         "current": 76.81,
+        "change_1d": 1.03,
+        "volume_1d": 8301800,
+        "avg_volume_5d": 9772200,
+        "fund_flow": 637661238,
         "perf_52w": 24.7,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -1247,6 +1363,10 @@
         "name": "銀行",
         "etf": "KBE",
         "current": 70.51,
+        "change_1d": 0.81,
+        "volume_1d": 587500,
+        "avg_volume_5d": 1554240,
+        "fund_flow": 41424626,
         "perf_52w": 21.9,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -1279,6 +1399,10 @@
         "name": "清潔能源",
         "etf": "ICLN",
         "current": 18.2,
+        "change_1d": 0.66,
+        "volume_1d": 4793300,
+        "avg_volume_5d": 7627520,
+        "fund_flow": 87238064,
         "perf_52w": 29.1,
         "flow": "🟢流入",
         "momentum": "📉 趨緩",
@@ -1309,6 +1433,10 @@
         "name": "天然氣",
         "etf": "UNG",
         "current": 10.07,
+        "change_1d": -0.69,
+        "volume_1d": 7608600,
+        "avg_volume_5d": 9672300,
+        "fund_flow": -76618600,
         "perf_52w": -21.5,
         "flow": "🔴流出",
         "momentum": "📈 跌勢趨緩",
@@ -1341,6 +1469,10 @@
         "name": "零售",
         "etf": "XRT",
         "current": 89.63,
+        "change_1d": -1.06,
+        "volume_1d": 3246000,
+        "avg_volume_5d": 4145560,
+        "fund_flow": -290938971,
         "perf_52w": 7.3,
         "flow": "⚪中性",
         "momentum": "📈 加速",
@@ -1371,6 +1503,10 @@
         "name": "創新成長",
         "etf": "ARKK",
         "current": 80.6,
+        "change_1d": 1.27,
+        "volume_1d": 2826985,
+        "avg_volume_5d": 4531737,
+        "fund_flow": 227402680,
         "perf_52w": 4.7,
         "flow": "⚪中性",
         "momentum": "📈 加速",
@@ -1387,13 +1523,13 @@
           ],
           [
             "08/10",
-            80.6,
-            1.5
+            80.44,
+            1.3
           ],
           [
             "08/11",
             80.6,
-            0.0
+            0.2
           ]
         ]
       }
@@ -1403,6 +1539,10 @@
         "name": "白銀",
         "etf": "SLV",
         "current": 58.55,
+        "change_1d": -1.45,
+        "volume_1d": 13333400,
+        "avg_volume_5d": 18083260,
+        "fund_flow": -780670560,
         "perf_52w": 69.7,
         "flow": "🟢流入",
         "momentum": "📈 加速",
@@ -1433,6 +1573,10 @@
         "name": "大宗商品",
         "etf": "PDBC",
         "current": 17.91,
+        "change_1d": 3.36,
+        "volume_1d": 3732517,
+        "avg_volume_5d": 7493663,
+        "fund_flow": 66550778,
         "perf_52w": 38.1,
         "flow": "🟢流入",
         "momentum": "📈 跌勢趨緩",
@@ -1449,13 +1593,13 @@
           ],
           [
             "08/10",
-            17.91,
-            3.8
+            17.83,
+            3.4
           ],
           [
             "08/11",
             17.91,
-            0.0
+            0.4
           ]
         ]
       },
@@ -1463,6 +1607,10 @@
         "name": "黃金",
         "etf": "GLD",
         "current": 400.96,
+        "change_1d": -0.39,
+        "volume_1d": 7421800,
+        "avg_volume_5d": 11503260,
+        "fund_flow": -2975844865,
         "perf_52w": 30.4,
         "flow": "🟢流入",
         "momentum": "📈 加速",
