@@ -4688,11 +4688,14 @@ Q2財報雖淨利成長強勁，但市場預期落空觸發獲利了結。
                     var now = new Date();
                     
                     out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:16px">';
-                    out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;font-weight:700;font-size:14px">📆 即將發布財報（60天）</div>';
+                    out += '<div style="background:#f8fafc;padding:10px 16px;border-bottom:1px solid #e2e8f0;font-weight:700;font-size:14px">📆 即將發布財報</div>';
                     
                     var nowMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     dates.forEach(function(date) {
                         var items = byDate[date];
+                        var _d = new Date(date + 'T00:00:00');
+                        var _diff = Math.round((_d - nowMid) / 86400000);
+                        if (_diff < -1) return; // skip dates more than 1 day ago
                         var d = new Date(date + 'T00:00:00');
                         var dayNames = ['日','一','二','三','四','五','六'];
                         var dayStr = (d.getMonth()+1) + '/' + d.getDate() + ' 週' + dayNames[d.getDay()];
