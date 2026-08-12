@@ -1,6 +1,6 @@
 {
   "date": "2026-08-12",
-  "generated_at": "2026-08-12T09:40:05.585736+08:00",
+  "generated_at": "2026-08-12T10:01:36.809475+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 5,
   "stocks": [
@@ -9,9 +9,9 @@
       "name": "On Holding AG",
       "price": 30.91,
       "change_pct": -20.29,
-      "vol_ratio": 7.9,
+      "vol_ratio": 8.2,
       "volume": 42211459,
-      "avg_volume": 5343222
+      "avg_volume": 5147738
     },
     {
       "symbol": "RIOT",
@@ -27,9 +27,9 @@
       "name": "Fermi Inc.",
       "price": 7.12,
       "change_pct": 21.09,
-      "vol_ratio": 2.6,
+      "vol_ratio": 2.5,
       "volume": 48888459,
-      "avg_volume": 18803253
+      "avg_volume": 19555383
     },
     {
       "symbol": "PLUG",
