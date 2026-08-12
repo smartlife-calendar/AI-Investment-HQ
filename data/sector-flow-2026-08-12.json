@@ -1,10 +1,10 @@
 {
   "date": "2026-08-12",
-  "generated_at": "2026-08-12T11:33:23.970382+08:00",
+  "generated_at": "2026-08-12T16:48:43.144338+08:00",
   "sector_count": 11,
   "summary": {
-    "inflow_count": 3,
-    "outflow_count": 4,
+    "inflow_count": 4,
+    "outflow_count": 3,
     "neutral_count": 4,
     "top_sector": "能源",
     "bottom_sector": "房地產"
@@ -36,6 +36,16 @@
       "sector_en": "Industrials",
       "price": 185.7,
       "change_pct": 0.6,
+      "volume": 0,
+      "avg_volume": 0,
+      "vol_ratio": 0
+    },
+    {
+      "symbol": "XLC",
+      "sector_zh": "通訊服務",
+      "sector_en": "Communication Services",
+      "price": 111.27,
+      "change_pct": 0.52,
       "volume": 0,
       "avg_volume": 0,
       "vol_ratio": 0
@@ -101,21 +111,11 @@
       "vol_ratio": 0
     },
     {
-      "symbol": "XLC",
-      "sector_zh": "通訊服務",
-      "sector_en": "Communication Services",
-      "price": 111.27,
-      "change_pct": -0.5,
-      "volume": 0,
-      "avg_volume": 0,
-      "vol_ratio": 0
-    },
-    {
       "symbol": "XLRE",
       "sector_zh": "房地產",
       "sector_en": "Real Estate",
       "price": 44.08,
-      "change_pct": -0.72,
+      "change_pct": -1.29,
       "volume": 0,
       "avg_volume": 0,
       "vol_ratio": 0
