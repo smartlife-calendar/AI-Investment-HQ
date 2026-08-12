@@ -1,0 +1,25 @@
+{
+  "name": "StockIQ 台股 — AI 籌碼分析",
+  "short_name": "StockIQ台股",
+  "description": "AI 驅動的台股交易訊號、法人買賣超、籌碼分析",
+  "start_url": "/tw/",
+  "scope": "/tw/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1b5e20",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/tw/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/tw/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
