@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T08:31:44+08:00",
+  "generated_at": "2026-08-12T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "NIQ",
@@ -317,7 +317,7 @@
       "price": 7.12,
       "change_pct": 21.09,
       "volume": 48888459,
-      "vr": 2.6
+      "vr": 2.5
     }
   ],
   "strong_sell": [
@@ -335,7 +335,7 @@
       "price": 30.91,
       "change_pct": -20.29,
       "volume": 42211459,
-      "vr": 7.9
+      "vr": 8.2
     }
   ]
 }
