@@ -1,0 +1,35 @@
+{
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T09:20:36.272061+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "NBIS",
+      "name": "Nebius Group N.V.",
+      "price": 259.2,
+      "change_pct": 34.14,
+      "vol_ratio": 3.1,
+      "volume": 62364592,
+      "avg_volume": 20117610
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 107.73,
+      "change_pct": 19.28,
+      "vol_ratio": 3.1,
+      "volume": 86984872,
+      "avg_volume": 28059636
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 37.61,
+      "change_pct": 19.02,
+      "vol_ratio": 3.1,
+      "volume": 164567403,
+      "avg_volume": 53086259
+    }
+  ]
+}
