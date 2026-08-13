@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-08-13T08:34:10+08:00",
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T10:00:02.292227+00:00",
   "sectors": [
     {
       "etf": "XLK",
@@ -9,17 +10,7 @@
       "vol_ratio": 0.92,
       "flow": "🟢 流入",
       "mcap_b": 680,
-      "dollar_flow_b": 10.1
-    },
-    {
-      "etf": "XLRE",
-      "name": "房地產 RE",
-      "price": 44.49,
-      "daily_chg": 0.93,
-      "vol_ratio": 0.97,
-      "flow": "🟢 流入",
-      "mcap_b": 35,
-      "dollar_flow_b": 0.3
+      "dollar_flow_b": 1.1
     },
     {
       "etf": "XLU",
@@ -29,7 +20,7 @@
       "vol_ratio": 0.74,
       "flow": "🟢 流入",
       "mcap_b": 65,
-      "dollar_flow_b": 0.3
+      "dollar_flow_b": 0.7
     },
     {
       "etf": "XLP",
@@ -39,7 +30,7 @@
       "vol_ratio": 0.92,
       "flow": "🟢 流入",
       "mcap_b": 85,
-      "dollar_flow_b": 0.4
+      "dollar_flow_b": 0.5
     },
     {
       "etf": "XLV",
@@ -49,7 +40,7 @@
       "vol_ratio": 0.93,
       "flow": "⚪ 持平",
       "mcap_b": 195,
-      "dollar_flow_b": 0.5
+      "dollar_flow_b": 1.2
     },
     {
       "etf": "XLF",
@@ -59,7 +50,17 @@
       "vol_ratio": 0.8,
       "flow": "⚪ 持平",
       "mcap_b": 165,
-      "dollar_flow_b": 0.3
+      "dollar_flow_b": 1.0
+    },
+    {
+      "etf": "XLRE",
+      "name": "房地產 RE",
+      "price": 44.49,
+      "daily_chg": 0.2,
+      "vol_ratio": 1.0,
+      "flow": "⚪ 持平",
+      "mcap_b": 35,
+      "dollar_flow_b": 0.2
     },
     {
       "etf": "XLE",
@@ -69,7 +70,7 @@
       "vol_ratio": 0.9,
       "flow": "⚪ 持平",
       "mcap_b": 90,
-      "dollar_flow_b": 0.1
+      "dollar_flow_b": 1.4
     },
     {
       "etf": "XLI",
@@ -79,17 +80,7 @@
       "vol_ratio": 0.83,
       "flow": "⚪ 持平",
       "mcap_b": 145,
-      "dollar_flow_b": 0.1
-    },
-    {
-      "etf": "XLC",
-      "name": "通訊 Comm",
-      "price": 110.27,
-      "daily_chg": -0.9,
-      "vol_ratio": 1.23,
-      "flow": "🔴 流出",
-      "mcap_b": 130,
-      "dollar_flow_b": -1.2
+      "dollar_flow_b": 0.7
     },
     {
       "etf": "XLY",
@@ -99,7 +90,7 @@
       "vol_ratio": 0.98,
       "flow": "🔴 流出",
       "mcap_b": 185,
-      "dollar_flow_b": -2.1
+      "dollar_flow_b": -0.5
     },
     {
       "etf": "XLB",
@@ -109,10 +100,20 @@
       "vol_ratio": 0.89,
       "flow": "🔴 流出",
       "mcap_b": 45,
-      "dollar_flow_b": -0.6
+      "dollar_flow_b": -0.5
+    },
+    {
+      "etf": "XLC",
+      "name": "通訊 Comm",
+      "price": 110.27,
+      "daily_chg": -1.39,
+      "vol_ratio": 1.19,
+      "flow": "🔴 流出",
+      "mcap_b": 130,
+      "dollar_flow_b": -0.5
     }
   ],
-  "net_flow_b": 8.2,
-  "total_in_b": 12.1,
-  "total_out_b": -3.9
+  "net_flow_b": 5.3,
+  "total_in_b": 6.8,
+  "total_out_b": -1.5
 }
