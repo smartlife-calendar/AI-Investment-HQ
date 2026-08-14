@@ -1,35 +1,53 @@
 {
   "date": "2026-08-14",
-  "generated_at": "2026-08-14T09:33:55.615280+08:00",
+  "generated_at": "2026-08-14T10:01:30.458925+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 5,
   "stocks": [
     {
-      "symbol": "NBIS",
-      "name": "Nebius Group N.V.",
-      "price": 259.2,
-      "change_pct": 34.14,
-      "vol_ratio": 3.0,
-      "volume": 62364592,
-      "avg_volume": 20788197
+      "symbol": "ARX",
+      "name": "Accelerant Holdings",
+      "price": 19.51,
+      "change_pct": 43.35,
+      "vol_ratio": 22.1,
+      "volume": 69076028,
+      "avg_volume": 3125612
+    },
+    {
+      "symbol": "CLBT",
+      "name": "Cellebrite DI Ltd.",
+      "price": 10.8,
+      "change_pct": -29.18,
+      "vol_ratio": 15.0,
+      "volume": 36528830,
+      "avg_volume": 2435255
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 3.65,
+      "change_pct": 4.58,
+      "vol_ratio": 2.9,
+      "volume": 170611139,
+      "avg_volume": 58831427
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems, Inc.",
+      "price": 113.47,
+      "change_pct": -8.4,
+      "vol_ratio": 2.5,
+      "volume": 61243283,
+      "avg_volume": 24497313
     },
     {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
-      "price": 37.61,
-      "change_pct": 19.02,
-      "vol_ratio": 3.0,
-      "volume": 164567403,
-      "avg_volume": 54855801
-    },
-    {
-      "symbol": "CRWV",
-      "name": "CoreWeave, Inc.",
-      "price": 107.73,
-      "change_pct": 19.28,
-      "vol_ratio": 2.9,
-      "volume": 86984872,
-      "avg_volume": 29994783
+      "price": 39.16,
+      "change_pct": 4.12,
+      "vol_ratio": 2.1,
+      "volume": 119968094,
+      "avg_volume": 57127663
     }
   ]
 }
