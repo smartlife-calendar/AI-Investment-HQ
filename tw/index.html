@@ -206,6 +206,7 @@ function stockCard(s,color){
   h+='<div style="display:flex;justify-content:space-between;align-items:center">';
   h+='<div><b style="font-size:13px">'+s.code+'</b> <span style="font-size:11px;color:#64748b">'+s.name+'</span>';
   if(s.industry)h+=' <span style="font-size:9px;background:#e2e8f0;padding:0 4px;border-radius:6px">'+s.industry+'</span>';
+  if(s.buy_since)h+=' <span style="font-size:9px;background:#dcfce7;color:#16a34a;padding:0 5px;border-radius:6px;font-weight:600">📅第'+s.buy_since+'天</span>';
   h+='</div>';
   h+='<b style="font-size:14px">$'+(s.price||0).toLocaleString()+'</b></div>';
   // Tags
@@ -1269,7 +1270,17 @@ function doSearch(){
     return s.code.toLowerCase().indexOf(q)>=0||(s.name||'').toLowerCase().indexOf(q)>=0
   }).slice(0,15);
   if(!r.length){el.innerHTML='<p style="color:#94a3b8">找不到</p>';return}
-  el.innerHTML=r.map(function(s){return stockCard(s);}).join('');
+  el.innerHTML=r.map(function(s){
+      var ac=s.action||'';
+      var acColors={'BUY':'#16a34a','WATCH':'#f59e0b','NEUTRAL':'#94a3b8','REDUCE':'#f97316','AVOID':'#dc2626'};
+      var acBg={'BUY':'#dcfce7','WATCH':'#fef3c7','NEUTRAL':'#f1f5f9','REDUCE':'#fff7ed','AVOID':'#fef2f2'};
+      var badge='<div style="display:flex;gap:4px;align-items:center;margin-bottom:4px">';
+      badge+='<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:'+(acBg[ac]||'#f1f5f9')+';color:'+(acColors[ac]||'#64748b')+'">'+(s.action_zh||ac)+'</span>';
+      badge+='<span style="font-size:10px;color:#94a3b8">評分:'+s.score+'</span>';
+      if(s.buy_since)badge+='<span style="font-size:10px;color:#16a34a;font-weight:600">📅 買入第'+s.buy_since+'天</span>';
+      badge+='</div>';
+      return badge+stockCard(s,acColors[ac]||'#94a3b8');
+    }).join('');
 }
 
 async function load(){
