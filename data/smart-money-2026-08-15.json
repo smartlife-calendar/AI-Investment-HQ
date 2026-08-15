@@ -1,0 +1,53 @@
+{
+  "date": "2026-08-15",
+  "generated_at": "2026-08-15T09:04:45.941483+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 5,
+  "stocks": [
+    {
+      "symbol": "ARX",
+      "name": "Accelerant Holdings",
+      "price": 19.51,
+      "change_pct": 43.35,
+      "vol_ratio": 22.1,
+      "volume": 69076028,
+      "avg_volume": 3125612
+    },
+    {
+      "symbol": "CLBT",
+      "name": "Cellebrite DI Ltd.",
+      "price": 10.8,
+      "change_pct": -29.18,
+      "vol_ratio": 15.0,
+      "volume": 36528830,
+      "avg_volume": 2435255
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 3.65,
+      "change_pct": 4.58,
+      "vol_ratio": 2.9,
+      "volume": 170611139,
+      "avg_volume": 58831427
+    },
+    {
+      "symbol": "CSCO",
+      "name": "Cisco Systems, Inc.",
+      "price": 113.47,
+      "change_pct": -8.4,
+      "vol_ratio": 2.5,
+      "volume": 61243283,
+      "avg_volume": 24497313
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 39.16,
+      "change_pct": 4.12,
+      "vol_ratio": 2.1,
+      "volume": 119968094,
+      "avg_volume": 57127663
+    }
+  ]
+}
