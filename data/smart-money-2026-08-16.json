@@ -1,0 +1,17 @@
+{
+  "date": "2026-08-16",
+  "generated_at": "2026-08-16T00:03:55.272783+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 15.23,
+      "change_pct": 9.33,
+      "vol_ratio": 2.1,
+      "volume": 156272681,
+      "avg_volume": 74415562
+    }
+  ]
+}
