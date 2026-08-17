@@ -2088,7 +2088,7 @@ async function loadSmartBacktest() {
             if (typeof renderWatchList === 'function') renderWatchList();
             if (typeof showTab === 'function') showTab('today');
             if (typeof loadBullBearIndicator === 'function') loadBullBearIndicator();
-            if (typeof loadEarningsCalendar === 'function') loadEarningsCalendar();
+            // loadEarningsCalendar removed from auto-init (hidden tab)
         }, 100);
 
         (async () => {
