@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-15T10:00:02+08:00",
+  "generated_at": "2026-08-17T13:28:14+08:00",
   "gainers": [
     {
       "symbol": "HTFL",
       "name": "Heartflow, Inc.",
       "price": 42.08,
       "change_pct": 35.7,
-      "volume": 9897958,
+      "volume": 9913524,
       "vr": ""
     },
     {
@@ -14,7 +14,7 @@
       "name": "Applied Optoelectronics, Inc.",
       "price": 150.28,
       "change_pct": 15.53,
-      "volume": 18618908,
+      "volume": 18774955,
       "vr": ""
     },
     {
@@ -29,8 +29,8 @@
       "symbol": "WING",
       "name": "Wingstop Inc.",
       "price": 126.12,
-      "change_pct": 11.05,
-      "volume": 1577625,
+      "change_pct": 10.73,
+      "volume": 1581512,
       "vr": ""
     },
     {
@@ -38,7 +38,7 @@
       "name": "MaxLinear, Inc",
       "price": 84.84,
       "change_pct": 10.68,
-      "volume": 3204215,
+      "volume": 3226205,
       "vr": ""
     },
     {
@@ -54,7 +54,7 @@
       "name": "Vera Therapeutics, Inc.",
       "price": 31.63,
       "change_pct": 9.48,
-      "volume": 5849304,
+      "volume": 5875763,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Aveanna Healthcare Holdings Inc",
       "price": 12.32,
       "change_pct": 9.12,
-      "volume": 7281332,
+      "volume": 7334205,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "Almonty Industries Inc.",
       "price": 15.09,
       "change_pct": 8.95,
-      "volume": 6155091,
+      "volume": 6341769,
       "vr": ""
     }
   ],
@@ -104,7 +104,7 @@
       "name": "Ultra Clean Holdings, Inc.",
       "price": 84.93,
       "change_pct": -8.59,
-      "volume": 1908150,
+      "volume": 1922553,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Duolingo, Inc.",
       "price": 132.83,
       "change_pct": -7.82,
-      "volume": 1062322,
+      "volume": 1065271,
       "vr": ""
     },
     {
@@ -120,7 +120,7 @@
       "name": "X-Energy, Inc.",
       "price": 20.98,
       "change_pct": -7.72,
-      "volume": 5752604,
+      "volume": 5787574,
       "vr": ""
     },
     {
@@ -136,7 +136,7 @@
       "name": "Wix.com Ltd.",
       "price": 74.13,
       "change_pct": -7.41,
-      "volume": 2080077,
+      "volume": 2081150,
       "vr": ""
     },
     {
@@ -152,7 +152,7 @@
       "name": "monday.com Ltd.",
       "price": 87.52,
       "change_pct": -7.18,
-      "volume": 1227189,
+      "volume": 1230457,
       "vr": ""
     },
     {
@@ -160,7 +160,7 @@
       "name": "Quantinuum Inc.",
       "price": 63.59,
       "change_pct": -7.18,
-      "volume": 2575176,
+      "volume": 2614045,
       "vr": ""
     }
   ],
@@ -178,7 +178,7 @@
       "name": "Ondas Inc",
       "price": 9.24,
       "change_pct": 3.7,
-      "volume": 96102083,
+      "volume": 96853915,
       "vr": ""
     },
     {
@@ -186,7 +186,7 @@
       "name": "Space Exploration Technologies ",
       "price": 140.0,
       "change_pct": -0.91,
-      "volume": 94658090,
+      "volume": 96727761,
       "vr": ""
     },
     {
@@ -194,7 +194,15 @@
       "name": "Intel Corporation",
       "price": 102.5,
       "change_pct": -1.97,
-      "volume": 94307788,
+      "volume": 95387502,
+      "vr": ""
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 225.16,
+      "change_pct": -0.06,
+      "volume": 75680870,
       "vr": ""
     },
     {
@@ -206,27 +214,11 @@
       "vr": ""
     },
     {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 225.16,
-      "change_pct": -0.06,
-      "volume": 75161211,
-      "vr": ""
-    },
-    {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
       "price": 39.84,
       "change_pct": 1.74,
-      "volume": 61388358,
-      "vr": ""
-    },
-    {
-      "symbol": "PLUG",
-      "name": "Plug Power, Inc.",
-      "price": 2.32,
-      "change_pct": 0.87,
-      "volume": 49573619,
+      "volume": 61990870,
       "vr": ""
     },
     {
@@ -238,19 +230,11 @@
       "vr": ""
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 14.83,
-      "change_pct": -1.53,
-      "volume": 46320021,
-      "vr": ""
-    },
-    {
-      "symbol": "RIG",
-      "name": "Transocean Ltd (Switzerland)",
-      "price": 5.76,
-      "change_pct": 0.7,
-      "volume": 46217905,
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 2.32,
+      "change_pct": 0.87,
+      "volume": 50250847,
       "vr": ""
     },
     {
@@ -262,19 +246,27 @@
       "vr": ""
     },
     {
+      "symbol": "RIG",
+      "name": "Transocean Ltd (Switzerland)",
+      "price": 5.76,
+      "change_pct": 0.7,
+      "volume": 46217905,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 14.83,
+      "change_pct": -1.53,
+      "volume": 46400805,
+      "vr": ""
+    },
+    {
       "symbol": "TSLA",
       "name": "Tesla, Inc.",
       "price": 342.27,
       "change_pct": 0.68,
-      "volume": 44776096,
-      "vr": ""
-    },
-    {
-      "symbol": "OPEN",
-      "name": "Opendoor Technologies Inc",
-      "price": 3.64,
-      "change_pct": -0.27,
-      "volume": 43479866,
+      "volume": 45437144,
       "vr": ""
     },
     {
@@ -283,6 +275,14 @@
       "price": 6.62,
       "change_pct": -5.02,
       "volume": 41517910,
+      "vr": ""
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 3.64,
+      "change_pct": -0.27,
+      "volume": 44027248,
       "vr": ""
     }
   ],
