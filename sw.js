@@ -1,12 +1,11 @@
-// StockIQ Service Worker — US Site
-const CACHE_NAME = 'stockiq-us-v1';
+// StockIQ Service Worker — TW Site
+const CACHE_NAME = 'stockiq-us-v2';
 const SHELL_ASSETS = [
   '/',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
 ];
 
-// Install: cache shell
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE_NAME)
@@ -15,7 +14,6 @@ self.addEventListener('install', e => {
   );
 });
 
-// Activate: clean old caches
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -24,34 +22,17 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Fetch: network-first for data, cache-first for shell
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   
-  // Data files: always network-first, cache fallback
-  if (url.pathname.startsWith('/data/') || url.pathname.startsWith('/daily/')) {
-    e.respondWith(
-      fetch(e.request)
-        .then(r => {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return r;
-        })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-  
-  // Shell assets: cache-first, network fallback
+  // Network-first for everything (data AND html)
   e.respondWith(
-    caches.match(e.request)
-      .then(cached => {
-        const fetched = fetch(e.request).then(r => {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return r;
-        });
-        return cached || fetched;
+    fetch(e.request)
+      .then(r => {
+        const clone = r.clone();
+        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+        return r;
       })
+      .catch(() => caches.match(e.request))
   );
 });
