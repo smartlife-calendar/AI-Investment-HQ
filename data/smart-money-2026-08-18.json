@@ -1,17 +1,17 @@
 {
   "date": "2026-08-18",
-  "generated_at": "2026-08-18T09:37:04.174734+08:00",
+  "generated_at": "2026-08-18T10:02:20.121371+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 1,
   "stocks": [
     {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 15.23,
-      "change_pct": 9.33,
-      "vol_ratio": 2.1,
-      "volume": 156272681,
-      "avg_volume": 74415562
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 39.09,
+      "change_pct": -4.03,
+      "vol_ratio": 2.5,
+      "volume": 58242477,
+      "avg_volume": 23296990
     }
   ]
 }
