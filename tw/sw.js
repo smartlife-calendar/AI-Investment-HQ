@@ -1,5 +1,5 @@
 // StockIQ Service Worker — TW Site
-const CACHE_NAME = 'stockiq-tw-v1';
+const CACHE_NAME = 'stockiq-tw-v2';
 const SHELL_ASSETS = [
   '/tw/',
   '/tw/icons/icon-192.png',
@@ -25,28 +25,14 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   
-  if (url.pathname.startsWith('/tw/data/')) {
-    e.respondWith(
-      fetch(e.request)
-        .then(r => {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return r;
-        })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-  
+  // Network-first for everything (data AND html)
   e.respondWith(
-    caches.match(e.request)
-      .then(cached => {
-        const fetched = fetch(e.request).then(r => {
-          const clone = r.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return r;
-        });
-        return cached || fetched;
+    fetch(e.request)
+      .then(r => {
+        const clone = r.clone();
+        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+        return r;
       })
+      .catch(() => caches.match(e.request))
   );
 });
