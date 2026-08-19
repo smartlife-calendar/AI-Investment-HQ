@@ -1,0 +1,17 @@
+{
+  "date": "2026-08-19",
+  "generated_at": "2026-08-19T09:03:43.188560+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 39.09,
+      "change_pct": -4.03,
+      "vol_ratio": 2.5,
+      "volume": 58242477,
+      "avg_volume": 23296990
+    }
+  ]
+}
