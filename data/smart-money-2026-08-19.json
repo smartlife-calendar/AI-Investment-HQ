@@ -1,17 +1,26 @@
 {
   "date": "2026-08-19",
-  "generated_at": "2026-08-19T09:03:43.188560+08:00",
+  "generated_at": "2026-08-19T10:02:16.835810+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 2,
   "stocks": [
     {
-      "symbol": "NKE",
-      "name": "Nike, Inc.",
-      "price": 39.09,
-      "change_pct": -4.03,
-      "vol_ratio": 2.5,
-      "volume": 58242477,
-      "avg_volume": 23296990
+      "symbol": "KLAR",
+      "name": "Klarna Group plc",
+      "price": 15.06,
+      "change_pct": -22.81,
+      "vol_ratio": 6.8,
+      "volume": 34414868,
+      "avg_volume": 5061010
+    },
+    {
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "price": 6.15,
+      "change_pct": -11.76,
+      "vol_ratio": 2.8,
+      "volume": 77051926,
+      "avg_volume": 27518545
     }
   ]
 }
