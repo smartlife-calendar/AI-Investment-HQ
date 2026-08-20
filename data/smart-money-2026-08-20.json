@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T09:04:07.041614+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "KLAR",
+      "name": "Klarna Group plc",
+      "price": 15.06,
+      "change_pct": -22.81,
+      "vol_ratio": 6.8,
+      "volume": 34414868,
+      "avg_volume": 5061010
+    },
+    {
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "price": 6.15,
+      "change_pct": -11.76,
+      "vol_ratio": 2.8,
+      "volume": 77051926,
+      "avg_volume": 27518545
+    }
+  ]
+}
