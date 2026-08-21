@@ -1,0 +1,44 @@
+{
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T09:07:10.006126+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "MRNA",
+      "name": "Moderna, Inc.",
+      "price": 174.38,
+      "change_pct": 176.97,
+      "vol_ratio": 18.7,
+      "volume": 185077360,
+      "avg_volume": 9897185
+    },
+    {
+      "symbol": "MSTR",
+      "name": "Strategy Inc",
+      "price": 104.25,
+      "change_pct": 12.68,
+      "vol_ratio": 2.3,
+      "volume": 47292344,
+      "avg_volume": 20561888
+    },
+    {
+      "symbol": "NBIS",
+      "name": "Nebius Group N.V.",
+      "price": 223.9,
+      "change_pct": -9.87,
+      "vol_ratio": 2.3,
+      "volume": 49444471,
+      "avg_volume": 21497596
+    },
+    {
+      "symbol": "BMNR",
+      "name": "BitMine Immersion Technologies,",
+      "price": 20.24,
+      "change_pct": 10.72,
+      "vol_ratio": 2.0,
+      "volume": 70708418,
+      "avg_volume": 35354209
+    }
+  ]
+}
