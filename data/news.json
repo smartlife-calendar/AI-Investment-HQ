@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-20T10:00:02+08:00",
+  "generated_at": "2026-08-21T10:00:02+08:00",
   "news": [
+    {
+      "title": "VOO vs VTI: After Comparing the Two Funds Most Americans Actually Own, One Is the Better Buy for the Next 20 Years",
+      "url": "https://finance.yahoo.com/m/fb4521e3-940e-3641-b34d-407629f94dc2/voo-vs-vti%3A-after-comparing.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1787261758
+    },
     {
       "title": "4 Vanguard ETFs That Belong in Every Portfolio in August",
       "url": "https://finance.yahoo.com/m/58b75278-0f45-339f-baa6-5e4a93dc68df/4-vanguard-etfs-that-belong.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/95acd496-8807-3db4-a3e8-192d0203b8b5/your-advisor-collects-1%25.html",
       "publisher": "24/7 Wall St.",
       "published": 1786571725
-    },
-    {
-      "title": "U.S. ETF Investors at Odds: Chasing Returns or Playing the Long Game?",
-      "url": "https://finance.yahoo.com/m/de986af6-c0f0-3daf-a2e4-51097285893d/u.s.-etf-investors-at-odds%3A.html",
-      "publisher": "etf.com",
-      "published": 1786558489
     }
   ]
 }
