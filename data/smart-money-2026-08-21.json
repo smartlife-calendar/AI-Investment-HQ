@@ -1,44 +1,53 @@
 {
   "date": "2026-08-21",
-  "generated_at": "2026-08-21T09:37:10.557388+08:00",
+  "generated_at": "2026-08-21T10:02:11.232956+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 4,
+  "count": 5,
   "stocks": [
     {
       "symbol": "MRNA",
       "name": "Moderna, Inc.",
-      "price": 174.38,
-      "change_pct": 176.97,
-      "vol_ratio": 18.7,
-      "volume": 185077360,
-      "avg_volume": 9897185
+      "price": 133.32,
+      "change_pct": -23.55,
+      "vol_ratio": 8.7,
+      "volume": 99116829,
+      "avg_volume": 11392738
+    },
+    {
+      "symbol": "WMT",
+      "name": "Walmart Inc.",
+      "price": 103.84,
+      "change_pct": -9.15,
+      "vol_ratio": 3.4,
+      "volume": 83474981,
+      "avg_volume": 24551465
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 10.08,
+      "change_pct": 7.35,
+      "vol_ratio": 3.1,
+      "volume": 45240851,
+      "avg_volume": 14593822
+    },
+    {
+      "symbol": "IOVA",
+      "name": "Iovance Biotherapeutics, Inc.",
+      "price": 8.99,
+      "change_pct": 12.52,
+      "vol_ratio": 2.6,
+      "volume": 43705281,
+      "avg_volume": 16809723
     },
     {
       "symbol": "MSTR",
       "name": "Strategy Inc",
-      "price": 104.25,
-      "change_pct": 12.68,
-      "vol_ratio": 2.3,
-      "volume": 47292344,
-      "avg_volume": 20561888
-    },
-    {
-      "symbol": "NBIS",
-      "name": "Nebius Group N.V.",
-      "price": 223.9,
-      "change_pct": -9.87,
-      "vol_ratio": 2.3,
-      "volume": 49444471,
-      "avg_volume": 21497596
-    },
-    {
-      "symbol": "BMNR",
-      "name": "BitMine Immersion Technologies,",
-      "price": 20.24,
-      "change_pct": 10.72,
-      "vol_ratio": 2.0,
-      "volume": 70708418,
-      "avg_volume": 35354209
+      "price": 112.39,
+      "change_pct": 7.81,
+      "vol_ratio": 2.2,
+      "volume": 46928823,
+      "avg_volume": 21331283
     }
   ]
 }
