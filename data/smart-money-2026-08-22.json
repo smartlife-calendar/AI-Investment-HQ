@@ -1,53 +1,35 @@
 {
   "date": "2026-08-22",
-  "generated_at": "2026-08-22T09:33:49.156207+08:00",
+  "generated_at": "2026-08-22T10:02:29.658698+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 5,
+  "count": 3,
   "stocks": [
     {
       "symbol": "MRNA",
       "name": "Moderna, Inc.",
-      "price": 133.32,
-      "change_pct": -23.55,
-      "vol_ratio": 8.7,
-      "volume": 99116829,
-      "avg_volume": 11392738
+      "price": 145.13,
+      "change_pct": 8.86,
+      "vol_ratio": 7.5,
+      "volume": 86743104,
+      "avg_volume": 11565747
     },
     {
-      "symbol": "WMT",
-      "name": "Walmart Inc.",
-      "price": 103.84,
-      "change_pct": -9.15,
-      "vol_ratio": 3.4,
-      "volume": 83474981,
-      "avg_volume": 24551465
-    },
-    {
-      "symbol": "PURR",
-      "name": "Hyperliquid Strategies Inc",
-      "price": 10.08,
-      "change_pct": 7.35,
-      "vol_ratio": 3.1,
-      "volume": 45240851,
-      "avg_volume": 14593822
-    },
-    {
-      "symbol": "IOVA",
-      "name": "Iovance Biotherapeutics, Inc.",
-      "price": 8.99,
-      "change_pct": 12.52,
-      "vol_ratio": 2.6,
-      "volume": 43705281,
-      "avg_volume": 16809723
+      "symbol": "DNN",
+      "name": "Denison Mines Corp",
+      "price": 3.5,
+      "change_pct": 11.46,
+      "vol_ratio": 2.0,
+      "volume": 49868188,
+      "avg_volume": 24934094
     },
     {
       "symbol": "MSTR",
       "name": "Strategy Inc",
-      "price": 112.39,
-      "change_pct": 7.81,
-      "vol_ratio": 2.2,
-      "volume": 46928823,
-      "avg_volume": 21331283
+      "price": 119.25,
+      "change_pct": 6.1,
+      "vol_ratio": 2.0,
+      "volume": 45053427,
+      "avg_volume": 22526713
     }
   ]
 }
