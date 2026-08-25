@@ -1,0 +1,17 @@
+{
+  "date": "2026-08-26",
+  "generated_at": "2026-08-26T01:07:44.913463+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "VALE",
+      "name": "VALE S.A.",
+      "price": 15.04,
+      "change_pct": 3.08,
+      "vol_ratio": 2.1,
+      "volume": 48259175,
+      "avg_volume": 22980559
+    }
+  ]
+}
