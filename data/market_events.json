@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-17T13:28:14+08:00",
+  "generated_at": "2026-08-25T10:00:03+08:00",
   "events": [
     {
       "sym": "NVDA",
       "date": "2026-08-26",
       "type": "earnings",
       "note": "NVDA Q財報 盤後",
-      "eps_forecast": "$2.01",
-      "market_cap": "$5,452,260,000,000"
+      "eps_forecast": "$2.09",
+      "market_cap": "$5,196,224,000,000"
     },
     {
       "sym": "CRWD",
@@ -15,7 +15,7 @@
       "type": "earnings",
       "note": "CRWD Q財報 盤後",
       "eps_forecast": "$0.05",
-      "market_cap": "$229,648,015,418"
+      "market_cap": "$195,454,868,796"
     },
     {
       "sym": "CRM",
@@ -23,7 +23,7 @@
       "type": "earnings",
       "note": "CRM Q財報 盤後",
       "eps_forecast": "$2.35",
-      "market_cap": "$164,922,030,000"
+      "market_cap": "$171,310,230,000"
     },
     {
       "sym": "PANW",
@@ -31,7 +31,7 @@
       "type": "earnings",
       "note": "PANW Q財報 盤後",
       "eps_forecast": "$0.51",
-      "market_cap": "$322,740,000,000"
+      "market_cap": "$291,664,050,000"
     },
     {
       "sym": "AVGO",
@@ -39,7 +39,7 @@
       "type": "earnings",
       "note": "AVGO Q財報 盤後",
       "eps_forecast": "$2.83",
-      "market_cap": "$1,987,812,158,328"
+      "market_cap": "$1,752,930,423,953"
     },
     {
       "sym": "SNOW",
@@ -47,7 +47,7 @@
       "type": "earnings",
       "note": "SNOW Q財報 盤後",
       "eps_forecast": "($0.51)",
-      "market_cap": "$116,935,908,000"
+      "market_cap": "$115,341,548,000"
     },
     {
       "sym": "ZS",
@@ -55,7 +55,7 @@
       "type": "earnings",
       "note": "ZS Q財報 盤後",
       "eps_forecast": "$0.06",
-      "market_cap": "$30,430,498,415"
+      "market_cap": "$29,389,897,621"
     },
     {
       "sym": "📌",
@@ -68,8 +68,8 @@
       "date": "2026-09-08",
       "type": "earnings",
       "note": "ORCL Q財報",
-      "eps_forecast": "$1.39",
-      "market_cap": "$449,987,179,620"
+      "eps_forecast": "$1.40",
+      "market_cap": "$421,902,587,370"
     },
     {
       "sym": "ADBE",
@@ -77,7 +77,7 @@
       "type": "earnings",
       "note": "ADBE Q財報 盤後",
       "eps_forecast": "$4.86",
-      "market_cap": "$107,519,775,000"
+      "market_cap": "$109,431,750,000"
     },
     {
       "sym": "📌",
@@ -97,7 +97,7 @@
       "type": "earnings",
       "note": "MU Q財報",
       "eps_forecast": "$31.17",
-      "market_cap": "$1,072,731,496,614"
+      "market_cap": "$1,091,874,710,524"
     }
   ],
   "earnings_count": 10
