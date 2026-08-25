@@ -1,35 +1,17 @@
 {
   "date": "2026-08-25",
-  "generated_at": "2026-08-25T09:35:33.627137+08:00",
+  "generated_at": "2026-08-25T10:04:08.439935+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 1,
   "stocks": [
     {
-      "symbol": "MRNA",
-      "name": "Moderna, Inc.",
-      "price": 145.13,
-      "change_pct": 8.86,
-      "vol_ratio": 7.5,
-      "volume": 86743104,
-      "avg_volume": 11565747
-    },
-    {
-      "symbol": "DNN",
-      "name": "Denison Mines Corp",
-      "price": 3.5,
-      "change_pct": 11.46,
-      "vol_ratio": 2.0,
-      "volume": 49868188,
-      "avg_volume": 24934094
-    },
-    {
-      "symbol": "MSTR",
-      "name": "Strategy Inc",
-      "price": 119.25,
-      "change_pct": 6.1,
-      "vol_ratio": 2.0,
-      "volume": 45053427,
-      "avg_volume": 22526713
+      "symbol": "VALE",
+      "name": "VALE S.A.",
+      "price": 15.04,
+      "change_pct": 3.08,
+      "vol_ratio": 2.1,
+      "volume": 48259175,
+      "avg_volume": 22980559
     }
   ]
 }
