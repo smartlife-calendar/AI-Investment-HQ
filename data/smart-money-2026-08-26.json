@@ -1,17 +1,26 @@
 {
   "date": "2026-08-26",
-  "generated_at": "2026-08-26T09:41:27.271781+08:00",
+  "generated_at": "2026-08-26T10:02:37.775580+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 2,
   "stocks": [
     {
-      "symbol": "VALE",
-      "name": "VALE S.A.",
-      "price": 15.04,
-      "change_pct": 3.08,
-      "vol_ratio": 2.1,
-      "volume": 48259175,
-      "avg_volume": 22980559
+      "symbol": "DKS",
+      "name": "Dick's Sporting Goods Inc",
+      "price": 124.31,
+      "change_pct": -30.68,
+      "vol_ratio": 27.7,
+      "volume": 38563567,
+      "avg_volume": 1392186
+    },
+    {
+      "symbol": "MRNA",
+      "name": "Moderna, Inc.",
+      "price": 158.83,
+      "change_pct": 14.36,
+      "vol_ratio": 3.7,
+      "volume": 49046451,
+      "avg_volume": 13255797
     }
   ]
 }
