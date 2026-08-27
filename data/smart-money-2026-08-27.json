@@ -1,0 +1,26 @@
+{
+  "date": "2026-08-27",
+  "generated_at": "2026-08-27T09:06:42.250934+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "DKS",
+      "name": "Dick's Sporting Goods Inc",
+      "price": 124.31,
+      "change_pct": -30.68,
+      "vol_ratio": 27.7,
+      "volume": 38563567,
+      "avg_volume": 1392186
+    },
+    {
+      "symbol": "MRNA",
+      "name": "Moderna, Inc.",
+      "price": 158.83,
+      "change_pct": 14.36,
+      "vol_ratio": 3.7,
+      "volume": 49046451,
+      "avg_volume": 13255797
+    }
+  ]
+}
