@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-26T10:00:02+08:00",
+  "generated_at": "2026-08-27T10:00:02+08:00",
   "news": [
+    {
+      "title": "VTI’s 0.03% Fee Hides the Real Cost: 3,600 Stocks and Still a Third of Your Money in Ten Companies",
+      "url": "https://finance.yahoo.com/m/3292a88b-b3b0-3544-bbda-f862bd12c36f/vti%E2%80%99s-0.03%25-fee-hides-the.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1787780139
+    },
     {
       "title": "The $60,000 Withdrawal That Terrifies Early Retirees Is a Myth. Here’s What to Sell First",
       "url": "https://finance.yahoo.com/m/da62a59c-6126-3b1f-afcf-880e530eda76/the-%2460%2C000-withdrawal-that.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/healthcare/articles/mark-cuban-says-401-k-111500193.html",
       "publisher": "Moneywise",
       "published": 1786706100
-    },
-    {
-      "title": "What Is an ETF? 9 Things to Know About Exchange-Traded Funds",
-      "url": "https://finance.yahoo.com/m/d60e5eea-b5ad-355e-891d-91d07ae5f624/what-is-an-etf%3F-9-things-to.html",
-      "publisher": "Kiplinger",
-      "published": 1786660329
     }
   ]
 }
