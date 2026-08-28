@@ -1,7 +1,35 @@
 {
   "date": "2026-08-28",
-  "generated_at": "2026-08-28T09:39:44.408769+08:00",
+  "generated_at": "2026-08-28T10:02:15.810898+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 0,
-  "stocks": []
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "CRM",
+      "name": "Salesforce, Inc.",
+      "price": 252.05,
+      "change_pct": 22.58,
+      "vol_ratio": 3.6,
+      "volume": 55409963,
+      "avg_volume": 15391656
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 12.83,
+      "change_pct": 10.99,
+      "vol_ratio": 2.7,
+      "volume": 42218957,
+      "avg_volume": 15636650
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 227.98,
+      "change_pct": 8.74,
+      "vol_ratio": 2.1,
+      "volume": 297197891,
+      "avg_volume": 141522805
+    }
+  ]
 }
