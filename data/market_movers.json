@@ -1,166 +1,166 @@
 {
-  "generated_at": "2026-08-27T10:00:02+08:00",
+  "generated_at": "2026-08-28T10:00:02+08:00",
   "gainers": [
     {
-      "symbol": "ANF",
-      "name": "Abercrombie & Fitch Company",
-      "price": 147.75,
-      "change_pct": 35.67,
-      "volume": 17199199,
+      "symbol": "OKTA",
+      "name": "Okta, Inc.",
+      "price": 172.91,
+      "change_pct": 28.63,
+      "volume": 16326436,
       "vr": ""
     },
     {
-      "symbol": "BHVN",
-      "name": "Biohaven Ltd.",
-      "price": 16.95,
-      "change_pct": 17.87,
-      "volume": 15739050,
+      "symbol": "CRM",
+      "name": "Salesforce, Inc.",
+      "price": 252.05,
+      "change_pct": 22.58,
+      "volume": 55409963,
       "vr": ""
     },
     {
-      "symbol": "BZ",
-      "name": "KANZHUN LIMITED - American Depo",
-      "price": 18.84,
-      "change_pct": 15.65,
-      "volume": 25675703,
+      "symbol": "CRWD",
+      "name": "CrowdStrike Holdings, Inc.",
+      "price": 227.96,
+      "change_pct": 20.5,
+      "volume": 23369966,
       "vr": ""
     },
     {
-      "symbol": "SEDG",
-      "name": "SolarEdge Technologies, Inc.",
-      "price": 33.08,
-      "change_pct": 10.71,
-      "volume": 6533753,
+      "symbol": "VEEV",
+      "name": "Veeva Systems Inc.",
+      "price": 282.13,
+      "change_pct": 15.2,
+      "volume": 6408234,
       "vr": ""
     },
     {
-      "symbol": "SMTC",
-      "name": "Semtech Corporation",
-      "price": 140.8,
-      "change_pct": 10.41,
-      "volume": 10110045,
+      "symbol": "SNPS",
+      "name": "Synopsys, Inc.",
+      "price": 464.89,
+      "change_pct": 13.39,
+      "volume": 4068779,
       "vr": ""
     },
     {
-      "symbol": "URBN",
-      "name": "Urban Outfitters, Inc.",
-      "price": 82.95,
-      "change_pct": 9.46,
-      "volume": 3578376,
+      "symbol": "FIG",
+      "name": "Figma, Inc.",
+      "price": 30.62,
+      "change_pct": 13.28,
+      "volume": 27511908,
       "vr": ""
     },
     {
-      "symbol": "SIMO",
-      "name": "Silicon Motion Technology Corpo",
-      "price": 263.11,
-      "change_pct": 8.8,
-      "volume": 769855,
+      "symbol": "PANW",
+      "name": "Palo Alto Networks, Inc.",
+      "price": 382.85,
+      "change_pct": 12.83,
+      "volume": 7294515,
       "vr": ""
     },
     {
-      "symbol": "TTMI",
-      "name": "TTM Technologies, Inc.",
-      "price": 121.7,
-      "change_pct": 8.37,
-      "volume": 3813355,
+      "symbol": "SAIL",
+      "name": "SailPoint, Inc.",
+      "price": 20.45,
+      "change_pct": 12.24,
+      "volume": 8438179,
       "vr": ""
     },
     {
-      "symbol": "ERAS",
-      "name": "Erasca, Inc.",
-      "price": 19.15,
-      "change_pct": 7.83,
-      "volume": 7690448,
+      "symbol": "FROG",
+      "name": "JFrog Ltd.",
+      "price": 104.03,
+      "change_pct": 12.1,
+      "volume": 3822238,
       "vr": ""
     },
     {
-      "symbol": "BBWI",
-      "name": "Bath & Body Works, Inc.",
-      "price": 18.9,
-      "change_pct": 7.51,
-      "volume": 16367004,
+      "symbol": "MAAS",
+      "name": "Maase Inc.",
+      "price": 16.54,
+      "change_pct": 11.83,
+      "volume": 126438,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "GENB",
-      "name": "Generate Biomedicines, Inc.",
-      "price": 16.14,
-      "change_pct": -20.8,
-      "volume": 3835199,
+      "symbol": "HQY",
+      "name": "HealthEquity, Inc.",
+      "price": 93.39,
+      "change_pct": -10.56,
+      "volume": 3217684,
       "vr": ""
     },
     {
-      "symbol": "SYRE",
-      "name": "Spyre Therapeutics, Inc.",
-      "price": 93.61,
-      "change_pct": -12.81,
-      "volume": 3114066,
+      "symbol": "HRL",
+      "name": "Hormel Foods Corporation",
+      "price": 21.28,
+      "change_pct": -10.25,
+      "volume": 18553724,
       "vr": ""
     },
     {
-      "symbol": "DY",
-      "name": "Dycom Industries, Inc.",
-      "price": 310.91,
-      "change_pct": -11.62,
-      "volume": 2795489,
+      "symbol": "PAY",
+      "name": "Paymentus Holdings, Inc.",
+      "price": 35.61,
+      "change_pct": -9.69,
+      "volume": 2488055,
       "vr": ""
     },
     {
-      "symbol": "FIGR",
-      "name": "Figure Technology Solutions, In",
-      "price": 37.08,
-      "change_pct": -9.87,
-      "volume": 5136680,
+      "symbol": "P",
+      "name": "Everpure, Inc.",
+      "price": 99.24,
+      "change_pct": -8.87,
+      "volume": 7537440,
       "vr": ""
     },
     {
-      "symbol": "QBTS",
-      "name": "D-Wave Quantum Inc.",
-      "price": 17.51,
-      "change_pct": -9.51,
-      "volume": 25974047,
+      "symbol": "BURL",
+      "name": "Burlington Stores, Inc.",
+      "price": 290.0,
+      "change_pct": -7.64,
+      "volume": 3952386,
       "vr": ""
     },
     {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "price": 5.42,
-      "change_pct": -8.45,
-      "volume": 69118368,
+      "symbol": "SFM",
+      "name": "Sprouts Farmers Market, Inc.",
+      "price": 81.04,
+      "change_pct": -6.67,
+      "volume": 1475226,
       "vr": ""
     },
     {
-      "symbol": "RUM",
-      "name": "RUM Group Inc.",
-      "price": 9.38,
-      "change_pct": -8.36,
-      "volume": 5059572,
+      "symbol": "SPHR",
+      "name": "Sphere Entertainment Co.",
+      "price": 147.34,
+      "change_pct": -6.39,
+      "volume": 682003,
       "vr": ""
     },
     {
-      "symbol": "TNK",
-      "name": "Teekay Tankers Ltd.",
-      "price": 83.2,
-      "change_pct": -7.59,
-      "volume": 1300738,
+      "symbol": "CELH",
+      "name": "Celsius Holdings, Inc.",
+      "price": 32.99,
+      "change_pct": -6.36,
+      "volume": 7041369,
       "vr": ""
     },
     {
-      "symbol": "ZM",
-      "name": "Zoom Communications, Inc.",
-      "price": 93.83,
-      "change_pct": -7.03,
-      "volume": 7256293,
+      "symbol": "HMY",
+      "name": "Harmony Gold Mining Company Lim",
+      "price": 21.03,
+      "change_pct": -6.24,
+      "volume": 7876032,
       "vr": ""
     },
     {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "price": 22.97,
-      "change_pct": -6.97,
-      "volume": 8286166,
+      "symbol": "VERA",
+      "name": "Vera Therapeutics, Inc.",
+      "price": 34.6,
+      "change_pct": -6.03,
+      "volume": 2781747,
       "vr": ""
     }
   ],
@@ -168,149 +168,157 @@
     {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
-      "price": 209.66,
-      "change_pct": -1.59,
-      "volume": 145070184,
-      "vr": ""
-    },
-    {
-      "symbol": "WBS",
-      "name": "Webster Financial Corporation",
-      "price": 77.57,
-      "change_pct": -0.51,
-      "volume": 91306424,
-      "vr": ""
-    },
-    {
-      "symbol": "PLUG",
-      "name": "Plug Power, Inc.",
-      "price": 2.17,
-      "change_pct": -4.41,
-      "volume": 78453994,
+      "price": 227.98,
+      "change_pct": 8.74,
+      "volume": 297197891,
       "vr": ""
     },
     {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 88.24,
-      "change_pct": 0.87,
-      "volume": 72044374,
-      "vr": ""
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 13.84,
-      "change_pct": -0.79,
-      "volume": 72046482,
-      "vr": ""
-    },
-    {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "price": 5.42,
-      "change_pct": -8.45,
-      "volume": 69118368,
-      "vr": ""
-    },
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 139.63,
-      "change_pct": 1.22,
-      "volume": 59784460,
-      "vr": ""
-    },
-    {
-      "symbol": "PATH",
-      "name": "UiPath, Inc.",
-      "price": 16.76,
-      "change_pct": 0.6,
-      "volume": 56420431,
+      "price": 92.09,
+      "change_pct": 4.36,
+      "volume": 99979854,
       "vr": ""
     },
     {
       "symbol": "ONDS",
       "name": "Ondas Inc",
-      "price": 8.22,
-      "change_pct": -0.24,
-      "volume": 54997233,
+      "price": 8.75,
+      "change_pct": 6.45,
+      "volume": 85462024,
       "vr": ""
     },
     {
-      "symbol": "SMR",
-      "name": "NuScale Power Corporation",
-      "price": 9.27,
-      "change_pct": -5.5,
-      "volume": 51432002,
+      "symbol": "PATH",
+      "name": "UiPath, Inc.",
+      "price": 18.33,
+      "change_pct": 9.37,
+      "volume": 72013086,
       "vr": ""
     },
     {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 15.17,
-      "change_pct": 0.2,
-      "volume": 45069841,
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 10.59,
+      "change_pct": 1.73,
+      "volume": 68696632,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 13.72,
+      "change_pct": -0.87,
+      "volume": 65461563,
       "vr": ""
     },
     {
       "symbol": "MARA",
       "name": "MARA Holdings, Inc.",
-      "price": 11.22,
-      "change_pct": -5.16,
-      "volume": 41655975,
+      "price": 11.87,
+      "change_pct": 5.79,
+      "volume": 59731924,
       "vr": ""
     },
     {
-      "symbol": "IREN",
-      "name": "IREN LIMITED",
-      "price": 39.58,
-      "change_pct": -6.23,
-      "volume": 37445517,
+      "symbol": "CRM",
+      "name": "Salesforce, Inc.",
+      "price": 252.05,
+      "change_pct": 22.58,
+      "volume": 55409963,
       "vr": ""
     },
     {
-      "symbol": "CDE",
-      "name": "Coeur Mining, Inc.",
-      "price": 21.44,
-      "change_pct": -0.69,
-      "volume": 37368215,
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 140.87,
+      "change_pct": 0.89,
+      "volume": 54965745,
       "vr": ""
     },
     {
-      "symbol": "NKE",
-      "name": "Nike, Inc.",
-      "price": 38.59,
-      "change_pct": -2.25,
-      "volume": 36589168,
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 2.27,
+      "change_pct": 4.61,
+      "volume": 50722833,
+      "vr": ""
+    },
+    {
+      "symbol": "BMNR",
+      "name": "BitMine Immersion Technologies,",
+      "price": 25.63,
+      "change_pct": 2.89,
+      "volume": 55851488,
+      "vr": ""
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 14.88,
+      "change_pct": -1.91,
+      "volume": 47683893,
+      "vr": ""
+    },
+    {
+      "symbol": "KEEL",
+      "name": "Keel Infrastructure Corp.",
+      "price": 3.51,
+      "change_pct": 4.46,
+      "volume": 47331335,
+      "vr": ""
+    },
+    {
+      "symbol": "RIG",
+      "name": "Transocean Ltd (Switzerland)",
+      "price": 5.74,
+      "change_pct": 2.5,
+      "volume": 44256207,
+      "vr": ""
+    },
+    {
+      "symbol": "BAC",
+      "name": "Bank of America Corporation",
+      "price": 61.17,
+      "change_pct": -1.7,
+      "volume": 44491001,
       "vr": ""
     }
   ],
-  "strong_buy": [],
-  "strong_sell": [
+  "strong_buy": [
     {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "price": 5.42,
-      "change_pct": -8.45,
-      "volume": 69118368,
-      "vr": 1.6
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 227.98,
+      "change_pct": 8.74,
+      "volume": 297197891,
+      "vr": 2.1
     },
     {
-      "symbol": "SMR",
-      "name": "NuScale Power Corporation",
-      "price": 9.27,
-      "change_pct": -5.5,
-      "volume": 51432002,
-      "vr": 1.5
+      "symbol": "CRM",
+      "name": "Salesforce, Inc.",
+      "price": 252.05,
+      "change_pct": 22.58,
+      "volume": 55409963,
+      "vr": 3.6
     },
     {
-      "symbol": "BSX",
-      "name": "Boston Scientific Corporation",
-      "price": 48.17,
-      "change_pct": -3.39,
-      "volume": 36555078,
-      "vr": 1.7
+      "symbol": "MSTR",
+      "name": "Strategy Inc",
+      "price": 137.4,
+      "change_pct": 11.54,
+      "volume": 43908722,
+      "vr": 1.9
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 12.83,
+      "change_pct": 10.99,
+      "volume": 42218957,
+      "vr": 2.7
     }
-  ]
+  ],
+  "strong_sell": []
 }
