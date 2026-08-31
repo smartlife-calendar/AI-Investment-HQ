@@ -1,0 +1,44 @@
+{
+  "date": "2026-08-31",
+  "generated_at": "2026-08-31T09:17:22.607795+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "PCG",
+      "name": "Pacific Gas & Electric Co.",
+      "price": 16.6,
+      "change_pct": -7.52,
+      "vol_ratio": 5.4,
+      "volume": 114326369,
+      "avg_volume": 21171549
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 11.61,
+      "change_pct": -9.51,
+      "vol_ratio": 2.4,
+      "volume": 37743064,
+      "avg_volume": 15726276
+    },
+    {
+      "symbol": "PYPL",
+      "name": "PayPal Holdings, Inc.",
+      "price": 53.66,
+      "change_pct": -12.71,
+      "vol_ratio": 2.3,
+      "volume": 36208248,
+      "avg_volume": 15742716
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 35.45,
+      "change_pct": -12.53,
+      "vol_ratio": 2.0,
+      "volume": 89323370,
+      "avg_volume": 44661685
+    }
+  ]
+}
