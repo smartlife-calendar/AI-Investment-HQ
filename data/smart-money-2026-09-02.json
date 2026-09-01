@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-02",
+  "generated_at": "2026-09-02T00:07:45.537321+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "PCG",
+      "name": "Pacific Gas & Electric Co.",
+      "price": 13.27,
+      "change_pct": -20.06,
+      "vol_ratio": 6.8,
+      "volume": 153622033,
+      "avg_volume": 22591475
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 12.25,
+      "change_pct": 5.51,
+      "vol_ratio": 2.6,
+      "volume": 40334050,
+      "avg_volume": 15513096
+    }
+  ]
+}
