@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-08-29T10:00:02+08:00",
+  "generated_at": "2026-09-01T10:00:02+08:00",
   "news": [
+    {
+      "title": "The Free Retirement Dinner Costs $500K in the Fine Print, but These 4 ETFs Do What the Steak Pitch Promises",
+      "url": "https://finance.yahoo.com/m/d0e1ff8d-2db7-3a49-9e3c-9a849985e6f4/the-free-retirement-dinner.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1788210917
+    },
     {
       "title": "VTI’s 0.03% Fee Hides the Real Cost: 3,600 Stocks and Still a Third of Your Money in Ten Companies",
       "url": "https://finance.yahoo.com/m/3292a88b-b3b0-3544-bbda-f862bd12c36f/vti%E2%80%99s-0.03%25-fee-hides-the.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/e3df892d-30b4-3350-9c9b-2eb7cfbbf4d8/the-vanguard-s%26p-500-etf.html",
       "publisher": "Motley Fool",
       "published": 1786883100
-    },
-    {
-      "title": "Mark Cuban says your 401(k) is ‘part of the cost of health care problem.’ Do you dump Big Insurance and own your values?",
-      "url": "https://finance.yahoo.com/healthcare/articles/mark-cuban-says-401-k-111500193.html",
-      "publisher": "Moneywise",
-      "published": 1786706100
     }
   ]
 }
