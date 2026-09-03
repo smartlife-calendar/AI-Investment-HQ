@@ -1,0 +1,134 @@
+{
+  "generated_at": "2026-09-04T07:39:38+08:00",
+  "type": "simulated",
+  "disclaimer": "⚠️ 模擬回測：使用當前評分公式回推歷史數據，存在「未來偏差」，實際績效可能較差",
+  "period": "2025-09 to 2026-09",
+  "total_tickers": 79,
+  "scan_dates": 24,
+  "total_trades": {
+    "5d": 2,
+    "10d": 2,
+    "20d": 2
+  },
+  "stop_loss": "-8%",
+  "results": {
+    "5d": {
+      "n": 2,
+      "avg_return": -5.69,
+      "median_return": -2.44,
+      "win_rate": 0.0,
+      "avg_win": 0,
+      "avg_loss": -5.69,
+      "stopped_out": 1,
+      "stop_rate": 50.0,
+      "profit_factor": 0.0,
+      "max_drawdown": 11.39,
+      "best": {
+        "symbol": "CSCO",
+        "date": "2025-11-14",
+        "return": -2.44
+      },
+      "worst": {
+        "symbol": "NET",
+        "date": "2025-11-03",
+        "return": -8.95
+      }
+    },
+    "10d": {
+      "n": 2,
+      "avg_return": -5.73,
+      "median_return": -2.51,
+      "win_rate": 0.0,
+      "avg_win": 0,
+      "avg_loss": -5.73,
+      "stopped_out": 1,
+      "stop_rate": 50.0,
+      "profit_factor": 0.0,
+      "max_drawdown": 11.46,
+      "best": {
+        "symbol": "CSCO",
+        "date": "2025-11-14",
+        "return": -2.51
+      },
+      "worst": {
+        "symbol": "NET",
+        "date": "2025-11-03",
+        "return": -8.95
+      }
+    },
+    "20d": {
+      "n": 2,
+      "avg_return": -4.31,
+      "median_return": 0.32,
+      "win_rate": 50.0,
+      "avg_win": 0.32,
+      "avg_loss": -8.95,
+      "stopped_out": 1,
+      "stop_rate": 50.0,
+      "profit_factor": 0.04,
+      "max_drawdown": 8.95,
+      "best": {
+        "symbol": "CSCO",
+        "date": "2025-11-14",
+        "return": 0.32
+      },
+      "worst": {
+        "symbol": "NET",
+        "date": "2025-11-03",
+        "return": -8.95
+      }
+    }
+  },
+  "vs_spy": {
+    "5d": {
+      "signal_avg": -5.69,
+      "spy_avg": 0.15,
+      "alpha": -5.84
+    },
+    "10d": {
+      "signal_avg": -5.73,
+      "spy_avg": 0.4,
+      "alpha": -6.13
+    },
+    "20d": {
+      "signal_avg": -4.31,
+      "spy_avg": 1.32,
+      "alpha": -5.63
+    }
+  },
+  "monthly": {
+    "2025-11": {
+      "5d": {
+        "n": 2,
+        "avg_return": -5.69,
+        "win_rate": 0.0
+      },
+      "10d": {
+        "n": 2,
+        "avg_return": -5.73,
+        "win_rate": 0.0
+      },
+      "20d": {
+        "n": 2,
+        "avg_return": -4.31,
+        "win_rate": 50.0
+      }
+    }
+  },
+  "score_breakdown": {
+    "5d": {
+      "7": {
+        "n": 2,
+        "avg": -5.69,
+        "win_rate": 0.0
+      }
+    },
+    "10d": {
+      "7": {
+        "n": 2,
+        "avg": -5.73,
+        "win_rate": 0.0
+      }
+    }
+  }
+}
