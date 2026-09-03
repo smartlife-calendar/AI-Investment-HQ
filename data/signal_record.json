@@ -1,0 +1,82 @@
+{
+  "entries": [
+    {
+      "date": "2026-09-04",
+      "symbol": "NU",
+      "action": "BUY",
+      "score": 7,
+      "price": 15.4,
+      "regime": "NEUTRAL",
+      "confidence": 65
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "MA",
+      "action": "BUY",
+      "score": 7,
+      "price": 588.14,
+      "regime": "NEUTRAL",
+      "confidence": 55
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "ABNB",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 183.26,
+      "regime": "NEUTRAL",
+      "confidence": 49
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 106.7,
+      "regime": "NEUTRAL",
+      "confidence": 47
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "BMY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 67.66,
+      "regime": "NEUTRAL",
+      "confidence": 41
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "CHYM",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 33.41,
+      "regime": "NEUTRAL",
+      "confidence": 40
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "MELI",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 2006.58,
+      "regime": "NEUTRAL",
+      "confidence": 38
+    },
+    {
+      "date": "2026-09-04",
+      "symbol": "XLE",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 65.1,
+      "regime": "NEUTRAL",
+      "confidence": 30
+    }
+  ],
+  "metadata": {
+    "created": "2026-09-04",
+    "description": "每日訊號記錄（真實數據）",
+    "last_updated": "2026-09-04",
+    "total_entries": 8
+  }
+}
