@@ -4316,6 +4316,74 @@ async function loadSmartBacktest() {
                 out += '⚠️ 以上訊號僅供參考，不構成投資建議 · ' + genDate;
                 out += '</div>';
                 
+                
+                // ── 操作說明 ──
+                out += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin:16px 0">';
+                out += '<div style="background:linear-gradient(135deg,#1e3a5f,#2563eb);padding:14px 16px">';
+                out += '<span style="font-weight:700;font-size:15px;color:white">📋 操作說明 — 買入與賣出條件</span></div>';
+                out += '<div style="padding:16px;font-size:13px;line-height:1.8;color:#334155">';
+                
+                // Buy conditions
+                out += '<div style="margin-bottom:16px">';
+                out += '<div style="font-weight:700;font-size:14px;color:#16a34a;margin-bottom:8px">🟢 買入條件（全部滿足）</div>';
+                out += '<div style="background:#f0fdf4;border-left:4px solid #16a34a;padding:12px;border-radius:0 8px 8px 0;margin-bottom:8px">';
+                out += '1️⃣ 訊號為 <b>BUY</b> 或 <b>SCALE_IN</b>（系統評分 ≥ 8 分）<br>';
+                out += '2️⃣ 大盤狀態為 <b>BULL</b> 或 <b>STRONG_BULL</b>（中性以下不新開倉）<br>';
+                out += '3️⃣ Alpha 分類為 <b>type4_accumulate</b> 或 <b>type3_hold</b><br>';
+                out += '4️⃣ 估值上行空間 > 0%（目標價高於現價）<br>';
+                out += '5️⃣ 單一持倉 ≤ 總資金 10%';
+                out += '</div></div>';
+                
+                // Entry method
+                out += '<div style="margin-bottom:16px">';
+                out += '<div style="font-weight:700;font-size:14px;color:#2563eb;margin-bottom:8px">📍 進場方式</div>';
+                out += '<div style="background:#eff6ff;border-left:4px solid #2563eb;padding:12px;border-radius:0 8px 8px 0">';
+                out += '• <b>限價買入</b>：設在現價 -2%（等拉回再進場，勝率從 55% → 75%）<br>';
+                out += '• <b>分批進場</b>：SCALE_IN 訊號建議分 2-3 次買入<br>';
+                out += '• <b>不追高</b>：近 1 個月已漲 > 20% 的不進場';
+                out += '</div></div>';
+                
+                // Stop loss
+                out += '<div style="margin-bottom:16px">';
+                out += '<div style="font-weight:700;font-size:14px;color:#dc2626;margin-bottom:8px">🔴 賣出條件（任一觸發）</div>';
+                out += '<div style="background:#fef2f2;border-left:4px solid #dc2626;padding:12px;border-radius:0 8px 8px 0">';
+                out += '<b>停損（強制）：</b><br>';
+                out += '• 低波動股（日波動 ≤ 2.5%）：固定 <b>-5%</b> 停損<br>';
+                out += '• 高波動股（日波動 > 2.5%）：<b>ATR×2</b> 停損（下限 5%、上限 20%）<br><br>';
+                out += '<b>停利：</b><br>';
+                out += '• T1 <b>+15%</b>：賣出一半，鎖定利潤<br>';
+                out += '• T2 <b>+25%</b>：啟動 <b>-20% 追蹤停利</b>（從最高價回落 20% 出場）<br><br>';
+                out += '<b>訊號轉變：</b><br>';
+                out += '• 訊號從 BUY → <b>SELL/AVOID</b>：立即出場<br>';
+                out += '• 訊號從 BUY → <b>REDUCE</b>：減碼 50%<br>';
+                out += '• Alpha 分類變為 <b>type2_reduce</b> 或 <b>type1_exit</b>：出場';
+                out += '</div></div>';
+                
+                // Position sizing
+                out += '<div style="margin-bottom:16px">';
+                out += '<div style="font-weight:700;font-size:14px;color:#7c3aed;margin-bottom:8px">💰 倉位管理</div>';
+                out += '<div style="background:#f5f3ff;border-left:4px solid #7c3aed;padding:12px;border-radius:0 8px 8px 0">';
+                out += '<table style="width:100%;font-size:12px;border-collapse:collapse">';
+                out += '<tr><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0"><b>大盤狀態</b></td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0"><b>建議總倉位</b></td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0"><b>新倉進場</b></td></tr>';
+                out += '<tr><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">🟢 強勢多頭</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">80-100%</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">✅ 允許</td></tr>';
+                out += '<tr><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">🟢 多頭</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">60-80%</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">✅ 允許</td></tr>';
+                out += '<tr><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">🟡 中性</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">30-50%</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">⚠️ 觀望為主</td></tr>';
+                out += '<tr><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">🟠 警戒</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">10-30%</td><td style="padding:4px 8px;border-bottom:1px solid #e2e8f0">❌ 不進場</td></tr>';
+                out += '<tr><td style="padding:4px 8px">🔴 空頭</td><td style="padding:4px 8px">0-10%</td><td style="padding:4px 8px">❌ 不進場</td></tr>';
+                out += '</table></div></div>';
+                
+                // Key rules
+                out += '<div>';
+                out += '<div style="font-weight:700;font-size:14px;color:#b45309;margin-bottom:8px">⚠️ 重要原則</div>';
+                out += '<div style="background:#fffbeb;border-left:4px solid #f59e0b;padding:12px;border-radius:0 8px 8px 0">';
+                out += '• 訊號系統與吸籌偵測衝突時 → <b>以訊號系統為準</b>，觀望不買<br>';
+                out += '• 週期股（營建/航運/鋼鐵）低 PE ≠ 便宜 → 看 P/B 和產業報價趨勢<br>';
+                out += '• 槓桿 ETF（SOXL/TQQQ 等）不適用本系統 → 短線工具，不長抱<br>';
+                out += '• 績效回測每日更新 → 上方圖表即時反映策略真實表現';
+                out += '</div></div>';
+                
+                out += '</div></div>';
+
                 container.innerHTML = out;
             } catch(e) {
                 container.innerHTML = '<div style="text-align:center;padding:40px;color:#dc2626">❌ 載入失敗: ' + e.message + '</div>';
