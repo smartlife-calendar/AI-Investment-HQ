@@ -1,132 +1,332 @@
 {
-  "generated_at": "2026-09-04T07:39:38+08:00",
+  "generated_at": "2026-09-04T07:40:16+08:00",
   "type": "simulated",
   "disclaimer": "⚠️ 模擬回測：使用當前評分公式回推歷史數據，存在「未來偏差」，實際績效可能較差",
-  "period": "2025-09 to 2026-09",
+  "period": "2025-09 to 2026-08",
   "total_tickers": 79,
-  "scan_dates": 24,
+  "scan_dates": 54,
   "total_trades": {
-    "5d": 2,
-    "10d": 2,
-    "20d": 2
+    "5d": 109,
+    "10d": 108,
+    "20d": 103
   },
   "stop_loss": "-8%",
   "results": {
     "5d": {
-      "n": 2,
-      "avg_return": -5.69,
-      "median_return": -2.44,
-      "win_rate": 0.0,
-      "avg_win": 0,
-      "avg_loss": -5.69,
-      "stopped_out": 1,
-      "stop_rate": 50.0,
-      "profit_factor": 0.0,
-      "max_drawdown": 11.39,
+      "n": 109,
+      "avg_return": -0.7,
+      "median_return": -0.62,
+      "win_rate": 41.3,
+      "avg_win": 4.42,
+      "avg_loss": -4.3,
+      "stopped_out": 15,
+      "stop_rate": 13.8,
+      "profit_factor": 0.72,
+      "max_drawdown": 99.0,
       "best": {
-        "symbol": "CSCO",
-        "date": "2025-11-14",
-        "return": -2.44
+        "symbol": "QCOM",
+        "date": "2026-05-04",
+        "return": 41.07
       },
       "worst": {
-        "symbol": "NET",
-        "date": "2025-11-03",
-        "return": -8.95
+        "symbol": "UNH",
+        "date": "2026-01-26",
+        "return": -19.61
       }
     },
     "10d": {
-      "n": 2,
-      "avg_return": -5.73,
-      "median_return": -2.51,
-      "win_rate": 0.0,
-      "avg_win": 0,
-      "avg_loss": -5.73,
-      "stopped_out": 1,
-      "stop_rate": 50.0,
-      "profit_factor": 0.0,
-      "max_drawdown": 11.46,
+      "n": 108,
+      "avg_return": -0.73,
+      "median_return": 0.33,
+      "win_rate": 50.0,
+      "avg_win": 4.85,
+      "avg_loss": -6.3,
+      "stopped_out": 26,
+      "stop_rate": 24.1,
+      "profit_factor": 0.77,
+      "max_drawdown": 105.99,
       "best": {
-        "symbol": "CSCO",
-        "date": "2025-11-14",
-        "return": -2.51
+        "symbol": "QCOM",
+        "date": "2026-05-04",
+        "return": 20.94
       },
       "worst": {
-        "symbol": "NET",
-        "date": "2025-11-03",
-        "return": -8.95
+        "symbol": "UNH",
+        "date": "2026-01-26",
+        "return": -19.61
       }
     },
     "20d": {
-      "n": 2,
-      "avg_return": -4.31,
-      "median_return": 0.32,
-      "win_rate": 50.0,
-      "avg_win": 0.32,
-      "avg_loss": -8.95,
-      "stopped_out": 1,
-      "stop_rate": 50.0,
-      "profit_factor": 0.04,
-      "max_drawdown": 8.95,
+      "n": 103,
+      "avg_return": -0.83,
+      "median_return": -2.92,
+      "win_rate": 40.8,
+      "avg_win": 8.91,
+      "avg_loss": -7.53,
+      "stopped_out": 40,
+      "stop_rate": 38.8,
+      "profit_factor": 0.81,
+      "max_drawdown": 110.58,
       "best": {
-        "symbol": "CSCO",
-        "date": "2025-11-14",
-        "return": 0.32
+        "symbol": "QCOM",
+        "date": "2026-05-04",
+        "return": 43.03
       },
       "worst": {
-        "symbol": "NET",
-        "date": "2025-11-03",
-        "return": -8.95
+        "symbol": "UNH",
+        "date": "2026-01-26",
+        "return": -19.61
       }
     }
   },
   "vs_spy": {
     "5d": {
-      "signal_avg": -5.69,
-      "spy_avg": 0.15,
-      "alpha": -5.84
+      "signal_avg": -0.7,
+      "spy_avg": 0.39,
+      "alpha": -1.09
     },
     "10d": {
-      "signal_avg": -5.73,
-      "spy_avg": 0.4,
-      "alpha": -6.13
+      "signal_avg": -0.73,
+      "spy_avg": 0.69,
+      "alpha": -1.42
     },
     "20d": {
-      "signal_avg": -4.31,
-      "spy_avg": 1.32,
-      "alpha": -5.63
+      "signal_avg": -0.83,
+      "spy_avg": 1.4,
+      "alpha": -2.23
     }
   },
   "monthly": {
-    "2025-11": {
+    "2025-10": {
       "5d": {
-        "n": 2,
-        "avg_return": -5.69,
-        "win_rate": 0.0
+        "n": 11,
+        "avg_return": -1.15,
+        "win_rate": 27.3
       },
       "10d": {
-        "n": 2,
-        "avg_return": -5.73,
-        "win_rate": 0.0
+        "n": 11,
+        "avg_return": -0.37,
+        "win_rate": 36.4
       },
       "20d": {
-        "n": 2,
-        "avg_return": -4.31,
+        "n": 11,
+        "avg_return": -2.02,
+        "win_rate": 36.4
+      }
+    },
+    "2025-11": {
+      "5d": {
+        "n": 8,
+        "avg_return": -1.85,
+        "win_rate": 37.5
+      },
+      "10d": {
+        "n": 8,
+        "avg_return": -1.25,
+        "win_rate": 37.5
+      },
+      "20d": {
+        "n": 8,
+        "avg_return": -3.23,
+        "win_rate": 25.0
+      }
+    },
+    "2025-12": {
+      "5d": {
+        "n": 11,
+        "avg_return": 0.24,
+        "win_rate": 45.5
+      },
+      "10d": {
+        "n": 11,
+        "avg_return": -0.29,
+        "win_rate": 63.6
+      },
+      "20d": {
+        "n": 11,
+        "avg_return": -0.07,
+        "win_rate": 45.5
+      }
+    },
+    "2026-01": {
+      "5d": {
+        "n": 16,
+        "avg_return": -0.23,
         "win_rate": 50.0
+      },
+      "10d": {
+        "n": 16,
+        "avg_return": -0.29,
+        "win_rate": 50.0
+      },
+      "20d": {
+        "n": 16,
+        "avg_return": 0.07,
+        "win_rate": 43.8
+      }
+    },
+    "2026-02": {
+      "5d": {
+        "n": 13,
+        "avg_return": -0.49,
+        "win_rate": 53.8
+      },
+      "10d": {
+        "n": 13,
+        "avg_return": -0.72,
+        "win_rate": 61.5
+      },
+      "20d": {
+        "n": 13,
+        "avg_return": -2.32,
+        "win_rate": 38.5
+      }
+    },
+    "2026-03": {
+      "5d": {
+        "n": 8,
+        "avg_return": 1.54,
+        "win_rate": 75.0
+      },
+      "10d": {
+        "n": 8,
+        "avg_return": 0.04,
+        "win_rate": 50.0
+      },
+      "20d": {
+        "n": 8,
+        "avg_return": -0.45,
+        "win_rate": 25.0
+      }
+    },
+    "2026-04": {
+      "5d": {
+        "n": 3,
+        "avg_return": -0.14,
+        "win_rate": 33.3
+      },
+      "10d": {
+        "n": 3,
+        "avg_return": -0.23,
+        "win_rate": 33.3
+      },
+      "20d": {
+        "n": 3,
+        "avg_return": 4.08,
+        "win_rate": 66.7
+      }
+    },
+    "2026-05": {
+      "5d": {
+        "n": 11,
+        "avg_return": 2.46,
+        "win_rate": 36.4
+      },
+      "10d": {
+        "n": 11,
+        "avg_return": 2.38,
+        "win_rate": 63.6
+      },
+      "20d": {
+        "n": 11,
+        "avg_return": 4.0,
+        "win_rate": 45.5
+      }
+    },
+    "2026-06": {
+      "5d": {
+        "n": 8,
+        "avg_return": -6.5,
+        "win_rate": 12.5
+      },
+      "10d": {
+        "n": 8,
+        "avg_return": -6.37,
+        "win_rate": 25.0
+      },
+      "20d": {
+        "n": 8,
+        "avg_return": -6.28,
+        "win_rate": 25.0
+      }
+    },
+    "2026-07": {
+      "5d": {
+        "n": 8,
+        "avg_return": 1.62,
+        "win_rate": 75.0
+      },
+      "10d": {
+        "n": 8,
+        "avg_return": 1.86,
+        "win_rate": 75.0
+      },
+      "20d": {
+        "n": 8,
+        "avg_return": 4.58,
+        "win_rate": 87.5
+      }
+    },
+    "2026-08": {
+      "5d": {
+        "n": 12,
+        "avg_return": -3.43,
+        "win_rate": 8.3
+      },
+      "10d": {
+        "n": 11,
+        "avg_return": -3.37,
+        "win_rate": 36.4
+      },
+      "20d": {
+        "n": 6,
+        "avg_return": -7.73,
+        "win_rate": 16.7
       }
     }
   },
   "score_breakdown": {
     "5d": {
+      "5": {
+        "n": 75,
+        "avg": -0.48,
+        "win_rate": 44.0
+      },
+      "6": {
+        "n": 28,
+        "avg": -1.22,
+        "win_rate": 32.1
+      },
       "7": {
-        "n": 2,
-        "avg": -5.69,
+        "n": 3,
+        "avg": 2.81,
+        "win_rate": 100.0
+      },
+      "8": {
+        "n": 3,
+        "avg": -4.88,
         "win_rate": 0.0
       }
     },
     "10d": {
+      "5": {
+        "n": 75,
+        "avg": -0.59,
+        "win_rate": 53.3
+      },
+      "6": {
+        "n": 27,
+        "avg": -1.45,
+        "win_rate": 40.7
+      },
       "7": {
-        "n": 2,
-        "avg": -5.73,
+        "n": 3,
+        "avg": 8.1,
+        "win_rate": 100.0
+      },
+      "8": {
+        "n": 3,
+        "avg": -6.36,
         "win_rate": 0.0
       }
     }
