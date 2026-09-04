@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T21:56:26+08:00",
+  "generated_at": "2026-09-04T10:04:26+08:00",
   "algorithm": "v3_rolling_with_stoploss",
   "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
   "signal_count": 18,
@@ -65,26 +65,16 @@
       }
     },
     "20d": {
-      "n": 1,
-      "avg_return": 3.81,
-      "median_return": 3.81,
-      "win_rate": 100.0,
-      "avg_win": 3.81,
+      "n": 0,
+      "avg_return": 0,
+      "median_return": 0,
+      "win_rate": 0,
+      "avg_win": 0,
       "avg_loss": 0,
       "stopped_out": 0,
-      "stop_rate": 0.0,
-      "best": {
-        "symbol": "DHR",
-        "entry": "2026-08-06",
-        "return_pct": 3.81,
-        "score": 8
-      },
-      "worst": {
-        "symbol": "DHR",
-        "entry": "2026-08-06",
-        "return_pct": 3.81,
-        "score": 8
-      }
+      "stop_rate": 0,
+      "best": null,
+      "worst": null
     }
   },
   "score_breakdown": {
@@ -233,7 +223,7 @@
     },
     {
       "level": "info",
-      "msg": "20d: 樣本不足 (1 筆)"
+      "msg": "20d: 樣本不足 (0 筆)"
     }
   ],
   "status": "⚠️ BELOW TARGET"
