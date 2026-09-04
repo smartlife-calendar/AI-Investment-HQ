@@ -1,44 +1,35 @@
 {
   "date": "2026-09-04",
-  "generated_at": "2026-09-04T09:41:51.771984+08:00",
+  "generated_at": "2026-09-04T10:02:18.973608+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 4,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "DELL",
-      "name": "Dell Technologies Inc.",
-      "price": 492.2,
-      "change_pct": 15.81,
-      "vol_ratio": 5.1,
-      "volume": 36411468,
-      "avg_volume": 7139503
+      "symbol": "HPE",
+      "name": "Hewlett Packard Enterprise Comp",
+      "price": 54.44,
+      "change_pct": 5.04,
+      "vol_ratio": 3.5,
+      "volume": 72021554,
+      "avg_volume": 20577586
     },
     {
       "symbol": "PCG",
       "name": "Pacific Gas & Electric Co.",
-      "price": 13.33,
-      "change_pct": -5.19,
-      "vol_ratio": 4.4,
-      "volume": 118606695,
-      "avg_volume": 26956067
+      "price": 13.96,
+      "change_pct": 4.73,
+      "vol_ratio": 2.3,
+      "volume": 65611284,
+      "avg_volume": 28526645
     },
     {
-      "symbol": "CNH",
-      "name": "CNH Industrial N.V.",
-      "price": 13.65,
-      "change_pct": 9.2,
-      "vol_ratio": 3.7,
-      "volume": 53791621,
-      "avg_volume": 14538275
-    },
-    {
-      "symbol": "NIO",
-      "name": "NIO Inc.",
-      "price": 3.86,
-      "change_pct": -4.93,
-      "vol_ratio": 2.6,
-      "volume": 72446712,
-      "avg_volume": 27864120
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "price": 6.32,
+      "change_pct": 8.03,
+      "vol_ratio": 2.0,
+      "volume": 55332703,
+      "avg_volume": 27666351
     }
   ]
 }
