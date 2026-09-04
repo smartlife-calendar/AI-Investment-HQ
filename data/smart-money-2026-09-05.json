@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-05",
+  "generated_at": "2026-09-05T00:07:20.664814+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "HPE",
+      "name": "Hewlett Packard Enterprise Comp",
+      "price": 54.44,
+      "change_pct": 5.04,
+      "vol_ratio": 3.5,
+      "volume": 72021554,
+      "avg_volume": 20577586
+    },
+    {
+      "symbol": "PCG",
+      "name": "Pacific Gas & Electric Co.",
+      "price": 13.96,
+      "change_pct": 4.73,
+      "vol_ratio": 2.3,
+      "volume": 65611284,
+      "avg_volume": 28526645
+    },
+    {
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "price": 6.32,
+      "change_pct": 8.03,
+      "vol_ratio": 2.0,
+      "volume": 55332703,
+      "avg_volume": 27666351
+    }
+  ]
+}
