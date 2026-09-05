@@ -71,12 +71,48 @@
       "price": 65.1,
       "regime": "NEUTRAL",
       "confidence": 30
+    },
+    {
+      "date": "2026-09-05",
+      "symbol": "BNTX",
+      "action": "BUY",
+      "score": 9,
+      "price": 103.81,
+      "regime": "STRONG_BULL",
+      "confidence": 66
+    },
+    {
+      "date": "2026-09-05",
+      "symbol": "SONY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 24.65,
+      "regime": "STRONG_BULL",
+      "confidence": 44
+    },
+    {
+      "date": "2026-09-05",
+      "symbol": "V",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 378.4,
+      "regime": "STRONG_BULL",
+      "confidence": 40
+    },
+    {
+      "date": "2026-09-05",
+      "symbol": "XOVR",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 20.63,
+      "regime": "STRONG_BULL",
+      "confidence": 32
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-04",
-    "total_entries": 8
+    "last_updated": "2026-09-05",
+    "total_entries": 12
   }
 }
