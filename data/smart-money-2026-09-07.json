@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-07",
+  "generated_at": "2026-09-07T00:13:13.507254+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "LULU",
+      "name": "lululemon athletica inc.",
+      "price": 100.61,
+      "change_pct": -17.38,
+      "vol_ratio": 10.7,
+      "volume": 37193682,
+      "avg_volume": 3476045
+    }
+  ]
+}
