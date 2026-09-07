@@ -1,7 +1,13 @@
 User-agent: *
 Allow: /
+Allow: /tw/
+Allow: /daily/
+Allow: /earnings/
 Disallow: /data/
 Disallow: /tw/data/
+Disallow: /*?persona=
+Disallow: /*?t=
+Disallow: /*.json$
 
 Sitemap: https://stockiq.tw/sitemap.xml
 Sitemap: https://stockiq.tw/tw/sitemap.xml
