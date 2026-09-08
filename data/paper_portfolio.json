@@ -123,7 +123,7 @@
       "score": 9,
       "action": "BUY",
       "stop_loss": 93.55,
-      "peak_price": 101.68,
+      "peak_price": 103.76,
       "t1_hit": false,
       "t2_hit": false,
       "current_price": 103.76,
@@ -137,7 +137,7 @@
       "score": 7,
       "action": "SCALE_IN",
       "stop_loss": 22.14,
-      "peak_price": 24.07,
+      "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
       "current_price": 24.56,
@@ -169,6 +169,14 @@
       "positions_value": 100266.69,
       "n_positions": 10,
       "return_pct": 0.99
+    },
+    {
+      "date": "2026-09-08",
+      "nav": 100986.04,
+      "cash": 719.35,
+      "positions_value": 100266.69,
+      "n_positions": 10,
+      "return_pct": 0.99
     }
   ],
   "cooldown": {},
@@ -184,6 +192,6 @@
     "nav_return_pct": 0.99,
     "cash": 719.35,
     "regime": "STRONG_BULL",
-    "last_updated": "2026-09-05"
+    "last_updated": "2026-09-08"
   }
 }
