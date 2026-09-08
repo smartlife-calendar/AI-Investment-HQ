@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-05T10:00:02+08:00",
+  "generated_at": "2026-09-08T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "BLTE",
       "name": "Belite Bio, Inc",
       "price": 193.61,
       "change_pct": 13.16,
-      "volume": 735495,
+      "volume": 738953,
       "vr": ""
     },
     {
@@ -14,7 +14,7 @@
       "name": "Aehr Test Systems",
       "price": 86.26,
       "change_pct": 13.1,
-      "volume": 4492544,
+      "volume": 4520762,
       "vr": ""
     },
     {
@@ -22,7 +22,7 @@
       "name": "Sandisk Corporation",
       "price": 1740.0,
       "change_pct": 11.9,
-      "volume": 16217211,
+      "volume": 16556967,
       "vr": ""
     },
     {
@@ -30,7 +30,7 @@
       "name": "Cohu, Inc.",
       "price": 50.72,
       "change_pct": 10.31,
-      "volume": 857182,
+      "volume": 873315,
       "vr": ""
     },
     {
@@ -38,7 +38,7 @@
       "name": "Cerebras Systems Inc.",
       "price": 210.05,
       "change_pct": 10.3,
-      "volume": 13705435,
+      "volume": 13761584,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "Astera Labs, Inc.",
       "price": 310.4,
       "change_pct": 9.75,
-      "volume": 6290634,
+      "volume": 6536259,
       "vr": ""
     },
     {
@@ -54,7 +54,7 @@
       "name": "AXT Inc",
       "price": 61.64,
       "change_pct": 9.68,
-      "volume": 10587172,
+      "volume": 10899283,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Semtech Corporation",
       "price": 147.88,
       "change_pct": 9.22,
-      "volume": 2727797,
+      "volume": 2801670,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Tarsus Pharmaceuticals, Inc.",
       "price": 90.78,
       "change_pct": 9.1,
-      "volume": 1595529,
+      "volume": 1595936,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "TTM Technologies, Inc.",
       "price": 125.6,
       "change_pct": 8.85,
-      "volume": 2316239,
+      "volume": 2321384,
       "vr": ""
     }
   ],
@@ -96,7 +96,7 @@
       "name": "lululemon athletica inc.",
       "price": 100.61,
       "change_pct": -17.38,
-      "volume": 37193682,
+      "volume": 37426243,
       "vr": ""
     },
     {
@@ -128,7 +128,7 @@
       "name": "Autodesk, Inc.",
       "price": 217.9,
       "change_pct": -8.26,
-      "volume": 3900636,
+      "volume": 3962401,
       "vr": ""
     },
     {
@@ -136,7 +136,7 @@
       "name": "Adobe Inc.",
       "price": 266.51,
       "change_pct": -6.73,
-      "volume": 6579463,
+      "volume": 6644829,
       "vr": ""
     },
     {
@@ -152,7 +152,7 @@
       "name": "monday.com Ltd.",
       "price": 91.07,
       "change_pct": -6.43,
-      "volume": 940661,
+      "volume": 945960,
       "vr": ""
     },
     {
@@ -170,7 +170,7 @@
       "name": "NVIDIA Corporation",
       "price": 230.36,
       "change_pct": 0.84,
-      "volume": 132204717,
+      "volume": 135352420,
       "vr": ""
     },
     {
@@ -186,7 +186,7 @@
       "name": "Intel Corporation",
       "price": 95.8,
       "change_pct": 4.51,
-      "volume": 97018400,
+      "volume": 97654325,
       "vr": ""
     },
     {
@@ -194,7 +194,7 @@
       "name": "American Airlines Group, Inc.",
       "price": 13.13,
       "change_pct": 1.23,
-      "volume": 74042185,
+      "volume": 74077434,
       "vr": ""
     },
     {
@@ -202,7 +202,7 @@
       "name": "Tesla, Inc.",
       "price": 354.08,
       "change_pct": -5.92,
-      "volume": 64559388,
+      "volume": 65018209,
       "vr": ""
     },
     {
@@ -218,7 +218,7 @@
       "name": "Super Micro Computer, Inc.",
       "price": 39.59,
       "change_pct": 4.54,
-      "volume": 53308923,
+      "volume": 53633172,
       "vr": ""
     },
     {
@@ -230,19 +230,19 @@
       "vr": ""
     },
     {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 147.95,
+      "change_pct": -1.2,
+      "volume": 49122393,
+      "vr": ""
+    },
+    {
       "symbol": "NU",
       "name": "Nu Holdings Ltd.",
       "price": 15.37,
       "change_pct": -1.98,
       "volume": 48563526,
-      "vr": ""
-    },
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 147.95,
-      "change_pct": -1.2,
-      "volume": 48786202,
       "vr": ""
     },
     {
@@ -274,7 +274,7 @@
       "name": "Plug Power, Inc.",
       "price": 2.17,
       "change_pct": 2.84,
-      "volume": 45131492,
+      "volume": 45322677,
       "vr": ""
     },
     {
@@ -282,7 +282,7 @@
       "name": "Ondas Inc",
       "price": 7.62,
       "change_pct": -0.13,
-      "volume": 43058738,
+      "volume": 43240318,
       "vr": ""
     }
   ],
@@ -301,7 +301,7 @@
       "name": "Tesla, Inc.",
       "price": 354.08,
       "change_pct": -5.92,
-      "volume": 64559388,
+      "volume": 65018209,
       "vr": 1.6
     },
     {
@@ -309,8 +309,8 @@
       "name": "lululemon athletica inc.",
       "price": 100.61,
       "change_pct": -17.38,
-      "volume": 37193682,
-      "vr": 10.7
+      "volume": 37426243,
+      "vr": 9.4
     }
   ]
 }

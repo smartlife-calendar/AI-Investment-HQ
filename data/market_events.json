@@ -1,38 +1,6 @@
 {
-  "generated_at": "2026-09-01T10:00:02+08:00",
+  "generated_at": "2026-09-08T10:00:02+08:00",
   "events": [
-    {
-      "sym": "PANW",
-      "date": "2026-09-01",
-      "type": "earnings",
-      "note": "PANW Q財報 盤後",
-      "eps_forecast": "$0.51",
-      "market_cap": "$302,845,854,000"
-    },
-    {
-      "sym": "AVGO",
-      "date": "2026-09-02",
-      "type": "earnings",
-      "note": "AVGO Q財報 盤後",
-      "eps_forecast": "$2.83",
-      "market_cap": "$1,754,548,010,000"
-    },
-    {
-      "sym": "SNOW",
-      "date": "2026-09-02",
-      "type": "earnings",
-      "note": "SNOW Q財報 盤後",
-      "eps_forecast": "($0.51)",
-      "market_cap": "$113,684,799,000"
-    },
-    {
-      "sym": "ZS",
-      "date": "2026-09-03",
-      "type": "earnings",
-      "note": "ZS Q財報 盤後",
-      "eps_forecast": "$0.06",
-      "market_cap": "$29,791,746,000"
-    },
     {
       "sym": "📌",
       "date": "2026-09-05",
@@ -41,11 +9,11 @@
     },
     {
       "sym": "ORCL",
-      "date": "2026-09-08",
+      "date": "2026-09-10",
       "type": "earnings",
-      "note": "ORCL Q財報",
+      "note": "ORCL Q財報 盤後",
       "eps_forecast": "$1.40",
-      "market_cap": "$434,519,048,000"
+      "market_cap": "$443,707,752,000"
     },
     {
       "sym": "ADBE",
@@ -53,7 +21,7 @@
       "type": "earnings",
       "note": "ADBE Q財報 盤後",
       "eps_forecast": "$4.86",
-      "market_cap": "$115,879,199,000"
+      "market_cap": "$113,585,627,000"
     },
     {
       "sym": "📌",
@@ -73,7 +41,23 @@
       "type": "earnings",
       "note": "MU Q財報 盤後",
       "eps_forecast": "$31.17",
-      "market_cap": "$1,053,565,710,000"
+      "market_cap": "$1,082,139,340,000"
+    },
+    {
+      "sym": "NFLX",
+      "date": "2026-10-20",
+      "type": "earnings",
+      "note": "NFLX Q財報",
+      "eps_forecast": "$0.82",
+      "market_cap": "$344,232,886,000"
+    },
+    {
+      "sym": "INTC",
+      "date": "2026-10-22",
+      "type": "earnings",
+      "note": "INTC Q財報",
+      "eps_forecast": "$0.28",
+      "market_cap": "$484,482,318,000"
     },
     {
       "sym": "📌",
@@ -82,5 +66,5 @@
       "note": "感恩節（休市）"
     }
   ],
-  "earnings_count": 7
+  "earnings_count": 5
 }

@@ -1,8 +1,8 @@
 {
-  "vix": 14.53,
-  "vix_200sma": 18.25,
-  "vix_zone": "低位(<15)",
-  "vix_score": 87.35000000000001,
+  "vix": 15.3,
+  "vix_200sma": 18.21,
+  "vix_zone": "正常(15-20)",
+  "vix_score": 83.5,
   "cnn_fg_score": 41.9,
   "cnn_fg_rating": "fear",
   "cnn_fg_prev_week": 52.3,
@@ -12,7 +12,7 @@
   "high_score": 95.05,
   "mom_score": 48.16305528386009,
   "haven_score": 52.93874567934006,
-  "composite_score": 74.9,
+  "composite_score": 74.1,
   "composite_label": "貪婪",
-  "generated_at": "2026-09-05T10:00:05+08:00"
+  "generated_at": "2026-09-08T10:00:05+08:00"
 }

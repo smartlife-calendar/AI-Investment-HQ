@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T10:00:02+08:00",
+  "generated_at": "2026-09-08T10:00:02+08:00",
   "from_cache": false,
   "macro": [
     {
@@ -59,12 +59,12 @@
     {
       "name": "美元指數 DXY",
       "ticker": "DX-Y.NYB",
-      "current": 99.16,
-      "change_1d": 0.16,
+      "current": 99.18,
+      "change_1d": 0.02,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
-      "perf_52w": 1.4,
+      "perf_52w": 1.7,
       "flow": "⚪中性",
       "momentum": "📈 跌勢趨緩",
       "wow": [
@@ -104,21 +104,21 @@
           -0.5
         ],
         [
-          "09/04",
-          99.16,
-          -0.0
+          "09/08",
+          99.18,
+          0.0
         ]
       ]
     },
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 4477.2,
-      "change_1d": -0.32,
-      "volume_1d": 186451,
-      "avg_volume_5d": 37429,
-      "fund_flow": -834778454,
-      "perf_52w": 23.9,
+      "current": 4485.6,
+      "change_1d": 1.26,
+      "volume_1d": 84372,
+      "avg_volume_5d": 16933,
+      "fund_flow": 378459051,
+      "perf_52w": 22.9,
       "flow": "🟢流入",
       "momentum": "📉 趨緩",
       "wow": [
@@ -154,24 +154,24 @@
         ],
         [
           "08/31",
-          4491.7,
-          0.3
+          4429.8,
+          -1.1
         ],
         [
-          "09/04",
-          4477.2,
-          -0.3
+          "09/08",
+          4485.6,
+          1.3
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 91.22,
-      "change_1d": -0.09,
-      "volume_1d": 248338,
-      "avg_volume_5d": 276421,
-      "fund_flow": -22653393,
+      "current": 92.43,
+      "change_1d": 1.04,
+      "volume_1d": 105930,
+      "avg_volume_5d": 273906,
+      "fund_flow": 9791110,
       "perf_52w": 47.4,
       "flow": "🟢流入",
       "momentum": "📈 加速",
@@ -208,25 +208,25 @@
         ],
         [
           "08/31",
-          91.3,
-          9.5
+          91.48,
+          9.7
         ],
         [
-          "09/04",
-          91.22,
-          -0.1
+          "09/08",
+          92.43,
+          1.0
         ]
       ]
     },
     {
       "name": "VIX 恐慌指數",
       "ticker": "^VIX",
-      "current": 14.53,
-      "change_1d": 1.47,
+      "current": 15.3,
+      "change_1d": 5.3,
       "volume_1d": 0,
       "avg_volume_5d": 0,
       "fund_flow": 0,
-      "perf_52w": -4.3,
+      "perf_52w": 3.7,
       "flow": "⚪中性",
       "momentum": "📉 趨緩",
       "wow": [
@@ -266,9 +266,9 @@
           0.7
         ],
         [
-          "09/04",
-          14.53,
-          0.0
+          "09/07",
+          15.3,
+          5.3
         ]
       ]
     },
@@ -277,9 +277,9 @@
       "ticker": "^GSPC",
       "current": 7718.6,
       "change_1d": -0.38,
-      "volume_1d": 2531375000,
-      "avg_volume_5d": 4448191000,
-      "fund_flow": -19538671322205,
+      "volume_1d": 4103570000,
+      "avg_volume_5d": 4762630000,
+      "fund_flow": -31673815802739,
       "perf_52w": 19.1,
       "flow": "🟢流入",
       "momentum": "📈 跌勢趨緩",
@@ -331,9 +331,9 @@
       "ticker": "^IXIC",
       "current": 26506.99,
       "change_1d": -0.29,
-      "volume_1d": 5604391000,
-      "avg_volume_5d": 7015494200,
-      "fund_flow": -148555537506619,
+      "volume_1d": 6529110000,
+      "avg_volume_5d": 7200438000,
+      "fund_flow": -173067055009160,
       "perf_52w": 22.1,
       "flow": "🟢流入",
       "momentum": "📈 跌勢趨緩",
