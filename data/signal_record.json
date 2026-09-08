@@ -107,12 +107,21 @@
       "price": 20.63,
       "regime": "STRONG_BULL",
       "confidence": 32
+    },
+    {
+      "date": "2026-09-08",
+      "symbol": "CVX",
+      "action": "BUY",
+      "score": 7,
+      "price": 208.6,
+      "regime": "STRONG_BULL",
+      "confidence": 67
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-05",
-    "total_entries": 12
+    "last_updated": "2026-09-08",
+    "total_entries": 13
   }
 }
