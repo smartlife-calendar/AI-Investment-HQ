@@ -116,12 +116,30 @@
       "price": 208.6,
       "regime": "STRONG_BULL",
       "confidence": 67
+    },
+    {
+      "date": "2026-09-09",
+      "symbol": "COP",
+      "action": "BUY",
+      "score": 7,
+      "price": 135.04,
+      "regime": "NEUTRAL",
+      "confidence": 74
+    },
+    {
+      "date": "2026-09-09",
+      "symbol": "SLB",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 57.1,
+      "regime": "NEUTRAL",
+      "confidence": 35
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-08",
-    "total_entries": 13
+    "last_updated": "2026-09-09",
+    "total_entries": 15
   }
 }
