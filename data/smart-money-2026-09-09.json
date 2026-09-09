@@ -1,17 +1,17 @@
 {
   "date": "2026-09-09",
-  "generated_at": "2026-09-09T09:15:47.417894+08:00",
+  "generated_at": "2026-09-09T10:02:26.450924+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 1,
   "stocks": [
     {
-      "symbol": "LULU",
-      "name": "lululemon athletica inc.",
-      "price": 100.61,
-      "change_pct": -17.38,
-      "vol_ratio": 9.4,
-      "volume": 37426243,
-      "avg_volume": 3981515
+      "symbol": "PCG",
+      "name": "Pacific Gas & Electric Co.",
+      "price": 14.82,
+      "change_pct": 3.64,
+      "vol_ratio": 2.2,
+      "volume": 65840999,
+      "avg_volume": 29927726
     }
   ]
 }
