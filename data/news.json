@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-09-09T10:00:02+08:00",
+  "generated_at": "2026-09-10T10:00:02+08:00",
   "news": [
+    {
+      "title": "I Let ChatGPT Review My Investment Portfolio — Here's What It Told Me To Change",
+      "url": "https://finance.yahoo.com/m/05305126-b67a-35fc-967a-fdd1b50a6fa2/i-let-chatgpt-review-my.html",
+      "publisher": "MoneyLion",
+      "published": 1788973224
+    },
     {
       "title": "Nobody Has Looked at the Fund Your 401(k) Picked for You at 25, So Here Are 3 ETFs a Grown-Up Would Choose Instead",
       "url": "https://finance.yahoo.com/m/b4061797-b3be-3833-8f74-93bf8361b08a/nobody-has-looked-at-the-fund.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/cb1854db-983a-393e-a9bc-9e7d76788a45/vig%2C-vym%2C-and-vymi%3A-which.html",
       "publisher": "MarketBeat",
       "published": 1787501100
-    },
-    {
-      "title": "4 Low-Cost ETFs Every Investor Should Own",
-      "url": "https://finance.yahoo.com/m/158484a0-bfd5-3828-b965-441ae440747e/4-low-cost-etfs-every.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1787482829
     }
   ]
 }
