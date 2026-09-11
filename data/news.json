@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-09-10T10:00:02+08:00",
+  "generated_at": "2026-09-11T10:00:02+08:00",
   "news": [
+    {
+      "title": "Why a 3 ETF Portfolio May Be All Most Retirees Need",
+      "url": "https://finance.yahoo.com/m/4c9eee15-0939-36d5-b1a0-3a41ae439d07/why-a-3-etf-portfolio-may-be.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1789045622
+    },
     {
       "title": "I Let ChatGPT Review My Investment Portfolio — Here's What It Told Me To Change",
       "url": "https://finance.yahoo.com/m/05305126-b67a-35fc-967a-fdd1b50a6fa2/i-let-chatgpt-review-my.html",
@@ -54,12 +60,6 @@
       "url": "https://finance.yahoo.com/m/6c3a81e9-81f0-38db-a66f-f9d31a07d81f/which-account-do-you-empty.html",
       "publisher": "24/7 Wall St.",
       "published": 1787607936
-    },
-    {
-      "title": "VIG, VYM, and VYMI: Which Vanguard Dividend ETF Is Right for You?",
-      "url": "https://finance.yahoo.com/m/cb1854db-983a-393e-a9bc-9e7d76788a45/vig%2C-vym%2C-and-vymi%3A-which.html",
-      "publisher": "MarketBeat",
-      "published": 1787501100
     }
   ]
 }
