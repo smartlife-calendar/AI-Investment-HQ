@@ -152,12 +152,21 @@
       "price": 9.85,
       "regime": "NEUTRAL",
       "confidence": 33
+    },
+    {
+      "date": "2026-09-11",
+      "symbol": "CVX",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 212.76,
+      "regime": "CAUTION",
+      "confidence": 62
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-10",
-    "total_entries": 17
+    "last_updated": "2026-09-11",
+    "total_entries": 18
   }
 }
