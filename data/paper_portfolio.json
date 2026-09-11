@@ -14,8 +14,8 @@
       "peak_price": 15.68,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 15.0,
-      "current_return": -2.41
+      "current_price": 15.02,
+      "current_return": -2.28
     },
     "MA": {
       "entry_date": "2026-09-04",
@@ -28,8 +28,8 @@
       "peak_price": 585.71,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 567.5,
-      "current_return": -1.13
+      "current_price": 565.37,
+      "current_return": -1.5
     },
     "ABNB": {
       "entry_date": "2026-09-04",
@@ -42,8 +42,8 @@
       "peak_price": 185.25,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 169.63,
-      "current_return": -6.56
+      "current_price": 167.65,
+      "current_return": -7.65
     },
     "EBAY": {
       "entry_date": "2026-09-04",
@@ -56,8 +56,8 @@
       "peak_price": 105.86,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 103.51,
-      "current_return": -0.22
+      "current_price": 105.03,
+      "current_return": 1.24
     },
     "BMY": {
       "entry_date": "2026-09-04",
@@ -70,8 +70,8 @@
       "peak_price": 68.09,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 64.41,
-      "current_return": -3.48
+      "current_price": 63.75,
+      "current_return": -4.47
     },
     "CHYM": {
       "entry_date": "2026-09-04",
@@ -84,8 +84,8 @@
       "peak_price": 34.55,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 34.55,
-      "current_return": 4.76
+      "current_price": 32.67,
+      "current_return": -0.94
     },
     "MELI": {
       "entry_date": "2026-09-04",
@@ -98,8 +98,8 @@
       "peak_price": 1991.06,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 1876.33,
-      "current_return": -3.84
+      "current_price": 1906.24,
+      "current_return": -2.31
     },
     "XLE": {
       "entry_date": "2026-09-04",
@@ -112,8 +112,8 @@
       "peak_price": 65.31,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 65.31,
-      "current_return": 3.13
+      "current_price": 64.93,
+      "current_return": 2.53
     },
     "BNTX": {
       "entry_date": "2026-09-05",
@@ -126,8 +126,8 @@
       "peak_price": 103.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 98.13,
-      "current_return": -3.49
+      "current_price": 96.4,
+      "current_return": -5.19
     },
     "SONY": {
       "entry_date": "2026-09-05",
@@ -140,8 +140,8 @@
       "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 23.44,
-      "current_return": -2.62
+      "current_price": 23.52,
+      "current_return": -2.29
     }
   },
   "closed_trades": [],
@@ -193,6 +193,14 @@
       "positions_value": 97709.51,
       "n_positions": 10,
       "return_pct": -1.57
+    },
+    {
+      "date": "2026-09-11",
+      "nav": 97728.24,
+      "cash": 719.35,
+      "positions_value": 97008.89,
+      "n_positions": 10,
+      "return_pct": -2.27
     }
   ],
   "cooldown": {},
@@ -204,10 +212,10 @@
     "avg_win": 0,
     "avg_loss": 0,
     "total_pnl": 0,
-    "nav": 98428.86,
-    "nav_return_pct": -1.57,
+    "nav": 97728.24,
+    "nav_return_pct": -2.27,
     "cash": 719.35,
-    "regime": "NEUTRAL",
-    "last_updated": "2026-09-10"
+    "regime": "CAUTION",
+    "last_updated": "2026-09-11"
   }
 }
