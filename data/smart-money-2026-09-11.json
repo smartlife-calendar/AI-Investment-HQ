@@ -1,17 +1,17 @@
 {
   "date": "2026-09-11",
-  "generated_at": "2026-09-11T09:50:34.916994+08:00",
+  "generated_at": "2026-09-11T10:02:05.317847+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 1,
   "stocks": [
     {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 3.04,
-      "change_pct": -6.46,
-      "vol_ratio": 3.3,
-      "volume": 148170904,
-      "avg_volume": 44900273
+      "symbol": "AGNC",
+      "name": "AGNC Investment Corp.",
+      "price": 10.19,
+      "change_pct": -3.04,
+      "vol_ratio": 2.1,
+      "volume": 37447664,
+      "avg_volume": 17832220
     }
   ]
 }
