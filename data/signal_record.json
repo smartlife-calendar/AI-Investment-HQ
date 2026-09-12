@@ -161,12 +161,30 @@
       "price": 212.76,
       "regime": "CAUTION",
       "confidence": 62
+    },
+    {
+      "date": "2026-09-12",
+      "symbol": "COP",
+      "action": "BUY",
+      "score": 7,
+      "price": 137.35,
+      "regime": "NEUTRAL",
+      "confidence": 67
+    },
+    {
+      "date": "2026-09-12",
+      "symbol": "XOM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 165.99,
+      "regime": "NEUTRAL",
+      "confidence": 57
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-11",
-    "total_entries": 18
+    "last_updated": "2026-09-12",
+    "total_entries": 20
   }
 }
