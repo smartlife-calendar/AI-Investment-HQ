@@ -1,17 +1,17 @@
 {
   "date": "2026-09-12",
-  "generated_at": "2026-09-12T09:47:09.235490+08:00",
+  "generated_at": "2026-09-12T10:02:17.392884+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 1,
   "stocks": [
     {
-      "symbol": "AGNC",
-      "name": "AGNC Investment Corp.",
-      "price": 10.19,
-      "change_pct": -3.04,
-      "vol_ratio": 2.1,
-      "volume": 37447664,
-      "avg_volume": 17832220
+      "symbol": "SMR",
+      "name": "NuScale Power Corporation",
+      "price": 8.61,
+      "change_pct": -15.67,
+      "vol_ratio": 2.9,
+      "volume": 92048618,
+      "avg_volume": 31740902
     }
   ]
 }
