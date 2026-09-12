@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-13",
+  "generated_at": "2026-09-13T00:43:30.584682+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "SMR",
+      "name": "NuScale Power Corporation",
+      "price": 8.61,
+      "change_pct": -15.67,
+      "vol_ratio": 2.9,
+      "volume": 92048618,
+      "avg_volume": 31740902
+    }
+  ]
+}
