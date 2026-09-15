@@ -179,12 +179,39 @@
       "price": 165.99,
       "regime": "NEUTRAL",
       "confidence": 57
+    },
+    {
+      "date": "2026-09-15",
+      "symbol": "NVAX",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 9.59,
+      "regime": "NEUTRAL",
+      "confidence": 59
+    },
+    {
+      "date": "2026-09-15",
+      "symbol": "META",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 665.6,
+      "regime": "NEUTRAL",
+      "confidence": 48
+    },
+    {
+      "date": "2026-09-15",
+      "symbol": "CRWD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 235.38,
+      "regime": "NEUTRAL",
+      "confidence": 34
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-12",
-    "total_entries": 20
+    "last_updated": "2026-09-15",
+    "total_entries": 23
   }
 }
