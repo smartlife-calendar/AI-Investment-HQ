@@ -1,28 +1,6 @@
 {
-  "generated_at": "2026-09-08T10:00:02+08:00",
+  "generated_at": "2026-09-15T10:00:02+08:00",
   "events": [
-    {
-      "sym": "📌",
-      "date": "2026-09-05",
-      "type": "event",
-      "note": "勞動節（休市）"
-    },
-    {
-      "sym": "ORCL",
-      "date": "2026-09-10",
-      "type": "earnings",
-      "note": "ORCL Q財報 盤後",
-      "eps_forecast": "$1.40",
-      "market_cap": "$443,707,752,000"
-    },
-    {
-      "sym": "ADBE",
-      "date": "2026-09-10",
-      "type": "earnings",
-      "note": "ADBE Q財報 盤後",
-      "eps_forecast": "$4.86",
-      "market_cap": "$113,585,627,000"
-    },
     {
       "sym": "📌",
       "date": "2026-09-18",
@@ -41,7 +19,7 @@
       "type": "earnings",
       "note": "MU Q財報 盤後",
       "eps_forecast": "$31.17",
-      "market_cap": "$1,082,139,340,000"
+      "market_cap": "$1,101,452,020,000"
     },
     {
       "sym": "NFLX",
@@ -49,7 +27,7 @@
       "type": "earnings",
       "note": "NFLX Q財報",
       "eps_forecast": "$0.82",
-      "market_cap": "$344,232,886,000"
+      "market_cap": "$322,288,943,000"
     },
     {
       "sym": "INTC",
@@ -57,7 +35,39 @@
       "type": "earnings",
       "note": "INTC Q財報",
       "eps_forecast": "$0.28",
-      "market_cap": "$484,482,318,000"
+      "market_cap": "$544,045,040,000"
+    },
+    {
+      "sym": "TSLA",
+      "date": "2026-10-28",
+      "type": "earnings",
+      "note": "TSLA Q財報",
+      "eps_forecast": "$0.26",
+      "market_cap": "$1,443,322,660,000"
+    },
+    {
+      "sym": "AAPL",
+      "date": "2026-10-29",
+      "type": "earnings",
+      "note": "AAPL Q財報",
+      "eps_forecast": "$1.98",
+      "market_cap": "$4,849,208,400,000"
+    },
+    {
+      "sym": "AMZN",
+      "date": "2026-10-29",
+      "type": "earnings",
+      "note": "AMZN Q財報",
+      "eps_forecast": "$2.03",
+      "market_cap": "$2,769,709,690,000"
+    },
+    {
+      "sym": "NET",
+      "date": "2026-10-29",
+      "type": "earnings",
+      "note": "NET Q財報",
+      "eps_forecast": "$0.02",
+      "market_cap": "$109,149,118,000"
     },
     {
       "sym": "📌",
@@ -66,5 +76,5 @@
       "note": "感恩節（休市）"
     }
   ],
-  "earnings_count": 5
+  "earnings_count": 7
 }
