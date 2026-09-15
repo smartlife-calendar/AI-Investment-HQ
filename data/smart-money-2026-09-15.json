@@ -1,17 +1,17 @@
 {
   "date": "2026-09-15",
-  "generated_at": "2026-09-15T09:46:15.709978+08:00",
+  "generated_at": "2026-09-15T10:03:58.274375+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 1,
   "stocks": [
     {
-      "symbol": "SMR",
-      "name": "NuScale Power Corporation",
-      "price": 8.61,
-      "change_pct": -15.67,
-      "vol_ratio": 2.9,
-      "volume": 92048618,
-      "avg_volume": 31740902
+      "symbol": "BZ",
+      "name": "KANZHUN LIMITED - American Depo",
+      "price": 15.45,
+      "change_pct": -6.02,
+      "vol_ratio": 7.4,
+      "volume": 40686903,
+      "avg_volume": 5498230
     }
   ]
 }
