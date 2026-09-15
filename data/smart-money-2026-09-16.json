@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T01:04:04.851032+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "BZ",
+      "name": "KANZHUN LIMITED - American Depo",
+      "price": 15.45,
+      "change_pct": -6.02,
+      "vol_ratio": 7.4,
+      "volume": 40686903,
+      "avg_volume": 5498230
+    }
+  ]
+}
