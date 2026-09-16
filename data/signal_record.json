@@ -206,12 +206,30 @@
       "price": 235.38,
       "regime": "NEUTRAL",
       "confidence": 34
+    },
+    {
+      "date": "2026-09-16",
+      "symbol": "CVX",
+      "action": "BUY",
+      "score": 7,
+      "price": 212.17,
+      "regime": "NEUTRAL",
+      "confidence": 62
+    },
+    {
+      "date": "2026-09-16",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 108.99,
+      "regime": "NEUTRAL",
+      "confidence": 32
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-15",
-    "total_entries": 23
+    "last_updated": "2026-09-16",
+    "total_entries": 25
   }
 }
