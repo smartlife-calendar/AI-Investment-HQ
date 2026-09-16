@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-15T10:06:25+08:00",
+  "generated_at": "2026-09-16T10:04:55+08:00",
   "total_scanned": 293,
-  "total_watchlist": 108,
+  "total_watchlist": 107,
   "breaking_out": [],
   "near_breakout": [
     {
@@ -930,6 +930,6 @@
   "summary": {
     "breaking": 0,
     "near": 10,
-    "consolidating": 98
+    "consolidating": 97
   }
 }
