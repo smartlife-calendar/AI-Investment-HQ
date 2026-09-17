@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-18",
+  "generated_at": "2026-09-18T00:09:25.219562+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "HBAN",
+      "name": "Huntington Bancshares Incorpora",
+      "price": 15.82,
+      "change_pct": -5.55,
+      "vol_ratio": 3.2,
+      "volume": 77456990,
+      "avg_volume": 24205309
+    },
+    {
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 16.72,
+      "change_pct": 10.8,
+      "vol_ratio": 2.0,
+      "volume": 62689927,
+      "avg_volume": 31344963
+    }
+  ]
+}
