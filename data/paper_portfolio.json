@@ -1,22 +1,8 @@
 {
   "created": "2026-09-04",
   "initial_capital": 100000,
-  "cash": 719.35,
+  "cash": 9695.85,
   "positions": {
-    "NU": {
-      "entry_date": "2026-09-04",
-      "entry_price": 15.37,
-      "shares": 650,
-      "cost": 9990.5,
-      "score": 7,
-      "action": "BUY",
-      "stop_loss": 14.14,
-      "peak_price": 15.68,
-      "t1_hit": false,
-      "t2_hit": false,
-      "current_price": 14.19,
-      "current_return": -7.68
-    },
     "MA": {
       "entry_date": "2026-09-04",
       "entry_price": 574.0,
@@ -28,8 +14,8 @@
       "peak_price": 585.71,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 573.27,
-      "current_return": -0.13
+      "current_price": 567.75,
+      "current_return": -1.09
     },
     "ABNB": {
       "entry_date": "2026-09-04",
@@ -42,8 +28,8 @@
       "peak_price": 185.25,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 168.32,
-      "current_return": -7.28
+      "current_price": 167.51,
+      "current_return": -7.73
     },
     "EBAY": {
       "entry_date": "2026-09-04",
@@ -53,11 +39,11 @@
       "score": 7,
       "action": "SCALE_IN",
       "stop_loss": 95.44,
-      "peak_price": 108.99,
+      "peak_price": 109.17,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 108.03,
-      "current_return": 4.14
+      "current_price": 109.17,
+      "current_return": 5.23
     },
     "BMY": {
       "entry_date": "2026-09-04",
@@ -70,8 +56,8 @@
       "peak_price": 68.09,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 63.73,
-      "current_return": -4.5
+      "current_price": 63.6,
+      "current_return": -4.69
     },
     "CHYM": {
       "entry_date": "2026-09-04",
@@ -84,8 +70,8 @@
       "peak_price": 34.55,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 33.61,
-      "current_return": 1.91
+      "current_price": 31.25,
+      "current_return": -5.25
     },
     "MELI": {
       "entry_date": "2026-09-04",
@@ -98,8 +84,8 @@
       "peak_price": 1991.06,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 1828.94,
-      "current_return": -6.27
+      "current_price": 1839.71,
+      "current_return": -5.72
     },
     "XLE": {
       "entry_date": "2026-09-04",
@@ -112,8 +98,8 @@
       "peak_price": 65.93,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 65.93,
-      "current_return": 4.11
+      "current_price": 64.03,
+      "current_return": 1.11
     },
     "BNTX": {
       "entry_date": "2026-09-05",
@@ -126,8 +112,8 @@
       "peak_price": 103.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 96.69,
-      "current_return": -4.91
+      "current_price": 95.83,
+      "current_return": -5.75
     },
     "SONY": {
       "entry_date": "2026-09-05",
@@ -140,11 +126,23 @@
       "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 23.92,
-      "current_return": -0.62
+      "current_price": 23.73,
+      "current_return": -1.41
     }
   },
-  "closed_trades": [],
+  "closed_trades": [
+    {
+      "symbol": "NU",
+      "entry_date": "2026-09-04",
+      "exit_date": "2026-09-17",
+      "entry_price": 15.37,
+      "exit_price": 13.81,
+      "shares": 650,
+      "return_pct": -10.15,
+      "pnl": -1014.0,
+      "reason": "停損 -10.1%"
+    }
+  ],
   "daily_nav": [
     {
       "date": "2026-09-04",
@@ -225,21 +223,31 @@
       "positions_value": 97175.3,
       "n_positions": 10,
       "return_pct": -2.11
+    },
+    {
+      "date": "2026-09-17",
+      "nav": 96476.67,
+      "cash": 9695.85,
+      "positions_value": 86780.82,
+      "n_positions": 9,
+      "return_pct": -3.52
     }
   ],
-  "cooldown": {},
+  "cooldown": {
+    "NU": "2026-09-22"
+  },
   "stats": {
-    "total_trades": 0,
-    "open_positions": 10,
-    "win_rate": 0,
-    "avg_return": 0,
+    "total_trades": 1,
+    "open_positions": 9,
+    "win_rate": 0.0,
+    "avg_return": -10.15,
     "avg_win": 0,
-    "avg_loss": 0,
-    "total_pnl": 0,
-    "nav": 97894.65,
-    "nav_return_pct": -2.11,
-    "cash": 719.35,
-    "regime": "NEUTRAL",
-    "last_updated": "2026-09-16"
+    "avg_loss": -10.15,
+    "total_pnl": -1014.0,
+    "nav": 96476.67,
+    "nav_return_pct": -3.52,
+    "cash": 9695.85,
+    "regime": "CAUTION",
+    "last_updated": "2026-09-17"
   }
 }
