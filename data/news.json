@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-09-17T10:00:02+08:00",
+  "generated_at": "2026-09-18T10:00:02+08:00",
   "news": [
+    {
+      "title": "Bonds in the IRA or in the Taxable Account? Park Them in the Wrong One and the IRS Takes a Cut Every Year. These 3 ETFs Go Where They Belong",
+      "url": "https://finance.yahoo.com/markets/options/articles/bonds-ira-taxable-account-park-215553567.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1789682153
+    },
     {
       "title": "You Bought VOO and VTI for Diversification. About 85% of Your Money Sits in the Same Stocks",
       "url": "https://finance.yahoo.com/markets/stocks/articles/bought-voo-vti-diversification-85-210512265.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/forget-vtsax-vanguard-own-etf-221552321.html",
       "publisher": "24/7 Wall St.",
       "published": 1787609752
-    },
-    {
-      "title": "Which Account Do You Empty First in Retirement? Get It Wrong and It Costs You Years. These 4 ETFs Make It Simpler",
-      "url": "https://finance.yahoo.com/markets/options/articles/account-empty-first-retirement-wrong-214536039.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1787607936
     }
   ]
 }
