@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-19",
+  "generated_at": "2026-09-19T00:33:32.514769+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 79.88,
+      "change_pct": -4.16,
+      "vol_ratio": 2.9,
+      "volume": 79167396,
+      "avg_volume": 27299102
+    }
+  ]
+}
