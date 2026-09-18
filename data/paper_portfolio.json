@@ -1,7 +1,7 @@
 {
   "created": "2026-09-04",
   "initial_capital": 100000,
-  "cash": 9695.85,
+  "cash": 18822.0,
   "positions": {
     "MA": {
       "entry_date": "2026-09-04",
@@ -14,22 +14,8 @@
       "peak_price": 585.71,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 567.75,
-      "current_return": -1.09
-    },
-    "ABNB": {
-      "entry_date": "2026-09-04",
-      "entry_price": 181.54,
-      "shares": 55,
-      "cost": 9984.7,
-      "score": 8,
-      "action": "SCALE_IN",
-      "stop_loss": 167.02,
-      "peak_price": 185.25,
-      "t1_hit": false,
-      "t2_hit": false,
-      "current_price": 167.51,
-      "current_return": -7.73
+      "current_price": 565.73,
+      "current_return": -1.44
     },
     "EBAY": {
       "entry_date": "2026-09-04",
@@ -39,11 +25,11 @@
       "score": 7,
       "action": "SCALE_IN",
       "stop_loss": 95.44,
-      "peak_price": 109.17,
+      "peak_price": 112.9,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 109.17,
-      "current_return": 5.23
+      "current_price": 112.9,
+      "current_return": 8.83
     },
     "BMY": {
       "entry_date": "2026-09-04",
@@ -56,8 +42,8 @@
       "peak_price": 68.09,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 63.6,
-      "current_return": -4.69
+      "current_price": 62.84,
+      "current_return": -5.83
     },
     "CHYM": {
       "entry_date": "2026-09-04",
@@ -70,8 +56,8 @@
       "peak_price": 34.55,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 31.25,
-      "current_return": -5.25
+      "current_price": 30.72,
+      "current_return": -6.85
     },
     "MELI": {
       "entry_date": "2026-09-04",
@@ -84,8 +70,8 @@
       "peak_price": 1991.06,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 1839.71,
-      "current_return": -5.72
+      "current_price": 1825.21,
+      "current_return": -6.46
     },
     "XLE": {
       "entry_date": "2026-09-04",
@@ -98,8 +84,8 @@
       "peak_price": 65.93,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 64.03,
-      "current_return": 1.11
+      "current_price": 64.48,
+      "current_return": 1.82
     },
     "BNTX": {
       "entry_date": "2026-09-05",
@@ -112,8 +98,8 @@
       "peak_price": 103.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 95.83,
-      "current_return": -5.75
+      "current_price": 98.66,
+      "current_return": -2.97
     },
     "SONY": {
       "entry_date": "2026-09-05",
@@ -126,8 +112,8 @@
       "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 23.73,
-      "current_return": -1.41
+      "current_price": 23.83,
+      "current_return": -1.0
     }
   },
   "closed_trades": [
@@ -141,6 +127,17 @@
       "return_pct": -10.15,
       "pnl": -1014.0,
       "reason": "停損 -10.1%"
+    },
+    {
+      "symbol": "ABNB",
+      "entry_date": "2026-09-04",
+      "exit_date": "2026-09-18",
+      "entry_price": 181.54,
+      "exit_price": 165.93,
+      "shares": 55,
+      "return_pct": -8.6,
+      "pnl": -858.55,
+      "reason": "停損 -8.6%"
     }
   ],
   "daily_nav": [
@@ -231,23 +228,32 @@
       "positions_value": 86780.82,
       "n_positions": 9,
       "return_pct": -3.52
+    },
+    {
+      "date": "2026-09-18",
+      "nav": 96756.67,
+      "cash": 18822.0,
+      "positions_value": 77934.67,
+      "n_positions": 8,
+      "return_pct": -3.24
     }
   ],
   "cooldown": {
-    "NU": "2026-09-22"
+    "NU": "2026-09-22",
+    "ABNB": "2026-09-23"
   },
   "stats": {
-    "total_trades": 1,
-    "open_positions": 9,
+    "total_trades": 2,
+    "open_positions": 8,
     "win_rate": 0.0,
-    "avg_return": -10.15,
+    "avg_return": -9.38,
     "avg_win": 0,
-    "avg_loss": -10.15,
-    "total_pnl": -1014.0,
-    "nav": 96476.67,
-    "nav_return_pct": -3.52,
-    "cash": 9695.85,
+    "avg_loss": -9.38,
+    "total_pnl": -1872.55,
+    "nav": 96756.67,
+    "nav_return_pct": -3.24,
+    "cash": 18822.0,
     "regime": "CAUTION",
-    "last_updated": "2026-09-17"
+    "last_updated": "2026-09-18"
   }
 }
