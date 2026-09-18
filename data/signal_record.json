@@ -224,12 +224,21 @@
       "price": 108.99,
       "regime": "NEUTRAL",
       "confidence": 32
+    },
+    {
+      "date": "2026-09-18",
+      "symbol": "META",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 673.31,
+      "regime": "CAUTION",
+      "confidence": 48
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-17",
-    "total_entries": 25
+    "last_updated": "2026-09-18",
+    "total_entries": 26
   }
 }
