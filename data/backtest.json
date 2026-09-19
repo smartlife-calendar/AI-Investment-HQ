@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18T10:04:26+08:00",
+  "generated_at": "2026-09-19T10:04:18+08:00",
   "algorithm": "v3_rolling_with_stoploss",
   "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
   "signal_count": 29,
@@ -65,14 +65,14 @@
       }
     },
     "20d": {
-      "n": 19,
-      "avg_return": -1.48,
+      "n": 20,
+      "avg_return": -1.88,
       "median_return": -1.45,
-      "win_rate": 31.6,
+      "win_rate": 30.0,
       "avg_win": 7.77,
-      "avg_loss": -5.75,
-      "stopped_out": 6,
-      "stop_rate": 31.6,
+      "avg_loss": -6.02,
+      "stopped_out": 7,
+      "stop_rate": 35.0,
       "best": {
         "symbol": "ABNB",
         "entry": "2026-08-04",
@@ -250,11 +250,11 @@
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d avg return -1.48% < target +1.5%"
+      "msg": "⚠️ 20d avg return -1.88% < target +1.5%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d win rate 31.6% < target 50%"
+      "msg": "⚠️ 20d win rate 30.0% < target 50%"
     }
   ],
   "status": "⚠️ BELOW TARGET"
