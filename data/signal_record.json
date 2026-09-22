@@ -242,12 +242,66 @@
       "price": 673.31,
       "regime": "CAUTION",
       "confidence": 48
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "NVT",
+      "action": "BUY",
+      "score": 7,
+      "price": 159.44,
+      "regime": "STRONG_BULL",
+      "confidence": 72
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "HPE",
+      "action": "BUY",
+      "score": 7,
+      "price": 61.75,
+      "regime": "STRONG_BULL",
+      "confidence": 60
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "ETN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 435.43,
+      "regime": "STRONG_BULL",
+      "confidence": 45
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "ZS",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 207.13,
+      "regime": "STRONG_BULL",
+      "confidence": 40
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 108.3,
+      "regime": "STRONG_BULL",
+      "confidence": 36
+    },
+    {
+      "date": "2026-09-22",
+      "symbol": "NVAX",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 10.41,
+      "regime": "STRONG_BULL",
+      "confidence": 31
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-19",
-    "total_entries": 27
+    "last_updated": "2026-09-22",
+    "total_entries": 33
   }
 }
