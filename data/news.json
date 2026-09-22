@@ -1,6 +1,18 @@
 {
-  "generated_at": "2026-09-19T10:00:02+08:00",
+  "generated_at": "2026-09-22T10:00:02+08:00",
   "news": [
+    {
+      "title": "VOO’s 0.03% Fee Hides the Real Cost: State Street Now Sells the Same 500 Stocks for a Third Less",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-0-03-fee-hides-215550385.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1790027750
+    },
+    {
+      "title": "VOO and SPYM Track the Same S&P 500, Yet Only One Is Allowed in Your Kid’s Trump Account",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-spym-track-same-p-175934057.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1790013574
+    },
     {
       "title": "Bonds in the IRA or in the Taxable Account? Park Them in the Wrong One and the IRS Takes a Cut Every Year. These 3 ETFs Go Where They Belong",
       "url": "https://finance.yahoo.com/markets/options/articles/bonds-ira-taxable-account-park-215553567.html",
@@ -78,18 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/vti-0-03-fee-hides-213539983.html",
       "publisher": "24/7 Wall St.",
       "published": 1787780139
-    },
-    {
-      "title": "The $60,000 Withdrawal That Terrifies Early Retirees Is a Myth. Here’s What to Sell First",
-      "url": "https://finance.yahoo.com/markets/articles/60-000-withdrawal-terrifies-early-173517942.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1787679317
-    },
-    {
-      "title": "Forget VTSAX: Vanguard’s Own ETF Is Cheaper, Has No $3,000 Minimum, and Schwab Charges $74.95 to Buy the Mutual Fund",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/forget-vtsax-vanguard-own-etf-221552321.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1787609752
     }
   ]
 }
