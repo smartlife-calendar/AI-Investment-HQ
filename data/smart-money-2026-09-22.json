@@ -1,53 +1,35 @@
 {
   "date": "2026-09-22",
-  "generated_at": "2026-09-22T09:00:48.685003+08:00",
+  "generated_at": "2026-09-22T10:03:23.890711+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 5,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "PSKY",
-      "name": "Paramount Skydance Corporation",
-      "price": 10.21,
-      "change_pct": -3.86,
-      "vol_ratio": 6.5,
-      "volume": 78574491,
-      "avg_volume": 12088383
+      "symbol": "WBD",
+      "name": "Warner Bros. Discovery, Inc. - ",
+      "price": 30.8,
+      "change_pct": 10.79,
+      "vol_ratio": 9.6,
+      "volume": 233836583,
+      "avg_volume": 24357977
     },
     {
-      "symbol": "BE",
-      "name": "Bloom Energy Corporation",
-      "price": 265.63,
-      "change_pct": -5.39,
-      "vol_ratio": 4.8,
-      "volume": 73325656,
-      "avg_volume": 15276178
+      "symbol": "NVO",
+      "name": "Novo Nordisk A/S",
+      "price": 39.8,
+      "change_pct": -7.96,
+      "vol_ratio": 4.3,
+      "volume": 48876342,
+      "avg_volume": 11366591
     },
     {
-      "symbol": "PURR",
-      "name": "Hyperliquid Strategies Inc",
-      "price": 14.09,
-      "change_pct": 9.82,
-      "vol_ratio": 3.5,
-      "volume": 57372085,
-      "avg_volume": 16392024
-    },
-    {
-      "symbol": "NFLX",
-      "name": "Netflix, Inc.",
-      "price": 71.79,
-      "change_pct": -4.67,
-      "vol_ratio": 2.8,
-      "volume": 113606170,
-      "avg_volume": 40573632
-    },
-    {
-      "symbol": "SMR",
-      "name": "NuScale Power Corporation",
-      "price": 8.27,
-      "change_pct": -8.52,
-      "vol_ratio": 2.0,
-      "volume": 63999605,
-      "avg_volume": 31999802
+      "symbol": "META",
+      "name": "Meta Platforms, Inc.",
+      "price": 741.25,
+      "change_pct": 11.43,
+      "vol_ratio": 2.6,
+      "volume": 48450536,
+      "avg_volume": 18634821
     }
   ]
 }
