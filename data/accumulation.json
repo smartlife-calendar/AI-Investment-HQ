@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T10:00:02+08:00",
+  "generated_at": "2026-09-23T10:00:02+08:00",
   "stocks": [
     {
       "symbol": "MSTR",
@@ -12,7 +12,7 @@
       "vol_ratio": 1.28,
       "price_range_pct": 138.1,
       "range_position_pct": 75.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置76% · 量比1.3x · 突破MA20",
@@ -39,9 +39,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "BMNR",
@@ -54,7 +54,7 @@
       "vol_ratio": 1.3,
       "price_range_pct": 112.2,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置100% · 量比1.3x · 突破MA20",
@@ -78,12 +78,12 @@
       "target_2_pct": 21.0,
       "risk_reward": 1.4,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "NVT",
@@ -96,7 +96,7 @@
       "vol_ratio": 1.26,
       "price_range_pct": 63.5,
       "range_position_pct": 65.2,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置65% · 量比1.3x · 突破MA20",
@@ -120,12 +120,12 @@
       "target_2_pct": 21.4,
       "risk_reward": 6.9,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MDB",
@@ -138,7 +138,7 @@
       "vol_ratio": 1.33,
       "price_range_pct": 109.0,
       "range_position_pct": 73.6,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置74% · 量比1.3x · 突破MA20",
@@ -162,12 +162,12 @@
       "target_2_pct": 21.9,
       "risk_reward": 2.4,
       "mom_health": "弱",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "COIN",
@@ -180,7 +180,7 @@
       "vol_ratio": 1.27,
       "price_range_pct": 52.0,
       "range_position_pct": 79.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置79% · 量比1.3x · 突破MA20",
@@ -204,12 +204,12 @@
       "target_2_pct": 20.4,
       "risk_reward": 1.1,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "BTBT",
@@ -222,7 +222,7 @@
       "vol_ratio": 1.17,
       "price_range_pct": 84.3,
       "range_position_pct": 59.8,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置60% · 量比1.2x · 突破MA20",
@@ -246,12 +246,12 @@
       "target_2_pct": 44.6,
       "risk_reward": 2.6,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ICLN",
@@ -264,7 +264,7 @@
       "vol_ratio": 1.17,
       "price_range_pct": 40.8,
       "range_position_pct": 13.5,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置14% · 量比1.2x · 突破MA20",
@@ -288,12 +288,12 @@
       "target_2_pct": 36.1,
       "risk_reward": 3.7,
       "mom_health": "弱",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CRDO",
@@ -306,7 +306,7 @@
       "vol_ratio": 1.33,
       "price_range_pct": 244.5,
       "range_position_pct": 46.3,
-      "consec_days": 2,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置46% · 量比1.3x · 突破MA20",
@@ -330,12 +330,12 @@
       "target_2_pct": 64.8,
       "risk_reward": 1.4,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "META",
@@ -348,7 +348,7 @@
       "vol_ratio": 1.11,
       "price_range_pct": 41.0,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置100% · 量比1.1x · 趨勢向上",
@@ -375,9 +375,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CRWD",
@@ -390,7 +390,7 @@
       "vol_ratio": 1.47,
       "price_range_pct": 169.9,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置100% · 量比1.5x · 趨勢向上",
@@ -415,11 +415,53 @@
       "risk_reward": 2.0,
       "mom_health": "強",
       "transition": "持續看多",
-      "momentum_change": "▲ 動能略升",
-      "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
+    },
+    {
+      "symbol": "ZS",
+      "direction": "bullish",
+      "score": 7,
+      "score_max": 10,
+      "price": 207.13,
+      "change_1d": 4.98,
+      "change_1m": 18.4,
+      "vol_ratio": 1.51,
+      "price_range_pct": 75.5,
+      "range_position_pct": 100.0,
+      "consec_days": 1,
+      "signal": "🔥 強勢突破",
+      "action": "🟢 動能確認，可考慮進場",
+      "action_detail": "區間位置100% · 量比1.5x · 趨勢向上",
+      "score_vol": 2,
+      "score_comp": 0,
+      "score_pos": 3,
+      "score_obv": 1,
+      "score_mom": 1,
+      "change_3m": 65.9,
+      "phase": 2,
+      "phase_label": "動能累積",
+      "sector_etf": "XLK",
+      "sector_flow": "🟢流入",
+      "sector_resonance": "✅ 順勢",
+      "entry_price": 182.23,
+      "stop_loss": 165.59,
+      "stop_pct": -9.1,
+      "target_1": 211.27,
+      "target_1_pct": 15.9,
+      "target_2": 221.83,
+      "target_2_pct": 21.7,
+      "risk_reward": 1.7,
+      "mom_health": "弱",
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "OKTA",
@@ -432,7 +474,7 @@
       "vol_ratio": 1.62,
       "price_range_pct": 204.0,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置100% · 量比1.6x · 趨勢向上",
@@ -459,51 +501,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
-    },
-    {
-      "symbol": "ZS",
-      "direction": "bullish",
-      "score": 7,
-      "score_max": 10,
-      "price": 207.13,
-      "change_1d": 4.98,
-      "change_1m": 18.4,
-      "vol_ratio": 1.51,
-      "price_range_pct": 75.5,
-      "range_position_pct": 100.0,
-      "consec_days": 0,
-      "signal": "🔥 強勢突破",
-      "action": "🟢 動能確認，可考慮進場",
-      "action_detail": "區間位置100% · 量比1.5x · 趨勢向上",
-      "score_vol": 2,
-      "score_comp": 0,
-      "score_pos": 3,
-      "score_obv": 1,
-      "score_mom": 1,
-      "change_3m": 65.9,
-      "phase": 2,
-      "phase_label": "動能累積",
-      "sector_etf": "XLK",
-      "sector_flow": "🟢流入",
-      "sector_resonance": "✅ 順勢",
-      "entry_price": 182.23,
-      "stop_loss": 165.59,
-      "stop_pct": -9.1,
-      "target_1": 211.27,
-      "target_1_pct": 15.9,
-      "target_2": 221.83,
-      "target_2_pct": 21.7,
-      "risk_reward": 1.7,
-      "mom_health": "弱",
-      "transition": "持續看多",
-      "momentum_change": "▲ 動能略升",
-      "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "EBAY",
@@ -516,7 +516,7 @@
       "vol_ratio": 1.31,
       "price_range_pct": 35.2,
       "range_position_pct": 65.6,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置66% · 量比1.3x · 趨勢向上",
@@ -543,9 +543,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SWKS",
@@ -558,7 +558,7 @@
       "vol_ratio": 1.48,
       "price_range_pct": 73.9,
       "range_position_pct": 93.4,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置93% · 量比1.5x · 趨勢向上",
@@ -585,9 +585,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "NVAX",
@@ -600,7 +600,7 @@
       "vol_ratio": 1.48,
       "price_range_pct": 51.5,
       "range_position_pct": 82.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置82% · 量比1.5x · 趨勢向上",
@@ -625,11 +625,11 @@
       "risk_reward": 0.8,
       "mom_health": "強",
       "transition": "持續看多",
-      "momentum_change": "▼ 動能略降",
-      "prev_score": 8,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "HPE",
@@ -642,7 +642,7 @@
       "vol_ratio": 1.54,
       "price_range_pct": 178.2,
       "range_position_pct": 99.1,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置99% · 量比1.5x · 趨勢向上",
@@ -669,9 +669,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CVX",
@@ -684,7 +684,7 @@
       "vol_ratio": 1.18,
       "price_range_pct": 31.4,
       "range_position_pct": 72.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置73% · 量比1.2x · 趨勢向上",
@@ -709,11 +709,11 @@
       "risk_reward": 2.3,
       "mom_health": "強",
       "transition": "持續看多",
-      "momentum_change": "▼ 動能略降",
-      "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MRNA",
@@ -726,7 +726,7 @@
       "vol_ratio": 1.18,
       "price_range_pct": 284.4,
       "range_position_pct": 98.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置99% · 量比1.2x · 趨勢向上",
@@ -751,11 +751,11 @@
       "risk_reward": 1.7,
       "mom_health": "強",
       "transition": "持續看多",
-      "momentum_change": "▼ 動能略降",
-      "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CHPT",
@@ -768,7 +768,7 @@
       "vol_ratio": 7.54,
       "price_range_pct": 128.8,
       "range_position_pct": 84.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置84% · 量比7.5x · 趨勢向上",
@@ -793,11 +793,11 @@
       "risk_reward": 1.8,
       "mom_health": "弱",
       "transition": "持續看多",
-      "momentum_change": "▼ 動能略降",
-      "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "S",
@@ -810,7 +810,7 @@
       "vol_ratio": 1.36,
       "price_range_pct": 99.7,
       "range_position_pct": 99.7,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比1.4x · 趨勢向上",
@@ -837,9 +837,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ASAN",
@@ -852,7 +852,7 @@
       "vol_ratio": 1.52,
       "price_range_pct": 87.9,
       "range_position_pct": 85.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置85% · 量比1.5x · 趨勢向上",
@@ -879,9 +879,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "RBRK",
@@ -894,7 +894,7 @@
       "vol_ratio": 1.32,
       "price_range_pct": 157.8,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比1.3x · 趨勢向上",
@@ -921,9 +921,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "TEM",
@@ -936,7 +936,7 @@
       "vol_ratio": 1.16,
       "price_range_pct": 93.4,
       "range_position_pct": 94.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置94% · 量比1.2x · 趨勢向上",
@@ -963,9 +963,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SMTC",
@@ -978,7 +978,7 @@
       "vol_ratio": 1.34,
       "price_range_pct": 162.0,
       "range_position_pct": 93.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置93% · 量比1.3x · 趨勢向上",
@@ -1005,9 +1005,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "DPRO",
@@ -1020,7 +1020,7 @@
       "vol_ratio": 2.19,
       "price_range_pct": 105.0,
       "range_position_pct": 46.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置47% · 量比2.2x · 趨勢向上",
@@ -1047,9 +1047,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ETN",
@@ -1062,7 +1062,7 @@
       "vol_ratio": 0.91,
       "price_range_pct": 33.9,
       "range_position_pct": 78.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置79% · 量比0.9x · 趨勢向上",
@@ -1089,9 +1089,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "XOVR",
@@ -1104,7 +1104,7 @@
       "vol_ratio": 0.68,
       "price_range_pct": 30.6,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "🔥 強勢突破",
       "action": "🟢 動能確認，可考慮進場",
       "action_detail": "區間位置100% · 量比0.7x · 趨勢向上",
@@ -1129,11 +1129,11 @@
       "risk_reward": 0.7,
       "mom_health": "弱",
       "transition": "持續看多",
-      "momentum_change": "▲ 動能略升",
-      "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 7,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "GOOGL",
@@ -1170,12 +1170,12 @@
       "target_2_pct": 18.8,
       "risk_reward": 2.3,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "AAPL",
@@ -1188,7 +1188,7 @@
       "vol_ratio": 0.75,
       "price_range_pct": 37.9,
       "range_position_pct": 98.8,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置99% · 量比0.7x · 趨勢向上",
@@ -1215,9 +1215,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ABBV",
@@ -1230,7 +1230,7 @@
       "vol_ratio": 0.61,
       "price_range_pct": 34.8,
       "range_position_pct": 97.8,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置98% · 量比0.6x · 趨勢向上",
@@ -1255,11 +1255,11 @@
       "risk_reward": 0.8,
       "mom_health": "穩",
       "transition": "持續看多",
-      "momentum_change": "▲ 動能略升",
-      "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ARKK",
@@ -1272,7 +1272,7 @@
       "vol_ratio": 0.87,
       "price_range_pct": 42.8,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.9x · 趨勢向上",
@@ -1296,12 +1296,12 @@
       "target_2_pct": 12.6,
       "risk_reward": 1.3,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 6,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "XOM",
@@ -1314,7 +1314,7 @@
       "vol_ratio": 1.0,
       "price_range_pct": 26.0,
       "range_position_pct": 62.8,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置63% · 量比1.0x · 趨勢向上",
@@ -1339,11 +1339,11 @@
       "risk_reward": 4.4,
       "mom_health": "強",
       "transition": "持續看多",
-      "momentum_change": "🔻 動能轉弱",
-      "prev_score": 7,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "TMO",
@@ -1356,7 +1356,7 @@
       "vol_ratio": 0.98,
       "price_range_pct": 50.3,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比1.0x · 趨勢向上",
@@ -1383,9 +1383,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "PM",
@@ -1398,7 +1398,7 @@
       "vol_ratio": 0.8,
       "price_range_pct": 30.6,
       "range_position_pct": 73.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置73% · 量比0.8x · 趨勢向上",
@@ -1422,12 +1422,12 @@
       "target_2_pct": 11.3,
       "risk_reward": 5.9,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "AMD",
@@ -1440,7 +1440,7 @@
       "vol_ratio": 0.75,
       "price_range_pct": 214.0,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.8x · 趨勢向上",
@@ -1467,9 +1467,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MRVL",
@@ -1482,7 +1482,7 @@
       "vol_ratio": 0.86,
       "price_range_pct": 260.4,
       "range_position_pct": 74.2,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置74% · 量比0.9x · 趨勢向上",
@@ -1509,9 +1509,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "FTNT",
@@ -1524,7 +1524,7 @@
       "vol_ratio": 0.89,
       "price_range_pct": 128.5,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.9x · 趨勢向上",
@@ -1551,9 +1551,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "PANW",
@@ -1566,7 +1566,7 @@
       "vol_ratio": 1.09,
       "price_range_pct": 169.4,
       "range_position_pct": 90.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置90% · 量比1.1x · 趨勢向上",
@@ -1590,12 +1590,12 @@
       "target_2_pct": 14.4,
       "risk_reward": 2.7,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "DDOG",
@@ -1608,7 +1608,7 @@
       "vol_ratio": 0.75,
       "price_range_pct": 173.5,
       "range_position_pct": 76.4,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置76% · 量比0.8x · 趨勢向上",
@@ -1632,12 +1632,12 @@
       "target_2_pct": 28.3,
       "risk_reward": 0.9,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "NET",
@@ -1650,7 +1650,7 @@
       "vol_ratio": 0.87,
       "price_range_pct": 110.6,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.9x · 趨勢向上",
@@ -1677,9 +1677,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "FAST",
@@ -1692,7 +1692,7 @@
       "vol_ratio": 0.73,
       "price_range_pct": 21.1,
       "range_position_pct": 70.1,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置70% · 量比0.7x · 趨勢向上",
@@ -1716,12 +1716,12 @@
       "target_2_pct": 10.6,
       "risk_reward": 1.7,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "TEAM",
@@ -1734,7 +1734,7 @@
       "vol_ratio": 0.8,
       "price_range_pct": 242.4,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.8x · 趨勢向上",
@@ -1758,12 +1758,12 @@
       "target_2_pct": 12.1,
       "risk_reward": 0.5,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "HOOD",
@@ -1776,7 +1776,7 @@
       "vol_ratio": 1.1,
       "price_range_pct": 91.4,
       "range_position_pct": 97.6,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置98% · 量比1.1x · 趨勢向上",
@@ -1800,12 +1800,12 @@
       "target_2_pct": 18.0,
       "risk_reward": 1.2,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "INTC",
@@ -1818,7 +1818,7 @@
       "vol_ratio": 0.92,
       "price_range_pct": 242.2,
       "range_position_pct": 80.8,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置81% · 量比0.9x · 趨勢向上",
@@ -1845,9 +1845,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MU",
@@ -1860,7 +1860,7 @@
       "vol_ratio": 0.58,
       "price_range_pct": 277.1,
       "range_position_pct": 81.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置81% · 量比0.6x · 趨勢向上",
@@ -1884,12 +1884,12 @@
       "target_2_pct": 27.2,
       "risk_reward": 1.5,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ARM",
@@ -1902,7 +1902,7 @@
       "vol_ratio": 0.8,
       "price_range_pct": 225.6,
       "range_position_pct": 61.7,
-      "consec_days": 3,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置62% · 量比0.8x · 趨勢向上",
@@ -1926,12 +1926,12 @@
       "target_2_pct": 75.2,
       "risk_reward": 2.9,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SMCI",
@@ -1944,7 +1944,7 @@
       "vol_ratio": 0.74,
       "price_range_pct": 138.2,
       "range_position_pct": 69.2,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置69% · 量比0.7x · 趨勢向上",
@@ -1968,12 +1968,12 @@
       "target_2_pct": 33.0,
       "risk_reward": 0.9,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MARA",
@@ -1986,7 +1986,7 @@
       "vol_ratio": 1.0,
       "price_range_pct": 90.4,
       "range_position_pct": 77.7,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置78% · 量比1.0x · 趨勢向上",
@@ -2010,54 +2010,12 @@
       "target_2_pct": 30.3,
       "risk_reward": 3.0,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
-    },
-    {
-      "symbol": "CLSK",
-      "direction": "bullish",
-      "score": 5,
-      "score_max": 10,
-      "price": 14.76,
-      "change_1d": 2.0,
-      "change_1m": 17.1,
-      "vol_ratio": 0.78,
-      "price_range_pct": 130.0,
-      "range_position_pct": 61.9,
-      "consec_days": 0,
-      "signal": "📈 動能上升",
-      "action": "🟡 趨勢形成中，持續觀察",
-      "action_detail": "區間位置62% · 量比0.8x · 趨勢向上",
-      "score_vol": 0,
-      "score_comp": 0,
-      "score_pos": 3,
-      "score_obv": 1,
-      "score_mom": 1,
-      "change_3m": -14.4,
-      "phase": 1,
-      "phase_label": "趨勢萌芽",
-      "sector_etf": "",
-      "sector_flow": "",
-      "sector_resonance": "N/A",
-      "entry_price": 12.89,
-      "stop_loss": 12.76,
-      "stop_pct": -1.0,
-      "target_1": 15.06,
-      "target_1_pct": 16.8,
-      "target_2": 19.19,
-      "target_2_pct": 48.9,
-      "risk_reward": 16.7,
-      "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "RIOT",
@@ -2070,7 +2028,7 @@
       "vol_ratio": 0.74,
       "price_range_pct": 142.5,
       "range_position_pct": 73.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置73% · 量比0.7x · 趨勢向上",
@@ -2094,12 +2052,54 @@
       "target_2_pct": 38.7,
       "risk_reward": 4.3,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
+    },
+    {
+      "symbol": "CLSK",
+      "direction": "bullish",
+      "score": 5,
+      "score_max": 10,
+      "price": 14.76,
+      "change_1d": 2.0,
+      "change_1m": 17.1,
+      "vol_ratio": 0.78,
+      "price_range_pct": 130.0,
+      "range_position_pct": 61.9,
+      "consec_days": 1,
+      "signal": "📈 動能上升",
+      "action": "🟡 趨勢形成中，持續觀察",
+      "action_detail": "區間位置62% · 量比0.8x · 趨勢向上",
+      "score_vol": 0,
+      "score_comp": 0,
+      "score_pos": 3,
+      "score_obv": 1,
+      "score_mom": 1,
+      "change_3m": -14.4,
+      "phase": 1,
+      "phase_label": "趨勢萌芽",
+      "sector_etf": "",
+      "sector_flow": "",
+      "sector_resonance": "N/A",
+      "entry_price": 12.89,
+      "stop_loss": 12.76,
+      "stop_pct": -1.0,
+      "target_1": 15.06,
+      "target_1_pct": 16.8,
+      "target_2": 19.19,
+      "target_2_pct": 48.9,
+      "risk_reward": 16.7,
+      "mom_health": "強",
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "RXRX",
@@ -2112,7 +2112,7 @@
       "vol_ratio": 0.85,
       "price_range_pct": 39.8,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.9x · 趨勢向上",
@@ -2139,9 +2139,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CRSP",
@@ -2154,7 +2154,7 @@
       "vol_ratio": 0.91,
       "price_range_pct": 39.6,
       "range_position_pct": 79.7,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置80% · 量比0.9x · 趨勢向上",
@@ -2178,12 +2178,12 @@
       "target_2_pct": 15.5,
       "risk_reward": 1.3,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "TWLO",
@@ -2196,7 +2196,7 @@
       "vol_ratio": 0.84,
       "price_range_pct": 126.1,
       "range_position_pct": 100.0,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置100% · 量比0.8x · 趨勢向上",
@@ -2223,9 +2223,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ISRG",
@@ -2238,7 +2238,7 @@
       "vol_ratio": 0.69,
       "price_range_pct": 45.7,
       "range_position_pct": 45.9,
-      "consec_days": 2,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置46% · 量比0.7x · 趨勢向上",
@@ -2262,12 +2262,12 @@
       "target_2_pct": 31.0,
       "risk_reward": 3.1,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "VITL",
@@ -2280,7 +2280,7 @@
       "vol_ratio": 1.0,
       "price_range_pct": 71.3,
       "range_position_pct": 66.9,
-      "consec_days": 3,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置67% · 量比1.0x · 趨勢向上",
@@ -2304,12 +2304,12 @@
       "target_2_pct": 35.8,
       "risk_reward": 1.7,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "KOPN",
@@ -2322,7 +2322,7 @@
       "vol_ratio": 0.77,
       "price_range_pct": 251.1,
       "range_position_pct": 66.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置66% · 量比0.8x · 趨勢向上",
@@ -2346,12 +2346,12 @@
       "target_2_pct": 43.0,
       "risk_reward": 1.2,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ASX",
@@ -2364,7 +2364,7 @@
       "vol_ratio": 0.71,
       "price_range_pct": 116.0,
       "range_position_pct": 94.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置94% · 量比0.7x · 趨勢向上",
@@ -2391,9 +2391,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "MXL",
@@ -2406,7 +2406,7 @@
       "vol_ratio": 0.68,
       "price_range_pct": 696.2,
       "range_position_pct": 62.4,
-      "consec_days": 4,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置62% · 量比0.7x · 趨勢向上",
@@ -2430,12 +2430,12 @@
       "target_2_pct": 92.6,
       "risk_reward": 1.8,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "IOVA",
@@ -2448,7 +2448,7 @@
       "vol_ratio": 0.7,
       "price_range_pct": 210.6,
       "range_position_pct": 99.1,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置99% · 量比0.7x · 趨勢向上",
@@ -2475,9 +2475,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "RACE",
@@ -2490,7 +2490,7 @@
       "vol_ratio": 0.73,
       "price_range_pct": 37.5,
       "range_position_pct": 82.9,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置83% · 量比0.7x · 趨勢向上",
@@ -2514,12 +2514,12 @@
       "target_2_pct": 9.2,
       "risk_reward": 0.8,
       "mom_health": "強",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SOXX",
@@ -2532,7 +2532,7 @@
       "vol_ratio": 0.76,
       "price_range_pct": 111.4,
       "range_position_pct": 72.3,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置72% · 量比0.8x · 趨勢向上",
@@ -2559,9 +2559,9 @@
       "transition": "持續看多",
       "momentum_change": "➡️ 動能持平",
       "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "XLK",
@@ -2574,7 +2574,7 @@
       "vol_ratio": 0.77,
       "price_range_pct": 55.5,
       "range_position_pct": 95.2,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置95% · 量比0.8x · 趨勢向上",
@@ -2598,12 +2598,12 @@
       "target_2_pct": 11.1,
       "risk_reward": 1.3,
       "mom_health": "穩",
-      "transition": "🆕 新訊號",
-      "momentum_change": "",
-      "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "持續看多",
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "XLE",
@@ -2616,7 +2616,7 @@
       "vol_ratio": 1.09,
       "price_range_pct": 24.8,
       "range_position_pct": 73.6,
-      "consec_days": 0,
+      "consec_days": 1,
       "signal": "📈 動能上升",
       "action": "🟡 趨勢形成中，持續觀察",
       "action_detail": "區間位置74% · 量比1.1x · 趨勢向上",
@@ -2641,11 +2641,11 @@
       "risk_reward": 2.9,
       "mom_health": "穩",
       "transition": "持續看多",
-      "momentum_change": "▼ 動能略降",
-      "prev_score": 6,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "momentum_change": "➡️ 動能持平",
+      "prev_score": 5,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     }
   ],
   "bearish": [
@@ -2687,9 +2687,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "QLYS",
@@ -2729,9 +2729,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "TENB",
@@ -2771,9 +2771,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ACN",
@@ -2813,9 +2813,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "WDAY",
@@ -2855,9 +2855,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "DOCU",
@@ -2894,12 +2894,12 @@
       "target_2_pct": -22.1,
       "risk_reward": 0,
       "mom_health": "",
-      "transition": "⚡ 多翻空",
-      "momentum_change": "▲ 動能略升",
-      "prev_score": 5,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "transition": "🆕 新訊號",
+      "momentum_change": "",
+      "prev_score": null,
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "U",
@@ -2939,9 +2939,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "WCLD",
@@ -2981,9 +2981,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "JNJ",
@@ -3023,9 +3023,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CRM",
@@ -3065,9 +3065,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "DHR",
@@ -3107,9 +3107,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "ZM",
@@ -3149,9 +3149,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "NIO",
@@ -3161,7 +3161,7 @@
       "price": 3.67,
       "change_1d": 0.27,
       "change_1m": -19.0,
-      "vol_ratio": 1.62,
+      "vol_ratio": 1.63,
       "price_range_pct": 91.9,
       "range_position_pct": 2.7,
       "consec_days": 0,
@@ -3191,9 +3191,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SNAP",
@@ -3233,9 +3233,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "CHYM",
@@ -3275,9 +3275,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "SHOP",
@@ -3317,9 +3317,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     },
     {
       "symbol": "OKLO",
@@ -3359,9 +3359,9 @@
       "transition": "🆕 新訊號",
       "momentum_change": "",
       "prev_score": null,
-      "market_sentiment": 77.9,
-      "cnn_fg": 33.7,
-      "vix": 14.87
+      "market_sentiment": 78.5,
+      "cnn_fg": 35.3,
+      "vix": 14.21
     }
   ],
   "total_scanned": 296,
@@ -3664,186 +3664,8 @@
     "XLE"
   ],
   "signal_changes": {
-    "lost": [
-      {
-        "symbol": "NVDA",
-        "prev_score": 5,
-        "prev_price": 222.27,
-        "consec_days": 0
-      },
-      {
-        "symbol": "TSLA",
-        "prev_score": 5,
-        "prev_price": 364.27,
-        "consec_days": 0
-      },
-      {
-        "symbol": "DOCU",
-        "prev_score": 5,
-        "prev_price": 70.64,
-        "consec_days": 21
-      },
-      {
-        "symbol": "BE",
-        "prev_score": 5,
-        "prev_price": 280.76,
-        "consec_days": 8
-      },
-      {
-        "symbol": "NBIS",
-        "prev_score": 5,
-        "prev_price": 217.99,
-        "consec_days": 0
-      },
-      {
-        "symbol": "CIFR",
-        "prev_score": 5,
-        "prev_price": 16.94,
-        "consec_days": 1
-      }
-    ],
-    "new": [
-      {
-        "symbol": "BMNR",
-        "score": 7,
-        "price": 28.25
-      },
-      {
-        "symbol": "NVT",
-        "score": 7,
-        "price": 159.44
-      },
-      {
-        "symbol": "MDB",
-        "score": 6,
-        "price": 407.3
-      },
-      {
-        "symbol": "COIN",
-        "score": 6,
-        "price": 201.05
-      },
-      {
-        "symbol": "BTBT",
-        "score": 6,
-        "price": 1.82
-      },
-      {
-        "symbol": "ICLN",
-        "score": 6,
-        "price": 17.8
-      },
-      {
-        "symbol": "CRDO",
-        "score": 5,
-        "price": 187.27
-      },
-      {
-        "symbol": "GOOGL",
-        "score": 6,
-        "price": 354.97
-      },
-      {
-        "symbol": "ARKK",
-        "score": 6,
-        "price": 90.72
-      },
-      {
-        "symbol": "PM",
-        "score": 5,
-        "price": 187.48
-      },
-      {
-        "symbol": "PANW",
-        "score": 5,
-        "price": 371.76
-      },
-      {
-        "symbol": "DDOG",
-        "score": 5,
-        "price": 245.05
-      },
-      {
-        "symbol": "FAST",
-        "score": 5,
-        "price": 49.65
-      },
-      {
-        "symbol": "TEAM",
-        "score": 5,
-        "price": 195.67
-      },
-      {
-        "symbol": "HOOD",
-        "score": 5,
-        "price": 123.3
-      },
-      {
-        "symbol": "MU",
-        "score": 5,
-        "price": 1043.96
-      },
-      {
-        "symbol": "ARM",
-        "score": 5,
-        "price": 322.9
-      },
-      {
-        "symbol": "SMCI",
-        "score": 5,
-        "price": 41.2
-      },
-      {
-        "symbol": "MARA",
-        "score": 5,
-        "price": 13.28
-      },
-      {
-        "symbol": "CLSK",
-        "score": 5,
-        "price": 14.76
-      },
-      {
-        "symbol": "RIOT",
-        "score": 5,
-        "price": 24.18
-      },
-      {
-        "symbol": "CRSP",
-        "score": 5,
-        "price": 58.33
-      },
-      {
-        "symbol": "ISRG",
-        "score": 5,
-        "price": 401.65
-      },
-      {
-        "symbol": "VITL",
-        "score": 5,
-        "price": 12.23
-      },
-      {
-        "symbol": "KOPN",
-        "score": 5,
-        "price": 4.85
-      },
-      {
-        "symbol": "MXL",
-        "score": 5,
-        "price": 85.98
-      },
-      {
-        "symbol": "RACE",
-        "score": 5,
-        "price": 416.13
-      },
-      {
-        "symbol": "XLK",
-        "score": 5,
-        "price": 194.85
-      }
-    ],
+    "lost": [],
+    "new": [],
     "targets": [
       {
         "symbol": "META",
@@ -3853,7 +3675,7 @@
         "target_15": 681.78,
         "gain_pct": 25.0,
         "score": 7,
-        "consec_days": 14,
+        "consec_days": 15,
         "hit_target": true
       },
       {
@@ -3864,7 +3686,7 @@
         "target_15": 170.07,
         "gain_pct": 19.9,
         "score": 6,
-        "consec_days": 12,
+        "consec_days": 13,
         "hit_target": true
       },
       {
@@ -3875,7 +3697,7 @@
         "target_15": 164.22,
         "gain_pct": 18.0,
         "score": 7,
-        "consec_days": 9,
+        "consec_days": 10,
         "hit_target": true
       },
       {
@@ -3886,7 +3708,7 @@
         "target_15": 86.69,
         "gain_pct": 17.7,
         "score": 7,
-        "consec_days": 10,
+        "consec_days": 11,
         "hit_target": true
       },
       {
@@ -3897,7 +3719,7 @@
         "target_15": 10.59,
         "gain_pct": 13.0,
         "score": 7,
-        "consec_days": 17,
+        "consec_days": 18,
         "hit_target": false
       },
       {
@@ -3908,7 +3730,7 @@
         "target_15": 80.47,
         "gain_pct": 11.5,
         "score": 6,
-        "consec_days": 3,
+        "consec_days": 4,
         "hit_target": false
       },
       {
@@ -3919,7 +3741,7 @@
         "target_15": 360.47,
         "gain_pct": 8.1,
         "score": 6,
-        "consec_days": 19,
+        "consec_days": 20,
         "hit_target": false
       },
       {
@@ -3930,7 +3752,7 @@
         "target_15": 220.49,
         "gain_pct": 8.0,
         "score": 7,
-        "consec_days": 6,
+        "consec_days": 7,
         "hit_target": false
       },
       {
@@ -3941,7 +3763,7 @@
         "target_15": 270.69,
         "gain_pct": 5.9,
         "score": 7,
-        "consec_days": 6,
+        "consec_days": 7,
         "hit_target": false
       },
       {
@@ -3952,7 +3774,7 @@
         "target_15": 26.0,
         "gain_pct": 5.3,
         "score": 6,
-        "consec_days": 6,
+        "consec_days": 7,
         "hit_target": false
       },
       {
@@ -3963,7 +3785,18 @@
         "target_15": 67.73,
         "gain_pct": 4.8,
         "score": 7,
-        "consec_days": 8,
+        "consec_days": 9,
+        "hit_target": false
+      },
+      {
+        "symbol": "RBRK",
+        "entry_date": "2026-09-19",
+        "entry_price": 107.83,
+        "current_price": 112.96,
+        "target_15": 124.0,
+        "gain_pct": 4.8,
+        "score": 6,
+        "consec_days": 3,
         "hit_target": false
       },
       {
@@ -3974,7 +3807,7 @@
         "target_15": 224.15,
         "gain_pct": 4.5,
         "score": 6,
-        "consec_days": 32,
+        "consec_days": 33,
         "hit_target": false
       },
       {
@@ -3985,7 +3818,7 @@
         "target_15": 23.61,
         "gain_pct": 4.5,
         "score": 7,
-        "consec_days": 28,
+        "consec_days": 29,
         "hit_target": false
       },
       {
@@ -3996,7 +3829,7 @@
         "target_15": 120.28,
         "gain_pct": 3.5,
         "score": 7,
-        "consec_days": 9,
+        "consec_days": 10,
         "hit_target": false
       },
       {
@@ -4007,7 +3840,18 @@
         "target_15": 214.42,
         "gain_pct": 2.6,
         "score": 7,
-        "consec_days": 6,
+        "consec_days": 7,
+        "hit_target": false
+      },
+      {
+        "symbol": "ETN",
+        "entry_date": "2026-09-19",
+        "entry_price": 424.77,
+        "current_price": 435.43,
+        "target_15": 488.49,
+        "gain_pct": 2.5,
+        "score": 7,
+        "consec_days": 3,
         "hit_target": false
       },
       {
@@ -4018,7 +3862,7 @@
         "target_15": 301.04,
         "gain_pct": 1.0,
         "score": 6,
-        "consec_days": 6,
+        "consec_days": 7,
         "hit_target": false
       },
       {
@@ -4029,7 +3873,7 @@
         "target_15": 200.54,
         "gain_pct": -0.8,
         "score": 6,
-        "consec_days": 21,
+        "consec_days": 22,
         "hit_target": false
       },
       {
@@ -4040,7 +3884,18 @@
         "target_15": 11.37,
         "gain_pct": -4.9,
         "score": 6,
-        "consec_days": 12,
+        "consec_days": 13,
+        "hit_target": false
+      },
+      {
+        "symbol": "ASAN",
+        "entry_date": "2026-09-19",
+        "entry_price": 10.09,
+        "current_price": 9.54,
+        "target_15": 11.6,
+        "gain_pct": -5.5,
+        "score": 6,
+        "consec_days": 3,
         "hit_target": false
       }
     ]
