@@ -1,35 +1,35 @@
 {
   "date": "2026-09-23",
-  "generated_at": "2026-09-23T09:47:09.878479+08:00",
+  "generated_at": "2026-09-23T10:02:07.550490+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
-      "symbol": "WBD",
-      "name": "Warner Bros. Discovery, Inc. - ",
-      "price": 30.8,
-      "change_pct": 10.79,
-      "vol_ratio": 9.6,
-      "volume": 233836583,
-      "avg_volume": 24357977
+      "symbol": "VKTX",
+      "name": "Viking Therapeutics, Inc.",
+      "price": 40.85,
+      "change_pct": 35.67,
+      "vol_ratio": 18.4,
+      "volume": 40950705,
+      "avg_volume": 2225581
     },
     {
-      "symbol": "NVO",
-      "name": "Novo Nordisk A/S",
-      "price": 39.8,
-      "change_pct": -7.96,
-      "vol_ratio": 4.3,
-      "volume": 48876342,
-      "avg_volume": 11366591
+      "symbol": "ONON",
+      "name": "On Holding AG",
+      "price": 29.39,
+      "change_pct": 7.58,
+      "vol_ratio": 5.9,
+      "volume": 42509708,
+      "avg_volume": 7205035
     },
     {
-      "symbol": "META",
-      "name": "Meta Platforms, Inc.",
-      "price": 741.25,
-      "change_pct": 11.43,
-      "vol_ratio": 2.6,
-      "volume": 48450536,
-      "avg_volume": 18634821
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.17,
+      "change_pct": 8.93,
+      "vol_ratio": 3.8,
+      "volume": 180764656,
+      "avg_volume": 47569646
     }
   ]
 }
