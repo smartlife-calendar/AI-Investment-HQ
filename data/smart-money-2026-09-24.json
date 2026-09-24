@@ -1,35 +1,17 @@
 {
   "date": "2026-09-24",
-  "generated_at": "2026-09-24T09:41:19.272135+08:00",
+  "generated_at": "2026-09-24T10:02:16.629268+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 1,
   "stocks": [
     {
-      "symbol": "VKTX",
-      "name": "Viking Therapeutics, Inc.",
-      "price": 40.85,
-      "change_pct": 35.67,
-      "vol_ratio": 18.4,
-      "volume": 40950705,
-      "avg_volume": 2225581
-    },
-    {
-      "symbol": "ONON",
-      "name": "On Holding AG",
-      "price": 29.39,
-      "change_pct": 7.58,
-      "vol_ratio": 5.9,
-      "volume": 42509708,
-      "avg_volume": 7205035
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 3.17,
-      "change_pct": 8.93,
-      "vol_ratio": 3.8,
-      "volume": 180764656,
-      "avg_volume": 47569646
+      "symbol": "IONQ",
+      "name": "IonQ, Inc.",
+      "price": 42.54,
+      "change_pct": 4.42,
+      "vol_ratio": 3.6,
+      "volume": 72152387,
+      "avg_volume": 20042329
     }
   ]
 }
