@@ -296,12 +296,30 @@
       "price": 10.41,
       "regime": "STRONG_BULL",
       "confidence": 31
+    },
+    {
+      "date": "2026-09-24",
+      "symbol": "XOVR",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 21.22,
+      "regime": "STRONG_BULL",
+      "confidence": 32
+    },
+    {
+      "date": "2026-09-24",
+      "symbol": "ABBV",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 265.08,
+      "regime": "STRONG_BULL",
+      "confidence": 30
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-23",
-    "total_entries": 33
+    "last_updated": "2026-09-24",
+    "total_entries": 35
   }
 }
