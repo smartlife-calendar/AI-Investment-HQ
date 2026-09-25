@@ -314,12 +314,48 @@
       "price": 265.08,
       "regime": "STRONG_BULL",
       "confidence": 30
+    },
+    {
+      "date": "2026-09-25",
+      "symbol": "HPE",
+      "action": "BUY",
+      "score": 7,
+      "price": 63.52,
+      "regime": "STRONG_BULL",
+      "confidence": 60
+    },
+    {
+      "date": "2026-09-25",
+      "symbol": "NVAX",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 10.6,
+      "regime": "STRONG_BULL",
+      "confidence": 36
+    },
+    {
+      "date": "2026-09-25",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 107.83,
+      "regime": "STRONG_BULL",
+      "confidence": 32
+    },
+    {
+      "date": "2026-09-25",
+      "symbol": "ETN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 440.0,
+      "regime": "STRONG_BULL",
+      "confidence": 30
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-24",
-    "total_entries": 35
+    "last_updated": "2026-09-25",
+    "total_entries": 39
   }
 }
