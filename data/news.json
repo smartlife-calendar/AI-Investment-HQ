@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-09-25T10:00:02+08:00",
+  "generated_at": "2026-09-26T10:00:02+08:00",
   "news": [
+    {
+      "title": "What a $500,000 All Weather Portfolio Actually Looks Like, Built With ETFs",
+      "url": "https://finance.yahoo.com/markets/options/articles/500-000-weather-portfolio-actually-220528096.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1790373928
+    },
+    {
+      "title": "The Only 3 ETFs You Need to Retire, and How to Split Your Money Between Them",
+      "url": "https://finance.yahoo.com/markets/options/articles/only-3-etfs-retire-split-210541847.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1790370341
+    },
+    {
+      "title": "Is VOO or VTI the Better Long-Term Investment? Here's What History Suggests.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-vti-better-long-term-032000162.html",
+      "publisher": "Motley Fool",
+      "published": 1790306400
+    },
     {
       "title": "Making $150K at 45 and Maxing Your 401(k)? These 3 ETFs Put the Rest of Your Savings to Work",
       "url": "https://finance.yahoo.com/markets/options/articles/making-150k-45-maxing-401-221537082.html",
@@ -72,24 +90,6 @@
       "url": "https://finance.yahoo.com/markets/options/articles/why-3-etf-portfolio-may-130702711.html",
       "publisher": "24/7 Wall St.",
       "published": 1789045622
-    },
-    {
-      "title": "I Let ChatGPT Review My Investment Portfolio — Here's What It Told Me To Change",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/let-chatgpt-review-investment-portfolio-170024994.html",
-      "publisher": "MoneyLion",
-      "published": 1788973224
-    },
-    {
-      "title": "Nobody Has Looked at the Fund Your 401(k) Picked for You at 25, So Here Are 3 ETFs a Grown-Up Would Choose Instead",
-      "url": "https://finance.yahoo.com/markets/options/articles/nobody-looked-fund-401-k-212544250.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1788470744
-    },
-    {
-      "title": "If You Invest $1,000 in the Vanguard Total Stock Market ETF Right Now, Here's What History Says It Could Be Worth in 20 Years",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/invest-1-000-vanguard-total-111500216.html",
-      "publisher": "Motley Fool",
-      "published": 1788347700
     }
   ]
 }
