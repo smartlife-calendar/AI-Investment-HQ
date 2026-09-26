@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-26",
+  "generated_at": "2026-09-26T09:00:50.637637+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "BB",
+      "name": "BlackBerry Limited",
+      "price": 8.73,
+      "change_pct": 4.18,
+      "vol_ratio": 2.5,
+      "volume": 45030721,
+      "avg_volume": 18012288
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ, Inc.",
+      "price": 44.98,
+      "change_pct": 5.74,
+      "vol_ratio": 2.0,
+      "volume": 42993459,
+      "avg_volume": 21496729
+    }
+  ]
+}
