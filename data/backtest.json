@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T10:04:25+08:00",
+  "generated_at": "2026-09-26T10:04:04+08:00",
   "algorithm": "v3_rolling_with_stoploss",
   "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
   "signal_count": 18,
@@ -22,11 +22,11 @@
   "results": {
     "5d": {
       "n": 12,
-      "avg_return": -2.39,
+      "avg_return": -2.4,
       "median_return": -1.88,
       "win_rate": 25.0,
       "avg_win": 3.77,
-      "avg_loss": -4.44,
+      "avg_loss": -4.45,
       "stopped_out": 2,
       "stop_rate": 16.7,
       "best": {
@@ -65,14 +65,14 @@
       }
     },
     "20d": {
-      "n": 6,
-      "avg_return": -6.05,
-      "median_return": -8.17,
-      "win_rate": 16.7,
+      "n": 10,
+      "avg_return": -7.11,
+      "median_return": -8.27,
+      "win_rate": 10.0,
       "avg_win": 3.1,
-      "avg_loss": -7.88,
-      "stopped_out": 4,
-      "stop_rate": 66.7,
+      "avg_loss": -8.24,
+      "stopped_out": 8,
+      "stop_rate": 80.0,
       "best": {
         "symbol": "MA",
         "entry": "2026-08-05",
@@ -91,7 +91,7 @@
     "5d": {
       "7": {
         "n": 11,
-        "avg": -2.45,
+        "avg": -2.46,
         "win_rate": 27.3
       },
       "8": {
@@ -117,10 +117,10 @@
     {
       "symbol": "CVX",
       "entry_date": "2026-09-16",
-      "exit_date": "2026-09-24",
+      "exit_date": "2026-09-23",
       "entry_price": 211.54,
-      "exit_price": 205.65,
-      "return_pct": -2.78,
+      "exit_price": 205.51,
+      "return_pct": -2.85,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
@@ -228,7 +228,7 @@
   "alerts": [
     {
       "level": "warn",
-      "msg": "⚠️ 5d avg return -2.39% < target +0.5%"
+      "msg": "⚠️ 5d avg return -2.40% < target +0.5%"
     },
     {
       "level": "warn",
@@ -244,11 +244,11 @@
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d avg return -6.05% < target +1.5%"
+      "msg": "⚠️ 20d avg return -7.11% < target +1.5%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d win rate 16.7% < target 50%"
+      "msg": "⚠️ 20d win rate 10.0% < target 50%"
     }
   ],
   "status": "⚠️ BELOW TARGET"
