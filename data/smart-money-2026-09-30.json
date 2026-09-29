@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T00:35:32.934707+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "KOD",
+      "name": "Kodiak Sciences Inc",
+      "price": 89.92,
+      "change_pct": 177.96,
+      "vol_ratio": 29.6,
+      "volume": 38398805,
+      "avg_volume": 1297256
+    },
+    {
+      "symbol": "AMC",
+      "name": "AMC Entertainment Holdings, Inc",
+      "price": 3.29,
+      "change_pct": 11.9,
+      "vol_ratio": 2.1,
+      "volume": 72388813,
+      "avg_volume": 34470863
+    }
+  ]
+}
