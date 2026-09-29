@@ -386,12 +386,30 @@
       "price": 440.0,
       "regime": "STRONG_BULL",
       "confidence": 30
+    },
+    {
+      "date": "2026-09-29",
+      "symbol": "ZS",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 199.39,
+      "regime": "STRONG_BULL",
+      "confidence": 43
+    },
+    {
+      "date": "2026-09-29",
+      "symbol": "META",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 715.62,
+      "regime": "STRONG_BULL",
+      "confidence": 36
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-09-26",
-    "total_entries": 43
+    "last_updated": "2026-09-29",
+    "total_entries": 45
   }
 }
