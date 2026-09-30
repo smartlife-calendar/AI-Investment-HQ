@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-01",
+  "generated_at": "2026-10-01T01:00:49.945218+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "IOVA",
+      "name": "Iovance Biotherapeutics, Inc.",
+      "price": 14.45,
+      "change_pct": 31.48,
+      "vol_ratio": 4.4,
+      "volume": 78030223,
+      "avg_volume": 17734141
+    },
+    {
+      "symbol": "CCL",
+      "name": "Carnival Corporation Ltd.",
+      "price": 25.11,
+      "change_pct": 13.41,
+      "vol_ratio": 3.7,
+      "volume": 75324198,
+      "avg_volume": 20357891
+    }
+  ]
+}
