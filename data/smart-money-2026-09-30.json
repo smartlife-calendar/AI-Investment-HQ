@@ -1,26 +1,26 @@
 {
   "date": "2026-09-30",
-  "generated_at": "2026-09-30T09:34:52.906748+08:00",
+  "generated_at": "2026-09-30T10:02:17.390428+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 2,
   "stocks": [
     {
-      "symbol": "KOD",
-      "name": "Kodiak Sciences Inc",
-      "price": 89.92,
-      "change_pct": 177.96,
-      "vol_ratio": 29.6,
-      "volume": 38398805,
-      "avg_volume": 1297256
+      "symbol": "IOVA",
+      "name": "Iovance Biotherapeutics, Inc.",
+      "price": 14.45,
+      "change_pct": 31.48,
+      "vol_ratio": 4.4,
+      "volume": 78030223,
+      "avg_volume": 17734141
     },
     {
-      "symbol": "AMC",
-      "name": "AMC Entertainment Holdings, Inc",
-      "price": 3.29,
-      "change_pct": 11.9,
-      "vol_ratio": 2.1,
-      "volume": 72388813,
-      "avg_volume": 34470863
+      "symbol": "CCL",
+      "name": "Carnival Corporation Ltd.",
+      "price": 25.11,
+      "change_pct": 13.41,
+      "vol_ratio": 3.7,
+      "volume": 75324198,
+      "avg_volume": 20357891
     }
   ]
 }
