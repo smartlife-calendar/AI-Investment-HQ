@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-02",
+  "generated_at": "2026-10-02T00:08:21.599593+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 8.53,
+      "change_pct": 5.44,
+      "vol_ratio": 2.6,
+      "volume": 54094509,
+      "avg_volume": 20805580
+    },
+    {
+      "symbol": "AGNC",
+      "name": "AGNC Investment Corp.",
+      "price": 9.07,
+      "change_pct": -4.02,
+      "vol_ratio": 2.3,
+      "volume": 54522720,
+      "avg_volume": 23705530
+    }
+  ]
+}
