@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockIQ — Free AI Stock Signal Map for 296 US Stocks</title>
+    <meta name="description" content="Free AI-powered stock analysis platform. Real-time accumulation/distribution detection, signal maps, sector flow tracking, and election strategy for 296 US stocks. No login required.">
+    <meta name="keywords" content="stock signals, AI stock analysis, accumulation detection, signal map, sector rotation, free stock tools, midterm election stocks">
+    <link rel="canonical" href="https://stockiq.tw/en">
+    <meta property="og:title" content="StockIQ — Free AI Stock Signal Map">
+    <meta property="og:description" content="AI-powered accumulation detection & signal maps for 296 US stocks. Free, no login required.">
+    <meta property="og:image" content="https://stockiq.tw/og-image.png">
+    <meta property="og:url" content="https://stockiq.tw/en">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="StockIQ — Free AI Stock Signal Map">
+    <meta name="twitter:description" content="AI accumulation detection & signal maps for 296 US stocks. Free.">
+    <meta name="twitter:image" content="https://stockiq.tw/og-image.png">
+    <link rel="icon" href="/favicon.png">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-92YNV369H8"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-92YNV369H8');</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; background: #f8fafc; overflow-x: hidden; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0f172a 100%);
+            color: white;
+            padding: 80px 24px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(99,102,241,0.15) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 30%, rgba(16,185,129,0.1) 0%, transparent 50%);
+        }
+        .hero > * { position: relative; z-index: 1; }
+        .hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 900; margin-bottom: 16px; line-height: 1.2; }
+        .hero h1 span { background: linear-gradient(135deg, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: clamp(14px, 2vw, 18px); color: #94a3b8; max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+        
+        .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+        .cta-primary { background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; box-shadow: 0 4px 14px rgba(79,70,229,0.4); }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,70,229,0.5); }
+        .cta-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .cta-secondary:hover { background: rgba(255,255,255,0.15); }
+        
+        .badge { display: inline-block; background: rgba(16,185,129,0.15); color: #34d399; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: -30px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .stat {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-num { font-size: 28px; font-weight: 900; color: #4f46e5; }
+        .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+        /* Sections */
+        .section { max-width: 1000px; margin: 60px auto; padding: 0 24px; }
+        .section h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; text-align: center; }
+        .section .subtitle { font-size: 14px; color: #64748b; text-align: center; margin-bottom: 32px; }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .feature {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .feature:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .feature-icon { font-size: 32px; margin-bottom: 12px; }
+        .feature h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .feature p { font-size: 13px; color: #64748b; line-height: 1.6; }
+        .feature-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 8px; }
+        .tag-free { background: #dcfce7; color: #16a34a; }
+        .tag-daily { background: #dbeafe; color: #2563eb; }
+        .tag-new { background: #fef3c7; color: #92400e; }
+
+        /* Election Banner */
+        .election {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 2px solid #fca5a5;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+        }
+        .election h2 { color: #dc2626; }
+        .election-countdown { font-size: 48px; font-weight: 900; color: #dc2626; margin: 16px 0 8px; }
+        .election-date { font-size: 14px; color: #991b1b; }
+        .election-sectors { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+        .election-tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .election-bull { background: #dcfce7; color: #16a34a; }
+        .election-bear { background: #fee2e2; color: #dc2626; }
+
+        /* Live Data Preview */
+        .preview {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .preview h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: #1e293b; }
+        .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 640px) { .preview-grid { grid-template-columns: 1fr; } }
+
+        /* Signal cards */
+        .signal-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .signal-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+        .signal-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .signal-item:last-child { border: none; }
+
+        /* CTA bottom */
+        .bottom-cta {
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 0 24px;
+        }
+        .bottom-cta h2 { font-size: 28px; font-weight: 900; margin-bottom: 12px; }
+        .bottom-cta p { color: #94a3b8; margin-bottom: 24px; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        footer a { color: #64748b; text-decoration: none; }
+        footer a:hover { color: #4f46e5; }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .hero { padding: 60px 16px 40px; }
+            .stats { grid-template-columns: repeat(2, 1fr); margin-top: -20px; }
+            .section { margin: 40px auto; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="badge">✨ 100% Free · No Login Required</div>
+    <h1>AI-Powered <span>Stock Signal Maps</span><br>for 296 US Stocks</h1>
+    <p>Real-time accumulation & distribution detection, multi-framework analysis, sector flow tracking, and election strategy — all in one free platform.</p>
+    <div class="cta-group">
+        <a href="/" class="cta cta-primary">🚀 Launch Dashboard</a>
+        <a href="#features" class="cta cta-secondary">Learn More ↓</a>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+    <div class="stat">
+        <div class="stat-num" id="stat-stocks">296</div>
+        <div class="stat-label">Stocks Tracked</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Analysis Layers</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">Daily</div>
+        <div class="stat-label">Auto-Updated</div>
+    </div>
+    <div class="stat">
+        <div class="stat-num">$0</div>
+        <div class="stat-label">Forever Free</div>
+    </div>
+</div>
+
+<!-- Features -->
+<div class="section" id="features">
+    <h2>What You Get</h2>
+    <p class="subtitle">8 analysis frameworks working together — updated every trading day</p>
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3>Signal Map</h3>
+            <p>Visual scatter plot of all 296 stocks by accumulation score vs. alpha classification. Instantly spot which quadrant each stock falls into.</p>
+            <span class="feature-tag tag-daily">Updated Daily</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📈</div>
+            <h3>Accumulation Detection</h3>
+            <p>Proprietary 10-point scoring system detects institutional buying patterns: momentum breakouts, volume expansion, and trend alignment.</p>
+            <span class="feature-tag tag-daily">Updated Daily</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔬</div>
+            <h3>Alpha Framework</h3>
+            <p>4-quadrant classification: Narrative × Valuation. Identifies stocks where the story is intact but price hasn't caught up.</p>
+            <span class="feature-tag tag-daily">Updated Daily</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📡</div>
+            <h3>Trading Signals</h3>
+            <p>Multi-layer signal generation: market regime → alpha filter → position sizing. BUY, HOLD, WATCH, REDUCE, AVOID for every stock.</p>
+            <span class="feature-tag tag-daily">Updated Daily</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🌊</div>
+            <h3>Sector Flow</h3>
+            <p>Track money flowing between 11 sectors in real-time. Identify rotation patterns before they become obvious.</p>
+            <span class="feature-tag tag-daily">Updated Daily</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🏰</div>
+            <h3>Moat Analysis</h3>
+            <p>EDGAR-sourced competitive advantage scoring: R&D intensity, margin stability, market dominance. Wide, narrow, or no moat.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🧠</div>
+            <h3>AI Analyst</h3>
+            <p>Weekly AI-generated investment memos with conviction scoring, thesis tracking, and peer contagion warnings.</p>
+            <span class="feature-tag tag-new">New</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🗓️</div>
+            <h3>Event Calendar</h3>
+            <p>FOMC meetings, earnings seasons, election countdown, options expiry — with historical pattern analysis and sector allocation strategies.</p>
+            <span class="feature-tag tag-new">New</span>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📅</div>
+            <h3>Earnings Calendar</h3>
+            <p>Upcoming earnings for all 296 stocks with ROE rankings, signal status, and urgency markers. Color-coded by recommendation.</p>
+            <span class="feature-tag tag-free">Free</span>
+        </div>
+    </div>
+</div>
+
+<!-- Election Strategy -->
+<div class="section">
+    <div class="election">
+        <h2>🗳️ 2026 Midterm Election Strategy</h2>
+        <div class="election-countdown" id="election-countdown">—</div>
+        <div class="election-date">Days until November 3, 2026</div>
+        <p style="margin-top:16px;font-size:14px;color:#374151;max-width:600px;margin-left:auto;margin-right:auto">
+            Historical pattern: Markets average <strong>+16.8% in the 6 months after midterms</strong>. 
+            Our event calendar tracks FOMC, earnings, and political catalysts with sector-specific allocation strategies.
+        </p>
+        <div class="election-sectors">
+            <span class="election-tag election-bull">🟢 Infrastructure: CAT, DE</span>
+            <span class="election-tag election-bull">🟢 Energy: XOM, CVX</span>
+            <span class="election-tag election-bull">🟢 Financials: JPM, GS</span>
+            <span class="election-tag election-bull">🟢 Defense: LMT, RTX</span>
+            <span class="election-tag election-bear">🔴 Clean Energy Risk</span>
+            <span class="election-tag election-bear">🔴 Pharma Policy Risk</span>
+        </div>
+        <a href="/" class="cta cta-primary" style="margin-top:20px;display:inline-flex">View Full Election Analysis →</a>
+    </div>
+</div>
+
+<!-- Live Data Preview -->
+<div class="section">
+    <h2>Live Data Preview</h2>
+    <p class="subtitle">Auto-populated from today's analysis</p>
+    <div class="preview">
+        <div class="preview-grid">
+            <div class="signal-card">
+                <h4>🟢 Top Accumulation Signals</h4>
+                <div id="preview-bullish"><div style="color:#94a3b8;font-size:12px;padding:8px">Loading...</div></div>
+            </div>
+            <div class="signal-card">
+                <h4>🔴 Distribution Warnings</h4>
+                <div id="preview-bearish"><div style="color:#94a3b8;font-size:12px;padding:8px">Loading...</div></div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:16px">
+            <a href="/" class="cta cta-primary" style="font-size:13px;padding:10px 20px">See All 296 Stocks →</a>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<div class="section">
+    <h2>How It Works</h2>
+    <p class="subtitle">Automated pipeline runs every trading day</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+        <div style="text-align:center;padding:20px">
+            <div style="font-size:40px;margin-bottom:8px">📥</div>
+            <div style="font-size:14px;font-weight:700">1. Data Collection</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">Price, volume, fundamentals, options flow, news from Yahoo Finance & EDGAR</div>
+        </div>
+        <div style="text-align:center;padding:20px">
+            <div style="font-size:40px;margin-bottom:8px">🧮</div>
+            <div style="font-size:14px;font-weight:700">2. Multi-Layer Analysis</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">8 frameworks score each stock: accumulation, alpha, valuation, moat, seasonality, options, momentum</div>
+        </div>
+        <div style="text-align:center;padding:20px">
+            <div style="font-size:40px;margin-bottom:8px">🤖</div>
+            <div style="font-size:14px;font-weight:700">3. Signal Generation</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">Market regime → alpha filter → position sizing. Every stock gets a clear BUY/HOLD/AVOID signal</div>
+        </div>
+        <div style="text-align:center;padding:20px">
+            <div style="font-size:40px;margin-bottom:8px">📊</div>
+            <div style="font-size:14px;font-weight:700">4. Dashboard</div>
+            <div style="font-size:12px;color:#64748b;margin-top:4px">Everything visualized on a free, mobile-friendly dashboard. No login. No paywall.</div>
+        </div>
+    </div>
+</div>
+
+<!-- Also Taiwan -->
+<div class="section">
+    <div style="background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:16px;padding:28px;border:1px solid #c4b5fd;text-align:center">
+        <h2 style="color:#7c3aed">🇹🇼 Also Available: Taiwan Stock Edition</h2>
+        <p style="font-size:14px;color:#6b21a8;margin:12px auto;max-width:500px">Full analysis of 1,089 TWSE-listed stocks with institutional flow data (三大法人), TWSE sector indices, and cross-market US↔Taiwan linkage.</p>
+        <a href="/tw/" class="cta" style="background:#7c3aed;color:white;margin-top:8px">View Taiwan Dashboard →</a>
+    </div>
+</div>
+
+<!-- Bottom CTA -->
+<div class="section">
+    <div class="bottom-cta">
+        <h2>Start Exploring — It's Free</h2>
+        <p>No signup. No credit card. No catch. Just data.</p>
+        <a href="/" class="cta cta-primary" style="font-size:16px;padding:16px 36px">🚀 Launch StockIQ Dashboard</a>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 StockIQ.tw — AI-Powered Stock Analysis Platform</p>
+    <p style="margin-top:8px">
+        <a href="/">Dashboard</a> · <a href="/tw/">Taiwan Stocks</a> · <a href="/learn/">Learning Center</a>
+    </p>
+    <p style="margin-top:12px;font-size:11px">⚠️ This site provides information for educational purposes only. Not financial advice. Always do your own research.</p>
+</footer>
+
+<script>
+// Election countdown
+(function() {
+    const election = new Date('2026-11-03T00:00:00-05:00');
+    const now = new Date();
+    const days = Math.ceil((election - now) / 86400000);
+    const el = document.getElementById('election-countdown');
+    if (el && days > 0) el.textContent = days;
+    else if (el) el.textContent = 'Election Day!';
+})();
+
+// Live data preview
+(async function() {
+    try {
+        const r = await fetch('/data/accumulation.json?t=' + Date.now());
+        const d = await r.json();
+        const stocks = d.stocks || [];
+        
+        const bull = stocks.filter(s => s.phase >= 2).sort((a,b) => b.score - a.score).slice(0, 5);
+        const bear = stocks.filter(s => s.phase <= 0 && s.distribution_score >= 5).sort((a,b) => b.distribution_score - a.distribution_score).slice(0, 5);
+        
+        const el1 = document.getElementById('preview-bullish');
+        if (el1 && bull.length) {
+            el1.innerHTML = bull.map(s => 
+                '<div class="signal-item"><span><strong>' + s.symbol + '</strong></span><span style="color:#16a34a;font-weight:600">Score: ' + s.score + '/10</span></div>'
+            ).join('');
+        }
+        
+        const el2 = document.getElementById('preview-bearish');
+        if (el2 && bear.length) {
+            el2.innerHTML = bear.map(s => 
+                '<div class="signal-item"><span><strong>' + s.symbol + '</strong></span><span style="color:#dc2626;font-weight:600">Dist: ' + s.distribution_score + '/10</span></div>'
+            ).join('');
+        }
+    } catch(e) { console.log('Preview load error:', e); }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "StockIQ",
+    "url": "https://stockiq.tw",
+    "description": "Free AI-powered stock signal maps and accumulation detection for 296 US stocks",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    }
+}
+</script>
+
+</body>
+</html>
