@@ -42,6 +42,7 @@
                 // Update dailyColumn with the full daily report content
                 const dc = document.getElementById('dailyColumn');
                 if (dc && mainContent.innerHTML.length > 500) {
+                    if (window._currentTab !== 'today') return; // Don't show if user switched tabs
                     dc.style.display = 'block';
                     // Wrap in a styled container
                     dc.innerHTML = '<div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">'
@@ -1083,6 +1084,7 @@
 
 
         function showTab(tabName) {
+            window._currentTab = tabName;
             const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
                 'today': ['dailyColumn'],
