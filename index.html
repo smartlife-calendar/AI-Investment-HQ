@@ -1253,7 +1253,280 @@
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
         
-        async function loadSmartDirection(direction) {
+
+// ═══════════════════════════════════════════
+// Event Calendar
+// ═══════════════════════════════════════════
+async function loadEventCalendar() {
+    const el = document.getElementById('smartMoneyContent');
+    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入事件行事曆...</p>';
+    try {
+        const r = await fetch('/data/event_calendar.json?t=' + Date.now());
+        const d = await r.json();
+        const s = d.current_strategy || {};
+        const tl = d.timeline || [];
+        const tp = d.trump_plays || {};
+        
+        let h = '<div style="margin-bottom:20px">';
+        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">🗓️ 事件行事曆</h3>';
+        h += '<p style="font-size:12px;color:#64748b;margin:0">更新: ' + (d.generated_at || '') + '</p>';
+        h += '</div>';
+        
+        // Current strategy banner
+        const phaseColors = {'選前減倉期':'#f59e0b','選前最後衝刺':'#ef4444','選舉週':'#dc2626','選後佈局期':'#22c55e','選後黃金期':'#16a34a','早期佈局':'#3b82f6','正常市場':'#64748b'};
+        const pc = phaseColors[s.phase] || '#64748b';
+        h += '<div style="background:linear-gradient(135deg,' + pc + '10,' + pc + '20);border:2px solid ' + pc + ';border-radius:12px;padding:16px;margin-bottom:20px">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+        h += '<div><div style="font-size:16px;font-weight:800;color:' + pc + '">📍 ' + (s.phase || '') + '</div>';
+        h += '<div style="font-size:13px;color:#374151;margin-top:4px">' + (s.action || '') + '</div></div>';
+        h += '<div style="text-align:right"><div style="font-size:24px;font-weight:900;color:' + pc + '">🗳️ ' + (s.election_countdown || '?') + '天</div>';
+        h += '<div style="font-size:11px;color:#64748b">距期中選舉</div></div></div>';
+        h += '<div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">';
+        h += '<div style="background:white;border-radius:8px;padding:8px 12px;flex:1;min-width:120px"><div style="font-size:11px;color:#64748b">建議倉位</div><div style="font-size:16px;font-weight:800;color:' + pc + '">' + (s.equity_allocation || '') + '</div></div>';
+        h += '<div style="background:white;border-radius:8px;padding:8px 12px;flex:2;min-width:200px"><div style="font-size:11px;color:#64748b">重點方向</div><div style="font-size:13px;font-weight:600;color:#1e293b">' + (s.focus || '') + '</div></div>';
+        h += '</div></div>';
+        
+        // Timeline
+        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">📅 近期事件</h4>';
+        h += '<div style="display:flex;flex-direction:column;gap:6px">';
+        const urgencyStyle = {imminent:'background:#fef2f2;border-left:4px solid #ef4444',approaching:'background:#fffbeb;border-left:4px solid #f59e0b',normal:'background:#f8fafc;border-left:4px solid #e2e8f0',just_passed:'background:#f0fdf4;border-left:4px solid #22c55e;opacity:0.7'};
+        const typeEmoji = {fomc:'🏦',earnings:'📊',election:'🗳️',opex:'📋',fiscal:'💰'};
+        for (const evt of tl.slice(0, 12)) {
+            const sty = urgencyStyle[evt.urgency] || urgencyStyle.normal;
+            h += '<div style="' + sty + ';border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">';
+            h += '<div><span style="font-size:14px">' + (typeEmoji[evt.type]||'') + '</span> <strong style="font-size:13px">' + evt.label + '</strong></div>';
+            h += '<div style="font-size:12px;color:#64748b;white-space:nowrap">' + evt.date + ' <span style="font-weight:700;color:' + (evt.days_away<=7?'#ef4444':evt.days_away<=30?'#f59e0b':'#64748b') + '">(' + (evt.days_away>0?evt.days_away+'天後':'已過'+Math.abs(evt.days_away)+'天') + ')</span></div>';
+            h += '</div>';
+        }
+        h += '</div>';
+        
+        // Trump policy plays
+        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">🏛️ 川普政策受益股</h4>';
+        h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">';
+        for (const [theme, info] of Object.entries(tp)) {
+            h += '<div style="background:#f8fafc;border-radius:10px;padding:12px;border:1px solid #e2e8f0">';
+            h += '<div style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px">' + theme + '</div>';
+            h += '<div style="font-size:11px;color:#64748b;margin-bottom:6px">' + (info.logic || '') + '</div>';
+            h += '<div style="display:flex;flex-wrap:wrap;gap:4px">';
+            for (const t of (info.tickers || [])) {
+                h += '<span style="background:#dbeafe;color:#1e40af;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px">' + t + '</span>';
+            }
+            h += '</div></div>';
+        }
+        h += '</div>';
+        
+        // Election scenarios
+        const es = d.election_strategy?.midterm_2026?.scenarios || [];
+        if (es.length) {
+            h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">🔮 選舉情境分析</h4>';
+            h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">';
+            for (const sc of es) {
+                const imp = sc.impact || {};
+                h += '<div style="background:white;border-radius:12px;padding:14px;border:1px solid #e2e8f0;box-shadow:0 1px 2px rgba(0,0,0,0.05)">';
+                h += '<div style="font-size:14px;font-weight:800;color:#1e293b;margin-bottom:4px">' + sc.name + '</div>';
+                h += '<div style="font-size:11px;color:#f59e0b;margin-bottom:8px">機率: ' + sc.probability + '</div>';
+                h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">' + (imp.rationale || '') + '</div>';
+                h += '<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#16a34a">看多:</span> <span style="font-size:11px;color:#374151">' + (imp.bull_sectors||[]).join(', ') + '</span></div>';
+                h += '<div><span style="font-size:11px;font-weight:700;color:#dc2626">風險:</span> <span style="font-size:11px;color:#374151">' + (imp.bear_sectors||[]).join(', ') + '</span></div>';
+                h += '</div>';
+            }
+            h += '</div>';
+        }
+        
+        el.innerHTML = h;
+    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
+}
+
+// ═══════════════════════════════════════════
+// AI Analyst
+// ═══════════════════════════════════════════
+async function loadAIAnalyst() {
+    const el = document.getElementById('smartMoneyContent');
+    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入 AI 分析師...</p>';
+    try {
+        const r = await fetch('/data/ai_analyst.json?t=' + Date.now());
+        const d = await r.json();
+        const summary = d.summary || {};
+        const memos = d.investment_memos || {};
+        const semantic = d.semantic_analysis || {};
+        const warnings = d.contagion_warnings || [];
+        
+        let h = '<div style="margin-bottom:20px">';
+        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">🧠 AI 分析師</h3>';
+        h += '<p style="font-size:12px;color:#64748b;margin:0">更新: ' + (d.generated_at || '') + ' · 每週六自動分析</p>';
+        h += '</div>';
+        
+        // Summary cards
+        h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px">';
+        h += '<div style="background:#f0fdf4;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#16a34a">' + (summary.high_conviction||[]).length + '</div><div style="font-size:11px;color:#64748b">高信心</div></div>';
+        h += '<div style="background:#fef2f2;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#ef4444">' + (summary.thesis_broken||[]).length + '</div><div style="font-size:11px;color:#64748b">論點崩壞</div></div>';
+        h += '<div style="background:#fffbeb;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#f59e0b">' + warnings.length + '</div><div style="font-size:11px;color:#64748b">聯動預警</div></div>';
+        h += '<div style="background:#f8fafc;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#3b82f6">' + Object.keys(memos).length + '</div><div style="font-size:11px;color:#64748b">投資備忘錄</div></div>';
+        h += '</div>';
+        
+        // High conviction
+        if ((summary.high_conviction||[]).length) {
+            h += '<div style="background:#f0fdf4;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:6px">🟢 高信心股票</div>';
+            h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+            for (const t of summary.high_conviction) {
+                const sa = semantic[t] || {};
+                h += '<span style="background:white;border:1px solid #bbf7d0;border-radius:8px;padding:4px 10px;font-size:12px"><strong>' + t + '</strong> <span style="color:#64748b;font-size:10px">' + (sa.quarterly_outlook||'') + '</span></span>';
+            }
+            h += '</div></div>';
+        }
+        
+        // Thesis broken
+        if ((summary.thesis_broken||[]).length) {
+            h += '<div style="background:#fef2f2;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px">🔴 論點崩壞</div>';
+            h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+            for (const t of summary.thesis_broken) {
+                const sa = semantic[t] || {};
+                h += '<span style="background:white;border:1px solid #fecaca;border-radius:8px;padding:4px 10px;font-size:12px"><strong>' + t + '</strong> <span style="color:#ef4444;font-size:10px">' + (sa.key_risk||'').substring(0,30) + '</span></span>';
+            }
+            h += '</div></div>';
+        }
+        
+        // Contagion warnings
+        if (warnings.length) {
+            h += '<div style="background:#fffbeb;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:6px">⚠️ 聯動預警</div>';
+            for (const w of warnings) {
+                h += '<div style="font-size:12px;color:#374151;margin-bottom:4px"><strong>' + w.ticker + '</strong> (' + w.current_action + ') → 相似股 ';
+                h += w.troubled_peers.map(p => '<span style="color:#ef4444;font-weight:600">' + p.ticker + '(' + p.action + ')</span>').join(', ');
+                h += ' 已轉弱</div>';
+            }
+            h += '</div>';
+        }
+        
+        // Investment memos
+        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">📝 投資備忘錄</h4>';
+        const memoEntries = Object.entries(memos);
+        if (memoEntries.length > 5) {
+            h += '<div id="memoList">';
+            for (let i = 0; i < memoEntries.length; i++) {
+                const [ticker, data] = memoEntries[i];
+                const display = i < 5 ? '' : 'display:none';
+                h += '<details style="margin-bottom:8px;' + display + '" class="memo-item"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#1e293b;background:#f8fafc;padding:10px;border-radius:8px">' + ticker + ' <span style="font-size:11px;color:#64748b">' + (data.generated||'') + '</span></summary>';
+                h += '<div style="padding:12px;font-size:12px;color:#374151;line-height:1.8;white-space:pre-wrap;background:#fafafa;border-radius:0 0 8px 8px">' + (data.memo||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>').replace(/##\s?/g,'').replace(/\*\*/g,'') + '</div></details>';
+            }
+            h += '<button onclick="document.querySelectorAll(\'.memo-item\').forEach(e=>e.style.display=\'\');this.style.display=\'none\'" style="width:100%;padding:8px;border:1px dashed #cbd5e1;border-radius:8px;background:white;cursor:pointer;font-size:12px;color:#64748b;margin-top:4px">展開更多 (' + (memoEntries.length - 5) + ')</button>';
+            h += '</div>';
+        } else {
+            for (const [ticker, data] of memoEntries) {
+                h += '<details style="margin-bottom:8px" open><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#1e293b;background:#f8fafc;padding:10px;border-radius:8px">' + ticker + '</summary>';
+                h += '<div style="padding:12px;font-size:12px;color:#374151;line-height:1.8;white-space:pre-wrap;background:#fafafa;border-radius:0 0 8px 8px">' + (data.memo||'') + '</div></details>';
+            }
+        }
+        
+        el.innerHTML = h;
+    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
+}
+
+// ═══════════════════════════════════════════
+// Long/Short Framework
+// ═══════════════════════════════════════════
+async function loadLongShort() {
+    const el = document.getElementById('smartMoneyContent');
+    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入長短配置...</p>';
+    try {
+        const [calR, sigR, analR] = await Promise.all([
+            fetch('/data/event_calendar.json?t=' + Date.now()),
+            fetch('/data/signals.json?t=' + Date.now()),
+            fetch('/data/ai_analyst.json?t=' + Date.now())
+        ]);
+        const cal = await calR.json();
+        const sig = await sigR.json();
+        const anal = await analR.json();
+        
+        const fw = cal.timeframe_framework || {};
+        const signals = sig.signals || [];
+        const semantic = anal.semantic_analysis || {};
+        const strategy = cal.current_strategy || {};
+        
+        let h = '<div style="margin-bottom:20px">';
+        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">📊 長短線配置</h3>';
+        h += '<p style="font-size:12px;color:#64748b;margin:0">長線以季為單位，短線以事件驅動</p>';
+        h += '</div>';
+        
+        // Two column layout
+        h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">';
+        
+        // Long-term column
+        const lt = fw.long_term || {};
+        h += '<div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;padding:16px;border:1px solid #bbf7d0">';
+        h += '<div style="font-size:15px;font-weight:800;color:#16a34a;margin-bottom:8px">🌲 ' + (lt.label||'長線配置') + '</div>';
+        h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">持有期: ' + (lt.horizon||'') + ' · ' + (lt.rebalance||'') + '</div>';
+        h += '<div style="font-size:11px;color:#374151;margin-bottom:4px"><strong>進場條件:</strong></div>';
+        for (const c of (lt.criteria||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
+        h += '<div style="font-size:11px;color:#374151;margin-top:8px"><strong>出場規則:</strong></div>';
+        for (const c of (lt.exit_rules||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
+        h += '<div style="margin-top:8px;font-size:11px;color:#16a34a;font-weight:600">' + (lt.position_sizing||'') + '</div>';
+        h += '</div>';
+        
+        // Short-term column
+        const st = fw.short_term || {};
+        h += '<div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:12px;padding:16px;border:1px solid #fde68a">';
+        h += '<div style="font-size:15px;font-weight:800;color:#ca8a04;margin-bottom:8px">⚡ ' + (st.label||'短線機會') + '</div>';
+        h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">持有期: ' + (st.horizon||'') + '</div>';
+        h += '<div style="font-size:11px;color:#374151;margin-bottom:4px"><strong>進場條件:</strong></div>';
+        for (const c of (st.criteria||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
+        h += '<div style="font-size:11px;color:#374151;margin-top:8px"><strong>出場規則:</strong></div>';
+        for (const c of (st.exit_rules||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
+        h += '<div style="margin-top:8px;font-size:11px;color:#ca8a04;font-weight:600">' + (st.position_sizing||'') + '</div>';
+        h += '</div>';
+        h += '</div>';
+        
+        // Long-term candidates (high conviction + thesis intact)
+        h += '<h4 style="font-size:15px;font-weight:700;margin:0 0 10px">🌲 長線候選名單</h4>';
+        const longCandidates = [];
+        for (const [ticker, sa] of Object.entries(semantic)) {
+            if (sa.conviction === 'high' && sa.thesis_intact === true) {
+                const sig2 = signals.find(s => s.ticker === ticker) || {};
+                longCandidates.push({ticker, outlook: sa.quarterly_outlook, catalyst: sa.key_catalyst, action: sig2.action, score: sig2.score});
+            }
+        }
+        if (longCandidates.length) {
+            h += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">';
+            for (const c of longCandidates) {
+                const actionColor = {BUY:'#16a34a',SCALE_IN:'#059669',HOLD:'#3b82f6',WATCH:'#64748b'}[c.action] || '#64748b';
+                h += '<div style="background:white;border:2px solid #bbf7d0;border-radius:10px;padding:10px 14px;min-width:200px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:14px">' + c.ticker + '</strong><span style="font-size:10px;color:' + actionColor + ';font-weight:700">' + (c.action||'') + '</span></div>';
+                h += '<div style="font-size:11px;color:#64748b;margin-top:2px">展望: ' + (c.outlook||'?') + '</div>';
+                h += '<div style="font-size:11px;color:#374151;margin-top:2px">' + (c.catalyst||'').substring(0,50) + '</div>';
+                h += '</div>';
+            }
+            h += '</div>';
+        } else {
+            h += '<p style="font-size:12px;color:#94a3b8">目前無高信心長線標的，需更多數據積累</p>';
+        }
+        
+        // Short-term opportunities (event-driven)
+        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">⚡ 短線機會（事件驅動）</h4>';
+        const upcomingEvents = (strategy.upcoming_events || []).slice(0, 3);
+        if (upcomingEvents.length) {
+            h += '<div style="background:#fefce8;border-radius:10px;padding:12px;margin-bottom:12px">';
+            h += '<div style="font-size:12px;font-weight:700;color:#ca8a04;margin-bottom:6px">近期催化事件</div>';
+            for (const evt of upcomingEvents) {
+                h += '<div style="font-size:12px;color:#374151">• ' + evt.label + ' (' + evt.days + '天後)</div>';
+            }
+            h += '</div>';
+        }
+        
+        // Strategy allocation suggestion
+        h += '<div style="background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #e2e8f0">';
+        h += '<div style="font-size:14px;font-weight:800;color:#1e293b;margin-bottom:8px">💡 當前建議配置</div>';
+        h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">';
+        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">長線核心</div><div style="font-size:20px;font-weight:900;color:#16a34a">50%</div></div>';
+        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">短線機會</div><div style="font-size:20px;font-weight:900;color:#f59e0b">20%</div></div>';
+        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">現金</div><div style="font-size:20px;font-weight:900;color:#64748b">' + (100 - parseInt(strategy.equity_allocation)||30) + '%</div></div>';
+        h += '</div>';
+        h += '<div style="font-size:11px;color:#64748b;margin-top:8px;text-align:center">' + (strategy.phase||'') + ' · ' + (strategy.action||'') + '</div>';
+        h += '</div>';
+        
+        el.innerHTML = h;
+    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
+}
+
+                async function loadSmartDirection(direction) {
             const content = document.getElementById('smartMoneyContent');
             if (!content) return;
             // Load signal actions for conflict detection
@@ -3678,277 +3951,6 @@ async function loadSmartBacktest() {
             // 6. 回測績效 (backtest.json) — check on smart tab
             
 
-// ═══════════════════════════════════════════
-// Event Calendar
-// ═══════════════════════════════════════════
-async function loadEventCalendar() {
-    const el = document.getElementById('smartMoneyContent');
-    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入事件行事曆...</p>';
-    try {
-        const r = await fetch('/data/event_calendar.json?t=' + Date.now());
-        const d = await r.json();
-        const s = d.current_strategy || {};
-        const tl = d.timeline || [];
-        const tp = d.trump_plays || {};
-        
-        let h = '<div style="margin-bottom:20px">';
-        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">🗓️ 事件行事曆</h3>';
-        h += '<p style="font-size:12px;color:#64748b;margin:0">更新: ' + (d.generated_at || '') + '</p>';
-        h += '</div>';
-        
-        // Current strategy banner
-        const phaseColors = {'選前減倉期':'#f59e0b','選前最後衝刺':'#ef4444','選舉週':'#dc2626','選後佈局期':'#22c55e','選後黃金期':'#16a34a','早期佈局':'#3b82f6','正常市場':'#64748b'};
-        const pc = phaseColors[s.phase] || '#64748b';
-        h += '<div style="background:linear-gradient(135deg,' + pc + '10,' + pc + '20);border:2px solid ' + pc + ';border-radius:12px;padding:16px;margin-bottom:20px">';
-        h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
-        h += '<div><div style="font-size:16px;font-weight:800;color:' + pc + '">📍 ' + (s.phase || '') + '</div>';
-        h += '<div style="font-size:13px;color:#374151;margin-top:4px">' + (s.action || '') + '</div></div>';
-        h += '<div style="text-align:right"><div style="font-size:24px;font-weight:900;color:' + pc + '">🗳️ ' + (s.election_countdown || '?') + '天</div>';
-        h += '<div style="font-size:11px;color:#64748b">距期中選舉</div></div></div>';
-        h += '<div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">';
-        h += '<div style="background:white;border-radius:8px;padding:8px 12px;flex:1;min-width:120px"><div style="font-size:11px;color:#64748b">建議倉位</div><div style="font-size:16px;font-weight:800;color:' + pc + '">' + (s.equity_allocation || '') + '</div></div>';
-        h += '<div style="background:white;border-radius:8px;padding:8px 12px;flex:2;min-width:200px"><div style="font-size:11px;color:#64748b">重點方向</div><div style="font-size:13px;font-weight:600;color:#1e293b">' + (s.focus || '') + '</div></div>';
-        h += '</div></div>';
-        
-        // Timeline
-        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">📅 近期事件</h4>';
-        h += '<div style="display:flex;flex-direction:column;gap:6px">';
-        const urgencyStyle = {imminent:'background:#fef2f2;border-left:4px solid #ef4444',approaching:'background:#fffbeb;border-left:4px solid #f59e0b',normal:'background:#f8fafc;border-left:4px solid #e2e8f0',just_passed:'background:#f0fdf4;border-left:4px solid #22c55e;opacity:0.7'};
-        const typeEmoji = {fomc:'🏦',earnings:'📊',election:'🗳️',opex:'📋',fiscal:'💰'};
-        for (const evt of tl.slice(0, 12)) {
-            const sty = urgencyStyle[evt.urgency] || urgencyStyle.normal;
-            h += '<div style="' + sty + ';border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center">';
-            h += '<div><span style="font-size:14px">' + (typeEmoji[evt.type]||'') + '</span> <strong style="font-size:13px">' + evt.label + '</strong></div>';
-            h += '<div style="font-size:12px;color:#64748b;white-space:nowrap">' + evt.date + ' <span style="font-weight:700;color:' + (evt.days_away<=7?'#ef4444':evt.days_away<=30?'#f59e0b':'#64748b') + '">(' + (evt.days_away>0?evt.days_away+'天後':'已過'+Math.abs(evt.days_away)+'天') + ')</span></div>';
-            h += '</div>';
-        }
-        h += '</div>';
-        
-        // Trump policy plays
-        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">🏛️ 川普政策受益股</h4>';
-        h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">';
-        for (const [theme, info] of Object.entries(tp)) {
-            h += '<div style="background:#f8fafc;border-radius:10px;padding:12px;border:1px solid #e2e8f0">';
-            h += '<div style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px">' + theme + '</div>';
-            h += '<div style="font-size:11px;color:#64748b;margin-bottom:6px">' + (info.logic || '') + '</div>';
-            h += '<div style="display:flex;flex-wrap:wrap;gap:4px">';
-            for (const t of (info.tickers || [])) {
-                h += '<span style="background:#dbeafe;color:#1e40af;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px">' + t + '</span>';
-            }
-            h += '</div></div>';
-        }
-        h += '</div>';
-        
-        // Election scenarios
-        const es = d.election_strategy?.midterm_2026?.scenarios || [];
-        if (es.length) {
-            h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">🔮 選舉情境分析</h4>';
-            h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">';
-            for (const sc of es) {
-                const imp = sc.impact || {};
-                h += '<div style="background:white;border-radius:12px;padding:14px;border:1px solid #e2e8f0;box-shadow:0 1px 2px rgba(0,0,0,0.05)">';
-                h += '<div style="font-size:14px;font-weight:800;color:#1e293b;margin-bottom:4px">' + sc.name + '</div>';
-                h += '<div style="font-size:11px;color:#f59e0b;margin-bottom:8px">機率: ' + sc.probability + '</div>';
-                h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">' + (imp.rationale || '') + '</div>';
-                h += '<div style="margin-bottom:6px"><span style="font-size:11px;font-weight:700;color:#16a34a">看多:</span> <span style="font-size:11px;color:#374151">' + (imp.bull_sectors||[]).join(', ') + '</span></div>';
-                h += '<div><span style="font-size:11px;font-weight:700;color:#dc2626">風險:</span> <span style="font-size:11px;color:#374151">' + (imp.bear_sectors||[]).join(', ') + '</span></div>';
-                h += '</div>';
-            }
-            h += '</div>';
-        }
-        
-        el.innerHTML = h;
-    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
-}
-
-// ═══════════════════════════════════════════
-// AI Analyst
-// ═══════════════════════════════════════════
-async function loadAIAnalyst() {
-    const el = document.getElementById('smartMoneyContent');
-    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入 AI 分析師...</p>';
-    try {
-        const r = await fetch('/data/ai_analyst.json?t=' + Date.now());
-        const d = await r.json();
-        const summary = d.summary || {};
-        const memos = d.investment_memos || {};
-        const semantic = d.semantic_analysis || {};
-        const warnings = d.contagion_warnings || [];
-        
-        let h = '<div style="margin-bottom:20px">';
-        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">🧠 AI 分析師</h3>';
-        h += '<p style="font-size:12px;color:#64748b;margin:0">更新: ' + (d.generated_at || '') + ' · 每週六自動分析</p>';
-        h += '</div>';
-        
-        // Summary cards
-        h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px">';
-        h += '<div style="background:#f0fdf4;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#16a34a">' + (summary.high_conviction||[]).length + '</div><div style="font-size:11px;color:#64748b">高信心</div></div>';
-        h += '<div style="background:#fef2f2;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#ef4444">' + (summary.thesis_broken||[]).length + '</div><div style="font-size:11px;color:#64748b">論點崩壞</div></div>';
-        h += '<div style="background:#fffbeb;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#f59e0b">' + warnings.length + '</div><div style="font-size:11px;color:#64748b">聯動預警</div></div>';
-        h += '<div style="background:#f8fafc;border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:900;color:#3b82f6">' + Object.keys(memos).length + '</div><div style="font-size:11px;color:#64748b">投資備忘錄</div></div>';
-        h += '</div>';
-        
-        // High conviction
-        if ((summary.high_conviction||[]).length) {
-            h += '<div style="background:#f0fdf4;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:6px">🟢 高信心股票</div>';
-            h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
-            for (const t of summary.high_conviction) {
-                const sa = semantic[t] || {};
-                h += '<span style="background:white;border:1px solid #bbf7d0;border-radius:8px;padding:4px 10px;font-size:12px"><strong>' + t + '</strong> <span style="color:#64748b;font-size:10px">' + (sa.quarterly_outlook||'') + '</span></span>';
-            }
-            h += '</div></div>';
-        }
-        
-        // Thesis broken
-        if ((summary.thesis_broken||[]).length) {
-            h += '<div style="background:#fef2f2;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px">🔴 論點崩壞</div>';
-            h += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
-            for (const t of summary.thesis_broken) {
-                const sa = semantic[t] || {};
-                h += '<span style="background:white;border:1px solid #fecaca;border-radius:8px;padding:4px 10px;font-size:12px"><strong>' + t + '</strong> <span style="color:#ef4444;font-size:10px">' + (sa.key_risk||'').substring(0,30) + '</span></span>';
-            }
-            h += '</div></div>';
-        }
-        
-        // Contagion warnings
-        if (warnings.length) {
-            h += '<div style="background:#fffbeb;border-radius:10px;padding:12px;margin-bottom:12px"><div style="font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:6px">⚠️ 聯動預警</div>';
-            for (const w of warnings) {
-                h += '<div style="font-size:12px;color:#374151;margin-bottom:4px"><strong>' + w.ticker + '</strong> (' + w.current_action + ') → 相似股 ';
-                h += w.troubled_peers.map(p => '<span style="color:#ef4444;font-weight:600">' + p.ticker + '(' + p.action + ')</span>').join(', ');
-                h += ' 已轉弱</div>';
-            }
-            h += '</div>';
-        }
-        
-        // Investment memos
-        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">📝 投資備忘錄</h4>';
-        const memoEntries = Object.entries(memos);
-        if (memoEntries.length > 5) {
-            h += '<div id="memoList">';
-            for (let i = 0; i < memoEntries.length; i++) {
-                const [ticker, data] = memoEntries[i];
-                const display = i < 5 ? '' : 'display:none';
-                h += '<details style="margin-bottom:8px;' + display + '" class="memo-item"><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#1e293b;background:#f8fafc;padding:10px;border-radius:8px">' + ticker + ' <span style="font-size:11px;color:#64748b">' + (data.generated||'') + '</span></summary>';
-                h += '<div style="padding:12px;font-size:12px;color:#374151;line-height:1.8;white-space:pre-wrap;background:#fafafa;border-radius:0 0 8px 8px">' + (data.memo||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>').replace(/##\s?/g,'').replace(/\*\*/g,'') + '</div></details>';
-            }
-            h += '<button onclick="document.querySelectorAll(\'.memo-item\').forEach(e=>e.style.display=\'\');this.style.display=\'none\'" style="width:100%;padding:8px;border:1px dashed #cbd5e1;border-radius:8px;background:white;cursor:pointer;font-size:12px;color:#64748b;margin-top:4px">展開更多 (' + (memoEntries.length - 5) + ')</button>';
-            h += '</div>';
-        } else {
-            for (const [ticker, data] of memoEntries) {
-                h += '<details style="margin-bottom:8px" open><summary style="cursor:pointer;font-weight:700;font-size:13px;color:#1e293b;background:#f8fafc;padding:10px;border-radius:8px">' + ticker + '</summary>';
-                h += '<div style="padding:12px;font-size:12px;color:#374151;line-height:1.8;white-space:pre-wrap;background:#fafafa;border-radius:0 0 8px 8px">' + (data.memo||'') + '</div></details>';
-            }
-        }
-        
-        el.innerHTML = h;
-    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
-}
-
-// ═══════════════════════════════════════════
-// Long/Short Framework
-// ═══════════════════════════════════════════
-async function loadLongShort() {
-    const el = document.getElementById('smartMoneyContent');
-    el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入長短配置...</p>';
-    try {
-        const [calR, sigR, analR] = await Promise.all([
-            fetch('/data/event_calendar.json?t=' + Date.now()),
-            fetch('/data/signals.json?t=' + Date.now()),
-            fetch('/data/ai_analyst.json?t=' + Date.now())
-        ]);
-        const cal = await calR.json();
-        const sig = await sigR.json();
-        const anal = await analR.json();
-        
-        const fw = cal.timeframe_framework || {};
-        const signals = sig.signals || [];
-        const semantic = anal.semantic_analysis || {};
-        const strategy = cal.current_strategy || {};
-        
-        let h = '<div style="margin-bottom:20px">';
-        h += '<h3 style="font-size:18px;font-weight:800;margin:0 0 8px">📊 長短線配置</h3>';
-        h += '<p style="font-size:12px;color:#64748b;margin:0">長線以季為單位，短線以事件驅動</p>';
-        h += '</div>';
-        
-        // Two column layout
-        h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">';
-        
-        // Long-term column
-        const lt = fw.long_term || {};
-        h += '<div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:12px;padding:16px;border:1px solid #bbf7d0">';
-        h += '<div style="font-size:15px;font-weight:800;color:#16a34a;margin-bottom:8px">🌲 ' + (lt.label||'長線配置') + '</div>';
-        h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">持有期: ' + (lt.horizon||'') + ' · ' + (lt.rebalance||'') + '</div>';
-        h += '<div style="font-size:11px;color:#374151;margin-bottom:4px"><strong>進場條件:</strong></div>';
-        for (const c of (lt.criteria||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
-        h += '<div style="font-size:11px;color:#374151;margin-top:8px"><strong>出場規則:</strong></div>';
-        for (const c of (lt.exit_rules||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
-        h += '<div style="margin-top:8px;font-size:11px;color:#16a34a;font-weight:600">' + (lt.position_sizing||'') + '</div>';
-        h += '</div>';
-        
-        // Short-term column
-        const st = fw.short_term || {};
-        h += '<div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:12px;padding:16px;border:1px solid #fde68a">';
-        h += '<div style="font-size:15px;font-weight:800;color:#ca8a04;margin-bottom:8px">⚡ ' + (st.label||'短線機會') + '</div>';
-        h += '<div style="font-size:12px;color:#374151;margin-bottom:8px">持有期: ' + (st.horizon||'') + '</div>';
-        h += '<div style="font-size:11px;color:#374151;margin-bottom:4px"><strong>進場條件:</strong></div>';
-        for (const c of (st.criteria||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
-        h += '<div style="font-size:11px;color:#374151;margin-top:8px"><strong>出場規則:</strong></div>';
-        for (const c of (st.exit_rules||[])) h += '<div style="font-size:11px;color:#4b5563;padding-left:8px">• ' + c + '</div>';
-        h += '<div style="margin-top:8px;font-size:11px;color:#ca8a04;font-weight:600">' + (st.position_sizing||'') + '</div>';
-        h += '</div>';
-        h += '</div>';
-        
-        // Long-term candidates (high conviction + thesis intact)
-        h += '<h4 style="font-size:15px;font-weight:700;margin:0 0 10px">🌲 長線候選名單</h4>';
-        const longCandidates = [];
-        for (const [ticker, sa] of Object.entries(semantic)) {
-            if (sa.conviction === 'high' && sa.thesis_intact === true) {
-                const sig2 = signals.find(s => s.ticker === ticker) || {};
-                longCandidates.push({ticker, outlook: sa.quarterly_outlook, catalyst: sa.key_catalyst, action: sig2.action, score: sig2.score});
-            }
-        }
-        if (longCandidates.length) {
-            h += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">';
-            for (const c of longCandidates) {
-                const actionColor = {BUY:'#16a34a',SCALE_IN:'#059669',HOLD:'#3b82f6',WATCH:'#64748b'}[c.action] || '#64748b';
-                h += '<div style="background:white;border:2px solid #bbf7d0;border-radius:10px;padding:10px 14px;min-width:200px">';
-                h += '<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:14px">' + c.ticker + '</strong><span style="font-size:10px;color:' + actionColor + ';font-weight:700">' + (c.action||'') + '</span></div>';
-                h += '<div style="font-size:11px;color:#64748b;margin-top:2px">展望: ' + (c.outlook||'?') + '</div>';
-                h += '<div style="font-size:11px;color:#374151;margin-top:2px">' + (c.catalyst||'').substring(0,50) + '</div>';
-                h += '</div>';
-            }
-            h += '</div>';
-        } else {
-            h += '<p style="font-size:12px;color:#94a3b8">目前無高信心長線標的，需更多數據積累</p>';
-        }
-        
-        // Short-term opportunities (event-driven)
-        h += '<h4 style="font-size:15px;font-weight:700;margin:20px 0 10px">⚡ 短線機會（事件驅動）</h4>';
-        const upcomingEvents = (strategy.upcoming_events || []).slice(0, 3);
-        if (upcomingEvents.length) {
-            h += '<div style="background:#fefce8;border-radius:10px;padding:12px;margin-bottom:12px">';
-            h += '<div style="font-size:12px;font-weight:700;color:#ca8a04;margin-bottom:6px">近期催化事件</div>';
-            for (const evt of upcomingEvents) {
-                h += '<div style="font-size:12px;color:#374151">• ' + evt.label + ' (' + evt.days + '天後)</div>';
-            }
-            h += '</div>';
-        }
-        
-        // Strategy allocation suggestion
-        h += '<div style="background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #e2e8f0">';
-        h += '<div style="font-size:14px;font-weight:800;color:#1e293b;margin-bottom:8px">💡 當前建議配置</div>';
-        h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">';
-        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">長線核心</div><div style="font-size:20px;font-weight:900;color:#16a34a">50%</div></div>';
-        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">短線機會</div><div style="font-size:20px;font-weight:900;color:#f59e0b">20%</div></div>';
-        h += '<div style="text-align:center"><div style="font-size:11px;color:#64748b">現金</div><div style="font-size:20px;font-weight:900;color:#64748b">' + (100 - parseInt(strategy.equity_allocation)||30) + '%</div></div>';
-        h += '</div>';
-        h += '<div style="font-size:11px;color:#64748b;margin-top:8px;text-align:center">' + (strategy.phase||'') + ' · ' + (strategy.action||'') + '</div>';
-        h += '</div>';
-        
-        el.innerHTML = h;
-    } catch(e) { el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>'; }
-}
 
 wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回測績效');
             
