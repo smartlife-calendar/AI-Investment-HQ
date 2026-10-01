@@ -1226,7 +1226,7 @@
         function switchSmartTab(tab) {
             window._smartCurrentTab = tab;
             // Update tab button styles
-            ['bullish','bearish','signalmap','alpha','signals','earnings','intel','r40','sectorcomp'].forEach(t => {
+            ['bullish','bearish','signalmap','alpha','signals','earnings','intel','r40','sectorcomp','eventcal','aianalyst','longshort'].forEach(t => {
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
