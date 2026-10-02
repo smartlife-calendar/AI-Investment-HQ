@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-01T10:20:41+08:00",
+  "generated_at": "2026-10-02T10:00:02+08:00",
   "news": [
+    {
+      "title": "The Hidden Cost of Owning Every Stock: $167,050 of a $500,000 VTI Position Sits in Its Top Ten Names",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hidden-cost-owning-every-stock-003342923.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1790901222
+    },
     {
       "title": "The Best ETF to Own in Your 30s, 40s, 50s, and 60s, According to the Math",
       "url": "https://finance.yahoo.com/markets/options/articles/best-etf-own-30s-40s-204031796.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/options/articles/left-401-k-behind-old-212541401.html",
       "publisher": "24/7 Wall St.",
       "published": 1789421141
-    },
-    {
-      "title": "If I Could Only Hold 1 ETF for the Next 20 Years, Here's What I'd Buy",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/could-only-hold-1-etf-081500244.html",
-      "publisher": "Motley Fool",
-      "published": 1789373700
     }
   ]
 }
