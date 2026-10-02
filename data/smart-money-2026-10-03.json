@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-03",
+  "generated_at": "2026-10-03T00:18:54.301804+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "CTVA",
+      "name": "Corteva, Inc.",
+      "price": 12.57,
+      "change_pct": -83.81,
+      "vol_ratio": 19.8,
+      "volume": 87997473,
+      "avg_volume": 4444316
+    },
+    {
+      "symbol": "PSKY",
+      "name": "Paramount Skydance Corporation",
+      "price": 9.34,
+      "change_pct": -9.58,
+      "vol_ratio": 2.9,
+      "volume": 44206385,
+      "avg_volume": 15243581
+    },
+    {
+      "symbol": "STLA",
+      "name": "Stellantis N.V.",
+      "price": 4.69,
+      "change_pct": 7.57,
+      "vol_ratio": 2.5,
+      "volume": 54096116,
+      "avg_volume": 21638446
+    }
+  ]
+}
