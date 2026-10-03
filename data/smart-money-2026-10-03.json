@@ -1,35 +1,35 @@
 {
   "date": "2026-10-03",
-  "generated_at": "2026-10-03T09:52:02.566334+08:00",
+  "generated_at": "2026-10-03T10:02:21.016695+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
     {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
-      "price": 12.57,
-      "change_pct": -83.81,
-      "vol_ratio": 19.8,
-      "volume": 87997473,
-      "avg_volume": 4444316
+      "price": 11.92,
+      "change_pct": -5.17,
+      "vol_ratio": 13.6,
+      "volume": 78665510,
+      "avg_volume": 5784228
     },
     {
-      "symbol": "PSKY",
-      "name": "Paramount Skydance Corporation",
-      "price": 9.34,
-      "change_pct": -9.58,
-      "vol_ratio": 2.9,
-      "volume": 44206385,
-      "avg_volume": 15243581
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 33.87,
+      "change_pct": -3.64,
+      "vol_ratio": 5.1,
+      "volume": 141948809,
+      "avg_volume": 27833099
     },
     {
-      "symbol": "STLA",
-      "name": "Stellantis N.V.",
-      "price": 4.69,
-      "change_pct": 7.57,
-      "vol_ratio": 2.5,
-      "volume": 54096116,
-      "avg_volume": 21638446
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 14.3,
+      "change_pct": -3.12,
+      "vol_ratio": 2.2,
+      "volume": 59672838,
+      "avg_volume": 27124017
     }
   ]
 }
