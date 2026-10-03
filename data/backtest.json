@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T10:04:26+08:00",
+  "generated_at": "2026-10-03T10:04:23+08:00",
   "algorithm": "v3_rolling_with_stoploss",
   "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
   "signal_count": 23,
@@ -65,14 +65,14 @@
       }
     },
     "20d": {
-      "n": 9,
-      "avg_return": -3.1,
-      "median_return": -3.53,
-      "win_rate": 22.2,
-      "avg_win": 4.88,
-      "avg_loss": -5.38,
-      "stopped_out": 3,
-      "stop_rate": 33.3,
+      "n": 17,
+      "avg_return": -4.55,
+      "median_return": -5.71,
+      "win_rate": 17.6,
+      "avg_win": 3.42,
+      "avg_loss": -6.26,
+      "stopped_out": 8,
+      "stop_rate": 47.1,
       "best": {
         "symbol": "DHR",
         "entry": "2026-08-06",
@@ -244,11 +244,11 @@
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d avg return -3.10% < target +1.5%"
+      "msg": "⚠️ 20d avg return -4.55% < target +1.5%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 20d win rate 22.2% < target 50%"
+      "msg": "⚠️ 20d win rate 17.6% < target 50%"
     }
   ],
   "status": "⚠️ BELOW TARGET"
