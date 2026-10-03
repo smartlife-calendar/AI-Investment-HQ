@@ -14,8 +14,8 @@
       "peak_price": 585.71,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 550.0,
-      "current_return": -4.18
+      "current_price": 552.26,
+      "current_return": -3.79
     },
     "EBAY": {
       "entry_date": "2026-09-04",
@@ -28,8 +28,8 @@
       "peak_price": 112.9,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 105.89,
-      "current_return": 2.07
+      "current_price": 106.4,
+      "current_return": 2.56
     },
     "XLE": {
       "entry_date": "2026-09-04",
@@ -42,8 +42,8 @@
       "peak_price": 65.93,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 62.7,
-      "current_return": -0.99
+      "current_price": 62.82,
+      "current_return": -0.81
     },
     "BNTX": {
       "entry_date": "2026-09-05",
@@ -56,8 +56,8 @@
       "peak_price": 103.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 96.85,
-      "current_return": -4.75
+      "current_price": 96.9,
+      "current_return": -4.7
     },
     "SONY": {
       "entry_date": "2026-09-05",
@@ -70,8 +70,8 @@
       "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 23.49,
-      "current_return": -2.41
+      "current_price": 23.82,
+      "current_return": -1.04
     },
     "NVT": {
       "entry_date": "2026-09-22",
@@ -81,11 +81,11 @@
       "score": 7,
       "action": "BUY",
       "stop_loss": 143.75,
-      "peak_price": 165.77,
+      "peak_price": 169.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 165.77,
-      "current_return": 6.09
+      "current_price": 169.56,
+      "current_return": 8.52
     },
     "HPE": {
       "entry_date": "2026-09-22",
@@ -95,11 +95,11 @@
       "score": 7,
       "action": "BUY",
       "stop_loss": 55.68,
-      "peak_price": 64.58,
+      "peak_price": 69.33,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 64.58,
-      "current_return": 6.71
+      "current_price": 69.33,
+      "current_return": 14.56
     },
     "ETN": {
       "entry_date": "2026-09-22",
@@ -112,8 +112,8 @@
       "peak_price": 442.49,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 437.28,
-      "current_return": 2.47
+      "current_price": 436.11,
+      "current_return": 2.2
     },
     "ZS": {
       "entry_date": "2026-09-22",
@@ -126,8 +126,8 @@
       "peak_price": 214.64,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 198.78,
-      "current_return": -2.07
+      "current_price": 196.6,
+      "current_return": -3.15
     },
     "XOVR": {
       "entry_date": "2026-09-24",
@@ -137,11 +137,11 @@
       "score": 7,
       "action": "SCALE_IN",
       "stop_loss": 19.14,
-      "peak_price": 21.46,
+      "peak_price": 21.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 21.29,
-      "current_return": 2.36
+      "current_price": 21.76,
+      "current_return": 4.62
     }
   },
   "closed_trades": [
@@ -377,6 +377,14 @@
       "positions_value": 96246.31,
       "n_positions": 10,
       "return_pct": -3.75
+    },
+    {
+      "date": "2026-10-03",
+      "nav": 97627.56,
+      "cash": 3.28,
+      "positions_value": 97624.28,
+      "n_positions": 10,
+      "return_pct": -2.37
     }
   ],
   "cooldown": {},
@@ -388,10 +396,10 @@
     "avg_win": 0,
     "avg_loss": -8.71,
     "total_pnl": -4326.17,
-    "nav": 96249.59,
-    "nav_return_pct": -3.75,
+    "nav": 97627.56,
+    "nav_return_pct": -2.37,
     "cash": 3.28,
     "regime": "NEUTRAL",
-    "last_updated": "2026-10-02"
+    "last_updated": "2026-10-03"
   }
 }
