@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-04",
+  "generated_at": "2026-10-04T09:10:52.504696+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "CTVA",
+      "name": "Corteva, Inc.",
+      "price": 11.92,
+      "change_pct": -5.17,
+      "vol_ratio": 13.6,
+      "volume": 78665510,
+      "avg_volume": 5784228
+    },
+    {
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 33.87,
+      "change_pct": -3.64,
+      "vol_ratio": 5.1,
+      "volume": 141948809,
+      "avg_volume": 27833099
+    },
+    {
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 14.3,
+      "change_pct": -3.12,
+      "vol_ratio": 2.2,
+      "volume": 59672838,
+      "avg_volume": 27124017
+    }
+  ]
+}
