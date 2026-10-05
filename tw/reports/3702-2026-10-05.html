@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>3702 大聯大 深度分析 — StockIQ 台股</title>
+<meta name="description" content="高成長低估值，但獲利率堪憂的法人搶籌通路股 — StockIQ AI 台股深度分析">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7}
+.c{max-width:800px;margin:0 auto;padding:16px}
+.hd{background:linear-gradient(135deg,#0f172a,#312e81);color:white;padding:28px 24px;border-radius:16px;margin-bottom:16px}
+.hd h1{font-size:22px;font-weight:900;margin-bottom:6px}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#2563eb;color:white;margin:8px 0}
+.card{background:white;border-radius:12px;padding:18px;margin-bottom:12px;border:1px solid #e2e8f0}
+.card h2{font-size:15px;font-weight:800;margin-bottom:10px}
+.card p{font-size:13px;color:#475569;margin-bottom:6px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:10px 0}
+.m{background:#f8fafc;border-radius:8px;padding:8px;text-align:center;border:1px solid #e2e8f0}
+.m-v{font-size:16px;font-weight:900;color:#1e293b}
+.m-l{font-size:9px;color:#64748b;margin-top:2px}
+.cat{padding:8px 12px;background:#f0f9ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0;margin-bottom:6px}
+.cat .dt{font-size:11px;color:#2563eb;font-weight:700}
+.cat .ev{font-size:12px;font-weight:600;color:#1e293b}
+.cat .im{font-size:11px;color:#475569;margin-top:2px}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ei{background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0}
+.el{font-size:9px;color:#64748b;text-transform:uppercase;font-weight:700}
+.ev2{font-size:15px;font-weight:800;margin-top:2px}
+.ri{padding:6px 10px;background:#fef2f2;border-radius:6px;margin-bottom:4px;font-size:11px;color:#991b1b}
+.con{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:12px;padding:16px}
+.con p{font-size:13px;color:#166534}
+</style>
+</head>
+<body>
+<div class="c">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px">
+    <a href="/tw/" style="color:#4f46e5;text-decoration:none;font-size:13px">← 返回台股總覽</a>
+    <a href="/tw/reports/" style="color:#4f46e5;text-decoration:none;font-size:13px">所有報告</a>
+</div>
+
+<div class="hd">
+    <div style="font-size:11px;color:#94a3b8">📅 2026/10/05 15:04 · AI 深度分析 · 每週六自動更新</div>
+    <h1>3702 大聯大 — 高成長低估值，但獲利率堪憂的法人搶籌通路股</h1>
+    <div style="font-size:12px;color:#94a3b8">電子通路 · 電子通路</div>
+    <div class="badge">波段做多</div>
+</div>
+
+<div class="card">
+    <h2>📊 關鍵指標</h2>
+    <div class="metrics">
+        <div class="m"><div class="m-v" style="color:#2563eb">$119.0</div><div class="m-l">現價</div></div>
+        <div class="m"><div class="m-v">10.19</div><div class="m-l">本益比</div></div>
+        <div class="m"><div class="m-v">2.14</div><div class="m-l">股價淨值比</div></div>
+        <div class="m"><div class="m-v">0.13</div><div class="m-l">PEG</div></div>
+        <div class="m"><div class="m-v">3.06%</div><div class="m-l">殖利率</div></div>
+        <div class="m"><div class="m-v">4.4%</div><div class="m-l">毛利率</div></div>
+        <div class="m"><div class="m-v">2.64%</div><div class="m-l">營益率</div></div>
+        <div class="m"><div class="m-v">11.35</div><div class="m-l">EPS</div></div>
+        <div class="m"><div class="m-v">34.66%</div><div class="m-l">外資持股</div></div>
+        <div class="m"><div class="m-v">8/10</div><div class="m-l">訊號分數</div></div>
+    </div>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd">
+    <h2>🎯 價位總覽</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center">
+        <div style="background:#dc2626;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">停損</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#f59e0b;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">進場</div>
+            <div style="font-size:14px;font-weight:900">$115.4</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#2563eb;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">現價</div>
+            <div style="font-size:14px;font-weight:900">$119.0</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#16a34a;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">T1</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#7c3aed;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">T2</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>💡 投資論點</h2>
+    <p>大聯大營收年成長82%、PEG僅0.13屬極低估，外資+投信同步大買且持股35%，法人籌碼集中度高，技術面均線多頭排列提供支撑。當前股價119元較進場價115.4元已小幅上揚，短期續強動能存在。然而需警惕的是：毛利率僅4.4%創低、營業利益率2.64%、淨利率1.88%極低，ROE轉換效率僅0.1倍，顯示通路商議價能力弱。更關鍵的是自由現金流為負，獲利品質存疑，若營收成長動能放緩將面臨獲利下修風險。此波買氣可能聚焦於營收高成長的題材性買盤，但基本面獲利能力仍需觀察。</p>
+</div>
+
+<div class="card">
+    <h2>⚡ 催化劑</h2>
+    <div class="cat"><div class="dt">2026年11月</div><div class="ev">Q3季報公佈（11月中旬）</div><div class="im">驗證營收成長動能是否持續，毛利率是否築底反彈</div></div><div class="cat"><div class="dt">每月月報</div><div class="ev">年度營收達成率追蹤</div><div class="im">營收成長若跌破50% YoY將打破高成長故事線</div></div><div class="cat"><div class="dt">2026年年報</div><div class="ev">現金流轉折</div><div class="im">若FCF仍為負代表獲利品質未改善，估值吸引力下降</div></div>
+</div>
+
+<div class="card">
+    <h2>🎯 進場計畫</h2>
+    <div class="eg">
+        <div class="ei"><div class="el">進場價</div><div class="ev2" style="color:#16a34a">$115.4~117.5（可分批），現價119.0已進場者緊守</div></div>
+        <div class="ei"><div class="el">停損</div><div class="ev2" style="color:#dc2626">$110.0（跌破短期支撑且破10日線）</div></div>
+        <div class="ei"><div class="el">目標T1</div><div class="ev2" style="color:#2563eb">$128~130（短期技術目標，對應PE 11.3倍）</div></div>
+        <div class="ei"><div class="el">樂觀T2</div><div class="ev2" style="color:#7c3aed">$140~145（樂觀情境：營收持續爆發+毛利率改善至5%以上）</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+        <div style="background:#f0fdf4;border-radius:8px;padding:6px 12px;flex:1;text-align:center">
+            <div style="font-size:9px;color:#64748b">報酬風險比</div>
+            <div style="font-size:16px;font-weight:900;color:#16a34a">1:2.2（以115.4進場、110停損、130目標）</div>
+        </div>
+        <div style="background:#f8fafc;border-radius:8px;padding:6px 12px;flex:1;text-align:center">
+            <div style="font-size:9px;color:#64748b">建議倉位</div>
+            <div style="font-size:16px;font-weight:900">4~5%（中等風險部位，不宜重倉）</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🏦 法人籌碼分析</h2>
+    <p>外資淨買4888萬股、投信淨買504萬股、法人合計大買，籌碼集中度橙色警示。外資持股34.66%接近高水位，機構認同營收成長故事，但需留意外資是否為階段性搶進。籌碼集中伴隨成交量4724萬股為可交易量的1.22倍，顯示買盤積極但需確認後續接力能量。</p>
+</div>
+
+<div class="card">
+    <h2>⚠️ 風險</h2>
+    <div class="ri">• 毛利率4.4%創新低、營利率僅2.64%，獲利品質極弱，若營收成長放緩將直接反映在EPS</div><div class="ri">• 自由現金流為負意味企業無法自行產生現金，依賴融資或減少投資，長期不可持續</div><div class="ri">• 營收YoY 80%成長難以維持，可能進入高基期比較，預估H2年增率放緩至30~40%</div><div class="ri">• 電子通路為微利行業，受芯片短缺緩解後需求可能轉弱，且與大型客戶議價能力不足</div><div class="ri">• 籌碼集中、外資高持股，若法人轉向賣出將快速翻黑，技術面失守110元關鍵支撑</div>
+</div>
+
+<div class="con">
+    <h2 style="font-size:14px;font-weight:800;color:#166534;margin-bottom:6px">📝 結論</h2>
+    <p>大聯大短期技術面與籌碼面向好，法人大買+高成長低PE吸引波段買盤，適合短線5~8周參與。但基本面獲利能力堪憂——毛利率低、FCF為負、ROE轉換差，本質上是通路商的低利潤宿命。建議以波段操作思維介入，設定明確停損(110元)與獲利目標(130~140元)，不宜長期持有或加碼。若Q3營收年增率轉弱或毛利率未見改善，應即時獲利了結，避免被高基期套牢。風險報酬比1:2.2，適合5%以下部位的操作性投資。</p>
+</div>
+
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:10px;color:#92400e;margin-top:12px">
+    ⚠️ 本報告由 AI 自動生成，僅供參考，不構成投資建議。數據來源：TWSE、Yahoo Finance。
+</div>
+<div style="text-align:center;padding:20px;font-size:11px;color:#94a3b8">
+    © 2026 StockIQ.tw · <a href="/tw/" style="color:#4f46e5;text-decoration:none">返回台股</a>
+</div>
+</div></body></html>

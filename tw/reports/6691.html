@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>6691 洋基工程 深度分析 — StockIQ 台股</title>
+<meta name="description" content="營收爆發+法人同步加碼，但估值與ROE效率亟需驗證 — StockIQ AI 台股深度分析">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7}
+.c{max-width:800px;margin:0 auto;padding:16px}
+.hd{background:linear-gradient(135deg,#0f172a,#312e81);color:white;padding:28px 24px;border-radius:16px;margin-bottom:16px}
+.hd h1{font-size:22px;font-weight:900;margin-bottom:6px}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#2563eb;color:white;margin:8px 0}
+.card{background:white;border-radius:12px;padding:18px;margin-bottom:12px;border:1px solid #e2e8f0}
+.card h2{font-size:15px;font-weight:800;margin-bottom:10px}
+.card p{font-size:13px;color:#475569;margin-bottom:6px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:10px 0}
+.m{background:#f8fafc;border-radius:8px;padding:8px;text-align:center;border:1px solid #e2e8f0}
+.m-v{font-size:16px;font-weight:900;color:#1e293b}
+.m-l{font-size:9px;color:#64748b;margin-top:2px}
+.cat{padding:8px 12px;background:#f0f9ff;border-left:3px solid #3b82f6;border-radius:0 8px 8px 0;margin-bottom:6px}
+.cat .dt{font-size:11px;color:#2563eb;font-weight:700}
+.cat .ev{font-size:12px;font-weight:600;color:#1e293b}
+.cat .im{font-size:11px;color:#475569;margin-top:2px}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ei{background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0}
+.el{font-size:9px;color:#64748b;text-transform:uppercase;font-weight:700}
+.ev2{font-size:15px;font-weight:800;margin-top:2px}
+.ri{padding:6px 10px;background:#fef2f2;border-radius:6px;margin-bottom:4px;font-size:11px;color:#991b1b}
+.con{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:12px;padding:16px}
+.con p{font-size:13px;color:#166534}
+</style>
+</head>
+<body>
+<div class="c">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px">
+    <a href="/tw/" style="color:#4f46e5;text-decoration:none;font-size:13px">← 返回台股總覽</a>
+    <a href="/tw/reports/" style="color:#4f46e5;text-decoration:none;font-size:13px">所有報告</a>
+</div>
+
+<div class="hd">
+    <div style="font-size:11px;color:#94a3b8">📅 2026/10/05 15:04 · AI 深度分析 · 每週六自動更新</div>
+    <h1>6691 洋基工程 — 營收爆發+法人同步加碼，但估值與ROE效率亟需驗證</h1>
+    <div style="font-size:12px;color:#94a3b8">其他電子 · 其他電子</div>
+    <div class="badge">波段做多</div>
+</div>
+
+<div class="card">
+    <h2>📊 關鍵指標</h2>
+    <div class="metrics">
+        <div class="m"><div class="m-v" style="color:#2563eb">$741.0</div><div class="m-l">現價</div></div>
+        <div class="m"><div class="m-v">21.93</div><div class="m-l">本益比</div></div>
+        <div class="m"><div class="m-v">11.92</div><div class="m-l">股價淨值比</div></div>
+        <div class="m"><div class="m-v">0.1</div><div class="m-l">PEG</div></div>
+        <div class="m"><div class="m-v">3.0%</div><div class="m-l">殖利率</div></div>
+        <div class="m"><div class="m-v">18.2%</div><div class="m-l">毛利率</div></div>
+        <div class="m"><div class="m-v">16.22%</div><div class="m-l">營益率</div></div>
+        <div class="m"><div class="m-v">31.22</div><div class="m-l">EPS</div></div>
+        <div class="m"><div class="m-v">13.26%</div><div class="m-l">外資持股</div></div>
+        <div class="m"><div class="m-v">8/10</div><div class="m-l">訊號分數</div></div>
+    </div>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd">
+    <h2>🎯 價位總覽</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center">
+        <div style="background:#dc2626;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">停損</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#f59e0b;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">進場</div>
+            <div style="font-size:14px;font-weight:900">$718.8</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#2563eb;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">現價</div>
+            <div style="font-size:14px;font-weight:900">$741.0</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#16a34a;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">T1</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+        <div style="color:#94a3b8">→</div>
+        <div style="background:#7c3aed;color:white;border-radius:8px;padding:6px 12px;text-align:center;min-width:70px">
+            <div style="font-size:9px;opacity:0.8">T2</div>
+            <div style="font-size:14px;font-weight:900">—</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>💡 投資論點</h2>
+    <p>洋基工程呈現典型的成長股訊號：營收YoY暴增214%，法人大買成交量20%，外資+投信同步建倉，PEG=0.1處於極低估區間。技術面均線多頭排列、周月外資淨買持續流入，短期籌碼面良好。然而核心隱憂在於ROE效率僅0.1（即61%除以11.9倍），反映高本益比下獲利品質堪慮，加上毛利率(18.2%)微幅下滑0.2個百分點，需觀察營收加速是否可持續轉化為淨利增長。此為高風險高報酬的成長題材。</p>
+</div>
+
+<div class="card">
+    <h2>⚡ 催化劑</h2>
+    <div class="cat"><div class="dt">2026年10月～11月</div><div class="ev">Q4季度營收月報公布</div><div class="im">驗證營收加速趨勢是否延續，確認214%YoY成長是否為常態或一次性</div></div><div class="cat"><div class="dt">2026年11月中旬</div><div class="ev">2026年度財務預告修正</div><div class="im">評估全年EPS是否能支撐當前21.93倍本益比預期</div></div><div class="cat"><div class="dt">2026年Q4財報</div><div class="ev">毛利率穩定性確認</div><div class="im">若毛利率續跌，獲利品質將大幅下修，股價承壓</div></div>
+</div>
+
+<div class="card">
+    <h2>🎯 進場計畫</h2>
+    <div class="eg">
+        <div class="ei"><div class="el">進場價</div><div class="ev2" style="color:#16a34a">$718.8～735.0</div></div>
+        <div class="ei"><div class="el">停損</div><div class="ev2" style="color:#dc2626">$680.0</div></div>
+        <div class="ei"><div class="el">目標T1</div><div class="ev2" style="color:#2563eb">$820.0</div></div>
+        <div class="ei"><div class="el">樂觀T2</div><div class="ev2" style="color:#7c3aed">$920.0</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+        <div style="background:#f0fdf4;border-radius:8px;padding:6px 12px;flex:1;text-align:center">
+            <div style="font-size:9px;color:#64748b">報酬風險比</div>
+            <div style="font-size:16px;font-weight:900;color:#16a34a">1:2.8</div>
+        </div>
+        <div style="background:#f8fafc;border-radius:8px;padding:6px 12px;flex:1;text-align:center">
+            <div style="font-size:9px;color:#64748b">建議倉位</div>
+            <div style="font-size:16px;font-weight:900">3～5%</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🏦 法人籌碼分析</h2>
+    <p>外資淨買201,694股、投信淨買68,000股，合計269,694股建倉，佔成交量20.4%，籌碼面強勢。惟外資持股僅13.26%仍屬中等水位，未見機構大舉進駐跡象。法人趨勢顯示自營商小額淨賣1,258,145股（可能波段避險），應警惕機構獲利了結可能性。</p>
+</div>
+
+<div class="card">
+    <h2>⚠️ 風險</h2>
+    <div class="ri">• ROE效率極低(0.1)：11.9倍PB下獲利能力未成比例，暗示高槓桿或資產效率問題，成長永續性存疑</div><div class="ri">• 毛利率持續微跌：18.2%基數已偏低，若跌破16%營業利益率將受壓，EPS成長無法支撐高估值</div><div class="ri">• 高本益比(21.93倍)夾在成長與業績兌現之間：若Q4營收成長轉緩或EPS低於預期，股價回檔風險大</div><div class="ri">• 法人籌碼可能洗盤：自營商淨賣超，外資持股低，短期震盪洗盤機率高</div><div class="ri">• 產業景氣週期風險：其他電子產業易受訂單波動影響，214%YoY可能難以維持</div>
+</div>
+
+<div class="con">
+    <h2 style="font-size:14px;font-weight:800;color:#166534;margin-bottom:6px">📝 結論</h2>
+    <p>洋基工程是典型的高成長+低估值組合，但估值與獲利品質的乖離需密切監控。建議以3～5%部位進場，在$718.8～735.0區間分批布局，嚴設$680停損，目標一階$820(+14%)、二階$920(+25%)。重點是接下來2～3個月的營收月報與Q4財報是否能兌現214%成長預期，若營收動能轉緩或毛利率續墜，應立即減碼規避。此為波段機會而非長期持有標的。</p>
+</div>
+
+<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:10px;color:#92400e;margin-top:12px">
+    ⚠️ 本報告由 AI 自動生成，僅供參考，不構成投資建議。數據來源：TWSE、Yahoo Finance。
+</div>
+<div style="text-align:center;padding:20px;font-size:11px;color:#94a3b8">
+    © 2026 StockIQ.tw · <a href="/tw/" style="color:#4f46e5;text-decoration:none">返回台股</a>
+</div>
+</div></body></html>
