@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-03T10:00:02+08:00",
+  "generated_at": "2026-10-05T09:12:39+08:00",
   "gainers": [
     {
       "symbol": "MXL",
       "name": "MaxLinear, Inc",
       "price": 105.93,
       "change_pct": 14.99,
-      "volume": 4760558,
+      "volume": 4790159,
       "vr": ""
     },
     {
@@ -14,7 +14,7 @@
       "name": "ChipMOS TECHNOLOGIES INC.",
       "price": 83.3,
       "change_pct": 14.61,
-      "volume": 258069,
+      "volume": 259541,
       "vr": ""
     },
     {
@@ -22,7 +22,7 @@
       "name": "Synaptics Incorporated",
       "price": 121.1,
       "change_pct": 14.08,
-      "volume": 7666638,
+      "volume": 7668306,
       "vr": ""
     },
     {
@@ -30,7 +30,7 @@
       "name": "Penguin Solutions, Inc.",
       "price": 61.36,
       "change_pct": 11.6,
-      "volume": 3339481,
+      "volume": 3563303,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "ImmunityBio, Inc.",
       "price": 10.29,
       "change_pct": 10.83,
-      "volume": 31128179,
+      "volume": 31251554,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "INNIO N.V.",
       "price": 19.99,
       "change_pct": 9.35,
-      "volume": 5544491,
+      "volume": 5547742,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "Pilgrim's Pride Corporation",
       "price": 27.5,
       "change_pct": 9.13,
-      "volume": 2171962,
+      "volume": 2172038,
       "vr": ""
     }
   ],
@@ -88,7 +88,7 @@
       "name": "Maase Inc.",
       "price": 13.7,
       "change_pct": -13.35,
-      "volume": 219390,
+      "volume": 219803,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "Western Digital Corporation",
       "price": 415.29,
       "change_pct": -10.22,
-      "volume": 24651005,
+      "volume": 24768458,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "Seagate Technology Holdings PLC",
       "price": 848.99,
       "change_pct": -10.21,
-      "volume": 13521412,
+      "volume": 13577249,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Ultra Clean Holdings, Inc.",
       "price": 72.69,
       "change_pct": -7.57,
-      "volume": 1913139,
+      "volume": 1915357,
       "vr": ""
     },
     {
@@ -120,7 +120,7 @@
       "name": "GDS Holdings Limited",
       "price": 27.57,
       "change_pct": -7.48,
-      "volume": 3380669,
+      "volume": 3387427,
       "vr": ""
     },
     {
@@ -128,7 +128,7 @@
       "name": "MakeMyTrip Limited",
       "price": 44.62,
       "change_pct": -6.55,
-      "volume": 1568823,
+      "volume": 1568827,
       "vr": ""
     },
     {
@@ -136,7 +136,7 @@
       "name": "AxoGen, Inc.",
       "price": 37.39,
       "change_pct": -6.34,
-      "volume": 3061429,
+      "volume": 3098410,
       "vr": ""
     },
     {
@@ -174,19 +174,19 @@
       "vr": ""
     },
     {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 158.96,
-      "change_pct": 7.35,
-      "volume": 119274773,
-      "vr": ""
-    },
-    {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
       "price": 233.95,
       "change_pct": 1.34,
-      "volume": 134470648,
+      "volume": 135167817,
+      "vr": ""
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 158.96,
+      "change_pct": 7.35,
+      "volume": 119859134,
       "vr": ""
     },
     {
@@ -194,7 +194,7 @@
       "name": "Intel Corporation",
       "price": 119.33,
       "change_pct": -0.56,
-      "volume": 94956744,
+      "volume": 95401476,
       "vr": ""
     },
     {
@@ -214,14 +214,6 @@
       "vr": ""
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 12.94,
-      "change_pct": -1.45,
-      "volume": 71772533,
-      "vr": ""
-    },
-    {
       "symbol": "NOK",
       "name": "Nokia Corporation Sponsored",
       "price": 10.6,
@@ -230,11 +222,19 @@
       "vr": ""
     },
     {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 12.94,
+      "change_pct": -1.45,
+      "volume": 73233043,
+      "vr": ""
+    },
+    {
       "symbol": "GRAB",
       "name": "Grab Holdings Limited",
       "price": 3.08,
       "change_pct": -1.28,
-      "volume": 64339223,
+      "volume": 64558607,
       "vr": ""
     },
     {
@@ -242,15 +242,7 @@
       "name": "Rivian Automotive, Inc.",
       "price": 14.3,
       "change_pct": -3.12,
-      "volume": 59672838,
-      "vr": ""
-    },
-    {
-      "symbol": "TSLA",
-      "name": "Tesla, Inc.",
-      "price": 370.59,
-      "change_pct": 4.65,
-      "volume": 54147498,
+      "volume": 60862087,
       "vr": ""
     },
     {
@@ -258,7 +250,23 @@
       "name": "Warner Bros. Discovery, Inc. - ",
       "price": 30.94,
       "change_pct": -0.03,
-      "volume": 49936086,
+      "volume": 59655572,
+      "vr": ""
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "price": 370.59,
+      "change_pct": 4.65,
+      "volume": 55330140,
+      "vr": ""
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 15.77,
+      "change_pct": -0.44,
+      "volume": 49554082,
       "vr": ""
     },
     {
@@ -275,14 +283,6 @@
       "price": 3.65,
       "change_pct": 3.99,
       "volume": 48375403,
-      "vr": ""
-    },
-    {
-      "symbol": "ITUB",
-      "name": "Itau Unibanco Banco Holding SA",
-      "price": 8.59,
-      "change_pct": 1.7,
-      "volume": 44951884,
       "vr": ""
     }
   ],
@@ -303,7 +303,7 @@
       "price": 33.87,
       "change_pct": -3.64,
       "volume": 141948809,
-      "vr": 5.1
+      "vr": 4.8
     },
     {
       "symbol": "CTVA",
@@ -311,14 +311,14 @@
       "price": 11.92,
       "change_pct": -5.17,
       "volume": 78665510,
-      "vr": 13.6
+      "vr": 11.3
     },
     {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
       "price": 14.3,
       "change_pct": -3.12,
-      "volume": 59672838,
+      "volume": 60862087,
       "vr": 2.2
     },
     {
