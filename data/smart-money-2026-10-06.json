@@ -1,35 +1,53 @@
 {
   "date": "2026-10-06",
-  "generated_at": "2026-10-06T10:01:59.117843+08:00",
+  "generated_at": "2026-10-06T10:02:49.925160+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 5,
   "stocks": [
     {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
-      "price": 11.92,
-      "change_pct": -5.17,
-      "vol_ratio": 11.3,
-      "volume": 78665510,
-      "avg_volume": 6961549
+      "price": 12.39,
+      "change_pct": 3.94,
+      "vol_ratio": 26.2,
+      "volume": 183061500,
+      "avg_volume": 6987080
     },
     {
-      "symbol": "NKE",
-      "name": "Nike, Inc.",
-      "price": 33.87,
-      "change_pct": -3.64,
-      "vol_ratio": 4.8,
-      "volume": 141948809,
-      "avg_volume": 29572668
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 9.92,
+      "change_pct": 15.48,
+      "vol_ratio": 5.1,
+      "volume": 113265593,
+      "avg_volume": 22208939
     },
     {
-      "symbol": "RIVN",
-      "name": "Rivian Automotive, Inc.",
-      "price": 14.3,
-      "change_pct": -3.12,
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 4.33,
+      "change_pct": 18.75,
+      "vol_ratio": 4.3,
+      "volume": 127310554,
+      "avg_volume": 29607105
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 24.14,
+      "change_pct": 11.5,
+      "vol_ratio": 3.7,
+      "volume": 70054977,
+      "avg_volume": 18933777
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 15.18,
+      "change_pct": 13.03,
       "vol_ratio": 2.2,
-      "volume": 60862087,
-      "avg_volume": 27664584
+      "volume": 180382266,
+      "avg_volume": 81991939
     }
   ]
 }
