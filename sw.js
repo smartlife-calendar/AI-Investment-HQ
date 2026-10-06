@@ -1,10 +1,6 @@
-// StockIQ Service Worker — TW Site
-const CACHE_NAME = 'stockiq-us-v2';
-const SHELL_ASSETS = [
-  '/',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
-];
+// StockIQ Service Worker — US Site
+const CACHE_NAME = 'stockiq-us-v3';
+const SHELL_ASSETS = ['/icons/icon-192.png', '/icons/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -24,15 +20,22 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
-  
-  // Network-first for everything (data AND html)
+  // Never cache index.html — always fetch fresh
+  if (url.pathname === '/' || url.pathname.endsWith('.html')) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+    return;
+  }
+  // Network-first for data JSON
+  if (url.pathname.startsWith('/data/')) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+    return;
+  }
+  // Cache-first for static assets (icons, etc)
   e.respondWith(
-    fetch(e.request)
-      .then(r => {
-        const clone = r.clone();
-        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-        return r;
-      })
-      .catch(() => caches.match(e.request))
+    caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
+      const clone = resp.clone();
+      caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+      return resp;
+    }))
   );
 });
