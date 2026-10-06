@@ -494,12 +494,30 @@
       "price": 490.54,
       "regime": "NEUTRAL",
       "confidence": 80
+    },
+    {
+      "date": "2026-10-06",
+      "symbol": "MELI",
+      "action": "BUY",
+      "score": 9,
+      "price": 1860.61,
+      "regime": "STRONG_BULL",
+      "confidence": 59
+    },
+    {
+      "date": "2026-10-06",
+      "symbol": "XLE",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 63.45,
+      "regime": "STRONG_BULL",
+      "confidence": 38
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-03",
-    "total_entries": 55
+    "last_updated": "2026-10-06",
+    "total_entries": 57
   }
 }
