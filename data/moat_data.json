@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-08T01:50:17",
-  "total": 154,
+  "generated_at": "2026-10-06T08:08:16",
+  "total": 281,
   "distribution": {
-    "emerging": 45,
-    "narrow": 19,
+    "emerging": 60,
+    "narrow": 26,
     "wide": 7,
-    "none": 83
+    "none": 188
   },
   "stocks": {
     "AAPL": {
@@ -48,23 +48,24 @@
       "oligopoly": null
     },
     "NVDA": {
-      "moat_score": 9,
+      "moat_score": 10,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
       "moat_type": "oligopoly",
       "moat_type_zh": "🔺 寡佔供給",
       "details": [
-        "客戶預付$3.1B",
+        "客戶預付$6.4B",
+        "預付成長+106%",
         "採購義務$46B",
         "R&D佔營收69%（高研發）",
         "無形資產$24B",
         "🔺 壟斷: AI training GPU壟斷>90%市佔"
       ],
-      "rpo_b": 2.6,
-      "contract_liability_b": 3.12,
+      "rpo_b": 3.2,
+      "contract_liability_b": 6.41,
       "purchase_obligation_b": 45.8,
-      "rd_expense_b": 6.3,
-      "xbrl_updated": "2026-04-26",
+      "rd_expense_b": 7.1,
+      "xbrl_updated": "2026-07-26",
       "oligopoly": {
         "competitors": 1,
         "product": "AI訓練GPU",
@@ -122,16 +123,16 @@
       "moat_type": "network",
       "moat_type_zh": "🌐 網路效應",
       "details": [
-        "客戶預付$1.1B",
-        "採購義務$183B",
-        "採購義務暴增+76%",
+        "客戶預付$1.2B",
+        "採購義務$279B",
+        "採購義務暴增+53%",
         "R&D佔營收29%（高研發）",
-        "無形資產$28B"
+        "無形資產$27B"
       ],
       "rpo_b": null,
-      "contract_liability_b": 1.12,
-      "purchase_obligation_b": 182.9,
-      "rd_expense_b": 17.7,
+      "contract_liability_b": 1.16,
+      "purchase_obligation_b": 279.0,
+      "rd_expense_b": 21.7,
       "xbrl_updated": "",
       "oligopoly": null
     },
@@ -152,26 +153,24 @@
       "oligopoly": null
     },
     "AVGO": {
-      "moat_score": 13,
+      "moat_score": 11,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
       "moat_type": "oligopoly",
       "moat_type_zh": "🔺 寡佔供給",
       "details": [
-        "RPO=165B (2.6x年營收)",
-        "RPO成長+266%",
-        "客戶預付$14.2B",
-        "採購義務$128B",
-        "採購義務暴增+237141%",
+        "RPO=179B (2.8x年營收)",
+        "客戶預付$13.1B",
+        "採購義務$127B",
         "R&D佔營收17%（高研發）",
-        "無形資產$126B",
+        "無形資產$124B",
         "🔺 雙寡佔: 為Google/Meta做custom AI晶片, 僅2-3家有能力"
       ],
-      "rpo_b": 164.6,
-      "contract_liability_b": 14.24,
-      "purchase_obligation_b": 128.1,
-      "rd_expense_b": 3.0,
-      "xbrl_updated": "2026-05-03",
+      "rpo_b": 179.2,
+      "contract_liability_b": 13.12,
+      "purchase_obligation_b": 126.8,
+      "rd_expense_b": 2.9,
+      "xbrl_updated": "2026-08-02",
       "oligopoly": {
         "competitors": 2,
         "product": "Custom AI ASIC",
@@ -253,13 +252,13 @@
       "moat_type": "regulatory",
       "moat_type_zh": "🏛️ 監管壁壘",
       "details": [
-        "無形資產$131B"
+        "無形資產$130B"
       ],
-      "rpo_b": 11.0,
+      "rpo_b": 10.7,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-03-31",
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "MA": {
@@ -324,11 +323,11 @@
       "details": [
         "無形資產$33B"
       ],
-      "rpo_b": 1.1,
+      "rpo_b": 1.0,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.6,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-05-03",
+      "xbrl_updated": "2026-08-02",
       "oligopoly": null
     },
     "ABBV": {
@@ -402,15 +401,15 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=68B (1.6x年營收)",
+        "RPO=66B (1.6x年營收)",
         "R&D佔營收14%",
-        "無形資產$66B"
+        "無形資產$65B"
       ],
-      "rpo_b": 67.9,
+      "rpo_b": 66.3,
       "contract_liability_b": null,
       "purchase_obligation_b": 2.0,
-      "rd_expense_b": 1.6,
-      "xbrl_updated": "2026-04-30",
+      "rd_expense_b": 1.7,
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "CVX": {
@@ -428,23 +427,25 @@
       "oligopoly": null
     },
     "ORCL": {
-      "moat_score": 8,
+      "moat_score": 10,
       "moat_grade": "wide",
       "moat_grade_zh": "🏰 寬護城河",
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=638B (9.5x年營收)",
-        "客戶預付$15.4B",
-        "採購義務$13B",
+        "RPO=664B (9.9x年營收)",
+        "客戶預付$30.8B",
+        "預付成長+100%",
+        "採購義務$34B",
+        "採購義務暴增+157%",
         "R&D佔營收15%（高研發）",
         "無形資產$67B"
       ],
-      "rpo_b": 638.0,
-      "contract_liability_b": 15.39,
-      "purchase_obligation_b": 13.3,
-      "rd_expense_b": 10.3,
-      "xbrl_updated": "2026-05-31",
+      "rpo_b": 664.0,
+      "contract_liability_b": 30.79,
+      "purchase_obligation_b": 34.1,
+      "rd_expense_b": 2.4,
+      "xbrl_updated": "2026-08-31",
       "oligopoly": null
     },
     "KO": {
@@ -533,11 +534,11 @@
         "客戶預付$7.2B",
         "採購義務$7B"
       ],
-      "rpo_b": 22.3,
-      "contract_liability_b": 7.25,
+      "rpo_b": 22.2,
+      "contract_liability_b": 7.2,
       "purchase_obligation_b": 6.8,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-05-29",
+      "xbrl_updated": "2026-08-28",
       "oligopoly": null
     },
     "TMO": {
@@ -558,22 +559,23 @@
       "oligopoly": null
     },
     "CSCO": {
-      "moat_score": 5,
+      "moat_score": 6,
       "moat_grade": "narrow",
       "moat_grade_zh": "🛡️ 窄護城河",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=43B",
-        "客戶預付$28.6B",
-        "R&D佔營收16%（高研發）",
-        "無形資產$67B"
+        "RPO=47B",
+        "客戶預付$29.8B",
+        "R&D佔營收15%（高研發）",
+        "無形資產$67B",
+        "毛利成長+310%"
       ],
-      "rpo_b": 43.5,
-      "contract_liability_b": 28.6,
+      "rpo_b": 46.7,
+      "contract_liability_b": 29.78,
       "purchase_obligation_b": 4.5,
-      "rd_expense_b": 2.4,
-      "xbrl_updated": "2026-04-25",
+      "rd_expense_b": 9.6,
+      "xbrl_updated": "2026-07-25",
       "oligopoly": null
     },
     "ABT": {
@@ -611,14 +613,12 @@
       "oligopoly": null
     },
     "NKE": {
-      "moat_score": 1,
+      "moat_score": 0,
       "moat_grade": "none",
       "moat_grade_zh": "❌ 無明顯護城河",
       "moat_type": "",
       "moat_type_zh": "",
-      "details": [
-        "毛利成長+295%"
-      ],
+      "details": [],
       "rpo_b": null,
       "contract_liability_b": null,
       "purchase_obligation_b": null,
@@ -811,19 +811,18 @@
       "oligopoly": null
     },
     "INTU": {
-      "moat_score": 3,
-      "moat_grade": "emerging",
-      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "採購義務暴增+193%",
         "R&D佔營收16%（高研發）"
       ],
       "rpo_b": null,
       "contract_liability_b": null,
       "purchase_obligation_b": 4.9,
-      "rd_expense_b": 0.8,
+      "rd_expense_b": 3.4,
       "xbrl_updated": "",
       "oligopoly": null
     },
@@ -973,16 +972,16 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=11B (1.6x年營收)",
-        "客戶預付$2.8B",
+        "RPO=11B (1.5x年營收)",
+        "客戶預付$2.7B",
         "R&D佔營收35%（高研發）",
-        "無形資產$39B"
+        "無形資產$38B"
       ],
-      "rpo_b": 11.0,
-      "contract_liability_b": 2.81,
+      "rpo_b": 10.9,
+      "contract_liability_b": 2.72,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.7,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "FTNT": {
@@ -1003,22 +1002,23 @@
       "oligopoly": null
     },
     "PANW": {
-      "moat_score": 6,
+      "moat_score": 7,
       "moat_grade": "narrow",
       "moat_grade_zh": "🛡️ 窄護城河",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=18B (2.0x年營收)",
+        "RPO=21B (1.8x年營收)",
         "採購義務暴增+326%",
         "R&D佔營收22%（高研發）",
-        "無形資產$29B"
+        "無形資產$29B",
+        "毛利成長+323%"
       ],
-      "rpo_b": 18.4,
+      "rpo_b": 21.2,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
-      "rd_expense_b": 0.7,
-      "xbrl_updated": "2026-04-30",
+      "rd_expense_b": 2.6,
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "CRWD": {
@@ -1028,13 +1028,13 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "客戶預付$4.7B"
+        "客戶預付$4.8B"
       ],
-      "rpo_b": 8.8,
-      "contract_liability_b": 4.72,
+      "rpo_b": 10.7,
+      "contract_liability_b": 4.84,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.4,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "DDOG": {
@@ -1056,21 +1056,22 @@
       "oligopoly": null
     },
     "ZS": {
-      "moat_score": 6,
+      "moat_score": 7,
       "moat_grade": "narrow",
       "moat_grade_zh": "🛡️ 窄護城河",
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=6B (2.4x年營收)",
+        "RPO=7B (2.2x年營收)",
         "客戶預付$2.5B",
-        "R&D佔營收25%（高研發）"
+        "R&D佔營收27%（高研發）",
+        "毛利成長+312%"
       ],
-      "rpo_b": 6.5,
+      "rpo_b": 7.4,
       "contract_liability_b": 2.48,
       "purchase_obligation_b": 0.6,
-      "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30",
+      "rd_expense_b": 0.9,
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "OKTA": {
@@ -1080,14 +1081,14 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=5B (1.6x年營收)",
+        "RPO=5B (1.7x年營收)",
         "R&D佔營收22%（高研發）"
       ],
-      "rpo_b": 4.7,
+      "rpo_b": 4.9,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "NET": {
@@ -1114,14 +1115,14 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=9B (2.0x年營收)",
+        "RPO=9B (1.9x年營收)",
         "R&D佔營收42%（高研發）"
       ],
-      "rpo_b": 9.2,
+      "rpo_b": 9.0,
       "contract_liability_b": null,
       "purchase_obligation_b": 2.7,
-      "rd_expense_b": 0.5,
-      "xbrl_updated": "2026-04-30",
+      "rd_expense_b": 0.6,
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "MDB": {
@@ -1131,14 +1132,14 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=1B",
+        "RPO=2B",
         "R&D佔營收29%（高研發）"
       ],
       "rpo_b": 1.5,
-      "contract_liability_b": 0.43,
+      "contract_liability_b": 0.45,
       "purchase_obligation_b": 0.3,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "MNST": {
@@ -1182,7 +1183,7 @@
       "contract_liability_b": 0.09,
       "purchase_obligation_b": 0.9,
       "rd_expense_b": null,
-      "xbrl_updated": "2026-02-28",
+      "xbrl_updated": "2026-08-31",
       "oligopoly": null
     },
     "FAST": {
@@ -1266,11 +1267,11 @@
       "moat_type_zh": "🔒 轉換成本",
       "details": [
         "RPO=6B",
-        "客戶預付$4.4B",
+        "客戶預付$4.5B",
         "R&D佔營收28%（高研發）"
       ],
       "rpo_b": 5.5,
-      "contract_liability_b": 4.39,
+      "contract_liability_b": 4.46,
       "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.7,
       "xbrl_updated": "2018-07-31",
@@ -1309,21 +1310,22 @@
       "oligopoly": null
     },
     "TEAM": {
-      "moat_score": 4,
-      "moat_grade": "emerging",
-      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=4B",
-        "客戶預付$2.4B",
-        "R&D佔營收51%（高研發）"
+        "RPO=5B",
+        "客戶預付$2.7B",
+        "R&D佔營收50%（高研發）",
+        "毛利成長+313%"
       ],
-      "rpo_b": 4.0,
-      "contract_liability_b": 2.41,
-      "purchase_obligation_b": 0.9,
-      "rd_expense_b": 0.9,
-      "xbrl_updated": "2026-03-31",
+      "rpo_b": 4.8,
+      "contract_liability_b": 2.66,
+      "purchase_obligation_b": 1.0,
+      "rd_expense_b": 3.3,
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "TTD": {
@@ -1343,21 +1345,20 @@
       "oligopoly": null
     },
     "DOCU": {
-      "moat_score": 4,
+      "moat_score": 3,
       "moat_grade": "emerging",
       "moat_grade_zh": "⚔️ 護城河形成中",
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
         "RPO=2B",
-        "採購義務暴增+78%",
         "R&D佔營收21%（高研發）"
       ],
       "rpo_b": 2.3,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.2,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "ZM": {
@@ -1367,14 +1368,14 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=4B",
+        "RPO=5B",
         "R&D佔營收17%（高研發）"
       ],
-      "rpo_b": 4.3,
+      "rpo_b": 4.5,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.5,
       "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "ABNB": {
@@ -1515,13 +1516,13 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "客戶預付$2.6B",
+        "客戶預付$3.3B",
         "R&D佔營收13%"
       ],
       "rpo_b": null,
-      "contract_liability_b": 2.57,
+      "contract_liability_b": 3.27,
       "purchase_obligation_b": null,
-      "rd_expense_b": 1.0,
+      "rd_expense_b": 1.1,
       "xbrl_updated": "",
       "oligopoly": null
     },
@@ -1572,12 +1573,12 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "R&D佔營收23%（高研發）"
+        "R&D佔營收17%（高研發）"
       ],
       "rpo_b": null,
       "contract_liability_b": 0.07,
       "purchase_obligation_b": null,
-      "rd_expense_b": 0.0,
+      "rd_expense_b": 0.1,
       "xbrl_updated": "",
       "oligopoly": null
     },
@@ -1682,15 +1683,15 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO成長+64%",
-        "採購義務$10B",
-        "採購義務暴增+159%"
+        "採購義務$34B",
+        "採購義務暴增+239%",
+        "毛利成長+429%"
       ],
-      "rpo_b": 2.1,
+      "rpo_b": 2.6,
       "contract_liability_b": 0.73,
-      "purchase_obligation_b": 10.1,
-      "rd_expense_b": 0.2,
-      "xbrl_updated": "2026-03-31",
+      "purchase_obligation_b": 34.2,
+      "rd_expense_b": 0.8,
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "BTDR": {
@@ -1714,17 +1715,18 @@
       "moat_type": "oligopoly",
       "moat_type_zh": "🔺 寡佔供給",
       "details": [
-        "RPO=42B (5.7x年營收)",
-        "採購義務$7B",
-        "採購義務暴增+180%",
-        "R&D佔營收15%（高研發）",
-        "毛利成長+109%"
+        "RPO=60B (3.0x年營收)",
+        "RPO成長+44%",
+        "客戶預付$1.2B",
+        "預付成長+143%",
+        "採購義務$6B",
+        "毛利成長+839%"
       ],
-      "rpo_b": 41.6,
-      "contract_liability_b": 0.51,
-      "purchase_obligation_b": 7.1,
-      "rd_expense_b": 0.3,
-      "xbrl_updated": "2026-04-03",
+      "rpo_b": 59.8,
+      "contract_liability_b": 1.24,
+      "purchase_obligation_b": 5.9,
+      "rd_expense_b": 1.3,
+      "xbrl_updated": "2026-07-03",
       "oligopoly": {
         "competitors": 4,
         "product": "NAND Flash",
@@ -1732,17 +1734,19 @@
       }
     },
     "WDC": {
-      "moat_score": -1,
+      "moat_score": 1,
       "moat_grade": "none",
       "moat_grade_zh": "❌ 無明顯護城河",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "⚠️ RPO衰退-35%"
+        "⚠️ RPO衰退-35%",
+        "採購義務暴增+303%",
+        "毛利成長+357%"
       ],
       "rpo_b": 0.0,
       "contract_liability_b": 0.0,
-      "purchase_obligation_b": 0.1,
+      "purchase_obligation_b": 0.3,
       "rd_expense_b": null,
       "xbrl_updated": "2022-12-30",
       "oligopoly": null
@@ -1821,14 +1825,14 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=2B (3.7x年營收)",
+        "RPO=2B (3.9x年營收)",
         "R&D佔營收45%（高研發）"
       ],
-      "rpo_b": 2.2,
-      "contract_liability_b": 0.24,
+      "rpo_b": 2.4,
+      "contract_liability_b": 0.35,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-03-31",
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "ASTS": {
@@ -1841,7 +1845,7 @@
         "R&D佔營收203%（高研發）"
       ],
       "rpo_b": null,
-      "contract_liability_b": 0.23,
+      "contract_liability_b": 0.27,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
       "xbrl_updated": "",
@@ -1865,22 +1869,19 @@
       "oligopoly": null
     },
     "LUNR": {
-      "moat_score": 6,
-      "moat_grade": "narrow",
-      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=1B (3.8x年營收)",
-        "RPO成長+671%",
-        "預付成長+227%",
-        "採購義務暴增+111%"
+        "RPO=1B (3.9x年營收)"
       ],
       "rpo_b": 0.8,
-      "contract_liability_b": 0.21,
+      "contract_liability_b": 0.22,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31",
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "ACHR": {
@@ -2004,14 +2005,14 @@
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "RPO=0B (3.6x年營收)",
+        "RPO=0B (3.7x年營收)",
         "R&D佔營收235%（高研發）"
       ],
       "rpo_b": 0.5,
       "contract_liability_b": null,
       "purchase_obligation_b": 0.1,
-      "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-03-31",
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "RGTI": {
@@ -2135,33 +2136,33 @@
       "oligopoly": null
     },
     "BTBT": {
-      "moat_score": 0,
-      "moat_grade": "none",
-      "moat_grade_zh": "❌ 無明顯護城河",
-      "moat_type": "",
-      "moat_type_zh": "",
-      "details": [],
-      "rpo_b": 0.0,
-      "contract_liability_b": 0.92,
-      "purchase_obligation_b": null,
-      "rd_expense_b": null,
-      "xbrl_updated": "2025-06-30",
-      "oligopoly": null
-    },
-    "SOUN": {
       "moat_score": 1,
       "moat_grade": "none",
       "moat_grade_zh": "❌ 無明顯護城河",
       "moat_type": "",
       "moat_type_zh": "",
       "details": [
-        "預付成長+234%"
+        "客戶預付$1.0B"
       ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 1.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "2025-06-30",
+      "oligopoly": null
+    },
+    "SOUN": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
       "rpo_b": 0.1,
       "contract_liability_b": 0.03,
       "purchase_obligation_b": 0.1,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31",
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "BBAI": {
@@ -2197,15 +2198,17 @@
       "oligopoly": null
     },
     "HIMS": {
-      "moat_score": 0,
+      "moat_score": 1,
       "moat_grade": "none",
       "moat_grade_zh": "❌ 無明顯護城河",
       "moat_type": "",
       "moat_type_zh": "",
-      "details": [],
+      "details": [
+        "採購義務暴增+92%"
+      ],
       "rpo_b": null,
       "contract_liability_b": null,
-      "purchase_obligation_b": 0.0,
+      "purchase_obligation_b": 0.1,
       "rd_expense_b": null,
       "xbrl_updated": "",
       "oligopoly": null
@@ -2393,7 +2396,7 @@
       "contract_liability_b": 0.23,
       "purchase_obligation_b": null,
       "rd_expense_b": 0.0,
-      "xbrl_updated": "2026-03-31",
+      "xbrl_updated": "2026-06-30",
       "oligopoly": null
     },
     "BLNK": {
@@ -2467,14 +2470,14 @@
       "moat_type": "switching",
       "moat_type_zh": "🔒 轉換成本",
       "details": [
-        "RPO=2B (1.5x年營收)",
+        "RPO=2B (1.7x年營收)",
         "R&D佔營收32%（高研發）"
       ],
-      "rpo_b": 1.5,
-      "contract_liability_b": 0.59,
-      "purchase_obligation_b": null,
+      "rpo_b": 1.7,
+      "contract_liability_b": 0.58,
+      "purchase_obligation_b": 0.0,
       "rd_expense_b": 0.1,
-      "xbrl_updated": "2026-04-30",
+      "xbrl_updated": "2026-07-31",
       "oligopoly": null
     },
     "TENB": {
@@ -2590,6 +2593,1971 @@
       "contract_liability_b": null,
       "purchase_obligation_b": 1.4,
       "rd_expense_b": 0.3,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "BABA": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "FISV": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "客戶預付$1.1B",
+        "無形資產$40B"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 1.08,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "GRAB": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "MELI": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收11%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.17,
+      "purchase_obligation_b": 2.3,
+      "rd_expense_b": 0.7,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "NU": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "OSCR": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SOFI": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收105%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "TWLO": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收20%（高研發）"
+      ],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.15,
+      "purchase_obligation_b": 0.3,
+      "rd_expense_b": 0.3,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "BMNR": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "CHYM": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ALAB": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收36%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.2,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ASAN": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B",
+        "R&D佔營收38%（高研發）"
+      ],
+      "rpo_b": 0.5,
+      "contract_liability_b": 0.17,
+      "purchase_obligation_b": 0.3,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-07-31",
+      "oligopoly": null
+    },
+    "CRDO": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+107%",
+        "R&D佔營收21%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "FIG": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B",
+        "R&D佔營收98%（高研發）"
+      ],
+      "rpo_b": 0.7,
+      "contract_liability_b": 0.63,
+      "purchase_obligation_b": 0.5,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "HPE": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "客戶預付$10.3B",
+        "無形資產$29B"
+      ],
+      "rpo_b": 10.9,
+      "contract_liability_b": 10.34,
+      "purchase_obligation_b": 0.3,
+      "rd_expense_b": 1.2,
+      "xbrl_updated": "2026-07-31",
+      "oligopoly": null
+    },
+    "IBM": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "無形資產$79B"
+      ],
+      "rpo_b": 68.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.3,
+      "rd_expense_b": 2.3,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "NOW": {
+      "moat_score": 6,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "switching",
+      "moat_type_zh": "🔒 轉換成本",
+      "details": [
+        "RPO=29B (2.2x年營收)",
+        "R&D佔營收22%（高研發）",
+        "無形資產$14B"
+      ],
+      "rpo_b": 29.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.8,
+      "rd_expense_b": 0.9,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "PATH": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B",
+        "R&D佔營收24%（高研發）"
+      ],
+      "rpo_b": 1.4,
+      "contract_liability_b": 0.71,
+      "purchase_obligation_b": 0.3,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-07-31",
+      "oligopoly": null
+    },
+    "RBRK": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=3B (2.0x年營收)",
+        "R&D佔營收28%（高研發）"
+      ],
+      "rpo_b": 2.6,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-07-31",
+      "oligopoly": null
+    },
+    "RDDT": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "⚠️ RPO衰退-24%",
+        "R&D佔營收36%（高研發）"
+      ],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.04,
+      "purchase_obligation_b": 0.4,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "RZLV": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SHOP": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.41,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.4,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "TEM": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收14%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.2,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "WRD": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ACMR": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收16%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ETN": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=15B",
+        "客戶預付$1.2B",
+        "無形資產$33B"
+      ],
+      "rpo_b": 15.0,
+      "contract_liability_b": 1.16,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "2024-03-31",
+      "oligopoly": null
+    },
+    "LITE": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+130%",
+        "R&D佔營收12%",
+        "毛利成長+423%"
+      ],
+      "rpo_b": 0.4,
+      "contract_liability_b": 0.02,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.4,
+      "xbrl_updated": "2021-04-03",
+      "oligopoly": null
+    },
+    "NVT": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.16,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2018-09-30",
+      "oligopoly": null
+    },
+    "NVTS": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收109%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "PENG": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B",
+        "採購義務暴增+57%",
+        "R&D佔營收24%（高研發）"
+      ],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.19,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-05-29",
+      "oligopoly": null
+    },
+    "RMBS": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.03,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-03-31",
+      "oligopoly": null
+    },
+    "VECO": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.4,
+      "contract_liability_b": 0.07,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "VRT": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.4,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "DXYZ": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "LAES": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "PL": {
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B (2.4x年營收)",
+        "R&D佔營收35%（高研發）"
+      ],
+      "rpo_b": 0.8,
+      "contract_liability_b": 0.08,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-07-31",
+      "oligopoly": null
+    },
+    "QSI": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO成長+329%",
+        "R&D佔營收2207%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2023-06-30",
+      "oligopoly": null
+    },
+    "SIDU": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+126%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SPCX": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "客戶預付$14.3B",
+        "無形資產$13B"
+      ],
+      "rpo_b": 47.5,
+      "contract_liability_b": 14.29,
+      "purchase_obligation_b": 28.0,
+      "rd_expense_b": 3.5,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "WKEY": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "HSAI": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ISRG": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收13%"
+      ],
+      "rpo_b": 1.7,
+      "contract_liability_b": 0.66,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.4,
+      "xbrl_updated": "2021-09-30",
+      "oligopoly": null
+    },
+    "SERV": {
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B (2.3x年營收)",
+        "R&D佔營收1708%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "SONY": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SRFM": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+62%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.03,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "2023-06-30",
+      "oligopoly": null
+    },
+    "TMDX": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收220%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2022-09-30",
+      "oligopoly": null
+    },
+    "ALB": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.4,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "BE": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收9%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.08,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "BKR": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=40B (1.4x年營收)"
+      ],
+      "rpo_b": 40.1,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "CCJ": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "EOSE": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收25%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "EQT": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=11B (2.2x年營收)"
+      ],
+      "rpo_b": 10.9,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "FCX": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.11,
+      "purchase_obligation_b": 4.2,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "FTAI": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.4,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "2018-09-30",
+      "oligopoly": null
+    },
+    "GEV": {
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=176B (4.6x年營收)",
+        "客戶預付$40.0B",
+        "無形資產$14B"
+      ],
+      "rpo_b": 176.3,
+      "contract_liability_b": 40.04,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.3,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "IREN": {
+      "moat_score": 5,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=5B (7.2x年營收)",
+        "RPO成長+618%",
+        "預付成長+82%"
+      ],
+      "rpo_b": 5.1,
+      "contract_liability_b": 0.22,
+      "purchase_obligation_b": 0.2,
+      "rd_expense_b": null,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "LAC": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "LEU": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B (1.8x年營收)"
+      ],
+      "rpo_b": 0.8,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "MP": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.13,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "NBIS": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "OKLO": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SLB": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "無形資產$22B"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SMR": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收145%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2024-12-31",
+      "oligopoly": null
+    },
+    "CAVA": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "CELH": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.18,
+      "purchase_obligation_b": 0.6,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "DUOL": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收30%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ONON": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SE": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "VITL": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AVAV": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B"
+      ],
+      "rpo_b": 1.5,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-08-01",
+      "oligopoly": null
+    },
+    "BYRN": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "DPRO": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "KOPN": {
+      "moat_score": 6,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B (1.0x年營收)",
+        "RPO成長+230%",
+        "R&D佔營收17%（高研發）",
+        "毛利成長+1116%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-27",
+      "oligopoly": null
+    },
+    "KTOS": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=2B (1.5x年營收)"
+      ],
+      "rpo_b": 2.1,
+      "contract_liability_b": 0.09,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-28",
+      "oligopoly": null
+    },
+    "LPTH": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "毛利成長+329%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ONDS": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "毛利成長+79%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.03,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "PDYN": {
+      "moat_score": 7,
+      "moat_grade": "narrow",
+      "moat_grade_zh": "🛡️ 窄護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B (4.7x年營收)",
+        "RPO成長+42%",
+        "預付成長+106%",
+        "R&D佔營收246%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "RCAT": {
+      "moat_score": 3,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收44%（高研發）",
+        "毛利成長+156%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "UMAC": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AAOI": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收19%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AEHR": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+174%",
+        "R&D佔營收25%（高研發）",
+        "毛利成長+594%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2024-02-29",
+      "oligopoly": null
+    },
+    "AXTI": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B (1.1x年營收)",
+        "R&D佔營收10%",
+        "毛利成長+90%"
+      ],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "CIEN": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 2.5,
+      "contract_liability_b": 0.31,
+      "purchase_obligation_b": 3.3,
+      "rd_expense_b": 0.2,
+      "xbrl_updated": "2026-08-01",
+      "oligopoly": null
+    },
+    "COHR": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收10%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.06,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.7,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "CRWV": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=104B (20.2x年營收)",
+        "客戶預付$9.7B"
+      ],
+      "rpo_b": 103.7,
+      "contract_liability_b": 9.7,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "GLW": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "客戶預付$2.7B",
+        "預付成長+108%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 2.7,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.8,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "HIMX": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "NOK": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "CTM": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "GFS": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "LIDR": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收5982%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2025-09-30",
+      "oligopoly": null
+    },
+    "LWLG": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+4111%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "POET": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AEIS": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收13%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "2021-12-31",
+      "oligopoly": null
+    },
+    "ASX": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "FORM": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收15%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.02,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-27",
+      "oligopoly": null
+    },
+    "ICHR": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "MKSI": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.12,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "MOD": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.2,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "MXL": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ONTO": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收13%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.04,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "OUST": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收38%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.02,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "SMTC": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收19%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.4,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "TTMI": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "UCTT": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "VIAV": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=1B",
+        "R&D佔營收17%（高研發）",
+        "毛利成長+316%"
+      ],
+      "rpo_b": 0.6,
+      "contract_liability_b": 0.14,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.3,
+      "xbrl_updated": "2026-06-27",
+      "oligopoly": null
+    },
+    "VRTX": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收25%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.16,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.6,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "IOVA": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收114%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "OCUL": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收379%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "NUVB": {
+      "moat_score": 4,
+      "moat_grade": "emerging",
+      "moat_grade_zh": "⚔️ 護城河形成中",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "預付成長+102%",
+        "R&D佔營收183%（高研發）",
+        "毛利成長+201%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "BYND": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收8%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "F": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 1.1,
+      "rd_expense_b": 9.4,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "RACE": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "UPWK": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "⚠️ RPO衰退-51%",
+        "R&D佔營收24%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2024-09-30",
+      "oligopoly": null
+    },
+    "OPEN": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "RIG": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": 0.19,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "WING": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AAL": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "客戶預付$21.1B"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": 21.12,
+      "purchase_obligation_b": null,
+      "rd_expense_b": null,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "AMPG": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收11%"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "APLD": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=0B",
+        "毛利成長+1984%"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": 0.0,
+      "purchase_obligation_b": 0.0,
+      "rd_expense_b": null,
+      "xbrl_updated": "2023-05-31",
+      "oligopoly": null
+    },
+    "BZAI": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收110%（高研發）"
+      ],
+      "rpo_b": 0.0,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "EVLV": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.3,
+      "contract_liability_b": 0.09,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "INFQ": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "ONMD": {
+      "moat_score": 2,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "R&D佔營收111%（高研發）"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.0,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "QNT": {
+      "moat_score": 0,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [],
+      "rpo_b": 0.1,
+      "contract_liability_b": 0.01,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.4,
+      "xbrl_updated": "2026-06-30",
+      "oligopoly": null
+    },
+    "SIRI": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "無形資產$22B"
+      ],
+      "rpo_b": null,
+      "contract_liability_b": null,
+      "purchase_obligation_b": null,
+      "rd_expense_b": 0.1,
+      "xbrl_updated": "",
+      "oligopoly": null
+    },
+    "VSAT": {
+      "moat_score": 1,
+      "moat_grade": "none",
+      "moat_grade_zh": "❌ 無明顯護城河",
+      "moat_type": "",
+      "moat_type_zh": "",
+      "details": [
+        "RPO=4B"
+      ],
+      "rpo_b": 4.2,
+      "contract_liability_b": null,
+      "purchase_obligation_b": 0.1,
+      "rd_expense_b": 0.0,
       "xbrl_updated": "2026-06-30",
       "oligopoly": null
     }
