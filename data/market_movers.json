@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T10:00:02+08:00",
+  "generated_at": "2026-10-06T11:30:26+08:00",
   "gainers": [
     {
       "symbol": "PTC",
@@ -66,19 +66,19 @@
       "vr": ""
     },
     {
-      "symbol": "BDORY",
-      "name": "Banco Do Brasil SA",
-      "price": 5.29,
-      "change_pct": 17.04,
-      "volume": 954767,
-      "vr": ""
-    },
-    {
       "symbol": "SBS",
       "name": "Companhia de saneamento Basico ",
       "price": 6.26,
       "change_pct": 16.36,
       "volume": 28184587,
+      "vr": ""
+    },
+    {
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 9.92,
+      "change_pct": 15.48,
+      "volume": 113265593,
       "vr": ""
     }
   ],
