@@ -209,7 +209,11 @@
       "prev_score": 6,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-3.1%，與吸籌訊號矛盾",
+        "空頭35%（高空頭壓力）"
+      ]
     },
     {
       "symbol": "PACB",
@@ -251,7 +255,11 @@
       "prev_score": 7,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-5.9%，與吸籌訊號矛盾",
+        "空頭18%（高空頭壓力）"
+      ]
     },
     {
       "symbol": "NVAX",
@@ -293,7 +301,11 @@
       "prev_score": 7,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-9.9%，與吸籌訊號矛盾",
+        "空頭30%（高空頭壓力）"
+      ]
     },
     {
       "symbol": "AAPL",
@@ -1763,7 +1775,10 @@
       "prev_score": 5,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-3.2%，與吸籌訊號矛盾"
+      ]
     },
     {
       "symbol": "SMCI",
@@ -1889,7 +1904,10 @@
       "prev_score": 6,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-5.8%，與吸籌訊號矛盾"
+      ]
     },
     {
       "symbol": "MRNA",
@@ -1931,7 +1949,11 @@
       "prev_score": 5,
       "market_sentiment": 84.3,
       "cnn_fg": 47.4,
-      "vix": 15.01
+      "vix": 15.01,
+      "event_warnings": [
+        "⚠️ 今日跌-7.8%，與吸籌訊號矛盾",
+        "📰 近期2則負面新聞"
+      ]
     },
     {
       "symbol": "QLYS",
