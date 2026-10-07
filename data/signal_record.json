@@ -512,12 +512,39 @@
       "price": 63.45,
       "regime": "STRONG_BULL",
       "confidence": 38
+    },
+    {
+      "date": "2026-10-07",
+      "symbol": "NVDA",
+      "action": "BUY",
+      "score": 7,
+      "price": 239.24,
+      "regime": "STRONG_BULL",
+      "confidence": 76
+    },
+    {
+      "date": "2026-10-07",
+      "symbol": "TSM",
+      "action": "BUY",
+      "score": 7,
+      "price": 482.3,
+      "regime": "STRONG_BULL",
+      "confidence": 58
+    },
+    {
+      "date": "2026-10-07",
+      "symbol": "NVAX",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 11.32,
+      "regime": "STRONG_BULL",
+      "confidence": 31
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-06",
-    "total_entries": 57
+    "last_updated": "2026-10-07",
+    "total_entries": 60
   }
 }
