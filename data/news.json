@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-06T11:30:26+08:00",
+  "generated_at": "2026-10-07T10:00:02+08:00",
   "news": [
+    {
+      "title": "A Guide to Low-Cost ETFs",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-130000918.html",
+      "publisher": "Zacks",
+      "published": 1791291600
+    },
     {
       "title": "The Hidden Cost of Owning Every Stock: $167,050 of a $500,000 VTI Position Sits in Its Top Ten Names",
       "url": "https://finance.yahoo.com/markets/stocks/articles/hidden-cost-owning-every-stock-003342923.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/no-1-reason-im-buying-162500377.html",
       "publisher": "Motley Fool",
       "published": 1789489500
-    },
-    {
-      "title": "If You Left a 401(k) Behind at Your Old Job, These 4 ETFs Are What the Rollover Should Look Like",
-      "url": "https://finance.yahoo.com/markets/options/articles/left-401-k-behind-old-212541401.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1789421141
     }
   ]
 }
