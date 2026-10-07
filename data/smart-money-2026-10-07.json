@@ -1,53 +1,62 @@
 {
   "date": "2026-10-07",
-  "generated_at": "2026-10-07T09:51:05.617105+08:00",
+  "generated_at": "2026-10-07T10:02:48.373660+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 5,
+  "count": 6,
   "stocks": [
+    {
+      "symbol": "OPCH",
+      "name": "Option Care Health, Inc.",
+      "price": 31.0,
+      "change_pct": 32.65,
+      "vol_ratio": 20.4,
+      "volume": 65081516,
+      "avg_volume": 3190270
+    },
     {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
-      "price": 12.39,
-      "change_pct": 3.94,
-      "vol_ratio": 26.2,
-      "volume": 183061500,
-      "avg_volume": 6987080
+      "price": 13.91,
+      "change_pct": 12.27,
+      "vol_ratio": 4.6,
+      "volume": 45113936,
+      "avg_volume": 9807377
     },
     {
-      "symbol": "ITUB",
-      "name": "Itau Unibanco Banco Holding SA",
-      "price": 9.92,
-      "change_pct": 15.48,
-      "vol_ratio": 5.1,
-      "volume": 113265593,
-      "avg_volume": 22208939
+      "symbol": "RXRX",
+      "name": "Recursion Pharmaceuticals, Inc.",
+      "price": 4.63,
+      "change_pct": -3.14,
+      "vol_ratio": 3.6,
+      "volume": 71049662,
+      "avg_volume": 19736017
     },
     {
       "symbol": "BBD",
       "name": "Banco Bradesco Sa",
-      "price": 4.33,
-      "change_pct": 18.75,
-      "vol_ratio": 4.3,
-      "volume": 127310554,
-      "avg_volume": 29607105
+      "price": 4.51,
+      "change_pct": 4.16,
+      "vol_ratio": 2.9,
+      "volume": 92145353,
+      "avg_volume": 31774259
     },
     {
-      "symbol": "PBR",
-      "name": "Petroleo Brasileiro S.A. Petrob",
-      "price": 24.14,
-      "change_pct": 11.5,
-      "vol_ratio": 3.7,
-      "volume": 70054977,
-      "avg_volume": 18933777
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 287.01,
+      "change_pct": 5.81,
+      "vol_ratio": 2.3,
+      "volume": 51208061,
+      "avg_volume": 22264374
     },
     {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 15.18,
-      "change_pct": 13.03,
+      "symbol": "DNN",
+      "name": "Denison Mines Corp",
+      "price": 2.71,
+      "change_pct": 3.04,
       "vol_ratio": 2.2,
-      "volume": 180382266,
-      "avg_volume": 81991939
+      "volume": 55639515,
+      "avg_volume": 25290688
     }
   ]
 }
