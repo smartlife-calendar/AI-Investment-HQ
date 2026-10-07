@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /tw/
+Allow: /en/
 Allow: /daily/
-Allow: /earnings/
+Allow: /news/
+Allow: /reports/
+Allow: /tw/reports/
 Disallow: /data/
 Disallow: /tw/data/
 Disallow: /*?persona=
