@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-07T10:42:37+08:00",
+  "generated_at": "2026-10-08T10:00:02+08:00",
   "news": [
+    {
+      "title": "US Stocks Retake the Lead From International",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/us-stocks-retake-lead-international-011950170.html",
+      "publisher": "etf.com",
+      "published": 1791422390
+    },
     {
       "title": "A Guide to Low-Cost ETFs",
       "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-130000918.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/bought-voo-vti-diversification-85-210512265.html",
       "publisher": "24/7 Wall St.",
       "published": 1789506312
-    },
-    {
-      "title": "This Is the No. 1 Reason I'm Buying and Holding the Vanguard Total Stock Market ETF (VTI) Right Now",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/no-1-reason-im-buying-162500377.html",
-      "publisher": "Motley Fool",
-      "published": 1789489500
     }
   ]
 }
