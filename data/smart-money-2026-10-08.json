@@ -1,62 +1,53 @@
 {
   "date": "2026-10-08",
-  "generated_at": "2026-10-08T09:08:00.891438+08:00",
+  "generated_at": "2026-10-08T10:02:43.091332+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 6,
+  "count": 5,
   "stocks": [
     {
-      "symbol": "OPCH",
-      "name": "Option Care Health, Inc.",
-      "price": 31.0,
-      "change_pct": 32.65,
-      "vol_ratio": 20.4,
-      "volume": 65081516,
-      "avg_volume": 3190270
+      "symbol": "BULL",
+      "name": "Webull Corporation",
+      "price": 5.89,
+      "change_pct": -19.09,
+      "vol_ratio": 6.2,
+      "volume": 80935317,
+      "avg_volume": 13054083
     },
     {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
-      "price": 13.91,
-      "change_pct": 12.27,
-      "vol_ratio": 4.6,
-      "volume": 45113936,
-      "avg_volume": 9807377
+      "price": 14.45,
+      "change_pct": 3.88,
+      "vol_ratio": 3.8,
+      "volume": 41241255,
+      "avg_volume": 10852961
     },
     {
-      "symbol": "RXRX",
-      "name": "Recursion Pharmaceuticals, Inc.",
-      "price": 4.63,
-      "change_pct": -3.14,
-      "vol_ratio": 3.6,
-      "volume": 71049662,
-      "avg_volume": 19736017
+      "symbol": "SKYD",
+      "name": "Paramount Skydance Corporation",
+      "price": 8.89,
+      "change_pct": -6.72,
+      "vol_ratio": 2.6,
+      "volume": 43231834,
+      "avg_volume": 16627628
+    },
+    {
+      "symbol": "QXO",
+      "name": "QXO, Inc.",
+      "price": 11.31,
+      "change_pct": -6.61,
+      "vol_ratio": 2.4,
+      "volume": 46448264,
+      "avg_volume": 19353443
     },
     {
       "symbol": "BBD",
       "name": "Banco Bradesco Sa",
-      "price": 4.51,
-      "change_pct": 4.16,
-      "vol_ratio": 2.9,
-      "volume": 92145353,
-      "avg_volume": 31774259
-    },
-    {
-      "symbol": "MRVL",
-      "name": "Marvell Technology, Inc.",
-      "price": 287.01,
-      "change_pct": 5.81,
-      "vol_ratio": 2.3,
-      "volume": 51208061,
-      "avg_volume": 22264374
-    },
-    {
-      "symbol": "DNN",
-      "name": "Denison Mines Corp",
-      "price": 2.71,
-      "change_pct": 3.04,
-      "vol_ratio": 2.2,
-      "volume": 55639515,
-      "avg_volume": 25290688
+      "price": 4.34,
+      "change_pct": -3.77,
+      "vol_ratio": 2.0,
+      "volume": 65758032,
+      "avg_volume": 32879016
     }
   ]
 }
