@@ -225,6 +225,12 @@
 <link rel="canonical" href="https://stockiq.tw/">
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+    <!-- BMC Support Bar -->
+    <div style="background:linear-gradient(90deg,#f59e0b,#d97706);text-align:center;padding:6px 12px;font-size:12px">
+        <a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="color:white;text-decoration:none;font-weight:600">
+            ☕ 覺得 StockIQ 有用？<span style="text-decoration:underline;margin-left:4px">請我喝杯咖啡</span> — 支持我們持續開發免費工具
+        </a>
+    </div>
     <!-- Market Index Ticker Bar -->
     <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
         <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
@@ -5383,6 +5389,39 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
             }
         }
 
+</script>
+
+<!-- BMC Popup -->
+<div id="bmcPopup" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center">
+    <div style="background:white;border-radius:16px;padding:28px;max-width:360px;margin:20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);position:relative">
+        <button onclick="closeBmcPopup()" style="position:absolute;top:8px;right:12px;background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer">✕</button>
+        <div style="font-size:40px;margin-bottom:12px">☕</div>
+        <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:8px">覺得 StockIQ 有用嗎？</div>
+        <div style="font-size:13px;color:#64748b;margin-bottom:16px;line-height:1.6">
+            我們每天免費分析 296 支美股 + 1,960 支台股<br>
+            如果幫到你，請我們喝杯咖啡吧 ❤️
+        </div>
+        <a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" onclick="closeBmcPopup()" style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;padding:10px 28px;border-radius:24px;font-size:14px;font-weight:700;text-decoration:none;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
+            ☕ 請我喝杯咖啡
+        </a>
+        <div style="margin-top:12px">
+            <button onclick="closeBmcPopup()" style="background:none;border:none;color:#94a3b8;font-size:12px;cursor:pointer">下次再說</button>
+        </div>
+    </div>
+</div>
+<script>
+function closeBmcPopup(){
+    document.getElementById('bmcPopup').style.display='none';
+    sessionStorage.setItem('bmcDismissed','1');
+}
+(function(){
+    if(sessionStorage.getItem('bmcDismissed')) return;
+    setTimeout(function(){
+        if(!sessionStorage.getItem('bmcDismissed')){
+            document.getElementById('bmcPopup').style.display='flex';
+        }
+    }, 90000);
+})();
 </script>
 </body>
 </html>
