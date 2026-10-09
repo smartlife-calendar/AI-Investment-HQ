@@ -548,12 +548,75 @@
       "price": 502.67,
       "regime": "STRONG_BULL",
       "confidence": 58
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "CVX",
+      "action": "BUY",
+      "score": 8,
+      "price": 211.55,
+      "regime": "STRONG_BULL",
+      "confidence": 87
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "MELI",
+      "action": "BUY",
+      "score": 8,
+      "price": 1856.66,
+      "regime": "STRONG_BULL",
+      "confidence": 63
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "PENG",
+      "action": "BUY",
+      "score": 7,
+      "price": 71.57,
+      "regime": "STRONG_BULL",
+      "confidence": 58
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "XOM",
+      "action": "BUY",
+      "score": 7,
+      "price": 168.5,
+      "regime": "STRONG_BULL",
+      "confidence": 58
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "HD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 295.47,
+      "regime": "STRONG_BULL",
+      "confidence": 47
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "XLE",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 65.24,
+      "regime": "STRONG_BULL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-09",
+      "symbol": "PM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 200.5,
+      "regime": "STRONG_BULL",
+      "confidence": 33
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-08",
-    "total_entries": 61
+    "last_updated": "2026-10-09",
+    "total_entries": 68
   }
 }
