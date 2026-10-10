@@ -1,9 +1,27 @@
 {
   "date": "2026-10-10",
-  "generated_at": "2026-10-10T09:43:35.058521+08:00",
+  "generated_at": "2026-10-10T10:02:55.441769+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 3,
   "stocks": [
+    {
+      "symbol": "ASTS",
+      "name": "AST SpaceMobile, Inc.",
+      "price": 50.97,
+      "change_pct": -10.48,
+      "vol_ratio": 4.4,
+      "volume": 54011382,
+      "avg_volume": 12275314
+    },
+    {
+      "symbol": "VZ",
+      "name": "Verizon Communications Inc.",
+      "price": 41.65,
+      "change_pct": -8.75,
+      "vol_ratio": 4.3,
+      "volume": 94888715,
+      "avg_volume": 22067143
+    },
     {
       "symbol": "T",
       "name": "AT&T Inc.",
