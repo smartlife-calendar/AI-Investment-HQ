@@ -1,35 +1,17 @@
 {
   "date": "2026-10-10",
-  "generated_at": "2026-10-10T09:13:11.261928+08:00",
+  "generated_at": "2026-10-10T09:43:35.058521+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 1,
   "stocks": [
     {
-      "symbol": "CMG",
-      "name": "Chipotle Mexican Grill, Inc.",
-      "price": 32.68,
-      "change_pct": 6.21,
-      "vol_ratio": 4.1,
-      "volume": 70870702,
-      "avg_volume": 17285537
-    },
-    {
-      "symbol": "SKYD",
-      "name": "Paramount Skydance Corporation",
-      "price": 9.28,
-      "change_pct": 4.39,
-      "vol_ratio": 3.0,
-      "volume": 54382658,
-      "avg_volume": 18127552
-    },
-    {
-      "symbol": "DNN",
-      "name": "Denison Mines Corp",
-      "price": 2.36,
-      "change_pct": -7.81,
-      "vol_ratio": 2.2,
-      "volume": 56727592,
-      "avg_volume": 25785269
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 22.18,
+      "change_pct": -9.81,
+      "vol_ratio": 3.1,
+      "volume": 150217381,
+      "avg_volume": 48457219
     }
   ]
 }
