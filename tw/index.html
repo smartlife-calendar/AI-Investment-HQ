@@ -1327,20 +1327,24 @@ if(!sessionStorage.getItem('bmcX'))setTimeout(function(){if(!sessionStorage.getI
 </script>
 
 
-<div id="gtBox" style="position:fixed;bottom:16px;right:16px;z-index:9999">
+
+<div style="position:fixed;bottom:16px;right:16px;z-index:9999">
 <div id="langMenu" style="display:none;background:white;border-radius:12px;padding:8px;margin-bottom:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);min-width:140px">
 <div style="font-size:10px;color:#94a3b8;padding:4px 8px;font-weight:700">Select Language</div>
-<a onclick="gtGo('en')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇺🇸 English</a>
-<a onclick="gtGo('ja')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇯🇵 日本語</a>
-<a onclick="gtGo('ko')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇰🇷 한국어</a>
-<a onclick="gtGo('th')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇹🇭 ไทย</a>
-<a onclick="gtGo('vi')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇻🇳 Tiếng Việt</a>
-<a onclick="gtGo('id')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇮🇩 Bahasa</a>
+<a onclick="setLang('/zh-TW/zh-TW')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇹🇼 繁體中文</a>
+<a onclick="setLang('/zh-TW/en')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇺🇸 English</a>
+<a onclick="setLang('/zh-TW/ja')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇯🇵 日本語</a>
+<a onclick="setLang('/zh-TW/ko')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇰🇷 한국어</a>
+<a onclick="setLang('/zh-TW/th')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇹🇭 ไทย</a>
+<a onclick="setLang('/zh-TW/vi')" style="display:block;padding:6px 12px;font-size:13px;color:#1e293b;cursor:pointer;border-radius:6px;text-decoration:none" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background=''">🇻🇳 Tiếng Việt</a>
 </div>
 <button onclick="var m=document.getElementById('langMenu');m.style.display=m.style.display==='none'?'block':'none'" style="background:#1e40af;color:white;border:none;padding:10px 16px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.2)">🌐 Translate</button>
 </div>
 <script>
-function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW&tl='+lang+'&u='+encodeURIComponent(window.location.href),'_self');document.getElementById('langMenu').style.display='none';}
+function setLang(v){document.cookie='googtrans='+v+';path=/;domain=.'+location.hostname;document.cookie='googtrans='+v+';path=/';location.reload();}
 </script>
+<script src="//translate.google.com/translate_a/element.js?cb=gtElInit"></script>
+<script>function gtElInit(){new google.translate.TranslateElement({pageLanguage:'zh-TW',autoDisplay:false},'_gtDummy');};</script>
+<div id="_gtDummy" style="display:none"></div>
 </body>
 </html>
