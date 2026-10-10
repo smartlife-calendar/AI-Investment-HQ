@@ -1,118 +1,119 @@
 {
-  "generated_at": "2026-10-10T09:32:45+08:00",
+  "date": "2026-10-10",
+  "generated_at": "2026-10-10T10:00:02.441320+00:00",
   "sectors": [
     {
-      "etf": "XLE",
-      "name": "能源 Energy",
-      "price": 65.24,
-      "daily_chg": 2.97,
-      "vol_ratio": 0.84,
+      "etf": "XLRE",
+      "name": "房地產 RE",
+      "price": 41.61,
+      "daily_chg": 1.86,
+      "vol_ratio": 0.86,
       "flow": "🟢 流入",
-      "mcap_b": 90,
-      "dollar_flow_b": 2.7
+      "mcap_b": 35,
+      "dollar_flow_b": 0.3
     },
     {
-      "etf": "XLP",
-      "name": "必需消費 Staples",
-      "price": 83.42,
-      "daily_chg": 2.11,
-      "vol_ratio": 0.73,
+      "etf": "XLV",
+      "name": "醫療 Health",
+      "price": 170.81,
+      "daily_chg": 1.58,
+      "vol_ratio": 0.84,
       "flow": "🟢 流入",
-      "mcap_b": 85,
-      "dollar_flow_b": 1.8
+      "mcap_b": 195,
+      "dollar_flow_b": 1.2
+    },
+    {
+      "etf": "XLY",
+      "name": "非必需消費 Cyclical",
+      "price": 112.85,
+      "daily_chg": 1.02,
+      "vol_ratio": 1.07,
+      "flow": "🟢 流入",
+      "mcap_b": 185,
+      "dollar_flow_b": 0.8
     },
     {
       "etf": "XLF",
       "name": "金融 Finance",
-      "price": 54.23,
-      "daily_chg": 0.89,
+      "price": 54.73,
+      "daily_chg": 0.92,
       "vol_ratio": 1.04,
       "flow": "🟢 流入",
       "mcap_b": 165,
-      "dollar_flow_b": 1.5
+      "dollar_flow_b": 1.9
     },
     {
-      "etf": "XLC",
-      "name": "通訊 Comm",
-      "price": 112.07,
-      "daily_chg": 0.73,
-      "vol_ratio": 1.06,
+      "etf": "XLU",
+      "name": "公用事業 Utilities",
+      "price": 41.41,
+      "daily_chg": 0.83,
+      "vol_ratio": 0.46,
       "flow": "🟢 流入",
-      "mcap_b": 130,
-      "dollar_flow_b": 0.9
+      "mcap_b": 65,
+      "dollar_flow_b": 0.7
     },
     {
-      "etf": "XLRE",
-      "name": "房地產 RE",
-      "price": 40.85,
-      "daily_chg": 0.69,
-      "vol_ratio": 0.86,
+      "etf": "XLK",
+      "name": "科技 Tech",
+      "price": 198.78,
+      "daily_chg": 0.51,
+      "vol_ratio": 0.82,
       "flow": "🟢 流入",
-      "mcap_b": 35,
-      "dollar_flow_b": 0.2
+      "mcap_b": 680,
+      "dollar_flow_b": 1.1
+    },
+    {
+      "etf": "XLI",
+      "name": "工業 Industrial",
+      "price": 169.25,
+      "daily_chg": 0.5,
+      "vol_ratio": 0.58,
+      "flow": "🟢 流入",
+      "mcap_b": 145,
+      "dollar_flow_b": 0.7
     },
     {
       "etf": "XLB",
       "name": "原材料 Materials",
-      "price": 49.27,
-      "daily_chg": 0.59,
+      "price": 49.43,
+      "daily_chg": 0.32,
       "vol_ratio": 0.62,
       "flow": "🟢 流入",
       "mcap_b": 45,
       "dollar_flow_b": 0.3
     },
     {
-      "etf": "XLI",
-      "name": "工業 Industrial",
-      "price": 168.4,
-      "daily_chg": 0.33,
-      "vol_ratio": 0.57,
-      "flow": "🟢 流入",
-      "mcap_b": 145,
-      "dollar_flow_b": 0.5
-    },
-    {
-      "etf": "XLY",
-      "name": "非必需消費 Cyclical",
-      "price": 111.71,
-      "daily_chg": 0.31,
-      "vol_ratio": 1.07,
-      "flow": "🟢 流入",
-      "mcap_b": 185,
+      "etf": "XLP",
+      "name": "必需消費 Staples",
+      "price": 83.43,
+      "daily_chg": 0.01,
+      "vol_ratio": 0.73,
+      "flow": "⚪ 持平",
+      "mcap_b": 85,
       "dollar_flow_b": 0.6
     },
     {
-      "etf": "XLU",
-      "name": "公用事業 Utilities",
-      "price": 41.07,
-      "daily_chg": -0.19,
-      "vol_ratio": 0.46,
-      "flow": "⚪ 持平",
-      "mcap_b": 65,
-      "dollar_flow_b": -0.1
-    },
-    {
-      "etf": "XLV",
-      "name": "醫療 Health",
-      "price": 168.16,
-      "daily_chg": -0.39,
+      "etf": "XLE",
+      "name": "能源 Energy",
+      "price": 65.08,
+      "daily_chg": -0.25,
       "vol_ratio": 0.84,
-      "flow": "🔴 流出",
-      "mcap_b": 195,
-      "dollar_flow_b": -0.8
+      "flow": "⚪ 持平",
+      "mcap_b": 90,
+      "dollar_flow_b": -1.8
     },
     {
-      "etf": "XLK",
-      "name": "科技 Tech",
-      "price": 197.78,
-      "daily_chg": -1.79,
-      "vol_ratio": 0.82,
+      "etf": "XLC",
+      "name": "通訊 Comm",
+      "price": 110.38,
+      "daily_chg": -1.51,
+      "vol_ratio": 1.06,
       "flow": "🔴 流出",
-      "mcap_b": 680,
-      "dollar_flow_b": -12.2
+      "mcap_b": 130,
+      "dollar_flow_b": -0.7
     }
   ],
-  "net_flow_b": -4.6,
-  "total_in_b": 8.5,
-  "total_out_b": -13.1
+  "net_flow_b": 5.1,
+  "total_in_b": 7.6,
+  "total_out_b": -2.5
 }
