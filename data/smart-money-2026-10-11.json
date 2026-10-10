@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-11",
+  "generated_at": "2026-10-11T00:27:09.765992+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 22.18,
+      "change_pct": -9.81,
+      "vol_ratio": 3.1,
+      "volume": 150217381,
+      "avg_volume": 48457219
+    }
+  ]
+}
