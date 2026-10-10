@@ -1,6 +1,18 @@
 {
-  "generated_at": "2026-10-09T10:00:02+08:00",
+  "generated_at": "2026-10-10T09:32:45+08:00",
   "news": [
+    {
+      "title": "The S&P 500's Safety Net Is Disappearing. History Says Investors Shouldn't Ignore It.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/p-500s-safety-net-disappearing-123500407.html",
+      "publisher": "Motley Fool",
+      "published": 1791549300
+    },
+    {
+      "title": "Jack Bogle Said ‘Just Buy the Haystack.’ $200 a Month Starting at 30 Could Mean $668,000 by 65",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jack-bogle-said-just-buy-111552580.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1791544552
+    },
     {
       "title": "At 68 With $780,000, Do You Live on the Dividends or Sell Shares? These 3 ETFs Let You Do Both",
       "url": "https://finance.yahoo.com/markets/stocks/articles/68-780-000-live-dividends-203327791.html",
@@ -78,18 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/voo-0-03-fee-hides-215550385.html",
       "publisher": "24/7 Wall St.",
       "published": 1790027750
-    },
-    {
-      "title": "VOO and SPYM Track the Same S&P 500, Yet Only One Is Allowed in Your Kid’s Trump Account",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-spym-track-same-p-175934057.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1790013574
-    },
-    {
-      "title": "Bonds in the IRA or in the Taxable Account? Park Them in the Wrong One and the IRS Takes a Cut Every Year. These 3 ETFs Go Where They Belong",
-      "url": "https://finance.yahoo.com/markets/options/articles/bonds-ira-taxable-account-park-215553567.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1789682153
     }
   ]
 }
