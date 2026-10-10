@@ -1,7 +1,7 @@
 {
   "created": "2026-09-04",
   "initial_capital": 100000,
-  "cash": 4853.16,
+  "cash": 8826.57,
   "positions": {
     "MA": {
       "entry_date": "2026-09-04",
@@ -11,11 +11,11 @@
       "score": 7,
       "action": "BUY",
       "stop_loss": 528.08,
-      "peak_price": 585.71,
+      "peak_price": 589.14,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 574.76,
-      "current_return": 0.13
+      "current_price": 589.14,
+      "current_return": 2.64
     },
     "EBAY": {
       "entry_date": "2026-09-04",
@@ -28,8 +28,8 @@
       "peak_price": 112.9,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 111.98,
-      "current_return": 7.94
+      "current_price": 112.19,
+      "current_return": 8.15
     },
     "XLE": {
       "entry_date": "2026-09-04",
@@ -42,8 +42,8 @@
       "peak_price": 65.93,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 65.24,
-      "current_return": 3.02
+      "current_price": 65.08,
+      "current_return": 2.76
     },
     "SONY": {
       "entry_date": "2026-09-05",
@@ -56,8 +56,8 @@
       "peak_price": 24.56,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 23.95,
-      "current_return": -0.5
+      "current_price": 24.12,
+      "current_return": 0.21
     },
     "NVT": {
       "entry_date": "2026-09-22",
@@ -70,8 +70,8 @@
       "peak_price": 173.8,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 164.2,
-      "current_return": 5.09
+      "current_price": 167.43,
+      "current_return": 7.16
     },
     "HPE": {
       "entry_date": "2026-09-22",
@@ -81,11 +81,11 @@
       "score": 7,
       "action": "BUY",
       "stop_loss": 55.68,
-      "peak_price": 72.09,
+      "peak_price": 73.46,
       "t1_hit": true,
       "t2_hit": false,
-      "current_price": 71.0,
-      "current_return": 17.32,
+      "current_price": 73.46,
+      "current_return": 21.38,
       "t1_date": "2026-10-07"
     },
     "ETN": {
@@ -99,22 +99,23 @@
       "peak_price": 445.09,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 424.51,
-      "current_return": -0.52
+      "current_price": 429.65,
+      "current_return": 0.69
     },
     "ZS": {
       "entry_date": "2026-09-22",
       "entry_price": 202.99,
-      "shares": 35,
+      "shares": 18,
       "cost": 7104.65,
       "score": 7,
       "action": "SCALE_IN",
       "stop_loss": 186.75,
-      "peak_price": 216.81,
-      "t1_hit": false,
+      "peak_price": 233.73,
+      "t1_hit": true,
       "t2_hit": false,
-      "current_price": 216.81,
-      "current_return": 6.81
+      "current_price": 233.73,
+      "current_return": 15.14,
+      "t1_date": "2026-10-10"
     },
     "XOVR": {
       "entry_date": "2026-09-24",
@@ -127,8 +128,8 @@
       "peak_price": 22.43,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 21.85,
-      "current_return": 5.05
+      "current_price": 22.18,
+      "current_return": 6.63
     },
     "CVX": {
       "entry_date": "2026-10-09",
@@ -138,11 +139,11 @@
       "score": 8,
       "action": "BUY",
       "stop_loss": 190.73,
-      "peak_price": 207.32,
+      "peak_price": 211.98,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 211.55,
-      "current_return": 2.04
+      "current_price": 211.98,
+      "current_return": 2.25
     }
   },
   "closed_trades": [
@@ -222,6 +223,17 @@
       "return_pct": -9.46,
       "pnl": -942.76,
       "reason": "停損 -9.5%"
+    },
+    {
+      "symbol": "ZS",
+      "entry_date": "2026-09-22",
+      "exit_date": "2026-10-10",
+      "entry_price": 202.99,
+      "exit_price": 233.73,
+      "shares": 17,
+      "return_pct": 15.14,
+      "pnl": 522.58,
+      "reason": "T1停利 +15.1%（賣半）"
     }
   ],
   "daily_nav": [
@@ -440,23 +452,31 @@
       "positions_value": 94225.21,
       "n_positions": 10,
       "return_pct": -0.92
+    },
+    {
+      "date": "2026-10-10",
+      "nav": 100675.58,
+      "cash": 8826.57,
+      "positions_value": 91849.01,
+      "n_positions": 10,
+      "return_pct": 0.68
     }
   ],
   "cooldown": {
     "BNTX": "2026-10-14"
   },
   "stats": {
-    "total_trades": 7,
+    "total_trades": 8,
     "open_positions": 10,
-    "win_rate": 14.3,
-    "avg_return": -5.22,
-    "avg_win": 16.46,
+    "win_rate": 25.0,
+    "avg_return": -2.68,
+    "avg_win": 15.8,
     "avg_loss": -8.83,
-    "total_pnl": -4452.21,
-    "nav": 99078.37,
-    "nav_return_pct": -0.92,
-    "cash": 4853.16,
+    "total_pnl": -3929.63,
+    "nav": 100675.58,
+    "nav_return_pct": 0.68,
+    "cash": 8826.57,
     "regime": "STRONG_BULL",
-    "last_updated": "2026-10-09"
+    "last_updated": "2026-10-10"
   }
 }
