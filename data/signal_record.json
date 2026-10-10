@@ -611,12 +611,48 @@
       "price": 200.5,
       "regime": "STRONG_BULL",
       "confidence": 33
+    },
+    {
+      "date": "2026-10-10",
+      "symbol": "NU",
+      "action": "BUY",
+      "score": 7,
+      "price": 16.12,
+      "regime": "STRONG_BULL",
+      "confidence": 59
+    },
+    {
+      "date": "2026-10-10",
+      "symbol": "AMZN",
+      "action": "BUY",
+      "score": 7,
+      "price": 262.43,
+      "regime": "STRONG_BULL",
+      "confidence": 57
+    },
+    {
+      "date": "2026-10-10",
+      "symbol": "SONY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 24.12,
+      "regime": "STRONG_BULL",
+      "confidence": 39
+    },
+    {
+      "date": "2026-10-10",
+      "symbol": "MDB",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 385.93,
+      "regime": "STRONG_BULL",
+      "confidence": 30
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-09",
-    "total_entries": 68
+    "last_updated": "2026-10-10",
+    "total_entries": 72
   }
 }
