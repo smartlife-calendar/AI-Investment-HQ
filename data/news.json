@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-10T10:00:02+08:00",
+  "generated_at": "2026-10-10T17:37:14+08:00",
   "news": [
+    {
+      "title": "A Guide to Low-Cost ETFs",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-081900377.html",
+      "publisher": "Zacks",
+      "published": 1791620340
+    },
     {
       "title": "The S&P 500's Safety Net Is Disappearing. History Says Investors Shouldn't Ignore It.",
       "url": "https://finance.yahoo.com/markets/stocks/articles/p-500s-safety-net-disappearing-123500407.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/retired-couple-sell-98-900-211041761.html",
       "publisher": "24/7 Wall St.",
       "published": 1790111441
-    },
-    {
-      "title": "VOO’s 0.03% Fee Hides the Real Cost: State Street Now Sells the Same 500 Stocks for a Third Less",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-0-03-fee-hides-215550385.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1790027750
     }
   ]
 }
