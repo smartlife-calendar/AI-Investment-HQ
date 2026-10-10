@@ -223,9 +223,7 @@
     <meta name="stockiq-version" content="451f589" data-date="2026-07-20" data-version="v2026.07.26-weekly">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"StockIQ","url":"https://stockiq.tw","description":"AI美股交易分析平台","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"zh-TW"}</script>
 <link rel="canonical" href="https://stockiq.tw/">
-<script src="//translate.google.com/translate_a/element.js?cb=gtInit"></script>
-<script>function gtInit(){new google.translate.TranslateElement({pageLanguage:'zh-TW',includedLanguages:'en,ja,ko,th,vi,id,ms',layout:google.translate.TranslateElement.InlineLayout.SIMPLE,autoDisplay:false},'gtWidget');}</script>
-<style>.goog-te-banner-frame{display:none!important}.skiptranslate{display:none!important}body{top:0!important}#gtWidget{display:inline-block}#gtWidget .goog-te-gadget{font-size:0!important}#gtWidget .goog-te-gadget .goog-te-combo{font-size:12px;padding:2px 4px;border:1px solid rgba(255,255,255,0.3);border-radius:4px;background:rgba(255,255,255,0.1);color:white;outline:none;cursor:pointer}</style>
+
 </head>
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
     <!-- BMC Support Bar -->
@@ -234,7 +232,6 @@
             ☕ 覺得 StockIQ 有用？<span style="text-decoration:underline;margin-left:4px">請我喝杯咖啡</span> — 支持我們持續開發免費工具
         </a>
     </div>
-    <div style="position:fixed;top:8px;right:12px;z-index:999"><div id="gtWidget"></div></div>
     <!-- Market Index Ticker Bar -->
     <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
         <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
@@ -5427,5 +5424,11 @@ function closeBmcPopup(){
     }, 30000);
 })();
 </script>
+<div id="gtBox" style="position:fixed;bottom:16px;right:16px;z-index:9999">
+<div id="google_translate_element" style="display:none"></div>
+<button onclick="document.getElementById('google_translate_element').style.display='block';this.style.display='none'" style="background:#1e40af;color:white;border:none;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2)">🌐 Translate</button>
+</div>
+<script src="//translate.google.com/translate_a/element.js?cb=gtInit"></script>
+<script>function gtInit(){new google.translate.TranslateElement({pageLanguage:'zh-TW',includedLanguages:'en,ja,ko,th,vi',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}</script>
 </body>
 </html>
