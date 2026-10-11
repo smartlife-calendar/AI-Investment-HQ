@@ -2912,6 +2912,122 @@ async function loadSmartBacktest() {
             else if (tab === 'guide') { showTab('guide'); }
         }
 
+        
+        async function loadTradingSignals() {
+            var el = document.getElementById('smartMoneyContent');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入操作訊號...</p>';
+            try {
+                var r = await fetch('/data/signals.json?t=' + Date.now());
+                var data = await r.json();
+                var signals = data.signals || [];
+                var regime = data.market_regime || {};
+                
+                var h = '<div style="margin-bottom:12px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">';
+                h += '<h3 style="font-size:16px;font-weight:800;margin:0">📡 操作訊號</h3>';
+                h += '<span style="font-size:11px;color:#94a3b8">' + (data.generated_at || '').substring(0,10) + ' · ' + signals.length + ' 支</span>';
+                h += '</div>';
+                
+                // Market regime summary
+                if (regime.phase) {
+                    h += '<div style="background:#f8fafc;border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px">';
+                    h += '<strong>市場階段:</strong> ' + (regime.phase || '') + ' · ';
+                    h += '<strong>風險:</strong> ' + (regime.risk_level || '') + ' · ';
+                    h += '<strong>建議:</strong> ' + (regime.action || '');
+                    h += '</div>';
+                }
+                h += '</div>';
+                
+                // Filter tabs
+                var buys = signals.filter(function(s) { return s.action === 'BUY' || s.action === 'SCALE_IN'; });
+                var sells = signals.filter(function(s) { return s.action === 'SELL'; });
+                var holds = signals.filter(function(s) { return s.action === 'HOLD'; });
+                
+                h += '<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
+                h += '<button onclick="filterSignals('buy')" id="sig-filter-buy" style="padding:5px 12px;border-radius:16px;border:2px solid #16a34a;background:#dcfce7;color:#16a34a;font-weight:700;font-size:11px;cursor:pointer">🟢 買入 ' + buys.length + '</button>';
+                h += '<button onclick="filterSignals('sell')" id="sig-filter-sell" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">🔴 賣出 ' + sells.length + '</button>';
+                h += '<button onclick="filterSignals('hold')" id="sig-filter-hold" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">🔵 持有 ' + holds.length + '</button>';
+                h += '<button onclick="filterSignals('all')" id="sig-filter-all" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">全部 ' + signals.length + '</button>';
+                h += '</div>';
+                
+                // Store signals globally for filtering
+                window._tradingSignals = {buys: buys, sells: sells, holds: holds, all: signals};
+                
+                h += '<div id="signalsList"></div>';
+                el.innerHTML = h;
+                
+                // Default show buys
+                filterSignals('buy');
+                
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>';
+            }
+        }
+        
+        function filterSignals(type) {
+            // Update button styles
+            ['buy','sell','hold','all'].forEach(function(t) {
+                var btn = document.getElementById('sig-filter-' + t);
+                if (!btn) return;
+                var colors = {buy:'#16a34a',sell:'#dc2626',hold:'#3b82f6',all:'#64748b'};
+                var bgs = {buy:'#dcfce7',sell:'#fee2e2',hold:'#dbeafe',all:'#f1f5f9'};
+                if (t === type) {
+                    btn.style.border = '2px solid ' + colors[t];
+                    btn.style.background = bgs[t];
+                    btn.style.color = colors[t];
+                } else {
+                    btn.style.border = '1px solid #e2e8f0';
+                    btn.style.background = 'white';
+                    btn.style.color = '#64748b';
+                }
+            });
+            
+            var sigs = window._tradingSignals;
+            var list = type === 'buy' ? sigs.buys : type === 'sell' ? sigs.sells : type === 'hold' ? sigs.holds : sigs.all;
+            
+            // Sort by score descending
+            list.sort(function(a, b) { return (b.score || 0) - (a.score || 0); });
+            
+            var h = '';
+            list.slice(0, 30).forEach(function(s) {
+                var actionColor = s.action === 'BUY' ? '#16a34a' : s.action === 'SELL' ? '#dc2626' : s.action === 'SCALE_IN' ? '#059669' : '#3b82f6';
+                var actionBg = s.action === 'BUY' ? '#f0fdf4' : s.action === 'SELL' ? '#fef2f2' : s.action === 'SCALE_IN' ? '#f0fdf4' : '#eff6ff';
+                var borderColor = s.action === 'BUY' ? '#bbf7d0' : s.action === 'SELL' ? '#fecaca' : '#bfdbfe';
+                
+                h += '<div style="background:' + actionBg + ';border:1px solid ' + borderColor + ';border-radius:10px;padding:12px;margin-bottom:8px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:flex-start">';
+                h += '<div>';
+                h += '<span style="font-size:16px;font-weight:800;color:#1e293b">' + s.symbol + '</span> ';
+                h += '<span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:' + actionColor + ';color:white">' + (s.action_zh || s.action) + '</span>';
+                if (s.score) h += ' <span style="font-size:11px;color:#64748b">Score ' + s.score + '</span>';
+                h += '</div>';
+                h += '<div style="text-align:right"><span style="font-size:15px;font-weight:700">$' + (s.price || 0).toFixed(2) + '</span></div>';
+                h += '</div>';
+                
+                // Reasons
+                if (s.reasons && s.reasons.length) {
+                    h += '<div style="margin-top:6px;font-size:11px;color:#475569">';
+                    s.reasons.slice(0, 3).forEach(function(r) { h += '• ' + r + '<br>'; });
+                    h += '</div>';
+                }
+                
+                // Price levels
+                if (s.entry_price || s.stop_loss || s.target_price) {
+                    h += '<div style="margin-top:6px;display:flex;gap:8px;font-size:10px;color:#64748b;flex-wrap:wrap">';
+                    if (s.entry_price) h += '<span>📍 進場 $' + s.entry_price.toFixed(2) + '</span>';
+                    if (s.stop_loss) h += '<span>🛑 止損 <span style="color:#dc2626">$' + s.stop_loss.toFixed(2) + '</span></span>';
+                    if (s.target_price) h += '<span>🎯 目標 <span style="color:#16a34a">$' + s.target_price.toFixed(2) + '</span></span>';
+                    h += '</div>';
+                }
+                
+                h += '</div>';
+            });
+            
+            if (list.length > 30) h += '<p style="text-align:center;font-size:12px;color:#94a3b8">顯示前 30 筆，共 ' + list.length + ' 筆</p>';
+            
+            document.getElementById('signalsList').innerHTML = h;
+        }
+
         function searchSmartSignal() {
             var input = document.getElementById('smartSearchInput');
             var resultDiv = document.getElementById('smartSearchResult');
