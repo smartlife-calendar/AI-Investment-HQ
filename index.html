@@ -269,15 +269,11 @@
     <!-- Tab Navigation Bar (sticky) -->
     <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
         <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
-            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
-            
-            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
-            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
-            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
-            
-
-            <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
-            <button onclick="showTab('guide')" id="tab-guide" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📖 學習中心</button>
+            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📊 今日總覽</button>
+            <button onclick="showTab('research')" id="tab-research" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔬 研究報告</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📈 訊號系統</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌐 宏觀</button>
+            <button onclick="showTab('tools')" id="tab-tools" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📚 工具箱</button>
         </div>
     </div>
 
@@ -1099,11 +1095,13 @@
 
         function showTab(tabName) {
             window._currentTab = tabName;
-            const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['dailyColumn','macroSection','smartSection','researchSection','toolsSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
                 'today': ['dailyColumn'],
-                'macro': ['macroSection'],
+                'research': ['researchSection'],
                 'smart': ['smartSection'],
+                'macro': ['macroSection'],
+                'tools': ['toolsSection'],
                 'news': ['newsSection'],
                 'daily_archive': ['dailyArchiveSection'],
                 'guide': ['guideSection']
@@ -1128,14 +1126,14 @@
             if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); setTimeout(loadSectorPETable, 500); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
-                    // loadDailyFlows moved to macro tab
-                    // checkMarketStatus handled separately 
                     loadDailyReport();
                     checkMarketStatus();
                 }, 300); 
             }
             if (tabName === 'smart') { loadSmartMoney(); }
-            if (tabName === 'news') loadNewsIntel(); loadNewsSection();
+            if (tabName === 'research') { loadResearchTab(); }
+            if (tabName === 'tools') { loadToolsTab(); }
+            if (tabName === 'news') { loadNewsIntel(); loadNewsSection(); }
             if (tabName === 'daily_archive') loadDailyArchive();
         }
         
@@ -1268,6 +1266,167 @@
             else if (tab === 'longshort') loadLongShort();
             else loadSmartBacktest(); setTimeout(loadBacktestChart, 500);
         }
+
+        // Research tab — shows latest reports + AI analyst
+        async function loadResearchTab() {
+            const el = document.getElementById('researchContent');
+            if (el.dataset.loaded) return;
+            el.dataset.loaded = '1';
+            
+            let h = '';
+            
+            // Latest SEC filings
+            h += '<div style="margin-bottom:20px">';
+            h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+            h += '<h3 style="font-size:16px;font-weight:800;margin:0">📄 最新 SEC 10-K/10-Q 解讀</h3>';
+            h += '<a href="/earnings/" style="font-size:12px;color:#6366f1;text-decoration:none">查看全部 →</a></div>';
+            
+            try {
+                const resp = await fetch('/earnings/index.html?t=' + Date.now());
+                const indexHtml = await resp.text();
+                // Parse the latest SEC filings from index
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(indexHtml, 'text/html');
+                const secCards = [...doc.querySelectorAll('.sec')].slice(0, 8);
+                if (secCards.length) {
+                    h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px">';
+                    secCards.forEach(card => {
+                        h += '<a href="/earnings/' + card.getAttribute('href') + '" style="display:block;padding:10px 12px;border-radius:8px;background:white;border-left:3px solid #dc2626;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-decoration:none;color:#1e293b;font-size:13px;font-weight:600">';
+                        h += card.innerHTML + '</a>';
+                    });
+                    h += '</div>';
+                }
+            } catch(e) { h += '<p style="font-size:12px;color:#94a3b8">SEC 報告載入中...</p>'; }
+            h += '</div>';
+            
+            // Latest deep reports
+            h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">';
+            
+            // US reports
+            h += '<div>';
+            h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+            h += '<h3 style="font-size:15px;font-weight:800;margin:0">🇺🇸 美股深度報告</h3>';
+            h += '<a href="/reports/" style="font-size:12px;color:#6366f1;text-decoration:none">全部 →</a></div>';
+            try {
+                const r1 = await fetch('/reports/index.html?t=' + Date.now());
+                const r1Html = await r1.text();
+                const doc1 = new DOMParser().parseFromString(r1Html, 'text/html');
+                const usCards = [...doc1.querySelectorAll('.card')].slice(0, 6);
+                h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:4px">';
+                usCards.forEach(card => {
+                    h += '<a href="/reports/' + card.getAttribute('href') + '" style="display:block;padding:8px 10px;border-radius:6px;background:white;border-left:3px solid #7c3aed;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-decoration:none;color:#1e293b;font-size:12px;font-weight:600">';
+                    h += card.innerHTML + '</a>';
+                });
+                h += '</div>';
+            } catch(e) { h += '<p style="font-size:12px;color:#94a3b8">載入中...</p>'; }
+            h += '</div>';
+            
+            // TW reports
+            h += '<div>';
+            h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+            h += '<h3 style="font-size:15px;font-weight:800;margin:0">🇹🇼 台股深度報告</h3>';
+            h += '<a href="/tw/reports/" style="font-size:12px;color:#6366f1;text-decoration:none">全部 →</a></div>';
+            try {
+                const r2 = await fetch('/tw/reports/index.html?t=' + Date.now());
+                const r2Html = await r2.text();
+                const doc2 = new DOMParser().parseFromString(r2Html, 'text/html');
+                const twCards = [...doc2.querySelectorAll('.card')].slice(0, 6);
+                h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:4px">';
+                twCards.forEach(card => {
+                    h += '<a href="/tw/reports/' + card.getAttribute('href') + '" style="display:block;padding:8px 10px;border-radius:6px;background:white;border-left:3px solid #7c3aed;box-shadow:0 1px 2px rgba(0,0,0,0.05);text-decoration:none;color:#1e293b;font-size:12px;font-weight:600">';
+                    h += card.innerHTML + '</a>';
+                });
+                h += '</div>';
+            } catch(e) { h += '<p style="font-size:12px;color:#94a3b8">載入中...</p>'; }
+            h += '</div>';
+            h += '</div>';
+            
+            // AI Analyst section
+            h += '<div style="margin-bottom:20px">';
+            h += '<h3 style="font-size:16px;font-weight:800;margin:0 0 10px">🧠 AI 分析師觀點</h3>';
+            h += '<div id="researchAiAnalyst"><p style="color:#94a3b8;text-align:center">載入中...</p></div>';
+            h += '</div>';
+            
+            // Earnings calendar preview
+            h += '<div>';
+            h += '<h3 style="font-size:16px;font-weight:800;margin:0 0 10px">📅 近期財報日曆</h3>';
+            h += '<div id="researchEarningsCal"><p style="color:#94a3b8;text-align:center">載入中...</p></div>';
+            h += '</div>';
+            
+            el.innerHTML = h;
+            
+            // Load AI analyst into research tab
+            try {
+                const analR = await fetch('/data/ai_analyst.json?t=' + Date.now());
+                const anal = await analR.json();
+                const semantic = anal.semantic_analysis || {};
+                const entries = Object.entries(semantic).slice(0, 10);
+                let ah = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">';
+                for (const [ticker, sa] of entries) {
+                    const convColor = {high:'#16a34a',medium:'#f59e0b',low:'#ef4444'}[sa.conviction] || '#64748b';
+                    ah += '<div style="background:white;border-radius:8px;padding:10px;border-left:3px solid ' + convColor + ';box-shadow:0 1px 2px rgba(0,0,0,0.05)">';
+                    ah += '<div style="display:flex;justify-content:space-between"><strong>' + ticker + '</strong><span style="font-size:10px;color:' + convColor + '">' + (sa.conviction||'?') + '</span></div>';
+                    ah += '<div style="font-size:11px;color:#64748b;margin-top:4px">' + (sa.quarterly_outlook||'').substring(0,60) + '</div>';
+                    ah += '</div>';
+                }
+                ah += '</div>';
+                const aiEl = document.getElementById('researchAiAnalyst');
+                if (aiEl) aiEl.innerHTML = ah;
+            } catch(e) {}
+            
+            // Load earnings calendar preview
+            try {
+                const calR = await fetch('/data/event_calendar.json?t=' + Date.now());
+                const cal = await calR.json();
+                const events = (cal.current_strategy?.upcoming_events || []).slice(0, 5);
+                let ch = '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+                for (const ev of events) {
+                    const isEarnings = ev.type === 'earnings';
+                    const bg = isEarnings ? '#eef2ff' : '#fefce8';
+                    const border = isEarnings ? '#6366f1' : '#f59e0b';
+                    ch += '<div style="background:' + bg + ';border:1px solid ' + border + ';border-radius:8px;padding:8px 12px;font-size:12px">';
+                    ch += '<div style="font-weight:700">' + ev.label + '</div>';
+                    ch += '<div style="color:#64748b;font-size:11px">' + ev.days + ' 天後</div>';
+                    ch += '</div>';
+                }
+                ch += '</div>';
+                const calEl = document.getElementById('researchEarningsCal');
+                if (calEl) calEl.innerHTML = ch;
+            } catch(e) {}
+        }
+        
+        // Tools tab — delegates to existing load functions
+        var _currentToolsTab = 'r40';
+        function loadToolsTab() {
+            switchToolsTab(_currentToolsTab);
+        }
+        function switchToolsTab(tab) {
+            _currentToolsTab = tab;
+            // Update button styles
+            document.querySelectorAll('[id^="tools-tab-"]').forEach(btn => {
+                const isActive = btn.id === 'tools-tab-' + tab;
+                btn.style.border = isActive ? '2px solid #4f46e5' : '1px solid #e2e8f0';
+                btn.style.background = isActive ? '#eef2ff' : 'white';
+                btn.style.color = isActive ? '#4f46e5' : '#64748b';
+            });
+            
+            const el = document.getElementById('toolsContent');
+            
+            // Map tools tabs to existing load functions
+            if (tab === 'r40') { el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>'; loadRuleOf40().then(h => { if (typeof h === 'string') el.innerHTML = h; }); }
+            else if (tab === 'intel') { el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>'; loadIndustryIntel().then(h => { if (typeof h === 'string') el.innerHTML = h; }); }
+            else if (tab === 'sectorcomp') { el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>'; loadSectorComp().then(h => { if (typeof h === 'string') el.innerHTML = h; }); }
+            else if (tab === 'eventcal') { el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>'; loadEventCalendar().then(h => { if (typeof h === 'string') el.innerHTML = h; }); }
+            else if (tab === 'news') {
+                // Show news section content in tools
+                const newsEl = document.getElementById('newsContent');
+                if (newsEl) { el.innerHTML = newsEl.innerHTML; }
+                else { loadNewsIntel(); loadNewsSection(); }
+            }
+            else if (tab === 'daily_archive') { loadDailyArchive(); el.innerHTML = document.getElementById('dailyArchiveSection')?.innerHTML || '載入中...'; }
+            else if (tab === 'guide') { el.innerHTML = document.getElementById('guideSection')?.innerHTML || '載入中...'; }
+        }
+
         
 
 // ═══════════════════════════════════════════
@@ -3066,7 +3225,35 @@ async function loadSmartBacktest() {
 
 
         <!-- Smart Money Section -->
-        <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+        
+        <!-- Research Reports Section -->
+        <div id="researchSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="margin-bottom:16px">
+                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">🔬 研究報告</h2>
+                <p style="font-size:12px;color:#64748b;margin:0">AI 驅動的深度分析 — SEC 年報解讀、個股深度報告、AI 分析師觀點</p>
+            </div>
+            <div id="researchContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+        </div>
+
+        <!-- Tools Section -->
+        <div id="toolsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="margin-bottom:16px">
+                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">📚 工具箱</h2>
+                <p style="font-size:12px;color:#64748b;margin:0">產業情報、Rule of 40、事件行事曆、回測、新聞</p>
+            </div>
+            <div id="toolsSubTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+                <button onclick="switchToolsTab('r40')" id="tools-tab-r40" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;color:#4f46e5;white-space:nowrap">📐 Rule of 40</button>
+                <button onclick="switchToolsTab('intel')" id="tools-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏭 產業情報</button>
+                <button onclick="switchToolsTab('sectorcomp')" id="tools-tab-sectorcomp" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏢 板塊個股</button>
+                <button onclick="switchToolsTab('eventcal')" id="tools-tab-eventcal" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🗓️ 事件行事曆</button>
+                <button onclick="switchToolsTab('news')" id="tools-tab-news" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📰 新聞</button>
+                <button onclick="switchToolsTab('daily_archive')" id="tools-tab-daily_archive" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📰 市場日報</button>
+                <button onclick="switchToolsTab('guide')" id="tools-tab-guide" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📖 學習中心</button>
+            </div>
+            <div id="toolsContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+        </div>
+
+<div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
                     <div>
@@ -3115,28 +3302,13 @@ async function loadSmartBacktest() {
                             </div>
                         </details>
                     </div>
-                    <div style="display:flex;gap:4px;padding:8px 4px;flex-wrap:wrap">
-                        <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish"
-                            style="padding:6px 12px;border-radius:16px;border:none;cursor:pointer;font-weight:700;font-size:11px;white-space:nowrap;flex-shrink:0;;background:#dcfce7;color:#16a34a;transition:all 0.2s">
-                            📈 吸籌偵測
-                        </button>
-                        <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish"
-                            style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">
-                            📉 出貨偵測
-                        </button>
-                        
-                        <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
-                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
-                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
-                <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
-                <button onclick="switchSmartTab('r40')" id="smart-tab-r40" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📐 Rule of 40</button>
-                <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
-                <button onclick="switchSmartTab('sectorcomp')" id="smart-tab-sectorcomp" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🏢 板塊個股</button>
-                <button onclick="switchSmartTab('eventcal')" id="smart-tab-eventcal" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🗓️ 事件行事曆</button>
-                <button onclick="switchSmartTab('aianalyst')" id="smart-tab-aianalyst" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🧠 AI 分析師</button>
-                <button onclick="switchSmartTab('longshort')" id="smart-tab-longshort" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">📊 長短配置</button>
-                <a href="/reports/" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;text-decoration:none;transition:all 0.2s;display:inline-block" onmouseover="this.style.background='#fef3c7';this.style.color='#92400e'" onmouseout="this.style.background='white';this.style.color='#64748b'">🔬 深度報告</a>
-                    </div>
+                    <div style="display:flex;gap:6px;overflow-x:auto;padding:4px 0;flex-wrap:wrap">
+                <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;white-space:nowrap;flex-shrink:0;color:#4f46e5">📈 吸籌偵測</button>
+                <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">📉 出貨偵測</button>
+                <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
+                <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
+                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
+            </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                     <input type="text" id="smartSearchInput" placeholder="輸入代號查詢，如 SNDK" 
