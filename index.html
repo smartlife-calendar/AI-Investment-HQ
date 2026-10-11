@@ -1239,12 +1239,9 @@
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
-                    if (t === 'bullish') { btn.style.background = '#dcfce7'; btn.style.color = '#16a34a'; btn.style.border = 'none'; }
-                    else if (t === 'bearish') { btn.style.background = '#fee2e2'; btn.style.color = '#dc2626'; btn.style.border = 'none'; }
-                    else if (t === 'alpha') { btn.style.background = '#fef3c7'; btn.style.color = '#92400e'; btn.style.border = 'none'; }
-                    else { btn.style.background = '#ede9fe'; btn.style.color = '#7c3aed'; btn.style.border = 'none'; }
+                    btn.style.background = '#eef2ff'; btn.style.color = '#4f46e5'; btn.style.border = '2px solid #4f46e5'; btn.style.fontWeight = '700';
                 } else {
-                    btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '1px solid #e2e8f0';
+                    btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '1px solid #e2e8f0'; btn.style.fontWeight = '700';
                 }
             });
             if (tab === 'bullish') loadSmartDirection('bullish');
