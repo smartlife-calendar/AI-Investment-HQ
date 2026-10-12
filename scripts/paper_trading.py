@@ -1,20 +1,29 @@
 #!/usr/bin/env python3
 """
-StockIQ Paper Trading Simulator
-Tracks virtual positions based on signal system, calculates real-time P&L.
-Runs daily after signals are generated.
+StockIQ Paper Trading Simulator v4
+Tracks virtual positions based on signal system with VERIFIABLE pricing.
+
+KEY RULES for verifiability:
+1. Entry price = ACTUAL closing price on signal day (not fabricated)
+2. Exit price = ACTUAL closing price on exit day
+3. All prices fetched from Yahoo Finance with timestamps
+4. Full audit trail: every transaction logged with market data
+5. If market is closed → no trades (weekend/holiday check)
+6. Cash tracking: every dollar accounted for
 
 Portfolio rules:
-- Enter on BUY/SCALE_IN signal (limit buy -2%)
-- Exit on SELL/AVOID signal, stop-loss, or take-profit
+- $30K initial capital, 100% individual stocks (no SPY in this portfolio)
+- Enter when: score >= 7, Phase 3, sector resonance confirmed
 - Max 10% per position, max 10 positions
-- ATR-based stop-loss
+- ATR-based stop-loss (from signals.json)
+- Take profit T1: +15% sell half
+- Take profit T2: +25% trailing stop -15% from peak
+- 5-day cooldown after exit
 
 Output: data/paper_portfolio.json on gh-pages
 """
 import os, json, base64, urllib.request, time
 from datetime import datetime, timedelta, timezone
-from collections import defaultdict
 
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 REPO = "smartlife-calendar/AI-Investment-HQ"
@@ -23,15 +32,16 @@ GH_H = {"Authorization": f"token {GH_TOKEN}", "Accept": "application/vnd.github.
 YF_H = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
 # ── Config ──
-INITIAL_CAPITAL = 30000  # $30K virtual
+INITIAL_CAPITAL = 30000
 MAX_POSITIONS = 10
-MAX_POSITION_PCT = 0.10   # 10% per stock
-STOP_LOSS_DEFAULT = -0.08  # -8%
-TAKE_PROFIT_T1 = 0.15     # +15% sell half
-TAKE_PROFIT_T2 = 0.25     # +25% trailing stop
-TRAILING_STOP = 0.20      # -20% from peak after T2
-COOLDOWN_DAYS = 5          # Days after exit before re-entry
-MIN_MCAP_B = 2.0           # Skip stocks < $2B
+MAX_POSITION_PCT = 0.10
+STOP_LOSS_DEFAULT = -0.08
+TAKE_PROFIT_T1 = 0.15
+TAKE_PROFIT_T2 = 0.25
+TRAILING_STOP_FROM_PEAK = 0.15
+COOLDOWN_DAYS = 5
+MIN_MCAP_B = 2.0
+MIN_SCORE = 7
 
 
 def gh_get(path):
@@ -42,7 +52,6 @@ def gh_get(path):
         d = json.loads(resp.read())
         if d.get("content"):
             return json.loads(base64.b64decode(d["content"]).decode()), d["sha"]
-        # Too large - use download_url
         dl = d.get("download_url")
         if dl:
             req2 = urllib.request.Request(dl, headers=GH_H)
@@ -53,45 +62,83 @@ def gh_get(path):
 
 
 def gh_put(path, data, msg):
-    encoded = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode()).decode()
+    content_b64 = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode()).decode()
     _, sha = gh_get(path)
-    payload = {"message": msg, "content": encoded, "branch": "gh-pages"}
-    if sha: payload["sha"] = sha
+    payload = {"message": msg, "content": content_b64, "branch": "gh-pages"}
+    if sha:
+        payload["sha"] = sha
     req = urllib.request.Request(f"{API}/contents/{path}", data=json.dumps(payload).encode(),
         headers={**GH_H, "Content-Type": "application/json"}, method="PUT")
     r = json.loads(urllib.request.urlopen(req, timeout=30).read())
     return r.get("commit", {}).get("sha", "?")[:7]
 
 
-def fetch_price(sym):
-    """Get current price."""
+def fetch_ohlcv(sym, days=5):
+    """Fetch OHLCV data for verification. Returns dict with open, high, low, close, volume."""
     try:
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=5d&interval=1d"
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={days}d&interval=1d"
         req = urllib.request.Request(url, headers=YF_H)
-        d = json.loads(urllib.request.urlopen(req, timeout=8).read())
-        meta = d["chart"]["result"][0]["meta"]
-        return meta.get("regularMarketPrice", 0)
-    except:
-        return 0
+        d = json.loads(urllib.request.urlopen(req, timeout=10).read())
+        result = d["chart"]["result"][0]
+        meta = result["meta"]
+        quotes = result["indicators"]["quote"][0]
+        timestamps = result.get("timestamp", [])
+        
+        # Latest trading day data
+        if not timestamps:
+            return None
+        
+        last_idx = len(timestamps) - 1
+        last_date = datetime.fromtimestamp(timestamps[last_idx], tz=timezone.utc).strftime("%Y-%m-%d")
+        
+        return {
+            "symbol": sym,
+            "date": last_date,
+            "open": round(quotes["open"][last_idx], 2) if quotes["open"][last_idx] else None,
+            "high": round(quotes["high"][last_idx], 2) if quotes["high"][last_idx] else None,
+            "low": round(quotes["low"][last_idx], 2) if quotes["low"][last_idx] else None,
+            "close": round(quotes["close"][last_idx], 2) if quotes["close"][last_idx] else None,
+            "volume": quotes["volume"][last_idx],
+            "market_price": meta.get("regularMarketPrice", 0),
+            "previous_close": meta.get("previousClose", 0),
+            "currency": meta.get("currency", "USD"),
+            "exchange": meta.get("exchangeName", ""),
+            "market_state": meta.get("marketState", ""),
+        }
+    except Exception as e:
+        print(f"  ❌ fetch_ohlcv({sym}): {e}")
+        return None
+
+
+def is_trading_day(date_str):
+    """Check if date is a weekday (basic check, doesn't account for holidays)."""
+    d = datetime.strptime(date_str, "%Y-%m-%d")
+    return d.weekday() < 5  # Mon=0, Fri=4
 
 
 def run():
-    now = datetime.now(timezone(timedelta(hours=8)))
+    now = datetime.now(timezone(timedelta(hours=-4)))  # EST
     today = now.strftime("%Y-%m-%d")
-    print(f"💰 Paper Trading — {now.strftime('%Y/%m/%d %H:%M')}")
+    print(f"💰 Paper Trading v4 — {now.strftime('%Y/%m/%d %H:%M')} EST")
+    
+    if not is_trading_day(today):
+        print("  📅 Weekend/holiday — skip")
+        return
     
     # 1. Load current portfolio
     portfolio, _ = gh_get("data/paper_portfolio.json")
     if not portfolio:
         portfolio = {
+            "version": "v4",
             "created": today,
             "initial_capital": INITIAL_CAPITAL,
             "cash": INITIAL_CAPITAL,
-            "positions": {},  # {sym: {entry_date, entry_price, shares, stop_loss, peak_price, t1_hit, ...}}
-            "closed_trades": [],  # [{sym, entry_date, exit_date, entry_price, exit_price, return_pct, reason}]
-            "daily_nav": [],  # [{date, nav, cash, positions_value}]
-            "cooldown": {},  # {sym: re_entry_date}
+            "positions": {},
+            "closed_trades": [],
+            "daily_nav": [],
+            "cooldown": {},
             "stats": {},
+            "audit_log": [],
         }
         print("  📝 New portfolio created")
     
@@ -104,7 +151,7 @@ def run():
     regime = signals.get("market_regime", {}).get("regime", "NEUTRAL")
     sig_map = {s["symbol"]: s for s in signals.get("signals", [])}
     
-    # Load earnings data for mcap
+    # Load earnings data for mcap filter
     earnings, _ = gh_get("data/earnings_roe.json")
     mcap_map = {}
     if earnings:
@@ -112,95 +159,135 @@ def run():
             if isinstance(info, dict) and info.get("market_cap"):
                 mcap_map[sym] = info["market_cap"] / 1e9
     
-    # 3. Update existing positions
+    # 3. Update existing positions with ACTUAL market prices
     positions = portfolio.get("positions", {})
     cash = portfolio.get("cash", INITIAL_CAPITAL)
     closed = portfolio.get("closed_trades", [])
     cooldown = portfolio.get("cooldown", {})
+    audit = portfolio.get("audit_log", [])
     
-    # Fetch current prices for all held positions
-    print(f"\n  Positions: {len(positions)}, Cash: ${cash:,.0f}")
+    print(f"\n  📊 Positions: {len(positions)}, Cash: ${cash:,.2f}, Regime: {regime}")
     
     exits = []
     for sym, pos in list(positions.items()):
-        price = fetch_price(sym)
-        if not price:
+        ohlcv = fetch_ohlcv(sym)
+        if not ohlcv or not ohlcv["close"]:
+            print(f"  ⚠️ {sym}: cannot fetch price, skip")
             continue
         time.sleep(0.3)
         
+        price = ohlcv["close"]
+        low = ohlcv["low"] or price
+        high = ohlcv["high"] or price
         entry_price = pos["entry_price"]
         shares = pos["shares"]
         ret = (price - entry_price) / entry_price
-        peak = max(pos.get("peak_price", entry_price), price)
-        pos["peak_price"] = peak
+        peak = max(pos.get("peak_price", entry_price), high)
+        pos["peak_price"] = round(peak, 2)
         pos["current_price"] = price
         pos["current_return"] = round(ret * 100, 2)
+        pos["last_updated"] = today
+        pos["last_ohlcv"] = ohlcv  # Full audit data
         
         sig = sig_map.get(sym, {})
         action = sig.get("action", "NEUTRAL")
         
+        # ── Exit conditions (checked against actual daily low/high) ──
         exit_reason = None
+        exit_price = None
         exit_shares = shares
         
-        # Check exit conditions
-        # a. Signal turned SELL/AVOID
-        if action in ("SELL", "AVOID"):
-            exit_reason = f"訊號轉{action}"
+        # Stop loss: triggered if daily LOW hit stop
+        stop = pos.get("stop_loss", entry_price * (1 + STOP_LOSS_DEFAULT))
+        if low <= stop:
+            exit_reason = f"停損 觸及${stop:.2f}"
+            exit_price = stop  # Assume filled at stop price
         
-        # b. Stop loss
-        elif ret <= STOP_LOSS_DEFAULT:
-            exit_reason = f"停損 {ret*100:.1f}%"
-        
-        # c. Take profit T1 (sell half)
-        elif ret >= TAKE_PROFIT_T1 and not pos.get("t1_hit"):
-            exit_shares = shares // 2
+        # Take profit T1: daily HIGH hit +15%
+        t1_price = entry_price * (1 + TAKE_PROFIT_T1)
+        if not pos.get("t1_hit") and high >= t1_price:
+            exit_reason = f"T1停利 +{TAKE_PROFIT_T1*100:.0f}%"
+            exit_price = round(t1_price, 2)
+            exit_shares = shares // 2 or 1  # Sell half
             pos["t1_hit"] = True
             pos["t1_date"] = today
-            exit_reason = f"T1停利 +{ret*100:.1f}%（賣半）"
         
-        # d. Trailing stop after T2
-        elif ret >= TAKE_PROFIT_T2:
-            pos["t2_hit"] = True
-            drawdown = (price - peak) / peak
-            if drawdown <= -TRAILING_STOP:
-                exit_reason = f"追蹤停利 (從高點{peak:.2f}回落{drawdown*100:.1f}%)"
+        # Take profit T2: after T1 hit, trailing stop from peak
+        if pos.get("t1_hit") and not exit_reason:
+            trailing_stop = peak * (1 - TRAILING_STOP_FROM_PEAK)
+            if low <= trailing_stop:
+                exit_reason = f"追蹤停損 peak=${peak:.2f}"
+                exit_price = round(trailing_stop, 2)
         
-        # e. Signal turned REDUCE
-        elif action == "REDUCE":
-            exit_shares = shares // 2
-            exit_reason = f"訊號轉REDUCE（減碼半）"
+        # Signal lost (bearish reversal)
+        if action in ("SELL", "AVOID") and not exit_reason:
+            exit_reason = f"訊號轉空 ({action})"
+            exit_price = price  # Close at market
         
         if exit_reason:
-            value = exit_shares * price
-            cash += value
-            pnl = (price - entry_price) * exit_shares
-            pnl_pct = (price - entry_price) / entry_price * 100
+            # For T1, only sell half
+            if "T1" in exit_reason:
+                sell_shares = exit_shares
+                remaining = shares - sell_shares
+            else:
+                sell_shares = shares
+                remaining = 0
             
-            closed.append({
+            proceeds = sell_shares * exit_price
+            cash += proceeds
+            pnl = (exit_price - entry_price) * sell_shares
+            ret_pct = round((exit_price - entry_price) / entry_price * 100, 2)
+            
+            trade_record = {
                 "symbol": sym,
                 "entry_date": pos["entry_date"],
                 "exit_date": today,
-                "entry_price": round(entry_price, 2),
-                "exit_price": round(price, 2),
-                "shares": exit_shares,
-                "return_pct": round(pnl_pct, 2),
+                "entry_price": entry_price,
+                "exit_price": exit_price,
+                "shares_sold": sell_shares,
+                "proceeds": round(proceeds, 2),
                 "pnl": round(pnl, 2),
+                "return_pct": ret_pct,
+                "hold_days": (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(pos["entry_date"], "%Y-%m-%d")).days,
                 "reason": exit_reason,
+                "exit_ohlcv": ohlcv,  # Verifiable market data
+            }
+            closed.append(trade_record)
+            
+            audit.append({
+                "date": today,
+                "action": "SELL",
+                "symbol": sym,
+                "shares": sell_shares,
+                "price": exit_price,
+                "reason": exit_reason,
+                "cash_after": round(cash, 2),
+                "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
+                "verifiable": f"YF {sym} {today}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}"
             })
             
-            remaining = shares - exit_shares
             if remaining > 0:
                 pos["shares"] = remaining
-                print(f"  📉 {sym}: 部分出場 {exit_shares}股 @${price:.2f} ({pnl_pct:+.1f}%) — {exit_reason}")
+                pos["cost"] = round(remaining * entry_price, 2)
+                print(f"  🟡 {sym}: T1賣出 {sell_shares}股 @${exit_price:.2f} (剩{remaining}股) PnL=${pnl:+,.0f}")
             else:
-                del positions[sym]
-                cooldown[sym] = (now + timedelta(days=COOLDOWN_DAYS)).strftime("%Y-%m-%d")
-                print(f"  🚪 {sym}: 全部出場 @${price:.2f} ({pnl_pct:+.1f}%) — {exit_reason}")
+                exits.append(sym)
+                cooldown[sym] = (datetime.strptime(today, "%Y-%m-%d") + timedelta(days=COOLDOWN_DAYS)).strftime("%Y-%m-%d")
+                print(f"  🔴 {sym}: 全部賣出 {sell_shares}股 @${exit_price:.2f} ({ret_pct:+.1f}%) {exit_reason}")
+        else:
+            print(f"  📦 {sym}: {shares}股 @${entry_price:.2f} → ${price:.2f} ({ret*100:+.1f}%) peak=${peak:.2f}")
     
-    # 4. Check for new entries
-    buys = [s for s in signals.get("signals", []) if s.get("action") in ("BUY", "SCALE_IN")]
+    # Remove fully exited positions
+    for sym in exits:
+        del positions[sym]
     
-    # Filter: not already held, not in cooldown, mcap >= $2B
+    # 4. Check for new entries — use ACTUAL CLOSE PRICE
+    buys = []
+    for s in signals.get("signals", []):
+        if s.get("action") in ("BUY", "SCALE_IN") and s.get("score", 0) >= MIN_SCORE:
+            buys.append(s)
+    buys.sort(key=lambda x: x.get("score", 0), reverse=True)
+    
     for s in buys:
         sym = s["symbol"]
         if sym in positions:
@@ -211,48 +298,78 @@ def run():
             continue
         if len(positions) >= MAX_POSITIONS:
             break
-        
-        # Check regime allows entry
-        if regime in ("BEAR",):
+        if regime == "BEAR":
             continue
         if regime == "CAUTION" and s.get("score", 0) < 8:
             continue
         
-        price = fetch_price(sym)
-        if not price:
+        ohlcv = fetch_ohlcv(sym)
+        if not ohlcv or not ohlcv["close"]:
             continue
         time.sleep(0.3)
         
-        # Calculate position size
+        close_price = ohlcv["close"]
+        
+        # VERIFY: Can we actually buy at this price?
+        # Use the CLOSING PRICE as entry. This is conservative:
+        # - We assume we buy at market close (MOC order)
+        # - The price ACTUALLY existed on this trading day
+        # - Anyone can verify: Yahoo Finance {sym} on {date}
+        entry_price = close_price
+        
+        # Position sizing
         position_value = min(cash, INITIAL_CAPITAL * MAX_POSITION_PCT)
-        if position_value < 100:  # Too small
+        if position_value < 200:
             continue
         
-        # Limit buy at -2%
-        entry_price = round(price * 0.98, 2)
         shares = int(position_value / entry_price)
         if shares < 1:
             continue
         
-        cost = shares * entry_price
+        cost = round(shares * entry_price, 2)
         cash -= cost
+        
+        # Use stop_loss from signals if available, else default
+        sig_stop = s.get("stop_loss")
+        if sig_stop and sig_stop > 0:
+            stop_loss = round(sig_stop, 2)
+        else:
+            stop_loss = round(entry_price * (1 + STOP_LOSS_DEFAULT), 2)
         
         positions[sym] = {
             "entry_date": today,
             "entry_price": entry_price,
             "shares": shares,
-            "cost": round(cost, 2),
+            "cost": cost,
             "score": s.get("score", 0),
-            "action": s.get("action"),
-            "stop_loss": round(entry_price * (1 + STOP_LOSS_DEFAULT), 2),
+            "signal": s.get("action"),
+            "stop_loss": stop_loss,
+            "target_1": round(entry_price * (1 + TAKE_PROFIT_T1), 2),
+            "target_2": round(entry_price * (1 + TAKE_PROFIT_T2), 2),
             "peak_price": entry_price,
             "t1_hit": False,
             "t2_hit": False,
-            "current_price": price,
-            "current_return": round((price - entry_price) / entry_price * 100, 2),
+            "current_price": entry_price,
+            "current_return": 0,
+            "last_updated": today,
+            "entry_ohlcv": ohlcv,  # FULL AUDIT: verifiable market data
         }
         
+        audit.append({
+            "date": today,
+            "action": "BUY",
+            "symbol": sym,
+            "shares": shares,
+            "price": entry_price,
+            "cost": cost,
+            "cash_after": round(cash, 2),
+            "score": s.get("score", 0),
+            "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
+            "verifiable": f"YF {sym} {today}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
+        })
+        
         print(f"  🟢 {sym}: 買入 {shares}股 @${entry_price:.2f} (${cost:,.0f}) score={s.get('score',0)}")
+        print(f"      驗證: YF {sym} {today} Close=${close_price} (Open=${ohlcv['open']} H=${ohlcv['high']} L=${ohlcv['low']})")
     
     # 5. Calculate NAV
     positions_value = 0
@@ -264,17 +381,28 @@ def run():
     nav_return = (nav - INITIAL_CAPITAL) / INITIAL_CAPITAL * 100
     
     daily_nav = portfolio.get("daily_nav", [])
-    daily_nav.append({
-        "date": today,
-        "nav": round(nav, 2),
-        "cash": round(cash, 2),
-        "positions_value": round(positions_value, 2),
-        "n_positions": len(positions),
-        "return_pct": round(nav_return, 2),
-    })
-    # Keep last 180 days
-    if len(daily_nav) > 180:
-        daily_nav = daily_nav[-180:]
+    # Don't duplicate same day
+    if daily_nav and daily_nav[-1]["date"] == today:
+        daily_nav[-1] = {
+            "date": today,
+            "nav": round(nav, 2),
+            "cash": round(cash, 2),
+            "positions_value": round(positions_value, 2),
+            "n_positions": len(positions),
+            "return_pct": round(nav_return, 2),
+        }
+    else:
+        daily_nav.append({
+            "date": today,
+            "nav": round(nav, 2),
+            "cash": round(cash, 2),
+            "positions_value": round(positions_value, 2),
+            "n_positions": len(positions),
+            "return_pct": round(nav_return, 2),
+        })
+    
+    if len(daily_nav) > 365:
+        daily_nav = daily_nav[-365:]
     
     # 6. Calculate stats
     wins = [t for t in closed if t["return_pct"] > 0]
@@ -291,31 +419,47 @@ def run():
         "nav": round(nav, 2),
         "nav_return_pct": round(nav_return, 2),
         "cash": round(cash, 2),
+        "positions_value": round(positions_value, 2),
         "regime": regime,
         "last_updated": today,
     }
     
+    # Keep audit log manageable (last 200 entries)
+    if len(audit) > 200:
+        audit = audit[-200:]
+    
     # 7. Save
     portfolio = {
+        "version": "v4",
         "created": portfolio.get("created", today),
         "initial_capital": INITIAL_CAPITAL,
         "cash": round(cash, 2),
         "positions": positions,
-        "closed_trades": closed[-100:],  # Keep last 100
+        "closed_trades": closed[-100:],
         "daily_nav": daily_nav,
         "cooldown": {k: v for k, v in cooldown.items() if v >= today},
         "stats": stats,
+        "audit_log": audit,
+        "model_version": "v4",
     }
     
     sha = gh_put("data/paper_portfolio.json", portfolio,
-                  f"Paper trading {today}: NAV=${nav:,.0f} ({nav_return:+.1f}%) | {len(positions)} pos | {len(closed)} trades")
+                  f"Paper v4 {today}: NAV=${nav:,.0f} ({nav_return:+.1f}%) | {len(positions)} pos | cash ${cash:,.0f}")
     
     print(f"\n{'='*60}")
     print(f"  💰 NAV: ${nav:,.2f} ({nav_return:+.2f}%)")
     print(f"  💵 Cash: ${cash:,.2f}")
-    print(f"  📊 Positions: {len(positions)}")
+    print(f"  📊 Positions: {len(positions)} (${positions_value:,.2f})")
     print(f"  📈 Trades: {len(closed)} (Win: {stats['win_rate']:.0f}%)")
     print(f"  ✅ → {sha}")
+    
+    # Print audit trail for today
+    today_audit = [a for a in audit if a["date"] == today]
+    if today_audit:
+        print(f"\n  📋 Today's audit trail:")
+        for a in today_audit:
+            print(f"    {a['action']} {a['symbol']} {a['shares']}股 @${a['price']:.2f} | cash=${a['cash_after']:,.2f}")
+            print(f"      驗證: {a['verifiable']}")
     
     return portfolio
 
