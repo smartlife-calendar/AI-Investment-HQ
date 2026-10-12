@@ -5353,7 +5353,7 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
                         out += '</div>';
                     }
                     if (cf.spenders) {
-                        out += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:12px">';
+                        out += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:12px">';
                         ['META','GOOGL','MSFT','AMZN','TSLA','AAPL'].forEach(function(sym) {
                             var sp = cf.spenders[sym]; if (!sp) return;
                             var clr = sp.qoq_change > 30 ? '#dc2626' : sp.qoq_change > 10 ? '#f59e0b' : '#10b981';
@@ -5430,7 +5430,7 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
             var h = '';
             
             // Quick links
-            h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px">';
+            h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px">';
             h += '<a href="/earnings/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">📄</span><div><div style="font-weight:700;font-size:14px">SEC 10-K/10-Q 解讀</div><div style="font-size:11px;color:#64748b">41 份年報/季報 AI 分析</div></div></a>';
             h += '<a href="/reports/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">🇺🇸</span><div><div style="font-weight:700;font-size:14px">美股深度報告</div><div style="font-size:11px;color:#64748b">BUY 訊號股深度分析</div></div></a>';
             h += '<a href="/tw/reports/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">🇹🇼</span><div><div style="font-weight:700;font-size:14px">台股深度報告</div><div style="font-size:11px;color:#64748b">台股 BUY 訊號分析</div></div></a>';
@@ -5611,7 +5611,7 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
             var h = '<div style="font-size:13px;font-weight:700;color:#1e1b4b;margin-bottom:8px">' + (insight.summary || '') + '</div>';
             
             // Top 5 correlations table
-            h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px">';
+            h += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">';
             var top5 = corrs.filter(function(c) { return c.corr_lead1 && c.corr_lead1 > 0.3; }).slice(0, 6);
             top5.forEach(function(c) {
                 var strength = c.corr_lead1 > 0.5 ? '#16a34a' : c.corr_lead1 > 0.3 ? '#f59e0b' : '#94a3b8';
@@ -5844,45 +5844,106 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 
                 var focus = _drillData.focus || [];
                 var bt = _drillData.backtest || {};
-                if (!focus.length && !bt.total_signals) { el.innerHTML = ''; return; }
                 
-                var h = '<div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:14px;padding:14px;border:1px solid #fde68a">';
-                h += '<div style="font-size:14px;font-weight:800;color:#92400e;margin-bottom:8px">🎯 今日聚焦</div>';
+                // Load smart data for full stock details
+                var smartStocks = [];
+                var smartBearish = [];
+                if (window._smartData) {
+                    smartStocks = window._smartData.stocks || [];
+                    smartBearish = window._smartData.bearish || [];
+                }
                 
-                // Signal performance badge
-                if (bt.total_signals) {
-                    h += '<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">';
-                    h += '<div style="background:white;border-radius:8px;padding:6px 10px;font-size:11px;border:1px solid #fde68a">';
-                    h += '吸籌勝率 <strong style="color:#16a34a">' + bt.win_rate + '%</strong> · ';
-                    h += '均報酬 <strong style="color:#16a34a">+' + bt.avg_return + '%</strong> · ';
-                    h += bt.total_signals + '筆追蹤</div>';
+                var h = '';
+                
+                // ── Strategy reminder ──
+                h += '<div style="background:#f8fafc;border-radius:12px;padding:10px 14px;margin-bottom:10px;border:1px solid #e2e8f0;font-size:11px;color:#64748b">';
+                h += '📌 <strong>策略：</strong>核心 SPY（70%）+ 衛星驗證（2-3支，各5%）+ 現金 · 模型驗證期至 2027/01';
+                h += '</div>';
+                
+                // ── Top BUY signals (score >= 7, with full details) ──
+                var topBuys = smartStocks.filter(function(s) { return s.score >= 7; })
+                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 5);
+                
+                if (topBuys.length) {
+                    h += '<div style="background:white;border-radius:14px;padding:14px;border:1px solid #bbf7d0;margin-bottom:10px">';
+                    h += '<div style="font-size:14px;font-weight:800;color:#16a34a;margin-bottom:10px">🟢 買入觀察名單 <span style="font-size:11px;font-weight:400;color:#64748b">（分數≥7，待驗證）</span></div>';
+                    
+                    topBuys.forEach(function(s) {
+                        var resonance = s.sector_resonance || '';
+                        var hasSectorFlow = resonance.indexOf('順勢') >= 0;
+                        
+                        h += '<div style="background:#f0fdf4;border-radius:10px;padding:10px;margin-bottom:6px;border-left:4px solid #16a34a">';
+                        
+                        // Row 1: Symbol + Score + Signal
+                        h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
+                        h += '<div><strong style="font-size:15px">' + s.symbol + '</strong> <span style="font-size:11px;color:#16a34a;font-weight:700">' + s.score + '/10</span>';
+                        if (hasSectorFlow) h += ' <span style="font-size:9px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#16a34a">板塊順勢</span>';
+                        h += '</div>';
+                        h += '<div style="font-size:11px;color:#64748b">' + (s.signal || '') + '</div>';
+                        h += '</div>';
+                        
+                        // Row 2: Price targets
+                        h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:4px">';
+                        h += '<div style="text-align:center;background:white;border-radius:6px;padding:4px"><div style="font-size:9px;color:#94a3b8">現價</div><div style="font-size:12px;font-weight:700">$' + s.price.toFixed(1) + '</div></div>';
+                        h += '<div style="text-align:center;background:#eef2ff;border-radius:6px;padding:4px"><div style="font-size:9px;color:#4f46e5">📍 進場</div><div style="font-size:12px;font-weight:700;color:#4f46e5">$' + s.entry_price.toFixed(1) + '</div></div>';
+                        h += '<div style="text-align:center;background:#fef2f2;border-radius:6px;padding:4px"><div style="font-size:9px;color:#dc2626">🛑 停損</div><div style="font-size:12px;font-weight:700;color:#dc2626">$' + s.stop_loss.toFixed(1) + ' <span style="font-size:9px">' + s.stop_pct + '%</span></div></div>';
+                        h += '<div style="text-align:center;background:#f0fdf4;border-radius:6px;padding:4px"><div style="font-size:9px;color:#16a34a">🎯 目標</div><div style="font-size:12px;font-weight:700;color:#16a34a">$' + s.target_1.toFixed(1) + ' <span style="font-size:9px">+' + s.target_1_pct + '%</span></div></div>';
+                        h += '</div>';
+                        
+                        // Row 3: Why
+                        h += '<div style="font-size:10px;color:#475569">';
+                        h += '📊 ' + (s.action_detail || '') + ' · 動能' + (s.mom_health || '?') + ' · R/R ' + (s.risk_reward || '?');
+                        if (s.change_3m) h += ' · 3M ' + (s.change_3m > 0 ? '+' : '') + s.change_3m.toFixed(1) + '%';
+                        h += '</div>';
+                        
+                        h += '</div>';
+                    });
+                    
                     h += '</div>';
                 }
                 
-                // Focus items
-                focus.forEach(function(f) {
-                    if (f.type === 'sector_accel') {
-                        h += '<div style="font-size:12px;color:#374151;margin-bottom:4px">';
-                        h += f.flag + ' ' + f.status + ' <strong>' + f.name + '</strong>';
-                        if (f.top_stocks && f.top_stocks.length) {
-                            h += ' — ';
-                            f.top_stocks.forEach(function(s) {
-                                h += '<span style="background:#dcfce7;padding:1px 6px;border-radius:4px;font-size:10px;margin:0 2px">' + s.symbol + '(' + s.score + '分)</span>';
-                            });
-                        }
-                        h += '</div>';
-                    } else if (f.type === 'lead_lag') {
-                        var dir = f.us_weekly_chg > 0 ? '上漲' : '下跌';
-                        var color = f.us_weekly_chg > 0 ? '#16a34a' : '#dc2626';
-                        h += '<div style="font-size:12px;color:#374151;margin-bottom:4px">';
-                        h += '🔗 ' + (_flowNames[f.us_etf]||f.us_etf) + '本週<span style="color:' + color + '">' + dir + (Math.abs(f.us_weekly_chg)).toFixed(1) + '%</span>';
-                        h += ' → ' + (_flowNames[f.tw_etf]||f.tw_etf) + '明日可能跟動 (相關' + f.corr + ')</div>';
-                    }
-                });
+                // ── SELL warnings (bearish with highest scores) ──
+                var topSells = smartBearish.filter(function(s) { return s.score >= 5; })
+                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 3);
                 
-                h += '</div>';
+                if (topSells.length) {
+                    h += '<div style="background:white;border-radius:14px;padding:14px;border:1px solid #fecaca;margin-bottom:10px">';
+                    h += '<div style="font-size:14px;font-weight:800;color:#dc2626;margin-bottom:8px">🔴 出貨警示 <span style="font-size:11px;font-weight:400;color:#64748b">（持有者注意）</span></div>';
+                    
+                    topSells.forEach(function(s) {
+                        h += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:#fef2f2;border-radius:8px;margin-bottom:4px;font-size:12px">';
+                        h += '<div><strong>' + s.symbol + '</strong> <span style="color:#dc2626">' + s.score + '分</span> · ' + (s.action_detail || '') + '</div>';
+                        h += '<div style="color:#dc2626;font-weight:700">' + (s.change_1m ? (s.change_1m > 0 ? '+' : '') + s.change_1m.toFixed(1) + '% 月' : '') + '</div>';
+                        h += '</div>';
+                    });
+                    
+                    h += '</div>';
+                }
+                
+                // ── Sector flow + lead-lag alerts (compact) ──
+                if (focus.length) {
+                    h += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">';
+                    focus.forEach(function(f) {
+                        if (f.type === 'sector_accel') {
+                            var isIn = f.status.indexOf('流入') >= 0;
+                            var bg = isIn ? '#f0fdf4' : '#fef2f2';
+                            var border = isIn ? '#bbf7d0' : '#fecaca';
+                            h += '<div style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:6px;background:' + bg + ';border:1px solid ' + border + ';font-size:10px">';
+                            h += f.flag + ' ' + f.status + ' <strong>' + f.name + '</strong></div>';
+                        }
+                    });
+                    h += '</div>';
+                }
+                
+                // ── Backtest badge ──
+                if (bt.total_signals) {
+                    h += '<div style="font-size:10px;color:#94a3b8;text-align:right">';
+                    h += '📊 模型追蹤: ' + bt.total_signals + '筆 · 勝率' + bt.win_rate + '% · 均+' + bt.avg_return + '% · ';
+                    h += '<a href="javascript:showTab(\'macro\')" style="color:#4f46e5">查看回測 →</a></div>';
+                }
+                
                 el.innerHTML = h;
-            } catch(e) { /* silent */ }
+            } catch(e) { /* silent fail */ }
         }
         
         // ============ Backtest ============
@@ -5902,7 +5963,7 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 var h = '';
                 
                 // KPI cards
-                h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">';
+                h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px">';
                 h += '<div style="background:#f0fdf4;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#16a34a">' + bt.win_rate + '%</div><div style="font-size:10px;color:#64748b">勝率</div></div>';
                 h += '<div style="background:#eef2ff;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#4f46e5">+' + bt.avg_return + '%</div><div style="font-size:10px;color:#64748b">均報酬</div></div>';
                 h += '<div style="background:#fefce8;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#ca8a04">' + bt.avg_hold_days + '天</div><div style="font-size:10px;color:#64748b">均持有</div></div>';
@@ -5973,7 +6034,7 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
             
             if (bulls.length) {
                 h += '<div style="font-size:12px;font-weight:700;color:#16a34a;margin-bottom:6px">📈 吸籌中 (' + bulls.length + ')</div>';
-                h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:12px">';
+                h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:12px">';
                 bulls.forEach(function(s) {
                     var scoreColor = s.score >= 7 ? '#16a34a' : s.score >= 5 ? '#f59e0b' : '#64748b';
                     h += '<div style="background:#f0fdf4;border-radius:8px;padding:8px;border-left:3px solid ' + scoreColor + '">';
