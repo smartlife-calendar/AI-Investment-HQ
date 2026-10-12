@@ -232,13 +232,6 @@
             ☕ 覺得 StockIQ 有用？<span style="text-decoration:underline;margin-left:4px">請我喝杯咖啡</span> — 支持我們持續開發免費工具
         </a>
     </div>
-    <div style="background:#0f172a;padding:8px 16px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px">
-        <a href="/research/" style="color:#e2e8f0;text-decoration:none;font-weight:600">📚 研究中心</a>
-        <a href="/earnings/" style="color:#e2e8f0;text-decoration:none">📋 財報解讀</a>
-        <a href="/reports/" style="color:#e2e8f0;text-decoration:none">🔬 深度報告</a>
-        <a href="/news/" style="color:#e2e8f0;text-decoration:none">📰 新聞</a>
-        <a href="/tw/" style="color:#e2e8f0;text-decoration:none">🇹🇼 台股版</a>
-    </div>
     <!-- Market Index Ticker Bar -->
     <div id="marketTickerWrapper" style="background:#0f172a;border-bottom:1px solid #1e293b;padding:8px 0;overflow:hidden">
         <div id="marketTickerBar" style="display:inline-flex;font-size:13px;color:white;white-space:nowrap;will-change:transform">
@@ -269,15 +262,11 @@
     <!-- Tab Navigation Bar (sticky) -->
     <div style="position:sticky;top:0;z-index:90;background:white;border-bottom:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
         <div style="max-width:1100px;margin:0 auto;display:flex;overflow-x:auto">
-            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 今日速報</button>
-            
-            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌊 板塊資金</button>
-            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">💡 金流密碼</button>
-            <button onclick="showTab('news')" id="tab-news" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📰 財金新聞</button>
-            
-
-            <button onclick="showTab('daily_archive')" id="tab-daily_archive" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0;display:flex;align-items:center">📰 市場日報</button>
-            <button onclick="showTab('guide')" id="tab-guide" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📖 學習中心</button>
+            <button onclick="showTab('today')" id="tab-today" style="padding:11px 16px;border:none;border-bottom:3px solid #4f46e5;background:none;font-weight:700;font-size:13px;color:#4f46e5;cursor:pointer;white-space:nowrap;flex-shrink:0">📊 今日總覽</button>
+            <button onclick="showTab('research')" id="tab-research" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🔬 研究報告</button>
+            <button onclick="showTab('smart')" id="tab-smart" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📈 訊號系統</button>
+            <button onclick="showTab('macro')" id="tab-macro" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">🌐 宏觀</button>
+            <button onclick="showTab('tools')" id="tab-tools" style="padding:11px 16px;border:none;border-bottom:3px solid transparent;background:none;font-weight:600;font-size:13px;color:#64748b;cursor:pointer;white-space:nowrap;flex-shrink:0">📚 工具箱</button>
         </div>
     </div>
 
@@ -1099,11 +1088,13 @@
 
         function showTab(tabName) {
             window._currentTab = tabName;
-            const allIds = ['dailyColumn','macroSection','smartSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['dailyColumn','macroSection','smartSection','researchSection','toolsSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
                 'today': ['dailyColumn'],
-                'macro': ['macroSection'],
+                'research': ['researchSection'],
                 'smart': ['smartSection'],
+                'macro': ['macroSection'],
+                'tools': ['toolsSection'],
                 'news': ['newsSection'],
                 'daily_archive': ['dailyArchiveSection'],
                 'guide': ['guideSection']
@@ -1135,6 +1126,8 @@
                 }, 300); 
             }
             if (tabName === 'smart') { loadSmartMoney(); }
+            if (tabName === 'research') { loadResearchTab(); }
+            if (tabName === 'tools') { loadToolsTab(); }
             if (tabName === 'news') loadNewsIntel(); loadNewsSection();
             if (tabName === 'daily_archive') loadDailyArchive();
         }
@@ -1246,12 +1239,9 @@
                 const btn = document.getElementById('smart-tab-' + t);
                 if (!btn) return;
                 if (t === tab) {
-                    if (t === 'bullish') { btn.style.background = '#dcfce7'; btn.style.color = '#16a34a'; btn.style.border = 'none'; }
-                    else if (t === 'bearish') { btn.style.background = '#fee2e2'; btn.style.color = '#dc2626'; btn.style.border = 'none'; }
-                    else if (t === 'alpha') { btn.style.background = '#fef3c7'; btn.style.color = '#92400e'; btn.style.border = 'none'; }
-                    else { btn.style.background = '#ede9fe'; btn.style.color = '#7c3aed'; btn.style.border = 'none'; }
+                    btn.style.background = '#eef2ff'; btn.style.color = '#4f46e5'; btn.style.border = '2px solid #4f46e5'; btn.style.fontWeight = '700';
                 } else {
-                    btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '1px solid #e2e8f0';
+                    btn.style.background = 'white'; btn.style.color = '#64748b'; btn.style.border = '1px solid #e2e8f0'; btn.style.fontWeight = '700';
                 }
             });
             if (tab === 'bullish') loadSmartDirection('bullish');
@@ -2845,6 +2835,199 @@ async function loadSmartBacktest() {
             } catch(e) {}
         }
 
+        
+        // Research tab
+        async function loadResearchTab() {
+            const el = document.getElementById('researchContent');
+            if (el.dataset.loaded) return;
+            el.dataset.loaded = '1';
+            let h = '';
+            
+            // Quick links
+            h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px">';
+            h += '<a href="/earnings/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">📄</span><div><div style="font-weight:700;font-size:14px">SEC 10-K/10-Q 解讀</div><div style="font-size:11px;color:#64748b">41 份年報/季報 AI 分析</div></div></a>';
+            h += '<a href="/reports/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">🇺🇸</span><div><div style="font-weight:700;font-size:14px">美股深度報告</div><div style="font-size:11px;color:#64748b">BUY 訊號股深度分析</div></div></a>';
+            h += '<a href="/tw/reports/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">🇹🇼</span><div><div style="font-weight:700;font-size:14px">台股深度報告</div><div style="font-size:11px;color:#64748b">台股 BUY 訊號分析</div></div></a>';
+            h += '<a href="/earnings/" style="display:flex;align-items:center;gap:10px;padding:14px;background:white;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;color:#1e293b;box-shadow:0 1px 2px rgba(0,0,0,0.05)"><span style="font-size:24px">💰</span><div><div style="font-weight:700;font-size:14px">季度財報解讀</div><div style="font-size:11px;color:#64748b">372 份財報 AI 分析</div></div></a>';
+            h += '</div>';
+            
+            // AI Analyst
+            h += '<h3 style="font-size:16px;font-weight:800;margin:0 0 10px">🧠 AI 分析師觀點</h3>';
+            try {
+                const analR = await fetch('/data/ai_analyst.json?t=' + Date.now());
+                const anal = await analR.json();
+                const semantic = anal.semantic_analysis || {};
+                const entries = Object.entries(semantic).slice(0, 12);
+                h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:20px">';
+                for (const [ticker, sa] of entries) {
+                    const convColor = {high:'#16a34a',medium:'#f59e0b',low:'#ef4444'}[sa.conviction] || '#64748b';
+                    h += '<div style="background:white;border-radius:8px;padding:10px;border-left:3px solid ' + convColor + ';box-shadow:0 1px 2px rgba(0,0,0,0.05)">';
+                    h += '<div style="display:flex;justify-content:space-between"><strong>' + ticker + '</strong><span style="font-size:10px;color:' + convColor + ';font-weight:700">' + (sa.conviction||'') + '</span></div>';
+                    h += '<div style="font-size:11px;color:#64748b;margin-top:4px">' + (sa.quarterly_outlook||'').substring(0,50) + '</div>';
+                    h += '</div>';
+                }
+                h += '</div>';
+            } catch(e) { h += '<p style="color:#94a3b8;font-size:12px">載入中...</p>'; }
+            
+            // Earnings calendar
+            h += '<h3 style="font-size:16px;font-weight:800;margin:0 0 10px">📅 近期財報 / 重要日期</h3>';
+            try {
+                const calR = await fetch('/data/event_calendar.json?t=' + Date.now());
+                const cal = await calR.json();
+                const events = (cal.current_strategy?.upcoming_events || []).slice(0, 6);
+                h += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">';
+                for (const ev of events) {
+                    const bg = ev.type === 'election' ? '#fef2f2' : ev.type === 'fomc' ? '#fefce8' : '#eef2ff';
+                    const border = ev.type === 'election' ? '#dc2626' : ev.type === 'fomc' ? '#f59e0b' : '#6366f1';
+                    h += '<div style="background:' + bg + ';border:1px solid ' + border + '40;border-radius:8px;padding:8px 14px">';
+                    h += '<div style="font-size:13px;font-weight:700">' + ev.label + '</div>';
+                    h += '<div style="font-size:11px;color:#64748b">' + ev.days + ' 天後</div></div>';
+                }
+                h += '</div>';
+            } catch(e) {}
+            
+            el.innerHTML = h;
+        }
+        
+        var _currentToolsTab = 'r40';
+        function loadToolsTab() { switchToolsTab(_currentToolsTab); }
+        function switchToolsTab(tab) {
+            _currentToolsTab = tab;
+            document.querySelectorAll('[id^="tools-tab-"]').forEach(function(btn) {
+                var isActive = btn.id === 'tools-tab-' + tab;
+                btn.style.border = isActive ? '2px solid #4f46e5' : '1px solid #e2e8f0';
+                btn.style.background = isActive ? '#eef2ff' : 'white';
+                btn.style.color = isActive ? '#4f46e5' : '#64748b';
+            });
+            var el = document.getElementById('toolsContent');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
+            
+            // Reuse existing load functions but render into toolsContent
+            if (tab === 'r40') { switchSmartTab('r40'); el.innerHTML = document.getElementById('smartMoneyContent').innerHTML; }
+            else if (tab === 'intel') { switchSmartTab('intel'); el.innerHTML = document.getElementById('smartMoneyContent').innerHTML; }
+            else if (tab === 'sectorcomp') { switchSmartTab('sectorcomp'); el.innerHTML = document.getElementById('smartMoneyContent').innerHTML; }
+            else if (tab === 'eventcal') { switchSmartTab('eventcal'); el.innerHTML = document.getElementById('smartMoneyContent').innerHTML; }
+            else if (tab === 'news') { showTab('news'); }
+            else if (tab === 'daily_archive') { showTab('daily_archive'); }
+            else if (tab === 'guide') { showTab('guide'); }
+        }
+
+        
+        async function loadTradingSignals() {
+            var el = document.getElementById('smartMoneyContent');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入操作訊號...</p>';
+            try {
+                var r = await fetch('/data/signals.json?t=' + Date.now());
+                var data = await r.json();
+                var signals = data.signals || [];
+                var regime = data.market_regime || {};
+                
+                var h = '<div style="margin-bottom:12px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">';
+                h += '<h3 style="font-size:16px;font-weight:800;margin:0">📡 操作訊號</h3>';
+                h += '<span style="font-size:11px;color:#94a3b8">' + (data.generated_at || '').substring(0,10) + ' · ' + signals.length + ' 支</span>';
+                h += '</div>';
+                
+                // Market regime summary
+                if (regime.phase) {
+                    h += '<div style="background:#f8fafc;border-radius:8px;padding:10px;margin-bottom:12px;font-size:12px">';
+                    h += '<strong>市場階段:</strong> ' + (regime.phase || '') + ' · ';
+                    h += '<strong>風險:</strong> ' + (regime.risk_level || '') + ' · ';
+                    h += '<strong>建議:</strong> ' + (regime.action || '');
+                    h += '</div>';
+                }
+                h += '</div>';
+                
+                // Filter tabs
+                var buys = signals.filter(function(s) { return s.action === 'BUY' || s.action === 'SCALE_IN'; });
+                var sells = signals.filter(function(s) { return s.action === 'SELL'; });
+                var holds = signals.filter(function(s) { return s.action === 'HOLD'; });
+                
+                h += '<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
+                h += '<button onclick="filterSignals('buy')" id="sig-filter-buy" style="padding:5px 12px;border-radius:16px;border:2px solid #16a34a;background:#dcfce7;color:#16a34a;font-weight:700;font-size:11px;cursor:pointer">🟢 買入 ' + buys.length + '</button>';
+                h += '<button onclick="filterSignals('sell')" id="sig-filter-sell" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">🔴 賣出 ' + sells.length + '</button>';
+                h += '<button onclick="filterSignals('hold')" id="sig-filter-hold" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">🔵 持有 ' + holds.length + '</button>';
+                h += '<button onclick="filterSignals('all')" id="sig-filter-all" style="padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:white;color:#64748b;font-weight:700;font-size:11px;cursor:pointer">全部 ' + signals.length + '</button>';
+                h += '</div>';
+                
+                // Store signals globally for filtering
+                window._tradingSignals = {buys: buys, sells: sells, holds: holds, all: signals};
+                
+                h += '<div id="signalsList"></div>';
+                el.innerHTML = h;
+                
+                // Default show buys
+                filterSignals('buy');
+                
+            } catch(e) {
+                el.innerHTML = '<p style="color:#ef4444;text-align:center">載入失敗: ' + e.message + '</p>';
+            }
+        }
+        
+        function filterSignals(type) {
+            // Update button styles
+            ['buy','sell','hold','all'].forEach(function(t) {
+                var btn = document.getElementById('sig-filter-' + t);
+                if (!btn) return;
+                var colors = {buy:'#16a34a',sell:'#dc2626',hold:'#3b82f6',all:'#64748b'};
+                var bgs = {buy:'#dcfce7',sell:'#fee2e2',hold:'#dbeafe',all:'#f1f5f9'};
+                if (t === type) {
+                    btn.style.border = '2px solid ' + colors[t];
+                    btn.style.background = bgs[t];
+                    btn.style.color = colors[t];
+                } else {
+                    btn.style.border = '1px solid #e2e8f0';
+                    btn.style.background = 'white';
+                    btn.style.color = '#64748b';
+                }
+            });
+            
+            var sigs = window._tradingSignals;
+            var list = type === 'buy' ? sigs.buys : type === 'sell' ? sigs.sells : type === 'hold' ? sigs.holds : sigs.all;
+            
+            // Sort by score descending
+            list.sort(function(a, b) { return (b.score || 0) - (a.score || 0); });
+            
+            var h = '';
+            list.slice(0, 30).forEach(function(s) {
+                var actionColor = s.action === 'BUY' ? '#16a34a' : s.action === 'SELL' ? '#dc2626' : s.action === 'SCALE_IN' ? '#059669' : '#3b82f6';
+                var actionBg = s.action === 'BUY' ? '#f0fdf4' : s.action === 'SELL' ? '#fef2f2' : s.action === 'SCALE_IN' ? '#f0fdf4' : '#eff6ff';
+                var borderColor = s.action === 'BUY' ? '#bbf7d0' : s.action === 'SELL' ? '#fecaca' : '#bfdbfe';
+                
+                h += '<div style="background:' + actionBg + ';border:1px solid ' + borderColor + ';border-radius:10px;padding:12px;margin-bottom:8px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:flex-start">';
+                h += '<div>';
+                h += '<span style="font-size:16px;font-weight:800;color:#1e293b">' + s.symbol + '</span> ';
+                h += '<span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:' + actionColor + ';color:white">' + (s.action_zh || s.action) + '</span>';
+                if (s.score) h += ' <span style="font-size:11px;color:#64748b">Score ' + s.score + '</span>';
+                h += '</div>';
+                h += '<div style="text-align:right"><span style="font-size:15px;font-weight:700">$' + (s.price || 0).toFixed(2) + '</span></div>';
+                h += '</div>';
+                
+                // Reasons
+                if (s.reasons && s.reasons.length) {
+                    h += '<div style="margin-top:6px;font-size:11px;color:#475569">';
+                    s.reasons.slice(0, 3).forEach(function(r) { h += '• ' + r + '<br>'; });
+                    h += '</div>';
+                }
+                
+                // Price levels
+                if (s.entry_price || s.stop_loss || s.target_price) {
+                    h += '<div style="margin-top:6px;display:flex;gap:8px;font-size:10px;color:#64748b;flex-wrap:wrap">';
+                    if (s.entry_price) h += '<span>📍 進場 $' + s.entry_price.toFixed(2) + '</span>';
+                    if (s.stop_loss) h += '<span>🛑 止損 <span style="color:#dc2626">$' + s.stop_loss.toFixed(2) + '</span></span>';
+                    if (s.target_price) h += '<span>🎯 目標 <span style="color:#16a34a">$' + s.target_price.toFixed(2) + '</span></span>';
+                    h += '</div>';
+                }
+                
+                h += '</div>';
+            });
+            
+            if (list.length > 30) h += '<p style="text-align:center;font-size:12px;color:#94a3b8">顯示前 30 筆，共 ' + list.length + ' 筆</p>';
+            
+            document.getElementById('signalsList').innerHTML = h;
+        }
+
         function searchSmartSignal() {
             var input = document.getElementById('smartSearchInput');
             var resultDiv = document.getElementById('smartSearchResult');
@@ -3066,11 +3249,39 @@ async function loadSmartBacktest() {
 
 
         <!-- Smart Money Section -->
-        <div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+        
+        <!-- Research Reports Section -->
+        <div id="researchSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="margin-bottom:16px">
+                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">🔬 研究報告</h2>
+                <p style="font-size:12px;color:#64748b;margin:0">AI 驅動的深度分析 — SEC 年報解讀、個股深度報告、AI 分析師觀點</p>
+            </div>
+            <div id="researchContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+        </div>
+
+        <!-- Tools Section -->
+        <div id="toolsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="margin-bottom:16px">
+                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">📚 工具箱</h2>
+                <p style="font-size:12px;color:#64748b;margin:0">產業情報、Rule of 40、事件行事曆、新聞、市場日報</p>
+            </div>
+            <div id="toolsSubTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+                <button onclick="switchToolsTab('r40')" id="tools-tab-r40" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;color:#4f46e5;white-space:nowrap">📐 Rule of 40</button>
+                <button onclick="switchToolsTab('intel')" id="tools-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏭 產業情報</button>
+                <button onclick="switchToolsTab('sectorcomp')" id="tools-tab-sectorcomp" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏢 板塊個股</button>
+                <button onclick="switchToolsTab('eventcal')" id="tools-tab-eventcal" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🗓️ 事件行事曆</button>
+                <button onclick="switchToolsTab('news')" id="tools-tab-news" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📰 新聞</button>
+                <button onclick="switchToolsTab('daily_archive')" id="tools-tab-daily_archive" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📰 市場日報</button>
+                <button onclick="switchToolsTab('guide')" id="tools-tab-guide" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">📖 學習中心</button>
+            </div>
+            <div id="toolsContent"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+        </div>
+
+<div id="smartSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
             <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid #e2e8f0">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
                     <div>
-                        <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">💡 金流密碼</h2>
+                        <h2 style="font-size:20px;font-weight:800;color:#1e293b;margin:0">📈 訊號系統</h2>
                         
                         <p style="font-size:12px;color:#64748b;margin:4px 0 0">AI 量化偵測主力資金動向 · S&P500 + Nasdaq100 + 題材股</p>
                         <details style="margin-top:8px">
@@ -3115,28 +3326,13 @@ async function loadSmartBacktest() {
                             </div>
                         </details>
                     </div>
-                    <div style="display:flex;gap:4px;padding:8px 4px;flex-wrap:wrap">
-                        <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish"
-                            style="padding:6px 12px;border-radius:16px;border:none;cursor:pointer;font-weight:700;font-size:11px;white-space:nowrap;flex-shrink:0;;background:#dcfce7;color:#16a34a;transition:all 0.2s">
-                            📈 吸籌偵測
-                        </button>
-                        <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish"
-                            style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">
-                            📉 出貨偵測
-                        </button>
-                        
-                        <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📊 Signal Map</button>
-                        <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🔬 Alpha 框架</button>
-                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📡 操作訊號</button>
-                <button onclick="switchSmartTab('earnings')" id="smart-tab-earnings" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📅 財報日曆</button>
-                <button onclick="switchSmartTab('r40')" id="smart-tab-r40" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">📐 Rule of 40</button>
-                <button onclick="switchSmartTab('intel')" id="smart-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;;color:#64748b;transition:all 0.2s">🏭 產業情報</button>
-                <button onclick="switchSmartTab('sectorcomp')" id="smart-tab-sectorcomp" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🏢 板塊個股</button>
-                <button onclick="switchSmartTab('eventcal')" id="smart-tab-eventcal" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🗓️ 事件行事曆</button>
-                <button onclick="switchSmartTab('aianalyst')" id="smart-tab-aianalyst" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">🧠 AI 分析師</button>
-                <button onclick="switchSmartTab('longshort')" id="smart-tab-longshort" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;transition:all 0.2s">📊 長短配置</button>
-                <a href="/reports/" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;font-weight:700;font-size:11px;background:white;white-space:nowrap;flex-shrink:0;color:#64748b;text-decoration:none;transition:all 0.2s;display:inline-block" onmouseover="this.style.background='#fef3c7';this.style.color='#92400e'" onmouseout="this.style.background='white';this.style.color='#64748b'">🔬 深度報告</a>
-                    </div>
+                    <div style="display:flex;gap:6px;overflow-x:auto;padding:4px 0;flex-wrap:wrap">
+                <button onclick="switchSmartTab('bullish')" id="smart-tab-bullish" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;white-space:nowrap;color:#4f46e5">📈 吸籌偵測</button>
+                <button onclick="switchSmartTab('bearish')" id="smart-tab-bearish" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;color:#64748b">📉 出貨偵測</button>
+                <button onclick="switchSmartTab('signalmap')" id="smart-tab-signalmap" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;color:#64748b">📊 Signal Map</button>
+                <button onclick="switchSmartTab('alpha')" id="smart-tab-alpha" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;color:#64748b">🔬 Alpha 框架</button>
+                <button onclick="switchSmartTab('signals')" id="smart-tab-signals" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;white-space:nowrap;color:#64748b">📡 操作訊號</button>
+            </div>
                 </div>
                 <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                     <input type="text" id="smartSearchInput" placeholder="輸入代號查詢，如 SNDK" 
@@ -3763,6 +3959,42 @@ async function loadSmartBacktest() {
         </div>
 
 
+        <!-- Daily Column: 2026/10/12 09:10 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/10/12 09:10</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 HAE -0.7%（量比?x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股事件分析
+
+## 📈 強力買進：HAE（海莫納蒂克斯）
+
+**（1）觸發事件**
+Barrington上調目標價至$140，維持優於大盤評級，激發投資者買進熱情。
+
+**（2）主要原因**
+- 分析師調升目標價幅度18%，顯示公司基本面改善超預期，吸引機構投資者加碼。
+- 血液製品與醫療設備市場需求穩定增長，HAE作為全球領導者享受結構性利好。
+- 17.5%漲幅突破技術面阻力，吸引追高資金與短線獲利者的新買盤湧入。
+
+**（3）受惠個股**
+- **Fresenius Medical Care（FMS）**：透析設備供應商，醫療器材景氣同步受惠。
+- **Baxter International（BAX）**：血液製品競爭者，評級上調具示範效應。
+
+**（4）受害個股**
+- **Abbott Diagnostics**：血液檢測領域競爭，HAE上漲可能分食市場份額。
+
+**（5）結論**
+分析師看好推動強勁反彈，後續需觀察業績能否支撐高位。
+
+---
+
+## 📉 強力賣出：</div></div><div style="background:#fef2f2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#dc2626;margin-bottom:8px;font-size:14px">📉 T -9.8%（量比3.0x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line">T（美國電話電報公司）
+
+**（1）觸發事件**
+SpaceX進軍衛星通訊領域威脅AT&T傳統電信業務，引發市場悲觀預期。
+
+**（2）主要原因**
+- SpaceX藍鳥衛星接續發射部署，具備低軌覆蓋優勢，直接威</div></div></div><p style="color:#9ca3af;font-size:11px;margin-top:16px;margin-bottom:0">⚠️ 僅供參考，不構成投資建議｜AI生成｜stockiq.tw</p></div></div>
+
+        <!-- Daily Briefing: 2026/10/12 09:10 -->
+        <div class="max-w-5xl mx-auto mt-4 px-4" id="topBriefing" style="display:none"><div id="marketStatusBanner" style="display:none"></div><div style="background:linear-gradient(135deg,#1e1b4b,#1e3a5f);border-radius:16px;padding:24px;color:white;margin-bottom:24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:20px;font-weight:800;margin:0">📰 今日市場速報</h2><span style="color:#818cf8;font-size:12px;background:rgba(255,255,255,0.1);padding:4px 10px;border-radius:20px">2026/10/12 09:10</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px"><div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:14px"><div style="color:#86efac;font-weight:700;margin-bottom:10px;font-size:13px">🚀 強力買進</div><p style='color:#818cf8;font-size:11px;margin:0'>今日無強力買進訊號</p></div><div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">🔴 強力賣出</div><div onclick="document.getElementById('tickerInput').value='T';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">T</span><span style="color:#f87171">-9.8%<span style="color:#f97316;font-size:10px"> 3.0x</span></span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fde68a;font-weight:700;margin-bottom:10px;font-size:13px">📈 漲幅前5</div><div onclick="document.getElementById('tickerInput').value='HAE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">HAE</span><span style="color:#4ade80">-0.7%</span></div><div onclick="document.getElementById('tickerInput').value='MANE';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MANE</span><span style="color:#4ade80">+3.4%</span></div><div onclick="document.getElementById('tickerInput').value='SECZ';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">SECZ</span><span style="color:#4ade80">+9.2%</span></div><div onclick="document.getElementById('tickerInput').value='COCO';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">COCO</span><span style="color:#4ade80">+4.3%</span></div><div onclick="document.getElementById('tickerInput').value='ERAS';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ERAS</span><span style="color:#4ade80">+3.7%</span></div></div><div style="background:rgba(255,255,255,0.08);border-radius:10px;padding:14px"><div style="color:#fca5a5;font-weight:700;margin-bottom:10px;font-size:13px">📉 跌幅前5</div><div onclick="document.getElementById('tickerInput').value='AAOI';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">AAOI</span><span style="color:#f87171">+3.5%</span></div><div onclick="document.getElementById('tickerInput').value='MXL';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">MXL</span><span style="color:#f87171">+2.6%</span></div><div onclick="document.getElementById('tickerInput').value='ARGX';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">ARGX</span><span style="color:#f87171">+0.8%</span></div><div onclick="document.getElementById('tickerInput').value='EQPT';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">EQPT</span><span style="color:#f87171">-3.7%</span></div><div onclick="document.getElementById('tickerInput').value='HUT';document.getElementById('tickerInput').scrollIntoView({behavior:'smooth'})" style="display:flex;justify-content:space-between;padding:4px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.08)"><span style="font-weight:700;color:#a5b4fc">HUT</span><span style="color:#f87171">+5.9%</span></div></div></div><p style="color:#4f46e5;font-size:11px;margin-top:14px;margin-bottom:0">📊 Yahoo Finance｜點代號直接分析｜stockiq.tw</p></div></div>
+
         <!-- Product Info HIDDEN -->
 <div style="display:none">
 <!-- Product Info + Policies (for payment platform review) -->
@@ -3818,12 +4050,4 @@ async function loadSmartBacktest() {
 
         <!-- Footer Disclaimer -->
         
-        
-        <!-- Daily Column: 2026/10/07 10:44 -->
-        <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn">
-            <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">
-                <p style="color:#94a3b8;text-align:center;padding:24px;font-size:14px">⏳ 載入今日市場日報...</p>
-            </div>
-        </div>
-
         
