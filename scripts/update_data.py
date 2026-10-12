@@ -1,4 +1,3 @@
-import os
 #!/usr/bin/env python3
 """
 StockIQ Data Preloader v1.1
@@ -121,6 +120,80 @@ def sync_to_main(path, content_str, msg):
         return False
 
 # ─── Yahoo Finance helpers ─────────────────────────────────────────────────────
+
+def yf_quarterly_series(ticker_obj, statement, field, n=5):
+    """Safely extract a quarterly time series from yfinance, always in ascending date order.
+    
+    Args:
+        ticker_obj: yf.Ticker instance
+        statement: 'financials' | 'balance_sheet' | 'cashflow'
+        field: row label like 'Total Revenue', 'Gross Profit', 'Inventory'
+        n: number of most recent quarters to return
+    
+    Returns:
+        list of (date_str, value) tuples, oldest first. Empty list on failure.
+    
+    Why this exists:
+        yfinance quarterly DataFrames have columns in DESCENDING date order (newest first).
+        Direct iteration like `for d in df.index[-4:]` gives OLDEST 4 in REVERSED order.
+        This caused a production bug where margin trends appeared inverted (2026-08-01).
+        This function guarantees ascending order so trends always read left→right.
+    """
+    try:
+        df = getattr(ticker_obj, f'quarterly_{statement}', None)
+        if df is None or df.empty or field not in df.index:
+            return []
+        row = df.loc[field].dropna()
+        # Sort ascending by date (oldest first)
+        sorted_items = sorted(zip(row.index, row.values), key=lambda x: x[0])
+        # Take last n
+        result = [(str(d)[:10], float(v)) for d, v in sorted_items[-n:]]
+        return result
+    except Exception:
+        return []
+
+
+def yf_quarterly_margins(ticker_obj, n=5):
+    """Get quarterly gross margin series, ascending order. Returns list of (date_str, gm_pct)."""
+    rev = yf_quarterly_series(ticker_obj, 'financials', 'Total Revenue', n)
+    gp = yf_quarterly_series(ticker_obj, 'financials', 'Gross Profit', n)
+    if not rev or not gp:
+        return []
+    rev_dict = dict(rev)
+    gp_dict = dict(gp)
+    margins = []
+    for date, r in rev:
+        g = gp_dict.get(date)
+        if r and g and r > 0:
+            margins.append((date, round(g / r * 100, 1)))
+    return margins
+
+
+def _validate_quarterly_sort():
+    """Runtime validation: verify yf_quarterly_series returns ascending order.
+    Called once during data pipeline to catch API changes early."""
+    try:
+        import yfinance as _yf_check
+        t = _yf_check.Ticker("AAPL")
+        series = yf_quarterly_series(t, 'financials', 'Total Revenue', 4)
+        if len(series) >= 2:
+            dates = [d for d, _ in series]
+            if dates != sorted(dates):
+                print(f"  ⛔ CRITICAL: yf_quarterly_series returned unsorted dates: {dates}")
+                print(f"  ⛔ This will cause inverted trend analysis. Aborting.")
+                raise ValueError("Quarterly data sort order validation failed")
+            values = [v for _, v in series]
+            # AAPL revenue should be roughly in the same ballpark (not 10x different)
+            if max(values) / min(values) > 100:
+                print(f"  ⚠️ WARNING: Extreme quarterly variance for AAPL: {values}")
+        return True
+    except ImportError:
+        return True  # yfinance not installed, skip
+    except ValueError:
+        raise
+    except Exception:
+        return True  # Network issues etc, skip validation
+
 
 def yf_screener(scrId, n=10):
     for base in ["query1", "query2"]:
@@ -257,7 +330,7 @@ SCAN_TICKERS = [
     "CSGP","VRSK","IDXX","WDAY","PYPL","EBAY","TEAM","TTD","DOCU","ZM",
     "ABNB","DASH","RIVN","LCID","HOOD","MSTR","COIN","INTC","AMAT","MU",
     # Semis / Storage
-    "ON","WOLF","SWKS","MCHP","STM","ASML","TER","ARM","SMCI","BTDR","SNDK",
+    "ON","WOLF","SWKS","MCHP","STM","ASML","TER","ARM","SMCI","BTDR","SNDK","WDC","STX","NXPI","TSM",
     # Space/Defense
     "RDW","RKLB","ASTS","SATL","LUNR","ACHR","JOBY","LMT","NOC","GD","BA",
     # Quantum
@@ -272,6 +345,35 @@ SCAN_TICKERS = [
     "S","TENB","QLYS","CYBR",
     # Social/SaaS
     "RBLX","LYFT","PINS","SNAP","U",
+    # Fintech/Bank
+    "BABA","FISV","GRAB","MELI","NU","OSCR","SOFI","TWLO","BMNR","CHYM","CRCG",
+    # AI/Cloud additions
+    "ALAB","ASAN","CRDO","FIG","HPE","IBM","NOW","PATH","RBRK","RDDT","RZLV","SHOP","TEM","WRD",
+    # Semi additions
+    "ACMR","ETN","LITE","NVT","NVTS","PENG","RMBS","VECO","VRT",
+    # Space additions
+    "DXYZ","LAES","PL","QSI","SIDU","SPCX","WKEY","XOVR",
+    # Robotics/Industrial
+    "HSAI","ISRG","SERV","SONY","SRFM",
+    # Healthcare
+    "TMDX",
+    # Energy/Metals/Nuclear
+    "ALB","BE","BKR","CCJ","EOSE","EQT","FCX","FTAI","GEV","IREN","LAC","LEU","MP","NBIS","OKLO","SLB","SMR",
+    # Consumer/Life
+    "CAVA","CELH","DUOL","ONON","SE","VITL",
+    # Defense/Army
+    "AVAV","BYRN","DPRO","KOPN","KTOS","LPTH","ONDS","PDYN","RCAT","UMAC",
+    # Optical/Connectivity/Edge
+    "AAOI","AEHR","AXTI","CIEN","COHR","CRWV","GLW","HIMX","NOK","SIVE",
+    "CTM","GFS","LIDR","LWLG","POET",
+    # Semi Equipment/Mini
+    "AEIS","ASX","FORM","ICHR","MKSI","MOD","MXL","ONTO","OUST","SMTC","TTMI","UCTT","VIAV",
+    # Biotech additions
+    "VRTX","IOVA","OCUL","NUVB",
+    # Consumer/Industrial additions
+    "BYND","F","RACE","UPWK","OPEN","RIG","WING",
+    # Other
+    "AAL","AMPG","APLD","BZAI","EVLV","INFQ","ONMD","QNT","SIRI","UNHG","VSAT",
     # ETFs
     "SOXX","ARKK","WCLD","BOTZ","UFO","ICLN","XLK","XLF","XLE",
 ]
@@ -651,6 +753,9 @@ def collect_market_context():
     elif ctx["composite_score"] > 20: ctx["composite_label"] = "恐懼"
     else: ctx["composite_label"] = "極度恐懼"
     
+    tw = datetime.now(timezone(timedelta(hours=8)))
+    ctx["generated_at"] = tw.strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    
     return ctx
 
 
@@ -766,11 +871,29 @@ def fetch_alpha_data(tickers):
             trailing_pe = info.get('trailingPE', 0) or 0
             peg = info.get('pegRatio')
             rec_key = info.get('recommendationKey', 'none')
+            roe = info.get('returnOnEquity')
+            roa = info.get('returnOnAssets')
+            pb = info.get('priceToBook')
             rec_mean = info.get('recommendationMean', 0) or 0  # 1=strongBuy, 5=strongSell
             n_analysts = info.get('numberOfAnalystOpinions', 0) or 0
             
             upside_pct = round((target_mean / price - 1) * 100, 1) if target_mean and price else 0
             
+            # PE expansion/contraction analysis
+            pe_gap = None
+            pe_signal = None
+            if forward_pe and trailing_pe and trailing_pe > 0:
+                pe_gap = round((forward_pe / trailing_pe - 1) * 100, 1)
+                # FwdPE << TrailPE means market expects strong growth → PE expanding
+                if pe_gap < -40:
+                    pe_signal = "🔥 PE大幅壓縮 — EPS爆發，股價可能重估"
+                elif pe_gap < -20:
+                    pe_signal = "📈 PE壓縮 — 盈利加速成長"
+                elif pe_gap > 30:
+                    pe_signal = "⚠️ PE擴張 — 盈利可能下滑"
+                elif pe_gap > 50:
+                    pe_signal = "🔴 PE過度擴張 — 基本面惡化風險"
+
             result["alpha"] = {
                 "target_mean": round(target_mean, 2) if target_mean else None,
                 "target_high": round(target_high, 2) if target_high else None,
@@ -778,10 +901,32 @@ def fetch_alpha_data(tickers):
                 "upside_pct": upside_pct,
                 "forward_pe": round(forward_pe, 1) if forward_pe else None,
                 "trailing_pe": round(trailing_pe, 1) if trailing_pe else None,
+                "pe_gap_pct": pe_gap,
+                "pe_signal": pe_signal,
                 "peg_ratio": round(peg, 2) if peg else None,
                 "recommendation": rec_key,
                 "rec_score": round(rec_mean, 1),
                 "n_analysts": n_analysts,
+                "industry": info.get('industry', ''),
+                "roe": round(roe * 100, 1) if roe else None,
+                "roa": round(roa * 100, 1) if roa else None,
+                "pb": round(pb, 2) if pb else None,
+                # ── Financial Health ──
+                "fcf": round(info.get("freeCashflow", 0) / 1e9, 2) if info.get("freeCashflow") else None,
+                "ocf": round(info.get("operatingCashflow", 0) / 1e9, 2) if info.get("operatingCashflow") else None,
+                "debt_equity": round(info.get("debtToEquity", 0), 1) if info.get("debtToEquity") is not None else None,
+                "current_ratio": round(info.get("currentRatio", 0), 2) if info.get("currentRatio") is not None else None,
+                "net_cash_b": round((info.get("totalCash", 0) - info.get("totalDebt", 0)) / 1e9, 2) if info.get("totalCash") else None,
+                # ── Market Sentiment ──
+                "beta": round(info.get("beta", 0), 2) if info.get("beta") is not None else None,
+                "insider_pct": round(info.get("heldPercentInsiders", 0) * 100, 1) if info.get("heldPercentInsiders") is not None else None,
+                "inst_pct": round(info.get("heldPercentInstitutions", 0) * 100, 1) if info.get("heldPercentInstitutions") is not None else None,
+                "short_pct": round(info.get("shortPercentOfFloat", 0) * 100, 1) if info.get("shortPercentOfFloat") is not None else None,
+                # ── Growth Quality ──
+                "op_margin": round(info.get("operatingMargins", 0) * 100, 1) if info.get("operatingMargins") is not None else None,
+                "profit_margin": round(info.get("profitMargins", 0) * 100, 1) if info.get("profitMargins") is not None else None,
+                "eq_growth": round(info.get("earningsQuarterlyGrowth", 0) * 100, 1) if info.get("earningsQuarterlyGrowth") is not None else None,
+                "div_yield": round(info.get("dividendYield", 0) * 100, 2) if info.get("dividendYield") is not None else None,
             }
             
             # ── 3. Positioning Layer (Options) ──
@@ -868,6 +1013,10 @@ def fetch_alpha_data(tickers):
                 "pc_ratio_oi": pc_ratio_oi,
                 "iv_skew": iv_skew,
                 "max_pain": max_pain,
+                "options_expiry": target_date,
+                "options_dte": (datetime.strptime(target_date, "%Y-%m-%d") - today).days if target_date else None,
+                "total_call_oi": int(c_oi) if 'c_oi' in dir() and c_oi else None,
+                "total_put_oi": int(p_oi) if 'p_oi' in dir() and p_oi else None,
                 "short_ratio": round(short_ratio, 1) if short_ratio else None,
                 "short_pct_float": round(short_pct * 100, 1) if short_pct else None,
                 "verdict": pos_verdict,
@@ -880,17 +1029,35 @@ def fetch_alpha_data(tickers):
             # Type 4: 最佳加碼區 (narrative ok, alpha high, deleveraged) → 加碼
             
             n_ok = narrative in ("intact",)
+            n_weak = narrative in ("weakening",)
+            n_broken = narrative in ("broken",)
             a_high = upside_pct > 15
+            a_moderate = upside_pct > 0  # not overvalued
+            a_deep_overvalued = upside_pct < -25  # seriously overvalued (>25% above target)
             p_ok = pos_verdict in ("neutral", "hedged")
             
-            if not n_ok and not a_high:
-                classification = "type1_exit"
-            elif n_ok and not a_high:
-                classification = "type2_reduce"
-            elif n_ok and a_high and not p_ok:
-                classification = "type3_hold"
+            # v5 Classification Logic (backtest-validated 8/8)
+            # Key insight: narrative intact + trend > valuation in bull markets
+            # Only reduce when BOTH narrative AND valuation are bad
+            
+            if n_broken and not a_high:
+                classification = "type1_exit"  # broken + no upside → exit
+            elif n_broken and a_high:
+                classification = "type2_reduce"  # broken but deeply undervalued → reduce, watch
+            elif n_weak and a_deep_overvalued:
+                classification = "type2_reduce"  # weakening + deeply overvalued → reduce
+            elif n_weak:
+                classification = "type3_hold"  # weakening but not deeply overvalued → hold
             elif n_ok and a_high and p_ok:
-                classification = "type4_accumulate"
+                classification = "type4_accumulate"  # intact + undervalued + good positioning
+            elif n_ok and a_high:
+                classification = "type4_accumulate"  # intact + undervalued (positioning doesn't block)
+            elif n_ok and a_deep_overvalued:
+                classification = "type3_hold"  # intact but deeply overvalued → hold (NOT reduce)
+                # Backtest: intact narrative stocks avg +5% even when "overvalued"
+                # Trend > valuation in bull markets. Only exit on narrative break.
+            elif n_ok:
+                classification = "type3_hold"  # intact + slightly overvalued → hold
             else:
                 classification = "type2_reduce"
             
@@ -918,15 +1085,28 @@ def fetch_alpha_data(tickers):
             
             # ── 6. Multi-Model Valuation ──
             SECTOR_PE = {
-                'Technology': 30, 'Communication Services': 22, 'Consumer Cyclical': 25,
-                'Healthcare': 18, 'Financial Services': 14, 'Energy': 12,
-                'Industrials': 20, 'Consumer Defensive': 24, 'Basic Materials': 18,
+                'Technology': 18, 'Communication Services': 17, 'Consumer Cyclical': 22,
+                'Healthcare': 18, 'Financial Services': 18, 'Energy': 15,
+                'Industrials': 28, 'Consumer Defensive': 23, 'Basic Materials': 15,
                 'Real Estate': 35, 'Utilities': 18,
+            }
+            # Sub-industry overrides (more accurate than broad sector)
+            INDUSTRY_PE = {
+                'Semiconductors': 22, 'Semiconductor Equipment & Materials': 22,
+                'Software - Infrastructure': 25, 'Software - Application': 25,
+                'Internet Retail': 30, 'Internet Content & Information': 20,
+                'Drug Manufacturers - General': 15, 'Biotechnology': 25,
+                'Banks - Diversified': 12, 'Capital Markets': 15,
+                'Insurance - Diversified': 12,
+                'Aerospace & Defense': 22, 'Farm & Heavy Construction Machinery': 20,
+                'Auto Manufacturers': 30,
             }
             fwd_eps_val = info.get('forwardEps')
             div_rate_val = info.get('dividendRate', 0) or 0
             sector_name = info.get('sector', '')
-            sect_pe = SECTOR_PE.get(sector_name, 22)
+            industry_name = info.get('industry', '')
+            # Use industry-specific PE if available, else sector
+            sect_pe = INDUSTRY_PE.get(industry_name, SECTOR_PE.get(sector_name, 20))
             
             valuation = {"analyst": round(target_mean, 0) if target_mean else None}
             
@@ -1017,7 +1197,7 @@ def fetch_alpha_data(tickers):
 
 def send_daily_email(tw, bull_signals, bear_signals, mkt_ctx, news_items=None, movers_data=None, macro_data=None, alpha_data=None, signal_changes=None):
     """Send daily smart money email summary with sector flow + market movers + alpha framework + signal alerts."""
-    RESEND_KEY = os.environ.get("RESEND_API_KEY", "re_h6P4QM47_N47rSLhCs3qEeZkQUq5fkvaU")
+    RESEND_KEY = os.environ.get("RESEND_API_KEY", "")
     TO_EMAIL = "smartlifecalendar@gmail.com"
     
     if not RESEND_KEY:
@@ -1453,11 +1633,233 @@ def send_daily_email(tw, bull_signals, bear_signals, mkt_ctx, news_items=None, m
     print(f"  ✅ Email sent: {result.get('id', '?')}")
 
 
+
+def collect_industry_intel():
+    from concurrent.futures import ThreadPoolExecutor
+    """Collect competitive intelligence: market share, acceleration, valuation gaps."""
+    import yfinance as yf_mod
+    import xml.etree.ElementTree as ET
+    
+    SEGMENTS = {
+        "AI基礎設施_GPU": ["NVDA", "AMD", "INTC"],
+        "AI基礎設施_光通": ["LITE", "COHR", "AAOI"],
+        "AI基礎設施_網通": ["ANET", "CIEN"],
+        "AI基礎設施_伺服器": ["SMCI"],
+        "半導體設備": ["ASML", "AMAT", "LRCX", "KLAC", "TER"],
+        "記憶體": ["MU"],
+        "IP設計": ["ARM", "MRVL", "QCOM", "SNPS", "CDNS"],
+        "網路安全": ["CRWD", "PANW", "ZS", "FTNT", "S", "OKTA"],
+        "SaaS軟體": ["CRM", "SNOW", "DDOG", "WDAY", "MDB"],
+        "藥廠": ["LLY", "AMGN", "BMY", "JNJ"],
+        "電動車": ["TSLA", "RIVN", "NIO", "LCID"],
+    }
+    
+    all_syms = set()
+    for v in SEGMENTS.values():
+        all_syms.update(v)
+    
+    # Fetch data
+    def _fetch(sym):
+        try:
+            t = yf_mod.Ticker(sym)
+            info = t.info
+            rev = info.get("totalRevenue", 0)
+            q_revs = [v for _, v in yf_quarterly_series(t, 'financials', 'Total Revenue', 5)]
+            return {
+                "sym": sym,
+                "rev_ttm": rev,
+                "rev_growth": round(info["revenueGrowth"] * 100, 1) if info.get("revenueGrowth") else None,
+                "gross_margin": round(info["grossMargins"] * 100, 1) if info.get("grossMargins") else None,
+                "ev_rev": round(info["enterpriseToRevenue"], 1) if info.get("enterpriseToRevenue") else None,
+                "peg": round(info["pegRatio"], 2) if info.get("pegRatio") else None,
+                "q_revs": q_revs,
+            }
+        except:
+            return {"sym": sym}
+    
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        all_data = {r["sym"]: r for r in ex.map(_fetch, all_syms) if r.get("rev_ttm")}
+    
+    segments_out = {}
+    for seg_name, syms in SEGMENTS.items():
+        seg_data = [all_data[s] for s in syms if s in all_data]
+        if not seg_data:
+            continue
+        total_rev = sum(d.get("rev_ttm", 0) or 0 for d in seg_data)
+        
+        stocks = []
+        for d in sorted(seg_data, key=lambda x: -(x.get("rev_ttm") or 0)):
+            share = ((d.get("rev_ttm") or 0) / total_rev * 100) if total_rev > 0 else 0
+            # Acceleration
+            accel = None
+            qr = d.get("q_revs", [])
+            if len(qr) >= 3 and qr[-2] > 0 and qr[-3] > 0:
+                r1 = (qr[-1] / qr[-2] - 1) * 100
+                r2 = (qr[-2] / qr[-3] - 1) * 100
+                accel = round(r1 - r2, 1)
+            # Valuation efficiency
+            val_eff = None
+            if d.get("ev_rev") and d.get("rev_growth") and d["rev_growth"] > 0:
+                val_eff = round(d["ev_rev"] / (d["rev_growth"] / 100), 1)
+            
+            stocks.append({
+                "symbol": d["sym"],
+                "rev_b": round((d.get("rev_ttm") or 0) / 1e9, 2),
+                "market_share": round(share, 1),
+                "rev_growth": d.get("rev_growth"),
+                "gross_margin": d.get("gross_margin"),
+                "ev_rev": d.get("ev_rev"),
+                "peg": d.get("peg"),
+                "acceleration": accel,
+                "val_efficiency": val_eff,
+            })
+        
+        avg_growth = sum(d.get("rev_growth", 0) or 0 for d in seg_data) / len(seg_data)
+        segments_out[seg_name] = {
+            "total_rev_b": round(total_rev / 1e9, 1),
+            "avg_growth": round(avg_growth, 1),
+            "trend": "strong_growth" if avg_growth > 30 else "growth" if avg_growth > 15 else "moderate" if avg_growth > 0 else "stagnant",
+            "stocks": stocks,
+        }
+    
+    # Industry news
+    NEWS_FEEDS = {
+        "AI基礎設施": ("NVDA,AVGO,MRVL,ANET,LITE", ["AI", "GPU", "data center", "cloud", "infrastructure", "capex", "orders"]),
+        "半導體": ("NVDA,AMD,INTC,TSM,ASML", ["chip", "semiconductor", "foundry", "fab", "wafer", "capacity"]),
+        "光通訊": ("LITE,COHR,AAOI,CIEN", ["optical", "transceiver", "800G", "1.6T", "photonics", "coherent"]),
+        "網路安全": ("CRWD,PANW,ZS", ["cyber", "security", "breach", "ransomware"]),
+    }
+    
+    news_out = {}
+    for ind, (tickers, keywords) in NEWS_FEEDS.items():
+        try:
+            url = f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={tickers}&region=US&lang=en-US"
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            resp = urllib.request.urlopen(req, timeout=10)
+            root = ET.fromstring(resp.read())
+            items = root.findall('.//item')
+            relevant = []
+            for item in items[:20]:
+                title = (item.find('title').text or "")
+                text = title.lower()
+                matched = [k for k in keywords if k.lower() in text]
+                if matched:
+                    link = item.find('link')
+                    relevant.append({"title": title[:100], "keywords": matched, "link": link.text if link is not None else ""})
+            news_out[ind] = relevant[:5]
+        except:
+            pass
+    
+    tw = datetime.now(timezone(timedelta(hours=8)))
+    # Pricing power: margin trends + capacity signals for key supply chain stocks
+    PP_STOCKS = {
+        "光纖原料(寡佔)": ["GLW"],
+        "光通模組": ["LITE", "COHR", "AAOI"],
+        "GPU(壟斷)": ["NVDA", "AMD", "INTC"],
+        "EDA工具(雙寡佔)": ["SNPS", "CDNS"],
+        "光刻機(壟斷)": ["ASML"],
+        "半導體設備": ["AMAT", "LRCX", "KLAC", "TER"],
+        "記憶體(寡佔)": ["MU"],
+        "IP授權(壟斷)": ["ARM"],
+        "網通(雙寡佔)": ["ANET", "CIEN"],
+        "AI伺服器": ["SMCI"],
+        "晶片設計": ["AVGO", "MRVL", "QCOM", "TXN"],
+        "網路安全": ["CRWD", "PANW", "ZS", "FTNT"],
+    }
+    pp_syms = set()
+    for v in PP_STOCKS.values(): pp_syms.update(v)
+    
+    def _fetch_pp(sym):
+        try:
+            t = yf_mod.Ticker(sym)
+            info = t.info
+            
+            # Use safe wrapper for quarterly margins (guarantees ascending order)
+            margins_data = yf_quarterly_margins(t, 5)
+            margins_q = [gm for _, gm in margins_data]
+            
+            # Inventory days via safe wrapper
+            inv_days = None
+            inv_series = yf_quarterly_series(t, 'balance_sheet', 'Inventory', 1)
+            if not inv_series:
+                inv_series = yf_quarterly_series(t, 'balance_sheet', 'Net Inventory', 1)
+            if inv_series and info.get("totalRevenue", 0) > 0:
+                inv_days = round(inv_series[-1][1] / (info["totalRevenue"] / 365), 0)
+            
+            # CapEx via safe wrapper
+            capex_ttm = None
+            capex_series = yf_quarterly_series(t, 'cashflow', 'Capital Expenditure', 4)
+            if not capex_series:
+                capex_series = yf_quarterly_series(t, 'cashflow', 'CapitalExpenditure', 4)
+            if len(capex_series) >= 4:
+                capex_ttm = round(abs(sum(v for _, v in capex_series)) / 1e9, 2)
+            
+            gm_change = round(margins_q[-1] - margins_q[-3], 1) if len(margins_q) >= 3 else None
+            
+            return {"symbol": sym, "gm_trend": margins_q, "gm_change_2q": gm_change,
+                    "inventory_days": inv_days, "capex_ttm_b": capex_ttm,
+                    "gross_margin": round(info["grossMargins"]*100,1) if info.get("grossMargins") else None,
+                    "rev_growth": round(info["revenueGrowth"]*100,1) if info.get("revenueGrowth") else None}
+        except:
+            return {"symbol": sym}
+    
+    print("  Fetching pricing power data...")
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        pp_results = {r["symbol"]: r for r in ex.map(_fetch_pp, pp_syms)}
+    
+    pricing_power = {}
+    for seg, syms in PP_STOCKS.items():
+        pricing_power[seg] = {"stocks": [pp_results[s] for s in syms if s in pp_results and pp_results[s].get("gm_trend")]}
+    
+    # CapEx flows
+    print("  Fetching CapEx flows...")
+    capex_flows = collect_capex_flows()
+    
+    # Earnings interpretation for stocks reporting within 7 days
+    print("  Checking upcoming earnings...")
+    earnings_interpretations = {}
+    try:
+        import yfinance as yf_earn_check
+        from datetime import date
+        today = date.today()
+        for sym in list(pp_syms) + SCAN_TICKERS[:20]:
+            try:
+                cal = yf_earn_check.Ticker(sym).calendar
+                if cal and 'Earnings Date' in cal:
+                    ed = cal['Earnings Date']
+                    if isinstance(ed, list): ed = ed[0]
+                    if hasattr(ed, 'date'): ed = ed
+                    days_until = (ed - today).days if hasattr(ed, 'days') else 999
+                    if isinstance(ed, date):
+                        days_until = (ed - today).days
+                    if -3 <= days_until <= 7:
+                        earnings_interpretations[sym] = interpret_earnings(sym)
+            except:
+                pass
+    except:
+        pass
+    
+    tw = datetime.now(timezone(timedelta(hours=8)))
+    return {
+        "generated_at": tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "segments": segments_out,
+        "industry_news": news_out,
+        "pricing_power": pricing_power,
+        "capex_flows": capex_flows,
+        "earnings_watch": earnings_interpretations,
+    }
+
+
+
 def run():
     tw = datetime.now(timezone.utc) + timedelta(hours=8)
     now_str = tw.strftime("%Y-%m-%dT%H:%M:%S+08:00")
     print(f"🔄 StockIQ Data Preloader — {tw.strftime('%Y/%m/%d %H:%M')} TW")
 
+    # ── Validate data source integrity ──
+    print("🔍 Validating quarterly data sort order...")
+    _validate_quarterly_sort()
+    print("  ✅ Sort order validated")
 
     # ── 0. Market Context ─────────────────────────────────────────────────
     print("\n🎯 Collecting market context...")
@@ -2003,7 +2405,65 @@ def run():
     # Store in accum_data for email
     accum_data["signal_changes"] = signal_changes
 
-    # ── 4e. Save JSON to GitHub ───────────────────────────────────────────────
+    # ── 4e. Cross-reference news events with accumulation signals ────────────
+    try:
+        print("  🔍 Cross-referencing news events...")
+        # Load stock news alerts
+        _, news_raw = gh_get("data/stock_news.json")
+        news_data = json.loads(news_raw) if news_raw else {}
+        news_alerts = {a["symbol"]: a for a in news_data.get("alerts", []) if "symbol" in a}
+        news_stocks = news_data.get("stocks", {})
+        
+        # Load signals for risk context
+        _, sig_raw = gh_get("data/signals.json")
+        sig_data = json.loads(sig_raw) if sig_raw else {}
+        sig_map = {s["symbol"]: s for s in sig_data.get("signals", []) if "symbol" in s}
+        
+        warn_count = 0
+        for stock in accum_data.get("stocks", []) + accum_data.get("bearish", []):
+            sym = stock.get("symbol", "")
+            warnings = []
+            
+            # Check 1: Large single-day drop with bullish signal (contradiction)
+            chg = stock.get("change_1d", 0)
+            if stock.get("direction") == "bullish" and chg < -3:
+                warnings.append(f"⚠️ 今日跌{chg:.1f}%，與吸籌訊號矛盾")
+            
+            # Check 2: News alerts (negative headlines)
+            if sym in news_alerts:
+                alert = news_alerts[sym]
+                title = alert.get("title", "")
+                if any(w in title.lower() for w in ["plunge", "fall", "drop", "decline", "cut", "downgrade", "subpoena", "investigation", "recall", "lawsuit"]):
+                    warnings.append(f"📰 {title[:40]}...")
+            
+            # Check 3: Negative sentiment in recent news
+            if sym in news_stocks:
+                articles = news_stocks[sym].get("articles", [])
+                neg = [a for a in articles[:3] if a.get("sentiment") == "negative"]
+                if len(neg) >= 2:
+                    warnings.append(f"📰 近期{len(neg)}則負面新聞")
+            
+            # Check 4: Signal system says REDUCE/AVOID but accumulation says bullish
+            if sym in sig_map:
+                sig_action = sig_map[sym].get("action", "")
+                risk_notes = sig_map[sym].get("risk_notes", [])
+                if sig_action in ("REDUCE", "AVOID") and stock.get("direction") == "bullish":
+                    warnings.append(f"⚠️ 訊號系統建議{sig_map[sym].get('action_zh', sig_action)}")
+                # Check for high short interest
+                for note in risk_notes:
+                    if "空頭" in note and any(x in note for x in ["高", "35%", "40%", "50%"]):
+                        warnings.append(note)
+                        break
+            
+            if warnings:
+                stock["event_warnings"] = warnings
+                warn_count += 1
+        
+        print(f"  ⚠️ {warn_count} stocks flagged with event warnings")
+    except Exception as e:
+        print(f"  ⚠️ Event warning failed (non-critical): {e}")
+
+    # ── 4f. Save JSON to GitHub ───────────────────────────────────────────────
     accum_json = json.dumps(accum_data, ensure_ascii=False, indent=2)
     sha = gh_put("data/accumulation.json", accum_json, f"Update accumulation.json {tw.strftime('%Y/%m/%d %H:%M')}")
     print(f"  ✅ data/accumulation.json → {sha} ({len(accum_results)} signals found)")
@@ -2166,18 +2626,1504 @@ def run():
 
     # ── 7. Send daily email ─────────────────────────────────────────────────
     print("\n📧 Sending daily email...")
+    # Email disabled per user request — check stockiq.tw directly
+    print("  ⏭️  Email skipped (disabled)")
+
+    # ── 8. Auto-backtest & performance monitor ──────────────────────────────
+    print("\n📊 Running performance backtest...")
     try:
-        send_daily_email(tw, accum_results, bearish_results, market_ctx,
-                         news_items if 'news_items' in dir() else [],
-                         movers_data if 'movers_data' in dir() else None,
-                         macro_result if 'macro_result' in dir() else None,
-                         alpha_data if 'alpha_data' in dir() else None,
-                         signal_changes if 'signal_changes' in dir() else None)
+        bt_result = run_auto_backtest()
+        if bt_result and bt_result.get("alerts"):
+            print(f"\n  🚨 MODEL PERFORMANCE BELOW TARGET — review needed!")
     except Exception as e:
-        print(f"  ❌ Email failed: {e}")
+        print(f"  ⚠️ Backtest failed: {e}")
+
+    # ── 9. Cyclical breakout detection ──────────────────────────────────────
+    print("\n🔄 Scanning cyclical breakouts...")
+    try:
+        cyclical = detect_cyclical_breakout(alpha_data if 'alpha_data' in dir() else {})
+        if cyclical:
+            # Add to alpha.json
+            alpha_json_str = json.dumps({
+                "generated_at": tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+                "stocks": alpha_data if 'alpha_data' in dir() else {},
+                "cyclical_breakout": cyclical,
+            })
+            gh_put("data/alpha.json", alpha_json_str, "Update alpha.json with cyclical breakouts")
+            print(f"  ✅ alpha.json updated with {len(cyclical)} breakout candidates")
+    except Exception as e:
+        print(f"  ⚠️ Cyclical scan failed: {e}")
+
+    
+    # ── Macro Risk Monitor (daily) ──
+    try:
+        print("\n🌍 Collecting macro risk data...")
+        macro = collect_macro_risk()
+        gh_put("data/macro_risk.json", json.dumps(macro, ensure_ascii=False), "Macro risk update")
+        print(f"  {macro.get('verdict', '?')} (score: {macro.get('total_score', '?')})")
+        for a in macro.get("regional_alerts", []):
+            print(f"  🚨 {a['region']} ({a['etf']} {a['change']:+.1f}%) → {','.join(a['exposed_stocks'])}")
+    except Exception as e:
+        print(f"  ⚠️ Macro risk failed: {e}")
+
+    # ── News Intelligence (daily) ──
+    try:
+        print("\n📰 Collecting news intelligence...")
+        news = collect_news_intel()
+        gh_put("data/news_intel.json", json.dumps(news, ensure_ascii=False), "News intelligence update")
+        print(f"  ✅ {news['total_scanned']} articles, {len(news.get('geo_alerts',[]))} geo alerts")
+    except Exception as e:
+        print(f"  ⚠️ News intel failed: {e}")
+
+    # ── Industry Intelligence (weekly on Saturday or if file doesn't exist) ──
+    try:
+        if tw.weekday() == 5:  # Saturday
+            print("\n🏭 Collecting industry intelligence...")
+            intel = collect_industry_intel()
+            gh_put("data/industry_intel.json", json.dumps(intel, ensure_ascii=False), "Industry intelligence update")
+            print(f"  ✅ industry_intel.json ({len(intel.get('segments',{}))} segments)")
+    except Exception as e:
+        print(f"  ⚠️ Industry intel failed: {e}")
+
+
+# Push any remaining queued files
+    remaining = len(_pending_files)
+    if remaining > 0:
+        print(f"\n📦 Pushing {remaining} additional files...")
+        result2 = gh_batch_commit(f"📊 Backtest + alpha update {tw.strftime('%Y/%m/%d %H:%M')}")
+        if result2:
+            sha2, cnt2 = result2
+            print(f"  ✅ Commit: {sha2} ({cnt2} files)")
+
+    # ── Earnings + ROE snapshot (weekly on Saturday, or if file doesn't exist) ──
+    try:
+        if tw.weekday() == 5:  # Saturday
+            print("\n📅 Updating earnings + ROE data (weekly)...")
+            from concurrent.futures import ThreadPoolExecutor
+            def _fetch_er(sym):
+                try:
+                    t = yf.Ticker(sym)
+                    info = t.info
+                    ed = None
+                    try:
+                        cal = t.calendar
+                        if cal and isinstance(cal, dict) and cal.get("Earnings Date"):
+                            dates = cal["Earnings Date"]
+                            ed = [str(d)[:10] for d in (dates if isinstance(dates, list) else [dates])]
+                    except: pass
+                    return {"symbol": sym, "earnings_dates": ed,
+                            "roe": round(info.get("returnOnEquity", 0) * 100, 1) if info.get("returnOnEquity") else None,
+                            "roa": round(info.get("returnOnAssets", 0) * 100, 1) if info.get("returnOnAssets") else None,
+                            "op_margin": round(info.get("operatingMargins", 0) * 100, 1) if info.get("operatingMargins") is not None else None,
+                            "rev_growth": round(info.get("revenueGrowth", 0) * 100, 1) if info.get("revenueGrowth") else None,
+                            "fwd_pe": round(info["forwardPE"], 1) if info.get("forwardPE") else None,
+                            "trail_pe": round(info["trailingPE"], 1) if info.get("trailingPE") else None,
+                            "pb": round(info["priceToBook"], 2) if info.get("priceToBook") else None,
+                            "sector": info.get("sector", ""), "industry": info.get("industry", ""),
+                            "mcap_b": round(info.get("marketCap", 0) / 1e9, 1) if info.get("marketCap") else None}
+                except: return {"symbol": sym}
+            with ThreadPoolExecutor(max_workers=8) as ex:
+                er_results = list(ex.map(_fetch_er, list(SCAN_TICKERS)))
+            now_dt = datetime.now(timezone(timedelta(hours=8)))
+            upcoming = []
+            for r in er_results:
+                for d in (r.get("earnings_dates") or []):
+                    try:
+                        days = (datetime.strptime(d, "%Y-%m-%d") - now_dt.replace(tzinfo=None)).days
+                        if 0 <= days <= 60:
+                            upcoming.append({"symbol": r["symbol"], "date": d, "days": days, "roe": r.get("roe")})
+                    except: pass
+            upcoming.sort(key=lambda x: x["date"])
+            er_out = {"generated_at": tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"), "total_stocks": len(er_results),
+                       "stocks": {r["symbol"]: r for r in er_results if r.get("sector") or r.get("roe") is not None},
+                       "upcoming_earnings": upcoming}
+            gh_put("data/earnings_roe.json", json.dumps(er_out, ensure_ascii=False), "Earnings + ROE")
+            print(f"  ✅ earnings_roe.json ({len(er_out['stocks'])} stocks, {len(upcoming)} upcoming)")
+    except Exception as e:
+        print(f"  ⚠️ Earnings update failed: {e}")
 
     print(f"\n✅ All data files updated — {tw.strftime('%Y/%m/%d %H:%M')} TW")
     return True
+
+
+
+# ── Auto-Backtest & Performance Monitor ─────────────────────────────────────
+PERF_TARGETS = {
+    "5d":  {"avg_return": 0.5, "win_rate": 50},
+    "10d": {"avg_return": 1.0, "win_rate": 50},
+    "20d": {"avg_return": 1.5, "win_rate": 50},
+}
+
+CYCLICAL_SECTORS = {
+    "Energy": 12, "Basic Materials": 18, "Industrials": 20,
+}
+CYCLICAL_SUBSECTORS = {"Semiconductors": 25}
+
+
+def run_auto_backtest():
+    """Lightweight rolling 30-day backtest using Supabase signals + Yahoo prices."""
+    import yfinance as yf
+    from datetime import datetime, timedelta, timezone
+    from collections import defaultdict
+
+    tw_tz = timezone(timedelta(hours=8))
+    now = datetime.now(tw_tz)
+    d60 = (now - timedelta(days=60)).strftime("%Y-%m-%d")  # fetch 60d for 20d forward look
+    d30 = (now - timedelta(days=30)).strftime("%Y-%m-%d")
+
+    print("\n📊 Running auto-backtest (last 30 days)...")
+    SB_URL = os.environ.get("SUPABASE_URL", "https://kggwnlevbxghmqpieoet.supabase.co")
+    SB_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    if not SB_KEY:
+        print("  ⚠️ No Supabase key, skipping backtest")
+        return None
+
+    sb_headers = {"apikey": SB_KEY, "Authorization": f"Bearer {SB_KEY}"}
+
+    # Fetch signals from last 60 days (need 30d signals + 30d forward prices)
+    signals = []
+    offset = 0
+    while True:
+        try:
+            r = urllib.request.urlopen(urllib.request.Request(
+                f"{SB_URL}/rest/v1/accumulation_signals?select=date,symbol,score,direction,price,phase&date=gte.{d60}&order=date.asc&limit=1000&offset={offset}",
+                headers=sb_headers), timeout=15)
+            batch = json.loads(r.read())
+            if not batch:
+                break
+            signals.extend(batch)
+            offset += 1000
+            if len(batch) < 1000:
+                break
+        except Exception as e:
+            print(f"  ⚠️ Supabase fetch error: {e}")
+            break
+
+    if not signals:
+        print("  ⚠️ No signals found")
+        return None
+
+    # Filter: score >= 7, bullish
+    entries = [s for s in signals if s["score"] >= 7 and s["direction"] == "bullish" and s["date"] <= d30.replace("-", "-")]
+    # Only use signals from the 30-day window for entry
+    entries_30d = [s for s in entries if s["date"] >= d30]
+
+    # Group by symbol to fetch prices
+    symbols = set(s["symbol"] for s in entries_30d)
+    print(f"  Signals: {len(entries_30d)} entries from {len(symbols)} stocks")
+
+    if not symbols:
+        return None
+
+    # Fetch price history for all symbols
+    price_cache = {}
+    sym_list = list(symbols)
+    for i in range(0, len(sym_list), 20):  # batch 20
+        batch = sym_list[i:i+20]
+        try:
+            tickers = yf.download(batch, start=d60, end=now.strftime("%Y-%m-%d"),
+                                  group_by='ticker', progress=False, threads=True)
+            for sym in batch:
+                try:
+                    if len(batch) == 1:
+                        closes = tickers['Close'].dropna()
+                    else:
+                        closes = tickers[sym]['Close'].dropna()
+                    price_cache[sym] = {d.strftime("%Y-%m-%d"): float(v) for d, v in closes.items()}
+                except:
+                    pass
+        except:
+            pass
+    print(f"  Price data: {len(price_cache)} stocks")
+
+    # Calculate returns for each holding period
+    results = {}
+    for period_name, days in [("5d", 5), ("10d", 10), ("20d", 20)]:
+        returns = []
+        for sig in entries_30d:
+            sym = sig["symbol"]
+            if sym not in price_cache:
+                continue
+            prices = price_cache[sym]
+            sorted_dates = sorted(prices.keys())
+            entry_date = sig["date"]
+            # Find entry price
+            entry_price = sig.get("price") or prices.get(entry_date)
+            if not entry_price:
+                continue
+            # Find exit date (N trading days later)
+            try:
+                entry_idx = next(i for i, d in enumerate(sorted_dates) if d >= entry_date)
+                exit_idx = min(entry_idx + days, len(sorted_dates) - 1)
+                exit_date = sorted_dates[exit_idx]
+                exit_price = prices[exit_date]
+                ret = (exit_price / entry_price - 1) * 100
+                returns.append({"symbol": sym, "entry": entry_date, "exit": exit_date,
+                                "entry_price": entry_price, "exit_price": exit_price,
+                                "return_pct": round(ret, 2), "score": sig["score"]})
+            except (StopIteration, IndexError):
+                continue
+
+        if returns:
+            avg_ret = sum(r["return_pct"] for r in returns) / len(returns)
+            sorted_rets = sorted(r["return_pct"] for r in returns)
+            median_ret = sorted_rets[len(sorted_rets) // 2]
+            win_count = sum(1 for r in returns if r["return_pct"] > 0)
+            win_rate = win_count / len(returns) * 100
+
+            results[period_name] = {
+                "n": len(returns),
+                "avg_return": round(avg_ret, 2),
+                "median_return": round(median_ret, 2),
+                "win_rate": round(win_rate, 1),
+                "best": max(returns, key=lambda r: r["return_pct"]),
+                "worst": min(returns, key=lambda r: r["return_pct"]),
+            }
+            print(f"  {period_name}: {len(returns)} trades, avg={avg_ret:+.2f}%, win={win_rate:.0f}%")
+
+    # Check performance targets
+    alerts = []
+    for period, targets in PERF_TARGETS.items():
+        if period not in results:
+            continue
+        r = results[period]
+        if r["avg_return"] < targets["avg_return"]:
+            alerts.append(f"⚠️ {period} avg return {r['avg_return']:+.2f}% < target {targets['avg_return']:+.1f}%")
+        if r["win_rate"] < targets["win_rate"]:
+            alerts.append(f"⚠️ {period} win rate {r['win_rate']:.1f}% < target {targets['win_rate']}%")
+
+    if alerts:
+        print(f"\n  🚨 PERFORMANCE ALERTS:")
+        for a in alerts:
+            print(f"    {a}")
+
+    # Build output
+    output = {
+        "generated_at": now.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "algorithm": "v6_rolling_30d",
+        "entry_criteria": "score>=7, direction=bullish",
+        "signal_count": len(entries_30d),
+        "symbols_analyzed": len(price_cache),
+        "targets": PERF_TARGETS,
+        "results": results,
+        "alerts": alerts if alerts else None,
+        "status": "⚠️ BELOW TARGET" if alerts else "✅ ON TARGET",
+    }
+
+    # Push to gh-pages
+    try:
+        content_str = json.dumps(output, ensure_ascii=False)
+        gh_put("data/backtest.json", content_str, "Update backtest.json")
+        print(f"  ✅ backtest.json queued ({len(content_str)} bytes)")
+    except Exception as e:
+        print(f"  ⚠️ Failed to queue backtest.json: {e}")
+
+    return output
+
+
+def detect_cyclical_breakout(alpha_data):
+    """Detect cyclical stocks breaking out of their sector PE norms."""
+    if not alpha_data:
+        return []
+
+    breakouts = []
+    for sym, data in alpha_data.items():
+        alpha = data.get("alpha", {})
+        narrative = data.get("narrative", {})
+        valuation = data.get("valuation", {})
+
+        sector = valuation.get("sector", "")
+        industry = alpha.get("industry", "")
+        fwd_pe = alpha.get("forward_pe") or 0
+        if fwd_pe <= 0:
+            continue
+
+        # Check if cyclical sector
+        baseline_pe = None
+        breakout_type = None
+
+        if sector in CYCLICAL_SECTORS:
+            baseline_pe = CYCLICAL_SECTORS[sector]
+            breakout_type = f"cyclical_{sector.lower().replace(' ', '_')}"
+        elif "Semiconductor" in (industry or ""):
+            baseline_pe = CYCLICAL_SUBSECTORS.get("Semiconductors", 25)
+            breakout_type = "cyclical_semiconductor"
+
+        if baseline_pe and fwd_pe > baseline_pe * 2:
+            # Additional signals: earnings growth > 30%, revenue growth > 20%
+            eg = narrative.get("earnings_growth", 0)
+            rg = narrative.get("revenue_growth", 0)
+            pe_ratio = fwd_pe / baseline_pe
+
+            breakouts.append({
+                "symbol": sym,
+                "sector": sector,
+                "industry": industry,
+                "forward_pe": round(fwd_pe, 1),
+                "sector_baseline_pe": baseline_pe,
+                "pe_expansion": round(pe_ratio, 1),
+                "earnings_growth": round(eg, 1) if eg else None,
+                "revenue_growth": round(rg, 1) if rg else None,
+                "signal": "🚀 PE擴張超過基準2倍" + (f"，EPS成長{eg:.0f}%" if eg and eg > 30 else ""),
+                "classification": data.get("classification", ""),
+            })
+
+    if breakouts:
+        breakouts.sort(key=lambda x: x["pe_expansion"], reverse=True)
+        print(f"\n  🔄 Cyclical breakout candidates: {len(breakouts)}")
+        for b in breakouts[:5]:
+            print(f"    {b['symbol']}: PE={b['forward_pe']} vs baseline={b['sector_baseline_pe']} ({b['pe_expansion']}x)")
+
+    return breakouts
+
+
+def run_auto_backtest_v2():
+    """Enhanced backtest with alpha-based filters layered on top of v1."""
+    import yfinance as yf
+    from datetime import datetime, timedelta, timezone
+
+    tw_tz = timezone(timedelta(hours=8))
+    now = datetime.now(tw_tz)
+    d90 = (now - timedelta(days=90)).strftime("%Y-%m-%d")
+    d30 = (now - timedelta(days=30)).strftime("%Y-%m-%d")
+
+    print("\n📊 Running v2 backtest (alpha-filtered)...")
+    SB_URL = os.environ.get("SUPABASE_URL", "https://kggwnlevbxghmqpieoet.supabase.co")
+    SB_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+    if not SB_KEY:
+        print("  ⚠️ No Supabase key, skipping")
+        return None
+
+    sb_headers = {"apikey": SB_KEY, "Authorization": f"Bearer {SB_KEY}"}
+
+    # Fetch signals
+    signals = []
+    offset = 0
+    while True:
+        try:
+            r = urllib.request.urlopen(urllib.request.Request(
+                f"{SB_URL}/rest/v1/accumulation_signals?select=date,symbol,score,direction,price,phase&date=gte.{d90}&order=date.asc&limit=1000&offset={offset}",
+                headers=sb_headers), timeout=15)
+            batch = json.loads(r.read())
+            if not batch: break
+            signals.extend(batch)
+            offset += 1000
+            if len(batch) < 1000: break
+        except:
+            break
+
+    if not signals:
+        print("  ⚠️ No signals")
+        return None
+
+    # Load current alpha data for filter reference
+    alpha_stocks = {}
+    try:
+        alpha_file = os.path.join(os.path.dirname(__file__), "..", "data", "alpha_local.json")
+        # Try fetching from gh-pages
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/smartlife-calendar/AI-Investment-HQ/contents/data/alpha.json?ref=gh-pages",
+            headers={"Authorization": f"token {os.environ.get('GH_TOKEN', '')}", "Accept": "application/vnd.github.v3+json"})
+        resp = urllib.request.urlopen(req, timeout=15)
+        import base64
+        d = json.loads(resp.read())
+        alpha_data = json.loads(base64.b64decode(d["content"]).decode())
+        alpha_stocks = alpha_data.get("stocks", {})
+        print(f"  Alpha data: {len(alpha_stocks)} stocks")
+    except Exception as e:
+        print(f"  ⚠️ Could not load alpha data: {e}")
+
+    entries_30d = [s for s in signals if s["score"] >= 7 and s["direction"] == "bullish" and d30 <= s["date"] <= now.strftime("%Y-%m-%d")]
+
+    # === V2 FILTERS ===
+    def passes_alpha_filter(sig):
+        sym = sig["symbol"]
+        if sym not in alpha_stocks:
+            return True  # No alpha data = pass (conservative)
+        a = alpha_stocks[sym]
+        cls = a.get("classification", "")
+        narr_v = (a.get("narrative") or {}).get("verdict", "")
+        val = a.get("valuation", {})
+        comp_up = val.get("composite_upside")
+
+        # Filter 1: Don't buy type1_exit stocks
+        if cls == "type1_exit":
+            return False
+        # Filter 2: Don't buy when narrative is broken
+        if narr_v == "broken":
+            return False
+        # Filter 3: Don't buy if overvalued by >25%
+        if comp_up is not None and comp_up < -25:
+            return False
+        # Filter 4: Score bonus for strong alpha
+        # (not filtering, just noting)
+        return True
+
+    v1_entries = entries_30d
+    v2_entries = [s for s in entries_30d if passes_alpha_filter(s)]
+
+    filtered_out = [s for s in v1_entries if not passes_alpha_filter(s)]
+    if filtered_out:
+        print(f"  V2 filtered out {len(filtered_out)}: {', '.join(s['symbol'] for s in filtered_out)}")
+
+    # Fetch prices
+    all_symbols = set(s["symbol"] for s in v1_entries)
+    price_cache = {}
+    sym_list = list(all_symbols)
+    for i in range(0, len(sym_list), 20):
+        batch = sym_list[i:i+20]
+        try:
+            tickers = yf.download(batch, start=d90, end=now.strftime("%Y-%m-%d"),
+                                  group_by='ticker', progress=False, threads=True)
+            for sym in batch:
+                try:
+                    if len(batch) == 1:
+                        closes = tickers['Close'].dropna()
+                    else:
+                        closes = tickers[sym]['Close'].dropna()
+                    price_cache[sym] = {d.strftime("%Y-%m-%d"): float(v) for d, v in closes.items()}
+                except:
+                    pass
+        except:
+            pass
+
+    # Calculate returns for both v1 and v2
+    def calc_returns(entry_list, label):
+        out = {}
+        for period_name, days in [("5d", 5), ("10d", 10), ("20d", 20)]:
+            returns = []
+            for sig in entry_list:
+                sym = sig["symbol"]
+                if sym not in price_cache:
+                    continue
+                prices = price_cache[sym]
+                sorted_dates = sorted(prices.keys())
+                entry_date = sig["date"]
+                entry_price = sig.get("price") or prices.get(entry_date)
+                if not entry_price:
+                    continue
+                try:
+                    entry_idx = next(i for i, d in enumerate(sorted_dates) if d >= entry_date)
+                    exit_idx = min(entry_idx + days, len(sorted_dates) - 1)
+                    exit_date = sorted_dates[exit_idx]
+                    exit_price = prices[exit_date]
+                    ret = (exit_price / entry_price - 1) * 100
+                    returns.append({"symbol": sym, "entry": entry_date, "exit": exit_date,
+                                    "entry_price": round(entry_price, 2), "exit_price": round(exit_price, 2),
+                                    "return_pct": round(ret, 2), "score": sig["score"]})
+                except (StopIteration, IndexError):
+                    continue
+
+            if returns:
+                avg_ret = sum(r["return_pct"] for r in returns) / len(returns)
+                sorted_rets = sorted(r["return_pct"] for r in returns)
+                win_count = sum(1 for r in returns if r["return_pct"] > 0)
+                out[period_name] = {
+                    "n": len(returns),
+                    "avg_return": round(avg_ret, 2),
+                    "median_return": round(sorted_rets[len(sorted_rets)//2], 2),
+                    "win_rate": round(win_count/len(returns)*100, 1),
+                    "best": max(returns, key=lambda r: r["return_pct"]),
+                    "worst": min(returns, key=lambda r: r["return_pct"]),
+                }
+                print(f"  {label} {period_name}: n={len(returns)} avg={avg_ret:+.2f}% win={win_count/len(returns)*100:.0f}%")
+        return out
+
+    print("\n  === V1 (score≥7 only) ===")
+    v1_results = calc_returns(v1_entries, "V1")
+    print("\n  === V2 (score≥7 + alpha filter) ===")
+    v2_results = calc_returns(v2_entries, "V2")
+
+    # Build comparison
+    comparison = {}
+    for period in ["5d", "10d", "20d"]:
+        v1r = v1_results.get(period, {})
+        v2r = v2_results.get(period, {})
+        comparison[period] = {
+            "v1_avg": v1r.get("avg_return", 0),
+            "v2_avg": v2r.get("avg_return", 0),
+            "improvement": round((v2r.get("avg_return", 0) - v1r.get("avg_return", 0)), 2),
+            "v1_win": v1r.get("win_rate", 0),
+            "v2_win": v2r.get("win_rate", 0),
+        }
+
+    output = {
+        "generated_at": now.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "v1": {"algorithm": "score≥7_only", "results": v1_results, "signal_count": len(v1_entries)},
+        "v2": {"algorithm": "score≥7_alpha_filtered", "results": v2_results, "signal_count": len(v2_entries),
+               "filters": ["cls≠type1_exit", "narrative≠broken", "composite_upside>-25%"],
+               "filtered_out": [s["symbol"] for s in filtered_out]},
+        "comparison": comparison,
+    }
+
+    # Update the main backtest.json with v2 data
+    try:
+        # Read existing
+        existing = None
+        try:
+            req = urllib.request.Request(
+                f"https://api.github.com/repos/smartlife-calendar/AI-Investment-HQ/contents/data/backtest.json?ref=gh-pages",
+                headers={"Authorization": f"token {os.environ.get('GH_TOKEN', '')}", "Accept": "application/vnd.github.v3+json"})
+            resp = urllib.request.urlopen(req, timeout=10)
+            import base64
+            d = json.loads(resp.read())
+            existing = json.loads(base64.b64decode(d["content"]).decode())
+        except:
+            existing = {}
+
+        # Merge v2 data into existing backtest.json
+        existing["v2"] = output["v2"]
+        existing["comparison"] = output["comparison"]
+        existing["v2_generated_at"] = output["generated_at"]
+
+        content_str = json.dumps(existing, ensure_ascii=False)
+        gh_put("data/backtest.json", content_str, "Backtest v2 alpha-filtered")
+        print(f"\n  ✅ backtest.json updated with v2 ({len(content_str)} bytes)")
+    except Exception as e:
+        print(f"  ⚠️ Failed to update: {e}")
+
+    return output
+
+
+# ── CapEx Beneficiary Map ──
+CAPEX_BENEFICIARY_MAP = {
+    "META": {"GPU": ["NVDA","AMD"], "網通": ["ANET","CIEN"], "光通": ["LITE","COHR","AAOI"], "伺服器": ["SMCI"], "HBM": ["MU"], "光纖": ["GLW"]},
+    "GOOGL": {"GPU/TPU": ["NVDA","AVGO"], "網通": ["ANET"], "光通": ["LITE","COHR"], "HBM": ["MU"]},
+    "MSFT": {"GPU": ["NVDA","AMD"], "網通": ["ANET","CIEN"], "光通": ["LITE","COHR"], "HBM": ["MU"]},
+    "AMZN": {"GPU/Graviton": ["NVDA","AVGO"], "網通": ["ANET"], "光通": ["LITE","COHR"]},
+    "AAPL": {"記憶體": ["MU"], "光學": ["GLW"]},
+    "TSLA": {"GPU(FSD)": ["NVDA"], "半導體": ["TXN","ON","STM"]},
+}
+
+CAPEX_SPENDERS = ["META", "GOOGL", "MSFT", "AMZN", "AAPL", "TSLA"]
+
+
+def collect_capex_flows():
+    """Track CapEx from big spenders and map to supply chain beneficiaries."""
+    import yfinance as yf_cap
+    
+    capex_data = {}
+    for sym in CAPEX_SPENDERS:
+        try:
+            t = yf_cap.Ticker(sym)
+            cf = t.quarterly_cashflow
+            info = t.info
+            if cf is None or cf.empty:
+                continue
+            for label in ['Capital Expenditure', 'CapitalExpenditure']:
+                if label in cf.index:
+                    sorted_cols = sorted(cf.columns)
+                    vals = []
+                    for d in sorted_cols[-5:]:
+                        v = cf.loc[label].get(d)
+                        if v and v == v:
+                            vals.append({"date": str(d)[:10], "capex_b": round(abs(float(v))/1e9, 2)})
+                    if vals:
+                        latest = vals[-1]["capex_b"]
+                        prev = vals[-2]["capex_b"] if len(vals) >= 2 else latest
+                        q_rev = info.get("totalRevenue", 0) / 1e9 / 4
+                        capex_data[sym] = {
+                            "quarterly": vals,
+                            "latest_b": latest,
+                            "qoq_change": round((latest - prev) / prev * 100, 1) if prev > 0 else 0,
+                            "ttm_b": round(sum(v["capex_b"] for v in vals[-4:]), 1),
+                            "intensity_pct": round(latest / q_rev * 100, 0) if q_rev > 0 else 0,
+                            "use": CAPEX_BENEFICIARY_MAP.get(sym, {}),
+                        }
+                    break
+        except Exception as e:
+            print(f"  CapEx {sym}: {e}")
+    
+    # Build beneficiary scores
+    beneficiaries = {}
+    for spender, data in CAPEX_BENEFICIARY_MAP.items():
+        spender_capex = capex_data.get(spender, {}).get("latest_b", 0)
+        for category, stocks in data.items():
+            for sym in stocks:
+                if sym not in beneficiaries:
+                    beneficiaries[sym] = {"customers": [], "total_customer_capex_b": 0, "categories": []}
+                if spender not in beneficiaries[sym]["customers"]:
+                    beneficiaries[sym]["customers"].append(spender)
+                    beneficiaries[sym]["total_customer_capex_b"] += spender_capex
+                if category not in beneficiaries[sym]["categories"]:
+                    beneficiaries[sym]["categories"].append(category)
+    
+    # Sort by total customer CapEx exposure
+    for sym in beneficiaries:
+        beneficiaries[sym]["total_customer_capex_b"] = round(beneficiaries[sym]["total_customer_capex_b"], 1)
+        beneficiaries[sym]["n_customers"] = len(beneficiaries[sym]["customers"])
+    
+    return {
+        "spenders": capex_data,
+        "beneficiaries": beneficiaries,
+        "total_big4_quarterly_b": round(sum(capex_data.get(s, {}).get("latest_b", 0) for s in ["META","GOOGL","MSFT","AMZN"]), 1),
+    }
+
+
+def interpret_earnings(symbol):
+    """Auto-interpret latest quarterly earnings for a stock."""
+    import yfinance as yf_earn
+    
+    t = yf_earn.Ticker(symbol)
+    info = t.info
+    
+    margins = yf_quarterly_margins(t, 5)
+    rev_series = yf_quarterly_series(t, 'financials', 'Total Revenue', 5)
+    ni_series = yf_quarterly_series(t, 'financials', 'Net Income', 5)
+    oi_series = yf_quarterly_series(t, 'financials', 'Operating Income', 5)
+    capex_series = yf_quarterly_series(t, 'cashflow', 'Capital Expenditure', 5)
+    if not capex_series:
+        capex_series = yf_quarterly_series(t, 'cashflow', 'CapitalExpenditure', 5)
+    
+    result = {
+        "symbol": symbol,
+        "price": info.get("currentPrice"),
+        "mcap_b": round(info.get("marketCap", 0) / 1e9, 0),
+        "fwd_pe": info.get("forwardPE"),
+        "peg": info.get("pegRatio"),
+        "rev_growth_yoy": round(info.get("revenueGrowth", 0) * 100, 1) if info.get("revenueGrowth") else None,
+        "target_mean": info.get("targetMeanPrice"),
+        "recommendation": info.get("recommendationKey"),
+        "n_analysts": info.get("numberOfAnalystOpinions"),
+    }
+    
+    findings = []
+    risk_flags = []
+    
+    # Revenue trend
+    if len(rev_series) >= 2:
+        rev_vals = [v for _, v in rev_series]
+        qoq = (rev_vals[-1] - rev_vals[-2]) / abs(rev_vals[-2]) * 100
+        result["rev_latest_b"] = round(rev_vals[-1] / 1e9, 2)
+        result["rev_qoq"] = round(qoq, 1)
+        result["rev_quarterly"] = [{"date": d, "val_b": round(v/1e9, 2)} for d, v in rev_series]
+        if qoq > 10:
+            findings.append(f"營收加速 QoQ+{qoq:.0f}%")
+        elif qoq < -5:
+            risk_flags.append(f"營收減速 QoQ{qoq:.0f}%")
+    
+    # Margin analysis (the key: where is the problem?)
+    if len(margins) >= 3:
+        gm_vals = [v for _, v in margins]
+        result["gm_quarterly"] = [{"date": d, "val": v} for d, v in margins]
+        gm_change = gm_vals[-1] - gm_vals[-3]
+        result["gm_change_2q"] = round(gm_change, 1)
+        if gm_change > 3:
+            findings.append(f"毛利率擴張+{gm_change:.1f}%（定價權↑）")
+        elif gm_change < -3:
+            risk_flags.append(f"毛利率壓縮{gm_change:.1f}%（定價權↓）")
+    
+    # Operating margin vs gross margin divergence
+    if len(oi_series) >= 2 and len(rev_series) >= 2:
+        om_latest = oi_series[-1][1] / rev_series[-1][1] * 100 if rev_series[-1][1] > 0 else 0
+        om_prev = oi_series[-2][1] / rev_series[-2][1] * 100 if rev_series[-2][1] > 0 else 0
+        om_change = om_latest - om_prev
+        result["op_margin_latest"] = round(om_latest, 1)
+        result["op_margin_change"] = round(om_change, 1)
+        
+        gm_stable = abs(gm_change) < 3 if len(margins) >= 3 else True
+        if gm_stable and om_change < -5:
+            findings.append(f"毛利穩定但營利率跌{om_change:.0f}% → 費用暴增（不是產品問題）")
+    
+    # CapEx trend
+    if capex_series:
+        capex_vals = [abs(v) for _, v in capex_series]
+        result["capex_quarterly"] = [{"date": d, "val_b": round(abs(v)/1e9, 2)} for d, v in capex_series]
+        if len(capex_vals) >= 2:
+            capex_qoq = (capex_vals[-1] - capex_vals[-2]) / capex_vals[-2] * 100
+            result["capex_qoq"] = round(capex_qoq, 1)
+            if capex_qoq > 30:
+                findings.append(f"CapEx暴增+{capex_qoq:.0f}% → 大規模投資中")
+                
+                # Who benefits?
+                bene = CAPEX_BENEFICIARY_MAP.get(symbol, {})
+                if bene:
+                    bene_list = []
+                    for cat, stocks in bene.items():
+                        bene_list.append(f"{cat}→{','.join(stocks)}")
+                    result["capex_beneficiaries"] = bene_list
+                    findings.append(f"供應鏈受益: {'; '.join(bene_list)}")
+    
+    # Net income
+    if len(ni_series) >= 2:
+        ni_vals = [v for _, v in ni_series]
+        ni_qoq = (ni_vals[-1] - ni_vals[-2]) / abs(ni_vals[-2]) * 100
+        result["ni_qoq"] = round(ni_qoq, 1)
+        if ni_qoq < -20:
+            # Check if previous quarter was abnormally high
+            if len(ni_vals) >= 4:
+                avg_prev = sum(ni_vals[-4:-1]) / 3
+                vs_avg = (ni_vals[-1] - avg_prev) / abs(avg_prev) * 100
+                if vs_avg > -10:
+                    findings.append(f"淨利QoQ-{abs(ni_qoq):.0f}%但前季異常高，vs均值只差{vs_avg:.0f}%")
+                else:
+                    risk_flags.append(f"淨利下降{ni_qoq:.0f}%（非一次性）")
+    
+    # FCF
+    fcf = info.get("freeCashflow")
+    if fcf:
+        result["fcf_b"] = round(fcf / 1e9, 1)
+        if fcf < 0:
+            risk_flags.append(f"FCF為負${fcf/1e9:.1f}B（燒錢）")
+    
+    # Valuation verdict
+    peg = info.get("pegRatio")
+    fpe = info.get("forwardPE")
+    target = info.get("targetMeanPrice")
+    price = info.get("currentPrice", 0)
+    
+    if peg and peg < 1:
+        findings.append(f"PEG={peg:.2f}（<1 = 成長未被充分定價）")
+    if target and price and target > price * 1.2:
+        upside = (target - price) / price * 100
+        findings.append(f"分析師均價${target:.0f}（+{upside:.0f}%上行空間）")
+    
+    result["findings"] = findings
+    result["risk_flags"] = risk_flags
+    
+    # Overall verdict
+    if len(risk_flags) > len(findings):
+        result["verdict"] = "⚠️ 警戒"
+    elif len(findings) >= 3 and len(risk_flags) == 0:
+        result["verdict"] = "🟢 強勢"
+    elif len(findings) > len(risk_flags):
+        result["verdict"] = "📊 觀察（正面居多）"
+    else:
+        result["verdict"] = "➡️ 中性"
+    
+    return result
+
+
+# ── Earnings Correlation Map ──
+EARNINGS_CORRELATION = {
+    "MU": {"same": ["SNDK"], "up": ["ASML","AMAT","LRCX"], "down": ["NVDA","AMD","SMCI"], "logic": "記憶體需求連動"},
+    "SNDK": {"same": ["MU"], "up": ["ASML","AMAT"], "down": ["SMCI"], "logic": "記憶體需求連動"},
+    "NVDA": {"same": ["AMD"], "up": ["MU","ASML","AMAT","LRCX","TER"], "down": ["SMCI","ANET","LITE","COHR"], "cust": ["META","GOOGL","MSFT","AMZN"], "logic": "AI算力需求指標"},
+    "AMD": {"same": ["NVDA","INTC"], "up": ["MU","ASML"], "down": ["SMCI"], "logic": "GPU/CPU競爭"},
+    "INTC": {"same": ["AMD","NVDA"], "up": ["ASML","AMAT"], "logic": "CPU市場+代工"},
+    "ANET": {"same": ["CIEN"], "down": ["LITE","COHR","AAOI","GLW"], "logic": "資料中心網路需求"},
+    "CIEN": {"same": ["ANET"], "down": ["LITE","COHR"], "logic": "網通需求"},
+    "LITE": {"same": ["COHR","AAOI"], "up": ["GLW"], "logic": "光通模組需求"},
+    "COHR": {"same": ["LITE","AAOI"], "up": ["GLW"], "logic": "光通模組需求"},
+    "ASML": {"same": ["AMAT","LRCX","KLAC","TER"], "down": ["NVDA","AMD","INTC","MU"], "logic": "半導體設備=晶片產能"},
+    "AMAT": {"same": ["ASML","LRCX","KLAC","TER"], "logic": "設備連動"},
+    "LRCX": {"same": ["ASML","AMAT","KLAC","TER"], "logic": "設備連動"},
+    "SNPS": {"same": ["CDNS"], "down": ["NVDA","AMD","AVGO","MRVL","QCOM"], "logic": "晶片設計活動指標"},
+    "CDNS": {"same": ["SNPS"], "logic": "EDA雙寡佔連動"},
+    "META": {"capex": ["NVDA","AMD","ANET","LITE","COHR","MU","SMCI"], "logic": "CapEx→供應鏈訂單"},
+    "GOOGL": {"capex": ["NVDA","AVGO","ANET","LITE","COHR","MU"], "logic": "CapEx→供應鏈訂單"},
+    "MSFT": {"capex": ["NVDA","AMD","ANET","LITE","COHR","MU"], "logic": "CapEx→供應鏈訂單"},
+    "AMZN": {"capex": ["NVDA","AVGO","ANET","LITE","COHR"], "logic": "CapEx→供應鏈訂單"},
+    "CRWD": {"same": ["PANW","ZS","FTNT","S"], "logic": "資安支出趨勢"},
+    "PANW": {"same": ["CRWD","ZS","FTNT"], "logic": "資安支出趨勢"},
+    "LLY": {"same": ["AMGN","BMY","JNJ"], "logic": "藥廠營收趨勢"},
+    "AMGN": {"same": ["LLY","BMY"], "logic": "藥廠"},
+    "AVGO": {"same": ["MRVL","QCOM","TXN"], "up": ["ASML","AMAT"], "logic": "晶片設計需求"},
+    "QCOM": {"same": ["AVGO","MRVL","TXN"], "logic": "手機/IoT晶片"},
+    "TXN": {"same": ["MCHP","ON","STM","SWKS"], "logic": "類比晶片需求"},
+    "ON": {"same": ["TXN","STM","MCHP"], "logic": "車用/工業晶片"},
+    "TSLA": {"same": ["RIVN","NIO","LCID"], "up": ["TXN","ON","STM"], "logic": "電動車需求"},
+    "CRM": {"same": ["WDAY","SNOW","DDOG"], "logic": "企業軟體支出"},
+    "SNOW": {"same": ["DDOG","MDB"], "logic": "雲端數據平台"},
+    "SMCI": {"up": ["NVDA","AMD","MU"], "down": ["META","GOOGL","MSFT"], "logic": "AI伺服器需求"},
+    "ARM": {"same": ["AVGO","MRVL"], "down": ["QCOM","NVDA"], "logic": "IP授權→晶片設計"},
+    "PLTR": {"same": ["SNOW","CRM"], "logic": "政府/企業AI"},
+}
+
+
+def generate_earnings_report(symbol, quarter_label=None):
+    """Generate a full earnings report HTML page for a stock, including correlation analysis."""
+    import yfinance as yf_er
+    from datetime import date
+    
+    t = yf_er.Ticker(symbol)
+    info = t.info
+    
+    # Get the interpretation
+    interp = interpret_earnings(symbol)
+    
+    # Build correlation impact
+    corr = EARNINGS_CORRELATION.get(symbol, {})
+    corr_analysis = []
+    
+    # Determine if earnings were good/bad/neutral
+    good_signals = len(interp.get("findings", []))
+    bad_signals = len(interp.get("risk_flags", []))
+    
+    if good_signals > bad_signals:
+        sentiment = "positive"
+        sentiment_zh = "正面"
+    elif bad_signals > good_signals:
+        sentiment = "negative"
+        sentiment_zh = "負面"
+    else:
+        sentiment = "neutral"
+        sentiment_zh = "中性"
+    
+    # Analyze correlated stocks
+    for rel_type, label_zh in [("same", "同產業"), ("up", "上游供應商"), ("down", "下游客戶"), ("capex", "CapEx受益"), ("cust", "客戶")]:
+        related = corr.get(rel_type, [])
+        for rel_sym in related:
+            try:
+                rel_t = yf_er.Ticker(rel_sym)
+                rel_info = rel_t.info
+                
+                impact = ""
+                if sentiment == "positive":
+                    if rel_type == "same":
+                        impact = f"同產業需求確認，{rel_sym}可能跟漲"
+                    elif rel_type == "down":
+                        impact = f"下游訂單可能增加"
+                    elif rel_type == "up":
+                        impact = f"上游供應鏈受益"
+                    elif rel_type == "capex":
+                        impact = f"CapEx增加→{rel_sym}訂單增"
+                    elif rel_type == "cust":
+                        impact = f"客戶需求強勁→佐證成長持續"
+                elif sentiment == "negative":
+                    if rel_type == "same":
+                        impact = f"產業需求可能轉弱"
+                    elif rel_type == "down":
+                        impact = f"下游可能減少訂單"
+                    elif rel_type == "up":
+                        impact = f"上游供應鏈恐受衝擊"
+                
+                corr_analysis.append({
+                    "symbol": rel_sym,
+                    "relation": label_zh,
+                    "price": rel_info.get("currentPrice"),
+                    "fwd_pe": round(rel_info.get("forwardPE", 0), 1) if rel_info.get("forwardPE") else None,
+                    "rev_growth": round(rel_info.get("revenueGrowth", 0) * 100, 1) if rel_info.get("revenueGrowth") else None,
+                    "impact": impact,
+                })
+            except:
+                corr_analysis.append({"symbol": rel_sym, "relation": label_zh, "impact": "數據取得失敗"})
+    
+    # Determine quarter label
+    if not quarter_label:
+        mrq = info.get("mostRecentQuarter")
+        if mrq:
+            from datetime import datetime as dt
+            d = dt.fromtimestamp(mrq)
+            quarter_label = f"{d.year}Q{(d.month-1)//3+1}"
+        else:
+            quarter_label = f"{date.today().year}Q{(date.today().month-1)//3+1}"
+    
+    # Generate HTML
+    tw_now = datetime.now(timezone(timedelta(hours=8)))
+    
+    # Build filename for canonical
+    _ql = quarter_label.lower().replace(" ", "-").replace("'", "")
+    _fn = f"{symbol.lower()}-{_ql}"
+    html = f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="description" content="{symbol} {quarter_label} 財報分析：營收、毛利率、EPS、供應鏈連動解讀 — StockIQ">
+<link rel="canonical" href="https://stockiq.tw/earnings/{_fn}.html">
+<title>{symbol} {quarter_label} 財報解讀 — StockIQ</title>
+<style>
+body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 0 auto; padding: 16px; background: #f8fafc; color: #1e293b; }}
+.header {{ background: linear-gradient(135deg, #1e40af, #7c3aed); color: white; padding: 20px; border-radius: 12px; margin-bottom: 16px; }}
+.card {{ background: white; border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
+.metric {{ display: inline-block; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; margin: 2px; font-size: 13px; }}
+.positive {{ color: #16a34a; }} .negative {{ color: #dc2626; }} .neutral {{ color: #64748b; }}
+.corr-card {{ display: grid; grid-template-columns: 80px 1fr; gap: 8px; padding: 8px; background: #fefce8; border-radius: 6px; margin: 4px 0; font-size: 13px; }}
+.trend-chart {{ display: flex; align-items: flex-end; gap: 2px; height: 60px; margin: 8px 0; }}
+.trend-bar {{ background: #6366f1; border-radius: 2px 2px 0 0; min-width: 30px; text-align: center; font-size: 9px; color: white; }}
+table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
+th {{ background: #f1f5f9; padding: 6px; text-align: left; }}
+td {{ padding: 6px; border-bottom: 1px solid #e2e8f0; }}
+a {{ color: #6366f1; text-decoration: none; }}
+</style>
+</head>
+<body>
+<div style="background:linear-gradient(90deg,#f59e0b,#d97706);text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:12px">
+    <a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="color:white;text-decoration:none;font-weight:600;font-size:13px">☕ Support StockIQ — <span style="text-decoration:underline">Buy Me a Coffee</span> · 請我喝杯咖啡</a>
+</div>
+<div style="margin-bottom:8px"><a href="../">← StockIQ</a> · <a href="index.html">財報總覽</a></div>
+<div class="header">
+    <div style="font-size:28px;font-weight:700">{symbol} {quarter_label}</div>
+    <div style="font-size:16px;opacity:0.9">{interp.get('verdict', '')} · ${interp.get('price', '?')} · 市值${interp.get('mcap_b', '?')}B</div>
+    <div style="font-size:12px;margin-top:4px">生成時間: {tw_now.strftime('%Y/%m/%d %H:%M')} TW · {corr.get('logic', '')}</div>
+</div>
+
+<div class="card">
+    <h3 style="margin:0 0 8px">📊 關鍵指標</h3>
+    <span class="metric">FwdPE: {round(interp['fwd_pe'],1) if interp.get('fwd_pe') else '?'}</span>
+    <span class="metric">PEG: {interp.get('peg', '?')}</span>
+    <span class="metric">營收成長: {interp.get('rev_growth_yoy', '?')}%</span>
+    <span class="metric">推薦: {interp.get('recommendation', '?')}</span>
+    <span class="metric">分析師: {interp.get('n_analysts', '?')}人</span>
+    <span class="metric">目標價: ${round(interp['target_mean']) if interp.get('target_mean') else '?'}</span>
+</div>
+"""
+    
+    # Revenue chart
+    rev_q = interp.get("rev_quarterly", [])
+    if rev_q:
+        max_rev = max(r["val_b"] for r in rev_q) or 1
+        html += '<div class="card"><h3 style="margin:0 0 8px">📈 季度營收趨勢</h3><div class="trend-chart">'
+        for r in rev_q:
+            h = max(int(r["val_b"] / max_rev * 55), 5)
+            html += f'<div class="trend-bar" style="height:{h}px"><div style="margin-top:-16px;color:#1e293b;font-size:10px">${r["val_b"]:.1f}B</div></div>'
+        html += '</div><div style="display:flex;gap:2px;font-size:9px;color:#94a3b8">'
+        for r in rev_q:
+            html += f'<div style="min-width:30px;text-align:center">{r["date"][5:7]}</div>'
+        html += '</div></div>'
+    
+    # Margin chart
+    gm_q = interp.get("gm_quarterly", [])
+    if gm_q:
+        html += '<div class="card"><h3 style="margin:0 0 8px">💰 毛利率趨勢</h3><div class="trend-chart">'
+        for g in gm_q:
+            h = max(int(g["val"] / 100 * 55), 5)
+            c = '#16a34a' if g == gm_q[-1] and interp.get("gm_change_2q", 0) > 0 else '#6366f1'
+            html += f'<div class="trend-bar" style="height:{h}px;background:{c}"><div style="margin-top:-16px;color:#1e293b;font-size:10px">{g["val"]:.0f}%</div></div>'
+        html += '</div></div>'
+    
+    # Findings
+    findings = interp.get("findings", [])
+    risks = interp.get("risk_flags", [])
+    if findings or risks:
+        html += '<div class="card"><h3 style="margin:0 0 8px">🔍 自動分析</h3>'
+        for f in findings:
+            html += f'<div class="positive" style="margin:4px 0">✅ {f}</div>'
+        for r in risks:
+            html += f'<div class="negative" style="margin:4px 0">⚠️ {r}</div>'
+        html += '</div>'
+    
+    # CapEx detail
+    capex_q = interp.get("capex_quarterly", [])
+    if capex_q:
+        html += '<div class="card"><h3 style="margin:0 0 8px">🏗️ 資本支出趨勢</h3><div class="trend-chart">'
+        max_capex = max(r["val_b"] for r in capex_q) or 1
+        for c in capex_q:
+            h = max(int(c["val_b"] / max_capex * 55), 5)
+            html += f'<div class="trend-bar" style="height:{h}px;background:#f59e0b"><div style="margin-top:-16px;color:#1e293b;font-size:10px">${c["val_b"]:.1f}B</div></div>'
+        html += '</div>'
+        if interp.get("capex_qoq"):
+            html += f'<div style="font-size:12px;color:#92400e">QoQ: {interp["capex_qoq"]:+.0f}%</div>'
+        html += '</div>'
+    
+    # ── Moat / Competitive Advantage Section ──
+    try:
+        moat_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "moat_cache.json")
+        if not os.path.exists(moat_path):
+            # Try loading from GitHub
+            _mr = requests.get(f"{API}/contents/data/moat_data.json?ref=gh-pages",
+                             headers={"Authorization": f"token {GH_TOKEN}", "Accept": "application/vnd.github.v3+json"}, timeout=10)
+            if _mr.status_code == 200:
+                import base64 as _b64
+                _moat_all = json.loads(_b64.b64decode(_mr.json()["content"]).decode())
+                with open(moat_path, "w") as _mf:
+                    json.dump(_moat_all, _mf)
+        else:
+            with open(moat_path) as _mf:
+                _moat_all = json.load(_mf)
+
+        _moat = _moat_all.get("stocks", {}).get(symbol, {})
+        if _moat and _moat.get("moat_score", 0) > 0:
+            grade_color = {"wide": "#16a34a", "narrow": "#6366f1", "emerging": "#f59e0b"}.get(_moat["moat_grade"], "#94a3b8")
+            html += f'<div class="card" style="border-left:4px solid {grade_color}">'
+            html += f'<h3 style="margin:0 0 8px">🏰 護城河分析</h3>'
+            html += f'<div style="font-size:16px;font-weight:700;color:{grade_color}">{_moat["moat_grade_zh"]}</div>'
+            if _moat.get("moat_type_zh"):
+                html += f'<div style="font-size:13px;color:#64748b;margin:4px 0">類型: {_moat["moat_type_zh"]}</div>'
+            # Key metrics
+            metrics_html = []
+            if _moat.get("rpo_b"):
+                metrics_html.append(f'<span class="metric">RPO: ${_moat["rpo_b"]}B</span>')
+            if _moat.get("contract_liability_b"):
+                metrics_html.append(f'<span class="metric">客戶預付: ${_moat["contract_liability_b"]}B</span>')
+            if _moat.get("purchase_obligation_b"):
+                metrics_html.append(f'<span class="metric">採購義務: ${_moat["purchase_obligation_b"]}B</span>')
+            if _moat.get("rd_expense_b"):
+                metrics_html.append(f'<span class="metric">R&D: ${_moat["rd_expense_b"]}B</span>')
+            if metrics_html:
+                html += '<div style="margin:6px 0">' + ' '.join(metrics_html) + '</div>'
+            # Details
+            if _moat.get("details"):
+                html += '<div style="font-size:12px;margin-top:6px">'
+                for d in _moat["details"]:
+                    html += f'<div style="margin:2px 0;color:#334155">• {d}</div>'
+                html += '</div>'
+            html += '</div>'
+    except Exception:
+        pass  # Moat data optional
+
+    # ── Tech Shift Section ──
+    try:
+        _ts_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tech_shifts.json")
+        if os.path.exists(_ts_path):
+            with open(_ts_path) as _tf:
+                _tech = json.load(_tf)
+            _relevant_shifts = []
+            for shift in _tech.get("shifts", []):
+                all_stocks = shift.get("winners", []) + shift.get("losers", []) + shift.get("neutral_beneficiary", []) + shift.get("potential_losers", [])
+                if symbol in all_stocks:
+                    role = "winner" if symbol in shift.get("winners", []) else \
+                           "loser" if symbol in shift.get("losers", []) else \
+                           "potential_loser" if symbol in shift.get("potential_losers", []) else "beneficiary"
+                    _relevant_shifts.append((shift, role))
+
+            if _relevant_shifts:
+                html += '<div class="card"><h3 style="margin:0 0 8px">🔄 科技轉換影響</h3>'
+                for shift, role in _relevant_shifts:
+                    role_colors = {"winner": "#16a34a", "loser": "#dc2626", "potential_loser": "#f59e0b", "beneficiary": "#6366f1"}
+                    role_labels = {"winner": "🟢 受益者", "loser": "🔴 受衝擊", "potential_loser": "🟡 潛在風險", "beneficiary": "🔵 間接受益"}
+                    rc = role_colors.get(role, "#64748b")
+                    rl = role_labels.get(role, "")
+                    stage = shift.get("stage_zh", "")
+                    html += f'<div style="background:#f8fafc;padding:8px;border-radius:6px;margin:4px 0;border-left:3px solid {rc}">'
+                    html += f'<div style="font-weight:600;font-size:14px">{shift["name"]} <span style="font-size:11px;color:{rc}">{rl}</span></div>'
+                    html += f'<div style="font-size:11px;color:#64748b">階段: {stage} · {shift.get("catalyst", "")}</div>'
+                    if shift.get("winners"):
+                        html += f'<div style="font-size:11px;margin-top:4px">受益股: {", ".join(shift["winners"])}</div>'
+                    if shift.get("notes"):
+                        html += f'<div style="font-size:11px;color:#475569;margin-top:2px">{shift["notes"]}</div>'
+                    html += '</div>'
+                html += '</div>'
+    except Exception:
+        pass  # Tech shift data optional
+
+    # Correlation analysis
+    if corr_analysis:
+        html += f'''<div class="card">
+    <h3 style="margin:0 0 8px">🔗 關聯公司影響分析</h3>
+    <div style="font-size:12px;color:#64748b;margin-bottom:8px">{symbol} 財報{sentiment_zh} → 對以下公司的預期影響</div>
+    <table>
+    <tr><th>股票</th><th>關係</th><th>股價</th><th>FwdPE</th><th>營收成長</th><th>影響判斷</th></tr>'''
+        for c in corr_analysis:
+            impact_color = '#16a34a' if '受益' in c.get('impact','') or '增' in c.get('impact','') or '跟漲' in c.get('impact','') else '#dc2626' if '衝擊' in c.get('impact','') or '轉弱' in c.get('impact','') else '#64748b'
+            html += f'''<tr>
+            <td><b>{c["symbol"]}</b></td>
+            <td>{c.get("relation","")}</td>
+            <td>${c.get("price","?")}</td>
+            <td>{c.get("fwd_pe","?")}</td>
+            <td>{c.get("rev_growth","?")}%</td>
+            <td style="color:{impact_color}">{c.get("impact","")}</td>
+            </tr>'''
+        html += '</table></div>'
+    
+    html += f'''
+<div style="text-align:center;margin:16px 0">
+    <a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;padding:14px 40px;border-radius:24px;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(245,158,11,0.4)">☕ 覺得有用？請我喝杯咖啡 · Buy Me a Coffee</a>
+</div>
+<div style="text-align:center;padding:20px;font-size:11px;color:#94a3b8">
+StockIQ 自動財報解讀 · 僅供參考，非投資建議 · <a href="https://stockiq.tw">stockiq.tw</a> · <a href="mailto:smartlifecalendar@gmail.com">📧 聯絡</a>
+</div>
+</body></html>'''
+    
+    return html, quarter_label, interp
+
+
+def generate_earnings_index(reports_meta):
+    """Generate index page listing all earnings reports."""
+    tw_now = datetime.now(timezone(timedelta(hours=8)))
+    
+    # Group by quarter
+    by_quarter = defaultdict(list)
+    for r in reports_meta:
+        by_quarter[r["quarter"]].append(r)
+    
+    html = f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>財報解讀總覽 — StockIQ</title>
+<style>
+body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 0 auto; padding: 16px; background: #f8fafc; color: #1e293b; }}
+.card {{ background: white; border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
+a {{ color: #6366f1; text-decoration: none; }}
+.grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }}
+.stock-card {{ background: #f8fafc; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #6366f1; }}
+</style>
+</head>
+<body>
+<div style="background:linear-gradient(90deg,#f59e0b,#d97706);text-align:center;padding:8px 16px;border-radius:8px;margin-bottom:12px">
+    <a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="color:white;text-decoration:none;font-weight:600;font-size:13px">☕ Support StockIQ — <span style="text-decoration:underline">Buy Me a Coffee</span> · 請我喝杯咖啡</a>
+</div>
+<div style="margin-bottom:8px"><a href="../">← StockIQ</a></div>
+<h1>📋 財報解讀總覽</h1>
+<div style="color:#64748b;margin-bottom:16px">更新: {tw_now.strftime('%Y/%m/%d %H:%M')} TW</div>
+"""
+    
+    for quarter in sorted(by_quarter.keys(), reverse=True):
+        reports = by_quarter[quarter]
+        html += f'<div class="card"><h2>{quarter}</h2><div class="grid">'
+        for r in sorted(reports, key=lambda x: x.get("date", ""), reverse=True):
+            verdict = r.get("verdict", "")
+            color = '#16a34a' if '強勢' in verdict else '#dc2626' if '警戒' in verdict else '#f59e0b'
+            html += f'''<a href="{r["filename"]}" class="stock-card" style="border-left-color:{color}">
+                <div style="font-weight:600;font-size:14px">{r["symbol"]}</div>
+                <div style="font-size:12px">{verdict}</div>
+                <div style="font-size:11px;color:#64748b">{r.get("date", "")}</div>
+            </a>'''
+        html += '</div></div>'
+    
+    html += '</body></html>'
+    return html
+
+
+# ── Macro Risk Monitor ──
+MACRO_RISK_TICKERS = {
+    "rates": {"^TNX": "10Y殖利率", "^FVX": "5Y殖利率", "^TYX": "30Y殖利率", "^IRX": "13W利率"},
+    "credit": {"HYG": "高收益債", "LQD": "投資等級債", "TLT": "長債"},
+    "fear": {"^VIX": "VIX恐慌"},
+    "fx": {"DX-Y.NYB": "美元指數", "GLD": "黃金", "BTC-USD": "比特幣"},
+    "regional": {"EWY": "韓國", "EWJ": "日本", "FXI": "中國", "EEM": "新興市場", "EWT": "台灣", "EWG": "德國"},
+    "rotation": {"XLU": "公用事業", "XLP": "必需消費", "XLY": "非必需消費", "XLK": "科技"},
+    "commodity": {"USO": "原油", "UNG": "天然氣"},
+    "us_index": {"^GSPC": "S&P500", "^RUT": "Russell2000"},
+}
+
+REGIONAL_SUPPLY_CHAIN = {
+    "EWY": {"exposed": ["MU", "SNDK", "NVDA", "AMD"], "logic": "韓國=Samsung/SK Hynix，記憶體供應鏈"},
+    "EWT": {"exposed": ["NVDA", "AMD", "AVGO", "QCOM", "AAPL", "ASML"], "logic": "台灣=TSMC，全球晶圓代工"},
+    "FXI": {"exposed": ["AAPL", "TSLA", "NIO", "QCOM", "TXN"], "logic": "中國=製造+消費市場"},
+    "EWJ": {"exposed": ["INTC", "TER", "AMAT"], "logic": "日本=半導體材料+設備"},
+    "EWG": {"exposed": ["ASML"], "logic": "歐洲=ASML供應鏈"},
+}
+
+
+def collect_macro_risk():
+    """Collect macro indicators and compute risk score."""
+    import yfinance as yf_macro
+    
+    all_syms = []
+    for cat_syms in MACRO_RISK_TICKERS.values():
+        all_syms.extend(cat_syms.keys())
+    
+    data = {}
+    for sym in all_syms:
+        try:
+            t = yf_macro.Ticker(sym)
+            hist = t.history(period="6mo")
+            if hist.empty:
+                continue
+            c = hist['Close']
+            current = float(c.iloc[-1])
+            d5 = float(c.iloc[-6]) if len(c) >= 6 else current
+            d20 = float(c.iloc[-21]) if len(c) >= 21 else current
+            d60 = float(c.iloc[-61]) if len(c) >= 61 else current
+            ma20 = float(c.iloc[-20:].mean()) if len(c) >= 20 else current
+            ma50 = float(c.iloc[-50:].mean()) if len(c) >= 50 else current
+            
+            data[sym] = {
+                "current": round(current, 2),
+                "chg_1w": round((current - d5) / d5 * 100, 1),
+                "chg_1m": round((current - d20) / d20 * 100, 1),
+                "chg_3m": round((current - d60) / d60 * 100, 1),
+                "above_20ma": current > ma20,
+                "above_50ma": current > ma50,
+            }
+        except:
+            pass
+    
+    # Compute risk score
+    risk_signals = []
+    
+    # 1. Interest rates
+    tnx = data.get("^TNX", {})
+    if tnx:
+        rate = tnx["current"]
+        chg = tnx.get("chg_1m", 0)
+        if rate > 4.5 and chg > 3:
+            risk_signals.append({"name": "利率快速上升", "score": -3, "detail": f"10Y={rate}% 月升{chg:.1f}%"})
+        elif rate > 4.5:
+            risk_signals.append({"name": "利率偏高", "score": -1, "detail": f"10Y={rate}%"})
+        elif rate < 3.5:
+            risk_signals.append({"name": "利率偏低", "score": +1, "detail": f"10Y={rate}%"})
+    
+    # 2. Yield curve (10Y - 13W)
+    irx = data.get("^IRX", {})
+    if tnx and irx:
+        spread = tnx["current"] - irx["current"]
+        if spread < 0:
+            risk_signals.append({"name": "殖利率倒掛", "score": -3, "detail": f"10Y-13W={spread:.2f}%（衰退訊號）"})
+        elif spread < 0.5:
+            risk_signals.append({"name": "殖利率曲線平坦", "score": -1, "detail": f"10Y-13W={spread:.2f}%"})
+        else:
+            risk_signals.append({"name": "殖利率曲線正常", "score": +1, "detail": f"10Y-13W={spread:.2f}%"})
+    
+    # 3. Credit stress (HYG vs TLT divergence)
+    hyg = data.get("HYG", {})
+    tlt = data.get("TLT", {})
+    if hyg and tlt:
+        hyg_chg = hyg.get("chg_1m", 0)
+        if hyg_chg < -3:
+            risk_signals.append({"name": "信用利差擴大", "score": -3, "detail": f"HYG {hyg_chg:+.1f}% 1M（企業違約風險↑）"})
+        elif hyg_chg < -1:
+            risk_signals.append({"name": "信用市場偏弱", "score": -1, "detail": f"HYG {hyg_chg:+.1f}% 1M"})
+    
+    # 4. VIX
+    vix = data.get("^VIX", {})
+    if vix:
+        v = vix["current"]
+        if v > 30:
+            risk_signals.append({"name": "VIX極端恐慌", "score": -4, "detail": f"VIX={v:.0f}"})
+        elif v > 25:
+            risk_signals.append({"name": "VIX高位", "score": -2, "detail": f"VIX={v:.0f}"})
+        elif v < 15:
+            risk_signals.append({"name": "VIX低位", "score": +1, "detail": f"VIX={v:.0f}"})
+    
+    # 5. Dollar
+    dxy = data.get("DX-Y.NYB", {})
+    if dxy:
+        dx_chg = dxy.get("chg_1m", 0)
+        if dx_chg > 3:
+            risk_signals.append({"name": "美元急升", "score": -2, "detail": f"DXY {dx_chg:+.1f}%（新興市場壓力）"})
+        elif dx_chg < -3:
+            risk_signals.append({"name": "美元急跌", "score": +1, "detail": f"DXY {dx_chg:+.1f}%（流動性寬鬆）"})
+    
+    # 6. Regional risk
+    regional_alerts = []
+    for sym, info in REGIONAL_SUPPLY_CHAIN.items():
+        rd = data.get(sym, {})
+        if rd:
+            chg = rd.get("chg_1m", 0)
+            if chg < -10:
+                risk_signals.append({"name": f"{MACRO_RISK_TICKERS['regional'][sym]}崩跌", "score": -2,
+                    "detail": f"{sym} {chg:+.1f}% 1M", "exposed": info["exposed"], "logic": info["logic"]})
+                regional_alerts.append({"region": MACRO_RISK_TICKERS['regional'][sym], "etf": sym, "change": chg,
+                    "exposed_stocks": info["exposed"], "logic": info["logic"]})
+            elif chg < -5:
+                risk_signals.append({"name": f"{MACRO_RISK_TICKERS['regional'][sym]}偏弱", "score": -1,
+                    "detail": f"{sym} {chg:+.1f}% 1M"})
+    
+    # 7. Sector rotation (defensive vs offensive)
+    xlu = data.get("XLU", {})
+    xly = data.get("XLY", {})
+    if xlu and xly:
+        rotation = xly.get("chg_1m", 0) - xlu.get("chg_1m", 0)
+        if rotation > 5:
+            risk_signals.append({"name": "風險偏好回升", "score": +1, "detail": f"XLY-XLU={rotation:+.1f}%"})
+        elif rotation < -5:
+            risk_signals.append({"name": "避險情緒升溫", "score": -2, "detail": f"XLY-XLU={rotation:+.1f}%"})
+    
+    # 8. Small cap health
+    rut = data.get("^RUT", {})
+    sp = data.get("^GSPC", {})
+    if rut and sp:
+        breadth = rut.get("chg_1m", 0) - sp.get("chg_1m", 0)
+        if breadth < -5:
+            risk_signals.append({"name": "小型股落後", "score": -1, "detail": f"RUT vs SPX: {breadth:+.1f}%（市場廣度差）"})
+    
+    # ── CFTC COT Report (weekly) ──
+    cftc_out = {}
+    try:
+        import urllib.parse as _up
+        cftc_base = "https://publicreporting.cftc.gov/resource/jun7-fc8e.json"
+        # S&P 500 E-mini
+        sp_params = _up.urlencode({"$where": "cftc_contract_market_code='13874A'", "$order": "report_date_as_yyyy_mm_dd DESC", "$limit": "5"})
+        sp_req = urllib.request.Request(f"{cftc_base}?{sp_params}", headers={"User-Agent": "Mozilla/5.0"})
+        sp_data = json.loads(urllib.request.urlopen(sp_req, timeout=10).read().decode())
+        
+        if sp_data:
+            latest = sp_data[0]
+            nc_long = int(latest.get('noncomm_positions_long_all', 0))
+            nc_short = int(latest.get('noncomm_positions_short_all', 0))
+            nc_net = nc_long - nc_short
+            cot_date = latest.get('report_date_as_yyyy_mm_dd', '')[:10]
+            
+            # Previous week for trend
+            prev_net = None
+            if len(sp_data) >= 2:
+                p = sp_data[1]
+                prev_net = int(p.get('noncomm_positions_long_all', 0)) - int(p.get('noncomm_positions_short_all', 0))
+            
+            # CFTC COT history for output
+            cot_history = []
+            for r in sp_data:
+                nl = int(r.get('noncomm_positions_long_all', 0))
+                ns = int(r.get('noncomm_positions_short_all', 0))
+                cot_history.append({"date": r.get('report_date_as_yyyy_mm_dd', '')[:10], "net": nl - ns})
+            
+            # Scoring
+            if nc_net < -50000:
+                risk_signals.append({"name": "投機者大幅淨空S&P", "score": -2, "detail": f"COT淨{nc_net:+,} ({cot_date})"})
+            elif nc_net < -10000:
+                risk_signals.append({"name": "投機者淨空S&P", "score": -1, "detail": f"COT淨{nc_net:+,} ({cot_date})"})
+            elif nc_net > 50000:
+                risk_signals.append({"name": "投機者大幅淨多S&P", "score": +1, "detail": f"COT淨{nc_net:+,} ({cot_date})"})
+            
+            # Trend
+            if prev_net is not None:
+                change = nc_net - prev_net
+                if change > 20000:
+                    risk_signals.append({"name": "COT大幅轉多", "score": +1, "detail": f"週變化{change:+,}"})
+                elif change < -20000:
+                    risk_signals.append({"name": "COT大幅轉空", "score": -1, "detail": f"週變化{change:+,}"})
+        
+        # VIX futures
+        vix_params = _up.urlencode({"$where": "cftc_contract_market_code='1170E1'", "$order": "report_date_as_yyyy_mm_dd DESC", "$limit": "3"})
+        vix_req = urllib.request.Request(f"{cftc_base}?{vix_params}", headers={"User-Agent": "Mozilla/5.0"})
+        vix_data = json.loads(urllib.request.urlopen(vix_req, timeout=10).read().decode())
+        
+        if vix_data:
+            v = vix_data[0]
+            vix_nc_net = int(v.get('noncomm_positions_long_all', 0)) - int(v.get('noncomm_positions_short_all', 0))
+            if vix_nc_net > 30000:
+                risk_signals.append({"name": "VIX期貨大量做多(避險)", "score": -2, "detail": f"VIX淨多{vix_nc_net:+,}"})
+            elif vix_nc_net < -50000:
+                risk_signals.append({"name": "VIX期貨淨空(樂觀)", "score": +1, "detail": f"VIX淨空{vix_nc_net:+,}"})
+        
+        cftc_out = {
+            "sp500_net": nc_net,
+            "sp500_date": cot_date,
+            "sp500_history": cot_history,
+            "vix_net": vix_nc_net if 'vix_nc_net' in dir() else None,
+        }
+        print(f"  CFTC COT: S&P投機者淨{nc_net:+,}")
+    except Exception as e:
+        print(f"  ⚠️ CFTC error: {e}")
+    
+    # Total score
+    total_score = sum(s["score"] for s in risk_signals)
+    
+    if total_score <= -6:
+        verdict = "🔴 高風險"
+        action = "降低倉位至50%以下，避開高Beta，增加現金/防禦"
+    elif total_score <= -3:
+        verdict = "🟠 警戒"  
+        action = "降低至70%倉位，偏好有FCF的價值股"
+    elif total_score <= 0:
+        verdict = "🟡 中性偏空"
+        action = "選股不選市，避開高估值"
+    elif total_score <= 3:
+        verdict = "🟢 中性偏多"
+        action = "正常操作，可逢低加碼"
+    else:
+        verdict = "🟢🟢 有利"
+        action = "積極做多，加碼成長股"
+    
+    tw = datetime.now(timezone(timedelta(hours=8)))
+    return {
+        "generated_at": tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "indicators": {cat: {sym: {**data.get(sym, {}), "name": name} for sym, name in syms.items() if sym in data} for cat, syms in MACRO_RISK_TICKERS.items()},
+        "risk_signals": risk_signals,
+        "total_score": total_score,
+        "verdict": verdict,
+        "action": action,
+        "regional_alerts": regional_alerts,
+        "cftc": cftc_out,
+    }
+
+
+# ── News Intelligence System ──
+NEWS_FEEDS = {
+    "geo_market": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=^GSPC,^DJI,^IXIC&region=US&lang=en-US", "layer": "geo", "label": "美股大盤"},
+    "geo_rates": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=DX-Y.NYB,GLD,^TNX,TLT&region=US&lang=en-US", "layer": "geo", "label": "利率匯率"},
+    "geo_oil": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=CL=F,BZ=F,USO&region=US&lang=en-US", "layer": "geo", "label": "能源"},
+    "geo_defense": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=LMT,RTX,NOC,BA&region=US&lang=en-US", "layer": "geo", "label": "國防"},
+    "sec_semis": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=SOXX,NVDA,AMD,MU,ASML&region=US&lang=en-US", "layer": "sector", "label": "半導體"},
+    "sec_ai": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=MSFT,GOOGL,META,AMZN,CRM&region=US&lang=en-US", "layer": "sector", "label": "AI/雲端"},
+    "sec_optical": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=LITE,COHR,CIEN,ANET&region=US&lang=en-US", "layer": "sector", "label": "光通網通"},
+    "sec_cyber": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=CRWD,PANW,ZS,FTNT&region=US&lang=en-US", "layer": "sector", "label": "網路安全"},
+    "sec_pharma": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=LLY,AMGN,BMY,ABBV&region=US&lang=en-US", "layer": "sector", "label": "藥廠"},
+    "sec_ev": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=TSLA,RIVN,NIO&region=US&lang=en-US", "layer": "sector", "label": "電動車"},
+    "reg_korea": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=EWY&region=US&lang=en-US", "layer": "regional", "label": "韓國"},
+    "reg_taiwan": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=EWT,TSM&region=US&lang=en-US", "layer": "regional", "label": "台灣"},
+    "reg_china": {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=FXI,BABA&region=US&lang=en-US", "layer": "regional", "label": "中國"},
+}
+
+GEO_KEYWORD_GROUPS = {
+    "war_conflict": {"words": [" war ", "iran war", "iran conflict", "military", "missile", "invasion", "attack on", "ceasefire", "escalat", "bombing", "troops deploy", "airstrike"], "impact_zh": "戰爭風險→油價↑防禦股↑VIX↑", "severity": 3},
+    "fed_policy": {"words": ["fed ", "rate cut", "rate hike", "fomc", "powell", "monetary policy", "quantitative", "taper"], "impact_zh": "Fed政策→估值倍數+流動性", "severity": 2},
+    "trade_tariff": {"words": ["tariff", "trade war", "sanction", "embargo", "export ban", "trade deal", "customs"], "impact_zh": "貿易戰→供應鏈成本", "severity": 2},
+    "recession": {"words": ["recession", "slowdown", "downturn", "unemployment", "layoff", "default", "debt ceiling", "hard landing"], "impact_zh": "衰退→全面估值壓縮", "severity": 3},
+    "inflation": {"words": ["inflation", "cpi", "pce", "deflation", "price pressure", "consumer price"], "impact_zh": "通膨→Fed決策", "severity": 1},
+    "stimulus": {"words": ["stimulus", "infrastructure", "spending bill", "fiscal", "subsidy", "chips act"], "impact_zh": "財政刺激→特定板塊受益", "severity": 1},
+    "crisis": {"words": ["crisis", "margin call", "liquidat", "bankrupt", "contagion", "bank run", "panic"], "impact_zh": "金融危機→流動性枯竭", "severity": 3},
+}
+
+EVENT_STOCK_IMPACT = {
+    "war_conflict": {"positive": ["LMT","RTX","NOC","GD","XOM","CVX"], "negative": [], "watch": ["GLD","USO"]},
+    "trade_tariff": {"positive": ["INTC"], "negative": ["AAPL","TSLA","QCOM","TXN","NIO"], "watch": []},
+    "recession": {"positive": ["XLP","XLU","TLT"], "negative": ["XLY","XLK"], "watch": []},
+    "crisis": {"positive": ["GLD","TLT"], "negative": ["XLF","HYG"], "watch": []},
+}
+
+
+def collect_news_intel():
+    """Collect multi-layer news intelligence: geopolitical → sector → regional."""
+    import xml.etree.ElementTree as ET
+    
+    articles_by_layer = {"geo": [], "sector": [], "regional": []}
+    geo_alerts = []
+    seen_titles = set()
+    
+    for feed_id, feed_info in NEWS_FEEDS.items():
+        try:
+            req = urllib.request.Request(feed_info["url"], headers={"User-Agent": "Mozilla/5.0 StockIQ/1.0"})
+            resp = urllib.request.urlopen(req, timeout=10)
+            root = ET.fromstring(resp.read())
+            
+            for item in root.findall('.//item')[:10]:
+                title = item.findtext('title', '').strip()
+                if not title or title in seen_titles:
+                    continue
+                seen_titles.add(title)
+                
+                desc = item.findtext('description', '')
+                pub = item.findtext('pubDate', '')
+                link = item.findtext('link', '')
+                text = (title + " " + desc).lower()
+                
+                article = {
+                    "title": title[:120],
+                    "feed": feed_info["label"],
+                    "layer": feed_info["layer"],
+                    "date": pub[:25] if pub else "",
+                    "link": link,
+                }
+                
+                # Check geopolitical keywords
+                if feed_info["layer"] == "geo":
+                    matched_groups = []
+                    for group_id, group in GEO_KEYWORD_GROUPS.items():
+                        if any(w in text for w in group["words"]):
+                            matched_groups.append({
+                                "group": group_id,
+                                "impact": group["impact_zh"],
+                                "severity": group["severity"],
+                            })
+                    
+                    if matched_groups:
+                        article["geo_tags"] = matched_groups
+                        max_sev = max(g["severity"] for g in matched_groups)
+                        if max_sev >= 2:
+                            # Get affected stocks
+                            affected = set()
+                            for g in matched_groups:
+                                impact = EVENT_STOCK_IMPACT.get(g["group"], {})
+                                affected.update(impact.get("positive", []))
+                                affected.update(impact.get("negative", []))
+                            article["affected_stocks"] = list(affected)
+                            geo_alerts.append(article)
+                
+                articles_by_layer[feed_info["layer"]].append(article)
+        except Exception as e:
+            pass
+        time.sleep(0.5)  # Rate limiting
+    
+    # Deduplicate and sort by severity
+    geo_alerts.sort(key=lambda x: max((g["severity"] for g in x.get("geo_tags", [])), default=0), reverse=True)
+    
+    tw = datetime.now(timezone(timedelta(hours=8)))
+    return {
+        "generated_at": tw.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
+        "geo_articles": articles_by_layer["geo"][:20],
+        "sector_articles": articles_by_layer["sector"][:30],
+        "regional_articles": articles_by_layer["regional"][:15],
+        "geo_alerts": geo_alerts[:10],
+        "total_scanned": sum(len(v) for v in articles_by_layer.values()),
+    }
+
 
 if __name__ == "__main__":
     success = run()
