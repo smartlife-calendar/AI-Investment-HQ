@@ -1176,7 +1176,13 @@
                     checkMarketStatus();
                 }, 300); 
             }
-            if (tabName === 'smart') { loadSmartMoney(); if (window._smartCurrentTab) switchSmartTab(window._smartCurrentTab); }
+            if (tabName === 'smart') {
+                var toolsOnlyTabs = ['r40','intel','sectorcomp','eventcal','aianalyst','longshort','earnings','news','daily_archive','guide'];
+                if (!window._smartCurrentTab || toolsOnlyTabs.indexOf(window._smartCurrentTab) >= 0) {
+                    window._smartCurrentTab = 'bullish';
+                }
+                loadSmartMoney();
+            }
             if (tabName === 'research') { loadResearchTab(); }
             if (tabName === 'tools') { loadToolsTab(); }
             if (tabName === 'paper') { loadPaperTab(); }
