@@ -116,6 +116,76 @@ def is_trading_day(date_str):
     return d.weekday() < 5  # Mon=0, Fri=4
 
 
+def get_event_risk(today):
+    """Check upcoming events and return risk adjustment.
+    Returns: (max_position_pct, max_new_entries, reason) 
+    """
+    try:
+        url = f"https://raw.githubusercontent.com/{REPO}/gh-pages/data/event_calendar.json"
+        req = urllib.request.Request(url, headers=GH_H)
+        d = json.loads(urllib.request.urlopen(req, timeout=10).read())
+        timeline = d.get("timeline", [])
+        strategy = d.get("current_strategy", {})
+        
+        today_dt = datetime.strptime(today, "%Y-%m-%d")
+        risk_events = []
+        
+        for ev in timeline:
+            ev_date = datetime.strptime(ev["date"], "%Y-%m-%d")
+            days_away = (ev_date - today_dt).days
+            ev_type = ev.get("type", "")
+            
+            if days_away < 0 or days_away > 14:
+                continue
+            
+            risk_events.append({
+                "type": ev_type,
+                "label": ev.get("label", ""),
+                "days": days_away,
+            })
+        
+        # Risk adjustments based on event proximity
+        max_pct = MAX_POSITION_PCT  # default 10%
+        max_new = MAX_POSITIONS  # default 10
+        reasons = []
+        
+        for ev in risk_events:
+            if ev["type"] == "election" and ev["days"] <= 7:
+                # Election week: reduce exposure, no new positions
+                max_pct = 0.05  # 5% max per position
+                max_new = 0  # No new entries
+                reasons.append(f"選舉{ev['days']}天內: 停止新建倉")
+            elif ev["type"] == "election" and ev["days"] <= 14:
+                # 2 weeks before election: smaller positions
+                max_pct = 0.07  # 7% max
+                max_new = 3  # Max 3 new
+                reasons.append(f"選舉{ev['days']}天內: 減少建倉")
+            elif ev["type"] == "fomc" and ev["days"] <= 3:
+                # FOMC week: cautious
+                max_pct = 0.07
+                max_new = min(max_new, 5)
+                reasons.append(f"FOMC {ev['days']}天內: 謹慎建倉")
+            elif ev["type"] == "opex" and ev["days"] <= 2:
+                # Options expiry: volatile
+                max_new = min(max_new, 3)
+                reasons.append(f"選擇權到期{ev['days']}天內: 觀望")
+        
+        # Also check equity allocation from strategy
+        alloc = strategy.get("equity_allocation", "100%")
+        try:
+            alloc_pct = float(alloc.replace("%", "")) / 100
+            if alloc_pct < 0.7:
+                max_new = min(max_new, 3)
+                reasons.append(f"策略配置{alloc}: 保守建倉")
+        except:
+            pass
+        
+        return max_pct, max_new, "; ".join(reasons) if reasons else None
+    except Exception as e:
+        print(f"  ⚠️ Event calendar check failed: {e}")
+        return MAX_POSITION_PCT, MAX_POSITIONS, None
+
+
 def run():
     now = datetime.now(timezone(timedelta(hours=-4)))  # EST
     today = now.strftime("%Y-%m-%d")
@@ -150,6 +220,12 @@ def run():
     
     regime = signals.get("market_regime", {}).get("regime", "NEUTRAL")
     sig_map = {s["symbol"]: s for s in signals.get("signals", [])}
+    
+    # Check event-driven risk
+    event_max_pct, event_max_new, event_reason = get_event_risk(today)
+    if event_reason:
+        print(f"  ⚡ 事件風險: {event_reason}")
+        print(f"     max position: {event_max_pct*100:.0f}%, max new entries: {event_max_new}")
     
     # Load earnings data for mcap filter
     earnings, _ = gh_get("data/earnings_roe.json")
@@ -288,6 +364,7 @@ def run():
             buys.append(s)
     buys.sort(key=lambda x: x.get("score", 0), reverse=True)
     
+    new_entries_today = 0
     for s in buys:
         sym = s["symbol"]
         if sym in positions:
@@ -297,6 +374,9 @@ def run():
         if mcap_map.get(sym, 999) < MIN_MCAP_B:
             continue
         if len(positions) >= MAX_POSITIONS:
+            break
+        if new_entries_today >= event_max_new:
+            print(f"  ⏸️ 達到事件限制: 今日最多 {event_max_new} 筆新建倉")
             break
         if regime == "BEAR":
             continue
@@ -317,8 +397,8 @@ def run():
         # - Anyone can verify: Yahoo Finance {sym} on {date}
         entry_price = close_price
         
-        # Position sizing
-        position_value = min(cash, INITIAL_CAPITAL * MAX_POSITION_PCT)
+        # Position sizing (event-adjusted)
+        position_value = min(cash, INITIAL_CAPITAL * event_max_pct)
         if position_value < 200:
             continue
         
@@ -368,6 +448,7 @@ def run():
             "verifiable": f"YF {sym} {today}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
         })
         
+        new_entries_today += 1
         print(f"  🟢 {sym}: 買入 {shares}股 @${entry_price:.2f} (${cost:,.0f}) score={s.get('score',0)}")
         print(f"      驗證: YF {sym} {today} Close=${close_price} (Open=${ohlcv['open']} H=${ohlcv['high']} L=${ohlcv['low']})")
     
