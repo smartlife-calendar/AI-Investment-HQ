@@ -5844,6 +5844,13 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
         }
 
 
+        
+        function fmtPrice(p) {
+            if (p < 10) return '$' + p.toFixed(2);
+            if (p < 100) return '$' + p.toFixed(1);
+            return '$' + p.toFixed(0);
+        }
+        
         // ============ Today Focus ============
         var _drillData = null;
         
@@ -5897,16 +5904,16 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                         h += '<div style="color:' + sc + ';font-weight:800;font-size:11px">' + s.score + '</div>';
                         
                         // Current price
-                        h += '<div style="text-align:right;color:#475569">$' + s.price.toFixed(0) + '</div>';
+                        h += '<div style="text-align:right;color:#475569">' + fmtPrice(s.price) + '</div>';
                         
                         // Entry
-                        h += '<div style="text-align:right;color:#4f46e5;font-weight:600">$' + s.entry_price.toFixed(0) + '</div>';
+                        h += '<div style="text-align:right;color:#4f46e5;font-weight:600">' + fmtPrice(s.entry_price) + '</div>';
                         
                         // Stop
-                        h += '<div style="text-align:right;color:#dc2626;font-size:11px">$' + s.stop_loss.toFixed(0) + ' <span style="font-size:9px">' + s.stop_pct + '%</span></div>';
+                        h += '<div style="text-align:right;color:#dc2626;font-size:11px">' + fmtPrice(s.stop_loss) + ' <span style="font-size:9px">' + s.stop_pct + '%</span></div>';
                         
                         // Target
-                        h += '<div style="text-align:right;color:#16a34a;font-weight:600">$' + s.target_1.toFixed(0) + ' <span style="font-size:9px">+' + s.target_1_pct + '%</span></div>';
+                        h += '<div style="text-align:right;color:#16a34a;font-weight:600">' + fmtPrice(s.target_1) + ' <span style="font-size:9px">+' + s.target_1_pct + '%</span></div>';
                         
                         // R/R
                         var rr = s.risk_reward || 0;
