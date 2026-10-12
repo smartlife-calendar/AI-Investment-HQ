@@ -5932,106 +5932,104 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 
                 var focus = _drillData.focus || [];
                 var bt = _drillData.backtest || {};
-                
-                // Load smart data for full stock details
-                var smartStocks = [];
-                var smartBearish = [];
-                if (window._smartData) {
-                    smartStocks = window._smartData.stocks || [];
-                    smartBearish = window._smartData.bearish || [];
-                }
+                var smartStocks = (window._smartData || {}).stocks || [];
+                var smartBearish = (window._smartData || {}).bearish || [];
                 
                 var h = '';
                 
-                // ── Strategy reminder ──
-                h += '<div style="background:#f8fafc;border-radius:12px;padding:10px 14px;margin-bottom:10px;border:1px solid #e2e8f0;font-size:11px;color:#64748b">';
-                h += '📌 <strong>策略：</strong>核心 SPY（70%）+ 衛星驗證（2-3支，各5%）+ 現金 · 模型驗證期至 2027/01';
-                h += '</div>';
+                // Strategy (one line)
+                h += '<div style="font-size:10px;color:#64748b;text-align:center;margin-bottom:8px">';
+                h += '📌 策略：核心 SPY（70%）+ 衛星驗證（2-3支，各5%）+ 現金 · 模型驗證至 2027/01</div>';
                 
-                // ── Top BUY signals (score >= 7, with full details) ──
+                // ── BUY table ──
                 var topBuys = smartStocks.filter(function(s) { return s.score >= 7; })
-                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 5);
+                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 8);
                 
                 if (topBuys.length) {
-                    h += '<div style="background:white;border-radius:14px;padding:14px;border:1px solid #bbf7d0;margin-bottom:10px">';
-                    h += '<div style="font-size:14px;font-weight:800;color:#16a34a;margin-bottom:10px">🟢 買入觀察名單 <span style="font-size:11px;font-weight:400;color:#64748b">（分數≥7，待驗證）</span></div>';
+                    h += '<div style="background:white;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:8px">';
+                    h += '<div style="padding:8px 12px;background:#f0fdf4;font-size:13px;font-weight:700;color:#16a34a;border-bottom:1px solid #dcfce7">🟢 買入觀察（分數≥7）</div>';
                     
-                    topBuys.forEach(function(s) {
-                        var resonance = s.sector_resonance || '';
-                        var hasSectorFlow = resonance.indexOf('順勢') >= 0;
+                    // Header row
+                    h += '<div style="display:grid;grid-template-columns:70px 36px 1fr 1fr 1fr 1fr 50px;gap:0;padding:4px 8px;font-size:9px;color:#94a3b8;border-bottom:1px solid #f1f5f9">';
+                    h += '<div>股票</div><div>分</div><div style="text-align:right">現價</div><div style="text-align:right;color:#4f46e5">進場</div><div style="text-align:right;color:#dc2626">停損</div><div style="text-align:right;color:#16a34a">目標</div><div style="text-align:right">R/R</div>';
+                    h += '</div>';
+                    
+                    topBuys.forEach(function(s, i) {
+                        var bg = i % 2 === 0 ? '#fff' : '#fafafa';
+                        var resTag = (s.sector_resonance || '').indexOf('順勢') >= 0;
                         
-                        h += '<div style="background:#f0fdf4;border-radius:10px;padding:10px;margin-bottom:6px;border-left:4px solid #16a34a">';
+                        h += '<div style="display:grid;grid-template-columns:70px 36px 1fr 1fr 1fr 1fr 50px;gap:0;padding:6px 8px;background:' + bg + ';border-bottom:1px solid #f8fafc;align-items:center;font-size:12px">';
                         
-                        // Row 1: Symbol + Score + Signal
-                        h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-                        h += '<div><strong style="font-size:15px">' + s.symbol + '</strong> <span style="font-size:11px;color:#16a34a;font-weight:700">' + s.score + '/10</span>';
-                        if (hasSectorFlow) h += ' <span style="font-size:9px;background:#dcfce7;padding:1px 4px;border-radius:3px;color:#16a34a">板塊順勢</span>';
-                        h += '</div>';
-                        h += '<div style="font-size:11px;color:#64748b">' + (s.signal || '') + '</div>';
-                        h += '</div>';
-                        
-                        // Row 2: Price targets
-                        h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:4px">';
-                        h += '<div style="text-align:center;background:white;border-radius:6px;padding:4px"><div style="font-size:9px;color:#94a3b8">現價</div><div style="font-size:12px;font-weight:700">$' + s.price.toFixed(1) + '</div></div>';
-                        h += '<div style="text-align:center;background:#eef2ff;border-radius:6px;padding:4px"><div style="font-size:9px;color:#4f46e5">📍 進場</div><div style="font-size:12px;font-weight:700;color:#4f46e5">$' + s.entry_price.toFixed(1) + '</div></div>';
-                        h += '<div style="text-align:center;background:#fef2f2;border-radius:6px;padding:4px"><div style="font-size:9px;color:#dc2626">🛑 停損</div><div style="font-size:12px;font-weight:700;color:#dc2626">$' + s.stop_loss.toFixed(1) + ' <span style="font-size:9px">' + s.stop_pct + '%</span></div></div>';
-                        h += '<div style="text-align:center;background:#f0fdf4;border-radius:6px;padding:4px"><div style="font-size:9px;color:#16a34a">🎯 目標</div><div style="font-size:12px;font-weight:700;color:#16a34a">$' + s.target_1.toFixed(1) + ' <span style="font-size:9px">+' + s.target_1_pct + '%</span></div></div>';
+                        // Symbol + tag
+                        h += '<div><strong>' + s.symbol + '</strong>';
+                        if (resTag) h += ' <span style="font-size:7px;color:#16a34a">●</span>';
                         h += '</div>';
                         
-                        // Row 3: Why
-                        h += '<div style="font-size:10px;color:#475569">';
-                        h += '📊 ' + (s.action_detail || '') + ' · 動能' + (s.mom_health || '?') + ' · R/R ' + (s.risk_reward || '?');
-                        if (s.change_3m) h += ' · 3M ' + (s.change_3m > 0 ? '+' : '') + s.change_3m.toFixed(1) + '%';
-                        h += '</div>';
+                        // Score
+                        var sc = s.score >= 8 ? '#16a34a' : '#f59e0b';
+                        h += '<div style="color:' + sc + ';font-weight:800;font-size:11px">' + s.score + '</div>';
+                        
+                        // Current price
+                        h += '<div style="text-align:right;color:#475569">$' + s.price.toFixed(0) + '</div>';
+                        
+                        // Entry
+                        h += '<div style="text-align:right;color:#4f46e5;font-weight:600">$' + s.entry_price.toFixed(0) + '</div>';
+                        
+                        // Stop
+                        h += '<div style="text-align:right;color:#dc2626;font-size:11px">$' + s.stop_loss.toFixed(0) + ' <span style="font-size:9px">' + s.stop_pct + '%</span></div>';
+                        
+                        // Target
+                        h += '<div style="text-align:right;color:#16a34a;font-weight:600">$' + s.target_1.toFixed(0) + ' <span style="font-size:9px">+' + s.target_1_pct + '%</span></div>';
+                        
+                        // R/R
+                        var rr = s.risk_reward || 0;
+                        var rrC = rr >= 2 ? '#16a34a' : rr >= 1 ? '#f59e0b' : '#dc2626';
+                        h += '<div style="text-align:right;color:' + rrC + ';font-weight:700;font-size:11px">' + rr + '</div>';
                         
                         h += '</div>';
                     });
-                    
                     h += '</div>';
                 }
                 
-                // ── SELL warnings (bearish with highest scores) ──
+                // ── SELL alerts (compact) ──
                 var topSells = smartBearish.filter(function(s) { return s.score >= 5; })
-                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 3);
+                    .sort(function(a,b) { return b.score - a.score; }).slice(0, 5);
                 
                 if (topSells.length) {
-                    h += '<div style="background:white;border-radius:14px;padding:14px;border:1px solid #fecaca;margin-bottom:10px">';
-                    h += '<div style="font-size:14px;font-weight:800;color:#dc2626;margin-bottom:8px">🔴 出貨警示 <span style="font-size:11px;font-weight:400;color:#64748b">（持有者注意）</span></div>';
-                    
+                    h += '<div style="background:white;border-radius:12px;border:1px solid #fecaca;overflow:hidden;margin-bottom:8px">';
+                    h += '<div style="padding:6px 12px;background:#fef2f2;font-size:12px;font-weight:700;color:#dc2626;display:flex;justify-content:space-between">';
+                    h += '<span>🔴 出貨警示</span></div>';
+                    h += '<div style="padding:4px 8px;display:flex;flex-wrap:wrap;gap:4px">';
                     topSells.forEach(function(s) {
-                        h += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:#fef2f2;border-radius:8px;margin-bottom:4px;font-size:12px">';
-                        h += '<div><strong>' + s.symbol + '</strong> <span style="color:#dc2626">' + s.score + '分</span> · ' + (s.action_detail || '') + '</div>';
-                        h += '<div style="color:#dc2626;font-weight:700">' + (s.change_1m ? (s.change_1m > 0 ? '+' : '') + s.change_1m.toFixed(1) + '% 月' : '') + '</div>';
-                        h += '</div>';
+                        h += '<span style="font-size:11px;padding:2px 8px;background:#fef2f2;border-radius:4px">';
+                        h += '<strong style="color:#dc2626">' + s.symbol + '</strong> ' + s.score + '分';
+                        if (s.change_1m) h += ' <span style="color:#94a3b8">' + (s.change_1m > 0 ? '+' : '') + s.change_1m.toFixed(0) + '%月</span>';
+                        h += '</span>';
                     });
-                    
-                    h += '</div>';
+                    h += '</div></div>';
                 }
                 
-                // ── Sector flow + lead-lag alerts (compact) ──
+                // ── Flow alerts + lead-lag (one line) ──
                 if (focus.length) {
-                    h += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">';
+                    h += '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px">';
                     focus.forEach(function(f) {
                         if (f.type === 'sector_accel') {
                             var isIn = f.status.indexOf('流入') >= 0;
-                            var bg = isIn ? '#f0fdf4' : '#fef2f2';
-                            var border = isIn ? '#bbf7d0' : '#fecaca';
-                            h += '<div style="display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:6px;background:' + bg + ';border:1px solid ' + border + ';font-size:10px">';
-                            h += f.flag + ' ' + f.status + ' <strong>' + f.name + '</strong></div>';
+                            var bg2 = isIn ? '#f0fdf4' : '#fef2f2';
+                            h += '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:' + bg2 + '">' + f.flag + ' ' + f.name + '</span>';
                         }
                     });
                     h += '</div>';
                 }
                 
-                // ── Backtest badge ──
+                // Backtest link
                 if (bt.total_signals) {
-                    h += '<div style="font-size:10px;color:#94a3b8;text-align:right">';
-                    h += '📊 模型追蹤: ' + bt.total_signals + '筆 · 勝率' + bt.win_rate + '% · 均+' + bt.avg_return + '% · ';
-                    h += '<a href="javascript:showTab(\'macro\')" style="color:#4f46e5">查看回測 →</a></div>';
+                    h += '<div style="font-size:9px;color:#94a3b8;text-align:right">';
+                    h += '模型 ' + bt.total_signals + '筆 · 勝率' + bt.win_rate + '% · 均+' + bt.avg_return + '%</div>';
                 }
                 
                 el.innerHTML = h;
-            } catch(e) { /* silent fail */ }
+            } catch(e) { /* silent */ }
         }
         
         // ============ Backtest ============
