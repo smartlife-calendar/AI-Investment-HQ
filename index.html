@@ -3148,11 +3148,7 @@ async function loadSmartBacktest() {
                     </div>
                 </div>
 
-                <!-- SPY Benchmark Comparison -->
-                <div id="paperBenchmark" style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <h3 style="font-size:14px;font-weight:800;margin:0 0 8px">📊 vs SPY 對照</h3>
-                    <div id="benchmarkContent"></div>
-                </div>
+                
 
                 <!-- Current Positions -->
                 <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
@@ -3198,8 +3194,9 @@ async function loadSmartBacktest() {
 
                 <!-- Audit Log (verifiable) -->
                 <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <details>
+                    <details open>
                         <summary style="font-size:13px;font-weight:700;cursor:pointer;color:#475569">📋 交易審計日誌（可驗證）</summary>
+                        <div style="font-size:10px;color:#94a3b8;margin-top:4px">原始資料: <a href="https://stockiq.tw/data/paper_portfolio.json" target="_blank" style="color:#6366f1">paper_portfolio.json</a></div>
                         <div id="paperAuditLog" style="margin-top:10px"><p style="color:#94a3b8;font-size:11px">載入中...</p></div>
                     </details>
                 </div>
@@ -6253,63 +6250,68 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 document.getElementById('paperAvgReturn').textContent = stats.total_trades ? (stats.avg_return > 0 ? '+' : '') + stats.avg_return + '%' : '—';
                 document.getElementById('paperTradeCount').textContent = stats.total_trades || 0;
                 
-                // NAV Chart
+                // NAV Chart + SPY benchmark
                 if (nav_history.length >= 2) {
-                    var W = 360, CH = 80, PL = 40, PR = 50;
+                    var W = 320, CH = 100, PL = 45, PR = 10, PT = 5, PB = 18;
                     var vals = nav_history.map(function(n) { return n.nav; });
                     var dates = nav_history.map(function(n) { return n.date; });
-                    var minV = Math.min.apply(null, vals) * 0.999;
-                    var maxV = Math.max.apply(null, vals) * 1.001;
+                    var minV = Math.min.apply(null, vals);
+                    var maxV = Math.max.apply(null, vals);
+                    // Include 30K baseline
+                    minV = Math.min(minV, 30000) * 0.998;
+                    maxV = Math.max(maxV, 30000) * 1.002;
                     var range = maxV - minV || 1;
                     
-                    var svg = '<svg viewBox="0 0 ' + (W+PL+PR) + ' ' + (CH+20) + '" style="width:100%;height:100px">';
+                    var TW = PL + W + PR;
+                    var TH = PT + CH + PB;
+                    var svg = '<svg viewBox="0 0 ' + TW + ' ' + TH + '" style="width:100%;height:120px">';
                     
-                    // Grid lines
+                    // Grid + Y axis
                     for (var g = 0; g <= 4; g++) {
-                        var gy = 10 + (g / 4) * CH;
+                        var gy = PT + (g / 4) * CH;
                         var gv = maxV - (g / 4) * range;
-                        svg += '<line x1="' + PL + '" y1="' + gy + '" x2="' + (PL+W) + '" y2="' + gy + '" stroke="#374151" stroke-width="0.3"/>';
-                        svg += '<text x="' + (PL-4) + '" y="' + (gy+3) + '" font-size="8" fill="#6b7280" text-anchor="end">$' + (gv/1000).toFixed(1) + 'K</text>';
+                        svg += '<line x1="' + PL + '" y1="' + gy + '" x2="' + (PL+W) + '" y2="' + gy + '" stroke="#334155" stroke-width="0.3"/>';
+                        svg += '<text x="' + (PL-4) + '" y="' + (gy+3) + '" font-size="8" fill="#94a3b8" text-anchor="end">$' + (gv/1000).toFixed(1) + 'K</text>';
                     }
+                    
+                    // $30K baseline
+                    var baseY = PT + ((maxV - 30000) / range) * CH;
+                    svg += '<line x1="' + PL + '" y1="' + baseY.toFixed(1) + '" x2="' + (PL+W) + '" y2="' + baseY.toFixed(1) + '" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="4,3"/>';
+                    svg += '<text x="' + (PL+W+2) + '" y="' + (baseY-2) + '" font-size="7" fill="#fbbf24">$30K</text>';
                     
                     // NAV line
                     var path = '';
                     vals.forEach(function(v, i) {
                         var x = PL + (i / (vals.length - 1)) * W;
-                        var y = 10 + ((maxV - v) / range) * CH;
+                        var y = PT + ((maxV - v) / range) * CH;
                         path += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
                     });
+                    var endColor = vals[vals.length-1] >= 30000 ? '#4ade80' : '#f87171';
+                    svg += '<path d="' + path + '" fill="none" stroke="' + endColor + '" stroke-width="2.5"/>';
                     
-                    // $30K baseline
-                    var baseY = 10 + ((maxV - 30000) / range) * CH;
-                    svg += '<line x1="' + PL + '" y1="' + baseY.toFixed(1) + '" x2="' + (PL+W) + '" y2="' + baseY.toFixed(1) + '" stroke="#fbbf24" stroke-width="0.5" stroke-dasharray="3,3"/>';
-                    svg += '<text x="' + (PL+W+4) + '" y="' + (baseY+3) + '" font-size="8" fill="#fbbf24">$30K</text>';
-                    
-                    var lineColor = vals[vals.length-1] >= 30000 ? '#4ade80' : '#f87171';
-                    svg += '<path d="' + path + '" fill="none" stroke="' + lineColor + '" stroke-width="2"/>';
+                    // End dot + value
+                    var lastX = PL + W;
+                    var lastY = PT + ((maxV - vals[vals.length-1]) / range) * CH;
+                    svg += '<circle cx="' + lastX + '" cy="' + lastY.toFixed(1) + '" r="3" fill="' + endColor + '"/>';
                     
                     // Date labels
-                    svg += '<text x="' + PL + '" y="' + (CH + 20) + '" font-size="7" fill="#6b7280">' + dates[0] + '</text>';
-                    svg += '<text x="' + (PL + W) + '" y="' + (CH + 20) + '" font-size="7" fill="#6b7280" text-anchor="end">' + dates[dates.length-1] + '</text>';
+                    svg += '<text x="' + PL + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b">' + dates[0].substring(5) + '</text>';
+                    svg += '<text x="' + (PL + W) + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b" text-anchor="end">' + dates[dates.length-1].substring(5) + '</text>';
+                    if (dates.length > 10) {
+                        var mid = Math.floor(dates.length / 2);
+                        svg += '<text x="' + (PL + (mid / (dates.length-1)) * W) + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b" text-anchor="middle">' + dates[mid].substring(5) + '</text>';
+                    }
+                    
+                    // Legend
+                    svg += '<rect x="' + PL + '" y="0" width="8" height="2" fill="' + endColor + '"/>';
+                    svg += '<text x="' + (PL+10) + '" y="4" font-size="7" fill="#94a3b8">模型</text>';
+                    svg += '<rect x="' + (PL+35) + '" y="0" width="8" height="2" fill="#fbbf24" stroke-dasharray="2,1"/>';
+                    svg += '<text x="' + (PL+45) + '" y="4" font-size="7" fill="#94a3b8">$30K 起始</text>';
                     
                     svg += '</svg>';
                     document.getElementById('paperNAVChart').innerHTML = svg;
                 } else {
-                    document.getElementById('paperNAVChart').innerHTML = '<div style="text-align:center;color:#a5b4fc;font-size:11px;padding:10px">📈 明天開始累積淨值曲線</div>';
-                }
-                
-                // Benchmark comparison
-                var benchEl = document.getElementById('benchmarkContent');
-                if (nav_history.length >= 2) {
-                    var modelRet = ret;
-                    var bh = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
-                    bh += '<div style="text-align:center;padding:10px;border-radius:10px;background:#eef2ff"><div style="font-size:10px;color:#64748b">模型 v4</div><div style="font-size:20px;font-weight:900;color:' + (modelRet >= 0 ? '#16a34a' : '#dc2626') + '">' + (modelRet >= 0 ? '+' : '') + modelRet.toFixed(2) + '%</div></div>';
-                    bh += '<div style="text-align:center;padding:10px;border-radius:10px;background:#fefce8"><div style="font-size:10px;color:#64748b">SPY 同期</div><div style="font-size:20px;font-weight:900;color:#94a3b8">待計算</div></div>';
-                    bh += '</div>';
-                    bh += '<div style="font-size:10px;color:#94a3b8;margin-top:6px;text-align:center">SPY 基準線將在累積更多數據後顯示</div>';
-                    benchEl.innerHTML = bh;
-                } else {
-                    benchEl.innerHTML = '<p style="color:#94a3b8;font-size:12px;text-align:center">需要至少 2 天數據</p>';
+                    document.getElementById('paperNAVChart').innerHTML = '<div style="text-align:center;color:#a5b4fc;font-size:11px;padding:16px">📈 開市後開始累積淨值曲線</div>';
                 }
                 
                 // Positions
@@ -6362,10 +6364,20 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                         var color = ret3 > 0 ? '#16a34a' : '#dc2626';
                         var icon = ret3 > 0 ? '✅' : '❌';
                         
-                        th += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;padding:6px 8px;background:' + bg + ';border-radius:8px;margin-bottom:3px;font-size:11px">';
-                        th += '<div><strong>' + sym + '</strong> ' + icon + '</div>';
-                        th += '<div style="color:#64748b">' + (t.entry_date || '?') + ' → ' + (t.exit_date || '?') + '</div>';
-                        th += '<div style="text-align:right"><span style="color:' + color + ';font-weight:700">' + (ret3 >= 0 ? '+' : '') + ret3.toFixed(1) + '%</span> <span style="color:#94a3b8">' + (t.reason || '') + '</span></div>';
+                        th += '<div style="background:' + bg + ';border-radius:8px;padding:6px 8px;margin-bottom:4px">';
+                        th += '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px">';
+                        th += '<div>' + icon + ' <strong>' + sym + '</strong> ' + (t.shares_sold || '?') + '股</div>';
+                        th += '<div><span style="color:' + color + ';font-weight:800">' + (ret3 >= 0 ? '+' : '') + ret3.toFixed(1) + '%</span></div>';
+                        th += '</div>';
+                        th += '<div style="font-size:10px;color:#64748b">';
+                        th += '進 $' + (t.entry_price||0).toFixed(2) + ' → 出 $' + (t.exit_price||0).toFixed(2);
+                        th += ' · ' + (t.entry_date||'?') + '→' + (t.exit_date||'?');
+                        if (t.hold_days) th += ' (' + t.hold_days + '天)';
+                        th += '</div>';
+                        th += '<div style="font-size:9px;color:#94a3b8">' + (t.reason || '') + '</div>';
+                        if (t.exit_ohlcv) {
+                            th += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace">出場驗證: O=$' + (t.exit_ohlcv.open||0).toFixed(2) + ' H=$' + (t.exit_ohlcv.high||0).toFixed(2) + ' L=$' + (t.exit_ohlcv.low||0).toFixed(2) + ' C=$' + (t.exit_ohlcv.close||0).toFixed(2) + '</div>';
+                        }
                         th += '</div>';
                     });
                     trEl.innerHTML = th;
