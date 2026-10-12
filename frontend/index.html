@@ -370,7 +370,23 @@
             <div id="weeklyMovers" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px"></div>
 
             <!-- 5. Original Macro Indicators (moved below) -->
-            <div id="macroPanel" style="background:white;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">
+            
+            <!-- 5. Signal Backtest Performance -->
+            <div id="backtestCard" style="background:white;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:14px">
+                <h3 style="font-size:15px;font-weight:800;margin:0 0 10px">📊 吸籌訊號回測績效</h3>
+                <div id="backtestContent"><p style="color:#94a3b8;text-align:center;padding:12px;font-size:12px">⏳ 載入中...</p></div>
+            </div>
+
+            <!-- 6. Sector Drill-down (click from chart) -->
+            <div id="sectorDrilldown" style="display:none;background:white;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                    <h3 id="drilldownTitle" style="font-size:15px;font-weight:800;margin:0">板塊個股</h3>
+                    <button onclick="document.getElementById('sectorDrilldown').style.display='none'" style="background:none;border:1px solid #e2e8f0;border-radius:8px;padding:2px 8px;cursor:pointer;font-size:11px;color:#64748b">✕ 關閉</button>
+                </div>
+                <div id="drilldownContent"></div>
+            </div>
+
+<div id="macroPanel" style="background:white;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">
                 <h3 style="font-size:15px;font-weight:800;margin:0 0 10px">📊 總經指標</h3>
                 <div id="macroContent" class="text-sm text-gray-600">載入中...</div>
             </div>
@@ -1149,8 +1165,8 @@
                 btn.style.fontWeight = active ? '700' : '600';
             });
             
-            if (tabName === 'macro') { loadMacro(); loadSectorFlowChart(); }
-            if (tabName === 'today') { 
+            if (tabName === 'macro') { loadMacro(); loadSectorFlowChart(); loadBacktest(); }
+            if (tabName === 'today') { loadTodayFocus(); 
                 setTimeout(() => { 
                     // loadDailyFlows moved to macro tab
                     // checkMarketStatus handled separately 
@@ -3803,6 +3819,10 @@ async function loadSmartBacktest() {
 
 
         <!-- Daily Column: 2026/10/12 12:14 -->
+        <div id="todayFocusSection" class="max-w-5xl mx-auto mt-4 px-4" style="margin-bottom:12px">
+            <div id="todayFocusContent"></div>
+        </div>
+
         <div class="max-w-5xl mx-auto mt-4 px-4" id="dailyColumn" style="display:none"><div style="background:white;border-radius:16px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px"><h2 style="font-size:18px;font-weight:800;margin:0;color:#1e293b">📋 今日事件分析專欄</h2><span style="color:#6b7280;font-size:12px;background:#f3f4f6;padding:4px 10px;border-radius:20px">2026/10/12 12:14</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="background:#f0fdf4;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:16px"><div style="font-weight:700;color:#15803d;margin-bottom:8px;font-size:14px">📈 HAE -0.7%（量比?x）</div><div style="font-size:12px;color:#374151;line-height:1.7;white-space:pre-line"># 美股事件分析
 
 ## 📈 強力買進：HAE（海莫納蒂克斯）
@@ -5777,7 +5797,7 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 lastY = labelY;
                 var name = _flowNames[etf] || etf;
                 var flag = etf.indexOf('.TW') >= 0 ? '🇹🇼' : '🇺🇸';
-                svg += '<text x="' + (W-PR+4) + '" y="' + (labelY+3) + '" font-size="9" fill="' + color + '" font-weight="700">' + flag + name + ' ' + (endV > 0 ? '+' : '') + endV.toFixed(1) + '%</text>';
+                svg += '<text x="' + (W-PR+4) + '" y="' + (labelY+3) + '" font-size="9" fill="' + color + '" font-weight="700" style="cursor:pointer" onclick="showSectorDrilldown(\'' + etf + '\')")>' + flag + name + ' ' + (endV > 0 ? '+' : '') + endV.toFixed(1) + '%</text>';
             });
             
             svg += '</svg>';
@@ -5806,6 +5826,183 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
         function toggleFlowLine(etf) {
             _flowVisible[etf] = !_flowVisible[etf];
             renderFlowChart(_flowMarket);
+        }
+
+
+        // ============ Today Focus ============
+        var _drillData = null;
+        
+        async function loadTodayFocus() {
+            var el = document.getElementById('todayFocusContent');
+            if (!el) return;
+            
+            try {
+                if (!_drillData) {
+                    var r = await fetch('/data/macro_drilldown.json?t=' + Date.now());
+                    _drillData = await r.json();
+                }
+                
+                var focus = _drillData.focus || [];
+                var bt = _drillData.backtest || {};
+                if (!focus.length && !bt.total_signals) { el.innerHTML = ''; return; }
+                
+                var h = '<div style="background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:14px;padding:14px;border:1px solid #fde68a">';
+                h += '<div style="font-size:14px;font-weight:800;color:#92400e;margin-bottom:8px">🎯 今日聚焦</div>';
+                
+                // Signal performance badge
+                if (bt.total_signals) {
+                    h += '<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">';
+                    h += '<div style="background:white;border-radius:8px;padding:6px 10px;font-size:11px;border:1px solid #fde68a">';
+                    h += '吸籌勝率 <strong style="color:#16a34a">' + bt.win_rate + '%</strong> · ';
+                    h += '均報酬 <strong style="color:#16a34a">+' + bt.avg_return + '%</strong> · ';
+                    h += bt.total_signals + '筆追蹤</div>';
+                    h += '</div>';
+                }
+                
+                // Focus items
+                focus.forEach(function(f) {
+                    if (f.type === 'sector_accel') {
+                        h += '<div style="font-size:12px;color:#374151;margin-bottom:4px">';
+                        h += f.flag + ' ' + f.status + ' <strong>' + f.name + '</strong>';
+                        if (f.top_stocks && f.top_stocks.length) {
+                            h += ' — ';
+                            f.top_stocks.forEach(function(s) {
+                                h += '<span style="background:#dcfce7;padding:1px 6px;border-radius:4px;font-size:10px;margin:0 2px">' + s.symbol + '(' + s.score + '分)</span>';
+                            });
+                        }
+                        h += '</div>';
+                    } else if (f.type === 'lead_lag') {
+                        var dir = f.us_weekly_chg > 0 ? '上漲' : '下跌';
+                        var color = f.us_weekly_chg > 0 ? '#16a34a' : '#dc2626';
+                        h += '<div style="font-size:12px;color:#374151;margin-bottom:4px">';
+                        h += '🔗 ' + (_flowNames[f.us_etf]||f.us_etf) + '本週<span style="color:' + color + '">' + dir + (Math.abs(f.us_weekly_chg)).toFixed(1) + '%</span>';
+                        h += ' → ' + (_flowNames[f.tw_etf]||f.tw_etf) + '明日可能跟動 (相關' + f.corr + ')</div>';
+                    }
+                });
+                
+                h += '</div>';
+                el.innerHTML = h;
+            } catch(e) { /* silent */ }
+        }
+        
+        // ============ Backtest ============
+        async function loadBacktest() {
+            var el = document.getElementById('backtestContent');
+            if (!el) return;
+            
+            try {
+                if (!_drillData) {
+                    var r = await fetch('/data/macro_drilldown.json?t=' + Date.now());
+                    _drillData = await r.json();
+                }
+                
+                var bt = _drillData.backtest || {};
+                if (!bt.total_signals) { el.innerHTML = '<p style="color:#94a3b8;font-size:12px">無回測數據</p>'; return; }
+                
+                var h = '';
+                
+                // KPI cards
+                h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">';
+                h += '<div style="background:#f0fdf4;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#16a34a">' + bt.win_rate + '%</div><div style="font-size:10px;color:#64748b">勝率</div></div>';
+                h += '<div style="background:#eef2ff;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#4f46e5">+' + bt.avg_return + '%</div><div style="font-size:10px;color:#64748b">均報酬</div></div>';
+                h += '<div style="background:#fefce8;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#ca8a04">' + bt.avg_hold_days + '天</div><div style="font-size:10px;color:#64748b">均持有</div></div>';
+                h += '<div style="background:#f8fafc;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:#475569">' + bt.total_signals + '</div><div style="font-size:10px;color:#64748b">追蹤數</div></div>';
+                h += '</div>';
+                
+                // Win/Loss breakdown
+                h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+                h += '<div style="background:#f0fdf4;border-radius:8px;padding:8px;font-size:11px"><strong style="color:#16a34a">✅ 獲利</strong> 均 +' + bt.avg_win + '% · 最佳 ' + (bt.best ? bt.best.symbol + ' +' + bt.best.pct + '%' : '') + '</div>';
+                h += '<div style="background:#fef2f2;border-radius:8px;padding:8px;font-size:11px"><strong style="color:#dc2626">❌ 虧損</strong> 均 ' + bt.avg_loss + '% · 最差 ' + (bt.worst ? bt.worst.symbol + ' ' + bt.worst.pct + '%' : '') + '</div>';
+                h += '</div>';
+                
+                // Sector performance
+                var sp = bt.sector_perf || {};
+                var sectors = Object.entries(sp).sort(function(a,b){ return b[1].avg - a[1].avg; });
+                if (sectors.length) {
+                    h += '<div style="font-size:12px;font-weight:700;margin-bottom:6px">板塊績效</div>';
+                    h += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">';
+                    sectors.forEach(function(e) {
+                        var name = e[0].substring(0, 8);
+                        var avg = e[1].avg;
+                        var bg = avg > 10 ? '#dcfce7' : avg > 0 ? '#f0fdf4' : '#fef2f2';
+                        var color = avg > 0 ? '#16a34a' : '#dc2626';
+                        h += '<div style="background:' + bg + ';border-radius:6px;padding:3px 8px;font-size:10px">';
+                        h += name + ' <strong style="color:' + color + '">' + (avg > 0 ? '+' : '') + avg + '%</strong>';
+                        h += ' <span style="color:#94a3b8">' + e[1].wins + '/' + e[1].total + '</span></div>';
+                    });
+                    h += '</div>';
+                }
+                
+                // Trade history (collapsible)
+                var trades = bt.trades || [];
+                if (trades.length) {
+                    h += '<details><summary style="font-size:12px;font-weight:700;cursor:pointer;color:#4f46e5;margin-bottom:6px">📋 全部交易記錄 (' + trades.length + '筆)</summary>';
+                    h += '<div style="max-height:300px;overflow-y:auto">';
+                    trades.forEach(function(t) {
+                        var bg = t.gain_pct > 0 ? '#f0fdf4' : '#fef2f2';
+                        var color = t.gain_pct > 0 ? '#16a34a' : '#dc2626';
+                        h += '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px;margin-bottom:2px;background:' + bg + ';border-radius:6px;font-size:11px">';
+                        h += '<div><strong>' + t.symbol + '</strong> <span style="color:#94a3b8">' + t.entry_date + ' $' + t.entry_price + '</span></div>';
+                        h += '<div style="text-align:right"><span style="color:' + color + ';font-weight:700">' + (t.gain_pct > 0 ? '+' : '') + t.gain_pct.toFixed(1) + '%</span> <span style="color:#94a3b8">' + t.consec_days + '天</span></div>';
+                        h += '</div>';
+                    });
+                    h += '</div></details>';
+                }
+                
+                el.innerHTML = h;
+            } catch(e) { el.innerHTML = '<p style="color:#ef4444;font-size:12px">❌ ' + e.message + '</p>'; }
+        }
+        
+        // ============ Sector Drill-down ============
+        function showSectorDrilldown(etf) {
+            if (!_drillData) return;
+            var stocks = (_drillData.sector_stocks || {})[etf] || [];
+            if (!stocks.length) return;
+            
+            var el = document.getElementById('sectorDrilldown');
+            var title = document.getElementById('drilldownTitle');
+            var content = document.getElementById('drilldownContent');
+            
+            el.style.display = '';
+            title.textContent = '📊 ' + (_flowNames[etf] || etf) + ' 板塊個股';
+            
+            var bulls = stocks.filter(function(s) { return s.direction === 'bullish'; });
+            var bears = stocks.filter(function(s) { return s.direction === 'bearish'; });
+            
+            var h = '';
+            
+            if (bulls.length) {
+                h += '<div style="font-size:12px;font-weight:700;color:#16a34a;margin-bottom:6px">📈 吸籌中 (' + bulls.length + ')</div>';
+                h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin-bottom:12px">';
+                bulls.forEach(function(s) {
+                    var scoreColor = s.score >= 7 ? '#16a34a' : s.score >= 5 ? '#f59e0b' : '#64748b';
+                    h += '<div style="background:#f0fdf4;border-radius:8px;padding:8px;border-left:3px solid ' + scoreColor + '">';
+                    h += '<div style="display:flex;justify-content:space-between"><strong style="font-size:13px">' + s.symbol + '</strong><span style="font-size:10px;color:' + scoreColor + ';font-weight:700">' + s.score + '/10</span></div>';
+                    h += '<div style="font-size:10px;color:#64748b;margin-top:2px">' + (s.signal || '') + '</div>';
+                    h += '<div style="font-size:10px;margin-top:3px">$' + s.price;
+                    if (s.change_3m) h += ' <span style="color:' + (s.change_3m > 0 ? '#16a34a' : '#dc2626') + '">' + (s.change_3m > 0 ? '+' : '') + s.change_3m.toFixed(1) + '%</span>';
+                    h += '</div>';
+                    if (s.entry_price && s.stop_loss && s.target_1) {
+                        h += '<div style="font-size:9px;color:#94a3b8;margin-top:2px">進$' + s.entry_price.toFixed(0) + ' 停$' + s.stop_loss.toFixed(0) + ' 目$' + s.target_1.toFixed(0) + '</div>';
+                    }
+                    h += '</div>';
+                });
+                h += '</div>';
+            }
+            
+            if (bears.length) {
+                h += '<div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:6px">📉 出貨中 (' + bears.length + ')</div>';
+                h += '<div style="display:flex;flex-wrap:wrap;gap:4px">';
+                bears.forEach(function(s) {
+                    h += '<div style="background:#fef2f2;border-radius:6px;padding:4px 8px;font-size:11px">';
+                    h += '<strong style="color:#dc2626">' + s.symbol + '</strong> ' + s.score + '分';
+                    h += '</div>';
+                });
+                h += '</div>';
+            }
+            
+            content.innerHTML = h;
+            el.scrollIntoView({behavior: 'smooth', block: 'nearest'});
         }
 
 </script>
