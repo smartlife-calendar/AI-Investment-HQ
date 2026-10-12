@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T09:04:04+08:00",
+  "generated_at": "2026-10-12T09:06:10+08:00",
   "from_cache": false,
   "macro": [
     {
@@ -56,7 +56,7 @@
       "name": "美元指數 DXY",
       "ticker": "DX-Y.NYB",
       "current": 102.12,
-      "perf_52w": 3.8,
+      "perf_52w": 3.7,
       "flow": "⚪中性",
       "momentum": "📈 加速",
       "wow": [
@@ -105,8 +105,8 @@
     {
       "name": "黃金 Gold",
       "ticker": "GC=F",
-      "current": 4230.8,
-      "perf_52w": 0.4,
+      "current": 4232.4,
+      "perf_52w": 0.5,
       "flow": "⚪中性",
       "momentum": "➡️ 穩定",
       "wow": [
@@ -147,15 +147,15 @@
         ],
         [
           "10/12",
-          4230.8,
-          0.3
+          4232.4,
+          0.4
         ]
       ]
     },
     {
       "name": "原油WTI",
       "ticker": "CL=F",
-      "current": 90.71,
+      "current": 90.68,
       "perf_52w": 57.6,
       "flow": "🟢流入",
       "momentum": "📈 跌勢趨緩",
@@ -197,8 +197,8 @@
         ],
         [
           "10/12",
-          90.71,
-          -1.2
+          90.68,
+          -1.3
         ]
       ]
     },
