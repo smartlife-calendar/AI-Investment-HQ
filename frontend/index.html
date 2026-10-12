@@ -1593,7 +1593,7 @@ async function loadLongShort() {
             // Load signal actions for conflict detection
             if (!window._sigActions) {
                 try {
-                    const sr = await fetch('data/signals.json');
+                    const sr = await fetch('data/signals.json?t=' + Date.now());
                     const sd = await sr.json();
                     window._sigActions = {};
                     (sd.signals||[]).forEach(function(s){window._sigActions[s.symbol]={action:s.action,score:s.score}});
@@ -1612,7 +1612,7 @@ async function loadLongShort() {
                 // Fallback: try fetching JSON
                 if (!stocks || stocks.length === 0) {
                     try {
-                        const r = await fetch('/data/accumulation.json');
+                        const r = await fetch('/data/accumulation.json?t=' + Date.now());
                         if (r.ok) {
                             const j = await r.json();
                             stocks = direction === 'bullish' ? (j.stocks || []) : (j.bearish || []);
@@ -4755,9 +4755,9 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
             if (!el) return;
             
             Promise.all([
-                fetch('data/alpha.json').then(function(r){return r.json()}),
-                fetch('data/signals.json').then(function(r){return r.json()}),
-                fetch('data/earnings_roe.json').then(function(r){return r.json()})
+                fetch('data/alpha.json?t=' + Date.now()).then(function(r){return r.json()}),
+                fetch('data/signals.json?t=' + Date.now()).then(function(r){return r.json()}),
+                fetch('data/earnings_roe.json?t=' + Date.now()).then(function(r){return r.json()})
             ]).then(function(arr){
                 var alpha=arr[0], sigs=arr[1], er=arr[2];
                 var stocks=alpha.stocks||{};
@@ -4869,8 +4869,8 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
             
             try {
                 const [erRes, sigRes] = await Promise.all([
-                    fetch('/data/earnings_roe.json'),
-                    fetch('/data/signals.json')
+                    fetch('/data/earnings_roe.json?t=' + Date.now()),
+                    fetch('/data/signals.json?t=' + Date.now())
                 ]);
                 const erData = await erRes.json();
                 const sigData = await sigRes.json();
