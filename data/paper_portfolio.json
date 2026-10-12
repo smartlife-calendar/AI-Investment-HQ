@@ -1,1 +1,234 @@
-{"version": "v4", "created": "2026-10-12", "initial_capital": 30000, "cash": 30000, "positions": {}, "closed_trades": [], "daily_nav": [{"date": "2026-10-12", "nav": 30000, "cash": 30000, "positions_value": 0, "n_positions": 0, "return_pct": 0}], "cooldown": {}, "stats": {"total_trades": 0, "open_positions": 0, "win_rate": 0, "avg_return": 0, "avg_win": 0, "avg_loss": 0, "total_pnl": 0, "nav": 30000, "nav_return_pct": 0, "cash": 30000, "regime": "BULL", "last_updated": "2026-10-12"}, "model_version": "v4", "model_features": ["OBV + 量比吸籌偵測", "板塊資金共振過濾", "階段辨識 (Phase 1-3)", "ATR 進場/停損/目標", "美台連動 lead-lag", "基本面交叉驗證 (R40, SEC)", "板塊資金加速偵測"], "v1_summary": {"period": "2026-09-04 → 2026-10-09", "initial": 100000, "final_nav": 100675.58, "return_pct": 0.68, "trades": 8, "win_rate": 25.0, "note": "v1-v3 model, 28 trading days, SPY +5.3% same period"}}
+{
+  "version": "v4",
+  "created": "2026-10-12",
+  "initial_capital": 30000,
+  "cash": 18422.56,
+  "positions": {
+    "NU": {
+      "entry_date": "2026-10-12",
+      "entry_price": 16.12,
+      "shares": 186,
+      "cost": 2998.32,
+      "score": 7,
+      "signal": "BUY",
+      "stop_loss": 15.01,
+      "target_1": 18.54,
+      "target_2": 20.15,
+      "peak_price": 16.12,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 16.12,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "NU",
+        "date": "2026-10-09",
+        "open": 15.56,
+        "high": 16.14,
+        "low": 15.48,
+        "close": 16.12,
+        "volume": 76027800,
+        "market_price": 16.12,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
+    },
+    "AMZN": {
+      "entry_date": "2026-10-12",
+      "entry_price": 262.43,
+      "shares": 11,
+      "cost": 2886.73,
+      "score": 7,
+      "signal": "BUY",
+      "stop_loss": 244.32,
+      "target_1": 301.79,
+      "target_2": 328.04,
+      "peak_price": 262.43,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 262.43,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "AMZN",
+        "date": "2026-10-09",
+        "open": 256.5,
+        "high": 262.8,
+        "low": 256.0,
+        "close": 262.43,
+        "volume": 34710500,
+        "market_price": 262.43,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NMS",
+        "market_state": ""
+      }
+    },
+    "SONY": {
+      "entry_date": "2026-10-12",
+      "entry_price": 24.12,
+      "shares": 124,
+      "cost": 2990.88,
+      "score": 7,
+      "signal": "SCALE_IN",
+      "stop_loss": 22.46,
+      "target_1": 27.74,
+      "target_2": 30.15,
+      "peak_price": 24.12,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 24.12,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "SONY",
+        "date": "2026-10-09",
+        "open": 23.97,
+        "high": 24.3,
+        "low": 23.97,
+        "close": 24.12,
+        "volume": 3195400,
+        "market_price": 24.12,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
+    },
+    "MDB": {
+      "entry_date": "2026-10-12",
+      "entry_price": 385.93,
+      "shares": 7,
+      "cost": 2701.51,
+      "score": 7,
+      "signal": "SCALE_IN",
+      "stop_loss": 344.17,
+      "target_1": 443.82,
+      "target_2": 482.41,
+      "peak_price": 385.93,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 385.93,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "MDB",
+        "date": "2026-10-09",
+        "open": 375.85,
+        "high": 387.85,
+        "low": 371.53,
+        "close": 385.93,
+        "volume": 1973900,
+        "market_price": 385.93,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NGM",
+        "market_state": ""
+      }
+    }
+  },
+  "closed_trades": [],
+  "daily_nav": [
+    {
+      "date": "2026-10-12",
+      "nav": 30000.0,
+      "cash": 18422.56,
+      "positions_value": 11577.44,
+      "n_positions": 4,
+      "return_pct": 0.0
+    }
+  ],
+  "cooldown": {},
+  "stats": {
+    "total_trades": 0,
+    "open_positions": 4,
+    "win_rate": 0,
+    "avg_return": 0,
+    "avg_win": 0,
+    "avg_loss": 0,
+    "total_pnl": 0,
+    "nav": 30000.0,
+    "nav_return_pct": 0.0,
+    "cash": 18422.56,
+    "positions_value": 11577.44,
+    "regime": "STRONG_BULL",
+    "last_updated": "2026-10-12"
+  },
+  "audit_log": [
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "NU",
+      "shares": 186,
+      "price": 16.12,
+      "cost": 2998.32,
+      "cash_after": 27001.68,
+      "score": 7,
+      "ohlcv": {
+        "open": 15.56,
+        "high": 16.14,
+        "low": 15.48,
+        "close": 16.12,
+        "volume": 76027800
+      },
+      "verifiable": "YF NU 2026-10-12: O=15.56 H=16.14 L=15.48 C=16.12"
+    },
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "AMZN",
+      "shares": 11,
+      "price": 262.43,
+      "cost": 2886.73,
+      "cash_after": 24114.95,
+      "score": 7,
+      "ohlcv": {
+        "open": 256.5,
+        "high": 262.8,
+        "low": 256.0,
+        "close": 262.43,
+        "volume": 34710500
+      },
+      "verifiable": "YF AMZN 2026-10-12: O=256.5 H=262.8 L=256.0 C=262.43"
+    },
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "SONY",
+      "shares": 124,
+      "price": 24.12,
+      "cost": 2990.88,
+      "cash_after": 21124.07,
+      "score": 7,
+      "ohlcv": {
+        "open": 23.97,
+        "high": 24.3,
+        "low": 23.97,
+        "close": 24.12,
+        "volume": 3195400
+      },
+      "verifiable": "YF SONY 2026-10-12: O=23.97 H=24.3 L=23.97 C=24.12"
+    },
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "MDB",
+      "shares": 7,
+      "price": 385.93,
+      "cost": 2701.51,
+      "cash_after": 18422.56,
+      "score": 7,
+      "ohlcv": {
+        "open": 375.85,
+        "high": 387.85,
+        "low": 371.53,
+        "close": 385.93,
+        "volume": 1973900
+      },
+      "verifiable": "YF MDB 2026-10-12: O=375.85 H=387.85 L=371.53 C=385.93"
+    }
+  ],
+  "model_version": "v4"
+}
