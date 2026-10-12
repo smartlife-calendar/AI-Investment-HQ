@@ -1176,7 +1176,7 @@
                     checkMarketStatus();
                 }, 300); 
             }
-            if (tabName === 'smart') { loadSmartMoney(); }
+            if (tabName === 'smart') { loadSmartMoney(); if (window._smartCurrentTab) switchSmartTab(window._smartCurrentTab); }
             if (tabName === 'research') { loadResearchTab(); }
             if (tabName === 'tools') { loadToolsTab(); }
             if (tabName === 'paper') { loadPaperTab(); }
@@ -5519,10 +5519,12 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                     var content = smartEl ? smartEl.innerHTML : '';
                     if (content && content.indexOf('載入中') < 0 && content.indexOf('⏳') < 0 && content.length > 200) {
                         el.innerHTML = content;
+                        smartEl.innerHTML = '';
                         clearInterval(poller);
                     }
                     if (attempts > 50) { // 10 second timeout
                         if (content.length > 200) el.innerHTML = content;
+                        smartEl.innerHTML = '';
                         clearInterval(poller);
                     }
                 }, 200);
