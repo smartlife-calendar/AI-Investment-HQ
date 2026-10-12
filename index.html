@@ -1137,13 +1137,13 @@
 
         function showTab(tabName) {
             window._currentTab = tabName;
-            const allIds = ['dailyColumn','macroSection','smartSection','researchSection','toolsSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
+            const allIds = ['dailyColumn','macroSection','smartSection','researchSection','toolsSection', 'paperSection','newsSection','dailyFlowsSection','dailyArchiveSection','guideSection','earningsSection'];
             const showIds = {
                 'today': ['dailyColumn'],
                 'research': ['researchSection'],
                 'smart': ['smartSection'],
                 'macro': ['macroSection'],
-                'tools': ['toolsSection'],
+                'tools': ['toolsSection', 'paperSection'],
                 'news': ['newsSection'],
                 'daily_archive': ['dailyArchiveSection'],
                 'guide': ['guideSection']
