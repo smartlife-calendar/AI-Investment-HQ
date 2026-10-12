@@ -3131,9 +3131,12 @@ async function loadSmartBacktest() {
                 </div>
             </div>
         </div>
-        <!-- END Paper Trading Tab -->
 
-
+<div id="toolsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
+            <div style="margin-bottom:16px">
+                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">📚 工具箱</h2>
+                <p style="font-size:12px;color:#64748b;margin:0">產業情報、Rule of 40、事件行事曆、新聞、市場日報</p>
+            </div>
             <div id="toolsSubTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
                 <button onclick="switchToolsTab('r40')" id="tools-tab-r40" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;color:#4f46e5;white-space:nowrap">📐 Rule of 40</button>
                 <button onclick="switchToolsTab('intel')" id="tools-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏭 產業情報</button>
@@ -6097,413 +6100,95 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 var ret = s.nav_return_pct || 0;
                 var pnl = navVal - 30000;
                 var rc = ret >= 0 ? '#22c55e' : '#ef4444';
-                
                 var h = '';
                 
-                // ── Header: compact dark card ──
+                // Header
                 h += '<div style="background:#1e1b4b;border-radius:12px;padding:14px 16px;color:white;margin-bottom:10px">';
                 h += '<div style="display:flex;justify-content:space-between;align-items:baseline">';
                 h += '<div><span style="font-size:10px;color:#a5b4fc">模擬投資組合 v4</span><br>';
                 h += '<span style="font-size:24px;font-weight:900;letter-spacing:-1px">$' + navVal.toLocaleString() + '</span></div>';
                 h += '<div style="text-align:right"><span style="font-size:20px;font-weight:800;color:' + rc + '">' + (ret >= 0 ? '+' : '') + ret.toFixed(2) + '%</span><br>';
-                h += '<span style="font-size:10px;color:#a5b4fc">' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(0) + '</span></div>';
-                h += '</div>';
-                
-                // Mini stats row
+                h += '<span style="font-size:10px;color:#a5b4fc">' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(0) + '</span></div></div>';
                 h += '<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #312e81;font-size:11px">';
-                var items = [
-                    ['持倉', pk.length + '/' + (10)],
-                    ['現金', '$' + (s.cash || 30000).toLocaleString(undefined,{maximumFractionDigits:0})],
-                    ['勝率', s.total_trades ? s.win_rate + '%' : '—'],
-                    ['交易', s.total_trades || 0]
-                ];
-                items.forEach(function(it) {
-                    h += '<div style="text-align:center"><div style="color:#a5b4fc;font-size:9px">' + it[0] + '</div><div style="font-weight:700">' + it[1] + '</div></div>';
+                [['持倉',pk.length+'/10'],['現金','$'+(s.cash||30000).toLocaleString(undefined,{maximumFractionDigits:0})],['勝率',s.total_trades?s.win_rate+'%':'—'],['交易',s.total_trades||0]].forEach(function(it){
+                    h+='<div style="text-align:center"><div style="color:#a5b4fc;font-size:9px">'+it[0]+'</div><div style="font-weight:700">'+it[1]+'</div></div>';
                 });
-                h += '</div>';
-                h += '</div>';
+                h += '</div></div>';
                 
-                // ── NAV chart ──
+                // NAV chart
                 if (nav.length >= 2) {
                     var W=300,CH=70,PL=40,PR=8,PT=4,PB=14;
-                    var vals = nav.map(function(n){return n.nav;});
-                    var dates = nav.map(function(n){return n.date;});
-                    var mn = Math.min(Math.min.apply(null,vals),30000)*0.998;
-                    var mx = Math.max(Math.max.apply(null,vals),30000)*1.002;
-                    var rg = mx-mn||1;
-                    var TW=PL+W+PR, TH=PT+CH+PB;
-                    var svg = '<svg viewBox="0 0 '+TW+' '+TH+'" style="width:100%;height:90px;margin-bottom:8px">';
+                    var vals=nav.map(function(n){return n.nav;});var dates=nav.map(function(n){return n.date;});
+                    var mn=Math.min(Math.min.apply(null,vals),30000)*0.998;var mx=Math.max(Math.max.apply(null,vals),30000)*1.002;var rg=mx-mn||1;
+                    var TW=PL+W+PR,TH=PT+CH+PB;
+                    var svg='<svg viewBox="0 0 '+TW+' '+TH+'" style="width:100%;height:90px;margin-bottom:8px">';
                     for(var g=0;g<=3;g++){var gy=PT+(g/3)*CH;var gv=mx-(g/3)*rg;svg+='<line x1="'+PL+'" y1="'+gy+'" x2="'+(PL+W)+'" y2="'+gy+'" stroke="#e2e8f0" stroke-width="0.5"/>';svg+='<text x="'+(PL-3)+'" y="'+(gy+3)+'" font-size="8" fill="#94a3b8" text-anchor="end">$'+(gv/1000).toFixed(1)+'K</text>';}
-                    var baseY=PT+((mx-30000)/rg)*CH;
-                    svg+='<line x1="'+PL+'" y1="'+baseY.toFixed(1)+'" x2="'+(PL+W)+'" y2="'+baseY.toFixed(1)+'" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="3,3"/>';
+                    var baseY=PT+((mx-30000)/rg)*CH;svg+='<line x1="'+PL+'" y1="'+baseY.toFixed(1)+'" x2="'+(PL+W)+'" y2="'+baseY.toFixed(1)+'" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="3,3"/>';
                     var path='';vals.forEach(function(v,i){var x=PL+(i/(vals.length-1))*W;var y=PT+((mx-v)/rg)*CH;path+=(i===0?'M':'L')+x.toFixed(1)+','+y.toFixed(1);});
                     var lc=vals[vals.length-1]>=30000?'#22c55e':'#ef4444';
                     svg+='<path d="'+path+'" fill="none" stroke="'+lc+'" stroke-width="2"/>';
                     svg+='<circle cx="'+(PL+W)+'" cy="'+(PT+((mx-vals[vals.length-1])/rg)*CH).toFixed(1)+'" r="2.5" fill="'+lc+'"/>';
                     svg+='<text x="'+PL+'" y="'+(PT+CH+11)+'" font-size="7" fill="#94a3b8">'+dates[0].substring(5)+'</text>';
                     svg+='<text x="'+(PL+W)+'" y="'+(PT+CH+11)+'" font-size="7" fill="#94a3b8" text-anchor="end">'+dates[dates.length-1].substring(5)+'</text>';
-                    svg+='</svg>';
-                    h += svg;
+                    svg+='</svg>';h+=svg;
                 }
                 
-                // ── Positions ──
+                // Positions table
                 if (pk.length > 0) {
-                    h += '<div style="font-size:12px;font-weight:700;color:#1e293b;margin:8px 0 6px">📦 持倉</div>';
-                    pk.sort(function(a,b){return (pos[b].current_return||0)-(pos[a].current_return||0);});
-                    
-                    // Table header
-                    h += '<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr 1fr 60px;gap:0;padding:3px 6px;font-size:9px;color:#94a3b8;border-bottom:1px solid #f1f5f9">';
-                    h += '<div>股票</div><div style="text-align:right">進場</div><div style="text-align:right">現價</div><div style="text-align:right">停損</div><div style="text-align:right">目標</div><div style="text-align:right">損益</div>';
-                    h += '</div>';
-                    
-                    pk.forEach(function(sym, i) {
-                        var p = pos[sym];
-                        var rt = p.current_return || 0;
-                        var c = rt > 0 ? '#22c55e' : rt < 0 ? '#ef4444' : '#64748b';
-                        var bg = i % 2 === 0 ? '#fff' : '#fafafa';
-                        var val = p.shares * (p.current_price || p.entry_price);
-                        var pl = val - p.cost;
-                        
-                        h += '<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr 1fr 60px;gap:0;padding:5px 6px;font-size:11px;background:' + bg + ';border-bottom:1px solid #f8fafc">';
-                        h += '<div><strong>' + sym + '</strong><br><span style="font-size:8px;color:#94a3b8">' + p.shares + '股</span></div>';
-                        h += '<div style="text-align:right">$' + p.entry_price.toFixed(2) + '<br><span style="font-size:8px;color:#94a3b8">' + p.entry_date + '</span></div>';
-                        h += '<div style="text-align:right;font-weight:600">$' + (p.current_price||p.entry_price).toFixed(2) + '</div>';
-                        h += '<div style="text-align:right;color:#ef4444;font-size:10px">$' + (p.stop_loss||0).toFixed(0) + '</div>';
-                        h += '<div style="text-align:right;color:#22c55e;font-size:10px">$' + (p.target_1||0).toFixed(0) + '</div>';
-                        h += '<div style="text-align:right;font-weight:700;color:' + c + '">' + (rt >= 0 ? '+' : '') + rt.toFixed(1) + '%</div>';
-                        h += '</div>';
+                    h+='<div style="font-size:12px;font-weight:700;margin:8px 0 4px">📦 持倉</div>';
+                    pk.sort(function(a,b){return(pos[b].current_return||0)-(pos[a].current_return||0);});
+                    h+='<div style="display:grid;grid-template-columns:60px 36px 1fr 1fr 1fr 1fr 50px;gap:0;padding:3px 6px;font-size:9px;color:#94a3b8;border-bottom:1px solid #f1f5f9">';
+                    h+='<div>股票</div><div>股</div><div style="text-align:right">進場</div><div style="text-align:right">現價</div><div style="text-align:right;color:#ef4444">停損</div><div style="text-align:right;color:#22c55e">目標</div><div style="text-align:right">損益</div></div>';
+                    pk.forEach(function(sym,i){
+                        var p=pos[sym];var rt=p.current_return||0;var c=rt>0?'#22c55e':rt<0?'#ef4444':'#64748b';var bg=i%2===0?'#fff':'#fafafa';
+                        h+='<div style="display:grid;grid-template-columns:60px 36px 1fr 1fr 1fr 1fr 50px;gap:0;padding:5px 6px;font-size:11px;background:'+bg+';border-bottom:1px solid #f8fafc">';
+                        h+='<div><strong>'+sym+'</strong></div>';
+                        h+='<div style="color:#94a3b8;font-size:10px">'+p.shares+'</div>';
+                        h+='<div style="text-align:right">$'+p.entry_price.toFixed(2)+'</div>';
+                        h+='<div style="text-align:right;font-weight:600">$'+(p.current_price||p.entry_price).toFixed(2)+'</div>';
+                        h+='<div style="text-align:right;color:#ef4444;font-size:10px">$'+(p.stop_loss||0).toFixed(0)+'</div>';
+                        h+='<div style="text-align:right;color:#22c55e;font-size:10px">$'+(p.target_1||0).toFixed(0)+'</div>';
+                        h+='<div style="text-align:right;font-weight:700;color:'+c+'">'+(rt>=0?'+':'')+rt.toFixed(1)+'%</div></div>';
                     });
                 } else {
-                    h += '<div style="text-align:center;color:#94a3b8;padding:20px 0;font-size:12px;border:1px dashed #e2e8f0;border-radius:8px;margin:8px 0">📭 尚無持倉 — 明天開市後自動建倉</div>';
-                }
-                
-                // ── Closed trades ──
-                if (closed.length > 0) {
-                    h += '<div style="font-size:12px;font-weight:700;color:#1e293b;margin:12px 0 6px">📋 交易記錄</div>';
-                    closed.slice().reverse().forEach(function(t, i) {
-                        var sym = t.symbol || '?';
-                        var rt = t.return_pct || 0;
-                        var c = rt > 0 ? '#22c55e' : '#ef4444';
-                        var icon = rt > 0 ? '✅' : '❌';
-                        var bg = i % 2 === 0 ? '#fff' : '#fafafa';
-                        
-                        h += '<div style="padding:5px 6px;background:' + bg + ';border-bottom:1px solid #f8fafc;font-size:11px">';
-                        h += '<div style="display:flex;justify-content:space-between">';
-                        h += '<div>' + icon + ' <strong>' + sym + '</strong> ' + (t.shares_sold||'?') + '股 · $' + (t.entry_price||0).toFixed(2) + '→$' + (t.exit_price||0).toFixed(2) + '</div>';
-                        h += '<div style="font-weight:800;color:' + c + '">' + (rt >= 0 ? '+' : '') + rt.toFixed(1) + '%</div>';
-                        h += '</div>';
-                        h += '<div style="font-size:9px;color:#94a3b8">' + (t.entry_date||'') + '→' + (t.exit_date||'') + ' (' + (t.hold_days||'?') + '天) · ' + (t.reason||'') + '</div>';
-                        if (t.exit_ohlcv) {
-                            h += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace">驗證: O=$'+t.exit_ohlcv.open+' H=$'+t.exit_ohlcv.high+' L=$'+t.exit_ohlcv.low+' C=$'+t.exit_ohlcv.close+'</div>';
-                        }
-                        h += '</div>';
-                    });
-                }
-                
-                // ── Audit log ──
-                h += '<details style="margin-top:12px"' + (audit.length > 0 ? ' open' : '') + '>';
-                h += '<summary style="font-size:12px;font-weight:700;cursor:pointer;color:#475569;margin-bottom:6px">📋 審計日誌 <a href="/data/paper_portfolio.json" target="_blank" style="font-size:9px;color:#6366f1;font-weight:400">JSON ↗</a></summary>';
-                
-                if (audit.length > 0) {
-                    audit.slice().reverse().forEach(function(a, i) {
-                        var isBuy = a.action === 'BUY';
-                        var icon = isBuy ? '🟢' : '🔴';
-                        var bg = i % 2 === 0 ? '#fafafa' : '#fff';
-                        h += '<div style="padding:4px 6px;background:' + bg + ';font-size:10px;border-bottom:1px solid #f8fafc">';
-                        h += icon + ' ' + a.date + ' <strong>' + a.symbol + '</strong> ' + a.shares + '股 @$' + a.price.toFixed(2) + ' · cash=$' + a.cash_after.toLocaleString();
-                        if (a.ohlcv) h += '<br><span style="font-size:8px;color:#94a3b8;font-family:monospace">O=$'+a.ohlcv.open+' H=$'+a.ohlcv.high+' L=$'+a.ohlcv.low+' C=$'+a.ohlcv.close+'</span>';
-                        h += '</div>';
-                    });
-                } else {
-                    h += '<div style="font-size:11px;color:#94a3b8;padding:8px 0">等待第一筆交易...</div>';
-                }
-                h += '</details>';
-                
-                // ── Rules (collapsed) ──
-                h += '<details style="margin-top:8px">';
-                h += '<summary style="font-size:11px;color:#94a3b8;cursor:pointer">📐 規則: $30K · ≤10支 · 收盤價進場 · ATR停損 · +15%停利賣半 · score≥7</summary>';
-                h += '<div style="font-size:10px;color:#64748b;padding:6px 0">';
-                h += '<div style="margin-bottom:4px"><strong>v4 模型特徵:</strong> ' + (pf.model_features || []).join(' · ') + '</div>';
-                var v1 = pf.v1_summary || {};
-                if (v1.period) h += '<div style="padding:4px 6px;background:#fefce8;border-radius:4px;font-size:9px;color:#92400e">v1 (' + v1.period + '): $' + (v1.initial/1000) + 'K→$' + (v1.final_nav/1000).toFixed(1) + 'K (+' + v1.return_pct + '%) vs SPY +5.3%</div>';
-                h += '</div></details>';
-                
-                el.innerHTML = h;
-            } catch(e) { el.innerHTML = '<div style="color:#ef4444;padding:20px;text-align:center;font-size:12px">載入失敗: ' + e.message + '</div>'; }
-        }
-        
-// ============ Paper Portfolio ============
-        async function loadPaperPortfolio() {
-            var el = document.getElementById('paperPortfolioCard');
-            if (!el) return;
-            
-            try {
-                var r = await fetch('/data/paper_portfolio.json?t=' + Date.now());
-                var pf = await r.json();
-                var stats = pf.stats || {};
-                var nav = pf.daily_nav || [];
-                var positions = pf.positions || {};
-                var posCount = Object.keys(positions).length;
-                
-                var h = '';
-                
-                // NAV + return
-                var returnColor = stats.nav_return_pct >= 0 ? '#16a34a' : '#dc2626';
-                h += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px">';
-                h += '<div style="text-align:center"><div style="font-size:10px;color:#64748b">淨值</div><div style="font-size:16px;font-weight:900">$' + (stats.nav || 30000).toLocaleString() + '</div></div>';
-                h += '<div style="text-align:center"><div style="font-size:10px;color:#64748b">報酬</div><div style="font-size:16px;font-weight:900;color:' + returnColor + '">' + (stats.nav_return_pct >= 0 ? '+' : '') + (stats.nav_return_pct || 0).toFixed(1) + '%</div></div>';
-                h += '<div style="text-align:center"><div style="font-size:10px;color:#64748b">持倉</div><div style="font-size:16px;font-weight:900">' + posCount + '/' + (stats.total_trades || 0) + '</div></div>';
-                h += '</div>';
-                
-                // NAV chart (mini sparkline)
-                if (nav.length >= 2) {
-                    var W = 320, CH = 50;
-                    var vals = nav.map(function(n) { return n.nav; });
-                    var minV = Math.min.apply(null, vals) * 0.998;
-                    var maxV = Math.max.apply(null, vals) * 1.002;
-                    var range = maxV - minV || 1;
-                    var path = '';
-                    vals.forEach(function(v, i) {
-                        var x = (i / (vals.length - 1)) * W;
-                        var y = CH - ((v - minV) / range) * CH;
-                        path += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
-                    });
-                    var endColor = vals[vals.length-1] >= vals[0] ? '#16a34a' : '#dc2626';
-                    h += '<svg viewBox="0 0 ' + W + ' ' + CH + '" style="width:100%;height:50px">';
-                    h += '<path d="' + path + '" fill="none" stroke="' + endColor + '" stroke-width="1.5"/>';
-                    h += '</svg>';
-                }
-                
-                // Current positions (compact)
-                if (posCount > 0) {
-                    h += '<div style="font-size:10px;font-weight:700;color:#64748b;margin:4px 0 4px">持倉明細</div>';
-                    h += '<div style="display:flex;flex-wrap:wrap;gap:3px">';
-                    Object.entries(positions).forEach(function(e) {
-                        var sym = e[0], pos = e[1];
-                        var ret = pos.current_return || 0;
-                        var bg = ret > 0 ? '#f0fdf4' : '#fef2f2';
-                        var color = ret > 0 ? '#16a34a' : '#dc2626';
-                        h += '<div style="background:' + bg + ';padding:2px 6px;border-radius:4px;font-size:10px">';
-                        h += '<strong>' + sym + '</strong> <span style="color:' + color + '">' + (ret > 0 ? '+' : '') + ret.toFixed(1) + '%</span>';
-                        h += '</div>';
-                    });
-                    h += '</div>';
-                }
-                
-                // Model version badge
-                h += '<div style="font-size:9px;color:#94a3b8;margin-top:6px;text-align:right">v' + (pf.version || '4') + ' · ' + (pf.created || '') + ' 起 · 更新 ' + (stats.last_updated || '') + '</div>';
-                
-                el.innerHTML = h;
-            } catch(e) { el.innerHTML = '<p style="color:#94a3b8;font-size:11px">無模擬數據</p>'; }
-        }
-        
-
-
-        // ============ Paper Trading Tab ============
-        async function loadPaperTab() {
-            try {
-                var r = await fetch('/data/paper_portfolio.json?t=' + Date.now());
-                var pf = await r.json();
-                var stats = pf.stats || {};
-                var nav_history = pf.daily_nav || [];
-                var positions = pf.positions || {};
-                var closed = pf.closed_trades || [];
-                var posKeys = Object.keys(positions);
-                
-                // Summary header
-                var nav = stats.nav || 30000;
-                var ret = stats.nav_return_pct || 0;
-                var pnl = nav - (pf.initial_capital || 30000);
-                var retColor = ret >= 0 ? '#4ade80' : '#f87171';
-                
-                document.getElementById('paperNAV').textContent = '$' + nav.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-                document.getElementById('paperReturn').innerHTML = '<span style="color:' + retColor + '">' + (ret >= 0 ? '+' : '') + ret.toFixed(2) + '%</span>';
-                document.getElementById('paperPnL').textContent = (pnl >= 0 ? '+' : '') + '$' + pnl.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-                document.getElementById('paperPosCount').textContent = posKeys.length;
-                document.getElementById('paperWinRate').textContent = stats.total_trades ? stats.win_rate + '%' : '—';
-                document.getElementById('paperAvgReturn').textContent = stats.total_trades ? (stats.avg_return > 0 ? '+' : '') + stats.avg_return + '%' : '—';
-                document.getElementById('paperTradeCount').textContent = stats.total_trades || 0;
-                
-                // NAV Chart + SPY benchmark
-                if (nav_history.length >= 2) {
-                    var W = 320, CH = 100, PL = 45, PR = 10, PT = 5, PB = 18;
-                    var vals = nav_history.map(function(n) { return n.nav; });
-                    var dates = nav_history.map(function(n) { return n.date; });
-                    var minV = Math.min.apply(null, vals);
-                    var maxV = Math.max.apply(null, vals);
-                    // Include 30K baseline
-                    minV = Math.min(minV, 30000) * 0.998;
-                    maxV = Math.max(maxV, 30000) * 1.002;
-                    var range = maxV - minV || 1;
-                    
-                    var TW = PL + W + PR;
-                    var TH = PT + CH + PB;
-                    var svg = '<svg viewBox="0 0 ' + TW + ' ' + TH + '" style="width:100%;height:120px">';
-                    
-                    // Grid + Y axis
-                    for (var g = 0; g <= 4; g++) {
-                        var gy = PT + (g / 4) * CH;
-                        var gv = maxV - (g / 4) * range;
-                        svg += '<line x1="' + PL + '" y1="' + gy + '" x2="' + (PL+W) + '" y2="' + gy + '" stroke="#334155" stroke-width="0.3"/>';
-                        svg += '<text x="' + (PL-4) + '" y="' + (gy+3) + '" font-size="8" fill="#94a3b8" text-anchor="end">$' + (gv/1000).toFixed(1) + 'K</text>';
-                    }
-                    
-                    // $30K baseline
-                    var baseY = PT + ((maxV - 30000) / range) * CH;
-                    svg += '<line x1="' + PL + '" y1="' + baseY.toFixed(1) + '" x2="' + (PL+W) + '" y2="' + baseY.toFixed(1) + '" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="4,3"/>';
-                    svg += '<text x="' + (PL+W+2) + '" y="' + (baseY-2) + '" font-size="7" fill="#fbbf24">$30K</text>';
-                    
-                    // NAV line
-                    var path = '';
-                    vals.forEach(function(v, i) {
-                        var x = PL + (i / (vals.length - 1)) * W;
-                        var y = PT + ((maxV - v) / range) * CH;
-                        path += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
-                    });
-                    var endColor = vals[vals.length-1] >= 30000 ? '#4ade80' : '#f87171';
-                    svg += '<path d="' + path + '" fill="none" stroke="' + endColor + '" stroke-width="2.5"/>';
-                    
-                    // End dot + value
-                    var lastX = PL + W;
-                    var lastY = PT + ((maxV - vals[vals.length-1]) / range) * CH;
-                    svg += '<circle cx="' + lastX + '" cy="' + lastY.toFixed(1) + '" r="3" fill="' + endColor + '"/>';
-                    
-                    // Date labels
-                    svg += '<text x="' + PL + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b">' + dates[0].substring(5) + '</text>';
-                    svg += '<text x="' + (PL + W) + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b" text-anchor="end">' + dates[dates.length-1].substring(5) + '</text>';
-                    if (dates.length > 10) {
-                        var mid = Math.floor(dates.length / 2);
-                        svg += '<text x="' + (PL + (mid / (dates.length-1)) * W) + '" y="' + (PT + CH + 14) + '" font-size="7" fill="#64748b" text-anchor="middle">' + dates[mid].substring(5) + '</text>';
-                    }
-                    
-                    // Legend
-                    svg += '<rect x="' + PL + '" y="0" width="8" height="2" fill="' + endColor + '"/>';
-                    svg += '<text x="' + (PL+10) + '" y="4" font-size="7" fill="#94a3b8">模型</text>';
-                    svg += '<rect x="' + (PL+35) + '" y="0" width="8" height="2" fill="#fbbf24" stroke-dasharray="2,1"/>';
-                    svg += '<text x="' + (PL+45) + '" y="4" font-size="7" fill="#94a3b8">$30K 起始</text>';
-                    
-                    svg += '</svg>';
-                    document.getElementById('paperNAVChart').innerHTML = svg;
-                } else {
-                    document.getElementById('paperNAVChart').innerHTML = '<div style="text-align:center;color:#a5b4fc;font-size:11px;padding:16px">📈 開市後開始累積淨值曲線</div>';
-                }
-                
-                // Positions
-                var posEl = document.getElementById('paperPositions');
-                if (posKeys.length > 0) {
-                    var ph = '';
-                    posKeys.sort(function(a,b) {
-                        return (positions[b].current_return||0) - (positions[a].current_return||0);
-                    });
-                    posKeys.forEach(function(sym) {
-                        var pos = positions[sym];
-                        var ret2 = pos.current_return || 0;
-                        var bg = ret2 > 0 ? '#f0fdf4' : ret2 < 0 ? '#fef2f2' : '#f8fafc';
-                        var color = ret2 > 0 ? '#16a34a' : ret2 < 0 ? '#dc2626' : '#64748b';
-                        var value = (pos.shares * (pos.current_price || pos.entry_price)).toFixed(0);
-                        var pnl2 = ((pos.current_price || pos.entry_price) - pos.entry_price) * pos.shares;
-                        
-                        ph += '<div style="background:' + bg + ';border-radius:10px;padding:10px;margin-bottom:6px;border-left:4px solid ' + color + '">';
-                        ph += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-                        ph += '<div><strong style="font-size:14px">' + sym + '</strong> <span style="font-size:11px;color:#64748b">' + pos.shares + '股</span></div>';
-                        ph += '<div style="text-align:right"><span style="font-size:16px;font-weight:800;color:' + color + '">' + (ret2 >= 0 ? '+' : '') + ret2.toFixed(1) + '%</span></div>';
-                        ph += '</div>';
-                        ph += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:10px">';
-                        ph += '<div><span style="color:#94a3b8">進場</span><br>$' + pos.entry_price.toFixed(2) + '</div>';
-                        ph += '<div><span style="color:#94a3b8">現價</span><br>$' + (pos.current_price || pos.entry_price).toFixed(2) + '</div>';
-                        ph += '<div><span style="color:#94a3b8">市值</span><br>$' + Number(value).toLocaleString() + '</div>';
-                        ph += '<div><span style="color:#94a3b8">損益</span><br><span style="color:' + color + '">' + (pnl2 >= 0 ? '+' : '') + '$' + pnl2.toFixed(0) + '</span></div>';
-                        ph += '</div>';
-                        ph += '<div style="font-size:9px;color:#94a3b8;margin-top:4px">' + pos.entry_date + ' 進場 · 停損 $' + (pos.stop_loss || 0).toFixed(2);
-                        if (pos.target_1) h += ' · 目標 $' + pos.target_1.toFixed(2);
-                        h += '</div>';
-                        if (pos.entry_ohlcv) {
-                            h += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace;margin-top:1px">';
-                            h += '驗證: O=$' + (pos.entry_ohlcv.open||0).toFixed(2) + ' H=$' + (pos.entry_ohlcv.high||0).toFixed(2) + ' L=$' + (pos.entry_ohlcv.low||0).toFixed(2) + ' C=$' + (pos.entry_ohlcv.close||0).toFixed(2);
-                            h += '</div>';
-                        }
-                        ph += '</div>';
-                    });
-                    posEl.innerHTML = ph;
+                    h+='<div style="text-align:center;color:#94a3b8;padding:20px 0;font-size:12px;border:1px dashed #e2e8f0;border-radius:8px;margin:10px 0">📭 尚無持倉 — 開市後自動建倉</div>';
                 }
                 
                 // Trades
-                var trEl = document.getElementById('paperTrades');
                 if (closed.length > 0) {
-                    var th = '';
-                    closed.slice().reverse().forEach(function(t) {
-                        var sym = t.sym || t.symbol || '?';
-                        var ret3 = t.return_pct || 0;
-                        var bg = ret3 > 0 ? '#f0fdf4' : '#fef2f2';
-                        var color = ret3 > 0 ? '#16a34a' : '#dc2626';
-                        var icon = ret3 > 0 ? '✅' : '❌';
-                        
-                        th += '<div style="background:' + bg + ';border-radius:8px;padding:6px 8px;margin-bottom:4px">';
-                        th += '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px">';
-                        th += '<div>' + icon + ' <strong>' + sym + '</strong> ' + (t.shares_sold || '?') + '股</div>';
-                        th += '<div><span style="color:' + color + ';font-weight:800">' + (ret3 >= 0 ? '+' : '') + ret3.toFixed(1) + '%</span></div>';
-                        th += '</div>';
-                        th += '<div style="font-size:10px;color:#64748b">';
-                        th += '進 $' + (t.entry_price||0).toFixed(2) + ' → 出 $' + (t.exit_price||0).toFixed(2);
-                        th += ' · ' + (t.entry_date||'?') + '→' + (t.exit_date||'?');
-                        if (t.hold_days) th += ' (' + t.hold_days + '天)';
-                        th += '</div>';
-                        th += '<div style="font-size:9px;color:#94a3b8">' + (t.reason || '') + '</div>';
-                        if (t.exit_ohlcv) {
-                            th += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace">出場驗證: O=$' + (t.exit_ohlcv.open||0).toFixed(2) + ' H=$' + (t.exit_ohlcv.high||0).toFixed(2) + ' L=$' + (t.exit_ohlcv.low||0).toFixed(2) + ' C=$' + (t.exit_ohlcv.close||0).toFixed(2) + '</div>';
-                        }
-                        th += '</div>';
+                    h+='<div style="font-size:12px;font-weight:700;margin:12px 0 4px">📋 交易記錄</div>';
+                    closed.slice().reverse().forEach(function(t,i){
+                        var sym=t.symbol||'?';var rt=t.return_pct||0;var c=rt>0?'#22c55e':'#ef4444';var icon=rt>0?'✅':'❌';var bg=i%2===0?'#fff':'#fafafa';
+                        h+='<div style="padding:4px 6px;background:'+bg+';border-bottom:1px solid #f8fafc;font-size:11px">';
+                        h+='<div style="display:flex;justify-content:space-between"><div>'+icon+' <strong>'+sym+'</strong> '+(t.shares_sold||'?')+'股 $'+(t.entry_price||0).toFixed(2)+'→$'+(t.exit_price||0).toFixed(2)+'</div>';
+                        h+='<div style="font-weight:800;color:'+c+'">'+(rt>=0?'+':'')+rt.toFixed(1)+'%</div></div>';
+                        h+='<div style="font-size:9px;color:#94a3b8">'+(t.entry_date||'')+'→'+(t.exit_date||'')+' ('+(t.hold_days||'?')+'天) · '+(t.reason||'')+'</div>';
+                        if(t.exit_ohlcv){h+='<div style="font-size:8px;color:#cbd5e1;font-family:monospace">O=$'+t.exit_ohlcv.open+' H=$'+t.exit_ohlcv.high+' L=$'+t.exit_ohlcv.low+' C=$'+t.exit_ohlcv.close+'</div>';}
+                        h+='</div>';
                     });
-                    trEl.innerHTML = th;
                 }
                 
-                // Audit log
-                var auditLog = pf.audit_log || [];
-                var auditEl = document.getElementById('paperAuditLog');
-                if (auditLog.length > 0) {
-                    var al = '';
-                    al += '<div style="font-size:10px;color:#64748b;margin-bottom:6px">每筆交易皆可至 Yahoo Finance 驗證當日 OHLCV</div>';
-                    auditLog.slice().reverse().forEach(function(a) {
-                        var isBuy = a.action === 'BUY';
-                        var bg = isBuy ? '#f0fdf4' : '#fef2f2';
-                        var icon = isBuy ? '🟢' : '🔴';
-                        al += '<div style="background:' + bg + ';border-radius:8px;padding:6px 8px;margin-bottom:3px;font-size:11px">';
-                        al += '<div style="display:flex;justify-content:space-between">';
-                        al += '<div>' + icon + ' <strong>' + a.symbol + '</strong> ' + a.shares + '股 @$' + a.price.toFixed(2) + '</div>';
-                        al += '<div style="color:#64748b">' + a.date + '</div>';
-                        al += '</div>';
-                        if (a.ohlcv) {
-                            al += '<div style="font-size:9px;color:#94a3b8;margin-top:2px;font-family:monospace">';
-                            al += 'O=$' + (a.ohlcv.open||0).toFixed(2) + ' H=$' + (a.ohlcv.high||0).toFixed(2) + ' L=$' + (a.ohlcv.low||0).toFixed(2) + ' C=$' + (a.ohlcv.close||0).toFixed(2);
-                            if (a.ohlcv.volume) al += ' Vol=' + (a.ohlcv.volume/1e6).toFixed(1) + 'M';
-                            al += '</div>';
-                        }
-                        al += '<div style="font-size:9px;color:#64748b">Cash: $' + a.cash_after.toLocaleString() + (a.reason ? ' · ' + a.reason : '') + '</div>';
-                        al += '</div>';
-                    });
-                    auditEl.innerHTML = al;
-                } else {
-                    auditEl.innerHTML = '<p style="color:#94a3b8;font-size:11px">尚無交易記錄 — 開市後自動建倉</p>';
-                }
+                // Audit
+                h+='<details style="margin-top:10px"'+(audit.length>0?' open':'')+'>';
+                h+='<summary style="font-size:11px;font-weight:700;cursor:pointer;color:#475569">📋 審計日誌 <a href="/data/paper_portfolio.json" target="_blank" style="font-size:9px;color:#6366f1;font-weight:400">JSON ↗</a></summary>';
+                if(audit.length>0){audit.slice().reverse().forEach(function(a,i){
+                    var icon=a.action==='BUY'?'🟢':'🔴';var bg=i%2===0?'#fafafa':'#fff';
+                    h+='<div style="padding:3px 6px;background:'+bg+';font-size:10px;border-bottom:1px solid #f8fafc">';
+                    h+=icon+' '+a.date+' <strong>'+a.symbol+'</strong> '+a.shares+'股 @$'+a.price.toFixed(2)+' cash=$'+a.cash_after.toLocaleString();
+                    if(a.ohlcv)h+='<br><span style="font-size:8px;color:#94a3b8;font-family:monospace">O=$'+a.ohlcv.open+' H=$'+a.ohlcv.high+' L=$'+a.ohlcv.low+' C=$'+a.ohlcv.close+'</span>';
+                    h+='</div>';
+                });}else{h+='<div style="font-size:11px;color:#94a3b8;padding:6px 0">等待第一筆交易...</div>';}
+                h+='</details>';
                 
-                // v1 Archive
-                try {
-                    var r2 = await fetch('/data/paper_portfolio_v1_archive.json?t=' + Date.now());
-                    var v1 = await r2.json();
-                    var v1s = v1.stats || {};
-                    var ah = '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px">';
-                    ah += '<div style="background:#fef2f2;border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:#64748b">v1 報酬</div><div style="font-size:16px;font-weight:800;color:#dc2626">' + (v1s.nav_return_pct >= 0 ? '+' : '') + (v1s.nav_return_pct || 0).toFixed(1) + '%</div></div>';
-                    ah += '<div style="background:#fefce8;border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:#64748b">SPY 同期</div><div style="font-size:16px;font-weight:800;color:#16a34a">+5.3%</div></div>';
-                    ah += '</div>';
-                    ah += '<div style="font-size:11px;color:#64748b">';
-                    ah += '期間 2026/09/04 → 10/09 · ' + (v1s.total_trades || 0) + ' 筆交易 · 勝率 ' + (v1s.win_rate || 0) + '%<br>';
-                    ah += '教訓：停損 -8% 太緊，5 筆被市場震盪洗出後反彈</div>';
-                    document.getElementById('v1ArchiveContent').innerHTML = ah;
-                } catch(e) {}
+                // Rules
+                h+='<details style="margin-top:6px"><summary style="font-size:10px;color:#94a3b8;cursor:pointer">📐 規則: $30K · ≤10支 · 收盤價進場 · ATR停損 · +15%停利賣半 · score≥7</summary>';
+                h+='<div style="font-size:10px;color:#64748b;padding:4px 0">';
+                h+='<div style="margin-bottom:3px"><strong>v4:</strong> '+(pf.model_features||[]).join(' · ')+'</div>';
+                var v1=pf.v1_summary||{};if(v1.period)h+='<div style="padding:3px 6px;background:#fefce8;border-radius:4px;font-size:9px;color:#92400e">v1 ('+v1.period+'): $'+(v1.initial/1000)+'K→$'+(v1.final_nav/1000).toFixed(1)+'K (+'+v1.return_pct+'%) vs SPY +5.3%</div>';
+                h+='</div></details>';
                 
-            } catch(e) {
-                console.error('Paper tab error:', e);
-            }
+                el.innerHTML = h;
+            } catch(e) { el.innerHTML = '<div style="color:#ef4444;padding:20px;text-align:center;font-size:12px">'+e.message+'</div>'; }
         }
         
 
