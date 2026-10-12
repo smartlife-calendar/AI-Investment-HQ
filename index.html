@@ -3125,98 +3125,15 @@ async function loadSmartBacktest() {
         
         <!-- Paper Trading Tab -->
         <div id="paperSection" class="tab-content" style="display:none">
-            <div class="max-w-5xl mx-auto px-4 py-4">
-                
-                <!-- Portfolio Summary -->
-                <div id="paperSummary" style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:16px;padding:16px;margin-bottom:14px;color:white">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-                        <div>
-                            <div style="font-size:11px;color:#a5b4fc">模擬投資組合 v4</div>
-                            <div id="paperNAV" style="font-size:28px;font-weight:900">$30,000</div>
-                        </div>
-                        <div style="text-align:right">
-                            <div id="paperReturn" style="font-size:22px;font-weight:800">+0.0%</div>
-                            <div id="paperPnL" style="font-size:11px;color:#a5b4fc">$0</div>
-                        </div>
-                    </div>
-                    <div id="paperNAVChart" style="margin-bottom:8px"></div>
-                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
-                        <div style="text-align:center"><div style="font-size:9px;color:#a5b4fc">持倉</div><div id="paperPosCount" style="font-size:15px;font-weight:800">0</div></div>
-                        <div style="text-align:center"><div style="font-size:9px;color:#a5b4fc">勝率</div><div id="paperWinRate" style="font-size:15px;font-weight:800">—</div></div>
-                        <div style="text-align:center"><div style="font-size:9px;color:#a5b4fc">均報酬</div><div id="paperAvgReturn" style="font-size:15px;font-weight:800">—</div></div>
-                        <div style="text-align:center"><div style="font-size:9px;color:#a5b4fc">交易數</div><div id="paperTradeCount" style="font-size:15px;font-weight:800">0</div></div>
-                    </div>
+            <div class="max-w-5xl mx-auto px-4 py-3">
+                <div id="paperContent">
+                    <div style="text-align:center;color:#94a3b8;padding:40px;font-size:13px">載入中...</div>
                 </div>
-
-                
-
-                <!-- Current Positions -->
-                <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <h3 style="font-size:14px;font-weight:800;margin:0 0 10px">📦 目前持倉</h3>
-                    <div id="paperPositions"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:20px">尚無持倉 — 明天開市後開始建倉</p></div>
-                </div>
-
-                <!-- Trade History -->
-                <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <h3 style="font-size:14px;font-weight:800;margin:0 0 10px">📋 交易記錄</h3>
-                    <div id="paperTrades"><p style="color:#94a3b8;font-size:12px;text-align:center;padding:20px">尚無交易</p></div>
-                </div>
-
-                <!-- Model Info -->
-                <div style="background:#f8fafc;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <details>
-                        <summary style="font-size:13px;font-weight:700;cursor:pointer;color:#475569">📐 交易規則 + 模型方法論 v4</summary>
-                        <div style="margin-top:10px;font-size:12px;color:#64748b">
-                            <div style="margin-bottom:8px"><strong>交易規則：</strong></div>
-                            <div style="display:grid;grid-template-columns:80px 1fr;gap:3px;font-size:11px;margin-bottom:10px">
-                                <div>初始資金</div><div>$30,000</div>
-                                <div>最大持倉</div><div>10 支，每支 ≤10%</div>
-                                <div>買入條件</div><div>吸籌分數 ≥7 + 板塊共振 + Phase 3</div>
-                                <div>停損</div><div>ATR-based（約 -5% ~ -8%）</div>
-                                <div>停利 T1</div><div>+15% 賣一半</div>
-                                <div>停利 T2</div><div>+25% 後追蹤停損 -20%</div>
-                                <div>冷卻期</div><div>出場後 5 天內不重新進場</div>
-                                <div>市值門檻</div><div>≥ $2B</div>
-                            </div>
-                            <div style="margin-bottom:8px"><strong>模型演進：</strong></div>
-                            <div style="display:grid;grid-template-columns:30px 1fr;gap:3px;font-size:11px;margin-bottom:8px">
-                                <div style="color:#94a3b8">v1</div><div>OBV + 量比 → 吸籌/出貨偵測</div>
-                                <div style="color:#94a3b8">v2</div><div>+板塊共振、+階段辨識</div>
-                                <div style="color:#94a3b8">v3</div><div>+ATR 進出場、+風報比、+停損</div>
-                                <div style="color:#6366f1;font-weight:700">v4</div><div style="font-weight:600">+板塊資金加速、+美台連動、+SEC 基本面</div>
-                            </div>
-                            <div style="padding:8px;background:#fefce8;border-radius:8px;font-size:10px;color:#92400e">
-                                ⚠️ v1 回測（9/4-10/9）: $100K→$100.7K (+0.7%), SPY +5.3%。停損 -8% 太緊，5 筆被洗出後反彈。v4 加入板塊共振過濾 + 加速偵測改善進場。
-                            </div>
-                        </div>
-                    </details>
-                </div>
-
-                <!-- Audit Log (verifiable) -->
-                <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
-                    <details open>
-                        <summary style="font-size:13px;font-weight:700;cursor:pointer;color:#475569">📋 交易審計日誌（可驗證）</summary>
-                        <div style="font-size:10px;color:#94a3b8;margin-top:4px">原始資料: <a href="https://stockiq.tw/data/paper_portfolio.json" target="_blank" style="color:#6366f1">paper_portfolio.json</a></div>
-                        <div id="paperAuditLog" style="margin-top:10px"><p style="color:#94a3b8;font-size:11px">載入中...</p></div>
-                    </details>
-                </div>
-
-                <!-- v1 Archive Summary -->
-                <div id="v1Archive" style="background:white;border-radius:14px;padding:14px;border:1px solid #e2e8f0">
-                    <details>
-                        <summary style="font-size:13px;font-weight:700;cursor:pointer;color:#475569">🗄️ v1 存檔（9/4 - 10/9, $100K）</summary>
-                        <div id="v1ArchiveContent" style="margin-top:10px"></div>
-                    </details>
-                </div>
-
             </div>
         </div>
+        <!-- END Paper Trading Tab -->
 
-<div id="toolsSection" style="display:none" class="max-w-5xl mx-auto mt-4 px-4">
-            <div style="margin-bottom:16px">
-                <h2 style="font-size:20px;font-weight:800;margin:0 0 4px">📚 工具箱</h2>
-                <p style="font-size:12px;color:#64748b;margin:0">產業情報、Rule of 40、事件行事曆、新聞、市場日報</p>
-            </div>
+
             <div id="toolsSubTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
                 <button onclick="switchToolsTab('r40')" id="tools-tab-r40" style="padding:6px 12px;border-radius:16px;border:2px solid #4f46e5;cursor:pointer;font-weight:700;font-size:11px;background:#eef2ff;color:#4f46e5;white-space:nowrap">📐 Rule of 40</button>
                 <button onclick="switchToolsTab('intel')" id="tools-tab-intel" style="padding:6px 12px;border-radius:16px;border:1px solid #e2e8f0;cursor:pointer;font-weight:700;font-size:11px;background:white;color:#64748b;white-space:nowrap">🏭 產業情報</button>
@@ -6159,6 +6076,163 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
 
 
         // ============ Paper Portfolio ============
+        
+        
+
+
+        // ============ Paper Trading Tab ============
+        async function loadPaperTab() {
+            var el = document.getElementById('paperContent');
+            if (!el) return;
+            try {
+                var r = await fetch('/data/paper_portfolio.json?t=' + Date.now());
+                var pf = await r.json();
+                var s = pf.stats || {};
+                var nav = pf.daily_nav || [];
+                var pos = pf.positions || {};
+                var closed = pf.closed_trades || [];
+                var audit = pf.audit_log || [];
+                var pk = Object.keys(pos);
+                var navVal = s.nav || 30000;
+                var ret = s.nav_return_pct || 0;
+                var pnl = navVal - 30000;
+                var rc = ret >= 0 ? '#22c55e' : '#ef4444';
+                
+                var h = '';
+                
+                // ── Header: compact dark card ──
+                h += '<div style="background:#1e1b4b;border-radius:12px;padding:14px 16px;color:white;margin-bottom:10px">';
+                h += '<div style="display:flex;justify-content:space-between;align-items:baseline">';
+                h += '<div><span style="font-size:10px;color:#a5b4fc">模擬投資組合 v4</span><br>';
+                h += '<span style="font-size:24px;font-weight:900;letter-spacing:-1px">$' + navVal.toLocaleString() + '</span></div>';
+                h += '<div style="text-align:right"><span style="font-size:20px;font-weight:800;color:' + rc + '">' + (ret >= 0 ? '+' : '') + ret.toFixed(2) + '%</span><br>';
+                h += '<span style="font-size:10px;color:#a5b4fc">' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(0) + '</span></div>';
+                h += '</div>';
+                
+                // Mini stats row
+                h += '<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #312e81;font-size:11px">';
+                var items = [
+                    ['持倉', pk.length + '/' + (10)],
+                    ['現金', '$' + (s.cash || 30000).toLocaleString(undefined,{maximumFractionDigits:0})],
+                    ['勝率', s.total_trades ? s.win_rate + '%' : '—'],
+                    ['交易', s.total_trades || 0]
+                ];
+                items.forEach(function(it) {
+                    h += '<div style="text-align:center"><div style="color:#a5b4fc;font-size:9px">' + it[0] + '</div><div style="font-weight:700">' + it[1] + '</div></div>';
+                });
+                h += '</div>';
+                h += '</div>';
+                
+                // ── NAV chart ──
+                if (nav.length >= 2) {
+                    var W=300,CH=70,PL=40,PR=8,PT=4,PB=14;
+                    var vals = nav.map(function(n){return n.nav;});
+                    var dates = nav.map(function(n){return n.date;});
+                    var mn = Math.min(Math.min.apply(null,vals),30000)*0.998;
+                    var mx = Math.max(Math.max.apply(null,vals),30000)*1.002;
+                    var rg = mx-mn||1;
+                    var TW=PL+W+PR, TH=PT+CH+PB;
+                    var svg = '<svg viewBox="0 0 '+TW+' '+TH+'" style="width:100%;height:90px;margin-bottom:8px">';
+                    for(var g=0;g<=3;g++){var gy=PT+(g/3)*CH;var gv=mx-(g/3)*rg;svg+='<line x1="'+PL+'" y1="'+gy+'" x2="'+(PL+W)+'" y2="'+gy+'" stroke="#e2e8f0" stroke-width="0.5"/>';svg+='<text x="'+(PL-3)+'" y="'+(gy+3)+'" font-size="8" fill="#94a3b8" text-anchor="end">$'+(gv/1000).toFixed(1)+'K</text>';}
+                    var baseY=PT+((mx-30000)/rg)*CH;
+                    svg+='<line x1="'+PL+'" y1="'+baseY.toFixed(1)+'" x2="'+(PL+W)+'" y2="'+baseY.toFixed(1)+'" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="3,3"/>';
+                    var path='';vals.forEach(function(v,i){var x=PL+(i/(vals.length-1))*W;var y=PT+((mx-v)/rg)*CH;path+=(i===0?'M':'L')+x.toFixed(1)+','+y.toFixed(1);});
+                    var lc=vals[vals.length-1]>=30000?'#22c55e':'#ef4444';
+                    svg+='<path d="'+path+'" fill="none" stroke="'+lc+'" stroke-width="2"/>';
+                    svg+='<circle cx="'+(PL+W)+'" cy="'+(PT+((mx-vals[vals.length-1])/rg)*CH).toFixed(1)+'" r="2.5" fill="'+lc+'"/>';
+                    svg+='<text x="'+PL+'" y="'+(PT+CH+11)+'" font-size="7" fill="#94a3b8">'+dates[0].substring(5)+'</text>';
+                    svg+='<text x="'+(PL+W)+'" y="'+(PT+CH+11)+'" font-size="7" fill="#94a3b8" text-anchor="end">'+dates[dates.length-1].substring(5)+'</text>';
+                    svg+='</svg>';
+                    h += svg;
+                }
+                
+                // ── Positions ──
+                if (pk.length > 0) {
+                    h += '<div style="font-size:12px;font-weight:700;color:#1e293b;margin:8px 0 6px">📦 持倉</div>';
+                    pk.sort(function(a,b){return (pos[b].current_return||0)-(pos[a].current_return||0);});
+                    
+                    // Table header
+                    h += '<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr 1fr 60px;gap:0;padding:3px 6px;font-size:9px;color:#94a3b8;border-bottom:1px solid #f1f5f9">';
+                    h += '<div>股票</div><div style="text-align:right">進場</div><div style="text-align:right">現價</div><div style="text-align:right">停損</div><div style="text-align:right">目標</div><div style="text-align:right">損益</div>';
+                    h += '</div>';
+                    
+                    pk.forEach(function(sym, i) {
+                        var p = pos[sym];
+                        var rt = p.current_return || 0;
+                        var c = rt > 0 ? '#22c55e' : rt < 0 ? '#ef4444' : '#64748b';
+                        var bg = i % 2 === 0 ? '#fff' : '#fafafa';
+                        var val = p.shares * (p.current_price || p.entry_price);
+                        var pl = val - p.cost;
+                        
+                        h += '<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr 1fr 60px;gap:0;padding:5px 6px;font-size:11px;background:' + bg + ';border-bottom:1px solid #f8fafc">';
+                        h += '<div><strong>' + sym + '</strong><br><span style="font-size:8px;color:#94a3b8">' + p.shares + '股</span></div>';
+                        h += '<div style="text-align:right">$' + p.entry_price.toFixed(2) + '<br><span style="font-size:8px;color:#94a3b8">' + p.entry_date + '</span></div>';
+                        h += '<div style="text-align:right;font-weight:600">$' + (p.current_price||p.entry_price).toFixed(2) + '</div>';
+                        h += '<div style="text-align:right;color:#ef4444;font-size:10px">$' + (p.stop_loss||0).toFixed(0) + '</div>';
+                        h += '<div style="text-align:right;color:#22c55e;font-size:10px">$' + (p.target_1||0).toFixed(0) + '</div>';
+                        h += '<div style="text-align:right;font-weight:700;color:' + c + '">' + (rt >= 0 ? '+' : '') + rt.toFixed(1) + '%</div>';
+                        h += '</div>';
+                    });
+                } else {
+                    h += '<div style="text-align:center;color:#94a3b8;padding:20px 0;font-size:12px;border:1px dashed #e2e8f0;border-radius:8px;margin:8px 0">📭 尚無持倉 — 明天開市後自動建倉</div>';
+                }
+                
+                // ── Closed trades ──
+                if (closed.length > 0) {
+                    h += '<div style="font-size:12px;font-weight:700;color:#1e293b;margin:12px 0 6px">📋 交易記錄</div>';
+                    closed.slice().reverse().forEach(function(t, i) {
+                        var sym = t.symbol || '?';
+                        var rt = t.return_pct || 0;
+                        var c = rt > 0 ? '#22c55e' : '#ef4444';
+                        var icon = rt > 0 ? '✅' : '❌';
+                        var bg = i % 2 === 0 ? '#fff' : '#fafafa';
+                        
+                        h += '<div style="padding:5px 6px;background:' + bg + ';border-bottom:1px solid #f8fafc;font-size:11px">';
+                        h += '<div style="display:flex;justify-content:space-between">';
+                        h += '<div>' + icon + ' <strong>' + sym + '</strong> ' + (t.shares_sold||'?') + '股 · $' + (t.entry_price||0).toFixed(2) + '→$' + (t.exit_price||0).toFixed(2) + '</div>';
+                        h += '<div style="font-weight:800;color:' + c + '">' + (rt >= 0 ? '+' : '') + rt.toFixed(1) + '%</div>';
+                        h += '</div>';
+                        h += '<div style="font-size:9px;color:#94a3b8">' + (t.entry_date||'') + '→' + (t.exit_date||'') + ' (' + (t.hold_days||'?') + '天) · ' + (t.reason||'') + '</div>';
+                        if (t.exit_ohlcv) {
+                            h += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace">驗證: O=$'+t.exit_ohlcv.open+' H=$'+t.exit_ohlcv.high+' L=$'+t.exit_ohlcv.low+' C=$'+t.exit_ohlcv.close+'</div>';
+                        }
+                        h += '</div>';
+                    });
+                }
+                
+                // ── Audit log ──
+                h += '<details style="margin-top:12px"' + (audit.length > 0 ? ' open' : '') + '>';
+                h += '<summary style="font-size:12px;font-weight:700;cursor:pointer;color:#475569;margin-bottom:6px">📋 審計日誌 <a href="/data/paper_portfolio.json" target="_blank" style="font-size:9px;color:#6366f1;font-weight:400">JSON ↗</a></summary>';
+                
+                if (audit.length > 0) {
+                    audit.slice().reverse().forEach(function(a, i) {
+                        var isBuy = a.action === 'BUY';
+                        var icon = isBuy ? '🟢' : '🔴';
+                        var bg = i % 2 === 0 ? '#fafafa' : '#fff';
+                        h += '<div style="padding:4px 6px;background:' + bg + ';font-size:10px;border-bottom:1px solid #f8fafc">';
+                        h += icon + ' ' + a.date + ' <strong>' + a.symbol + '</strong> ' + a.shares + '股 @$' + a.price.toFixed(2) + ' · cash=$' + a.cash_after.toLocaleString();
+                        if (a.ohlcv) h += '<br><span style="font-size:8px;color:#94a3b8;font-family:monospace">O=$'+a.ohlcv.open+' H=$'+a.ohlcv.high+' L=$'+a.ohlcv.low+' C=$'+a.ohlcv.close+'</span>';
+                        h += '</div>';
+                    });
+                } else {
+                    h += '<div style="font-size:11px;color:#94a3b8;padding:8px 0">等待第一筆交易...</div>';
+                }
+                h += '</details>';
+                
+                // ── Rules (collapsed) ──
+                h += '<details style="margin-top:8px">';
+                h += '<summary style="font-size:11px;color:#94a3b8;cursor:pointer">📐 規則: $30K · ≤10支 · 收盤價進場 · ATR停損 · +15%停利賣半 · score≥7</summary>';
+                h += '<div style="font-size:10px;color:#64748b;padding:6px 0">';
+                h += '<div style="margin-bottom:4px"><strong>v4 模型特徵:</strong> ' + (pf.model_features || []).join(' · ') + '</div>';
+                var v1 = pf.v1_summary || {};
+                if (v1.period) h += '<div style="padding:4px 6px;background:#fefce8;border-radius:4px;font-size:9px;color:#92400e">v1 (' + v1.period + '): $' + (v1.initial/1000) + 'K→$' + (v1.final_nav/1000).toFixed(1) + 'K (+' + v1.return_pct + '%) vs SPY +5.3%</div>';
+                h += '</div></details>';
+                
+                el.innerHTML = h;
+            } catch(e) { el.innerHTML = '<div style="color:#ef4444;padding:20px;text-align:center;font-size:12px">載入失敗: ' + e.message + '</div>'; }
+        }
+        
+// ============ Paper Portfolio ============
         async function loadPaperPortfolio() {
             var el = document.getElementById('paperPortfolioCard');
             if (!el) return;
