@@ -1175,7 +1175,7 @@
                 }, 300); 
             }
             if (tabName === 'smart') { loadSmartMoney(); }
-            if (tabName === 'research') { loadResearchTab(); setTimeout(loadPaperPortfolio, 500); }
+            if (tabName === 'research') { loadResearchTab(); }
             if (tabName === 'tools') { loadToolsTab(); }
             if (tabName === 'paper') { loadPaperTab(); }
             if (tabName === 'news') loadNewsIntel(); loadNewsSection();
@@ -5524,35 +5524,6 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
             h += '</div>';
             
             // AI Analyst
-            // Paper portfolio card
-            h += '<div style="background:linear-gradient(135deg,#f8fafc,#eef2ff);border-radius:14px;padding:14px;margin-bottom:16px;border:1px solid #c7d2fe">';
-            h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
-            h += '<h3 style="font-size:15px;font-weight:800;margin:0;color:#3730a3">💰 模擬投資組合</h3>';
-            h += '<span style="font-size:10px;color:#6366f1;font-weight:600">$30,000 起始</span>';
-            h += '</div>';
-            h += '<div id="paperPortfolioCard"><p style="color:#94a3b8;font-size:11px">載入中...</p></div>';
-            h += '</div>';
-            
-            // Model methodology
-            h += '<div style="background:white;border-radius:14px;padding:14px;margin-bottom:16px;border:1px solid #e2e8f0">';
-            h += '<details><summary style="font-size:14px;font-weight:800;cursor:pointer;color:#1e293b">📐 模型方法論 v4</summary>';
-            h += '<div style="margin-top:10px;font-size:12px;color:#475569">';
-            h += '<div style="margin-bottom:8px"><strong>演進：</strong></div>';
-            h += '<div style="display:grid;grid-template-columns:60px 1fr;gap:4px;font-size:11px">';
-            h += '<div style="color:#94a3b8">v1</div><div>OBV + 量比 → 吸籌/出貨偵測</div>';
-            h += '<div style="color:#94a3b8">v2</div><div>+板塊共振、+階段辨識（萌芽→累積→突破）</div>';
-            h += '<div style="color:#94a3b8">v3</div><div>+ATR 進出場、+風報比、+停損機制</div>';
-            h += '<div style="color:#6366f1;font-weight:700">v4</div><div style="font-weight:700">+板塊資金加速、+美台連動 lead-lag、+SEC 基本面</div>';
-            h += '</div>';
-            h += '<div style="margin-top:10px;padding:8px;background:#fefce8;border-radius:8px;font-size:11px;color:#92400e">';
-            h += '⚠️ v1 回測（9/4-10/9）: $100K→$100.7K (+0.7%), SPY 同期 +5.3%。模型跑輸大盤，主因：停損過緊（-8%）在震盪市被洗出 5 次。v4 改善：板塊共振過濾假訊號、加速偵測提升進場時機。';
-            h += '</div>';
-            h += '<div style="margin-top:8px;padding:8px;background:#f0fdf4;border-radius:8px;font-size:11px;color:#166534">';
-            h += '✅ 驗證計畫：v4 模型 $30K 模擬盤從 10/12 開始，預計 2027/01 評估。如果跑贏 SPY → 逐步加碼個股；跑輸 → 全轉 SPY + 板塊 ETF。';
-            h += '</div>';
-            h += '</div></details>';
-            h += '</div>';
-            
             h += '<h3 style="font-size:16px;font-weight:800;margin:0 0 10px">🧠 AI 分析師觀點</h3>';
             try {
                 var analR = await fetch('/data/ai_analyst.json?t=' + Date.now());
