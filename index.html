@@ -3196,6 +3196,14 @@ async function loadSmartBacktest() {
                     </details>
                 </div>
 
+                <!-- Audit Log (verifiable) -->
+                <div style="background:white;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #e2e8f0">
+                    <details>
+                        <summary style="font-size:13px;font-weight:700;cursor:pointer;color:#475569">📋 交易審計日誌（可驗證）</summary>
+                        <div id="paperAuditLog" style="margin-top:10px"><p style="color:#94a3b8;font-size:11px">載入中...</p></div>
+                    </details>
+                </div>
+
                 <!-- v1 Archive Summary -->
                 <div id="v1Archive" style="background:white;border-radius:14px;padding:14px;border:1px solid #e2e8f0">
                     <details>
@@ -6330,7 +6338,14 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                         ph += '<div><span style="color:#94a3b8">市值</span><br>$' + Number(value).toLocaleString() + '</div>';
                         ph += '<div><span style="color:#94a3b8">損益</span><br><span style="color:' + color + '">' + (pnl2 >= 0 ? '+' : '') + '$' + pnl2.toFixed(0) + '</span></div>';
                         ph += '</div>';
-                        ph += '<div style="font-size:9px;color:#94a3b8;margin-top:4px">' + pos.entry_date + ' 進場 · 停損 $' + (pos.stop_loss || 0).toFixed(2) + '</div>';
+                        ph += '<div style="font-size:9px;color:#94a3b8;margin-top:4px">' + pos.entry_date + ' 進場 · 停損 $' + (pos.stop_loss || 0).toFixed(2);
+                        if (pos.target_1) h += ' · 目標 $' + pos.target_1.toFixed(2);
+                        h += '</div>';
+                        if (pos.entry_ohlcv) {
+                            h += '<div style="font-size:8px;color:#cbd5e1;font-family:monospace;margin-top:1px">';
+                            h += '驗證: O=$' + (pos.entry_ohlcv.open||0).toFixed(2) + ' H=$' + (pos.entry_ohlcv.high||0).toFixed(2) + ' L=$' + (pos.entry_ohlcv.low||0).toFixed(2) + ' C=$' + (pos.entry_ohlcv.close||0).toFixed(2);
+                            h += '</div>';
+                        }
                         ph += '</div>';
                     });
                     posEl.innerHTML = ph;
@@ -6354,6 +6369,35 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                         th += '</div>';
                     });
                     trEl.innerHTML = th;
+                }
+                
+                // Audit log
+                var auditLog = pf.audit_log || [];
+                var auditEl = document.getElementById('paperAuditLog');
+                if (auditLog.length > 0) {
+                    var al = '';
+                    al += '<div style="font-size:10px;color:#64748b;margin-bottom:6px">每筆交易皆可至 Yahoo Finance 驗證當日 OHLCV</div>';
+                    auditLog.slice().reverse().forEach(function(a) {
+                        var isBuy = a.action === 'BUY';
+                        var bg = isBuy ? '#f0fdf4' : '#fef2f2';
+                        var icon = isBuy ? '🟢' : '🔴';
+                        al += '<div style="background:' + bg + ';border-radius:8px;padding:6px 8px;margin-bottom:3px;font-size:11px">';
+                        al += '<div style="display:flex;justify-content:space-between">';
+                        al += '<div>' + icon + ' <strong>' + a.symbol + '</strong> ' + a.shares + '股 @$' + a.price.toFixed(2) + '</div>';
+                        al += '<div style="color:#64748b">' + a.date + '</div>';
+                        al += '</div>';
+                        if (a.ohlcv) {
+                            al += '<div style="font-size:9px;color:#94a3b8;margin-top:2px;font-family:monospace">';
+                            al += 'O=$' + (a.ohlcv.open||0).toFixed(2) + ' H=$' + (a.ohlcv.high||0).toFixed(2) + ' L=$' + (a.ohlcv.low||0).toFixed(2) + ' C=$' + (a.ohlcv.close||0).toFixed(2);
+                            if (a.ohlcv.volume) al += ' Vol=' + (a.ohlcv.volume/1e6).toFixed(1) + 'M';
+                            al += '</div>';
+                        }
+                        al += '<div style="font-size:9px;color:#64748b">Cash: $' + a.cash_after.toLocaleString() + (a.reason ? ' · ' + a.reason : '') + '</div>';
+                        al += '</div>';
+                    });
+                    auditEl.innerHTML = al;
+                } else {
+                    auditEl.innerHTML = '<p style="color:#94a3b8;font-size:11px">尚無交易記錄 — 開市後自動建倉</p>';
                 }
                 
                 // v1 Archive
