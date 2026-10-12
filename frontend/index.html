@@ -346,6 +346,24 @@
             <div id="macroContent" class="text-sm text-gray-600">載入中...</div>
         </div></div>
 
+        <!-- Sector Flow 52-Week Chart -->
+        <div id="sectorFlowChart" class="max-w-5xl mx-auto mt-4 px-4" style="display:none">
+            <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="font-size:16px;font-weight:800;margin:0">📈 板塊 52 週資金流動</h3>
+                    <div style="display:flex;gap:6px">
+                        <button onclick="switchFlowChart('us')" id="flow-btn-us" style="padding:4px 12px;border-radius:12px;border:2px solid #4f46e5;background:#eef2ff;color:#4f46e5;font-size:11px;font-weight:700;cursor:pointer">🇺🇸 美股</button>
+                        <button onclick="switchFlowChart('tw')" id="flow-btn-tw" style="padding:4px 12px;border-radius:12px;border:1px solid #e2e8f0;background:white;color:#64748b;font-size:11px;font-weight:700;cursor:pointer">🇹🇼 台股</button>
+                        <button onclick="switchFlowChart('compare')" id="flow-btn-compare" style="padding:4px 12px;border-radius:12px;border:1px solid #e2e8f0;background:white;color:#64748b;font-size:11px;font-weight:700;cursor:pointer">🔄 對比</button>
+                    </div>
+                </div>
+                <div id="flowAlerts" style="margin-bottom:12px"></div>
+                <div id="flowChartArea" style="overflow-x:auto"><p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p></div>
+                <div id="flowLegend" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"></div>
+            </div>
+        </div>
+
+
         
         <!-- Investment Disclaimer -->
         <div id="analyzeDisclaimer" style="display:none" class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
@@ -1116,7 +1134,7 @@
                 btn.style.fontWeight = active ? '700' : '600';
             });
             
-            if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); setTimeout(loadSectorPETable, 500); }
+            if (tabName === 'macro') { const mp = document.getElementById('macroPanel'); if (mp) mp.style.display = ''; loadMacro(); setTimeout(loadSectorPETable, 500); loadSectorFlowChart(); }
             if (tabName === 'today') { 
                 setTimeout(() => { 
                     // loadDailyFlows moved to macro tab
@@ -5455,6 +5473,259 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 var guide = document.getElementById('guideSection');
                 if (guide) el.innerHTML = guide.innerHTML;
             }
+        }
+
+
+        // ============ Sector Flow 52-Week Chart ============
+        var _flowData = null;
+        var _flowMarket = 'us';
+        var _flowVisible = {};
+        
+        var _flowColors = {
+            // US
+            XLK:'#6366f1', XLV:'#ec4899', XLE:'#f97316', XLF:'#eab308',
+            XLY:'#14b8a6', XLP:'#84cc16', XLI:'#8b5cf6', XLU:'#06b6d4',
+            XLB:'#a855f7', XLRE:'#f43f5e', XLC:'#0ea5e9',
+            // TW
+            '0052.TW':'#6366f1', '0055.TW':'#eab308', '0053.TW':'#14b8a6',
+            '0056.TW':'#ec4899', '0050.TW':'#f97316', '00881.TW':'#8b5cf6',
+            '00891.TW':'#06b6d4'
+        };
+        
+        var _flowNames = {
+            XLK:'科技', XLV:'醫療', XLE:'能源', XLF:'金融',
+            XLY:'非必需消費', XLP:'必需消費', XLI:'工業', XLU:'公用',
+            XLB:'原物料', XLRE:'房地產', XLC:'通訊',
+            '0052.TW':'科技電子', '0055.TW':'金融', '0053.TW':'電子中型',
+            '0056.TW':'高股息', '0050.TW':'台灣50', '00881.TW':'半導體',
+            '00891.TW':'ESG'
+        };
+        
+        async function loadSectorFlowChart() {
+            var el = document.getElementById('sectorFlowChart');
+            if (!el) return;
+            el.style.display = '';
+            
+            if (_flowData) { renderFlowChart(_flowMarket); return; }
+            
+            try {
+                var [histR, alertR] = await Promise.all([
+                    fetch('/data/sector_flow_history.json?t=' + Date.now()),
+                    fetch('/data/sector_flow_alerts.json?t=' + Date.now()).catch(function(){return null;})
+                ]);
+                _flowData = await histR.json();
+                
+                // Load alerts
+                if (alertR && alertR.ok) {
+                    var alerts = await alertR.json();
+                    renderFlowAlerts(alerts);
+                }
+                
+                // Compute cumulative flows for each sector
+                ['us','tw'].forEach(function(mkt) {
+                    var sectors = _flowData[mkt] || {};
+                    Object.keys(sectors).forEach(function(etf) {
+                        var cum = 0;
+                        sectors[etf].forEach(function(d) {
+                            cum += (d.flow_m || 0);
+                            d.cum_m = Math.round(cum * 100) / 100;
+                        });
+                        _flowVisible[etf] = true;
+                    });
+                });
+                
+                renderFlowChart('us');
+            } catch(e) {
+                document.getElementById('flowChartArea').innerHTML = '<p style="color:#ef4444;text-align:center">❌ ' + e.message + '</p>';
+            }
+        }
+        
+        function renderFlowAlerts(alerts) {
+            var el = document.getElementById('flowAlerts');
+            if (!el) return;
+            var h = '';
+            
+            ['us','tw'].forEach(function(mkt) {
+                var flag = mkt === 'us' ? '🇺🇸' : '🇹🇼';
+                var data = alerts[mkt] || {};
+                var items = Object.entries(data).filter(function(e) {
+                    return e[1].status && (e[1].status.indexOf('加速') >= 0);
+                });
+                if (items.length) {
+                    items.forEach(function(e) {
+                        var etf = e[0], a = e[1];
+                        var bg = a.status.indexOf('流入') >= 0 ? '#f0fdf4' : '#fef2f2';
+                        var border = a.status.indexOf('流入') >= 0 ? '#bbf7d0' : '#fecaca';
+                        h += '<div style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;background:' + bg + ';border:1px solid ' + border + ';font-size:11px;margin:2px">';
+                        h += flag + ' ' + a.status + ' <strong>' + (a.name || etf) + '</strong>';
+                        h += ' 5日$' + (a.avg_5d_m || 0) + 'M';
+                        h += '</div>';
+                    });
+                }
+            });
+            
+            el.innerHTML = h || '<div style="font-size:11px;color:#94a3b8">📊 目前無顯著加速變動</div>';
+        }
+        
+        function switchFlowChart(market) {
+            _flowMarket = market;
+            ['us','tw','compare'].forEach(function(m) {
+                var btn = document.getElementById('flow-btn-' + m);
+                if (!btn) return;
+                var active = m === market;
+                btn.style.border = active ? '2px solid #4f46e5' : '1px solid #e2e8f0';
+                btn.style.background = active ? '#eef2ff' : 'white';
+                btn.style.color = active ? '#4f46e5' : '#64748b';
+            });
+            renderFlowChart(market);
+        }
+        
+        function renderFlowChart(market) {
+            if (!_flowData) return;
+            var area = document.getElementById('flowChartArea');
+            var legend = document.getElementById('flowLegend');
+            
+            // Determine which sectors to show
+            var sectors = {};
+            if (market === 'compare') {
+                // Show XLK vs 0052.TW (tech), XLF vs 0055.TW (finance)
+                var comparePairs = [['XLK','0052.TW'],['XLF','0055.TW'],['XLE','0050.TW']];
+                comparePairs.forEach(function(pair) {
+                    if (_flowData.us[pair[0]]) sectors[pair[0]] = _flowData.us[pair[0]];
+                    if (_flowData.tw[pair[1]]) sectors[pair[1]] = _flowData.tw[pair[1]];
+                });
+            } else {
+                sectors = _flowData[market] || {};
+            }
+            
+            if (!Object.keys(sectors).length) {
+                area.innerHTML = '<p style="color:#94a3b8;text-align:center">無資料</p>';
+                return;
+            }
+            
+            // Build unified date axis from all sectors
+            var allDates = new Set();
+            Object.values(sectors).forEach(function(rows) {
+                rows.forEach(function(r) { allDates.add(r.date); });
+            });
+            var dates = Array.from(allDates).sort();
+            
+            // Use last 52 weeks of data
+            if (dates.length > 260) dates = dates.slice(-260);
+            
+            // Build cumulative flow series per sector
+            var series = {};
+            var globalMin = 0, globalMax = 0;
+            Object.entries(sectors).forEach(function(e) {
+                var etf = e[0], rows = e[1];
+                if (!_flowVisible[etf]) return;
+                var dateMap = {};
+                rows.forEach(function(r) { dateMap[r.date] = r.cum_m || 0; });
+                
+                var vals = dates.map(function(d) { return dateMap[d]; });
+                // Forward-fill nulls
+                for (var i = 1; i < vals.length; i++) {
+                    if (vals[i] === undefined || vals[i] === null) vals[i] = vals[i-1] || 0;
+                }
+                if (vals[0] === undefined || vals[0] === null) vals[0] = 0;
+                
+                series[etf] = vals;
+                vals.forEach(function(v) {
+                    if (v > globalMax) globalMax = v;
+                    if (v < globalMin) globalMin = v;
+                });
+            });
+            
+            if (!Object.keys(series).length) {
+                area.innerHTML = '<p style="color:#94a3b8;text-align:center">點擊下方圖例選擇板塊</p>';
+                return;
+            }
+            
+            // SVG dimensions
+            var W = Math.max(700, dates.length * 3);
+            var H = 320;
+            var PL = 55, PR = 15, PT = 15, PB = 45;
+            var chartW = W - PL - PR;
+            var chartH = H - PT - PB;
+            
+            // Add margin to range
+            var range = globalMax - globalMin || 1;
+            globalMax += range * 0.1;
+            globalMin -= range * 0.1;
+            range = globalMax - globalMin;
+            
+            var sx = function(i) { return PL + (i / (dates.length - 1)) * chartW; };
+            var sy = function(v) { return PT + chartH - ((v - globalMin) / range) * chartH; };
+            
+            var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;max-width:' + W + 'px;background:white">';
+            
+            // Zero line
+            if (globalMin < 0 && globalMax > 0) {
+                svg += '<line x1="' + PL + '" y1="' + sy(0) + '" x2="' + (W-PR) + '" y2="' + sy(0) + '" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4,2"/>';
+                svg += '<text x="' + (PL-4) + '" y="' + (sy(0)+3) + '" text-anchor="end" font-size="9" fill="#94a3b8">0</text>';
+            }
+            
+            // Y-axis gridlines
+            var yStep = Math.pow(10, Math.floor(Math.log10(range / 4)));
+            if (range / yStep > 8) yStep *= 2;
+            if (range / yStep < 3) yStep /= 2;
+            for (var yv = Math.ceil(globalMin / yStep) * yStep; yv <= globalMax; yv += yStep) {
+                var yy = sy(yv);
+                svg += '<line x1="' + PL + '" y1="' + yy + '" x2="' + (W-PR) + '" y2="' + yy + '" stroke="#f1f5f9" stroke-width="0.5"/>';
+                svg += '<text x="' + (PL-4) + '" y="' + (yy+3) + '" text-anchor="end" font-size="9" fill="#94a3b8">' + Math.round(yv) + '</text>';
+            }
+            
+            // X-axis labels (monthly)
+            var lastMonth = '';
+            dates.forEach(function(d, i) {
+                var month = d.substring(0, 7);
+                if (month !== lastMonth) {
+                    lastMonth = month;
+                    var x = sx(i);
+                    svg += '<line x1="' + x + '" y1="' + PT + '" x2="' + x + '" y2="' + (H-PB) + '" stroke="#f1f5f9" stroke-width="0.5"/>';
+                    svg += '<text x="' + x + '" y="' + (H-PB+14) + '" text-anchor="middle" font-size="9" fill="#94a3b8">' + d.substring(2,7) + '</text>';
+                }
+            });
+            
+            // Lines
+            Object.entries(series).forEach(function(e) {
+                var etf = e[0], vals = e[1];
+                var color = _flowColors[etf] || '#94a3b8';
+                var path = '';
+                vals.forEach(function(v, i) {
+                    path += (i === 0 ? 'M' : 'L') + sx(i).toFixed(1) + ',' + sy(v).toFixed(1);
+                });
+                svg += '<path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="1.5" stroke-linejoin="round"/>';
+                
+                // End label
+                var lastV = vals[vals.length - 1];
+                var name = _flowNames[etf] || etf;
+                svg += '<text x="' + (sx(vals.length-1)+4) + '" y="' + (sy(lastV)+3) + '" font-size="8" fill="' + color + '" font-weight="600">' + name + '</text>';
+            });
+            
+            // Y axis label
+            svg += '<text x="12" y="' + (H/2) + '" text-anchor="middle" font-size="9" fill="#94a3b8" transform="rotate(-90,12,' + (H/2) + ')">累計流入 ($M)</text>';
+            
+            svg += '</svg>';
+            area.innerHTML = svg;
+            
+            // Legend
+            var lh = '';
+            var allEtfs = Object.keys(market === 'compare' ? sectors : (_flowData[market] || {}));
+            allEtfs.forEach(function(etf) {
+                var active = _flowVisible[etf] !== false;
+                var color = _flowColors[etf] || '#94a3b8';
+                var name = _flowNames[etf] || etf;
+                lh += '<button onclick="toggleFlowLine(\'' + etf + '\')" style="display:flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;border:1px solid ' + (active ? color : '#e2e8f0') + ';background:' + (active ? color + '15' : '#f8fafc') + ';cursor:pointer;font-size:10px;color:' + (active ? color : '#94a3b8') + ';font-weight:600">';
+                lh += '<span style="width:8px;height:3px;background:' + (active ? color : '#d1d5db') + ';border-radius:2px"></span>' + name;
+                lh += '</button>';
+            });
+            legend.innerHTML = lh;
+        }
+        
+        function toggleFlowLine(etf) {
+            _flowVisible[etf] = !(_flowVisible[etf] !== false);
+            renderFlowChart(_flowMarket);
         }
 
 </script>
