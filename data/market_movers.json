@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T17:37:14+08:00",
+  "generated_at": "2026-10-12T09:04:04+08:00",
   "gainers": [
     {
       "symbol": "HAE",
@@ -30,7 +30,7 @@
       "name": "The Vita Coco Company, Inc.",
       "price": 58.39,
       "change_pct": 4.31,
-      "volume": 1386566,
+      "volume": 1386821,
       "vr": ""
     },
     {
@@ -38,7 +38,7 @@
       "name": "Erasca, Inc.",
       "price": 16.03,
       "change_pct": 3.69,
-      "volume": 7586512,
+      "volume": 7772296,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "CoStar Group, Inc.",
       "price": 29.67,
       "change_pct": -0.47,
-      "volume": 4093566,
+      "volume": 4093598,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 7.35,
       "change_pct": -3.67,
-      "volume": 117881,
+      "volume": 118724,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "Zillow Group, Inc.",
       "price": 29.01,
       "change_pct": -0.55,
-      "volume": 4400372,
+      "volume": 4400929,
       "vr": ""
     }
   ],
@@ -88,7 +88,7 @@
       "name": "Applied Optoelectronics, Inc.",
       "price": 109.64,
       "change_pct": 3.53,
-      "volume": 14448250,
+      "volume": 14512493,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "MaxLinear, Inc",
       "price": 96.16,
       "change_pct": 2.63,
-      "volume": 2888364,
+      "volume": 3031971,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "argenx SE",
       "price": 825.03,
       "change_pct": 0.78,
-      "volume": 512220,
+      "volume": 512248,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "EquipmentShare.com Inc",
       "price": 15.09,
       "change_pct": -3.67,
-      "volume": 4929363,
+      "volume": 4931325,
       "vr": ""
     },
     {
@@ -120,7 +120,7 @@
       "name": "Hut 8 Corp.",
       "price": 84.27,
       "change_pct": 5.88,
-      "volume": 6362047,
+      "volume": 6377005,
       "vr": ""
     },
     {
@@ -128,7 +128,7 @@
       "name": "AXT Inc",
       "price": 68.46,
       "change_pct": -4.47,
-      "volume": 8728062,
+      "volume": 8771385,
       "vr": ""
     },
     {
@@ -144,7 +144,7 @@
       "name": "Astera Labs, Inc.",
       "price": 342.21,
       "change_pct": -1.39,
-      "volume": 4061564,
+      "volume": 4069981,
       "vr": ""
     },
     {
@@ -152,7 +152,7 @@
       "name": "Riot Platforms, Inc.",
       "price": 16.89,
       "change_pct": 0.27,
-      "volume": 11615748,
+      "volume": 12246998,
       "vr": ""
     },
     {
@@ -160,7 +160,7 @@
       "name": "Silicon Motion Technology Corpo",
       "price": 263.9,
       "change_pct": 0.77,
-      "volume": 447232,
+      "volume": 447754,
       "vr": ""
     }
   ],
@@ -170,7 +170,7 @@
       "name": "Intel Corporation",
       "price": 104.7,
       "change_pct": -2.22,
-      "volume": 74577145,
+      "volume": 75017756,
       "vr": ""
     },
     {
@@ -178,7 +178,7 @@
       "name": "NVIDIA Corporation",
       "price": 229.28,
       "change_pct": -0.52,
-      "volume": 84307452,
+      "volume": 84645559,
       "vr": ""
     },
     {
@@ -226,7 +226,7 @@
       "name": "American Airlines Group, Inc.",
       "price": 12.76,
       "change_pct": -0.31,
-      "volume": 70645862,
+      "volume": 70697270,
       "vr": ""
     },
     {
@@ -234,7 +234,7 @@
       "name": "Grab Holdings Limited",
       "price": 3.19,
       "change_pct": 2.57,
-      "volume": 74446937,
+      "volume": 78356091,
       "vr": ""
     },
     {
@@ -242,7 +242,7 @@
       "name": "Space Exploration Technologies ",
       "price": 162.57,
       "change_pct": 1.25,
-      "volume": 92493813,
+      "volume": 93042640,
       "vr": ""
     },
     {
@@ -250,7 +250,7 @@
       "name": "Ondas Inc",
       "price": 6.73,
       "change_pct": -1.75,
-      "volume": 36881999,
+      "volume": 37127866,
       "vr": ""
     },
     {
@@ -266,7 +266,7 @@
       "name": "Cipher Digital Inc.",
       "price": 13.52,
       "change_pct": 0.15,
-      "volume": 18485662,
+      "volume": 18592880,
       "vr": ""
     },
     {
@@ -282,7 +282,7 @@
       "name": "Applied Digital Corporation",
       "price": 23.68,
       "change_pct": -0.71,
-      "volume": 23535071,
+      "volume": 23700657,
       "vr": ""
     }
   ],
@@ -294,7 +294,7 @@
       "price": 22.18,
       "change_pct": -9.81,
       "volume": 150217381,
-      "vr": 3.1
+      "vr": 3.0
     }
   ]
 }
