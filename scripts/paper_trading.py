@@ -285,8 +285,8 @@ def run():
             exit_reason = f"停損 觸及${stop:.2f}"
             exit_price = stop  # Assume filled at stop price
         
-        # Take profit T1: daily HIGH hit +15%
-        t1_price = entry_price * (1 + TAKE_PROFIT_T1)
+        # Take profit T1: daily HIGH hit target_1
+        t1_price = pos.get("target_1", entry_price * (1 + TAKE_PROFIT_T1))
         if not pos.get("t1_hit") and high >= t1_price:
             exit_reason = f"T1停利 +{TAKE_PROFIT_T1*100:.0f}%"
             exit_price = round(t1_price, 2)
@@ -363,15 +363,44 @@ def run():
     for sym in exits:
         del positions[sym]
     
-    # 4. Check for new entries — use ACTUAL CLOSE PRICE
+    # 4. Check for new entries — LIMIT ORDER at signal entry_price
+    #    Fill verification: day's LOW must be <= entry_price for limit buy to fill
     buys = []
     for s in signals.get("signals", []):
         if s.get("action") in ("BUY", "SCALE_IN") and s.get("score", 0) >= MIN_SCORE:
             buys.append(s)
     buys.sort(key=lambda x: x.get("score", 0), reverse=True)
     
+    # Also check pending orders from previous days
+    pending = portfolio.get("pending_orders", {})
+    
     new_entries_today = 0
+    all_candidates = []
+    
+    # Combine: new signals + pending orders
     for s in buys:
+        sym = s["symbol"]
+        if sym not in positions and sym not in [c["symbol"] for c in all_candidates]:
+            all_candidates.append({
+                "symbol": sym,
+                "entry_price": s.get("entry_price", 0),
+                "stop_loss": s.get("stop_loss", 0),
+                "target_1": s.get("target_1"),
+                "target_2": s.get("target_2"),
+                "score": s.get("score", 0),
+                "action": s.get("action"),
+                "phase": s.get("phase", 0),
+                "source": "signal",
+            })
+    
+    for sym, pend in pending.items():
+        if sym not in positions and sym not in [c["symbol"] for c in all_candidates]:
+            pend["source"] = "pending"
+            all_candidates.append(pend)
+    
+    new_pending = {}
+    
+    for s in all_candidates:
         sym = s["symbol"]
         if sym in positions:
             continue
@@ -389,79 +418,113 @@ def run():
         if regime == "CAUTION" and s.get("score", 0) < 8:
             continue
         
-        # Phase filter: prefer Phase 2-3 (momentum confirmed / breakout)
+        # Phase filter: Phase 2+ only
         phase = s.get("phase", 0)
         if phase < 2:
-            continue  # Skip Phase 1 (too early)
+            continue
         
+        # Must have a valid entry_price from signals
+        limit_price = s.get("entry_price", 0)
+        if limit_price <= 0:
+            continue
+        limit_price = round(limit_price, 2)
+        
+        # Stop loss from signals
+        stop_loss = round(s["stop_loss"], 2) if s.get("stop_loss") and s["stop_loss"] > 0 else round(limit_price * (1 + STOP_LOSS_DEFAULT), 2)
+        
+        # Target prices
+        target_1 = round(s["target_1"], 2) if s.get("target_1") else round(limit_price * (1 + TAKE_PROFIT_T1), 2)
+        target_2 = round(s["target_2"], 2) if s.get("target_2") else round(limit_price * (1 + TAKE_PROFIT_T2), 2)
+        
+        # Fetch today's OHLCV to verify fill
         ohlcv = fetch_ohlcv(sym)
         if not ohlcv or not ohlcv["close"]:
+            # Can't verify, keep as pending
+            new_pending[sym] = {
+                "symbol": sym, "entry_price": limit_price, "stop_loss": stop_loss,
+                "target_1": target_1, "target_2": target_2,
+                "score": s.get("score", 0), "action": s.get("action"),
+                "phase": phase, "placed_date": s.get("placed_date", today),
+            }
             continue
         time.sleep(0.3)
         
-        close_price = ohlcv["close"]
+        day_low = ohlcv["low"] or ohlcv["close"]
+        day_high = ohlcv["high"] or ohlcv["close"]
         
-        # VERIFY: Can we actually buy at this price?
-        # Use the CLOSING PRICE as entry. This is conservative:
-        # - We assume we buy at market close (MOC order)
-        # - The price ACTUALLY existed on this trading day
-        # - Anyone can verify: Yahoo Finance {sym} on {date}
-        entry_price = close_price
-        
-        # Position sizing (event-adjusted)
-        position_value = min(cash, INITIAL_CAPITAL * event_max_pct)
-        if position_value < 200:
-            continue
-        
-        shares = int(position_value / entry_price)
-        if shares < 1:
-            continue
-        
-        cost = round(shares * entry_price, 2)
-        cash -= cost
-        
-        # Use stop_loss from signals if available, else default
-        sig_stop = s.get("stop_loss")
-        if sig_stop and sig_stop > 0:
-            stop_loss = round(sig_stop, 2)
+        # ── FILL CHECK: did the day's low reach our limit price? ──
+        if day_low <= limit_price:
+            # FILLED — limit order executed at our price
+            entry_price = limit_price
+            
+            # Position sizing (event-adjusted)
+            position_value = min(cash, INITIAL_CAPITAL * event_max_pct)
+            if position_value < 200:
+                continue
+            
+            shares = int(position_value / entry_price)
+            if shares < 1:
+                continue
+            
+            cost = round(shares * entry_price, 2)
+            cash -= cost
+            
+            positions[sym] = {
+                "entry_date": today,
+                "entry_price": entry_price,
+                "shares": shares,
+                "cost": cost,
+                "score": s.get("score", 0),
+                "signal": s.get("action"),
+                "stop_loss": stop_loss,
+                "target_1": target_1,
+                "target_2": target_2,
+                "peak_price": day_high,
+                "t1_hit": False,
+                "t2_hit": False,
+                "current_price": ohlcv["close"],
+                "current_return": round((ohlcv["close"] - entry_price) / entry_price * 100, 2),
+                "last_updated": today,
+                "entry_ohlcv": ohlcv,
+                "order_type": "LIMIT",
+            }
+            
+            audit.append({
+                "date": today,
+                "action": "BUY",
+                "order_type": "LIMIT",
+                "symbol": sym,
+                "shares": shares,
+                "price": entry_price,
+                "cost": cost,
+                "cash_after": round(cash, 2),
+                "score": s.get("score", 0),
+                "fill_check": f"limit=${entry_price:.2f}, day_low=${day_low:.2f} ✅ FILLED",
+                "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
+                "verifiable": f"YF {sym} {ohlcv['date']}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
+            })
+            
+            new_entries_today += 1
+            print(f"  🟢 {sym}: 限價成交 {shares}股 @${entry_price:.2f} (${cost:,.0f})")
+            print(f"      限價${entry_price:.2f} ≥ 日低${day_low:.2f} ✅ 成交")
+            print(f"      停損${stop_loss:.2f} 目標${target_1:.2f}/${target_2:.2f}")
+            print(f"      驗證: YF {sym} {ohlcv['date']}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}")
         else:
-            stop_loss = round(entry_price * (1 + STOP_LOSS_DEFAULT), 2)
-        
-        positions[sym] = {
-            "entry_date": today,
-            "entry_price": entry_price,
-            "shares": shares,
-            "cost": cost,
-            "score": s.get("score", 0),
-            "signal": s.get("action"),
-            "stop_loss": stop_loss,
-            "target_1": round(s["target_1"], 2) if s.get("target_1") else round(entry_price * (1 + TAKE_PROFIT_T1), 2),
-            "target_2": round(s["target_2"], 2) if s.get("target_2") else round(entry_price * (1 + TAKE_PROFIT_T2), 2),
-            "peak_price": entry_price,
-            "t1_hit": False,
-            "t2_hit": False,
-            "current_price": entry_price,
-            "current_return": 0,
-            "last_updated": today,
-            "entry_ohlcv": ohlcv,  # FULL AUDIT: verifiable market data
-        }
-        
-        audit.append({
-            "date": today,
-            "action": "BUY",
-            "symbol": sym,
-            "shares": shares,
-            "price": entry_price,
-            "cost": cost,
-            "cash_after": round(cash, 2),
-            "score": s.get("score", 0),
-            "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
-            "verifiable": f"YF {sym} {today}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
-        })
-        
-        new_entries_today += 1
-        print(f"  🟢 {sym}: 買入 {shares}股 @${entry_price:.2f} (${cost:,.0f}) score={s.get('score',0)}")
-        print(f"      驗證: YF {sym} {today} Close=${close_price} (Open=${ohlcv['open']} H=${ohlcv['high']} L=${ohlcv['low']})")
+            # NOT FILLED — price didn't reach our limit
+            placed = s.get("placed_date", today)
+            days_pending = (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(placed, "%Y-%m-%d")).days
+            
+            if days_pending < 5:
+                # Keep pending
+                new_pending[sym] = {
+                    "symbol": sym, "entry_price": limit_price, "stop_loss": stop_loss,
+                    "target_1": target_1, "target_2": target_2,
+                    "score": s.get("score", 0), "action": s.get("action"),
+                    "phase": phase, "placed_date": placed,
+                }
+                print(f"  ⏳ {sym}: 限價${limit_price:.2f} 未成交 (日低${day_low:.2f}) — 掛單保留 ({days_pending+1}/5天)")
+            else:
+                print(f"  ❌ {sym}: 限價${limit_price:.2f} 連續5天未成交 — 取消")
     
     # 5. Calculate NAV
     positions_value = 0
@@ -527,6 +590,7 @@ def run():
         "initial_capital": INITIAL_CAPITAL,
         "cash": round(cash, 2),
         "positions": positions,
+        "pending_orders": new_pending,
         "closed_trades": closed[-100:],
         "daily_nav": daily_nav,
         "cooldown": {k: v for k, v in cooldown.items() if v >= today},
@@ -534,6 +598,10 @@ def run():
         "audit_log": audit,
         "model_version": "v4",
     }
+    
+    if new_pending:
+        pending_str = ', '.join(f'{s} @${p["entry_price"]:.2f}' for s, p in new_pending.items())
+        print(f"\n  📋 掛單中: {pending_str}")
     
     sha = gh_put("data/paper_portfolio.json", portfolio,
                   f"Paper v4 {today}: NAV=${nav:,.0f} ({nav_return:+.1f}%) | {len(positions)} pos | cash ${cash:,.0f}")
