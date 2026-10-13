@@ -1,27 +1,9 @@
 {
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T08:57:48.777145+08:00",
+  "generated_at": "2026-10-13T09:33:13.763348+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 1,
   "stocks": [
-    {
-      "symbol": "MMED",
-      "name": "MiniMed Group, Inc.",
-      "price": 18.8,
-      "change_pct": -4.62,
-      "vol_ratio": 12.4,
-      "volume": 38550243,
-      "avg_volume": 3108890
-    },
-    {
-      "symbol": "CCC",
-      "name": "CCC Intelligent Solutions Holdi",
-      "price": 7.59,
-      "change_pct": 8.12,
-      "vol_ratio": 3.2,
-      "volume": 34095658,
-      "avg_volume": 10654893
-    },
     {
       "symbol": "MDT",
       "name": "Medtronic plc.",
