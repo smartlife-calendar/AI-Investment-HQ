@@ -34,7 +34,21 @@
         "exchange": "NYQ",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "NU",
+        "date": "2026-10-09",
+        "open": 15.56,
+        "high": 16.14,
+        "low": 15.48,
+        "close": 16.12,
+        "volume": 76027800,
+        "market_price": 16.01,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
     },
     "MDB": {
       "entry_date": "2026-10-12",
@@ -66,7 +80,21 @@
         "exchange": "NGM",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "MDB",
+        "date": "2026-10-09",
+        "open": 375.85,
+        "high": 387.85,
+        "low": 371.53,
+        "close": 385.93,
+        "volume": 1973900,
+        "market_price": 381.29,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NGM",
+        "market_state": ""
+      }
     }
   },
   "pending_orders": {},
