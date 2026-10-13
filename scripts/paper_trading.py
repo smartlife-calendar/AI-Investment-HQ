@@ -84,11 +84,17 @@ def fetch_ohlcv(sym, days=5):
         quotes = result["indicators"]["quote"][0]
         timestamps = result.get("timestamp", [])
         
-        # Latest trading day data
+        # Latest trading day with valid data
         if not timestamps:
             return None
         
+        # Find the last index with valid close (skip None for holidays/pre-market)
         last_idx = len(timestamps) - 1
+        while last_idx >= 0 and not quotes["close"][last_idx]:
+            last_idx -= 1
+        if last_idx < 0:
+            return None
+        
         last_date = datetime.fromtimestamp(timestamps[last_idx], tz=timezone.utc).strftime("%Y-%m-%d")
         
         return {
@@ -383,6 +389,11 @@ def run():
         if regime == "CAUTION" and s.get("score", 0) < 8:
             continue
         
+        # Phase filter: prefer Phase 2-3 (momentum confirmed / breakout)
+        phase = s.get("phase", 0)
+        if phase < 2:
+            continue  # Skip Phase 1 (too early)
+        
         ohlcv = fetch_ohlcv(sym)
         if not ohlcv or not ohlcv["close"]:
             continue
@@ -424,8 +435,8 @@ def run():
             "score": s.get("score", 0),
             "signal": s.get("action"),
             "stop_loss": stop_loss,
-            "target_1": round(entry_price * (1 + TAKE_PROFIT_T1), 2),
-            "target_2": round(entry_price * (1 + TAKE_PROFIT_T2), 2),
+            "target_1": round(s["target_1"], 2) if s.get("target_1") else round(entry_price * (1 + TAKE_PROFIT_T1), 2),
+            "target_2": round(s["target_2"], 2) if s.get("target_2") else round(entry_price * (1 + TAKE_PROFIT_T2), 2),
             "peak_price": entry_price,
             "t1_hit": False,
             "t2_hit": False,
