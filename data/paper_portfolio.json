@@ -2,35 +2,135 @@
   "version": "v4",
   "created": "2026-10-13",
   "initial_capital": 30000,
-  "cash": 30000,
-  "positions": {},
+  "cash": 24300.17,
+  "positions": {
+    "NU": {
+      "entry_date": "2026-10-12",
+      "entry_price": 16.12,
+      "shares": 186,
+      "cost": 2998.32,
+      "score": 7,
+      "signal": "BUY",
+      "stop_loss": 15.01,
+      "target_1": 18.54,
+      "target_2": 20.15,
+      "peak_price": 16.12,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 16.12,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "NU",
+        "date": "2026-10-09",
+        "open": 15.56,
+        "high": 16.14,
+        "low": 15.48,
+        "close": 16.12,
+        "volume": 76027800,
+        "market_price": 16.01,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
+    },
+    "MDB": {
+      "entry_date": "2026-10-12",
+      "entry_price": 385.93,
+      "shares": 7,
+      "cost": 2701.51,
+      "score": 7,
+      "signal": "SCALE_IN",
+      "stop_loss": 344.17,
+      "target_1": 443.82,
+      "target_2": 482.41,
+      "peak_price": 385.93,
+      "t1_hit": false,
+      "t2_hit": false,
+      "current_price": 385.93,
+      "current_return": 0,
+      "last_updated": "2026-10-12",
+      "entry_ohlcv": {
+        "symbol": "MDB",
+        "date": "2026-10-09",
+        "open": 375.85,
+        "high": 387.85,
+        "low": 371.53,
+        "close": 385.93,
+        "volume": 1973900,
+        "market_price": 381.29,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NGM",
+        "market_state": ""
+      }
+    }
+  },
   "closed_trades": [],
   "daily_nav": [
     {
       "date": "2026-10-12",
-      "nav": 30000,
-      "cash": 30000,
-      "positions_value": 0,
-      "n_positions": 0,
+      "nav": 30000.0,
+      "cash": 24300.17,
+      "positions_value": 5699.83,
+      "n_positions": 2,
       "return_pct": 0.0
     }
   ],
   "cooldown": {},
   "stats": {
     "total_trades": 0,
-    "open_positions": 0,
+    "open_positions": 2,
     "win_rate": 0,
     "avg_return": 0,
     "avg_win": 0,
     "avg_loss": 0,
     "total_pnl": 0,
-    "nav": 30000,
+    "nav": 30000.0,
     "nav_return_pct": 0.0,
-    "cash": 30000,
-    "positions_value": 0,
+    "cash": 24300.17,
+    "positions_value": 5699.83,
     "regime": "STRONG_BULL",
     "last_updated": "2026-10-12"
   },
-  "audit_log": [],
+  "audit_log": [
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "NU",
+      "shares": 186,
+      "price": 16.12,
+      "cost": 2998.32,
+      "cash_after": 27001.68,
+      "score": 7,
+      "ohlcv": {
+        "open": 15.56,
+        "high": 16.14,
+        "low": 15.48,
+        "close": 16.12,
+        "volume": 76027800
+      },
+      "verifiable": "YF NU 2026-10-12: O=15.56 H=16.14 L=15.48 C=16.12"
+    },
+    {
+      "date": "2026-10-12",
+      "action": "BUY",
+      "symbol": "MDB",
+      "shares": 7,
+      "price": 385.93,
+      "cost": 2701.51,
+      "cash_after": 24300.17,
+      "score": 7,
+      "ohlcv": {
+        "open": 375.85,
+        "high": 387.85,
+        "low": 371.53,
+        "close": 385.93,
+        "volume": 1973900
+      },
+      "verifiable": "YF MDB 2026-10-12: O=375.85 H=387.85 L=371.53 C=385.93"
+    }
+  ],
   "model_version": "v4"
 }
