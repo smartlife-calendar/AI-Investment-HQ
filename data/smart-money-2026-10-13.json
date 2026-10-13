@@ -1,17 +1,35 @@
 {
   "date": "2026-10-13",
-  "generated_at": "2026-10-13T07:01:24.130672+08:00",
+  "generated_at": "2026-10-13T08:57:48.777145+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 22.18,
-      "change_pct": -9.81,
-      "vol_ratio": 3.0,
-      "volume": 150217381,
-      "avg_volume": 50072460
+      "symbol": "MMED",
+      "name": "MiniMed Group, Inc.",
+      "price": 18.8,
+      "change_pct": -4.62,
+      "vol_ratio": 12.4,
+      "volume": 38550243,
+      "avg_volume": 3108890
+    },
+    {
+      "symbol": "CCC",
+      "name": "CCC Intelligent Solutions Holdi",
+      "price": 7.59,
+      "change_pct": 8.12,
+      "vol_ratio": 3.2,
+      "volume": 34095658,
+      "avg_volume": 10654893
+    },
+    {
+      "symbol": "MDT",
+      "name": "Medtronic plc.",
+      "price": 91.93,
+      "change_pct": 3.9,
+      "vol_ratio": 2.7,
+      "volume": 36561952,
+      "avg_volume": 13541463
     }
   ]
 }
