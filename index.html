@@ -6221,10 +6221,83 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 h+='</details>';
                 
                 // Rules
-                h+='<details style="margin-top:6px"><summary style="font-size:10px;color:#94a3b8;cursor:pointer">📐 規則: $30K · ≤10支 · 收盤價進場 · ATR停損 · +15%停利賣半 · score≥7</summary>';
-                h+='<div style="font-size:10px;color:#64748b;padding:4px 0">';
-                h+='<div style="margin-bottom:3px"><strong>v4:</strong> '+(pf.model_features||[]).join(' · ')+'</div>';
-                var v1=pf.v1_summary||{};if(v1.period)h+='<div style="padding:3px 6px;background:#fefce8;border-radius:4px;font-size:9px;color:#92400e">v1 ('+v1.period+'): $'+(v1.initial/1000)+'K→$'+(v1.final_nav/1000).toFixed(1)+'K (+'+v1.return_pct+'%) vs SPY +5.3%</div>';
+                // Pending orders
+                var pending = pf.pending_orders || {};
+                var pendKeys = Object.keys(pending);
+                if (pendKeys.length > 0) {
+                    h+='<div style="font-size:12px;font-weight:700;margin:12px 0 4px">⏳ 掛單中</div>';
+                    h+='<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:0;padding:3px 6px;font-size:9px;color:#94a3b8;border-bottom:1px solid #f1f5f9">';
+                    h+='<div>股票</div><div style="text-align:right">限價</div><div style="text-align:right">停損</div><div style="text-align:right">天數</div></div>';
+                    pendKeys.forEach(function(sym){
+                        var p=pending[sym];
+                        var days=p.placed_date?Math.floor((Date.now()-new Date(p.placed_date).getTime())/86400000)+1:1;
+                        h+='<div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:0;padding:5px 6px;font-size:11px;border-bottom:1px solid #f8fafc">';
+                        h+='<div><strong>'+sym+'</strong></div>';
+                        h+='<div style="text-align:right">$'+p.entry_price.toFixed(2)+'</div>';
+                        h+='<div style="text-align:right;color:#ef4444">$'+p.stop_loss.toFixed(2)+'</div>';
+                        h+='<div style="text-align:right;color:#94a3b8">'+days+'/5</div>';
+                        h+='</div>';
+                    });
+                }
+
+                // Methodology - full transparency
+                h+='<details style="margin-top:10px;background:#f8fafc;border-radius:8px;padding:10px 12px;border:1px solid #e2e8f0">';
+                h+='<summary style="font-size:12px;font-weight:700;cursor:pointer;color:#1e293b">📐 操作方式（完全透明）</summary>';
+                h+='<div style="font-size:11px;color:#475569;padding:8px 0;line-height:1.8">';
+                
+                // Selection flow
+                h+='<div style="font-weight:700;margin-bottom:4px">🔍 選股流程</div>';
+                h+='<div style="padding:6px 10px;background:#eef2ff;border-radius:6px;margin-bottom:8px;font-size:10px;font-family:monospace;line-height:2">';
+                h+='161支美股每日掃描<br>';
+                h+='→ OBV + 量比偵測主力吸籌/出貨<br>';
+                h+='→ 板塊資金共振確認（11個美股ETF）<br>';
+                h+='→ 評分 score ≥ 7 才進入觀察<br>';
+                h+='→ Phase ≥ 2（動能累積/突破確認）才下單<br>';
+                h+='→ 市值 ≥ $2B 過濾小型股</div>';
+                
+                // Entry rules
+                h+='<div style="font-weight:700;margin-bottom:4px">📥 進場規則</div>';
+                h+='<div style="padding:6px 10px;background:#f0fdf4;border-radius:6px;margin-bottom:8px;font-size:10px;line-height:2">';
+                h+='• 進場方式：<strong>限價單</strong>（不是收盤價）<br>';
+                h+='• 限價 = signals.json 的 entry_price（ATR 計算）<br>';
+                h+='• 成交驗證：當天最低價 ≤ 限價 → 成交 ✅<br>';
+                h+='• 未成交：掛單保留最多 5 天<br>';
+                h+='• 每支最多 10% 資金（$3,000）<br>';
+                h+='• 最多同時持有 10 支</div>';
+                
+                // Exit rules
+                h+='<div style="font-weight:700;margin-bottom:4px">📤 出場規則</div>';
+                h+='<div style="padding:6px 10px;background:#fef2f2;border-radius:6px;margin-bottom:8px;font-size:10px;line-height:2">';
+                h+='• 停損：ATR 計算（非固定%），日低觸停損價 → 出場<br>';
+                h+='• T1 停利：日高觸目標價 → 賣一半<br>';
+                h+='• T2 停利：T1 後用 trailing stop（高點回落 15%）<br>';
+                h+='• 訊號轉 SELL → 全部出場<br>';
+                h+='• 5 天冷卻期（賣出後不立即重買）</div>';
+                
+                // Event risk
+                h+='<div style="font-weight:700;margin-bottom:4px">⚡ 事件風險控制</div>';
+                h+='<div style="padding:6px 10px;background:#fefce8;border-radius:6px;margin-bottom:8px;font-size:10px;line-height:2">';
+                h+='• 選舉 ≤7天：停止新建倉，最大持倉 5%<br>';
+                h+='• 選舉 ≤14天：最多 3 筆新單，最大持倉 7%<br>';
+                h+='• FOMC ≤3天：最大持倉 7%<br>';
+                h+='• 期權到期 ≤2天：最多 3 筆新單</div>';
+                
+                // Verification
+                h+='<div style="font-weight:700;margin-bottom:4px">🔒 可驗證性</div>';
+                h+='<div style="padding:6px 10px;background:#f5f3ff;border-radius:6px;margin-bottom:8px;font-size:10px;line-height:2">';
+                h+='• 每筆交易記錄 OHLCV（開高低收量）<br>';
+                h+='• 去 Yahoo Finance 查 {股票} {日期} 即可驗證<br>';
+                h+='• 原始數據：<a href="/data/paper_portfolio.json" target="_blank" style="color:#6366f1">paper_portfolio.json ↗</a><br>';
+                h+='• 零黑箱，零造假</div>';
+                
+                // Model version
+                h+='<div style="font-weight:700;margin-bottom:4px">🧠 v4 模型特徵</div>';
+                h+='<div style="font-size:10px">'+(pf.model_features||[]).join(' · ')+'</div>';
+                var v1=pf.v1_summary||{};
+                if(v1.period){
+                    h+='<div style="padding:3px 6px;background:#fefce8;border-radius:4px;font-size:9px;color:#92400e;margin-top:4px">';
+                    h+='v1 ('+v1.period+'): $'+(v1.initial/1000)+'K→$'+(v1.final_nav/1000).toFixed(1)+'K (+'+v1.return_pct+'%) vs SPY +5.3%</div>';
+                }
                 h+='</div></details>';
                 
                 el.innerHTML = h;
