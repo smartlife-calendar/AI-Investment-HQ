@@ -1,35 +1,17 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T01:09:11.067758+08:00",
+  "generated_at": "2026-10-14T09:00:43.287651+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 1,
   "stocks": [
     {
-      "symbol": "MMED",
-      "name": "MiniMed Group, Inc.",
-      "price": 18.8,
-      "change_pct": -4.62,
-      "vol_ratio": 10.5,
-      "volume": 38550243,
-      "avg_volume": 3671451
-    },
-    {
-      "symbol": "CCC",
-      "name": "CCC Intelligent Solutions Holdi",
-      "price": 7.59,
-      "change_pct": 8.12,
-      "vol_ratio": 3.1,
-      "volume": 34095658,
-      "avg_volume": 10998599
-    },
-    {
-      "symbol": "MDT",
-      "name": "Medtronic plc.",
-      "price": 91.93,
-      "change_pct": 3.9,
-      "vol_ratio": 2.6,
-      "volume": 36561952,
-      "avg_volume": 14062289
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 11.34,
+      "change_pct": -12.77,
+      "vol_ratio": 3.8,
+      "volume": 128212095,
+      "avg_volume": 33740025
     }
   ]
 }
