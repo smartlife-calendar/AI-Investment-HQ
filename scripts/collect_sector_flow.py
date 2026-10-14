@@ -53,6 +53,30 @@ TW_SECTOR_ETFS = {
 HISTORY_FILE = "data/sector_flow_history.json"
 TW_TZ = timezone(timedelta(hours=8))
 
+# ── Known stock splits ─────────────────────────────────────────────────
+# Format: { "symbol": [{"date": "YYYY-MM-DD", "ratio": float}] }
+# ratio = post-split price / pre-split price (e.g. 1:7 split → ratio ≈ 0.1429)
+KNOWN_SPLITS = {
+    "0052.TW": [{"date": "2025-11-17", "ratio": 1/7}],  # 1:7 split
+}
+
+
+def adjust_splits(rows, symbol):
+    """Adjust historical prices for known stock splits."""
+    splits = KNOWN_SPLITS.get(symbol, [])
+    if not splits:
+        return rows
+    for split in splits:
+        split_date = split["date"]
+        ratio = split["ratio"]
+        for r in rows:
+            if r["date"] < split_date:
+                if r.get("close") and r["close"] > 100:  # Only adjust if looks pre-split
+                    r["close"] = safe_float(r["close"] * ratio)
+                    if r.get("flow_m") is not None:
+                        r["flow_m"] = safe_float(r["flow_m"] * ratio)
+    return rows
+
 
 # ── Helpers ────────────────────────────────────────────────────────────
 def safe_float(v):
@@ -183,6 +207,7 @@ def backfill_history():
         try:
             hist = yf.Ticker(etf).history(start=start_str, end=end_str)
             rows = compute_dollar_flow(hist)
+            rows = adjust_splits(rows, etf)
             result["tw"][etf] = rows
             print(f"  ✅ {etf} ({name}): {len(rows)} days")
         except Exception as e:
