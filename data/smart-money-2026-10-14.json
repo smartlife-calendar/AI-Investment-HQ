@@ -1,9 +1,18 @@
 {
   "date": "2026-10-14",
-  "generated_at": "2026-10-14T09:00:43.287651+08:00",
+  "generated_at": "2026-10-14T10:02:49.375551+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 2,
   "stocks": [
+    {
+      "symbol": "FRMI",
+      "name": "Fermi Inc.",
+      "price": 3.72,
+      "change_pct": 14.46,
+      "vol_ratio": 4.9,
+      "volume": 87022697,
+      "avg_volume": 17759734
+    },
     {
       "symbol": "CIFR",
       "name": "Cipher Digital Inc.",
