@@ -683,12 +683,30 @@
       "price": 385.93,
       "regime": "STRONG_BULL",
       "confidence": 30
+    },
+    {
+      "date": "2026-10-14",
+      "symbol": "HD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 293.92,
+      "regime": "STRONG_BULL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-14",
+      "symbol": "EQT",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 54.43,
+      "regime": "STRONG_BULL",
+      "confidence": 32
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-13",
-    "total_entries": 76
+    "last_updated": "2026-10-14",
+    "total_entries": 78
   }
 }
