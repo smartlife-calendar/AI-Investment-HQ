@@ -367,6 +367,76 @@ def push_to_github(data, path, message):
     return True
 
 
+# ── Update normalized chart data ───────────────────────────────────────
+def update_normalized_chart(history):
+    """Update the normalized % series in sector_correlation.json for the chart."""
+    import urllib.request as ur
+    import base64
+
+    GH_TOKEN = os.environ.get("GH_TOKEN", "")
+    if not GH_TOKEN:
+        return
+
+    REPO = "smartlife-calendar/AI-Investment-HQ"
+    API = f"https://api.github.com/repos/{REPO}"
+    H = {
+        "Authorization": f"token {GH_TOKEN}",
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json",
+    }
+
+    # Load existing sector_correlation.json
+    try:
+        url = f"{API}/contents/data/sector_correlation.json?ref=gh-pages"
+        with ur.urlopen(ur.Request(url, headers=H), timeout=15) as r:
+            d = json.loads(r.read())
+        corr_data = json.loads(base64.b64decode(d["content"]).decode())
+        corr_sha = d["sha"]
+    except Exception as e:
+        print(f"  ⚠️ Cannot load sector_correlation.json: {e}")
+        return
+
+    # Rebuild normalized data from history (with split adjustments applied)
+    normalized = {"us": {}, "tw": {}}
+    for market in ["us", "tw"]:
+        for etf, rows in history.get(market, {}).items():
+            if not rows:
+                continue
+            # Apply split adjustments
+            adjusted = adjust_splits(list(rows), etf)
+            baseline = adjusted[0]["close"]
+            if not baseline or baseline <= 0:
+                continue
+            norm_rows = []
+            for r in adjusted:
+                close = r.get("close")
+                if close is not None and close > 0:
+                    val = round((close - baseline) / baseline * 100, 2)
+                else:
+                    val = None
+                norm_rows.append({"date": r["date"], "val": val})
+            normalized[market][etf] = norm_rows
+
+    corr_data["normalized"] = normalized
+
+    # Push
+    payload = json.dumps(corr_data, ensure_ascii=False, separators=(",", ":"))
+    content_b64 = base64.b64encode(payload.encode()).decode()
+    put = {
+        "message": f"Update normalized chart data {datetime.now(TW_TZ).strftime('%Y/%m/%d')}",
+        "content": content_b64,
+        "sha": corr_sha,
+        "branch": "gh-pages",
+    }
+    try:
+        req = ur.Request(f"{API}/contents/data/sector_correlation.json",
+                         data=json.dumps(put).encode(), headers=H, method="PUT")
+        ur.urlopen(req, timeout=30)
+        print("  ✅ Updated sector_correlation.json normalized data")
+    except Exception as e:
+        print(f"  ⚠️ Failed to update sector_correlation.json: {e}")
+
+
 # ── Main ───────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(description="Sector fund-flow collector")
@@ -422,6 +492,8 @@ def main():
 
         if args.push:
             push_to_github(history, HISTORY_FILE, f"Daily sector flow update {datetime.now(TW_TZ).strftime('%Y/%m/%d')}")
+            # Also update normalized data in sector_correlation.json
+            update_normalized_chart(history)
 
     if args.summary:
         if not history.get("us"):
