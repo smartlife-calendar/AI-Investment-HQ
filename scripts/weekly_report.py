@@ -18,6 +18,7 @@ SB_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 SB_HEADERS = {"apikey": SB_KEY, "Authorization": f"Bearer {SB_KEY}"}
 
 TW_TZ = timezone(timedelta(hours=8))
+ANTHROPIC_KEY = os.environ.get("CLAUDE_API_KEY") or os.environ.get("ANTHROPIC_API_KEY", "")
 
 
 def gh_get_json(path):
@@ -122,6 +123,107 @@ def save_pe_snapshot(alpha_data, date_str):
     commit = gh_put("data/pe_history.json", history, f"PE snapshot {date_str}")
     print(f"  ✅ PE snapshot saved ({len(today_snap)} stocks) → {commit}")
     return history
+
+
+def call_haiku(prompt, max_tokens=1024):
+    """Call Claude Haiku for AI analysis."""
+    if not ANTHROPIC_KEY:
+        return "[No API key]"
+    payload = json.dumps({
+        "model": "claude-haiku-4-5-20251001",
+        "max_tokens": max_tokens,
+        "messages": [{"role": "user", "content": prompt}],
+    }).encode()
+    req = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=payload,
+        headers={
+            "x-api-key": ANTHROPIC_KEY,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            resp = json.loads(r.read())
+            return resp["content"][0]["text"]
+    except Exception as e:
+        print(f"  ⚠️ Haiku error: {e}")
+        return ""
+
+
+def generate_ai_summary(report, macro):
+    """Generate AI narrative summary for the weekly report."""
+    print("  🤖 Generating AI weekly summary...")
+
+    # Build data context for the prompt
+    regime = macro.get("regime", "NEUTRAL")
+    vix = macro.get("vix", "N/A")
+    spy_pct = macro.get("spy_vs_200d", "N/A")
+    fg = macro.get("fear_greed", "N/A")
+
+    # Sector flows
+    sector_lines = []
+    for market, label in [("us", "US"), ("tw", "TW")]:
+        flows = macro.get("sector_weekly", {}).get(market, {})
+        alerts = macro.get("sector_alerts", {}).get(market, {})
+        for etf, data in sorted(flows.items(), key=lambda x: x[1].get("return_pct", 0), reverse=True):
+            name = alerts.get(etf, {}).get("name", etf)
+            status = alerts.get(etf, {}).get("status", "")
+            sector_lines.append(f"  {label} {name}: {data.get('return_pct', 0):+.1f}% (flow: {data.get('flow_m', 0):+.0f}M) {status}")
+
+    # Events
+    event_lines = []
+    for evt in macro.get("upcoming_events", []):
+        event_lines.append(f"  {evt.get('date','')} {evt.get('name','')} ({evt.get('days_until',0)}天後)")
+
+    # Paper trading
+    paper = macro.get("paper", {})
+    paper_lines = [f"  NAV: ${paper.get('nav', 30000):,.0f} ({paper.get('return_pct', 0):+.2f}%)"]
+    for sym, h in paper.get("holdings", {}).items():
+        paper_lines.append(f"  {sym}: {h.get('return_pct', 0):+.1f}%")
+
+    # PE trends
+    pe_lines = []
+    for sector, data in sorted(report.get("sector_pe_trends", {}).items(), key=lambda x: abs(x[1].get("change_pct", 0)), reverse=True)[:5]:
+        pe_lines.append(f"  {sector}: {data['current_avg_pe']:.1f}x ({data['change_pct']:+.1f}%)")
+
+    # Signal summary
+    summary = report.get("summary", {})
+
+    prompt = f"""你是 StockIQ 的 AI 分析師。根據以下本週數據，用繁體中文寫一段 4-6 句的週度市場分析摘要。
+
+要求：
+- 語氣專業但易讀，像資深分析師寫給散戶的週報
+- 把數據串成故事：什麼在發生？為什麼？投資人該注意什麼？
+- 提及板塊輪動方向（哪些板塊資金流入/流出）
+- 如果有即將到來的重大事件，提醒注意
+- 不要列點，寫成連貫段落
+- 不要加標題，直接寫分析
+
+本週數據：
+市場狀態: {regime}
+VIX: {vix}
+SPY vs 200MA: {spy_pct}%
+CNN 恐懼指數: {fg}
+訊號: 買入 {summary.get('total_bull_signals', 0)} / 空頭 {summary.get('total_bear_signals', 0)}
+
+板塊資金流:
+{chr(10).join(sector_lines[:12])}
+
+即將事件:
+{chr(10).join(event_lines[:5]) if event_lines else '  無重大事件'}
+
+模擬操作:
+{chr(10).join(paper_lines)}
+
+PE 趨勢（週變化前5）:
+{chr(10).join(pe_lines)}"""
+
+    result = call_haiku(prompt, max_tokens=500)
+    if result and not result.startswith("["):
+        return result.strip()
+    return ""
 
 
 def fetch_macro_data():
@@ -338,6 +440,12 @@ def generate_weekly_report(alpha_data, pe_history, signals_7d):
     # Add macro data
     report["macro"] = macro
     
+    # Generate AI narrative
+    ai_summary = generate_ai_summary(report, macro)
+    report["ai_summary"] = ai_summary
+    if ai_summary:
+        print(f"  ✅ AI summary: {len(ai_summary)} chars")
+    
     return report
 
 
@@ -422,6 +530,15 @@ footer a {{ color: #f59e0b; font-weight: 700; }}
 <div style="margin-top:10px;font-size:12px;color:#64748b">
 <strong>訊號：</strong>買入 {macro.get("total_buy",0)} · 賣出 {macro.get("total_sell",0)} · 持有 {macro.get("total_hold",0)}
 </div></div>""")
+    
+    # AI SUMMARY
+    ai_text = report.get("ai_summary", "")
+    if ai_text:
+        parts.append(f"""
+<div class="card" style="border-left:4px solid #7c3aed">
+<h2>🤖 本週分析</h2>
+<p style="font-size:14px;line-height:1.8;color:#334155;margin:0">{ai_text}</p>
+</div>""")
     
     # 2. PAPER TRADING
     parts.append(f"""
@@ -581,10 +698,7 @@ def main():
     html = generate_weekly_html(report, stocks)
     
     # 7. Push weekly HTML
-    week_num = now.isocalendar()[1]
     html_path = f"weekly/{date_str}.html"
-    commit2 = gh_put(html_path, None, f"Weekly report HTML {date_str}")
-    # Actually push raw HTML
     encoded = base64.b64encode(html.encode()).decode()
     sha = None
     try:
