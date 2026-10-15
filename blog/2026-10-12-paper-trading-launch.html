@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockIQ 模擬操作正式上線：從 v1 到 v4 的進化之路 — StockIQ</title>
+    <meta name="description" content="StockIQ 模擬操作正式啟動，$30,000 初始資金。回顧 v1 模型為什麼表現不佳，v4 做了哪些關鍵改進，以及限價單交易系統的設計理念。">
+    <link rel="canonical" href="https://stockiq.tw/blog/2026-10-12-paper-trading-launch.html">
+    <meta property="og:title" content="StockIQ 模擬操作正式上線：從 v1 到 v4 的進化之路">
+    <meta property="og:type" content="article">
+    <link rel="icon" href="/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+        .nav { background: #1e1b4b; padding: 12px 20px; text-align: center; }
+        .nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; margin: 0 12px; }
+        .nav .brand { color: white; font-weight: 800; font-size: 18px; margin-right: 20px; }
+        .container { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 28px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; line-height: 1.3; }
+        h2 { font-size: 20px; font-weight: 800; color: #1e1b4b; margin: 32px 0 12px; }
+        p { margin-bottom: 16px; color: #475569; font-size: 15px; }
+        .meta { color: #94a3b8; font-size: 13px; margin-bottom: 24px; }
+        .breadcrumb { font-size: 12px; color: #94a3b8; margin-bottom: 24px; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; }
+        .tags { display: flex; gap: 6px; margin-bottom: 24px; }
+        .tag { background: #eef2ff; color: #4f46e5; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .callout { border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .callout.red { background: #fef2f2; border: 1px solid #fecaca; }
+        .callout.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .callout.blue { background: #eef2ff; border: 1px solid #c7d2fe; }
+        .callout.yellow { background: #fefce8; border: 1px solid #fef08a; }
+        ul, ol { margin-bottom: 16px; padding-left: 24px; color: #475569; }
+        li { margin-bottom: 6px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .compare-table th { background: #1e1b4b; color: white; padding: 10px 12px; text-align: left; font-size: 13px; }
+        .compare-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+        .article-nav { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .article-nav a { color: #4f46e5; text-decoration: none; font-size: 13px; font-weight: 600; }
+        footer { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 48px; }
+        footer a { color: #f59e0b; text-decoration: none; font-weight: 700; }
+        strong { color: #1e293b; }
+    </style>
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "Article", "headline": "StockIQ 模擬操作正式上線：從 v1 到 v4 的進化之路", "datePublished": "2026-10-12", "author": { "@type": "Organization", "name": "StockIQ" } }
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="brand">📊 StockIQ</a>
+        <a href="/about.html">關於我們</a>
+        <a href="/methodology.html">選股方法</a>
+        <a href="/blog/">市場分析</a>
+        <a href="/faq.html">常見問題</a>
+    </nav>
+
+    <div class="container">
+        <div class="breadcrumb"><a href="/">首頁</a> › <a href="/blog/">市場分析</a> › 模擬操作上線</div>
+        <h1>StockIQ 模擬操作正式上線：從 v1 到 v4 的進化之路</h1>
+        <div class="meta">📅 2026年10月12日 · 閱讀時間 6 分鐘</div>
+        <div class="tags">
+            <span class="tag">模擬操作</span>
+            <span class="tag">v4模型</span>
+            <span class="tag">限價單</span>
+            <span class="tag">量化策略</span>
+        </div>
+
+        <p>今天，StockIQ 模擬操作（Paper Trading）正式啟動。初始資金 $30,000，目標是用真實市場數據驗證 AI 量化選股模型的有效性。</p>
+        <p>但在談論 v4 之前，我們需要先誠實面對 v1 的失敗。</p>
+
+        <h2>😬 v1 模型的殘酷現實</h2>
+        <div class="callout red">
+            <strong>v1 績效（2026/09/04 — 10/09，28 個交易日）：</strong><br>
+            $100,000 → $100,676（<strong>+0.7%</strong>）<br>
+            同期 SPY：<strong>+5.3%</strong><br>
+            8 筆交易，勝率 25%（2 勝 6 負）
+        </div>
+
+        <p>v1 模型的核心問題：<strong>停損太緊</strong>。</p>
+        <p>使用固定 -8% 停損的結果是：8 筆交易中有 5 筆被停損出場，但這 5 支股票後來都回升了。換句話說，模型選對了股票，但持有策略把利潤給震出去了。</p>
+
+        <h2>🔧 v4 做了什麼改進？</h2>
+        <table class="compare-table">
+            <tr><th>維度</th><th>v1</th><th>v4</th></tr>
+            <tr><td>停損方式</td><td>固定 -8%</td><td>ATR 動態（根據波動率調整）</td></tr>
+            <tr><td>進場方式</td><td>收盤價（MOC）</td><td>限價單（可操作、可驗證）</td></tr>
+            <tr><td>階段過濾</td><td>無</td><td>Phase 2-3 才建倉</td></tr>
+            <tr><td>板塊分析</td><td>無</td><td>11+7 板塊資金流追蹤</td></tr>
+            <tr><td>事件風險</td><td>無</td><td>選舉/FOMC/期權到期自動調整</td></tr>
+            <tr><td>基本面</td><td>無</td><td>Rule of 40 + SEC 財報交叉驗證</td></tr>
+            <tr><td>美台連動</td><td>無</td><td>Lead-lag 相關性分析</td></tr>
+        </table>
+
+        <h2>💡 為什麼用限價單而不是收盤價？</h2>
+        <p>v1 用收盤價做為進場價，這有一個根本問題：<strong>用戶無法操作</strong>。</p>
+        <p>如果系統告訴你「AMZN 今天收盤買入 $259.53」，你根本來不及下單 — 因為收盤價是事後才知道的。</p>
+        <p>v4 改用限價單：</p>
+        <ol>
+            <li>訊號系統計算出建議進場價（例如 $15.80）</li>
+            <li>你掛限價單 $15.80</li>
+            <li>如果當天最低價 ≤ $15.80 → 成交</li>
+            <li>如果沒到 → 繼續掛，最多等 5 天</li>
+        </ol>
+        <p>這樣用戶和 Paper Trading 用的是<strong>同一組價格</strong>，完全可以同步操作。</p>
+
+        <h2>🔒 可驗證性：我們的承諾</h2>
+        <p>StockIQ 模擬操作的每一筆交易都記錄：</p>
+        <ul>
+            <li>進場日期、價格、股數</li>
+            <li>完整 OHLCV（開高低收量）</li>
+            <li>限價 vs 日低驗證（限價 $15.80，日低 $15.48 → ✅ 成交）</li>
+        </ul>
+        <p>任何人都可以到 <a href="https://finance.yahoo.com" style="color:#4f46e5">Yahoo Finance</a> 查詢相同的股票和日期，驗證數據是否一致。</p>
+        <p>原始 JSON 數據公開在：<a href="/data/paper_portfolio.json" style="color:#4f46e5">paper_portfolio.json</a></p>
+
+        <h2>🎯 目標與時程</h2>
+        <div class="callout green">
+            <strong>2027年1月 checkpoint：</strong>
+            <ul style="margin:8px 0 0">
+                <li>如果 v4 模擬操作績效 > SPY → 增加個股配置比重</li>
+                <li>如果 v4 模擬操作績效 < SPY → 建議全部投入 ETF</li>
+            </ul>
+            <p style="margin:8px 0 0">沒有偏見，讓數據說話。</p>
+        </div>
+
+        <div class="callout yellow">
+            <strong>⚠️ 免責聲明：</strong>本文僅供教育和資訊目的，不構成任何投資建議。模擬操作使用虛擬資金，不涉及真實交易。
+        </div>
+
+        <div class="article-nav">
+            <a href="/blog/">← 回到文章列表</a>
+            <a href="/blog/2026-10-15-cpi-impact.html">CPI 衝擊分析 →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議</p>
+        <p style="margin-top:8px"><a href="https://buymeacoffee.com/SmartLifeCalendar">☕ 請我喝杯咖啡 — 支持免費開發</a></p>
+    </footer>
+</body>
+</html>

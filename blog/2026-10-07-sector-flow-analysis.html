@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>板塊資金共振：為什麼「跟著錢走」比「選個股」更重要 — StockIQ</title>
+    <meta name="description" content="深入分析板塊資金流向如何影響個股表現。52 週資金流數據揭示：板塊資金加速流入時個股勝率大幅提升。附美台連動分析。">
+    <link rel="canonical" href="https://stockiq.tw/blog/2026-10-07-sector-flow-analysis.html">
+    <meta property="og:title" content="板塊資金共振：跟著錢走比選個股更重要">
+    <meta property="og:type" content="article">
+    <link rel="icon" href="/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+        .nav { background: #1e1b4b; padding: 12px 20px; text-align: center; }
+        .nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; margin: 0 12px; }
+        .nav .brand { color: white; font-weight: 800; font-size: 18px; margin-right: 20px; }
+        .container { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 28px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; line-height: 1.3; }
+        h2 { font-size: 20px; font-weight: 800; color: #1e1b4b; margin: 32px 0 12px; }
+        h3 { font-size: 17px; font-weight: 700; color: #334155; margin: 24px 0 8px; }
+        p { margin-bottom: 16px; color: #475569; font-size: 15px; }
+        .meta { color: #94a3b8; font-size: 13px; margin-bottom: 24px; }
+        .breadcrumb { font-size: 12px; color: #94a3b8; margin-bottom: 24px; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; }
+        .tags { display: flex; gap: 6px; margin-bottom: 24px; }
+        .tag { background: #eef2ff; color: #4f46e5; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .callout { border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .callout.blue { background: #eef2ff; border: 1px solid #c7d2fe; }
+        .callout.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .callout.yellow { background: #fefce8; border: 1px solid #fef08a; }
+        .formula { background: #1e1b4b; color: #a5b4fc; padding: 16px 20px; border-radius: 8px; font-family: monospace; font-size: 14px; margin: 12px 0; }
+        .formula strong { color: #fbbf24; }
+        ul, ol { margin-bottom: 16px; padding-left: 24px; color: #475569; }
+        li { margin-bottom: 6px; }
+        blockquote { border-left: 4px solid #4f46e5; padding: 12px 16px; margin: 16px 0; background: #f8fafc; font-style: italic; color: #64748b; }
+        .corr-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .corr-table th { background: #1e1b4b; color: white; padding: 8px 12px; font-size: 13px; }
+        .corr-table td { padding: 8px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+        .article-nav { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .article-nav a { color: #4f46e5; text-decoration: none; font-size: 13px; font-weight: 600; }
+        footer { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 48px; }
+        footer a { color: #f59e0b; text-decoration: none; font-weight: 700; }
+        strong { color: #1e293b; }
+    </style>
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "Article", "headline": "板塊資金共振：跟著錢走比選個股更重要", "datePublished": "2026-10-07", "author": { "@type": "Organization", "name": "StockIQ" } }
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="brand">📊 StockIQ</a>
+        <a href="/about.html">關於我們</a>
+        <a href="/methodology.html">選股方法</a>
+        <a href="/blog/">市場分析</a>
+        <a href="/faq.html">常見問題</a>
+    </nav>
+
+    <div class="container">
+        <div class="breadcrumb"><a href="/">首頁</a> › <a href="/blog/">市場分析</a> › 板塊資金共振</div>
+        <h1>板塊資金共振：為什麼「跟著錢走」比「選個股」更重要</h1>
+        <div class="meta">📅 2026年10月7日 · 閱讀時間 7 分鐘</div>
+        <div class="tags">
+            <span class="tag">板塊資金</span>
+            <span class="tag">資金流向</span>
+            <span class="tag">美台連動</span>
+        </div>
+
+        <blockquote>「不要和趨勢作對。」這句老話在板塊資金的層面上，有了量化的證據支持。</blockquote>
+
+        <h2>🌊 什麼是板塊資金流？</h2>
+        <p>每天有數十億美元在不同板塊之間流動。當機構法人看好科技股時，資金會流入 XLK（科技 ETF）；當他們擔心經濟衰退時，資金會流向 XLU（公用事業 ETF）和 XLP（必需消費 ETF）。</p>
+        <p>StockIQ 追蹤 18 個板塊 ETF 的每日資金流向，使用以下公式：</p>
+        <div class="formula">
+            <strong>Dollar Flow（百萬美元）= Volume × (Close − Open) / 1,000,000</strong><br><br>
+            正值 = 收盤高於開盤 → 淨買壓<br>
+            負值 = 收盤低於開盤 → 淨賣壓
+        </div>
+
+        <h2>📊 資金加速的意義</h2>
+        <p>單日的資金流入/流出可能只是雜訊。真正有意義的是<strong>加速度</strong>：</p>
+        <div class="formula">
+            <strong>Acceleration = 5日平均 flow / 20日平均 flow</strong>
+        </div>
+        <p>如果 5 日平均流入是 20 日平均的 2 倍以上，表示資金正在加速湧入這個板塊 — 這通常是機構法人在調倉的信號。</p>
+
+        <div class="callout green">
+            <strong>🚀 加速流入（ratio > 2.0）：</strong>短期資金流入速度是長期的 2 倍以上。這是最強的板塊信號，歷史上在這種情況下買入板塊內個股的勝率顯著提升。
+        </div>
+
+        <h2>💡 為什麼板塊比個股重要？</h2>
+        <p>有一句市場格言：「在上漲的板塊裡選股，就像順風跑步；在下跌的板塊裡選股，就像逆風跑步。」</p>
+        <p>數據支持這個觀點。根據 StockIQ 的回測：</p>
+        <ul>
+            <li>在板塊資金加速流入時買入的交易，勝率明顯高於板塊資金流出時</li>
+            <li>即使個股的 OBV 顯示吸籌，如果整個板塊在流出，成功率也會大打折扣</li>
+            <li>板塊共振（個股吸籌 + 板塊流入）是 v4 模型中最重要的過濾條件之一</li>
+        </ul>
+
+        <h2>🔗 美台連動：跨市場的板塊信號</h2>
+        <p>StockIQ 不只追蹤美股板塊，也同時追蹤台股板塊。透過 52 週歷史數據分析，我們發現了有趣的 lead-lag 關係：</p>
+
+        <table class="corr-table">
+            <tr><th>美股板塊</th><th>台股板塊</th><th>同日相關</th><th>1日延遲相關</th></tr>
+            <tr><td>XLK（科技）</td><td>00891.TW（ESG）</td><td>0.209</td><td><strong>0.569</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>0053.TW（電子中型）</td><td>0.191</td><td><strong>0.568</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>0050.TW（台灣50）</td><td>0.201</td><td><strong>0.545</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>00881.TW（半導體）</td><td>0.207</td><td><strong>0.543</strong></td></tr>
+        </table>
+
+        <div class="callout blue">
+            <strong>🔍 關鍵發現：</strong>美國科技板塊（XLK）和台灣半導體 ETF 的同日相關性只有 0.21，但<strong>1 日延遲相關性達到 0.54-0.57</strong>。這意味著美國科技的今天走勢，會在明天傳導到台灣半導體。
+        </div>
+
+        <h3>這個發現怎麼用？</h3>
+        <ul>
+            <li>如果美股科技板塊今天資金大幅流入 → 明天台灣半導體 ETF 有較高機率上漲</li>
+            <li>反之，如果美股科技板塊今天崩跌 → 明天台灣半導體可能跟跌</li>
+            <li>這個 1 天的時間差，理論上可以提供預警信號</li>
+        </ul>
+
+        <h2>📈 實際應用案例</h2>
+        <p>以下是板塊資金流分析的典型應用場景：</p>
+
+        <h3>場景 1：板塊輪動識別</h3>
+        <p>當能源（XLE）資金持續流出，而科技（XLK）資金加速流入時，這是典型的板塊輪動信號。投資者可以考慮減少能源配置、增加科技配置。</p>
+
+        <h3>場景 2：防禦性轉向</h3>
+        <p>當必需消費（XLP）和公用事業（XLU）資金同時加速流入，而非必需消費（XLY）和科技（XLK）資金流出 → 這是市場轉向防禦的信號，通常預示市場不確定性上升。</p>
+
+        <h3>場景 3：板塊共振確認</h3>
+        <p>個股 OBV 顯示吸籌 + 所屬板塊資金加速流入 = 板塊共振。這是 StockIQ v4 模型中勝率最高的信號組合。</p>
+
+        <h2>🔍 如何在 StockIQ 上查看板塊資金？</h2>
+        <ol>
+            <li>到 <a href="/" style="color:#4f46e5">stockiq.tw</a></li>
+            <li>點選「🌐 宏觀」tab</li>
+            <li>查看「板塊 52 週走勢」圖表（可切換美股/台股/對比）</li>
+            <li>下方有「本週板塊漲跌」快速摘要</li>
+            <li>加速流入/流出的板塊會有特別標記</li>
+        </ol>
+
+        <div class="callout yellow">
+            <strong>⚠️ 免責聲明：</strong>本文僅供教育和資訊目的，不構成任何投資建議。板塊資金流向是眾多分析工具之一，不應作為唯一的投資決策依據。
+        </div>
+
+        <div class="article-nav">
+            <a href="/blog/">← 回到文章列表</a>
+            <a href="/blog/2026-10-12-paper-trading-launch.html">模擬操作上線 →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議</p>
+        <p style="margin-top:8px"><a href="https://buymeacoffee.com/SmartLifeCalendar">☕ 請我喝杯咖啡 — 支持免費開發</a></p>
+    </footer>
+</body>
+</html>

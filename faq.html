@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見問題 FAQ — StockIQ AI 量化選股平台</title>
+    <meta name="description" content="StockIQ 常見問題：如何使用、選股邏輯、模擬操作、資料來源、隱私政策。所有你想知道的關於 AI 量化選股的問題。">
+    <meta name="keywords" content="StockIQ FAQ, AI選股問題, 量化投資常見問題, 美股分析工具">
+    <link rel="canonical" href="https://stockiq.tw/faq.html">
+    <meta property="og:title" content="StockIQ 常見問題 FAQ">
+    <meta property="og:description" content="關於 AI 量化選股平台 StockIQ 的常見問題與解答。">
+    <meta property="og:url" content="https://stockiq.tw/faq.html">
+    <link rel="icon" href="/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+        .nav { background: #1e1b4b; padding: 12px 20px; text-align: center; }
+        .nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; margin: 0 12px; }
+        .nav a:hover { color: white; }
+        .nav .brand { color: white; font-weight: 800; font-size: 18px; margin-right: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 32px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; }
+        h2 { font-size: 20px; font-weight: 800; color: #1e1b4b; margin: 32px 0 12px; border-left: 4px solid #4f46e5; padding-left: 12px; }
+        p { margin-bottom: 16px; color: #475569; font-size: 15px; }
+        .hero { background: linear-gradient(135deg, #1e1b4b, #312e81); color: white; padding: 48px 20px; text-align: center; }
+        .hero h1 { color: white; font-size: 36px; }
+        .hero .subtitle { color: #c7d2fe; font-size: 16px; }
+        .breadcrumb { font-size: 12px; color: #94a3b8; margin-bottom: 24px; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; }
+        .faq-item { background: white; border-radius: 12px; margin: 12px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; overflow: hidden; }
+        .faq-q { padding: 16px 20px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-q:hover { background: #f8fafc; }
+        .faq-q .arrow { color: #4f46e5; font-size: 18px; transition: transform 0.2s; }
+        .faq-a { padding: 0 20px 16px; font-size: 14px; color: #475569; display: none; border-top: 1px solid #f1f5f9; }
+        .faq-item.open .faq-a { display: block; padding-top: 12px; }
+        .faq-item.open .arrow { transform: rotate(180deg); }
+        .category { background: #eef2ff; border-radius: 8px; padding: 4px 12px; font-size: 11px; color: #4f46e5; font-weight: 700; display: inline-block; margin-bottom: 8px; }
+        footer { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 48px; }
+        footer a { color: #f59e0b; text-decoration: none; font-weight: 700; }
+        @media (max-width: 600px) { .hero h1 { font-size: 26px; } }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "StockIQ 是免費的嗎？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "是的，StockIQ 完全免費，沒有付費牆或訂閱制。我們透過社群支持（Buy Me a Coffee）維持營運。所有功能、數據和分析報告對所有用戶完全開放。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "StockIQ 的資料來源是什麼？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "股價和成交量數據來自 Yahoo Finance API，上市公司財報來自 SEC EDGAR，新聞來自公開新聞源。所有數據免費取得，不使用付費資料庫。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "模擬操作的交易是真的嗎？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "模擬操作使用虛擬資金（$30,000），但所有交易價格都是真實的市場價格。每筆交易記錄完整的 OHLCV 數據（開盤價、最高價、最低價、收盤價、成交量），任何人都可以到 Yahoo Finance 驗證。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "StockIQ 適合新手嗎？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "StockIQ 提供的是分析工具和訊號參考，適合有基本投資知識的用戶。我們的學習中心和方法論頁面提供完整的技術說明。但請注意，所有分析僅供參考，不構成投資建議。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "為什麼要用 AI 選股？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "AI 可以同時分析大量股票的多維度數據（價格、成交量、板塊資金、基本面等），不受情緒影響，且能每天穩定執行。人工分析 161 支股票需要數小時，AI 只需幾分鐘。"
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="brand">📊 StockIQ</a>
+        <a href="/about.html">關於我們</a>
+        <a href="/methodology.html">選股方法</a>
+        <a href="/blog/">市場分析</a>
+        <a href="/faq.html">常見問題</a>
+    </nav>
+
+    <div class="hero">
+        <h1>❓ 常見問題 FAQ</h1>
+        <p class="subtitle">關於 StockIQ 你想知道的一切</p>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb"><a href="/">首頁</a> › 常見問題</div>
+
+        <h2>📊 基本問題</h2>
+
+        <div class="faq-item open">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                StockIQ 是什麼？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>StockIQ 是一個免費的 AI 量化選股平台，每天自動掃描 161 支美股和 1,960 支台股。透過 OBV 吸籌偵測、板塊資金共振、ATR 動態停損等技術，識別高勝率的投資機會。所有分析結果公開透明，每筆模擬交易都可在 Yahoo Finance 驗證。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                StockIQ 是免費的嗎？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>是的，<strong>完全免費</strong>，沒有付費牆、沒有訂閱制、沒有隱藏功能。所有分析報告、訊號、模擬操作數據對所有用戶完全開放。</p>
+                <p>我們透過社群支持（<a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="color:#f59e0b">Buy Me a Coffee</a>）維持營運。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                資料多久更新一次？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p><strong>每天兩次：</strong></p>
+                <ul>
+                    <li>🌅 台灣 10:00（美股收盤後）— 美股數據更新</li>
+                    <li>🌙 台灣 15:30（台股收盤後）— 台股數據更新</li>
+                </ul>
+                <p>更新包括：股價、訊號評分、板塊資金流、模擬操作、新聞、市場日報。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                資料來源是什麼？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>所有資料均來自公開來源：</p>
+                <ul>
+                    <li><strong>股價和成交量：</strong>Yahoo Finance API</li>
+                    <li><strong>企業財報：</strong>SEC EDGAR（美國證券交易委員會）</li>
+                    <li><strong>新聞：</strong>公開新聞源</li>
+                    <li><strong>宏觀數據：</strong>VIX、公債殖利率等公開市場數據</li>
+                </ul>
+                <p>資料可能有延遲，僅供參考。</p>
+            </div>
+        </div>
+
+        <h2>🔍 選股與訊號</h2>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                StockIQ 怎麼選股的？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>請參閱我們的<a href="/methodology.html" style="color:#4f46e5">完整方法論</a>。簡單來說：</p>
+                <ol>
+                    <li>OBV + 量比偵測主力吸籌/出貨</li>
+                    <li>追蹤 18 個板塊 ETF 確認資金流向</li>
+                    <li>階段辨識（只在 Phase 2-3 建倉）</li>
+                    <li>多維度評分（Score ≥ 7/10）</li>
+                    <li>ATR 計算進場/停損/目標價</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                Score 7 代表什麼？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>每支股票根據吸籌強度、板塊共振、技術面、基本面和市場環境綜合評分 0-10 分。Score 7 表示在多個維度都呈現正面訊號，是進入模擬操作候選名單的門檻。</p>
+                <p>Score 8-9 的股票通常有更強的多重確認。Score 10 極少出現，代表所有維度都完美對齊。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                Phase 1/2/3 是什麼意思？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>我們將股票趨勢分為三個階段：</p>
+                <ul>
+                    <li><strong>Phase 1 趨勢萌芽：</strong>OBV 開始上升但尚未確認。只觀察，不建倉。</li>
+                    <li><strong>Phase 2 動能累積：</strong>OBV 穩定上升，量能放大，板塊資金流入。可以建倉。</li>
+                    <li><strong>Phase 3 突破確認：</strong>股價突破阻力，OBV 創新高。優先建倉。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                為什麼我關注的股票 score 很低？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>Score 低不代表股票不好，只是目前的量能和板塊資金訊號不支持。可能的原因：</p>
+                <ul>
+                    <li>所屬板塊資金正在流出</li>
+                    <li>OBV 呈下降趨勢（出貨訊號）</li>
+                    <li>處於 Phase 1 或盤整階段</li>
+                    <li>大盤環境不佳</li>
+                </ul>
+                <p>訊號每天更新，當條件改善時 score 會提升。</p>
+            </div>
+        </div>
+
+        <h2>💰 模擬操作</h2>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                模擬操作是真金白銀嗎？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p><strong>不是</strong>。模擬操作使用 $30,000 虛擬資金，目的是驗證選股模型的有效性。但所有交易價格都是真實的市場價格。</p>
+                <p>我們的目標：到 2027年1月，如果模擬操作的績效超過 SPY ETF，證明模型有效；如果不及 SPY，則建議全部投入 ETF。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                怎麼驗證模擬操作沒有造假？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>每筆交易都記錄完整的 OHLCV 數據（開盤、最高、最低、收盤、成交量）。你可以：</p>
+                <ol>
+                    <li>到 <a href="https://finance.yahoo.com" target="_blank" style="color:#4f46e5">Yahoo Finance</a> 搜尋股票代號</li>
+                    <li>切換到 Historical Data</li>
+                    <li>找到交易日期</li>
+                    <li>比對 OHLCV 數據是否一致</li>
+                </ol>
+                <p>原始數據可直接下載：<a href="/data/paper_portfolio.json" target="_blank" style="color:#4f46e5">paper_portfolio.json</a></p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                我可以跟著模擬操作買嗎？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>⚠️ <strong>StockIQ 的所有分析僅供參考，不構成投資建議。</strong></p>
+                <p>模擬操作的目的是驗證模型，不是提供交易指令。投資涉及風險，過去績效不代表未來表現。你應該根據自己的風險承受能力、投資目標和財務狀況做出獨立判斷。</p>
+                <p>如果你不確定，建議諮詢專業的持牌投資顧問。</p>
+            </div>
+        </div>
+
+        <h2>🛡️ 隱私與安全</h2>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                StockIQ 會收集我的個人資料嗎？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>StockIQ 是一個純靜態網站，不需要登入、不收集個人資料、不使用追蹤 cookies。你訪問網站時，我們只能看到基本的網站流量統計（透過 GitHub Pages），無法識別個人身份。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                你們會出售我的資料嗎？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p><strong>不會</strong>。因為我們根本沒有收集任何個人資料。沒有登入系統、沒有用戶資料庫、沒有 email 收集。你的隱私不是我們的商品。</p>
+            </div>
+        </div>
+
+        <h2>🤝 支持與聯繫</h2>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                我想支持 StockIQ，怎麼做？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>最直接的方式：<a href="https://buymeacoffee.com/SmartLifeCalendar" target="_blank" style="color:#f59e0b;font-weight:700">☕ 請我喝杯咖啡</a></p>
+                <p>你也可以：</p>
+                <ul>
+                    <li>分享 StockIQ 給朋友</li>
+                    <li>在社群媒體上提及我們</li>
+                    <li>提供使用回饋和建議</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                我有問題或建議，怎麼聯繫？
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-a">
+                <p>📧 Email：<a href="mailto:smartlifecalendar@gmail.com" style="color:#4f46e5">smartlifecalendar@gmail.com</a></p>
+                <p>我們會盡快回覆你的來信。</p>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin:40px 0">
+            <p style="color:#94a3b8;font-size:13px">找不到你的問題？</p>
+            <a href="mailto:smartlifecalendar@gmail.com" style="background:#4f46e5;color:white;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;display:inline-block">📧 寫信給我們</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+        <p style="margin-top:4px">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+        <p style="margin-top:8px"><a href="https://buymeacoffee.com/SmartLifeCalendar">☕ 請我喝杯咖啡 — 支持免費開發</a></p>
+    </footer>
+</body>
+</html>

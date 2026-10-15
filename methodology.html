@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選股方法論 v4 — StockIQ AI 量化模型完整說明</title>
+    <meta name="description" content="StockIQ v4 量化選股模型完整技術文檔：OBV 吸籌偵測、板塊資金共振、階段辨識、ATR 動態停損、美台 lead-lag 連動分析、事件風險控制。">
+    <meta name="keywords" content="量化選股, OBV, ATR, 板塊資金, 吸籌偵測, 技術分析, 美股量化, StockIQ方法論">
+    <link rel="canonical" href="https://stockiq.tw/methodology.html">
+    <meta property="og:title" content="StockIQ v4 選股方法論 — 完整技術文檔">
+    <meta property="og:description" content="深入了解 StockIQ 如何用 AI + 量化技術從 161 支美股中篩選高勝率機會。">
+    <meta property="og:url" content="https://stockiq.tw/methodology.html">
+    <meta property="og:image" content="https://stockiq.tw/og-image.png">
+    <link rel="icon" href="/favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.8; }
+        .nav { background: #1e1b4b; padding: 12px 20px; text-align: center; }
+        .nav a { color: #a5b4fc; text-decoration: none; font-size: 13px; margin: 0 12px; }
+        .nav a:hover { color: white; }
+        .nav .brand { color: white; font-weight: 800; font-size: 18px; margin-right: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 32px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; }
+        h2 { font-size: 22px; font-weight: 800; color: #1e1b4b; margin: 36px 0 12px; border-left: 4px solid #4f46e5; padding-left: 12px; }
+        h3 { font-size: 17px; font-weight: 700; color: #334155; margin: 24px 0 8px; }
+        p { margin-bottom: 16px; color: #475569; font-size: 15px; }
+        .subtitle { font-size: 16px; color: #64748b; margin-bottom: 32px; }
+        .hero { background: linear-gradient(135deg, #1e1b4b, #312e81); color: white; padding: 48px 20px; text-align: center; }
+        .hero h1 { color: white; font-size: 36px; }
+        .hero .subtitle { color: #c7d2fe; }
+        .step { background: white; border-radius: 12px; padding: 24px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: relative; }
+        .step .number { position: absolute; top: -12px; left: 20px; background: #4f46e5; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
+        .formula { background: #1e1b4b; color: #a5b4fc; padding: 16px 20px; border-radius: 8px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px; margin: 12px 0; overflow-x: auto; }
+        .formula strong { color: #fbbf24; }
+        .phase-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        .phase-table th { background: #1e1b4b; color: white; padding: 10px 12px; text-align: left; font-size: 13px; }
+        .phase-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+        .phase-table tr:nth-child(even) { background: #f8fafc; }
+        .callout { background: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .callout.blue { background: #eef2ff; border-color: #c7d2fe; }
+        .callout.green { background: #f0fdf4; border-color: #bbf7d0; }
+        .callout.red { background: #fef2f2; border-color: #fecaca; }
+        .flow-diagram { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .flow-step { display: inline-block; background: #eef2ff; border: 2px solid #4f46e5; border-radius: 8px; padding: 8px 16px; margin: 4px; font-size: 13px; font-weight: 600; }
+        .flow-arrow { color: #4f46e5; font-size: 18px; margin: 0 4px; }
+        .breadcrumb { font-size: 12px; color: #94a3b8; margin-bottom: 24px; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; }
+        .perf-card { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin: 16px 0; }
+        .perf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 12px 0; }
+        .perf-item { text-align: center; }
+        .perf-item .val { font-size: 24px; font-weight: 900; color: #16a34a; }
+        .perf-item .lab { font-size: 11px; color: #64748b; }
+        footer { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 48px; }
+        footer a { color: #f59e0b; text-decoration: none; font-weight: 700; }
+        ul, ol { margin-bottom: 16px; padding-left: 24px; color: #475569; }
+        li { margin-bottom: 6px; font-size: 15px; }
+        @media (max-width: 600px) { .hero h1 { font-size: 24px; } h1 { font-size: 22px; } .flow-step { display: block; margin: 6px auto; max-width: 200px; } .flow-arrow { display: block; } }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "StockIQ v4 量化選股方法論",
+        "description": "完整技術文檔：OBV 吸籌偵測、板塊資金共振、階段辨識、ATR 動態停損",
+        "author": { "@type": "Organization", "name": "StockIQ" },
+        "datePublished": "2026-10-12",
+        "dateModified": "2026-10-15",
+        "url": "https://stockiq.tw/methodology.html"
+    }
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="brand">📊 StockIQ</a>
+        <a href="/about.html">關於我們</a>
+        <a href="/methodology.html">選股方法</a>
+        <a href="/blog/">市場分析</a>
+        <a href="/faq.html">常見問題</a>
+    </nav>
+
+    <div class="hero">
+        <h1>🧠 StockIQ v4 選股方法論</h1>
+        <p class="subtitle">完整技術文檔 — 從數據到決策的每一步</p>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb"><a href="/">首頁</a> › 選股方法論</div>
+
+        <p>本文件完整記錄 StockIQ v4 量化選股模型的技術原理、參數設定、進出場規則和風險控制機制。所有邏輯公開透明，無隱藏因子。</p>
+
+        <div class="perf-card">
+            <h3 style="margin-top:0;color:#16a34a">📈 v4 回測績效</h3>
+            <div class="perf-grid">
+                <div class="perf-item"><div class="val">31</div><div class="lab">總交易筆數</div></div>
+                <div class="perf-item"><div class="val">90.3%</div><div class="lab">勝率</div></div>
+                <div class="perf-item"><div class="val">+12.4%</div><div class="lab">平均報酬</div></div>
+                <div class="perf-item"><div class="val">0.71</div><div class="lab">Sharpe Ratio</div></div>
+            </div>
+            <p style="font-size:12px;color:#64748b;margin:0">*基於歷史訊號回測，不代表未來績效。實際模擬操作自 2026/10/13 開始，$30K 初始資金。</p>
+        </div>
+
+        <h2>📋 選股流程總覽</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">📡 每日數據收集<br><span style="font-size:11px;color:#64748b">161 美股 OHLCV</span></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">🔍 吸籌偵測<br><span style="font-size:11px;color:#64748b">OBV + 量比</span></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">🌊 板塊共振<br><span style="font-size:11px;color:#64748b">11 板塊 ETF</span></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">📊 評分篩選<br><span style="font-size:11px;color:#64748b">Score ≥ 7</span></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">🎯 階段確認<br><span style="font-size:11px;color:#64748b">Phase 2-3</span></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-step">💰 限價建倉<br><span style="font-size:11px;color:#64748b">ATR 進場/停損</span></div>
+        </div>
+
+        <!-- Step 1 -->
+        <h2>Step 1：主力吸籌偵測 — OBV + 量比分析</h2>
+        
+        <div class="step">
+            <div class="number">1</div>
+            <h3>什麼是 OBV（On-Balance Volume，能量潮）？</h3>
+            <p>OBV 是一個累積量能指標。當股價上漲時，將當日成交量加入 OBV；股價下跌時，減去成交量。如果 OBV 持續上升但股價橫盤或小跌，表示有資金在悄悄吸籌。</p>
+            <div class="formula">
+                <strong>OBV 計算：</strong><br>
+                若 Close > Close_prev → OBV = OBV_prev + Volume<br>
+                若 Close < Close_prev → OBV = OBV_prev - Volume<br>
+                若 Close = Close_prev → OBV = OBV_prev
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="number">2</div>
+            <h3>量比分析</h3>
+            <p>量比 = 當前成交量 / 近期平均成交量。量比 > 1.5 表示成交量明顯放大。結合 OBV 方向：</p>
+            <ul>
+                <li><strong>OBV 上升 + 量比 > 1.5：</strong>主力吸籌信號 🟢</li>
+                <li><strong>OBV 下降 + 量比 > 1.5：</strong>主力出貨信號 🔴</li>
+                <li><strong>量比正常（0.8-1.2）：</strong>無明顯異動</li>
+            </ul>
+        </div>
+
+        <!-- Step 2 -->
+        <h2>Step 2：板塊資金共振</h2>
+
+        <div class="step">
+            <div class="number">3</div>
+            <h3>資金流向代理計算</h3>
+            <p>我們追蹤 11 個美股板塊 ETF 和 7 個台股板塊 ETF 的每日資金流向：</p>
+            <div class="formula">
+                <strong>Dollar Flow Proxy（百萬美元）：</strong><br>
+                flow_m = Volume × (Close − Open) / 1,000,000
+            </div>
+            <p>正值 = 淨買壓（收盤 > 開盤）；負值 = 淨賣壓（收盤 < 開盤）</p>
+
+            <h3>追蹤的板塊 ETF</h3>
+            <table class="phase-table">
+                <tr><th>市場</th><th>ETF</th><th>板塊</th></tr>
+                <tr><td>🇺🇸 美股</td><td>XLK</td><td>科技</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLV</td><td>醫療保健</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLE</td><td>能源</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLF</td><td>金融</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLY</td><td>非必需消費</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLP</td><td>必需消費</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLI</td><td>工業</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLU</td><td>公用事業</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLB</td><td>原物料</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLRE</td><td>房地產</td></tr>
+                <tr><td>🇺🇸 美股</td><td>XLC</td><td>通訊服務</td></tr>
+                <tr><td>🇹🇼 台股</td><td>0050.TW</td><td>台灣50</td></tr>
+                <tr><td>🇹🇼 台股</td><td>0052.TW</td><td>科技電子</td></tr>
+                <tr><td>🇹🇼 台股</td><td>00881.TW</td><td>國泰半導體</td></tr>
+                <tr><td>🇹🇼 台股</td><td>0055.TW</td><td>金融</td></tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <div class="number">4</div>
+            <h3>加速度偵測</h3>
+            <p>比較短期和長期資金流動的加速度：</p>
+            <div class="formula">
+                <strong>Acceleration Ratio = 5日平均 flow / 20日平均 flow</strong><br><br>
+                🚀 加速流入：ratio > 2.0（短期資金流入速度是長期的 2 倍以上）<br>
+                📈 持續流入：ratio > 1.3<br>
+                🔻 加速流出：ratio < -2.0<br>
+                📉 持續流出：ratio < -1.3
+            </div>
+            <p>當個股所屬板塊出現「加速流入」，且個股本身有吸籌信號時，形成<strong>板塊共振</strong>，勝率顯著提升。</p>
+        </div>
+
+        <!-- Step 3 -->
+        <h2>Step 3：階段辨識（Phase Identification）</h2>
+
+        <div class="step">
+            <div class="number">5</div>
+            <h3>三階段模型</h3>
+            <p>每支股票被分類到三個階段之一：</p>
+            <table class="phase-table">
+                <tr><th>階段</th><th>名稱</th><th>特徵</th><th>操作</th></tr>
+                <tr><td style="font-weight:700;color:#f59e0b">Phase 1</td><td>趨勢萌芽</td><td>OBV 開始上升，但股價尚未明確突破。量能剛開始放大。</td><td>觀察，不建倉</td></tr>
+                <tr><td style="font-weight:700;color:#3b82f6">Phase 2</td><td>動能累積</td><td>OBV 持續上升，量能穩定放大，股價開始沿均線上行。板塊資金開始流入。</td><td>可以建倉</td></tr>
+                <tr><td style="font-weight:700;color:#22c55e">Phase 3</td><td>突破確認</td><td>股價突破關鍵阻力，OBV 創新高，量比顯著放大。板塊資金加速流入。</td><td>優先建倉</td></tr>
+            </table>
+            <div class="callout blue">
+                <strong>⚡ 關鍵規則：</strong>StockIQ 模擬操作只在 Phase 2 和 Phase 3 建倉。Phase 1 訊號僅放入觀察名單，不實際下單。這是 v4 模型相對 v1 的重要改進。
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <h2>Step 4：評分系統</h2>
+
+        <div class="step">
+            <div class="number">6</div>
+            <h3>多維度評分（0-10 分）</h3>
+            <p>每支股票根據以下維度綜合評分：</p>
+            <ul>
+                <li><strong>吸籌強度（0-3分）：</strong>OBV 趨勢 + 量比水平</li>
+                <li><strong>板塊共振（0-2分）：</strong>所屬板塊資金流向</li>
+                <li><strong>技術面（0-2分）：</strong>均線排列、動量指標</li>
+                <li><strong>基本面（0-2分）：</strong>Rule of 40（營收成長率 + 營業利益率）、SEC 財報</li>
+                <li><strong>市場環境（0-1分）：</strong>大盤趨勢（SPY vs 200日均線）</li>
+            </ul>
+            <div class="callout green">
+                <strong>✅ 建倉門檻：Score ≥ 7</strong>（滿分 10 分）。得分 7 以上才會進入模擬操作的候選名單。
+            </div>
+        </div>
+
+        <!-- Step 5 -->
+        <h2>Step 5：進場規則 — 限價單</h2>
+
+        <div class="step">
+            <div class="number">7</div>
+            <h3>限價單建倉（非收盤價）</h3>
+            <p>v4 模型使用<strong>限價單</strong>而非市價單。這意味著：</p>
+            <ol>
+                <li>訊號系統計算出建議進場價（基於 ATR）</li>
+                <li>模擬操作在該價位掛限價買單</li>
+                <li><strong>成交驗證：</strong>當天最低價 ≤ 限價 → 成交 ✅</li>
+                <li>如果當天最低價高於限價 → 未成交，掛單保留（最多 5 天）</li>
+            </ol>
+            <div class="formula">
+                <strong>進場價：</strong>entry_price = signals.json 的 ATR 計算價<br>
+                <strong>成交條件：</strong>day_low ≤ entry_price<br>
+                <strong>持倉上限：</strong>每支最多 10% 資金 × 事件風險係數<br>
+                <strong>最多持有：</strong>10 支同時
+            </div>
+        </div>
+
+        <!-- Step 6 -->
+        <h2>Step 6：出場規則</h2>
+
+        <div class="step">
+            <div class="number">8</div>
+            <h3>三重出場機制</h3>
+            
+            <h3>🔴 停損出場</h3>
+            <p>使用 ATR（平均真實波幅）計算動態停損，不使用固定百分比。當日最低價觸及停損價 → 以停損價出場。</p>
+
+            <h3>🟢 T1 停利（賣一半）</h3>
+            <p>當日最高價觸及目標價 1（target_1）→ 賣出一半持股，鎖定利潤。剩餘持股繼續持有。</p>
+
+            <h3>🟢 T2 trailing stop（追蹤止盈）</h3>
+            <p>T1 觸發後，啟動 trailing stop：記錄股價最高點，當股價從高點回落 15% → 出場。這讓利潤奔跑，同時保護已獲得的收益。</p>
+
+            <div class="formula">
+                <strong>停損：</strong>stop_loss = ATR 計算（非固定%）<br>
+                <strong>T1 停利：</strong>target_1 ≈ entry_price × 1.15（+15%）<br>
+                <strong>T2 追蹤：</strong>peak × 0.85（從高點回落 15%）<br>
+                <strong>冷卻期：</strong>賣出後 5 天內不重買同一支
+            </div>
+        </div>
+
+        <!-- Step 7 -->
+        <h2>Step 7：事件風險控制</h2>
+
+        <div class="step">
+            <div class="number">9</div>
+            <h3>重大事件自動調整</h3>
+            <p>系統自動讀取事件行事曆（選舉、FOMC、期權到期），在事件前自動降低風險：</p>
+            <table class="phase-table">
+                <tr><th>事件</th><th>距離</th><th>限制</th></tr>
+                <tr><td>期中選舉</td><td>≤ 7 天</td><td>🚫 停止新建倉，最大持倉 5%</td></tr>
+                <tr><td>期中選舉</td><td>≤ 14 天</td><td>⚠️ 最多 3 筆新單，最大持倉 7%</td></tr>
+                <tr><td>FOMC 決議</td><td>≤ 3 天</td><td>⚠️ 最大持倉 7%</td></tr>
+                <tr><td>期權到期日</td><td>≤ 2 天</td><td>⚠️ 最多 3 筆新單</td></tr>
+            </table>
+        </div>
+
+        <!-- Verification -->
+        <h2>🔒 可驗證性</h2>
+
+        <div class="step">
+            <div class="number">10</div>
+            <h3>每筆交易都可獨立驗證</h3>
+            <p>StockIQ 的模擬操作記錄每筆交易的完整市場數據：</p>
+            <ul>
+                <li><strong>進場日期 + 時間</strong></li>
+                <li><strong>OHLCV（開盤、最高、最低、收盤、成交量）</strong></li>
+                <li><strong>限價 vs 日低比較</strong>（證明價格確實存在）</li>
+                <li><strong>出場同上</strong></li>
+            </ul>
+            <div class="callout green">
+                <strong>驗證方式：</strong>到 <a href="https://finance.yahoo.com" target="_blank" style="color:#4f46e5">Yahoo Finance</a> 搜尋 {股票代號}，切換到 Historical Data，找到對應日期，比對 OHLCV 數據。<br><br>
+                <strong>原始數據：</strong><a href="/data/paper_portfolio.json" target="_blank" style="color:#4f46e5">paper_portfolio.json ↗</a>
+            </div>
+        </div>
+
+        <!-- US-TW -->
+        <h2>🔗 美台連動分析</h2>
+        <p>透過 52 週歷史數據，StockIQ 分析美國和台灣板塊之間的領先-滯後關係：</p>
+        <table class="phase-table">
+            <tr><th>美股板塊</th><th>台股板塊</th><th>相關係數（1日領先）</th></tr>
+            <tr><td>XLK（科技）</td><td>00891.TW（ESG）</td><td><strong>0.569</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>0053.TW（電子中型）</td><td><strong>0.568</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>0050.TW（台灣50）</td><td><strong>0.545</strong></td></tr>
+            <tr><td>XLK（科技）</td><td>00881.TW（半導體）</td><td><strong>0.543</strong></td></tr>
+        </table>
+        <p><strong>關鍵發現：</strong>美國科技板塊（XLK）領先台灣半導體相關 ETF 約 1 個交易日。同日相關性僅 0.21，但 1 日延遲相關性達 0.54，說明美國科技走勢會在隔天傳導到台灣。</p>
+
+        <!-- Version history -->
+        <h2>📜 版本歷史</h2>
+        <h3>v1（2026年9月4日 — 10月9日）</h3>
+        <p>初始版本。OBV + 量比偵測。$100K 模擬資金，28 個交易日。</p>
+        <div class="callout red">
+            <strong>v1 結果：</strong>$100,000 → $100,676（+0.7%），同期 SPY +5.3%。8 筆交易，勝率 25%。<br>
+            <strong>問題：</strong>使用固定 -8% 停損，5 筆交易被停損後股價回升。停損太緊是表現不佳的主因。
+        </div>
+
+        <h3>v4（2026年10月13日 — 至今）</h3>
+        <p>全面升級。新增板塊資金共振、階段辨識、ATR 動態停損、美台連動、事件風險控制、限價單建倉。$30K 模擬資金。</p>
+        <div class="callout green">
+            <strong>v4 改進：</strong>
+            <ul style="margin:8px 0 0">
+                <li>固定停損 → ATR 動態停損（根據波動率調整）</li>
+                <li>收盤價進場 → 限價單（可操作、可驗證）</li>
+                <li>無 Phase 過濾 → Phase 2-3 才建倉</li>
+                <li>無事件風險 → 選舉/FOMC/期權到期自動減倉</li>
+                <li>無板塊分析 → 11+7 板塊資金流追蹤</li>
+            </ul>
+        </div>
+
+        <div style="text-align:center;margin:40px 0">
+            <a href="/" style="background:linear-gradient(135deg,#4f46e5,#6366f1);color:white;text-decoration:none;padding:14px 32px;border-radius:10px;font-weight:800;font-size:16px;display:inline-block">📊 立即體驗 StockIQ</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 StockIQ (stockiq.tw)｜本平台分析報告不構成投資建議｜投資人應自行評估風險</p>
+        <p style="margin-top:4px">資料來源：Yahoo Finance, SEC EDGAR, 公開新聞。資料可能有延遲，僅供參考。</p>
+        <p style="margin-top:8px"><a href="https://buymeacoffee.com/SmartLifeCalendar">☕ 請我喝杯咖啡 — 支持免費開發</a></p>
+    </footer>
+</body>
+</html>
