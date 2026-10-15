@@ -1,26 +1,35 @@
 {
   "date": "2026-10-15",
-  "generated_at": "2026-10-15T09:07:20.164545+08:00",
+  "generated_at": "2026-10-15T10:02:50.764939+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 3,
+  "count": 4,
   "stocks": [
     {
       "symbol": "SKYD",
       "name": "Skydance Corporation",
       "price": 7.06,
       "change_pct": -22.22,
-      "vol_ratio": 5.0,
+      "vol_ratio": 4.6,
       "volume": 92277202,
-      "avg_volume": 18455440
+      "avg_volume": 20060261
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 65.78,
+      "change_pct": -15.46,
+      "vol_ratio": 3.7,
+      "volume": 109419566,
+      "avg_volume": 29572855
     },
     {
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "price": 51.39,
       "change_pct": -4.76,
-      "vol_ratio": 3.5,
+      "vol_ratio": 3.4,
       "volume": 117950601,
-      "avg_volume": 33700171
+      "avg_volume": 34691353
     },
     {
       "symbol": "CIFR",
