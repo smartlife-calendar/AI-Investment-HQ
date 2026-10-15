@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Allow: /about.html
+Allow: /methodology.html
+Allow: /faq.html
+Allow: /blog/
 Allow: /tw/
 Allow: /en/
 Allow: /daily/
