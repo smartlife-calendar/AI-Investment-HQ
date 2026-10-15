@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-15",
+  "generated_at": "2026-10-15T09:07:20.164545+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "price": 7.06,
+      "change_pct": -22.22,
+      "vol_ratio": 5.0,
+      "volume": 92277202,
+      "avg_volume": 18455440
+    },
+    {
+      "symbol": "BAC",
+      "name": "Bank of America Corporation",
+      "price": 51.39,
+      "change_pct": -4.76,
+      "vol_ratio": 3.5,
+      "volume": 117950601,
+      "avg_volume": 33700171
+    },
+    {
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 9.94,
+      "change_pct": -12.35,
+      "vol_ratio": 2.7,
+      "volume": 94331658,
+      "avg_volume": 34937651
+    }
+  ]
+}
