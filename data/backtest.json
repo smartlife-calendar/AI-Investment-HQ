@@ -1,1 +1,255 @@
-{"generated_at": "2026-10-15T10:02:13+08:00", "algorithm": "v6_rolling_30d", "entry_criteria": "score>=7, direction=bullish", "signal_count": 11, "symbols_analyzed": 11, "targets": {"5d": {"avg_return": 0.5, "win_rate": 50}, "10d": {"avg_return": 1.0, "win_rate": 50}, "20d": {"avg_return": 1.5, "win_rate": 50}}, "results": {"5d": {"n": 11, "avg_return": 5.42, "median_return": 5.45, "win_rate": 72.7, "best": {"symbol": "MRNA", "entry": "2026-09-15", "exit": "2026-09-22", "entry_price": 146.69, "exit_price": 182.55999755859375, "return_pct": 24.45, "score": 8}, "worst": {"symbol": "COP", "entry": "2026-09-15", "exit": "2026-09-22", "entry_price": 136.67, "exit_price": 125.2699966430664, "return_pct": -8.34, "score": 7}}, "10d": {"n": 11, "avg_return": 6.67, "median_return": 7.69, "win_rate": 54.5, "best": {"symbol": "MRNA", "entry": "2026-09-15", "exit": "2026-09-29", "entry_price": 146.69, "exit_price": 203.4600067138672, "return_pct": 38.7, "score": 8}, "worst": {"symbol": "COP", "entry": "2026-09-15", "exit": "2026-09-29", "entry_price": 136.67, "exit_price": 125.44000244140625, "return_pct": -8.22, "score": 7}}, "20d": {"n": 11, "avg_return": 11.16, "median_return": 6.81, "win_rate": 81.8, "best": {"symbol": "MRNA", "entry": "2026-09-15", "exit": "2026-10-13", "entry_price": 146.69, "exit_price": 216.25, "return_pct": 47.42, "score": 8}, "worst": {"symbol": "CHPT", "entry": "2026-09-15", "exit": "2026-10-13", "entry_price": 8.84, "exit_price": 7.21999979019165, "return_pct": -18.33, "score": 7}}}, "alerts": null, "status": "✅ ON TARGET"}
+{
+  "generated_at": "2026-10-15T10:05:15+08:00",
+  "algorithm": "v3_rolling_with_stoploss",
+  "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
+  "signal_count": 35,
+  "symbols_analyzed": 35,
+  "market_regime": "NEUTRAL",
+  "targets": {
+    "5d": {
+      "avg_return": 0.5,
+      "win_rate": 50
+    },
+    "10d": {
+      "avg_return": 1.0,
+      "win_rate": 50
+    },
+    "20d": {
+      "avg_return": 1.5,
+      "win_rate": 50
+    }
+  },
+  "results": {
+    "5d": {
+      "n": 15,
+      "avg_return": -2.6,
+      "median_return": -2.63,
+      "win_rate": 33.3,
+      "avg_win": 2.23,
+      "avg_loss": -5.02,
+      "stopped_out": 2,
+      "stop_rate": 13.3,
+      "best": {
+        "symbol": "ZS",
+        "entry": "2026-09-29",
+        "return_pct": 7.01,
+        "score": 7
+      },
+      "worst": {
+        "symbol": "ABNB",
+        "entry": "2026-09-03",
+        "return_pct": -8.43,
+        "score": 8
+      }
+    },
+    "10d": {
+      "n": 15,
+      "avg_return": -2.05,
+      "median_return": -3.49,
+      "win_rate": 33.3,
+      "avg_win": 6.91,
+      "avg_loss": -6.53,
+      "stopped_out": 5,
+      "stop_rate": 33.3,
+      "best": {
+        "symbol": "ZS",
+        "entry": "2026-09-29",
+        "return_pct": 15.28,
+        "score": 7
+      },
+      "worst": {
+        "symbol": "BA",
+        "entry": "2026-08-14",
+        "return_pct": -9.16,
+        "score": 7
+      }
+    },
+    "20d": {
+      "n": 13,
+      "avg_return": -5.14,
+      "median_return": -8.03,
+      "win_rate": 23.1,
+      "avg_win": 3.42,
+      "avg_loss": -7.71,
+      "stopped_out": 8,
+      "stop_rate": 61.5,
+      "best": {
+        "symbol": "DHR",
+        "entry": "2026-08-06",
+        "return_pct": 5.53,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "BA",
+        "entry": "2026-08-14",
+        "return_pct": -9.16,
+        "score": 7
+      }
+    }
+  },
+  "score_breakdown": {
+    "5d": {
+      "7": {
+        "n": 12,
+        "avg": -2.55,
+        "win_rate": 33.3
+      },
+      "8": {
+        "n": 3,
+        "avg": -2.8,
+        "win_rate": 33.3
+      }
+    },
+    "10d": {
+      "7": {
+        "n": 12,
+        "avg": -1.8,
+        "win_rate": 33.3
+      },
+      "8": {
+        "n": 3,
+        "avg": -3.06,
+        "win_rate": 33.3
+      }
+    }
+  },
+  "recent_trades": [
+    {
+      "symbol": "ZS",
+      "entry_date": "2026-09-29",
+      "exit_date": "2026-10-06",
+      "entry_price": 198.35,
+      "exit_price": 212.25,
+      "return_pct": 7.01,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "META",
+      "entry_date": "2026-09-29",
+      "exit_date": "2026-10-06",
+      "entry_price": 738.79,
+      "exit_price": 738.88,
+      "return_pct": 0.01,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "COP",
+      "entry_date": "2026-09-12",
+      "exit_date": "2026-09-21",
+      "entry_price": 137.35,
+      "exit_price": 127.53,
+      "return_pct": -7.15,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "SLB",
+      "entry_date": "2026-09-09",
+      "exit_date": "2026-09-16",
+      "entry_price": 57.05,
+      "exit_price": 52.3,
+      "return_pct": -8.33,
+      "score": 7,
+      "exit_reason": "stop_loss",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "MA",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-11",
+      "entry_price": 585.71,
+      "exit_price": 569.19,
+      "return_pct": -2.82,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "EBAY",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-11",
+      "entry_price": 105.86,
+      "exit_price": 107.75,
+      "return_pct": 1.79,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "BMY",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-11",
+      "entry_price": 68.09,
+      "exit_price": 63.64,
+      "return_pct": -6.54,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "CHYM",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-11",
+      "entry_price": 33.65,
+      "exit_price": 33.0,
+      "return_pct": -1.93,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "ABNB",
+      "entry_date": "2026-09-03",
+      "exit_date": "2026-09-09",
+      "entry_price": 185.25,
+      "exit_price": 169.63,
+      "return_pct": -8.43,
+      "score": 8,
+      "exit_reason": "stop_loss",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "ABBV",
+      "entry_date": "2026-08-28",
+      "exit_date": "2026-09-04",
+      "entry_price": 255.48,
+      "exit_price": 256.46,
+      "return_pct": 0.38,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warn",
+      "msg": "⚠️ 5d avg return -2.60% < target +0.5%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 5d win rate 33.3% < target 50%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 10d avg return -2.05% < target +1.0%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 10d win rate 33.3% < target 50%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 20d avg return -5.14% < target +1.5%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 20d win rate 23.1% < target 50%"
+    }
+  ],
+  "status": "⚠️ BELOW TARGET"
+}
