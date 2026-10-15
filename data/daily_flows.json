@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-10-15T09:48:43+08:00",
+  "date": "2026-10-15",
+  "generated_at": "2026-10-15T10:00:02.390137+00:00",
   "sectors": [
     {
       "etf": "XLV",
@@ -9,7 +10,7 @@
       "vol_ratio": 1.33,
       "flow": "🟢 流入",
       "mcap_b": 195,
-      "dollar_flow_b": 4.9
+      "dollar_flow_b": 2.1
     },
     {
       "etf": "XLP",
@@ -19,7 +20,7 @@
       "vol_ratio": 1.32,
       "flow": "🟢 流入",
       "mcap_b": 85,
-      "dollar_flow_b": 1.9
+      "dollar_flow_b": 1.2
     },
     {
       "etf": "XLE",
@@ -29,7 +30,7 @@
       "vol_ratio": 0.83,
       "flow": "🟢 流入",
       "mcap_b": 90,
-      "dollar_flow_b": 0.6
+      "dollar_flow_b": 1.7
     },
     {
       "etf": "XLB",
@@ -39,7 +40,7 @@
       "vol_ratio": 1.03,
       "flow": "⚪ 持平",
       "mcap_b": 45,
-      "dollar_flow_b": -0.0
+      "dollar_flow_b": -0.4
     },
     {
       "etf": "XLU",
@@ -49,7 +50,7 @@
       "vol_ratio": 1.42,
       "flow": "🔴 流出",
       "mcap_b": 65,
-      "dollar_flow_b": -0.2
+      "dollar_flow_b": -1.5
     },
     {
       "etf": "XLF",
@@ -59,7 +60,7 @@
       "vol_ratio": 1.15,
       "flow": "🔴 流出",
       "mcap_b": 165,
-      "dollar_flow_b": -0.9
+      "dollar_flow_b": -2.4
     },
     {
       "etf": "XLY",
@@ -69,7 +70,7 @@
       "vol_ratio": 1.36,
       "flow": "🔴 流出",
       "mcap_b": 185,
-      "dollar_flow_b": -1.4
+      "dollar_flow_b": -0.9
     },
     {
       "etf": "XLRE",
@@ -89,7 +90,7 @@
       "vol_ratio": 1.55,
       "flow": "🔴 流出",
       "mcap_b": 145,
-      "dollar_flow_b": -1.4
+      "dollar_flow_b": -1.8
     },
     {
       "etf": "XLC",
@@ -99,7 +100,7 @@
       "vol_ratio": 1.03,
       "flow": "🔴 流出",
       "mcap_b": 130,
-      "dollar_flow_b": -1.7
+      "dollar_flow_b": -0.8
     },
     {
       "etf": "XLK",
@@ -109,10 +110,10 @@
       "vol_ratio": 1.55,
       "flow": "🔴 流出",
       "mcap_b": 680,
-      "dollar_flow_b": -20.3
+      "dollar_flow_b": -2.3
     }
   ],
-  "net_flow_b": -18.8,
-  "total_in_b": 7.4,
-  "total_out_b": -26.2
+  "net_flow_b": -5.4,
+  "total_in_b": 5.0,
+  "total_out_b": -10.4
 }
