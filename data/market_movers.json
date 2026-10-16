@@ -1,62 +1,6 @@
 {
-  "generated_at": "2026-10-16T08:52:14+08:00",
+  "generated_at": "2026-10-16T10:00:02+08:00",
   "gainers": [
-    {
-      "symbol": "HAE",
-      "name": "Haemonetics Corporation",
-      "price": 121.29,
-      "change_pct": 0.15,
-      "volume": 740761,
-      "vr": ""
-    },
-    {
-      "symbol": "MANE",
-      "name": "Veradermics, Incorporated",
-      "price": 115.07,
-      "change_pct": 1.41,
-      "volume": 687122,
-      "vr": ""
-    },
-    {
-      "symbol": "SECZ",
-      "name": "Securitize Corp.",
-      "price": 11.34,
-      "change_pct": 7.49,
-      "volume": 3018152,
-      "vr": ""
-    },
-    {
-      "symbol": "COCO",
-      "name": "The Vita Coco Company, Inc.",
-      "price": 57.67,
-      "change_pct": -1.52,
-      "volume": 991416,
-      "vr": ""
-    },
-    {
-      "symbol": "ERAS",
-      "name": "Erasca, Inc.",
-      "price": 14.87,
-      "change_pct": 1.16,
-      "volume": 8481026,
-      "vr": ""
-    },
-    {
-      "symbol": "CSGP",
-      "name": "CoStar Group, Inc.",
-      "price": 32.0,
-      "change_pct": 6.28,
-      "volume": 5551852,
-      "vr": ""
-    },
-    {
-      "symbol": "FLUT",
-      "name": "Flutter Entertainment plc",
-      "price": 76.18,
-      "change_pct": 2.59,
-      "volume": 3568149,
-      "vr": ""
-    },
     {
       "symbol": "RGC",
       "name": "Regencell Bioscience Holdings L",
@@ -66,11 +10,35 @@
       "vr": ""
     },
     {
-      "symbol": "ECO",
-      "name": "Okeanis Eco Tankers Corp.",
-      "price": 89.18,
-      "change_pct": -6.77,
-      "volume": 1374616,
+      "symbol": "APPN",
+      "name": "Appian Corporation",
+      "price": 43.82,
+      "change_pct": 13.97,
+      "volume": 1319124,
+      "vr": ""
+    },
+    {
+      "symbol": "KRMN",
+      "name": "Karman Holdings Inc.",
+      "price": 33.9,
+      "change_pct": 12.48,
+      "volume": 4806448,
+      "vr": ""
+    },
+    {
+      "symbol": "KD",
+      "name": "Kyndryl Holdings, Inc.",
+      "price": 13.19,
+      "change_pct": 11.87,
+      "volume": 5281323,
+      "vr": ""
+    },
+    {
+      "symbol": "ERIC",
+      "name": "Ericsson",
+      "price": 10.71,
+      "change_pct": 11.8,
+      "volume": 41035194,
       "vr": ""
     },
     {
@@ -80,91 +48,131 @@
       "change_pct": 11.05,
       "volume": 13188501,
       "vr": ""
+    },
+    {
+      "symbol": "ZG",
+      "name": "Zillow Group, Inc.",
+      "price": 32.43,
+      "change_pct": 10.8,
+      "volume": 1343695,
+      "vr": ""
+    },
+    {
+      "symbol": "TRU",
+      "name": "TransUnion",
+      "price": 74.12,
+      "change_pct": 10.73,
+      "volume": 4511792,
+      "vr": ""
+    },
+    {
+      "symbol": "FIGR",
+      "name": "Figure Technology Solutions, In",
+      "price": 27.67,
+      "change_pct": 10.46,
+      "volume": 5053889,
+      "vr": ""
+    },
+    {
+      "symbol": "INTA",
+      "name": "Intapp, Inc.",
+      "price": 43.63,
+      "change_pct": 10.32,
+      "volume": 894924,
+      "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "AAOI",
-      "name": "Applied Optoelectronics, Inc.",
-      "price": 83.73,
-      "change_pct": -2.89,
-      "volume": 17630271,
+      "symbol": "MAN",
+      "name": "ManpowerGroup",
+      "price": 43.74,
+      "change_pct": -15.82,
+      "volume": 3770246,
       "vr": ""
     },
     {
-      "symbol": "MXL",
-      "name": "MaxLinear, Inc",
-      "price": 78.18,
-      "change_pct": -0.81,
-      "volume": 5095411,
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "price": 219.92,
+      "change_pct": -10.36,
+      "volume": 1828240,
       "vr": ""
     },
     {
-      "symbol": "ARGX",
-      "name": "argenx SE",
-      "price": 846.27,
-      "change_pct": 3.42,
-      "volume": 510744,
+      "symbol": "SMTC",
+      "name": "Semtech Corporation",
+      "price": 144.21,
+      "change_pct": -10.02,
+      "volume": 9701349,
       "vr": ""
     },
     {
-      "symbol": "EQPT",
-      "name": "EquipmentShare.com Inc",
-      "price": 14.41,
-      "change_pct": 5.11,
-      "volume": 4959349,
+      "symbol": "PENG",
+      "name": "Penguin Solutions, Inc.",
+      "price": 61.86,
+      "change_pct": -8.48,
+      "volume": 6874758,
       "vr": ""
     },
     {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "price": 76.09,
-      "change_pct": 1.63,
-      "volume": 16720857,
+      "symbol": "LBRT",
+      "name": "Liberty Energy Inc.",
+      "price": 16.7,
+      "change_pct": -7.33,
+      "volume": 6716851,
       "vr": ""
     },
     {
-      "symbol": "AXTI",
-      "name": "AXT Inc",
-      "price": 57.91,
-      "change_pct": -5.97,
-      "volume": 14606529,
+      "symbol": "HPE",
+      "name": "Hewlett Packard Enterprise Comp",
+      "price": 58.63,
+      "change_pct": -7.1,
+      "volume": 34764256,
       "vr": ""
     },
     {
-      "symbol": "COHR",
-      "name": "Coherent Corp.",
-      "price": 250.6,
-      "change_pct": -4.83,
-      "volume": 9889029,
+      "symbol": "LSCC",
+      "name": "Lattice Semiconductor Corporati",
+      "price": 107.09,
+      "change_pct": -6.88,
+      "volume": 3072629,
       "vr": ""
     },
     {
-      "symbol": "ALAB",
-      "name": "Astera Labs, Inc.",
-      "price": 301.98,
-      "change_pct": 0.57,
-      "volume": 4146886,
+      "symbol": "MTSI",
+      "name": "MACOM Technology Solutions Hold",
+      "price": 271.39,
+      "change_pct": -6.84,
+      "volume": 2486322,
       "vr": ""
     },
     {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "price": 15.5,
-      "change_pct": 2.65,
-      "volume": 23282411,
+      "symbol": "DELL",
+      "name": "Dell Technologies Inc.",
+      "price": 473.39,
+      "change_pct": -6.8,
+      "volume": 16314848,
       "vr": ""
     },
     {
-      "symbol": "SIMO",
-      "name": "Silicon Motion Technology Corpo",
-      "price": 218.39,
-      "change_pct": -2.32,
-      "volume": 1294525,
+      "symbol": "ECO",
+      "name": "Okeanis Eco Tankers Corp.",
+      "price": 89.18,
+      "change_pct": -6.77,
+      "volume": 1374616,
       "vr": ""
     }
   ],
   "most_active": [
+    {
+      "symbol": "CCC",
+      "name": "CCC Intelligent Solutions Holdi",
+      "price": 7.63,
+      "change_pct": -0.13,
+      "volume": 323945451,
+      "vr": ""
+    },
     {
       "symbol": "INTC",
       "name": "Intel Corporation",
@@ -182,59 +190,27 @@
       "vr": ""
     },
     {
-      "symbol": "MDT",
-      "name": "Medtronic plc.",
-      "price": 95.45,
-      "change_pct": 1.29,
-      "volume": 50228520,
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 69.69,
+      "change_pct": 5.94,
+      "volume": 128884246,
       "vr": ""
     },
     {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 4.03,
-      "change_pct": -0.91,
-      "volume": 41762607,
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 12.62,
+      "change_pct": 9.36,
+      "volume": 107552186,
       "vr": ""
     },
     {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 14.73,
-      "change_pct": -1.34,
-      "volume": 75605548,
-      "vr": ""
-    },
-    {
-      "symbol": "CMG",
-      "name": "Chipotle Mexican Grill, Inc.",
-      "price": 30.58,
-      "change_pct": 0.2,
-      "volume": 17311181,
-      "vr": ""
-    },
-    {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 9.57,
-      "change_pct": 1.81,
-      "volume": 89092324,
-      "vr": ""
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 12.28,
-      "change_pct": 4.16,
-      "volume": 71112624,
-      "vr": ""
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 3.0,
-      "change_pct": 3.09,
-      "volume": 57576800,
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 30.39,
+      "change_pct": -0.56,
+      "volume": 105793791,
       "vr": ""
     },
     {
@@ -246,19 +222,19 @@
       "vr": ""
     },
     {
-      "symbol": "ONDS",
-      "name": "Ondas Inc",
-      "price": 6.35,
-      "change_pct": 3.42,
-      "volume": 74369854,
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 9.57,
+      "change_pct": 1.81,
+      "volume": 89092324,
       "vr": ""
     },
     {
-      "symbol": "BAC",
-      "name": "Bank of America Corporation",
-      "price": 51.7,
-      "change_pct": 0.6,
-      "volume": 44837870,
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 14.73,
+      "change_pct": -1.34,
+      "volume": 75605548,
       "vr": ""
     },
     {
@@ -270,30 +246,54 @@
       "vr": ""
     },
     {
-      "symbol": "DNN",
-      "name": "Denison Mines Corp",
-      "price": 2.36,
-      "change_pct": 9.26,
-      "volume": 41388315,
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 6.35,
+      "change_pct": 3.42,
+      "volume": 74369854,
       "vr": ""
     },
     {
-      "symbol": "APLD",
-      "name": "Applied Digital Corporation",
-      "price": 20.39,
-      "change_pct": 0.32,
-      "volume": 34920712,
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 12.28,
+      "change_pct": 4.16,
+      "volume": 71112624,
+      "vr": ""
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 2.32,
+      "change_pct": 16.58,
+      "volume": 68268426,
+      "vr": ""
+    },
+    {
+      "symbol": "RXRX",
+      "name": "Recursion Pharmaceuticals, Inc.",
+      "price": 4.16,
+      "change_pct": 11.23,
+      "volume": 62725270,
+      "vr": ""
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 15.09,
+      "change_pct": 6.12,
+      "volume": 62571611,
       "vr": ""
     }
   ],
   "strong_buy": [
     {
-      "symbol": "DNN",
-      "name": "Denison Mines Corp",
-      "price": 2.36,
-      "change_pct": 9.26,
-      "volume": 41388315,
-      "vr": 1.6
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 69.69,
+      "change_pct": 5.94,
+      "volume": 128884246,
+      "vr": 4.3
     },
     {
       "symbol": "WULF",
@@ -301,8 +301,41 @@
       "price": 12.62,
       "change_pct": 9.36,
       "volume": 107552186,
-      "vr": 3.5
+      "vr": 3.4
+    },
+    {
+      "symbol": "OPEN",
+      "name": "Opendoor Technologies Inc",
+      "price": 2.32,
+      "change_pct": 16.58,
+      "volume": 68268426,
+      "vr": 1.7
+    },
+    {
+      "symbol": "RXRX",
+      "name": "Recursion Pharmaceuticals, Inc.",
+      "price": 4.16,
+      "change_pct": 11.23,
+      "volume": 62725270,
+      "vr": 3.1
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ, Inc.",
+      "price": 34.35,
+      "change_pct": 9.33,
+      "volume": 47713286,
+      "vr": 2.2
     }
   ],
-  "strong_sell": []
+  "strong_sell": [
+    {
+      "symbol": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "price": 55.25,
+      "change_pct": -6.64,
+      "volume": 48106607,
+      "vr": 2.5
+    }
+  ]
 }
