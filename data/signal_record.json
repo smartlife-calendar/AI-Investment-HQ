@@ -755,12 +755,156 @@
       "price": 982.0,
       "regime": "NEUTRAL",
       "confidence": 31
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "CVX",
+      "action": "BUY",
+      "score": 8,
+      "price": 219.32,
+      "regime": "STRONG_BULL",
+      "confidence": 80
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "NU",
+      "action": "BUY",
+      "score": 7,
+      "price": 14.73,
+      "regime": "STRONG_BULL",
+      "confidence": 77
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "MELI",
+      "action": "BUY",
+      "score": 8,
+      "price": 1856.98,
+      "regime": "STRONG_BULL",
+      "confidence": 68
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "SONY",
+      "action": "BUY",
+      "score": 7,
+      "price": 24.69,
+      "regime": "STRONG_BULL",
+      "confidence": 66
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "DHR",
+      "action": "BUY",
+      "score": 7,
+      "price": 231.5,
+      "regime": "STRONG_BULL",
+      "confidence": 63
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "UNHG",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 20.74,
+      "regime": "STRONG_BULL",
+      "confidence": 50
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "XLE",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 66.56,
+      "regime": "STRONG_BULL",
+      "confidence": 50
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "XOM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 174.68,
+      "regime": "STRONG_BULL",
+      "confidence": 48
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "PINS",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 22.71,
+      "regime": "STRONG_BULL",
+      "confidence": 46
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "MA",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 616.32,
+      "regime": "STRONG_BULL",
+      "confidence": 45
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "MCD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 242.5,
+      "regime": "STRONG_BULL",
+      "confidence": 45
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "ACN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 224.92,
+      "regime": "STRONG_BULL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "PM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 199.9,
+      "regime": "STRONG_BULL",
+      "confidence": 40
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 122.91,
+      "regime": "STRONG_BULL",
+      "confidence": 38
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "RXRX",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 4.16,
+      "regime": "STRONG_BULL",
+      "confidence": 34
+    },
+    {
+      "date": "2026-10-16",
+      "symbol": "AAPL",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 342.0,
+      "regime": "STRONG_BULL",
+      "confidence": 33
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-15",
-    "total_entries": 84
+    "last_updated": "2026-10-16",
+    "total_entries": 100
   }
 }
