@@ -2,7 +2,7 @@
   "version": "v4",
   "created": "2026-10-13",
   "initial_capital": 30000,
-  "cash": 13133.36,
+  "cash": 15772.01,
   "positions": {
     "UNH": {
       "entry_date": "2026-10-14",
@@ -17,9 +17,9 @@
       "peak_price": 414.12,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 406.67,
-      "current_return": 4.89,
-      "last_updated": "2026-10-15",
+      "current_price": 401.43,
+      "current_return": 3.54,
+      "last_updated": "2026-10-16",
       "entry_ohlcv": {
         "symbol": "UNH",
         "date": "2026-10-14",
@@ -37,13 +37,13 @@
       "order_type": "LIMIT",
       "last_ohlcv": {
         "symbol": "UNH",
-        "date": "2026-10-15",
-        "open": 401.24,
-        "high": 414.12,
-        "low": 400.0,
-        "close": 406.67,
-        "volume": 10158200,
-        "market_price": 406.67,
+        "date": "2026-10-16",
+        "open": 410.35,
+        "high": 412.37,
+        "low": 395.52,
+        "close": 401.43,
+        "volume": 8106000,
+        "market_price": 401.43,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -63,9 +63,9 @@
       "peak_price": 441.76,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 434.03,
-      "current_return": 3.94,
-      "last_updated": "2026-10-15",
+      "current_price": 432.49,
+      "current_return": 3.57,
+      "last_updated": "2026-10-16",
       "entry_ohlcv": {
         "symbol": "AMGN",
         "date": "2026-10-14",
@@ -83,13 +83,13 @@
       "order_type": "LIMIT",
       "last_ohlcv": {
         "symbol": "AMGN",
-        "date": "2026-10-15",
-        "open": 435.83,
-        "high": 441.76,
-        "low": 433.42,
-        "close": 434.03,
-        "volume": 4625300,
-        "market_price": 434.03,
+        "date": "2026-10-16",
+        "open": 437.89,
+        "high": 438.82,
+        "low": 431.39,
+        "close": 432.49,
+        "volume": 2567100,
+        "market_price": 432.49,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -109,9 +109,9 @@
       "peak_price": 1008.37,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 978.01,
-      "current_return": 1.63,
-      "last_updated": "2026-10-15",
+      "current_price": 989.11,
+      "current_return": 2.78,
+      "last_updated": "2026-10-16",
       "entry_ohlcv": {
         "symbol": "COST",
         "date": "2026-10-14",
@@ -129,13 +129,13 @@
       "order_type": "LIMIT",
       "last_ohlcv": {
         "symbol": "COST",
-        "date": "2026-10-15",
-        "open": 998.11,
-        "high": 1008.37,
-        "low": 977.24,
-        "close": 978.01,
-        "volume": 2999000,
-        "market_price": 978.01,
+        "date": "2026-10-16",
+        "open": 982.49,
+        "high": 993.19,
+        "low": 980.67,
+        "close": 989.11,
+        "volume": 2515400,
+        "market_price": 989.11,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -152,12 +152,12 @@
       "stop_loss": 1728.85,
       "target_1": 2092.82,
       "target_2": 2274.8,
-      "peak_price": 1876.51,
+      "peak_price": 1876.65,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 1856.98,
-      "current_return": 2.04,
-      "last_updated": "2026-10-15",
+      "current_price": 1834.0,
+      "current_return": 0.78,
+      "last_updated": "2026-10-16",
       "entry_ohlcv": {
         "symbol": "MELI",
         "date": "2026-10-15",
@@ -172,7 +172,21 @@
         "exchange": "NMS",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "MELI",
+        "date": "2026-10-16",
+        "open": 1868.69,
+        "high": 1876.65,
+        "low": 1810.32,
+        "close": 1834.0,
+        "volume": 286300,
+        "market_price": 1834.0,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NMS",
+        "market_state": ""
+      }
     },
     "UNHG": {
       "entry_date": "2026-10-15",
@@ -187,9 +201,9 @@
       "peak_price": 21.5,
       "t1_hit": false,
       "t2_hit": false,
-      "current_price": 20.74,
-      "current_return": 2.02,
-      "last_updated": "2026-10-15",
+      "current_price": 20.2,
+      "current_return": -0.64,
+      "last_updated": "2026-10-16",
       "entry_ohlcv": {
         "symbol": "UNHG",
         "date": "2026-10-15",
@@ -204,42 +218,57 @@
         "exchange": "NGM",
         "market_state": ""
       },
-      "order_type": "LIMIT"
-    },
-    "RXRX": {
-      "entry_date": "2026-10-15",
-      "entry_price": 4.08,
-      "shares": 735,
-      "cost": 2998.8,
-      "score": 8,
-      "signal": "SCALE_IN",
-      "stop_loss": 3.59,
-      "target_1": 4.69,
-      "target_2": 5.1,
-      "peak_price": 4.41,
-      "t1_hit": false,
-      "t2_hit": false,
-      "current_price": 4.16,
-      "current_return": 1.96,
-      "last_updated": "2026-10-15",
-      "entry_ohlcv": {
-        "symbol": "RXRX",
-        "date": "2026-10-15",
-        "open": 3.65,
-        "high": 4.41,
-        "low": 3.53,
-        "close": 4.16,
-        "volume": 62777800,
-        "market_price": 4.16,
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "UNHG",
+        "date": "2026-10-16",
+        "open": 21.14,
+        "high": 21.3,
+        "low": 19.61,
+        "close": 20.2,
+        "volume": 1091900,
+        "market_price": 20.2,
         "previous_close": 0,
         "currency": "USD",
-        "exchange": "NMS",
+        "exchange": "NGM",
         "market_state": ""
-      },
-      "order_type": "LIMIT"
+      }
     }
   },
   "pending_orders": {
+    "FAST": {
+      "symbol": "FAST",
+      "entry_price": 50.0,
+      "stop_loss": 47.5,
+      "target_1": 57.5,
+      "target_2": 62.5,
+      "score": 10,
+      "action": "SCALE_IN",
+      "phase": 3,
+      "placed_date": "2026-10-16"
+    },
+    "JPM": {
+      "symbol": "JPM",
+      "entry_price": 332.93,
+      "stop_loss": 316.28,
+      "target_1": 382.87,
+      "target_2": 416.16,
+      "score": 9,
+      "action": "BUY",
+      "phase": 3,
+      "placed_date": "2026-10-16"
+    },
+    "XLF": {
+      "symbol": "XLF",
+      "entry_price": 54.41,
+      "stop_loss": 51.69,
+      "target_1": 62.57,
+      "target_2": 68.01,
+      "score": 9,
+      "action": "SCALE_IN",
+      "phase": 2,
+      "placed_date": "2026-10-16"
+    },
     "CVX": {
       "symbol": "CVX",
       "entry_price": 214.93,
@@ -355,6 +384,33 @@
         "exchange": "NMS",
         "market_state": ""
       }
+    },
+    {
+      "symbol": "RXRX",
+      "entry_date": "2026-10-15",
+      "exit_date": "2026-10-16",
+      "entry_price": 4.08,
+      "exit_price": 3.59,
+      "shares_sold": 735,
+      "proceeds": 2638.65,
+      "pnl": -360.15,
+      "return_pct": -12.01,
+      "hold_days": 1,
+      "reason": "停損 觸及$3.59",
+      "exit_ohlcv": {
+        "symbol": "RXRX",
+        "date": "2026-10-16",
+        "open": 4.11,
+        "high": 4.18,
+        "low": 3.44,
+        "close": 3.46,
+        "volume": 40593400,
+        "market_price": 3.465,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NMS",
+        "market_state": ""
+      }
     }
   ],
   "daily_nav": [
@@ -389,27 +445,36 @@
       "positions_value": 16782.29,
       "n_positions": 6,
       "return_pct": -0.28
+    },
+    {
+      "date": "2026-10-16",
+      "nav": 29380.18,
+      "cash": 15772.01,
+      "positions_value": 13608.17,
+      "n_positions": 5,
+      "return_pct": -2.07
     }
   ],
   "cooldown": {
     "NU": "2026-10-19",
     "MDB": "2026-10-20",
-    "SNPS": "2026-10-20"
+    "SNPS": "2026-10-20",
+    "RXRX": "2026-10-21"
   },
   "stats": {
-    "total_trades": 3,
-    "open_positions": 6,
+    "total_trades": 4,
+    "open_positions": 5,
     "win_rate": 0.0,
-    "avg_return": -6.33,
+    "avg_return": -7.75,
     "avg_win": 0,
-    "avg_loss": -6.33,
-    "total_pnl": -535.31,
-    "nav": 29915.65,
-    "nav_return_pct": -0.28,
-    "cash": 13133.36,
-    "positions_value": 16782.29,
-    "regime": "STRONG_BULL",
-    "last_updated": "2026-10-15"
+    "avg_loss": -7.75,
+    "total_pnl": -895.46,
+    "nav": 29380.18,
+    "nav_return_pct": -2.07,
+    "cash": 15772.01,
+    "positions_value": 13608.17,
+    "regime": "CAUTION",
+    "last_updated": "2026-10-16"
   },
   "audit_log": [
     {
@@ -642,6 +707,23 @@
         "volume": 62777800
       },
       "verifiable": "YF RXRX 2026-10-15: O=3.65 H=4.41 L=3.53 C=4.16"
+    },
+    {
+      "date": "2026-10-16",
+      "action": "SELL",
+      "symbol": "RXRX",
+      "shares": 735,
+      "price": 3.59,
+      "reason": "停損 觸及$3.59",
+      "cash_after": 15772.01,
+      "ohlcv": {
+        "open": 4.11,
+        "high": 4.18,
+        "low": 3.44,
+        "close": 3.46,
+        "volume": 40593400
+      },
+      "verifiable": "YF RXRX 2026-10-16: O=4.11 H=4.18 L=3.44 C=3.46"
     }
   ],
   "model_version": "v4"
