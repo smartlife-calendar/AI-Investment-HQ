@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-16T10:00:02+08:00",
+  "generated_at": "2026-10-17T09:34:59+08:00",
   "news": [
+    {
+      "title": "VOO, VTI, SPY, or IVV? How These 4 Index Funds Differ",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-vti-spy-ivv-4-092000271.html",
+      "publisher": "Motley Fool",
+      "published": 1792142400
+    },
     {
       "title": "26 Million Trump Accounts and 8 Billion Dollars Later, Here Is What You Actually Get",
       "url": "https://finance.yahoo.com/markets/stocks/articles/26-million-trump-accounts-8-172506499.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/options/articles/500-000-60-40-portfolio-155037116.html",
       "publisher": "24/7 Wall St.",
       "published": 1790524237
-    },
-    {
-      "title": "What a $500,000 All Weather Portfolio Actually Looks Like, Built With ETFs",
-      "url": "https://finance.yahoo.com/markets/options/articles/500-000-weather-portfolio-actually-220528096.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1790373928
     }
   ]
 }
