@@ -1,53 +1,26 @@
 {
   "date": "2026-10-17",
-  "generated_at": "2026-10-17T09:00:46.561177+08:00",
+  "generated_at": "2026-10-17T10:02:58.526383+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 5,
+  "count": 2,
   "stocks": [
     {
       "symbol": "CRWV",
       "name": "CoreWeave, Inc.",
-      "price": 69.69,
-      "change_pct": 5.94,
-      "vol_ratio": 4.3,
-      "volume": 128884246,
-      "avg_volume": 29973080
+      "price": 61.39,
+      "change_pct": -11.91,
+      "vol_ratio": 3.0,
+      "volume": 94362732,
+      "avg_volume": 31454244
     },
     {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "price": 12.62,
-      "change_pct": 9.36,
-      "vol_ratio": 3.4,
-      "volume": 107552186,
-      "avg_volume": 31632995
-    },
-    {
-      "symbol": "RXRX",
-      "name": "Recursion Pharmaceuticals, Inc.",
-      "price": 4.16,
-      "change_pct": 11.23,
-      "vol_ratio": 3.1,
-      "volume": 62725270,
-      "avg_volume": 20233958
-    },
-    {
-      "symbol": "RKLB",
-      "name": "Rocket Lab Corporation",
-      "price": 55.25,
-      "change_pct": -6.64,
-      "vol_ratio": 2.5,
-      "volume": 48106607,
-      "avg_volume": 19242642
-    },
-    {
-      "symbol": "IONQ",
-      "name": "IonQ, Inc.",
-      "price": 34.35,
-      "change_pct": 9.33,
-      "vol_ratio": 2.2,
-      "volume": 47713286,
-      "avg_volume": 21687857
+      "symbol": "FRMI",
+      "name": "Fermi Inc.",
+      "price": 3.16,
+      "change_pct": -6.92,
+      "vol_ratio": 2.1,
+      "volume": 41130949,
+      "avg_volume": 19586166
     }
   ]
 }
