@@ -423,6 +423,13 @@ def run():
         if phase < 2:
             continue
         
+        # Weekday bias: SPY/QQQ data 2003-2026 shows Tue/Wed strongest, Thu/Fri weakest
+        # Tue +155%, Wed +100%, Mon +52%, Fri +39%, Thu +20%
+        # Adjust position sizing by weekday (1.0 = full, <1.0 = reduced)
+        weekday = datetime.strptime(today, "%Y-%m-%d").weekday()
+        WEEKDAY_BIAS = {0: 1.0, 1: 1.15, 2: 1.10, 3: 0.85, 4: 0.90}  # Mon-Fri
+        weekday_mult = WEEKDAY_BIAS.get(weekday, 1.0)
+        
         # Must have a valid entry_price from signals
         limit_price = s.get("entry_price", 0)
         if limit_price <= 0:
@@ -457,8 +464,8 @@ def run():
             # FILLED — limit order executed at our price
             entry_price = limit_price
             
-            # Position sizing (event-adjusted)
-            position_value = min(cash, INITIAL_CAPITAL * event_max_pct)
+            # Position sizing (event + weekday adjusted)
+            position_value = min(cash, INITIAL_CAPITAL * event_max_pct * weekday_mult)
             if position_value < 200:
                 continue
             
@@ -500,6 +507,8 @@ def run():
                 "cash_after": round(cash, 2),
                 "score": s.get("score", 0),
                 "fill_check": f"limit=${entry_price:.2f}, day_low=${day_low:.2f} ✅ FILLED",
+                "weekday": ["Mon","Tue","Wed","Thu","Fri"][weekday],
+                "weekday_mult": weekday_mult,
                 "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
                 "verifiable": f"YF {sym} {ohlcv['date']}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
             })
