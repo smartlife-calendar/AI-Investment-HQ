@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-20",
+  "generated_at": "2026-10-20T09:04:10.363685+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 1,
+  "stocks": [
+    {
+      "symbol": "CLF",
+      "name": "Cleveland-Cliffs Inc.",
+      "price": 14.1,
+      "change_pct": 16.34,
+      "vol_ratio": 4.7,
+      "volume": 88331455,
+      "avg_volume": 18793926
+    }
+  ]
+}
