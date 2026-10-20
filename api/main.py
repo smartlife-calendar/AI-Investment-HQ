@@ -74,6 +74,8 @@ def track_query(ticker: str, persona: str):
 
 # === Threads Auto-Poster Setup ===
 try:
+    from apscheduler.schedulers.background import BackgroundScheduler
+    from apscheduler.triggers.cron import CronTrigger
     from anthropic import Anthropic as _Anthropic
     _anthropic_client = _Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
     from threads_poster import generate_and_post as _threads_post
