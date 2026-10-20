@@ -1,1 +1,534 @@
-{"generated_at": "2026-10-17T10:02:29+08:00", "geo_articles": [{"title": "Nasdaq 100 Records Worst Week In 18 Months As Investors Steer Clear Of Chipmakers — AAPL, MSTR, UBER, SOXX In Focus", "feed": "美股大盤", "layer": "geo", "date": "Fri, 16 Oct 2026 22:15:34", "link": "https://stocktwits.com/news-articles/markets/equity/nasdaq-100-records-worst-week-in-18-months/cZxK0vGRBt2?.tsrc=rss"}, {"title": "Ralph Lauren (RL) Falls More Steeply Than Broader Market: What Investors Need to Know", "feed": "美股大盤", "layer": "geo", "date": "Fri, 16 Oct 2026 21:15:07", "link": "https://finance.yahoo.com/markets/stocks/articles/ralph-lauren-rl-falls-more-211507113.html?.tsrc=rss"}, {"title": "What Changed For Cipher Digital Stock, And What Did Not?", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 01:26:45", "link": "https://www.trefis.com/articles/619005/what-changed-for-cipher-digital-stock-and-what-did-not/2026-10-16?.tsrc=rss"}, {"title": "Was The Run In Super Micro Stock Hiding In Plain Sight?", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 01:20:39", "link": "https://www.trefis.com/articles/618988/was-the-run-in-super-micro-stock-hiding-in-plain-sight/2026-10-16?.tsrc=rss", "geo_tags": [{"group": "stimulus", "impact": "財政刺激→特定板塊受益", "severity": 1}]}, {"title": "When Amgen's Forecast And Chart Say The Same Thing, Pay Attention", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 00:53:09", "link": "https://www.trefis.com/articles/619009/when-amgens-forecast-and-chart-say-the-same-thing-pay-attention/2026-10-16?.tsrc=rss", "geo_tags": [{"group": "stimulus", "impact": "財政刺激→特定板塊受益", "severity": 1}]}, {"title": "What Are Starbucks Stock Bulls Not Worried About?", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 00:44:31", "link": "https://www.trefis.com/articles/619004/what-are-starbucks-stock-bulls-not-worried-about/2026-10-16?.tsrc=rss", "geo_tags": [{"group": "stimulus", "impact": "財政刺激→特定板塊受益", "severity": 1}]}, {"title": "Is Amgen Stock Increasing Your Market Risk?", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 00:13:53", "link": "https://www.trefis.com/articles/619024/is-amgen-stock-increasing-your-market-risk/2026-10-16?.tsrc=rss"}, {"title": "Did NextEra's Dividends Make Up For Its Stock's Lag Behind The Market?", "feed": "美股大盤", "layer": "geo", "date": "Sat, 17 Oct 2026 00:02:32", "link": "https://www.trefis.com/articles/619017/did-nexteras-dividends-make-up-for-its-stocks-lag-behind-the-market/2026-10-16?.tsrc=rss"}, {"title": "Review & Preview: AI Bloodbath", "feed": "美股大盤", "layer": "geo", "date": "Fri, 16 Oct 2026 23:55:00", "link": "https://finance.yahoo.com/m/0640b2a5-eee6-3ee8-a573-0e02d9653649/review-%26-preview%3A-ai-bloodbath.html?.tsrc=rss"}, {"title": "Stock Market Today, Oct. 16: Opendoor Slides on Fresh 52-Week Lows Amid Higher Debt Costs", "feed": "美股大盤", "layer": "geo", "date": "Fri, 16 Oct 2026 22:21:29", "link": "https://www.fool.com/coverage/stock-market-today/2026/10/16/stock-market-today-oct-16-opendoor-slides-on-fresh-52-week-lows-amid-higher-debt-costs/?.tsrc=rss"}, {"title": "Tesla pops, tech heads for losing week: AlphaCheck", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 13:58:20", "link": "https://finance.yahoo.com/markets/article/tesla-pops-tech-heads-for-losing-week-alphacheck-135820459.html?.tsrc=rss"}, {"title": "Stocktwits Weekly Spread: What Shaped Treasury Yields And The Dollar This Week", "feed": "利率匯率", "layer": "geo", "date": "Sat, 17 Oct 2026 00:45:16", "link": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week-1/cZxjAkARBt3?.tsrc=rss"}, {"title": "Dollar Weakens on Reduced Fed Rate Hike Chances This Month", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 19:34:08", "link": "https://www.barchart.com/story/news/8110535/dollar-weakens-on-reduced-fed-rate-hike-chances-this-month?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "Canadian dollar heads for weekly gain as U.S. dollar retreats", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 16:24:14", "link": "https://finance.yahoo.com/markets/currencies/articles/canadian-dollar-heads-weekly-gain-162414050.html?.tsrc=rss"}, {"title": "Dollar Pressured as Fed Chair Powell Refrains from Forward Guidance", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 14:32:08", "link": "https://www.barchart.com/story/news/8099890/dollar-pressured-as-fed-chair-powell-refrains-from-forward-guidance?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "US Dollar Falls Early Friday Ahead of Import Prices, New York Fed Services, Industrial Production", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 11:40:14", "link": "https://finance.yahoo.com/markets/currencies/articles/us-dollar-falls-early-friday-114014259.html?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "Circle Plans Push Into 40 Emerging Markets as Stablecoins Go Mainstream, CEO Says", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 18:55:37", "link": "https://decrypt.co/381178/circle-40-emerging-markets-stablecoins-go-mainstream?.tsrc=rss"}, {"title": "CIBC warns of inflation risks as ‘leaky loonie’ faces further slide", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 16:26:09", "link": "https://finance.yahoo.com/economy/policy/articles/cibc-warns-inflation-risks-leaky-162609154.html?.tsrc=rss", "geo_tags": [{"group": "inflation", "impact": "通膨→Fed決策", "severity": 1}]}, {"title": "Taiwan Semiconductor Manufacturing: 3 Key Takeaways for Long-Term Investors", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 15:38:03", "link": "https://www.fool.com/earnings/takeaways/2026/10/16/taiwan-semiconductor-manufacturing-3-key-takeaways-for-long-term-investors/?.tsrc=rss"}, {"title": "Deutsche Bank Prepares To Launch Crypto Custody Services", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 14:23:00", "link": "https://www.cryptoprowl.com/releases/deutsche-bank-prepares-to-launch-crypto-custody-services-7340?.tsrc=rss"}], "sector_articles": [{"title": "Micron stock faces unexpected trouble despite sold-out AI factory", "feed": "半導體", "layer": "sector", "date": "Sat, 17 Oct 2026 01:37:00", "link": "https://www.thestreet.com/investing/stocks/micron-taiwan-union-ai-factory?.tsrc=rss"}, {"title": "How much AMD stock does CEO Lisa Su actually own?", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 23:12:49", "link": "https://www.thestreet.com/personalities/how-much-amd-stock-does-ceo-lisa-su-own?.tsrc=rss"}, {"title": "1 Obvious Metric That Makes Nvidia a Top Stock to Buy Now", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 23:04:00", "link": "https://www.fool.com/investing/2026/10/16/1-obvious-metric-that-makes-nvidia-a-top-stock-to/?.tsrc=rss"}, {"title": "Micron and Sandisk Have a History of Cyclicality. Is This Time Different?", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 22:25:00", "link": "https://www.fool.com/investing/2026/10/16/micron-and-sandisk-have-a-history-of-cyclicality-i/?.tsrc=rss"}, {"title": "Prediction: $1,000 Invested in Taiwan Semi (TSMC) Today Will Be Worth This Much by 2030.", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 21:25:00", "link": "https://www.fool.com/investing/2026/10/16/prediction-1000-invested-in-taiwan-semi-tsmc-today/?.tsrc=rss"}, {"title": "Inflation Rose to 3.7% in September. Is It Time to Sell the S&P 500?", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 21:07:02", "link": "https://www.fool.com/investing/2026/10/16/inflation-rose-to-3-7-in-september-is-it-time-to-sell-the-s-and-p-500/?.tsrc=rss"}, {"title": "CoreWeave's not-so-secret weapons: Price hikes and an Nvidia trump card", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 23:30:00", "link": "https://pitchbook.com/news/articles/coreweaves-not-so-secret-weapons-price-hikes-and-an-nvidia-trump-card?.tsrc=rss"}, {"title": "Prediction: Alphabet Will Be a Larger Company Than Apple by the End of 2027", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 23:29:00", "link": "https://www.fool.com/investing/2026/10/16/prediction-alphabet-will-be-a-larger-company-than/?.tsrc=rss"}, {"title": "Applied Materials (AMAT) Opened Its $5 Billion EPIC Center", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 23:18:15", "link": "https://finance.yahoo.com/technology/ai/articles/applied-materials-amat-opened-5-231815004.html?.tsrc=rss"}, {"title": "CoreWeave stock plunges 12%, but Wall Street analyst says buy the dip", "feed": "半導體", "layer": "sector", "date": "Fri, 16 Oct 2026 22:39:27", "link": "https://www.thestreet.com/investing/stocks/coreweave-stock-plunges-12-but-wall-street-analyst-says-buy-the-dip-crwv?.tsrc=rss"}, {"title": "$13k MRR founder reveals why Meta crushes TikTok for app marketing...", "feed": "AI/雲端", "layer": "sector", "date": "Sat, 17 Oct 2026 01:31:51", "link": "https://starterstory.videonest.co/videos/2318438/13k-mrr-founder-reveals-why-meta-crushes-tiktok-fo-FFRSTYN4x1?.tsrc=rss"}, {"title": "Not Alphabet. Not Microsoft. This Is the Cloud Stock I'd Buy With $5,000 Right Now.", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 21:43:00", "link": "https://www.fool.com/investing/2026/10/16/not-alphabet-not-microsoft-this-is-the-cloud-stock/?.tsrc=rss"}, {"title": "Here’s How Much Meta Stock Is Expected to Move After Earnings", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 21:26:29", "link": "https://www.investopedia.com/here-is-how-much-meta-stock-is-expected-to-move-after-earnings-q3-fy2026-12177333?.tsrc=rss"}, {"title": "This is the Cheapest Mag 7 Stock Right Now", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 21:07:00", "link": "https://finance.yahoo.com/markets/stocks/articles/cheapest-mag-7-stock-now-210700125.html?.tsrc=rss"}, {"title": "Salesforce (CRM) Suffers a Larger Drop Than the General Market: Key Insights", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 20:45:06", "link": "https://finance.yahoo.com/markets/stocks/articles/salesforce-crm-suffers-larger-drop-204506562.html?.tsrc=rss"}, {"title": "Stock Market Today, Oct. 16: Apple Edges Higher on iPhone Duo Preorder Surge", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 21:49:34", "link": "https://www.fool.com/coverage/stock-market-today/2026/10/16/stock-market-today-oct-16-apple-edges-higher-on-iphone-duo-preorder-surge/?.tsrc=rss"}, {"title": "Should You Pick Walmart Stock Over Its Competitors?", "feed": "AI/雲端", "layer": "sector", "date": "Sat, 17 Oct 2026 00:21:29", "link": "https://www.trefis.com/articles/618994/should-you-pick-walmart-stock-over-its-competitors/2026-10-16?.tsrc=rss"}, {"title": "The Dealmaking 3: DoorDash & Australian Open, AEG & NFL/AWS", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 21:44:10", "link": "https://finance.yahoo.com/media-advertising/articles/dealmaking-3-doordash-australian-open-214410303.html?.tsrc=rss"}, {"title": "Update: Nasdaq Falls to End Four-Week Winning Streak Amid Tech Sell-Off", "feed": "AI/雲端", "layer": "sector", "date": "Fri, 16 Oct 2026 20:54:55", "link": "https://finance.yahoo.com/markets/stocks/articles/nasdaq-falls-end-four-week-205455687.html?.tsrc=rss"}, {"title": "Arista Networks CEO Is One of the World’s Richest Women. She Just Sold $34M in Stock.", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 15:23:00", "link": "https://finance.yahoo.com/m/ca9c2dbb-a00a-3f5f-be5f-030f80781c0d/arista-networks-ceo-is-one-of.html?.tsrc=rss"}, {"title": "Lumentum Is Sold Out Through 2029. Wedbush Thinks That Could Be Bullish for GlobalFoundries. Is It?", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 15:00:02", "link": "https://www.barchart.com/story/news/8100768/lumentum-is-sold-out-through-2029-wedbush-thinks-that-could-be-bullish-for-globalfoundries-is-it?.tsrc=rss"}, {"title": "What to Expect From Arista Networks’ Next Quarterly Earnings Report", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 14:29:51", "link": "https://www.barchart.com/story/news/8099800/what-to-expect-from-arista-networks-next-quarterly-earnings-report?.tsrc=rss"}, {"title": "Here's Why Arista Networks (ANET) Could be Great Choice for a Bottom Fisher", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 12:55:02", "link": "https://finance.yahoo.com/markets/stocks/articles/heres-why-arista-networks-anet-125502007.html?.tsrc=rss"}, {"title": "Earnings Preview: What to Expect From Lumentum’s Report", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 11:00:45", "link": "https://www.barchart.com/story/news/8090754/earnings-preview-what-to-expect-from-lumentums-report?.tsrc=rss"}, {"title": "How Risky Is Lumentum Stock?", "feed": "光通網通", "layer": "sector", "date": "Thu, 15 Oct 2026 23:06:56", "link": "https://www.trefis.com/articles/618829/how-risky-is-lumentum-stock/2026-10-15?.tsrc=rss"}, {"title": "Arista Networks (ANET) Stock Looks Fairly Valued On Its 7x Run", "feed": "光通網通", "layer": "sector", "date": "Thu, 15 Oct 2026 20:21:47", "link": "https://finance.yahoo.com/markets/stocks/articles/arista-networks-anet-stock-looks-202147917.html?.tsrc=rss"}, {"title": "Is Coherent (COHR) Using Its AI Capacity Buildout And TSX CDR Listing To Redefine Its Edge?", "feed": "光通網通", "layer": "sector", "date": "Thu, 15 Oct 2026 20:17:24", "link": "https://finance.yahoo.com/technology/ai/articles/coherent-cohr-using-ai-capacity-201724427.html?.tsrc=rss"}, {"title": "Why Applied Optoelectronics Stock Plummeted This Week", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 17:56:10", "link": "https://www.fool.com/coverage/market-movers/2026/10/16/why-applied-optoelectronics-stock-plummeted-this-week/?.tsrc=rss"}, {"title": "AKAM vs. ANET: Which AI Infrastructure Stock is the Better Buy Now?", "feed": "光通網通", "layer": "sector", "date": "Fri, 16 Oct 2026 14:14:00", "link": "https://finance.yahoo.com/technology/ai/articles/akam-vs-anet-ai-infrastructure-141400200.html?.tsrc=rss"}, {"title": "CrowdStrike Stock Fell 7% on Friday. Here’s What Could Drive Shares Through 2026", "feed": "網路安全", "layer": "sector", "date": "Fri, 16 Oct 2026 22:24:39", "link": "https://www.tikr.com/blog/crowdstrike-stock-fell-7-on-friday-heres-what-could-drive-shares-through-2026?ref=yahoofinance&.tsrc=rss"}], "regional_articles": [{"title": "International Markets Are Pulling Ahead Of US Stocks In 2026: These 4 ETFs Have Left SPY, QQQ, DIA In The Dust", "feed": "韓國", "layer": "regional", "date": "Mon, 05 Oct 2026 04:56:34", "link": "https://stocktwits.com/news-articles/markets/equity/international-markets-are-pulling-ahead-of-us-stocks-in-2026-these-4-et-fs-have-left-spy-qqq-dia-in-the-dust/cZDpm1lRBS7?.tsrc=rss"}, {"title": "The Zacks Analyst Blog Highlights CHAT, BWET, BNO, AIS, EWY and FTXL", "feed": "韓國", "layer": "regional", "date": "Fri, 25 Sep 2026 08:14:00", "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-analyst-blog-highlights-chat-081400985.html?.tsrc=rss"}, {"title": "5 Surging ETFs Up More than 50% in 2026", "feed": "韓國", "layer": "regional", "date": "Tue, 06 Oct 2026 18:45:48", "link": "https://www.tikr.com/blog/surging-etfs-up-in-2026?ref=yahoofinance&.tsrc=rss"}, {"title": "Korea’s Stock Market Is in Free Fall, and Hot U.S. Inflation Just Made It Worse", "feed": "韓國", "layer": "regional", "date": "Thu, 15 Oct 2026 12:00:17", "link": "https://247wallst.com/investing/2026/10/15/koreas-stock-market-is-in-free-fall-and-hot-u-s-inflation-just-made-it-worse/?.tsrc=rss"}, {"title": "Now Boarding: Single-Country ETFs", "feed": "韓國", "layer": "regional", "date": "Mon, 05 Oct 2026 04:01:00", "link": "https://www.thedailyupside.com/etf/thematics-sectors/now-boarding-single-country-etfs/?.tsrc=rss"}, {"title": "South Korea tax windfall could top 50 trillion won on chip boom - Yonhap", "feed": "韓國", "layer": "regional", "date": "Sun, 27 Sep 2026 04:57:35", "link": "https://finance.yahoo.com/economy/policy/articles/south-korea-tax-windfall-could-045735920.html?.tsrc=rss"}, {"title": "5 ETF Areas That Have Nearly Doubled in First Nine Months of 2026", "feed": "韓國", "layer": "regional", "date": "Thu, 24 Sep 2026 12:00:00", "link": "https://finance.yahoo.com/markets/stocks/articles/5-etf-areas-nearly-doubled-120000308.html?.tsrc=rss"}, {"title": "A Record ETF Year Takes Shape as Inflows Near $1.5 Trillion", "feed": "韓國", "layer": "regional", "date": "Mon, 21 Sep 2026 21:00:17", "link": "http://www.etf.com/sections/weekly-etf-flows/record-etf-year-takes-shape-inflows-near-15-trillion?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss"}, {"title": "KCHP’s 0.65% Fee Is Steep, but Only If You Already Own EWY", "feed": "韓國", "layer": "regional", "date": "Fri, 18 Sep 2026 14:40:48", "link": "https://247wallst.com/investing/etf/2026/09/18/portfolio-fit-kchp/?.tsrc=rss"}, {"title": "If Memory Chip Prices Fall, Here’s What Happens to the Korea Semiconductor ETF KCHP", "feed": "韓國", "layer": "regional", "date": "Thu, 17 Sep 2026 14:40:35", "link": "https://247wallst.com/investing/etf/2026/09/17/what-to-watch-kchp/?.tsrc=rss"}, {"title": "Taiwan Semiconductor Posts Record Q3 Results: Time to Buy the Dip?", "feed": "台灣", "layer": "regional", "date": "Fri, 16 Oct 2026 22:36:00", "link": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-posts-record-q3-223600229.html?.tsrc=rss"}, {"title": "Not Nvidia. Not TSMC. This Equipment Maker Is the Real Bottleneck in AI Chip Production.", "feed": "台灣", "layer": "regional", "date": "Fri, 16 Oct 2026 19:15:00", "link": "https://www.fool.com/investing/2026/10/16/not-nvidia-not-taiwan-semi-this-equipment-maker-is/?.tsrc=rss"}, {"title": "Arm and AMD Fall 5% as Qualcomm Verdict Adds to Chip Selloff; Taiwan Semiconductor Slips", "feed": "台灣", "layer": "regional", "date": "Fri, 16 Oct 2026 18:10:37", "link": "https://247wallst.com/investing/2026/10/16/arm-and-amd-fall-5-as-qualcomm-verdict-adds-to-chip-selloff-taiwan-semiconductor-slips/?.tsrc=rss"}, {"title": "Stock Market Swings On AI Fears, Tumbling Yields; Taiwan Semi, ASML, JPMorgan In Focus: Weekly Review", "feed": "台灣", "layer": "regional", "date": "Fri, 16 Oct 2026 14:43:24", "link": "https://finance.yahoo.com/m/019a21df-91ed-3f62-b0c9-1afb4c229ebc/stock-market-swings-on-ai.html?.tsrc=rss"}, {"title": "TSMC's Record Q3 Earnings & Upbeat Outlook Put These ETFs in Focus", "feed": "台灣", "layer": "regional", "date": "Fri, 16 Oct 2026 14:00:00", "link": "https://finance.yahoo.com/technology/articles/tsmcs-record-q3-earnings-upbeat-140000557.html?.tsrc=rss"}], "geo_alerts": [{"title": "Dollar Weakens on Reduced Fed Rate Hike Chances This Month", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 19:34:08", "link": "https://www.barchart.com/story/news/8110535/dollar-weakens-on-reduced-fed-rate-hike-chances-this-month?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "Dollar Pressured as Fed Chair Powell Refrains from Forward Guidance", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 14:32:08", "link": "https://www.barchart.com/story/news/8099890/dollar-pressured-as-fed-chair-powell-refrains-from-forward-guidance?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "US Dollar Falls Early Friday Ahead of Import Prices, New York Fed Services, Industrial Production", "feed": "利率匯率", "layer": "geo", "date": "Fri, 16 Oct 2026 11:40:14", "link": "https://finance.yahoo.com/markets/currencies/articles/us-dollar-falls-early-friday-114014259.html?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}, {"title": "Dow Jones Futures: S&P 500, Nasdaq Break Key Levels As CoreWeave, Dell Dive; Tesla, SpaceX, Meta Loom", "feed": "能源", "layer": "geo", "date": "Fri, 16 Oct 2026 21:08:07", "link": "https://finance.yahoo.com/m/4342d021-69d3-3aa1-9753-76f72c9ba95d/dow-jones-futures%3A-s%26p-500%2C.html?.tsrc=rss", "geo_tags": [{"group": "fed_policy", "impact": "Fed政策→估值倍數+流動性", "severity": 2}], "affected_stocks": []}], "total_scanned": 123}
+{
+  "generated_at": "2026-10-20T09:33:11+08:00",
+  "geo_articles": [
+    {
+      "title": "U.S. stock futures steady after Wall Street rebounds on tech recovery",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Tue, 20 Oct 2026 01:21:19",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/u-stock-futures-steady-wall-012119510.html?.tsrc=rss"
+    },
+    {
+      "title": "Dow Jones Futures: AMD, Nvidia Lead AI Trade Higher; Meta, Netflix, SpaceX, Tesla Earnings On Deck",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Tue, 20 Oct 2026 00:36:47",
+      "link": "https://finance.yahoo.com/m/fc8c5a2b-d77d-3107-a23a-2331f80e2b71/dow-jones-futures%3A-amd%2C.html?.tsrc=rss"
+    },
+    {
+      "title": "Review & Preview: It’s Down to Earnings",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 23:55:00",
+      "link": "https://finance.yahoo.com/m/34f312fd-04b0-3225-a7aa-e2212880617b/review-%26-preview%3A-it%E2%80%99s-down.html?.tsrc=rss"
+    },
+    {
+      "title": "Nasdaq 100 Sees Best Day In Nearly A Month As AI Rout Cools — AMZN, BE, CRWV, AAPL, PLTR In Focus",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 23:00:23",
+      "link": "https://stocktwits.com/news-articles/markets/equity/nasdaq-100-sees-best-day-in-nearly-a-month-as-ai-rout-cools-amzn-be-crwv-aapl-pltr-in-focus/cZxo2SbRBu5?.tsrc=rss"
+    },
+    {
+      "title": "Nasdaq Stocks Could Crash 30% If This Happens, Experts Warn",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 23:00:00",
+      "link": "https://beincrypto.com/nasdaq-stocks-crash-warning-ai-spending/?.tsrc=rss"
+    },
+    {
+      "title": "Worried About the Stock Market? This High-Yielding ETF Can Provide Stability and Generate Passive Income for Decades",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 22:20:02",
+      "link": "https://www.fool.com/investing/2026/10/19/worried-about-the-stock-market-this-high-yielding-etf-can-provide-stability-and-generate-passive-income-for-decades/?.tsrc=rss"
+    },
+    {
+      "title": "Nasdaq Jumps Past 1 Percent as VIX Swings While Dow Dips Below Its 50-Day Line",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 22:11:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/nasdaq-jumps-past-1-percent-221100911.html?.tsrc=rss"
+    },
+    {
+      "title": "Where Will VTI Be in 20 Years? Here's What History Suggests",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 21:43:00",
+      "link": "https://www.fool.com/investing/2026/10/19/where-history-says-vti-will-be-in-20-years/?.tsrc=rss"
+    },
+    {
+      "title": "Update: US Equity Indexes Close Mixed Amid Thin Trading Volumes as Consumer Discretionary, Technology Tops Sector Charts",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 21:31:08",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/us-equity-indexes-close-mixed-213108305.html?.tsrc=rss"
+    },
+    {
+      "title": "Did AI Data Partnerships Just Shift Lumen Stock Investment Narrative?",
+      "feed": "美股大盤",
+      "layer": "geo",
+      "date": "Tue, 20 Oct 2026 00:16:55",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/did-ai-data-partnerships-just-001655453.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "stimulus",
+          "impact": "財政刺激→特定板塊受益",
+          "severity": 1
+        }
+      ]
+    },
+    {
+      "title": "Tech rebounds as semiconductor stocks jump: AlphaCheck",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 13:50:03",
+      "link": "https://finance.yahoo.com/markets/article/tech-rebounds-as-semiconductor-stocks-jump-alphacheck-135003909.html?.tsrc=rss"
+    },
+    {
+      "title": "Dollar Pushes Higher as French Social Unrest Weighs on the Euro",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 14:33:28",
+      "link": "https://www.barchart.com/story/news/8199026/dollar-pushes-higher-as-french-social-unrest-weighs-on-the-euro?.tsrc=rss"
+    },
+    {
+      "title": "China's Treasury Pile Is Shrinking on Paper. The Custody Data Tell a Different Story",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 12:15:00",
+      "link": "https://finance.yahoo.com/markets/currencies/articles/chinas-treasury-pile-shrinking-paper-121500428.html?.tsrc=rss"
+    },
+    {
+      "title": "US Dollar Mixed Early Monday, Fed Officials in Quiet Period",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 11:32:53",
+      "link": "https://finance.yahoo.com/markets/currencies/articles/us-dollar-mixed-early-monday-113253790.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "fed_policy",
+          "impact": "Fed政策→估值倍數+流動性",
+          "severity": 2
+        }
+      ],
+      "affected_stocks": []
+    },
+    {
+      "title": "Treasuries Rallied as Tech Slid, and the Crowded Bet Against Bonds Felt It",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 11:00:00",
+      "link": "https://finance.yahoo.com/news/treasuries-rallied-tech-slid-crowded-110000030.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "trade_tariff",
+          "impact": "貿易戰→供應鏈成本",
+          "severity": 2
+        }
+      ],
+      "affected_stocks": [
+        "QCOM",
+        "INTC",
+        "AAPL",
+        "TSLA",
+        "TXN",
+        "NIO"
+      ]
+    },
+    {
+      "title": "Forget GLD. Investors Sent $500 Million to the Cheaper SPDR Gold Fund",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 22:47:32",
+      "link": "https://247wallst.com/investing/etf/2026/10/19/forget-gld-investors-sent-500-million-to-the-cheaper-spdr-gold-fund/?.tsrc=rss"
+    },
+    {
+      "title": "Aeroméxico Reports Unaudited Third Quarter 2026 Results",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 21:06:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/aerom-xico-reports-unaudited-third-210600410.html?.tsrc=rss"
+    },
+    {
+      "title": "Walmart sells US debt, eyes Canadian market as spending grows",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 15:36:09",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/walmart-sells-us-debt-eyes-153609881.html?.tsrc=rss"
+    },
+    {
+      "title": "Investors Just Poured Nearly $12 Billion Into This Battered ETF — and the Reason Could Surprise Wall Street",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 14:54:09",
+      "link": "https://247wallst.com/investing/etf/2026/10/19/investors-just-poured-nearly-12-billion-into-this-battered-etf-and-the-reason-could-surprise-wall-street/?.tsrc=rss"
+    },
+    {
+      "title": "Posthaste: How a 'leaky loonie' could raise Bank of Canada interest rates",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 11:55:32",
+      "link": "https://financialpost.com/news/canadian-dollar-sway-bank-of-canada-interest-rates?.tsrc=rss"
+    }
+  ],
+  "sector_articles": [
+    {
+      "title": "An Oil Refiner Is Beating Nvidia This Year: Analyst Thinks It Can Rally 16% More From Here",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Tue, 20 Oct 2026 01:20:56",
+      "link": "https://stocktwits.com/news-articles/markets/equity/an-oil-refiner-is-beating-nvidia-this-year-analyst-thinks-it-can-rally-16-more-from-here/cZxqXy0RBu3?.tsrc=rss"
+    },
+    {
+      "title": "Meet the Dividend King Stock That Yields More Than Quintuple the Nasdaq-100. Here's Why It's a Buy in October.",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 23:50:00",
+      "link": "https://www.fool.com/investing/2026/10/19/meet-the-dividend-king-stock-that-yields-more-than/?.tsrc=rss"
+    },
+    {
+      "title": "Thinking Nvidia Stock Could Hit $10 Trillion? Here's 1 Reason I'd Be Cautious",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 23:29:00",
+      "link": "https://www.fool.com/investing/2026/10/19/thinking-nvidia-stock-could-hit-10-trillion/?.tsrc=rss"
+    },
+    {
+      "title": "Will AI Rack Expansion Change AMD Stock Narrative",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 22:13:47",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/ai-rack-expansion-change-amd-221347819.html?.tsrc=rss"
+    },
+    {
+      "title": "AMD (AMD) Stock Trades Up, Here Is Why",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 22:08:55",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/amd-amd-stock-trades-why-220855593.html?.tsrc=rss"
+    },
+    {
+      "title": "Is Fed Chair Kevin Warsh About To Pop CoreWeave's Bubble?",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Tue, 20 Oct 2026 01:20:02",
+      "link": "https://www.fool.com/investing/2026/10/19/is-fed-chair-kevin-warsh-about-to-pop-coreweave-s-bubble/?.tsrc=rss"
+    },
+    {
+      "title": "SpaceX Investors, Mark Your Calendars: A Massive Stock Lockup Expiration Is Coming",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Tue, 20 Oct 2026 01:04:02",
+      "link": "https://www.fool.com/investing/2026/10/19/spacex-investors-mark-your-calendars-a-massive-stock-lockup-expiration-is-coming/?.tsrc=rss"
+    },
+    {
+      "title": "1 Stock Is in the Spotlight for All the Right Reasons. Here's Why It's a Buy Now.",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Tue, 20 Oct 2026 00:50:00",
+      "link": "https://www.fool.com/investing/2026/10/19/1-stock-spotlight-for-right-reasons-why-buy-now/?.tsrc=rss"
+    },
+    {
+      "title": "Sweetgreen (SG) Stock Costs Less Than $11 a Share. Here's Why I'd Still Not Buy It.",
+      "feed": "半導體",
+      "layer": "sector",
+      "date": "Tue, 20 Oct 2026 00:25:00",
+      "link": "https://www.fool.com/investing/2026/10/19/sweetgreen-sg-stock-costs-less-than-11-a-share-her/?.tsrc=rss"
+    },
+    {
+      "title": "3M Jumps On Expanded Amazon Data Center Deal; Earnings On Tap",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 23:39:09",
+      "link": "https://finance.yahoo.com/m/9f746d33-c17c-38dd-9fb5-a7b8bead6c9c/3m-jumps-on-expanded-amazon.html?.tsrc=rss"
+    },
+    {
+      "title": "Amazon vs. Home Depot: Which Consumer Stock Is a Better Buy in 2026?",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:44:14",
+      "link": "https://www.fool.com/coverage/better-buy/2026/10/19/amazon-vs-home-depot-which-consumer-stock-is-a-better-buy-in-2026/?.tsrc=rss"
+    },
+    {
+      "title": "3M stock rises 3% on $6B Amazon data center deal",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:36:32",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/3m-stock-rises-3-6b-213632761.html?.tsrc=rss"
+    },
+    {
+      "title": "Stock Market Today, Oct. 19: Amazon Surges on Morgan Stanley Top Pick and $350 Price Target",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:31:03",
+      "link": "https://www.fool.com/coverage/stock-market-today/2026/10/19/stock-market-today-oct-19-amazon-surges-on-morgan-stanley-top-pick-and-usd350-price-target/?.tsrc=rss"
+    },
+    {
+      "title": "Microsoft’s AI expansion just hit a physical limit",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:03:00",
+      "link": "https://www.thestreet.com/investing/microsoft-ai-expansion-loughton-england-delay-electricity-physical-limit?.tsrc=rss"
+    },
+    {
+      "title": "Elite Nuclear Stocks To Own In October 2026",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 23:20:57",
+      "link": "https://finance.yahoo.com/energy/articles/elite-nuclear-stocks-own-october-232057278.html?.tsrc=rss"
+    },
+    {
+      "title": "Dividend Aristocrats or Quality Factor: Which ETF Fits Retirement?",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 22:33:06",
+      "link": "https://247wallst.com/investing/etf/2026/10/19/dividend-aristocrats-or-quality-factor-which-etf-fits-retirement/?.tsrc=rss"
+    },
+    {
+      "title": "Advertisers Must Find the Friend Who Pays for Everyone: PayPal Ads’ Asaf Davidov",
+      "feed": "AI/雲端",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:31:35",
+      "link": "https://www.beet.tv/2026/10/advertisers-must-find-the-friend-who-pays-for-everyone-paypal-ads-asaf-davidov.html?.tsrc=rss"
+    },
+    {
+      "title": "Arista Networks Is Outgrowing The Market Fourfold: What To Watch Next",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 20:17:21",
+      "link": "https://www.trefis.com/articles/619151/arista-networks-is-outgrowing-the-market-fourfold-what-to-watch-next/2026-10-19?.tsrc=rss"
+    },
+    {
+      "title": "Is Coherent (COHR) Fairly Valued?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 18:39:44",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/coherent-cohr-fairly-valued-183944938.html?.tsrc=rss"
+    },
+    {
+      "title": "Networking Stocks Rally as Tech Rebound Lifts AI Gear Makers: Ciena and Arista Climb 4%, but Cisco Barely Moves",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 18:06:19",
+      "link": "https://247wallst.com/investing/2026/10/19/networking-stocks-rally-as-tech-rebound-lifts-ai-gear-makers-ciena-and-arista-climb-4-but-cisco-barely-moves/?.tsrc=rss"
+    },
+    {
+      "title": "Why Did Lumentum Stock Fall?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 17:32:14",
+      "link": "https://www.trefis.com/articles/619159/why-did-lumentum-stock-fall/2026-10-19?.tsrc=rss"
+    },
+    {
+      "title": "GLW, VZ, COHR In Focus As AI Fiber Shortage Drives Prices Higher — TrendForce Sees Supply Crunch Through 2028",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 17:09:24",
+      "link": "https://stocktwits.com/news-articles/markets/equity/glw-vz-cohr-in-focus-as-ai-fiber-shortage-drives-prices-higher-trend-force-sees-supply-crunch-through-2028/cZx8H5MRBMy?.tsrc=rss"
+    },
+    {
+      "title": "Optics Stocks Rally Ahead of Earnings: Applied Optoelectronics Jumps 5%, Lumentum Adds 4%, Coherent Rises 2%",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 17:05:10",
+      "link": "https://247wallst.com/investing/2026/10/19/optics-stocks-rally-ahead-of-earnings-applied-optoelectronics-jumps-5-lumentum-adds-4-coherent-rises-2/?.tsrc=rss"
+    },
+    {
+      "title": "Arista Networks Is Heading for a Big Test on Nov. 3. Here's What Could Send the Stock Soaring.",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 16:50:00",
+      "link": "https://www.fool.com/investing/2026/10/19/arista-networks-is-heading-for-a-big-test-on-nov-3/?.tsrc=rss"
+    },
+    {
+      "title": "Coherent (COHR) Could Benefit From AI Networking Even if CPO Adoption Takes Time",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 13:47:11",
+      "link": "https://finance.yahoo.com/technology/ai/articles/coherent-cohr-could-benefit-ai-134711534.html?.tsrc=rss"
+    },
+    {
+      "title": "Evercore Says Ciena Could Be Worth $550+. Here’s the Math",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 13:37:28",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/evercore-says-ciena-could-worth-133728604.html?.tsrc=rss"
+    },
+    {
+      "title": "Lumentum (LITE) Can’t Meet Demand. Can Its Valuation Hold Up?",
+      "feed": "光通網通",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 13:33:58",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/lumentum-lite-t-meet-demand-133358382.html?.tsrc=rss"
+    },
+    {
+      "title": "Is AI Security Expansion Altering The Investment Case For Palo Alto Networks Stock?",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 23:23:52",
+      "link": "https://finance.yahoo.com/technology/ai/articles/ai-security-expansion-altering-investment-232352876.html?.tsrc=rss"
+    },
+    {
+      "title": "What Are CrowdStrike Investors Betting On?",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 21:20:12",
+      "link": "https://www.trefis.com/articles/619183/what-are-crowdstrike-investors-betting-on/2026-10-19?.tsrc=rss"
+    },
+    {
+      "title": "QIZ is Now Available for Purchase on the CrowdStrike Marketplace",
+      "feed": "網路安全",
+      "layer": "sector",
+      "date": "Mon, 19 Oct 2026 15:03:00",
+      "link": "https://finance.yahoo.com/technology/ai/articles/qiz-now-available-purchase-crowdstrike-150300929.html?.tsrc=rss"
+    }
+  ],
+  "regional_articles": [
+    {
+      "title": "International Markets Are Pulling Ahead Of US Stocks In 2026: These 4 ETFs Have Left SPY, QQQ, DIA In The Dust",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 05 Oct 2026 04:56:34",
+      "link": "https://stocktwits.com/news-articles/markets/equity/international-markets-are-pulling-ahead-of-us-stocks-in-2026-these-4-et-fs-have-left-spy-qqq-dia-in-the-dust/cZDpm1lRBS7?.tsrc=rss"
+    },
+    {
+      "title": "The Zacks Analyst Blog Highlights CHAT, BWET, BNO, AIS, EWY and FTXL",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Fri, 25 Sep 2026 08:14:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/zacks-analyst-blog-highlights-chat-081400985.html?.tsrc=rss"
+    },
+    {
+      "title": "5 Surging ETFs Up More than 50% in 2026",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Tue, 06 Oct 2026 18:45:48",
+      "link": "https://www.tikr.com/blog/surging-etfs-up-in-2026?ref=yahoofinance&.tsrc=rss"
+    },
+    {
+      "title": "Samsung Appears to Be a Good Bet Ahead of Q3: ETFs in Focus",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 15:50:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/samsung-appears-good-bet-ahead-155000785.html?.tsrc=rss"
+    },
+    {
+      "title": "Is This the Right Time to Invest in South Korean ETFs?",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 11:26:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/time-invest-south-korean-etfs-112600088.html?.tsrc=rss"
+    },
+    {
+      "title": "Korea’s Stock Market Is in Free Fall, and Hot U.S. Inflation Just Made It Worse",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Thu, 15 Oct 2026 12:00:17",
+      "link": "https://247wallst.com/investing/2026/10/15/koreas-stock-market-is-in-free-fall-and-hot-u-s-inflation-just-made-it-worse/?.tsrc=rss"
+    },
+    {
+      "title": "Now Boarding: Single-Country ETFs",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 05 Oct 2026 04:01:00",
+      "link": "https://www.thedailyupside.com/etf/thematics-sectors/now-boarding-single-country-etfs/?.tsrc=rss"
+    },
+    {
+      "title": "South Korea tax windfall could top 50 trillion won on chip boom - Yonhap",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Sun, 27 Sep 2026 04:57:35",
+      "link": "https://finance.yahoo.com/economy/policy/articles/south-korea-tax-windfall-could-045735920.html?.tsrc=rss"
+    },
+    {
+      "title": "5 ETF Areas That Have Nearly Doubled in First Nine Months of 2026",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Thu, 24 Sep 2026 12:00:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/5-etf-areas-nearly-doubled-120000308.html?.tsrc=rss"
+    },
+    {
+      "title": "A Record ETF Year Takes Shape as Inflows Near $1.5 Trillion",
+      "feed": "韓國",
+      "layer": "regional",
+      "date": "Mon, 21 Sep 2026 21:00:17",
+      "link": "http://www.etf.com/sections/weekly-etf-flows/record-etf-year-takes-shape-inflows-near-15-trillion?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss"
+    },
+    {
+      "title": "Buy Top-Ranked Tech Stock TSMC Now on the Dip and Hold",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 20:26:00",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/buy-top-ranked-tech-stock-202600390.html?.tsrc=rss"
+    },
+    {
+      "title": "AMD vs. TSMC: How Much Faster Must AMD’s Cash Flow Grow?",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 18:56:40",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/amd-vs-tsmc-much-faster-185640358.html?.tsrc=rss"
+    },
+    {
+      "title": "TSMC (TSM) Underperforms in Q3 as Semiconductor ‘Crowded Trade’ Unwinds",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 16:17:02",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/tsmc-tsm-underperforms-q3-semiconductor-161702390.html?.tsrc=rss"
+    },
+    {
+      "title": "Semiconductor Sell-Off: 5 Stocks to Buy on the Dip",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 15:20:00",
+      "link": "https://www.fool.com/investing/2026/10/19/semiconductor-sell-off-5-stocks-to-buy-on-the-dip/?.tsrc=rss"
+    },
+    {
+      "title": "Opinion: The Most Important Number in Taiwan Semiconductor's Earnings Report Was 68%",
+      "feed": "台灣",
+      "layer": "regional",
+      "date": "Mon, 19 Oct 2026 15:05:00",
+      "link": "https://www.fool.com/investing/2026/10/19/the-most-important-number-in-taiwan-semiconductors/?.tsrc=rss"
+    }
+  ],
+  "geo_alerts": [
+    {
+      "title": "US Dollar Mixed Early Monday, Fed Officials in Quiet Period",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 11:32:53",
+      "link": "https://finance.yahoo.com/markets/currencies/articles/us-dollar-mixed-early-monday-113253790.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "fed_policy",
+          "impact": "Fed政策→估值倍數+流動性",
+          "severity": 2
+        }
+      ],
+      "affected_stocks": []
+    },
+    {
+      "title": "Treasuries Rallied as Tech Slid, and the Crowded Bet Against Bonds Felt It",
+      "feed": "利率匯率",
+      "layer": "geo",
+      "date": "Mon, 19 Oct 2026 11:00:00",
+      "link": "https://finance.yahoo.com/news/treasuries-rallied-tech-slid-crowded-110000030.html?.tsrc=rss",
+      "geo_tags": [
+        {
+          "group": "trade_tariff",
+          "impact": "貿易戰→供應鏈成本",
+          "severity": 2
+        }
+      ],
+      "affected_stocks": [
+        "QCOM",
+        "INTC",
+        "AAPL",
+        "TSLA",
+        "TXN",
+        "NIO"
+      ]
+    }
+  ],
+  "total_scanned": 124
+}
