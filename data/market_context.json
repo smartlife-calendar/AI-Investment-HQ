@@ -6,12 +6,13 @@
   "cnn_fg_score": 23.1,
   "cnn_fg_rating": "extreme fear",
   "cnn_fg_prev_week": 46.3,
-  "spy_vs_200sma": 5.27,
-  "spy_from_52w_high": -2.03,
-  "spy_score": 76.35,
-  "high_score": 89.85,
-  "mom_score": 43.374272786037494,
-  "haven_score": 61.00332190294472,
-  "composite_score": 67.7,
-  "composite_label": "貪婪"
+  "spy_vs_200sma": 5.66,
+  "spy_from_52w_high": -1.62,
+  "spy_score": 78.3,
+  "high_score": 91.9,
+  "mom_score": 45.539046542127736,
+  "haven_score": 64.15969962197231,
+  "composite_score": 69.5,
+  "composite_label": "貪婪",
+  "generated_at": "2026-10-20T10:00:05+08:00"
 }
