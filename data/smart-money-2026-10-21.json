@@ -1,17 +1,26 @@
 {
   "date": "2026-10-21",
-  "generated_at": "2026-10-21T05:35:34.910011+08:00",
+  "generated_at": "2026-10-21T09:06:04.599143+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 1,
+  "count": 2,
   "stocks": [
+    {
+      "symbol": "BRZE",
+      "name": "Braze, Inc.",
+      "price": 45.57,
+      "change_pct": 51.7,
+      "vol_ratio": 26.4,
+      "volume": 64608302,
+      "avg_volume": 2447284
+    },
     {
       "symbol": "CLF",
       "name": "Cleveland-Cliffs Inc.",
-      "price": 14.1,
-      "change_pct": 16.34,
-      "vol_ratio": 4.7,
-      "volume": 88331455,
-      "avg_volume": 18793926
+      "price": 13.65,
+      "change_pct": -3.19,
+      "vol_ratio": 2.2,
+      "volume": 43429972,
+      "avg_volume": 19740896
     }
   ]
 }
