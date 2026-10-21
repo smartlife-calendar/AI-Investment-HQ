@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T08:42:19+08:00",
+  "generated_at": "2026-10-21T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "BRZE",
@@ -293,7 +293,7 @@
       "price": 45.57,
       "change_pct": 51.7,
       "volume": 64608302,
-      "vr": 26.4
+      "vr": 18.9
     }
   ],
   "strong_sell": [
@@ -311,7 +311,7 @@
       "price": 13.65,
       "change_pct": -3.19,
       "volume": 43429972,
-      "vr": 2.2
+      "vr": 2.1
     }
   ]
 }
