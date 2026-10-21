@@ -1124,12 +1124,129 @@
       "price": 548.23,
       "regime": "CAUTION",
       "confidence": 30
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "NOC",
+      "action": "BUY",
+      "score": 8,
+      "price": 534.0,
+      "regime": "NEUTRAL",
+      "confidence": 84
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "JPM",
+      "action": "BUY",
+      "score": 7,
+      "price": 335.26,
+      "regime": "NEUTRAL",
+      "confidence": 77
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "DHR",
+      "action": "BUY",
+      "score": 7,
+      "price": 224.24,
+      "regime": "NEUTRAL",
+      "confidence": 68
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "NVAX",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 11.43,
+      "regime": "NEUTRAL",
+      "confidence": 58
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "XOM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 177.86,
+      "regime": "NEUTRAL",
+      "confidence": 58
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "BMY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 61.68,
+      "regime": "NEUTRAL",
+      "confidence": 52
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "SONY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 25.21,
+      "regime": "NEUTRAL",
+      "confidence": 51
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "UNHG",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 22.01,
+      "regime": "NEUTRAL",
+      "confidence": 43
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "XLE",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 67.97,
+      "regime": "NEUTRAL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "MA",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 620.42,
+      "regime": "NEUTRAL",
+      "confidence": 40
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "ACN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 239.12,
+      "regime": "NEUTRAL",
+      "confidence": 39
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "PM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 199.9,
+      "regime": "NEUTRAL",
+      "confidence": 35
+    },
+    {
+      "date": "2026-10-21",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 121.19,
+      "regime": "NEUTRAL",
+      "confidence": 30
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-20",
-    "total_entries": 125
+    "last_updated": "2026-10-21",
+    "total_entries": 138
   }
 }
