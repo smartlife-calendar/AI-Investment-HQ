@@ -1,6 +1,6 @@
 {
   "date": "2026-10-22",
-  "generated_at": "2026-10-22T10:02:46.357944+08:00",
+  "generated_at": "2026-10-22T11:07:01.991038+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
@@ -18,9 +18,9 @@
       "name": "Skydance Corporation",
       "price": 7.87,
       "change_pct": 10.85,
-      "vol_ratio": 2.2,
+      "vol_ratio": 2.3,
       "volume": 49426936,
-      "avg_volume": 22466789
+      "avg_volume": 21489972
     },
     {
       "symbol": "SPCX",
