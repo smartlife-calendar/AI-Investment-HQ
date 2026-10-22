@@ -1,6 +1,6 @@
 {
   "date": "2026-10-22",
-  "generated_at": "2026-10-22T09:51:15.400604+08:00",
+  "generated_at": "2026-10-22T10:02:46.357944+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 3,
   "stocks": [
@@ -18,18 +18,18 @@
       "name": "Skydance Corporation",
       "price": 7.87,
       "change_pct": 10.85,
-      "vol_ratio": 2.3,
+      "vol_ratio": 2.2,
       "volume": 49426936,
-      "avg_volume": 21489972
+      "avg_volume": 22466789
     },
     {
       "symbol": "SPCX",
       "name": "Space Exploration Technologies ",
       "price": 159.31,
       "change_pct": 7.79,
-      "vol_ratio": 2.3,
+      "vol_ratio": 2.2,
       "volume": 218416864,
-      "avg_volume": 94963853
+      "avg_volume": 99280392
     }
   ]
 }
