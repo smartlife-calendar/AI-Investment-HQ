@@ -1241,12 +1241,66 @@
       "price": 121.19,
       "regime": "NEUTRAL",
       "confidence": 30
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "HD",
+      "action": "BUY",
+      "score": 7,
+      "price": 314.14,
+      "regime": "STRONG_BULL",
+      "confidence": 67
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "QSI",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 1.23,
+      "regime": "STRONG_BULL",
+      "confidence": 43
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "MDB",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 390.75,
+      "regime": "STRONG_BULL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "XLF",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 56.04,
+      "regime": "STRONG_BULL",
+      "confidence": 42
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "FAST",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 52.49,
+      "regime": "STRONG_BULL",
+      "confidence": 32
+    },
+    {
+      "date": "2026-10-22",
+      "symbol": "MNST",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 46.63,
+      "regime": "STRONG_BULL",
+      "confidence": 31
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-21",
-    "total_entries": 138
+    "last_updated": "2026-10-22",
+    "total_entries": 144
   }
 }
