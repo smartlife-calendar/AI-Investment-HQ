@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T10:00:02+08:00",
+  "generated_at": "2026-10-22T10:38:47+08:00",
   "gainers": [
     {
       "symbol": "ASST",
@@ -309,7 +309,7 @@
       "price": 7.87,
       "change_pct": 10.85,
       "volume": 49426936,
-      "vr": 2.2
+      "vr": 2.3
     }
   ],
   "strong_sell": [
