@@ -1,1 +1,261 @@
-{"generated_at": "2026-10-22T10:02:09+08:00", "algorithm": "v6_rolling_30d", "entry_criteria": "score>=7, direction=bullish", "signal_count": 13, "symbols_analyzed": 13, "targets": {"5d": {"avg_return": 0.5, "win_rate": 50}, "10d": {"avg_return": 1.0, "win_rate": 50}, "20d": {"avg_return": 1.5, "win_rate": 50}}, "results": {"5d": {"n": 13, "avg_return": -0.43, "median_return": -0.5, "win_rate": 30.8, "best": {"symbol": "OKTA", "entry": "2026-09-22", "exit": "2026-09-29", "entry_price": 191.33, "exit_price": 204.8800048828125, "return_pct": 7.08, "score": 7}, "worst": {"symbol": "MSTR", "entry": "2026-09-22", "exit": "2026-09-29", "entry_price": 168.5, "exit_price": 154.6699981689453, "return_pct": -8.21, "score": 7}}, "10d": {"n": 13, "avg_return": 3.77, "median_return": 2.47, "win_rate": 61.5, "best": {"symbol": "OKTA", "entry": "2026-09-22", "exit": "2026-10-06", "entry_price": 191.33, "exit_price": 218.6699981689453, "return_pct": 14.29, "score": 7}, "worst": {"symbol": "BMNR", "entry": "2026-09-22", "exit": "2026-10-06", "entry_price": 28.25, "exit_price": 26.200000762939453, "return_pct": -7.26, "score": 7}}, "20d": {"n": 13, "avg_return": -5.11, "median_return": -8.38, "win_rate": 30.8, "best": {"symbol": "EBAY", "entry": "2026-09-22", "exit": "2026-10-20", "entry_price": 108.3, "exit_price": 121.19000244140625, "return_pct": 11.9, "score": 7}, "worst": {"symbol": "BMNR", "entry": "2026-09-22", "exit": "2026-10-20", "entry_price": 28.25, "exit_price": 22.81999969482422, "return_pct": -19.22, "score": 7}}}, "alerts": ["⚠️ 5d avg return -0.43% < target +0.5%", "⚠️ 5d win rate 30.8% < target 50%", "⚠️ 20d avg return -5.11% < target +1.5%", "⚠️ 20d win rate 30.8% < target 50%"], "status": "⚠️ BELOW TARGET"}
+{
+  "generated_at": "2026-10-22T10:05:04+08:00",
+  "algorithm": "v3_rolling_with_stoploss",
+  "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
+  "signal_count": 54,
+  "symbols_analyzed": 54,
+  "market_regime": "STRONG_BULL",
+  "targets": {
+    "5d": {
+      "avg_return": 0.5,
+      "win_rate": 50
+    },
+    "10d": {
+      "avg_return": 1.0,
+      "win_rate": 50
+    },
+    "20d": {
+      "avg_return": 1.5,
+      "win_rate": 50
+    }
+  },
+  "results": {
+    "5d": {
+      "n": 27,
+      "avg_return": -0.24,
+      "median_return": -0.14,
+      "win_rate": 48.1,
+      "avg_win": 5.92,
+      "avg_loss": -5.96,
+      "stopped_out": 6,
+      "stop_rate": 22.2,
+      "best": {
+        "symbol": "NVAX",
+        "entry": "2026-09-15",
+        "return_pct": 17.33,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "SOUN",
+        "entry": "2026-08-08",
+        "return_pct": -12.22,
+        "score": 7
+      }
+    },
+    "10d": {
+      "n": 18,
+      "avg_return": -0.38,
+      "median_return": 1.37,
+      "win_rate": 50.0,
+      "avg_win": 6.74,
+      "avg_loss": -7.51,
+      "stopped_out": 5,
+      "stop_rate": 27.8,
+      "best": {
+        "symbol": "NVAX",
+        "entry": "2026-09-15",
+        "return_pct": 17.23,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "SOUN",
+        "entry": "2026-08-08",
+        "return_pct": -12.22,
+        "score": 7
+      }
+    },
+    "20d": {
+      "n": 15,
+      "avg_return": -0.15,
+      "median_return": -5.9,
+      "win_rate": 33.3,
+      "avg_win": 14.06,
+      "avg_loss": -7.26,
+      "stopped_out": 7,
+      "stop_rate": 46.7,
+      "best": {
+        "symbol": "NVAX",
+        "entry": "2026-09-15",
+        "return_pct": 38.89,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "SOUN",
+        "entry": "2026-08-08",
+        "return_pct": -12.22,
+        "score": 7
+      }
+    }
+  },
+  "score_breakdown": {
+    "5d": {
+      "7": {
+        "n": 21,
+        "avg": -1.14,
+        "win_rate": 47.6
+      },
+      "8": {
+        "n": 4,
+        "avg": 3.98,
+        "win_rate": 50.0
+      },
+      "9": {
+        "n": 2,
+        "avg": 0.72,
+        "win_rate": 50.0
+      }
+    },
+    "10d": {
+      "7": {
+        "n": 14,
+        "avg": -2.19,
+        "win_rate": 42.9
+      },
+      "8": {
+        "n": 2,
+        "avg": 11.93,
+        "win_rate": 100.0
+      },
+      "9": {
+        "n": 2,
+        "avg": -0.08,
+        "win_rate": 50.0
+      }
+    }
+  },
+  "recent_trades": [
+    {
+      "symbol": "EQT",
+      "entry_date": "2026-10-14",
+      "exit_date": "2026-10-21",
+      "entry_price": 52.75,
+      "exit_price": 54.07,
+      "return_pct": 2.5,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "SONY",
+      "entry_date": "2026-10-11",
+      "exit_date": "2026-10-19",
+      "entry_price": 24.12,
+      "exit_price": 24.77,
+      "return_pct": 2.69,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "CVX",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-16",
+      "entry_price": 211.98,
+      "exit_price": 224.99,
+      "return_pct": 6.14,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "MELI",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-16",
+      "entry_price": 1889.85,
+      "exit_price": 1834.0,
+      "return_pct": -2.96,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "XOM",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-16",
+      "entry_price": 168.94,
+      "exit_price": 178.98,
+      "return_pct": 5.94,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "XLE",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-16",
+      "entry_price": 65.08,
+      "exit_price": 68.24,
+      "return_pct": 4.86,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "PM",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-16",
+      "entry_price": 201.19,
+      "exit_price": 205.2,
+      "return_pct": 1.99,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "NU",
+      "entry_date": "2026-10-11",
+      "exit_date": "2026-10-15",
+      "entry_price": 16.12,
+      "exit_price": 14.73,
+      "return_pct": -8.62,
+      "score": 7,
+      "exit_reason": "stop_loss",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "PENG",
+      "entry_date": "2026-10-09",
+      "exit_date": "2026-10-14",
+      "entry_price": 76.28,
+      "exit_price": 67.59,
+      "return_pct": -11.39,
+      "score": 7,
+      "exit_reason": "stop_loss",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "XOVR",
+      "entry_date": "2026-09-30",
+      "exit_date": "2026-10-07",
+      "entry_price": 21.36,
+      "exit_price": 22.16,
+      "return_pct": 3.75,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warn",
+      "msg": "⚠️ 5d avg return -0.24% < target +0.5%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 5d win rate 48.1% < target 50%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 10d avg return -0.38% < target +1.0%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 20d avg return -0.15% < target +1.5%"
+    },
+    {
+      "level": "warn",
+      "msg": "⚠️ 20d win rate 33.3% < target 50%"
+    }
+  ],
+  "status": "⚠️ BELOW TARGET"
+}
