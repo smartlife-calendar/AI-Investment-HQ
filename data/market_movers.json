@@ -1,166 +1,166 @@
 {
-  "generated_at": "2026-10-21T10:00:02+08:00",
+  "generated_at": "2026-10-22T09:05:01+08:00",
   "gainers": [
     {
-      "symbol": "BRZE",
-      "name": "Braze, Inc.",
-      "price": 45.57,
-      "change_pct": 51.7,
-      "volume": 64608302,
+      "symbol": "ASST",
+      "name": "Strive, Inc.",
+      "price": 30.75,
+      "change_pct": 13.64,
+      "volume": 14196116,
       "vr": ""
     },
     {
-      "symbol": "LION",
-      "name": "Lionsgate Studios Corp",
-      "price": 12.15,
-      "change_pct": 14.41,
-      "volume": 14345836,
+      "symbol": "ALMR",
+      "name": "Alamar Biosciences, Inc.",
+      "price": 31.45,
+      "change_pct": 11.68,
+      "volume": 1141203,
       "vr": ""
     },
     {
-      "symbol": "SLS",
-      "name": "SELLAS Life Sciences Group, Inc",
-      "price": 11.98,
-      "change_pct": 14.2,
-      "volume": 10117115,
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "price": 7.87,
+      "change_pct": 10.85,
+      "volume": 49426936,
       "vr": ""
     },
     {
-      "symbol": "KVYO",
-      "name": "Klaviyo, Inc. Series A",
-      "price": 19.61,
-      "change_pct": 11.93,
-      "volume": 12641086,
+      "symbol": "NTSK",
+      "name": "Netskope, Inc.",
+      "price": 21.81,
+      "change_pct": 10.04,
+      "volume": 6225086,
       "vr": ""
     },
     {
-      "symbol": "EQPT",
-      "name": "EquipmentShare.com Inc",
-      "price": 15.6,
-      "change_pct": 11.83,
-      "volume": 4676780,
+      "symbol": "INOD",
+      "name": "Innodata Inc.",
+      "price": 60.56,
+      "change_pct": 10.02,
+      "volume": 1108698,
       "vr": ""
     },
     {
-      "symbol": "TLK",
-      "name": "PT Telekomunikasi Indonesia, Tb",
-      "price": 11.64,
-      "change_pct": 11.39,
-      "volume": 5966521,
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 35.57,
+      "change_pct": 9.55,
+      "volume": 81909879,
       "vr": ""
     },
     {
-      "symbol": "EFX",
-      "name": "Equifax, Inc.",
-      "price": 176.54,
-      "change_pct": 11.33,
-      "volume": 3985790,
+      "symbol": "SEI",
+      "name": "Solaris Energy Infrastructure, ",
+      "price": 69.37,
+      "change_pct": 9.52,
+      "volume": 3341602,
       "vr": ""
     },
     {
-      "symbol": "HAS",
-      "name": "Hasbro, Inc.",
-      "price": 109.52,
-      "change_pct": 11.2,
-      "volume": 8007351,
+      "symbol": "APPN",
+      "name": "Appian Corporation",
+      "price": 48.73,
+      "change_pct": 9.48,
+      "volume": 1704583,
       "vr": ""
     },
     {
-      "symbol": "NESR",
-      "name": "National Energy Services Reunit",
-      "price": 21.09,
-      "change_pct": 11.12,
-      "volume": 6174748,
+      "symbol": "CDLR",
+      "name": "Cadeler A/S",
+      "price": 24.83,
+      "change_pct": 9.43,
+      "volume": 118988,
       "vr": ""
     },
     {
-      "symbol": "SPHR",
-      "name": "Sphere Entertainment Co.",
-      "price": 112.84,
-      "change_pct": 9.67,
-      "volume": 1486630,
+      "symbol": "CRL",
+      "name": "Charles River Laboratories Inte",
+      "price": 344.87,
+      "change_pct": 9.33,
+      "volume": 2733709,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "SE",
-      "name": "Sea Limited",
-      "price": 80.43,
-      "change_pct": -9.09,
-      "volume": 18703103,
+      "symbol": "RCUS",
+      "name": "Arcus Biosciences, Inc.",
+      "price": 19.1,
+      "change_pct": -19.58,
+      "volume": 4511541,
       "vr": ""
     },
     {
-      "symbol": "DPC",
-      "name": "DPC Holdings PLC",
-      "price": 29.12,
-      "change_pct": -8.91,
-      "volume": 2887565,
+      "symbol": "LAD",
+      "name": "Lithia Motors, Inc.",
+      "price": 269.13,
+      "change_pct": -10.15,
+      "volume": 1067752,
       "vr": ""
     },
     {
-      "symbol": "TSEM",
-      "name": "Tower Semiconductor Ltd.",
-      "price": 183.78,
-      "change_pct": -8.25,
-      "volume": 4307153,
+      "symbol": "TLX",
+      "name": "Telix Pharmaceuticals Limited",
+      "price": 10.03,
+      "change_pct": -10.13,
+      "volume": 874375,
       "vr": ""
     },
     {
-      "symbol": "GM",
-      "name": "General Motors Company",
-      "price": 77.09,
-      "change_pct": -6.84,
-      "volume": 24626808,
+      "symbol": "TAL",
+      "name": "TAL Education Group",
+      "price": 10.55,
+      "change_pct": -8.89,
+      "volume": 8620118,
       "vr": ""
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp.",
-      "price": 41.23,
-      "change_pct": -6.74,
-      "volume": 1618807,
+      "symbol": "MHO",
+      "name": "M/I Homes, Inc.",
+      "price": 114.04,
+      "change_pct": -8.08,
+      "volume": 868571,
       "vr": ""
     },
     {
-      "symbol": "MLI",
-      "name": "Mueller Industries, Inc.",
-      "price": 56.81,
-      "change_pct": -6.59,
-      "volume": 4238361,
+      "symbol": "WING",
+      "name": "Wingstop Inc.",
+      "price": 119.95,
+      "change_pct": -7.95,
+      "volume": 1322473,
       "vr": ""
     },
     {
-      "symbol": "AERO",
-      "name": "Grupo Aeromexico, S.A.B. de C.V",
-      "price": 14.88,
-      "change_pct": -6.36,
-      "volume": 787104,
+      "symbol": "GPI",
+      "name": "Group 1 Automotive, Inc.",
+      "price": 224.85,
+      "change_pct": -7.48,
+      "volume": 216707,
       "vr": ""
     },
     {
-      "symbol": "DVA",
-      "name": "DaVita Inc.",
-      "price": 175.35,
-      "change_pct": -6.23,
-      "volume": 2071205,
+      "symbol": "GRDN",
+      "name": "Guardian Pharmacy Services, Inc",
+      "price": 38.98,
+      "change_pct": -6.9,
+      "volume": 429330,
       "vr": ""
     },
     {
-      "symbol": "SVM",
-      "name": "Silvercorp Metals Inc.",
-      "price": 9.26,
-      "change_pct": -5.22,
-      "volume": 3151539,
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 21.91,
+      "change_pct": -6.45,
+      "volume": 84370448,
       "vr": ""
     },
     {
-      "symbol": "GPC",
-      "name": "Genuine Parts Company",
-      "price": 123.52,
-      "change_pct": -5.12,
-      "volume": 2168391,
+      "symbol": "DXCM",
+      "name": "DexCom, Inc.",
+      "price": 80.26,
+      "change_pct": -6.39,
+      "volume": 8007223,
       "vr": ""
     }
   ],
@@ -168,150 +168,166 @@
     {
       "symbol": "SPCX",
       "name": "Space Exploration Technologies ",
-      "price": 147.79,
-      "change_pct": -0.11,
-      "volume": 99549776,
-      "vr": ""
-    },
-    {
-      "symbol": "CRWV",
-      "name": "CoreWeave, Inc.",
-      "price": 62.13,
-      "change_pct": 1.65,
-      "volume": 91559625,
-      "vr": ""
-    },
-    {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 216.47,
-      "change_pct": -0.29,
-      "volume": 77454645,
-      "vr": ""
-    },
-    {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 91.69,
-      "change_pct": -0.37,
-      "volume": 81263600,
-      "vr": ""
-    },
-    {
-      "symbol": "NU",
-      "name": "Nu Holdings Ltd.",
-      "price": 15.09,
-      "change_pct": 4.0,
-      "volume": 71779733,
-      "vr": ""
-    },
-    {
-      "symbol": "IREN",
-      "name": "IREN LIMITED",
-      "price": 26.62,
-      "change_pct": -4.0,
-      "volume": 70908845,
-      "vr": ""
-    },
-    {
-      "symbol": "BRZE",
-      "name": "Braze, Inc.",
-      "price": 45.57,
-      "change_pct": 51.7,
-      "volume": 64608302,
-      "vr": ""
-    },
-    {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 9.02,
-      "change_pct": -0.66,
-      "volume": 63221253,
-      "vr": ""
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 12.11,
-      "change_pct": 3.68,
-      "volume": 59791174,
-      "vr": ""
-    },
-    {
-      "symbol": "CIFR",
-      "name": "Cipher Digital Inc.",
-      "price": 8.88,
-      "change_pct": -0.67,
-      "volume": 59446308,
-      "vr": ""
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 2.89,
-      "change_pct": 0.7,
-      "volume": 49189305,
-      "vr": ""
-    },
-    {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 4.08,
-      "change_pct": 3.55,
-      "volume": 48283660,
+      "price": 159.31,
+      "change_pct": 7.79,
+      "volume": 218416864,
       "vr": ""
     },
     {
       "symbol": "NFLX",
       "name": "Netflix, Inc.",
-      "price": 68.69,
-      "change_pct": -1.66,
-      "volume": 62819587,
+      "price": 65.04,
+      "change_pct": -5.31,
+      "volume": 100931063,
       "vr": ""
     },
     {
-      "symbol": "RIG",
-      "name": "Transocean Ltd (Switzerland)",
-      "price": 5.82,
-      "change_pct": -1.19,
-      "volume": 46186820,
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 221.97,
+      "change_pct": 2.54,
+      "volume": 86111324,
       "vr": ""
     },
     {
-      "symbol": "SOFI",
-      "name": "SoFi Technologies, Inc.",
-      "price": 14.68,
-      "change_pct": 2.66,
-      "volume": 44875840,
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 21.91,
+      "change_pct": -6.45,
+      "volume": 84370448,
+      "vr": ""
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 35.57,
+      "change_pct": 9.55,
+      "volume": 81909879,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 12.23,
+      "change_pct": 1.03,
+      "volume": 76690128,
+      "vr": ""
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 61.82,
+      "change_pct": -0.5,
+      "volume": 74632655,
+      "vr": ""
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 92.96,
+      "change_pct": 1.39,
+      "volume": 74242457,
+      "vr": ""
+    },
+    {
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 9.25,
+      "change_pct": 2.55,
+      "volume": 73320711,
+      "vr": ""
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 15.05,
+      "change_pct": -0.27,
+      "volume": 66280414,
+      "vr": ""
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 27.84,
+      "change_pct": 4.58,
+      "volume": 49884648,
+      "vr": ""
+    },
+    {
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "price": 7.87,
+      "change_pct": 10.85,
+      "volume": 49426936,
+      "vr": ""
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 2.82,
+      "change_pct": -2.42,
+      "volume": 45378963,
+      "vr": ""
+    },
+    {
+      "symbol": "F",
+      "name": "Ford Motor Company",
+      "price": 11.9,
+      "change_pct": -2.06,
+      "volume": 43978827,
+      "vr": ""
+    },
+    {
+      "symbol": "ONDS",
+      "name": "Ondas Inc",
+      "price": 6.27,
+      "change_pct": 2.79,
+      "volume": 43679262,
       "vr": ""
     }
   ],
   "strong_buy": [
     {
-      "symbol": "BRZE",
-      "name": "Braze, Inc.",
-      "price": 45.57,
-      "change_pct": 51.7,
-      "volume": 64608302,
-      "vr": 18.9
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 159.31,
+      "change_pct": 7.79,
+      "volume": 218416864,
+      "vr": 2.3
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 35.57,
+      "change_pct": 9.55,
+      "volume": 81909879,
+      "vr": 1.8
+    },
+    {
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "price": 7.87,
+      "change_pct": 10.85,
+      "volume": 49426936,
+      "vr": 2.3
     }
   ],
   "strong_sell": [
     {
-      "symbol": "IREN",
-      "name": "IREN LIMITED",
-      "price": 26.62,
-      "change_pct": -4.0,
-      "volume": 70908845,
-      "vr": 1.6
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "price": 65.04,
+      "change_pct": -5.31,
+      "volume": 100931063,
+      "vr": 2.9
     },
     {
-      "symbol": "CLF",
-      "name": "Cleveland-Cliffs Inc.",
-      "price": 13.65,
-      "change_pct": -3.19,
-      "volume": 43429972,
-      "vr": 2.1
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 21.91,
+      "change_pct": -6.45,
+      "volume": 84370448,
+      "vr": 1.8
     }
   ]
 }
