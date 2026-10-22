@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T09:36:50+08:00",
+  "generated_at": "2026-10-22T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "ASST",
@@ -293,7 +293,7 @@
       "price": 159.31,
       "change_pct": 7.79,
       "volume": 218416864,
-      "vr": 2.3
+      "vr": 2.2
     },
     {
       "symbol": "SMCI",
@@ -301,7 +301,7 @@
       "price": 35.57,
       "change_pct": 9.55,
       "volume": 81909879,
-      "vr": 1.8
+      "vr": 1.9
     },
     {
       "symbol": "SKYD",
@@ -309,7 +309,7 @@
       "price": 7.87,
       "change_pct": 10.85,
       "volume": 49426936,
-      "vr": 2.3
+      "vr": 2.2
     }
   ],
   "strong_sell": [
@@ -327,7 +327,7 @@
       "price": 21.91,
       "change_pct": -6.45,
       "volume": 84370448,
-      "vr": 1.8
+      "vr": 1.9
     }
   ]
 }
