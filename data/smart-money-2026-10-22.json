@@ -1,26 +1,35 @@
 {
   "date": "2026-10-22",
-  "generated_at": "2026-10-22T01:48:11.718112+08:00",
+  "generated_at": "2026-10-22T09:18:45.312484+08:00",
   "filter": "vol_ratio >= 2.0",
-  "count": 2,
+  "count": 3,
   "stocks": [
     {
-      "symbol": "BRZE",
-      "name": "Braze, Inc.",
-      "price": 45.57,
-      "change_pct": 51.7,
-      "vol_ratio": 18.9,
-      "volume": 64608302,
-      "avg_volume": 3418428
+      "symbol": "NFLX",
+      "name": "Netflix, Inc.",
+      "price": 65.04,
+      "change_pct": -5.31,
+      "vol_ratio": 2.9,
+      "volume": 100931063,
+      "avg_volume": 34803814
     },
     {
-      "symbol": "CLF",
-      "name": "Cleveland-Cliffs Inc.",
-      "price": 13.65,
-      "change_pct": -3.19,
-      "vol_ratio": 2.1,
-      "volume": 43429972,
-      "avg_volume": 20680939
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "price": 7.87,
+      "change_pct": 10.85,
+      "vol_ratio": 2.3,
+      "volume": 49426936,
+      "avg_volume": 21489972
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 159.31,
+      "change_pct": 7.79,
+      "vol_ratio": 2.3,
+      "volume": 218416864,
+      "avg_volume": 94963853
     }
   ]
 }
