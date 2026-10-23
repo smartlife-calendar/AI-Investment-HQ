@@ -402,7 +402,21 @@
         "exchange": "NYQ",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "PG",
+        "date": "2026-10-22",
+        "open": 162.14,
+        "high": 166.85,
+        "low": 161.36,
+        "close": 165.59,
+        "volume": 22021000,
+        "market_price": 165.59,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
     },
     "LMT": {
       "entry_date": "2026-10-22",
@@ -434,7 +448,21 @@
         "exchange": "NYQ",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "LMT",
+        "date": "2026-10-22",
+        "open": 579.51,
+        "high": 608.0,
+        "low": 577.24,
+        "close": 589.91,
+        "volume": 2957700,
+        "market_price": 589.91,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
     }
   },
   "pending_orders": {},
