@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T09:34:05+08:00",
+  "generated_at": "2026-10-23T10:00:03+08:00",
   "gainers": [
     {
       "symbol": "BHVN",
@@ -293,7 +293,7 @@
       "price": 67.05,
       "change_pct": 3.09,
       "volume": 58691592,
-      "vr": 1.7
+      "vr": 1.6
     },
     {
       "symbol": "CMCSA",
@@ -319,7 +319,7 @@
       "price": 7.88,
       "change_pct": -14.81,
       "volume": 206826972,
-      "vr": 2.6
+      "vr": 2.5
     },
     {
       "symbol": "SPCX",
@@ -335,7 +335,7 @@
       "price": 55.6,
       "change_pct": -10.06,
       "volume": 81234057,
-      "vr": 2.3
+      "vr": 2.2
     },
     {
       "symbol": "WULF",
