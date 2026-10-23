@@ -418,6 +418,7 @@ def update_normalized_chart(history):
             normalized[market][etf] = norm_rows
 
     corr_data["normalized"] = normalized
+    corr_data["updated_at"] = datetime.now(TW_TZ).strftime("%Y-%m-%dT%H:%M:%S+08:00")
 
     # Push
     payload = json.dumps(corr_data, ensure_ascii=False, separators=(",", ":"))

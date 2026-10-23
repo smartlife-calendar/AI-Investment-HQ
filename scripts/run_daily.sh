@@ -43,6 +43,9 @@ python3 scripts/paper_trading.py || echo "paper_trading.py failed (non-critical)
 echo "=== Step 5g: market_monitor.py ==="
 python3 scripts/market_monitor.py || echo "market_monitor.py failed (non-critical)"
 
+echo "=== Step 5h: event_calendar.py (daily — countdowns change daily) ==="
+python3 scripts/event_calendar.py || echo "event_calendar.py failed (non-critical)"
+
 echo "=== Step 6/7: generate_social_post.py ==="
 python3 scripts/generate_social_post.py || ERRORS="${ERRORS}⚠️ generate_social_post.py 失敗\n"
 
@@ -61,8 +64,7 @@ if [ "$DAY_OF_WEEK" = "6" ]; then
     echo "=== Step 7d: AI stock analyst (Saturday) ==="
     python3 scripts/ai_stock_analyst.py || ERRORS="${ERRORS}⚠️ ai_stock_analyst.py 失敗\n"
 
-    echo "=== Step 7e: Event calendar (Saturday) ==="
-    python3 scripts/event_calendar.py || ERRORS="${ERRORS}⚠️ event_calendar.py 失敗\n"
+    # event_calendar.py moved to daily steps (Step 5h)
 
     echo "=== Step 7f: Deep stock reports (Saturday) ==="
     python3 scripts/generate_stock_report.py || ERRORS="${ERRORS}⚠️ generate_stock_report.py 失敗\n"
