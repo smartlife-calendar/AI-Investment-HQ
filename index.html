@@ -346,6 +346,7 @@
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
                     <span style="font-size:20px">🔗</span>
                     <h3 style="font-size:15px;font-weight:800;margin:0;color:#3730a3">美台連動分析</h3>
+                    <span id="corrTimestamp" style="font-size:11px;color:#94a3b8"></span>
                 </div>
                 <div id="leadLagContent" style="font-size:12px;color:#4338ca">⏳ 載入中...</div>
             </div>
@@ -357,6 +358,7 @@
             <div style="background:white;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);border:1px solid #e5e7eb;margin-bottom:14px">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
                     <h3 style="font-size:15px;font-weight:800;margin:0">📈 板塊 52 週走勢</h3>
+                    <span id="flowChartTimestamp" style="font-size:11px;color:#94a3b8"></span>
                     <div style="display:flex;gap:4px">
                         <button onclick="switchFlowChart('us')" id="flow-btn-us" style="padding:4px 12px;border-radius:12px;border:2px solid #4f46e5;background:#eef2ff;color:#4f46e5;font-size:11px;font-weight:700;cursor:pointer">🇺🇸 美股</button>
                         <button onclick="switchFlowChart('tw')" id="flow-btn-tw" style="padding:4px 12px;border-radius:12px;border:1px solid #e2e8f0;background:white;color:#64748b;font-size:11px;font-weight:700;cursor:pointer">🇹🇼 台股</button>
@@ -5631,6 +5633,8 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                     fetch('/data/sector_flow_alerts.json?t=' + Date.now()).catch(function(){return null;})
                 ]);
                 _corrData = await corrR.json();
+                var _fts = document.getElementById('flowChartTimestamp'); if(_fts && _corrData.updated_at) _fts.textContent = '更新: ' + _corrData.updated_at.replace('T',' ').substring(0,16);
+                var _cts = document.getElementById('corrTimestamp'); if(_cts && _corrData.updated_at) _cts.textContent = '更新: ' + _corrData.updated_at.replace('T',' ').substring(0,16);
                 _flowData = _corrData.normalized || {};
                 
                 // Init visibility
