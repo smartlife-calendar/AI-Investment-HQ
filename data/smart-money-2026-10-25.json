@@ -1,6 +1,6 @@
 {
   "date": "2026-10-25",
-  "generated_at": "2026-10-25T09:48:58.097884+08:00",
+  "generated_at": "2026-10-25T10:49:27.736366+08:00",
   "filter": "vol_ratio >= 2.0",
   "count": 4,
   "stocks": [
@@ -12,6 +12,15 @@
       "vol_ratio": 2.4,
       "volume": 61212841,
       "avg_volume": 25505350
+    },
+    {
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 20.93,
+      "change_pct": -7.96,
+      "vol_ratio": 2.3,
+      "volume": 99547409,
+      "avg_volume": 43281482
     },
     {
       "symbol": "INFY",
@@ -30,15 +39,6 @@
       "vol_ratio": 2.2,
       "volume": 35824073,
       "avg_volume": 16283669
-    },
-    {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 20.93,
-      "change_pct": -7.96,
-      "vol_ratio": 2.2,
-      "volume": 99547409,
-      "avg_volume": 45248822
     }
   ]
 }
