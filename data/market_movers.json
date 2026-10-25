@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T10:00:02+08:00",
+  "generated_at": "2026-10-25T09:59:01+08:00",
   "gainers": [
     {
       "symbol": "RHI",
@@ -7,6 +7,14 @@
       "price": 45.87,
       "change_pct": 21.74,
       "volume": 6892870,
+      "vr": ""
+    },
+    {
+      "symbol": "BUUU",
+      "name": "BUUU Group Limited",
+      "price": 53.9,
+      "change_pct": 18.34,
+      "volume": 185582,
       "vr": ""
     },
     {
@@ -71,14 +79,6 @@
       "price": 21.79,
       "change_pct": 8.62,
       "volume": 6392540,
-      "vr": ""
-    },
-    {
-      "symbol": "NE",
-      "name": "Noble Corporation plc A",
-      "price": 47.7,
-      "change_pct": 8.53,
-      "volume": 2002137,
       "vr": ""
     }
   ],
@@ -293,7 +293,7 @@
       "price": 4.07,
       "change_pct": 3.04,
       "volume": 62289265,
-      "vr": 1.8
+      "vr": 1.7
     }
   ],
   "strong_sell": [
@@ -303,7 +303,7 @@
       "price": 20.93,
       "change_pct": -7.96,
       "volume": 99547409,
-      "vr": 2.2
+      "vr": 2.3
     },
     {
       "symbol": "STLA",
