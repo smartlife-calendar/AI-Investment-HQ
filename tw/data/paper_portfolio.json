@@ -1,0 +1,240 @@
+{
+  "initial_capital": 1000000,
+  "currency": "TWD",
+  "cash": 1000000,
+  "nav": 1000000,
+  "pnl_pct": 0.0,
+  "positions": [],
+  "closed_trades": [],
+  "pending_orders": [
+    {
+      "code": "2027",
+      "name": "大成鋼",
+      "limit_price": 50.6,
+      "shares": 2100,
+      "score": 10,
+      "order_date": "2026-10-27",
+      "sector": "鋼鐵",
+      "reasons": [
+        "法人大買(49%成交量)",
+        "外資+投信同買",
+        "低PE(10.0)"
+      ],
+      "institutional": {
+        "foreign_net": 5441972,
+        "trust_net": 91000,
+        "total_net": 6275450
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2615",
+      "name": "萬海",
+      "limit_price": 119.5,
+      "shares": 900,
+      "score": 10,
+      "order_date": "2026-10-27",
+      "sector": "航運業",
+      "reasons": [
+        "法人大買(21%成交量)",
+        "外資+投信同買",
+        "低PE(8.2)"
+      ],
+      "institutional": {
+        "foreign_net": 2304312,
+        "trust_net": 36000,
+        "total_net": 2361671
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "9945",
+      "name": "潤泰新",
+      "limit_price": 29.6,
+      "shares": 3700,
+      "score": 10,
+      "order_date": "2026-10-27",
+      "sector": "其他",
+      "reasons": [
+        "法人大買(65%成交量)",
+        "外資+投信同買",
+        "低PE(5.2)"
+      ],
+      "institutional": {
+        "foreign_net": 2613371,
+        "trust_net": 314000,
+        "total_net": 2857919
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2542",
+      "name": "興富發",
+      "limit_price": 40.0,
+      "shares": 2700,
+      "score": 9,
+      "order_date": "2026-10-27",
+      "sector": "建材營造",
+      "reasons": [
+        "法人大買(63%成交量)",
+        "低PE(9.3)",
+        "高殖利率(10.0%)"
+      ],
+      "institutional": {
+        "foreign_net": 6009334,
+        "trust_net": -390300,
+        "total_net": 5678829
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2382",
+      "name": "廣達",
+      "limit_price": 322.0,
+      "shares": 300,
+      "score": 9,
+      "order_date": "2026-10-27",
+      "sector": "電腦及週邊設備",
+      "reasons": [
+        "法人大買(16%成交量)",
+        "外資+投信同買",
+        "營收成長106%"
+      ],
+      "institutional": {
+        "foreign_net": 406423,
+        "trust_net": 363000,
+        "total_net": 1419830
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "3703",
+      "name": "欣陸",
+      "limit_price": 20.75,
+      "shares": 5300,
+      "score": 9,
+      "order_date": "2026-10-27",
+      "sector": "建材營造",
+      "reasons": [
+        "法人大買(75%成交量)",
+        "股價<淨值(PB=0.62)",
+        "高殖利率(5.1%)"
+      ],
+      "institutional": {
+        "foreign_net": 724715,
+        "trust_net": 0,
+        "total_net": 724715
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2002",
+      "name": "中鋼",
+      "limit_price": 19.55,
+      "shares": 5600,
+      "score": 8,
+      "order_date": "2026-10-27",
+      "sector": "鋼鐵",
+      "reasons": [
+        "法人大買(52%成交量)",
+        "外資+投信同買",
+        "股價<淨值(PB=0.99)"
+      ],
+      "institutional": {
+        "foreign_net": 24664994,
+        "trust_net": 650000,
+        "total_net": 24927823
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2637",
+      "name": "慧洋-KY",
+      "limit_price": 100.5,
+      "shares": 1000,
+      "score": 8,
+      "order_date": "2026-10-27",
+      "sector": "航運業",
+      "reasons": [
+        "法人大買(15%成交量)",
+        "外資+投信同買",
+        "營收成長38%"
+      ],
+      "institutional": {
+        "foreign_net": 200315,
+        "trust_net": 1000,
+        "total_net": 226534
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "2031",
+      "name": "新光鋼",
+      "limit_price": 48.2,
+      "shares": 2200,
+      "score": 8,
+      "order_date": "2026-10-27",
+      "sector": "鋼鐵",
+      "reasons": [
+        "法人大買(48%成交量)",
+        "低PE(7.5)",
+        "高殖利率(5.2%)"
+      ],
+      "institutional": {
+        "foreign_net": 494697,
+        "trust_net": 0,
+        "total_net": 495244
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    },
+    {
+      "code": "4961",
+      "name": "天鈺",
+      "limit_price": 187.0,
+      "shares": 500,
+      "score": 8,
+      "order_date": "2026-10-27",
+      "sector": "半導體",
+      "reasons": [
+        "法人大買(32%成交量)",
+        "外資+投信同買",
+        "外資連買4日"
+      ],
+      "institutional": {
+        "foreign_net": 144725,
+        "trust_net": 109000,
+        "total_net": 247459
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1
+    }
+  ],
+  "total_trades": 0,
+  "win_rate": 0,
+  "wins": 0,
+  "losses": 0,
+  "best_trade": 0,
+  "worst_trade": 0,
+  "updated_at": "2026-10-27T07:29:24+08:00",
+  "audit_log": [],
+  "methodology": {
+    "initial_capital": "NT$1,000,000",
+    "max_positions": 10,
+    "position_size": "10%",
+    "entry_criteria": "score≥7, 法人連買≥2日, 成交量≥50萬股",
+    "exit_rules": "停損 -8%, T1 +15% 賣半, T2 追蹤停損",
+    "cooldown": "5 交易日",
+    "weekday_bias": "週三 ×1.15, 週二 ×1.10, 週一 ×1.00, 週四 ×0.90, 週五 ×0.85",
+    "data_source": "Yahoo Finance (可驗證)",
+    "verification": "所有交易價格可至 Yahoo Finance 查證 OHLCV"
+  }
+}
