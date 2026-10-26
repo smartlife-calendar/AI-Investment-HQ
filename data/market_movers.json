@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T10:01:07+08:00",
+  "generated_at": "2026-10-26T08:52:16+08:00",
   "gainers": [
     {
       "symbol": "RHI",
@@ -14,15 +14,15 @@
       "name": "BUUU Group Limited",
       "price": 53.9,
       "change_pct": 18.34,
-      "volume": 185582,
+      "volume": 199582,
       "vr": ""
     },
     {
       "symbol": "GMAB",
       "name": "Genmab A/S",
       "price": 43.79,
-      "change_pct": 9.47,
-      "volume": 12896581,
+      "change_pct": 9.48,
+      "volume": 13000825,
       "vr": ""
     },
     {
@@ -30,7 +30,7 @@
       "name": "Netskope, Inc.",
       "price": 24.28,
       "change_pct": 9.37,
-      "volume": 8600878,
+      "volume": 8809186,
       "vr": ""
     },
     {
@@ -46,7 +46,7 @@
       "name": "Maplebear Inc.",
       "price": 56.44,
       "change_pct": 9.21,
-      "volume": 15984487,
+      "volume": 16098050,
       "vr": ""
     },
     {
@@ -62,7 +62,7 @@
       "name": "Zai Lab Limited",
       "price": 24.03,
       "change_pct": 9.03,
-      "volume": 3691465,
+      "volume": 3691476,
       "vr": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Fastly, Inc.",
       "price": 24.41,
       "change_pct": 8.73,
-      "volume": 4968752,
+      "volume": 4987072,
       "vr": ""
     },
     {
@@ -78,7 +78,7 @@
       "name": "SailPoint, Inc.",
       "price": 21.79,
       "change_pct": 8.62,
-      "volume": 6392540,
+      "volume": 6398683,
       "vr": ""
     }
   ],
@@ -88,7 +88,7 @@
       "name": "LKQ Corporation",
       "price": 17.42,
       "change_pct": -22.47,
-      "volume": 23393577,
+      "volume": 23405566,
       "vr": ""
     },
     {
@@ -96,7 +96,7 @@
       "name": "Regencell Bioscience Holdings L",
       "price": 7.67,
       "change_pct": -21.81,
-      "volume": 473685,
+      "volume": 476525,
       "vr": ""
     },
     {
@@ -104,7 +104,7 @@
       "name": "Corcept Therapeutics Incorporat",
       "price": 85.86,
       "change_pct": -20.13,
-      "volume": 3096127,
+      "volume": 3098611,
       "vr": ""
     },
     {
@@ -112,7 +112,7 @@
       "name": "Tango Therapeutics, Inc.",
       "price": 23.34,
       "change_pct": -16.43,
-      "volume": 15852361,
+      "volume": 15853112,
       "vr": ""
     },
     {
@@ -128,7 +128,7 @@
       "name": "SLM Corporation",
       "price": 19.41,
       "change_pct": -10.78,
-      "volume": 12979564,
+      "volume": 12979801,
       "vr": ""
     },
     {
@@ -144,7 +144,7 @@
       "name": "Credo Technology Group Holding ",
       "price": 147.29,
       "change_pct": -9.51,
-      "volume": 12608213,
+      "volume": 12677480,
       "vr": ""
     },
     {
@@ -170,7 +170,7 @@
       "name": "Space Exploration Technologies ",
       "price": 147.49,
       "change_pct": 1.89,
-      "volume": 109627721,
+      "volume": 110617461,
       "vr": ""
     },
     {
@@ -202,7 +202,7 @@
       "name": "NVIDIA Corporation",
       "price": 210.96,
       "change_pct": -0.59,
-      "volume": 79740563,
+      "volume": 80189765,
       "vr": ""
     },
     {
@@ -210,7 +210,7 @@
       "name": "Intel Corporation",
       "price": 86.96,
       "change_pct": 1.72,
-      "volume": 71684828,
+      "volume": 72093680,
       "vr": ""
     },
     {
@@ -218,7 +218,7 @@
       "name": "American Airlines Group, Inc.",
       "price": 12.11,
       "change_pct": -3.89,
-      "volume": 62402405,
+      "volume": 62528960,
       "vr": ""
     },
     {
@@ -246,11 +246,11 @@
       "vr": ""
     },
     {
-      "symbol": "INFY",
-      "name": "Infosys Limited",
-      "price": 12.35,
-      "change_pct": -6.58,
-      "volume": 45949762,
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 54.23,
+      "change_pct": -2.46,
+      "volume": 46947437,
       "vr": ""
     },
     {
@@ -262,27 +262,27 @@
       "vr": ""
     },
     {
-      "symbol": "CRWV",
-      "name": "CoreWeave, Inc.",
-      "price": 54.23,
-      "change_pct": -2.46,
-      "volume": 46371125,
+      "symbol": "INFY",
+      "name": "Infosys Limited",
+      "price": 12.35,
+      "change_pct": -6.58,
+      "volume": 45949762,
       "vr": ""
     },
     {
-      "symbol": "ONDS",
-      "name": "Ondas Inc",
-      "price": 6.2,
-      "change_pct": 2.99,
-      "volume": 40772992,
+      "symbol": "F",
+      "name": "Ford Motor Company",
+      "price": 11.6,
+      "change_pct": -2.85,
+      "volume": 43988261,
       "vr": ""
     },
     {
-      "symbol": "AAPL",
-      "name": "Apple Inc.",
-      "price": 347.73,
-      "change_pct": -0.14,
-      "volume": 39450857,
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 2.79,
+      "change_pct": -2.11,
+      "volume": 43101523,
       "vr": ""
     }
   ],
