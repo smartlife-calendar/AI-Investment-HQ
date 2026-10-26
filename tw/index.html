@@ -93,6 +93,7 @@ var TABS=[
   {id:'crossmarket',label:'🔗 聯動'},
   {id:'search',label:'🔍 搜尋'},
   {id:'guide',label:'📖 學習'},
+  {id:'paper',label:'📈 模擬操作'},
   {id:'reports',label:'🔬 報告'}
 ];
 
@@ -137,6 +138,7 @@ function render(){
   var m=document.getElementById('main');
   if(!D){m.innerHTML='<p style="text-align:center;color:#94a3b8;padding:40px">⏳ 載入中...</p>';return}
   switch(CT){
+    case 'paper': loadPaperTrading(); break;
     case 'overview': m.innerHTML=rOverview()+ts(); break;
     case 'signals': m.innerHTML=rSignals()+'<div id="tw-backtest" style="margin-top:12px"></div>'+ts(); setTimeout(loadTwBacktest,100); break;
     case 'institutional': m.innerHTML=rInst()+ts(); break;
@@ -1344,7 +1346,150 @@ if(!sessionStorage.getItem('bmcX'))setTimeout(function(){if(!sessionStorage.getI
 function setLang(v){document.cookie='googtrans='+v+';path=/;domain=.'+location.hostname;document.cookie='googtrans='+v+';path=/';location.reload();}
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=gtElInit"></script>
-<script>function gtElInit(){new google.translate.TranslateElement({pageLanguage:'zh-TW',autoDisplay:false},'_gtDummy');};</script>
+<script>function gtElInit(){new google.translate.TranslateElement({pageLanguage:'zh-TW',autoDisplay:false},'_gtDummy');};
+
+async function loadPaperTrading() {
+  var m = document.getElementById('main');
+  m.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:40px">⏳ 載入模擬操作...</p>';
+  try {
+    var r = await fetch('/tw/data/paper_portfolio.json?t=' + Date.now());
+    var p = await r.json();
+    var nav = p.nav || p.initial_capital;
+    var pnl = p.pnl_pct || 0;
+    var cash = p.cash || 0;
+    var positions = p.positions || [];
+    var closed = p.closed_trades || [];
+    var pending = p.pending_orders || [];
+    var meth = p.methodology || {};
+    var upd = p.updated_at || '';
+
+    var pnlColor = pnl >= 0 ? '#16a34a' : '#dc2626';
+    var h = '';
+
+    // Header
+    h += '<div style="background:linear-gradient(135deg,#1e3a5f,#2563eb);border-radius:16px;padding:20px;margin-bottom:16px;color:white">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">';
+    h += '<div><div style="font-size:20px;font-weight:900">📈 台股模擬操作</div>';
+    h += '<div style="font-size:11px;opacity:0.8;margin-top:4px">更新: ' + (upd ? upd.replace('T',' ').substring(0,16) : '') + '（每日 15:00）</div></div>';
+    h += '<div style="text-align:right"><div style="font-size:28px;font-weight:900">NT$' + nav.toLocaleString() + '</div>';
+    h += '<div style="font-size:14px;color:' + (pnl>=0?'#86efac':'#fca5a5') + '">' + (pnl>=0?'+':'') + pnl.toFixed(2) + '%</div></div></div>';
+
+    // Stats row
+    h += '<div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">';
+    var stats = [
+      ['💵 現金', 'NT$' + cash.toLocaleString()],
+      ['📊 持倉', positions.length + '/' + (meth.max_positions || 10)],
+      ['📈 勝率', (p.win_rate||0) + '%'],
+      ['🔄 交易', (p.total_trades||0) + '筆']
+    ];
+    stats.forEach(function(s) {
+      h += '<div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:8px 14px;flex:1;min-width:80px">';
+      h += '<div style="font-size:10px;opacity:0.8">' + s[0] + '</div>';
+      h += '<div style="font-size:16px;font-weight:800">' + s[1] + '</div></div>';
+    });
+    h += '</div></div>';
+
+    // Positions
+    if (positions.length > 0) {
+      h += '<div style="margin-bottom:16px">';
+      h += '<h3 style="font-size:15px;font-weight:800;margin:0 0 10px">💼 目前持倉</h3>';
+      positions.sort(function(a,b){return (b.pnl_pct||0)-(a.pnl_pct||0)});
+      positions.forEach(function(pos) {
+        var pp = pos.pnl_pct || 0;
+        var bg = pp > 0 ? '#f0fdf4' : pp < 0 ? '#fef2f2' : '#f8fafc';
+        var border = pp > 0 ? '#16a34a' : pp < 0 ? '#dc2626' : '#e2e8f0';
+        var mv = pos.market_value || (pos.shares * pos.current_price);
+        h += '<div style="background:' + bg + ';border:1px solid ' + border + '40;border-radius:10px;padding:12px;margin-bottom:6px">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">';
+        h += '<div><b style="font-size:14px">' + pos.code + '</b> <span style="color:#64748b;font-size:12px">' + (pos.name||'') + '</span>';
+        h += ' <span style="font-size:11px;color:#94a3b8">' + pos.shares + '股</span></div>';
+        h += '<div style="text-align:right"><span style="font-weight:700;color:' + (pp>=0?'#16a34a':'#dc2626') + '">' + (pp>=0?'+':'') + pp.toFixed(1) + '%</span>';
+        h += ' <span style="font-size:11px;color:#94a3b8">NT$' + Math.round(mv).toLocaleString() + '</span></div></div>';
+        h += '<div style="font-size:11px;color:#94a3b8;margin-top:4px">進場: ' + pos.entry_date + ' @' + pos.entry_price + '</div>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
+    // Pending orders
+    if (pending.length > 0) {
+      h += '<div style="margin-bottom:16px">';
+      h += '<h3 style="font-size:15px;font-weight:800;margin:0 0 10px">⏳ 掛單中</h3>';
+      pending.forEach(function(o) {
+        h += '<div style="background:#fffbeb;border:1px solid #f59e0b40;border-radius:10px;padding:10px;margin-bottom:6px">';
+        h += '<div style="display:flex;justify-content:space-between;align-items:center">';
+        h += '<div><b>' + o.code + '</b> <span style="color:#64748b;font-size:12px">' + (o.name||'') + '</span>';
+        h += ' <span style="font-size:11px;background:#fef3c7;padding:2px 6px;border-radius:4px">score=' + (o.score||'') + '</span></div>';
+        h += '<div style="font-size:12px">限價 $' + o.limit_price + ' × ' + o.shares + '股</div></div>';
+        h += '<div style="font-size:11px;color:#94a3b8;margin-top:4px">' + (o.sector||'') + ' · 掛單日: ' + o.order_date + '</div>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
+    // Closed trades
+    if (closed.length > 0) {
+      h += '<div style="margin-bottom:16px">';
+      h += '<h3 style="font-size:15px;font-weight:800;margin:0 0 10px">📜 已平倉 (' + closed.length + '筆)</h3>';
+      closed.slice().reverse().slice(0, 20).forEach(function(t) {
+        var tp = t.pnl_pct || 0;
+        var bg = tp > 0 ? '#f0fdf4' : '#fef2f2';
+        h += '<div style="background:' + bg + ';border-radius:8px;padding:8px 12px;margin-bottom:4px;font-size:12px">';
+        h += '<div style="display:flex;justify-content:space-between">';
+        h += '<span><b>' + t.code + '</b> ' + (t.name||'') + '</span>';
+        h += '<span style="font-weight:700;color:' + (tp>=0?'#16a34a':'#dc2626') + '">' + (tp>=0?'+':'') + tp.toFixed(1) + '%</span></div>';
+        h += '<div style="color:#94a3b8;font-size:11px">' + t.entry_date + ' → ' + t.exit_date + ' · ' + (t.reason||'') + '</div>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
+    // Methodology
+    h += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:16px">';
+    h += '<h3 style="font-size:15px;font-weight:800;margin:0 0 10px">📋 交易方法論（完全透明）</h3>';
+    h += '<div style="font-size:12px;color:#475569;line-height:1.8">';
+    var rules = [
+      ['💰 初始資金', meth.initial_capital || 'NT$1,000,000'],
+      ['📊 最大持倉', (meth.max_positions || 10) + ' 檔'],
+      ['📐 部位大小', meth.position_size || '10%'],
+      ['🎯 進場條件', meth.entry_criteria || ''],
+      ['🛑 出場規則', meth.exit_rules || ''],
+      ['⏱️ 冷卻期', meth.cooldown || '5 交易日'],
+      ['📅 星期偏差', meth.weekday_bias || ''],
+      ['📡 數據來源', meth.data_source || 'Yahoo Finance'],
+      ['✅ 驗證方式', meth.verification || '']
+    ];
+    rules.forEach(function(r) {
+      h += '<div><b>' + r[0] + ':</b> ' + r[1] + '</div>';
+    });
+    h += '</div>';
+    h += '<div style="margin-top:12px;font-size:11px;color:#94a3b8;text-align:center">';
+    h += '📂 原始數據: <a href="/tw/data/paper_portfolio.json" target="_blank" style="color:#2563eb">paper_portfolio.json</a>';
+    h += ' · 所有交易可至 Yahoo Finance 驗證</div>';
+    h += '</div>';
+
+    // Audit log
+    var audits = p.audit_log || [];
+    if (audits.length > 0) {
+      h += '<details style="margin-bottom:16px"><summary style="font-size:14px;font-weight:700;cursor:pointer;padding:8px 0">🔍 審計軌跡（最近 ' + Math.min(audits.length, 20) + ' 筆）</summary>';
+      h += '<div style="margin-top:8px">';
+      audits.slice().reverse().slice(0, 20).forEach(function(a) {
+        var icon = a.action === 'BUY' ? '🟢' : a.action === 'SELL' ? '🔴' : '🟡';
+        h += '<div style="background:#f8fafc;border-radius:6px;padding:8px;margin-bottom:4px;font-size:11px">';
+        h += icon + ' <b>' + a.date + '</b> ' + a.action + ' ' + a.code + ' ' + (a.name||'') + ' ' + (a.shares||0) + '股 @' + (a.price||0);
+        if (a.verify) h += '<div style="color:#94a3b8;font-size:10px;margin-top:2px">驗證: ' + a.verify + '</div>';
+        h += '</div>';
+      });
+      h += '</div></details>';
+    }
+
+    m.innerHTML = h;
+  } catch(e) {
+    m.innerHTML = '<div style="text-align:center;padding:40px;color:#dc2626">❌ 載入失敗: ' + e.message + '</div>';
+  }
+}
+
+</script>
 <div id="_gtDummy" style="display:none"></div>
 </body>
 </html>
