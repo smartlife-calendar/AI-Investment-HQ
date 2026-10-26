@@ -190,6 +190,12 @@ def main():
     old_data = html[start:end]
     print(f"  Old _smartData: {len(old_data)} bytes")
 
+    # Ensure generated_at is present
+    if "generated_at" not in acc_data:
+        from datetime import datetime, timezone, timedelta
+        TW = timezone(timedelta(hours=8))
+        acc_data["generated_at"] = datetime.now(TW).strftime("%Y-%m-%dT%H:%M:%S+08:00")
+
     # Build new assignment with compact JSON
     new_json = json.dumps(acc_data, ensure_ascii=False, separators=(",", ":"))
     new_assignment = f"window._smartData = {new_json};"
