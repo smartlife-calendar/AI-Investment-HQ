@@ -4907,6 +4907,7 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
                     fetch('/data/signals.json?t=' + Date.now())
                 ]);
                 const erData = await erRes.json();
+                var _r40ts = document.getElementById('r40Timestamp'); if(_r40ts && erData.updated_at) _r40ts.textContent = '更新: ' + erData.updated_at.replace('T',' ').substring(0,16);
                 const sigData = await sigRes.json();
                 
                 const stocks = erData.stocks || {};
@@ -5428,7 +5429,8 @@ wrapLoader('loadSmartBacktest', '/data/backtest.json', 'smartMoneyContent', '回
                 }
                 if (data.earnings_watch && Object.keys(data.earnings_watch).length > 0) {
                     out += '<div style="margin-top:20px;border-top:2px solid #f59e0b;padding-top:12px">';
-                    out += '<h3 style="color:#f59e0b;margin:0 0 8px">📋 近期財報自動解讀</h3>';
+                    out += '<h3 style="color:#f59e0b;margin:0 0 8px">📋 近期財報自動解讀</h3>
+                <span id="earningsTimestamp" style="font-size:11px;color:#94a3b8"></span>';
                     var ew = data.earnings_watch;
                     Object.keys(ew).forEach(function(sym) {
                         var e = ew[sym]; if (!e.findings && !e.risk_flags) return;
