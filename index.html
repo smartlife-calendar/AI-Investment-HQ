@@ -5543,32 +5543,22 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 btn.style.color = isActive ? '#4f46e5' : '#64748b';
             });
             
-            // For smart-tab functions: call switchSmartTab to render into smartMoneyContent,
-            // then copy the result to toolsContent
             var smartTabs = ['r40', 'intel', 'sectorcomp', 'eventcal', 'aianalyst', 'longshort', 'earnings'];
             var el = document.getElementById('toolsContent');
             
             if (smartTabs.indexOf(tab) >= 0) {
                 el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
-                // Show smart section temporarily (hidden), trigger load
-                var smartEl = document.getElementById('smartMoneyContent');
+                // Temporarily point smartMoneyContent to toolsContent so async functions render directly
+                var realSmart = document.getElementById('smartMoneyContent');
+                var origId = realSmart ? realSmart.id : null;
+                if (realSmart) realSmart.id = '_smartHidden';
+                el.id = 'smartMoneyContent';
                 switchSmartTab(tab);
-                // Poll until content is loaded (async functions)
-                var attempts = 0;
-                var poller = setInterval(function() {
-                    attempts++;
-                    var content = smartEl ? smartEl.innerHTML : '';
-                    if (content && content.indexOf('載入中') < 0 && content.indexOf('⏳') < 0 && content.length > 200) {
-                        el.innerHTML = content;
-                        smartEl.innerHTML = '';
-                        clearInterval(poller);
-                    }
-                    if (attempts > 50) { // 10 second timeout
-                        if (content.length > 200) el.innerHTML = content;
-                        smartEl.innerHTML = '';
-                        clearInterval(poller);
-                    }
-                }, 200);
+                // Restore IDs after a delay
+                setTimeout(function() {
+                    el.id = 'toolsContent';
+                    if (realSmart && origId) realSmart.id = origId;
+                }, 15000);
             }
             else if (tab === 'news') {
                 el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
