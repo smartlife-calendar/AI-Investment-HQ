@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T10:05:35+08:00",
+  "generated_at": "2026-10-27T10:03:41+08:00",
   "algorithm": "v3_rolling_with_stoploss",
   "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
   "signal_count": 60,
@@ -21,14 +21,14 @@
   },
   "results": {
     "5d": {
-      "n": 20,
-      "avg_return": -0.82,
-      "median_return": -1.96,
-      "win_rate": 40.0,
-      "avg_win": 6.85,
-      "avg_loss": -5.93,
+      "n": 31,
+      "avg_return": -0.47,
+      "median_return": -1.07,
+      "win_rate": 45.2,
+      "avg_win": 5.01,
+      "avg_loss": -4.98,
       "stopped_out": 5,
-      "stop_rate": 25.0,
+      "stop_rate": 16.1,
       "best": {
         "symbol": "NVAX",
         "entry": "2026-09-15",
@@ -43,14 +43,14 @@
       }
     },
     "10d": {
-      "n": 19,
-      "avg_return": -0.55,
+      "n": 20,
+      "avg_return": -0.95,
       "median_return": -0.85,
-      "win_rate": 42.1,
+      "win_rate": 40.0,
       "avg_win": 7.67,
-      "avg_loss": -6.53,
-      "stopped_out": 5,
-      "stop_rate": 26.3,
+      "avg_loss": -6.7,
+      "stopped_out": 6,
+      "stop_rate": 30.0,
       "best": {
         "symbol": "NVAX",
         "entry": "2026-09-15",
@@ -90,26 +90,26 @@
   "score_breakdown": {
     "5d": {
       "7": {
-        "n": 15,
-        "avg": -1.83,
-        "win_rate": 40.0
+        "n": 24,
+        "avg": -1.02,
+        "win_rate": 45.8
       },
       "8": {
-        "n": 4,
-        "avg": 3.98,
-        "win_rate": 50.0
+        "n": 5,
+        "avg": 3.26,
+        "win_rate": 60.0
       },
       "9": {
-        "n": 1,
-        "avg": -4.72,
+        "n": 2,
+        "avg": -3.19,
         "win_rate": 0.0
       }
     },
     "10d": {
       "7": {
-        "n": 14,
-        "avg": -2.47,
-        "win_rate": 35.7
+        "n": 15,
+        "avg": -2.88,
+        "win_rate": 33.3
       },
       "8": {
         "n": 4,
@@ -125,112 +125,112 @@
   },
   "recent_trades": [
     {
-      "symbol": "CVX",
-      "entry_date": "2026-10-09",
-      "exit_date": "2026-10-16",
-      "entry_price": 211.98,
-      "exit_price": 224.99,
-      "return_pct": 6.14,
-      "score": 8,
+      "symbol": "JPM",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 339.72,
+      "exit_price": 334.04,
+      "return_pct": -1.67,
+      "score": 9,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "MELI",
-      "entry_date": "2026-10-09",
-      "exit_date": "2026-10-16",
-      "entry_price": 1889.85,
-      "exit_price": 1834.0,
-      "return_pct": -2.96,
-      "score": 8,
-      "exit_reason": "hold",
-      "mcap_b": 999
-    },
-    {
-      "symbol": "PM",
-      "entry_date": "2026-10-09",
-      "exit_date": "2026-10-16",
-      "entry_price": 201.19,
-      "exit_price": 205.2,
-      "return_pct": 1.99,
+      "symbol": "COP",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 146.51,
+      "exit_price": 151.37,
+      "return_pct": 3.32,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "NU",
-      "entry_date": "2026-10-11",
-      "exit_date": "2026-10-15",
-      "entry_price": 16.12,
-      "exit_price": 14.73,
-      "return_pct": -8.62,
-      "score": 7,
-      "exit_reason": "stop_loss",
-      "mcap_b": 999
-    },
-    {
-      "symbol": "PENG",
-      "entry_date": "2026-10-09",
-      "exit_date": "2026-10-14",
-      "entry_price": 76.28,
-      "exit_price": 67.59,
-      "return_pct": -11.39,
-      "score": 7,
-      "exit_reason": "stop_loss",
-      "mcap_b": 999
-    },
-    {
-      "symbol": "XOVR",
-      "entry_date": "2026-09-30",
-      "exit_date": "2026-10-07",
-      "entry_price": 21.36,
-      "exit_price": 22.16,
-      "return_pct": 3.75,
+      "symbol": "GD",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 344.23,
+      "exit_price": 357.04,
+      "return_pct": 3.72,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "RXRX",
-      "entry_date": "2026-09-30",
-      "exit_date": "2026-10-07",
-      "entry_price": 4.13,
-      "exit_price": 4.27,
-      "return_pct": 3.39,
+      "symbol": "PCAR",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 110.82,
+      "exit_price": 104.37,
+      "return_pct": -5.82,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "ABBV",
-      "entry_date": "2026-09-24",
-      "exit_date": "2026-10-01",
-      "entry_price": 265.12,
-      "exit_price": 259.93,
-      "return_pct": -1.96,
+      "symbol": "PG",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 159.35,
+      "exit_price": 159.92,
+      "return_pct": 0.36,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "META",
-      "entry_date": "2026-09-18",
-      "exit_date": "2026-09-25",
-      "entry_price": 665.75,
-      "exit_price": 751.66,
-      "return_pct": 12.9,
+      "symbol": "ONON",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 34.75,
+      "exit_price": 33.17,
+      "return_pct": -4.55,
       "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     },
     {
-      "symbol": "NVAX",
-      "entry_date": "2026-09-15",
-      "exit_date": "2026-09-22",
-      "entry_price": 9.23,
-      "exit_price": 10.83,
-      "return_pct": 17.33,
-      "score": 8,
+      "symbol": "ABNB",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 173.7,
+      "exit_price": 171.05,
+      "return_pct": -1.53,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "ABT",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 104.89,
+      "exit_price": 104.88,
+      "return_pct": -0.01,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "SIRI",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 26.97,
+      "exit_price": 27.42,
+      "return_pct": 1.67,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "ISRG",
+      "entry_date": "2026-10-17",
+      "exit_date": "2026-10-26",
+      "entry_price": 426.7,
+      "exit_price": 451.63,
+      "return_pct": 5.84,
+      "score": 7,
       "exit_reason": "hold",
       "mcap_b": 999
     }
@@ -238,19 +238,19 @@
   "alerts": [
     {
       "level": "warn",
-      "msg": "⚠️ 5d avg return -0.82% < target +0.5%"
+      "msg": "⚠️ 5d avg return -0.47% < target +0.5%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 5d win rate 40.0% < target 50%"
+      "msg": "⚠️ 5d win rate 45.2% < target 50%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 10d avg return -0.55% < target +1.0%"
+      "msg": "⚠️ 10d avg return -0.95% < target +1.0%"
     },
     {
       "level": "warn",
-      "msg": "⚠️ 10d win rate 42.1% < target 50%"
+      "msg": "⚠️ 10d win rate 40.0% < target 50%"
     },
     {
       "level": "warn",
