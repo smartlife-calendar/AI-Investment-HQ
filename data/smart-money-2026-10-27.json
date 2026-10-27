@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-27",
+  "generated_at": "2026-10-27T11:00:38.099907+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 6,
+  "stocks": [
+    {
+      "symbol": "SGRY",
+      "name": "Surgery Partners, Inc.",
+      "price": 23.25,
+      "change_pct": 47.62,
+      "vol_ratio": 18.8,
+      "volume": 58812318,
+      "avg_volume": 3128314
+    },
+    {
+      "symbol": "XP",
+      "name": "XP Inc.",
+      "price": 15.71,
+      "change_pct": -48.36,
+      "vol_ratio": 13.2,
+      "volume": 132612278,
+      "avg_volume": 10046384
+    },
+    {
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 2.93,
+      "change_pct": -28.01,
+      "vol_ratio": 5.3,
+      "volume": 204082219,
+      "avg_volume": 38506079
+    },
+    {
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 7.7,
+      "change_pct": -20.37,
+      "vol_ratio": 4.7,
+      "volume": 137255653,
+      "avg_volume": 29203330
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 22.5,
+      "change_pct": -13.99,
+      "vol_ratio": 4.6,
+      "volume": 102486022,
+      "avg_volume": 22279570
+    },
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 12.59,
+      "change_pct": -16.95,
+      "vol_ratio": 4.4,
+      "volume": 338478380,
+      "avg_volume": 76926904
+    }
+  ]
+}
