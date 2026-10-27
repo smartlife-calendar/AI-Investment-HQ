@@ -1,333 +1,349 @@
 {
-  "generated_at": "2026-10-26T08:52:16+08:00",
+  "generated_at": "2026-10-27T10:00:02+08:00",
   "gainers": [
     {
-      "symbol": "RHI",
-      "name": "Robert Half Inc.",
-      "price": 45.87,
-      "change_pct": 21.74,
-      "volume": 6892870,
+      "symbol": "SGRY",
+      "name": "Surgery Partners, Inc.",
+      "price": 23.25,
+      "change_pct": 47.62,
+      "volume": 58812318,
       "vr": ""
     },
     {
-      "symbol": "BUUU",
-      "name": "BUUU Group Limited",
-      "price": 53.9,
-      "change_pct": 18.34,
-      "volume": 199582,
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "price": 53.56,
+      "change_pct": 17.66,
+      "volume": 26468450,
       "vr": ""
     },
     {
-      "symbol": "GMAB",
-      "name": "Genmab A/S",
-      "price": 43.79,
-      "change_pct": 9.48,
-      "volume": 13000825,
+      "symbol": "XNCR",
+      "name": "Xencor, Inc.",
+      "price": 29.18,
+      "change_pct": 15.89,
+      "volume": 8894697,
       "vr": ""
     },
     {
-      "symbol": "NTSK",
-      "name": "Netskope, Inc.",
-      "price": 24.28,
-      "change_pct": 9.37,
-      "volume": 8809186,
+      "symbol": "ORKA",
+      "name": "Oruka Therapeutics, Inc.",
+      "price": 90.33,
+      "change_pct": 12.7,
+      "volume": 1942729,
       "vr": ""
     },
     {
-      "symbol": "VG",
-      "name": "Venture Global, Inc.",
-      "price": 14.0,
-      "change_pct": 9.29,
-      "volume": 22566019,
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "price": 194.77,
+      "change_pct": 10.64,
+      "volume": 908297,
       "vr": ""
     },
     {
-      "symbol": "CART",
-      "name": "Maplebear Inc.",
-      "price": 56.44,
-      "change_pct": 9.21,
-      "volume": 16098050,
+      "symbol": "INIO",
+      "name": "INNIO N.V.",
+      "price": 16.63,
+      "change_pct": 9.34,
+      "volume": 10991317,
       "vr": ""
     },
     {
-      "symbol": "CCI",
-      "name": "Crown Castle Inc.",
-      "price": 85.97,
-      "change_pct": 9.06,
-      "volume": 17320678,
+      "symbol": "LITE",
+      "name": "Lumentum Holdings Inc.",
+      "price": 818.1,
+      "change_pct": 8.19,
+      "volume": 6005727,
       "vr": ""
     },
     {
-      "symbol": "ZLAB",
-      "name": "Zai Lab Limited",
-      "price": 24.03,
-      "change_pct": 9.03,
-      "volume": 3691476,
+      "symbol": "TENB",
+      "name": "Tenable Holdings, Inc.",
+      "price": 48.21,
+      "change_pct": 8.12,
+      "volume": 6242917,
       "vr": ""
     },
     {
-      "symbol": "FSLY",
-      "name": "Fastly, Inc.",
-      "price": 24.41,
-      "change_pct": 8.73,
-      "volume": 4987072,
+      "symbol": "AXTI",
+      "name": "AXT Inc",
+      "price": 56.27,
+      "change_pct": 8.05,
+      "volume": 8588485,
       "vr": ""
     },
     {
-      "symbol": "SAIL",
-      "name": "SailPoint, Inc.",
-      "price": 21.79,
-      "change_pct": 8.62,
-      "volume": 6398683,
+      "symbol": "VSAT",
+      "name": "ViaSat, Inc.",
+      "price": 66.39,
+      "change_pct": 8.0,
+      "volume": 1919946,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "LKQ",
-      "name": "LKQ Corporation",
-      "price": 17.42,
-      "change_pct": -22.47,
-      "volume": 23405566,
+      "symbol": "XP",
+      "name": "XP Inc.",
+      "price": 15.71,
+      "change_pct": -48.36,
+      "volume": 132612278,
       "vr": ""
     },
     {
-      "symbol": "RGC",
-      "name": "Regencell Bioscience Holdings L",
-      "price": 7.67,
-      "change_pct": -21.81,
-      "volume": 476525,
+      "symbol": "PAGS",
+      "name": "PagSeguro Digital Ltd.",
+      "price": 8.56,
+      "change_pct": -25.17,
+      "volume": 18505785,
       "vr": ""
     },
     {
-      "symbol": "CORT",
-      "name": "Corcept Therapeutics Incorporat",
-      "price": 85.86,
-      "change_pct": -20.13,
-      "volume": 3098611,
+      "symbol": "EGIEY",
+      "name": "Engie Brasil Energia S A",
+      "price": 5.35,
+      "change_pct": -20.51,
+      "volume": 49867,
       "vr": ""
     },
     {
-      "symbol": "TNGX",
-      "name": "Tango Therapeutics, Inc.",
-      "price": 23.34,
-      "change_pct": -16.43,
-      "volume": 15853112,
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 7.7,
+      "change_pct": -20.37,
+      "volume": 137255653,
       "vr": ""
     },
     {
-      "symbol": "BE",
-      "name": "Bloom Energy Corporation",
-      "price": 193.3,
-      "change_pct": -11.24,
-      "volume": 35824073,
-      "vr": ""
-    },
-    {
-      "symbol": "SLM",
-      "name": "SLM Corporation",
-      "price": 19.41,
-      "change_pct": -10.78,
-      "volume": 12979801,
-      "vr": ""
-    },
-    {
-      "symbol": "GPGI",
-      "name": "GPGI, Inc.",
-      "price": 11.34,
-      "change_pct": -9.64,
-      "volume": 1727181,
-      "vr": ""
-    },
-    {
-      "symbol": "CRDO",
-      "name": "Credo Technology Group Holding ",
-      "price": 147.29,
-      "change_pct": -9.51,
-      "volume": 12677480,
-      "vr": ""
-    },
-    {
-      "symbol": "FLG",
-      "name": "Flagstar Bank, N.A.",
-      "price": 10.38,
-      "change_pct": -9.27,
-      "volume": 24244782,
-      "vr": ""
-    },
-    {
-      "symbol": "FIX",
-      "name": "Comfort Systems USA, Inc.",
-      "price": 1160.86,
-      "change_pct": -9.26,
-      "volume": 1367036,
-      "vr": ""
-    }
-  ],
-  "most_active": [
-    {
-      "symbol": "SPCX",
-      "name": "Space Exploration Technologies ",
-      "price": 147.49,
-      "change_pct": 1.89,
-      "volume": 110617461,
-      "vr": ""
-    },
-    {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 20.93,
-      "change_pct": -7.96,
-      "volume": 99547409,
+      "symbol": "ELPC",
+      "name": "Companhia Paranaense de Energia",
+      "price": 11.19,
+      "change_pct": -19.55,
+      "volume": 4718226,
       "vr": ""
     },
     {
       "symbol": "NU",
       "name": "Nu Holdings Ltd.",
-      "price": 15.16,
-      "change_pct": 2.92,
-      "volume": 87019627,
+      "price": 12.59,
+      "change_pct": -16.95,
+      "volume": 338478380,
       "vr": ""
     },
     {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 8.14,
-      "change_pct": 3.3,
-      "volume": 84521485,
+      "symbol": "PBR-A",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 19.9,
+      "change_pct": -15.43,
+      "volume": 40413705,
       "vr": ""
     },
     {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 210.96,
-      "change_pct": -0.59,
-      "volume": 80189765,
+      "symbol": "UGP",
+      "name": "Ultrapar Participacoes S.A. (Ne",
+      "price": 6.56,
+      "change_pct": -15.25,
+      "volume": 13502146,
+      "vr": ""
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 22.5,
+      "change_pct": -13.99,
+      "volume": 102486022,
+      "vr": ""
+    },
+    {
+      "symbol": "FICO",
+      "name": "Fair Isaac Corporation",
+      "price": 708.07,
+      "change_pct": -13.15,
+      "volume": 2458602,
+      "vr": ""
+    }
+  ],
+  "most_active": [
+    {
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 12.59,
+      "change_pct": -16.95,
+      "volume": 338478380,
+      "vr": ""
+    },
+    {
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 2.93,
+      "change_pct": -28.01,
+      "volume": 204082219,
+      "vr": ""
+    },
+    {
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 7.7,
+      "change_pct": -20.37,
+      "volume": 137255653,
+      "vr": ""
+    },
+    {
+      "symbol": "XP",
+      "name": "XP Inc.",
+      "price": 15.71,
+      "change_pct": -48.36,
+      "volume": 132612278,
+      "vr": ""
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 146.9,
+      "change_pct": -0.4,
+      "volume": 102655333,
+      "vr": ""
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 22.5,
+      "change_pct": -13.99,
+      "volume": 102486022,
       "vr": ""
     },
     {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 86.96,
-      "change_pct": 1.72,
-      "volume": 72093680,
+      "price": 90.47,
+      "change_pct": 4.04,
+      "volume": 97995360,
       "vr": ""
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 12.11,
-      "change_pct": -3.89,
-      "volume": 62528960,
+      "symbol": "VALE",
+      "name": "VALE S.A.",
+      "price": 12.0,
+      "change_pct": -3.23,
+      "volume": 96162443,
       "vr": ""
     },
     {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 4.07,
-      "change_pct": 3.04,
-      "volume": 62289265,
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 216.0,
+      "change_pct": 2.39,
+      "volume": 90043857,
       "vr": ""
     },
     {
-      "symbol": "STLA",
-      "name": "Stellantis N.V.",
-      "price": 4.06,
-      "change_pct": -4.92,
-      "volume": 61212841,
-      "vr": ""
-    },
-    {
-      "symbol": "VZ",
-      "name": "Verizon Communications Inc.",
-      "price": 44.66,
-      "change_pct": -1.19,
-      "volume": 51071223,
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 8.64,
+      "change_pct": 6.14,
+      "volume": 78409912,
       "vr": ""
     },
     {
       "symbol": "CRWV",
       "name": "CoreWeave, Inc.",
-      "price": 54.23,
-      "change_pct": -2.46,
-      "volume": 46947437,
+      "price": 55.19,
+      "change_pct": 1.76,
+      "volume": 68211166,
+      "vr": ""
+    },
+    {
+      "symbol": "ABEV",
+      "name": "Ambev S.A.",
+      "price": 2.83,
+      "change_pct": -14.24,
+      "volume": 63591074,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 12.2,
+      "change_pct": 0.74,
+      "volume": 62039473,
       "vr": ""
     },
     {
       "symbol": "RIG",
       "name": "Transocean Ltd (Switzerland)",
-      "price": 6.41,
-      "change_pct": 5.43,
-      "volume": 45900851,
+      "price": 6.53,
+      "change_pct": 1.87,
+      "volume": 63805552,
       "vr": ""
     },
     {
-      "symbol": "INFY",
-      "name": "Infosys Limited",
-      "price": 12.35,
-      "change_pct": -6.58,
-      "volume": 45949762,
-      "vr": ""
-    },
-    {
-      "symbol": "F",
-      "name": "Ford Motor Company",
-      "price": 11.6,
-      "change_pct": -2.85,
-      "volume": 43988261,
-      "vr": ""
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 2.79,
-      "change_pct": -2.11,
-      "volume": 43101523,
+      "symbol": "T",
+      "name": "AT&T Inc.",
+      "price": 20.85,
+      "change_pct": -0.38,
+      "volume": 59340152,
       "vr": ""
     }
   ],
   "strong_buy": [
     {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 4.07,
-      "change_pct": 3.04,
-      "volume": 62289265,
-      "vr": 1.7
+      "symbol": "SGRY",
+      "name": "Surgery Partners, Inc.",
+      "price": 23.25,
+      "change_pct": 47.62,
+      "volume": 58812318,
+      "vr": 18.8
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 11.98,
+      "change_pct": 5.83,
+      "volume": 50378285,
+      "vr": 1.5
     }
   ],
   "strong_sell": [
     {
-      "symbol": "T",
-      "name": "AT&T Inc.",
-      "price": 20.93,
-      "change_pct": -7.96,
-      "volume": 99547409,
-      "vr": 2.3
+      "symbol": "NU",
+      "name": "Nu Holdings Ltd.",
+      "price": 12.59,
+      "change_pct": -16.95,
+      "volume": 338478380,
+      "vr": 4.4
     },
     {
-      "symbol": "STLA",
-      "name": "Stellantis N.V.",
-      "price": 4.06,
-      "change_pct": -4.92,
-      "volume": 61212841,
-      "vr": 2.4
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 2.93,
+      "change_pct": -28.01,
+      "volume": 204082219,
+      "vr": 5.3
     },
     {
-      "symbol": "INFY",
-      "name": "Infosys Limited",
-      "price": 12.35,
-      "change_pct": -6.58,
-      "volume": 45949762,
-      "vr": 2.3
+      "symbol": "ITUB",
+      "name": "Itau Unibanco Banco Holding SA",
+      "price": 7.7,
+      "change_pct": -20.37,
+      "volume": 137255653,
+      "vr": 4.7
     },
     {
-      "symbol": "BE",
-      "name": "Bloom Energy Corporation",
-      "price": 193.3,
-      "change_pct": -11.24,
-      "volume": 35824073,
-      "vr": 2.2
+      "symbol": "XP",
+      "name": "XP Inc.",
+      "price": 15.71,
+      "change_pct": -48.36,
+      "volume": 132612278,
+      "vr": 13.2
+    },
+    {
+      "symbol": "PBR",
+      "name": "Petroleo Brasileiro S.A. Petrob",
+      "price": 22.5,
+      "change_pct": -13.99,
+      "volume": 102486022,
+      "vr": 4.6
     }
   ]
 }
