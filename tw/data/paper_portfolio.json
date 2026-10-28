@@ -1,96 +1,85 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 1000000,
-  "nav": 1000000,
-  "pnl_pct": 0.0,
-  "positions": [],
-  "closed_trades": [],
-  "pending_orders": [
+  "cash": 362130,
+  "nav": 992205,
+  "pnl_pct": -0.78,
+  "positions": [
     {
       "code": "2027",
       "name": "大成鋼",
-      "limit_price": 50.6,
+      "entry_date": "2026-10-28",
+      "entry_price": 50.6,
       "shares": 2100,
-      "score": 10,
-      "order_date": "2026-10-27",
-      "sector": "鋼鐵",
-      "reasons": [
-        "法人大買(49%成交量)",
-        "外資+投信同買",
-        "低PE(10.0)"
-      ],
-      "institutional": {
-        "foreign_net": 5441972,
-        "trust_net": 91000,
-        "total_net": 6275450
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
+      "current_price": 51.0,
+      "peak_price": 51.1,
+      "pnl_pct": 0.79,
+      "market_value": 107100,
+      "t1_sold": false
     },
     {
       "code": "2615",
       "name": "萬海",
-      "limit_price": 119.5,
+      "entry_date": "2026-10-28",
+      "entry_price": 119.5,
       "shares": 900,
-      "score": 10,
-      "order_date": "2026-10-27",
-      "sector": "航運業",
-      "reasons": [
-        "法人大買(21%成交量)",
-        "外資+投信同買",
-        "低PE(8.2)"
-      ],
-      "institutional": {
-        "foreign_net": 2304312,
-        "trust_net": 36000,
-        "total_net": 2361671
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
+      "current_price": 118.5,
+      "peak_price": 120.0,
+      "pnl_pct": -0.84,
+      "market_value": 106650,
+      "t1_sold": false
     },
     {
       "code": "9945",
       "name": "潤泰新",
-      "limit_price": 29.6,
+      "entry_date": "2026-10-28",
+      "entry_price": 29.6,
       "shares": 3700,
-      "score": 10,
-      "order_date": "2026-10-27",
-      "sector": "其他",
-      "reasons": [
-        "法人大買(65%成交量)",
-        "外資+投信同買",
-        "低PE(5.2)"
-      ],
-      "institutional": {
-        "foreign_net": 2613371,
-        "trust_net": 314000,
-        "total_net": 2857919
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
+      "current_price": 28.9,
+      "peak_price": 29.5,
+      "pnl_pct": -2.36,
+      "market_value": 106930,
+      "t1_sold": false
     },
     {
       "code": "2542",
       "name": "興富發",
-      "limit_price": 40.0,
+      "entry_date": "2026-10-28",
+      "entry_price": 40.0,
       "shares": 2700,
-      "score": 9,
-      "order_date": "2026-10-27",
-      "sector": "建材營造",
-      "reasons": [
-        "法人大買(63%成交量)",
-        "低PE(9.3)",
-        "高殖利率(10.0%)"
-      ],
-      "institutional": {
-        "foreign_net": 6009334,
-        "trust_net": -390300,
-        "total_net": 5678829
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
+      "current_price": 38.85,
+      "peak_price": 40.15,
+      "pnl_pct": -2.87,
+      "market_value": 104895,
+      "t1_sold": false
     },
+    {
+      "code": "2637",
+      "name": "慧洋-KY",
+      "entry_date": "2026-10-28",
+      "entry_price": 100.5,
+      "shares": 1000,
+      "current_price": 100.0,
+      "peak_price": 103.0,
+      "pnl_pct": -0.5,
+      "market_value": 100000,
+      "t1_sold": false
+    },
+    {
+      "code": "2031",
+      "name": "新光鋼",
+      "entry_date": "2026-10-28",
+      "entry_price": 48.2,
+      "shares": 2200,
+      "current_price": 47.5,
+      "peak_price": 48.5,
+      "pnl_pct": -1.45,
+      "market_value": 104500,
+      "t1_sold": false
+    }
+  ],
+  "closed_trades": [],
+  "pending_orders": [
     {
       "code": "2382",
       "name": "廣達",
@@ -155,48 +144,6 @@
       "weekday_mult": 1.1
     },
     {
-      "code": "2637",
-      "name": "慧洋-KY",
-      "limit_price": 100.5,
-      "shares": 1000,
-      "score": 8,
-      "order_date": "2026-10-27",
-      "sector": "航運業",
-      "reasons": [
-        "法人大買(15%成交量)",
-        "外資+投信同買",
-        "營收成長38%"
-      ],
-      "institutional": {
-        "foreign_net": 200315,
-        "trust_net": 1000,
-        "total_net": 226534
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
-    },
-    {
-      "code": "2031",
-      "name": "新光鋼",
-      "limit_price": 48.2,
-      "shares": 2200,
-      "score": 8,
-      "order_date": "2026-10-27",
-      "sector": "鋼鐵",
-      "reasons": [
-        "法人大買(48%成交量)",
-        "低PE(7.5)",
-        "高殖利率(5.2%)"
-      ],
-      "institutional": {
-        "foreign_net": 494697,
-        "trust_net": 0,
-        "total_net": 495244
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
-    },
-    {
       "code": "4961",
       "name": "天鈺",
       "limit_price": 187.0,
@@ -224,8 +171,93 @@
   "losses": 0,
   "best_trade": 0,
   "worst_trade": 0,
-  "updated_at": "2026-10-27T15:02:06+08:00",
-  "audit_log": [],
+  "updated_at": "2026-10-28T15:02:21+08:00",
+  "audit_log": [
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "2027",
+      "name": "大成鋼",
+      "shares": 2100,
+      "price": 50.6,
+      "cost": 106260,
+      "cash_after": 893740,
+      "verify": "YF 2027 2026-10-28: O=51.1 H=51.1 L=50.5 C=51.0",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=50.5 ≤ limit=50.6)"
+    },
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "2615",
+      "name": "萬海",
+      "shares": 900,
+      "price": 119.5,
+      "cost": 107550,
+      "cash_after": 786190,
+      "verify": "YF 2615 2026-10-28: O=117.5 H=120.0 L=116.5 C=118.5",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=116.5 ≤ limit=119.5)"
+    },
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "9945",
+      "name": "潤泰新",
+      "shares": 3700,
+      "price": 29.6,
+      "cost": 109520,
+      "cash_after": 676670,
+      "verify": "YF 9945 2026-10-28: O=29.5 H=29.5 L=28.75 C=28.9",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=28.75 ≤ limit=29.6)"
+    },
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "2542",
+      "name": "興富發",
+      "shares": 2700,
+      "price": 40.0,
+      "cost": 108000,
+      "cash_after": 568670,
+      "verify": "YF 2542 2026-10-28: O=40.15 H=40.15 L=38.8 C=38.85",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=38.8 ≤ limit=40.0)"
+    },
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "2637",
+      "name": "慧洋-KY",
+      "shares": 1000,
+      "price": 100.5,
+      "cost": 100500,
+      "cash_after": 468170,
+      "verify": "YF 2637 2026-10-28: O=100.0 H=103.0 L=100.0 C=100.0",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=100.0 ≤ limit=100.5)"
+    },
+    {
+      "date": "2026-10-28",
+      "action": "BUY",
+      "code": "2031",
+      "name": "新光鋼",
+      "shares": 2200,
+      "price": 48.2,
+      "cost": 106040,
+      "cash_after": 362130,
+      "verify": "YF 2031 2026-10-28: O=48.1 H=48.5 L=47.15 C=47.5",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=47.15 ≤ limit=48.2)"
+    }
+  ],
   "methodology": {
     "initial_capital": "NT$1,000,000",
     "max_positions": 10,
