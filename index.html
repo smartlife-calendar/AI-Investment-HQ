@@ -5543,26 +5543,38 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 btn.style.color = isActive ? '#4f46e5' : '#64748b';
             });
             
-            var smartTabs = ['r40', 'intel', 'sectorcomp', 'eventcal', 'aianalyst', 'longshort', 'earnings'];
             var el = document.getElementById('toolsContent');
+            el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
             
-            if (smartTabs.indexOf(tab) >= 0) {
-                el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
-                // Temporarily point smartMoneyContent to toolsContent so async functions render directly
-                var realSmart = document.getElementById('smartMoneyContent');
-                var origId = realSmart ? realSmart.id : null;
-                if (realSmart) realSmart.id = '_smartHidden';
-                el.id = 'smartMoneyContent';
-                switchSmartTab(tab);
-                // Restore IDs after a delay
+            // Direct rendering approach: temporarily swap element IDs
+            var smartEl = document.getElementById('smartMoneyContent');
+            if (smartEl) smartEl.setAttribute('data-orig-id','smartMoneyContent'), smartEl.id = '_smartHidden_' + Date.now();
+            el.id = 'smartMoneyContent';
+            
+            // Map tabs to their load functions
+            var loadFns = {
+                'r40': function(){ loadRuleOf40(); },
+                'intel': function(){ loadIndustryIntel(); },
+                'sectorcomp': function(){ loadSectorComp(); },
+                'eventcal': function(){ loadEventCalendar(); },
+                'aianalyst': function(){ loadAIAnalyst(); },
+                'longshort': function(){ loadLongShort(); },
+                'earnings': function(){ loadEarningsCalendar(); }
+            };
+            
+            if (loadFns[tab]) {
+                loadFns[tab]();
+                // Restore IDs after content loads
                 setTimeout(function() {
-                    el.id = 'toolsContent';
-                    if (realSmart && origId) realSmart.id = origId;
-                }, 15000);
+                    var tc = document.getElementById('smartMoneyContent');
+                    if (tc) tc.id = 'toolsContent';
+                    var hidden = document.querySelector('[data-orig-id="smartMoneyContent"]');
+                    if (hidden) { hidden.id = 'smartMoneyContent'; hidden.removeAttribute('data-orig-id'); }
+                }, 20000);
             }
             else if (tab === 'news') {
-                el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
-                // Trigger news load
+                el.id = 'toolsContent';
+                if (smartEl) { var h2 = document.querySelector('[data-orig-id="smartMoneyContent"]'); if(h2) {h2.id='smartMoneyContent';h2.removeAttribute('data-orig-id');} }
                 loadNewsIntel();
                 loadNewsSection();
                 setTimeout(function() {
@@ -5572,7 +5584,8 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 }, 3000);
             }
             else if (tab === 'daily_archive') {
-                el.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:24px">⏳ 載入中...</p>';
+                el.id = 'toolsContent';
+                if (smartEl) { var h3 = document.querySelector('[data-orig-id="smartMoneyContent"]'); if(h3) {h3.id='smartMoneyContent';h3.removeAttribute('data-orig-id');} }
                 loadDailyArchive();
                 setTimeout(function() {
                     var arch = document.getElementById('dailyArchiveList');
@@ -5580,6 +5593,8 @@ function gtGo(lang){window.open('https://translate.google.com/translate?sl=zh-TW
                 }, 2000);
             }
             else if (tab === 'guide') {
+                el.id = 'toolsContent';
+                if (smartEl) { var h4 = document.querySelector('[data-orig-id="smartMoneyContent"]'); if(h4) {h4.id='smartMoneyContent';h4.removeAttribute('data-orig-id');} }
                 var guide = document.getElementById('guideSection');
                 if (guide) el.innerHTML = guide.innerHTML;
             }
