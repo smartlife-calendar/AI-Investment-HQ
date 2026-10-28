@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-28",
+  "generated_at": "2026-10-28T10:03:00.504211+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "BA",
+      "name": "Boeing Company (The)",
+      "price": 168.18,
+      "change_pct": -10.69,
+      "vol_ratio": 6.3,
+      "volume": 46971337,
+      "avg_volume": 7455767
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 16.4,
+      "change_pct": 13.42,
+      "vol_ratio": 3.1,
+      "volume": 160513593,
+      "avg_volume": 51778578
+    }
+  ]
+}
