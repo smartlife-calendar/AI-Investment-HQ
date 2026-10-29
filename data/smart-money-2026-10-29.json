@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-29",
+  "generated_at": "2026-10-29T10:03:28.989092+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 5,
+  "stocks": [
+    {
+      "symbol": "STLA",
+      "name": "Stellantis N.V.",
+      "price": 4.68,
+      "change_pct": 13.04,
+      "vol_ratio": 4.3,
+      "volume": 119492056,
+      "avg_volume": 27788850
+    },
+    {
+      "symbol": "BSX",
+      "name": "Boston Scientific Corporation",
+      "price": 42.43,
+      "change_pct": -5.84,
+      "vol_ratio": 3.5,
+      "volume": 69826444,
+      "avg_volume": 19950412
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle Corporation",
+      "price": 144.54,
+      "change_pct": 10.73,
+      "vol_ratio": 2.7,
+      "volume": 81527008,
+      "avg_volume": 30195188
+    },
+    {
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 2.73,
+      "change_pct": -6.19,
+      "vol_ratio": 2.5,
+      "volume": 100998848,
+      "avg_volume": 40399539
+    },
+    {
+      "symbol": "SKHY",
+      "name": "SK hynix Inc.",
+      "price": 164.7,
+      "change_pct": 13.3,
+      "vol_ratio": 2.2,
+      "volume": 49007879,
+      "avg_volume": 22276308
+    }
+  ]
+}
