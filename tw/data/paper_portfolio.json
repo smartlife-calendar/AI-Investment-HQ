@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 362130,
-  "nav": 992205,
-  "pnl_pct": -0.78,
+  "cash": 46075,
+  "nav": 989170,
+  "pnl_pct": -1.08,
   "positions": [
     {
       "code": "2027",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 50.6,
       "shares": 2100,
-      "current_price": 51.0,
+      "current_price": 50.4,
       "peak_price": 51.1,
-      "pnl_pct": 0.79,
-      "market_value": 107100,
+      "pnl_pct": -0.4,
+      "market_value": 105840.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 119.5,
       "shares": 900,
-      "current_price": 118.5,
+      "current_price": 115.0,
       "peak_price": 120.0,
-      "pnl_pct": -0.84,
-      "market_value": 106650,
+      "pnl_pct": -3.77,
+      "market_value": 103500.0,
       "t1_sold": false
     },
     {
@@ -35,10 +35,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 29.6,
       "shares": 3700,
-      "current_price": 28.9,
+      "current_price": 29.1,
       "peak_price": 29.5,
-      "pnl_pct": -2.36,
-      "market_value": 106930,
+      "pnl_pct": -1.69,
+      "market_value": 107670.0,
       "t1_sold": false
     },
     {
@@ -47,10 +47,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 38.85,
+      "current_price": 39.45,
       "peak_price": 40.15,
-      "pnl_pct": -2.87,
-      "market_value": 104895,
+      "pnl_pct": -1.37,
+      "market_value": 106515.0,
       "t1_sold": false
     },
     {
@@ -59,10 +59,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 100.0,
+      "current_price": 101.5,
       "peak_price": 103.0,
-      "pnl_pct": -0.5,
-      "market_value": 100000,
+      "pnl_pct": 1.0,
+      "market_value": 101500.0,
       "t1_sold": false
     },
     {
@@ -71,78 +71,51 @@
       "entry_date": "2026-10-28",
       "entry_price": 48.2,
       "shares": 2200,
-      "current_price": 47.5,
+      "current_price": 47.05,
       "peak_price": 48.5,
-      "pnl_pct": -1.45,
-      "market_value": 104500,
+      "pnl_pct": -2.39,
+      "market_value": 103510.0,
+      "t1_sold": false
+    },
+    {
+      "code": "2382",
+      "name": "廣達",
+      "entry_date": "2026-10-29",
+      "entry_price": 322.0,
+      "shares": 300,
+      "current_price": 318.0,
+      "peak_price": 330.0,
+      "pnl_pct": -1.24,
+      "market_value": 95400,
+      "t1_sold": false
+    },
+    {
+      "code": "3703",
+      "name": "欣陸",
+      "entry_date": "2026-10-29",
+      "entry_price": 20.75,
+      "shares": 5300,
+      "current_price": 20.8,
+      "peak_price": 20.85,
+      "pnl_pct": 0.24,
+      "market_value": 110240,
+      "t1_sold": false
+    },
+    {
+      "code": "2002",
+      "name": "中鋼",
+      "entry_date": "2026-10-29",
+      "entry_price": 19.55,
+      "shares": 5600,
+      "current_price": 19.45,
+      "peak_price": 19.75,
+      "pnl_pct": -0.51,
+      "market_value": 108920,
       "t1_sold": false
     }
   ],
   "closed_trades": [],
   "pending_orders": [
-    {
-      "code": "2382",
-      "name": "廣達",
-      "limit_price": 322.0,
-      "shares": 300,
-      "score": 9,
-      "order_date": "2026-10-27",
-      "sector": "電腦及週邊設備",
-      "reasons": [
-        "法人大買(16%成交量)",
-        "外資+投信同買",
-        "營收成長106%"
-      ],
-      "institutional": {
-        "foreign_net": 406423,
-        "trust_net": 363000,
-        "total_net": 1419830
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
-    },
-    {
-      "code": "3703",
-      "name": "欣陸",
-      "limit_price": 20.75,
-      "shares": 5300,
-      "score": 9,
-      "order_date": "2026-10-27",
-      "sector": "建材營造",
-      "reasons": [
-        "法人大買(75%成交量)",
-        "股價<淨值(PB=0.62)",
-        "高殖利率(5.1%)"
-      ],
-      "institutional": {
-        "foreign_net": 724715,
-        "trust_net": 0,
-        "total_net": 724715
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
-    },
-    {
-      "code": "2002",
-      "name": "中鋼",
-      "limit_price": 19.55,
-      "shares": 5600,
-      "score": 8,
-      "order_date": "2026-10-27",
-      "sector": "鋼鐵",
-      "reasons": [
-        "法人大買(52%成交量)",
-        "外資+投信同買",
-        "股價<淨值(PB=0.99)"
-      ],
-      "institutional": {
-        "foreign_net": 24664994,
-        "trust_net": 650000,
-        "total_net": 24927823
-      },
-      "weekday": 1,
-      "weekday_mult": 1.1
-    },
     {
       "code": "4961",
       "name": "天鈺",
@@ -171,7 +144,7 @@
   "losses": 0,
   "best_trade": 0,
   "worst_trade": 0,
-  "updated_at": "2026-10-28T15:02:21+08:00",
+  "updated_at": "2026-10-29T15:02:08+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -256,6 +229,48 @@
       "weekday": 2,
       "weekday_mult": 1.15,
       "reason": "限價單成交 (low=47.15 ≤ limit=48.2)"
+    },
+    {
+      "date": "2026-10-29",
+      "action": "BUY",
+      "code": "2382",
+      "name": "廣達",
+      "shares": 300,
+      "price": 322.0,
+      "cost": 96600,
+      "cash_after": 265530,
+      "verify": "YF 2382 2026-10-29: O=330.0 H=330.0 L=318.0 C=318.0",
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "reason": "限價單成交 (low=318.0 ≤ limit=322.0)"
+    },
+    {
+      "date": "2026-10-29",
+      "action": "BUY",
+      "code": "3703",
+      "name": "欣陸",
+      "shares": 5300,
+      "price": 20.75,
+      "cost": 109975,
+      "cash_after": 155555,
+      "verify": "YF 3703 2026-10-29: O=20.75 H=20.85 L=20.55 C=20.8",
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "reason": "限價單成交 (low=20.55 ≤ limit=20.75)"
+    },
+    {
+      "date": "2026-10-29",
+      "action": "BUY",
+      "code": "2002",
+      "name": "中鋼",
+      "shares": 5600,
+      "price": 19.55,
+      "cost": 109480,
+      "cash_after": 46075,
+      "verify": "YF 2002 2026-10-29: O=19.65 H=19.75 L=19.35 C=19.45",
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "reason": "限價單成交 (low=19.35 ≤ limit=19.55)"
     }
   ],
   "methodology": {
