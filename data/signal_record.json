@@ -1880,12 +1880,57 @@
       "price": 529.69,
       "regime": "STRONG_BULL",
       "confidence": 30
+    },
+    {
+      "date": "2026-10-30",
+      "symbol": "DHR",
+      "action": "BUY",
+      "score": 7,
+      "price": 236.98,
+      "regime": "NEUTRAL",
+      "confidence": 68
+    },
+    {
+      "date": "2026-10-30",
+      "symbol": "BMY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 61.39,
+      "regime": "NEUTRAL",
+      "confidence": 51
+    },
+    {
+      "date": "2026-10-30",
+      "symbol": "MA",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 635.7,
+      "regime": "NEUTRAL",
+      "confidence": 48
+    },
+    {
+      "date": "2026-10-30",
+      "symbol": "HD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 328.98,
+      "regime": "NEUTRAL",
+      "confidence": 47
+    },
+    {
+      "date": "2026-10-30",
+      "symbol": "UNHG",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 20.95,
+      "regime": "NEUTRAL",
+      "confidence": 30
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-29",
-    "total_entries": 209
+    "last_updated": "2026-10-30",
+    "total_entries": 214
   }
 }
