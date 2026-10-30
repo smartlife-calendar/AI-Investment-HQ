@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-30",
+  "generated_at": "2026-10-30T10:02:56.123119+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 9,
+  "stocks": [
+    {
+      "symbol": "ADT",
+      "name": "ADT Inc.",
+      "price": 9.87,
+      "change_pct": 33.2,
+      "vol_ratio": 21.4,
+      "volume": 163843198,
+      "avg_volume": 7656224
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "price": 283.82,
+      "change_pct": -12.64,
+      "vol_ratio": 5.0,
+      "volume": 138462344,
+      "avg_volume": 27692468
+    },
+    {
+      "symbol": "GOOG",
+      "name": "Alphabet Inc.",
+      "price": 282.32,
+      "change_pct": -12.29,
+      "vol_ratio": 5.0,
+      "volume": 92306922,
+      "avg_volume": 18461384
+    },
+    {
+      "symbol": "NOW",
+      "name": "ServiceNow, Inc.",
+      "price": 109.67,
+      "change_pct": -26.95,
+      "vol_ratio": 4.7,
+      "volume": 75554545,
+      "avg_volume": 16075435
+    },
+    {
+      "symbol": "NCLH",
+      "name": "Norwegian Cruise Line Holdings ",
+      "price": 18.22,
+      "change_pct": 13.45,
+      "vol_ratio": 3.8,
+      "volume": 67894444,
+      "avg_volume": 17866958
+    },
+    {
+      "symbol": "IOVA",
+      "name": "Iovance Biotherapeutics, Inc.",
+      "price": 9.56,
+      "change_pct": -35.45,
+      "vol_ratio": 3.6,
+      "volume": 58693906,
+      "avg_volume": 16303862
+    },
+    {
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 12.29,
+      "change_pct": 23.27,
+      "vol_ratio": 3.2,
+      "volume": 58982550,
+      "avg_volume": 18432046
+    },
+    {
+      "symbol": "CMG",
+      "name": "Chipotle Mexican Grill, Inc.",
+      "price": 31.28,
+      "change_pct": 8.88,
+      "vol_ratio": 2.3,
+      "volume": 42425765,
+      "avg_volume": 18445984
+    },
+    {
+      "symbol": "BBD",
+      "name": "Banco Bradesco Sa",
+      "price": 2.63,
+      "change_pct": -3.66,
+      "vol_ratio": 2.0,
+      "volume": 80638579,
+      "avg_volume": 40319289
+    }
+  ]
+}
