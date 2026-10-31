@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-31",
+  "generated_at": "2026-10-31T10:04:28.355002+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 65.76,
+      "change_pct": -28.58,
+      "vol_ratio": 4.2,
+      "volume": 450884426,
+      "avg_volume": 107353434
+    },
+    {
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 12.16,
+      "change_pct": 6.2,
+      "vol_ratio": 2.6,
+      "volume": 62521646,
+      "avg_volume": 24046786
+    }
+  ]
+}
