@@ -1925,12 +1925,84 @@
       "price": 20.95,
       "regime": "NEUTRAL",
       "confidence": 30
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "PG",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 161.57,
+      "regime": "CAUTION",
+      "confidence": 61
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "TXN",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 300.84,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "GD",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 372.59,
+      "regime": "CAUTION",
+      "confidence": 37
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "UNP",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 304.0,
+      "regime": "CAUTION",
+      "confidence": 37
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "RTX",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 199.8,
+      "regime": "CAUTION",
+      "confidence": 36
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "LMT",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 636.95,
+      "regime": "CAUTION",
+      "confidence": 35
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "ABT",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 106.2,
+      "regime": "CAUTION",
+      "confidence": 33
+    },
+    {
+      "date": "2026-10-31",
+      "symbol": "PEP",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 137.34,
+      "regime": "CAUTION",
+      "confidence": 33
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-30",
-    "total_entries": 214
+    "last_updated": "2026-10-31",
+    "total_entries": 222
   }
 }
