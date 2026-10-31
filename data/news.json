@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-29T10:00:02+08:00",
+  "generated_at": "2026-10-31T10:00:02+08:00",
   "news": [
+    {
+      "title": "Where Will VTI Be in 2046? Here's What 25 Years of History Suggests.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/where-vti-2046-heres-25-173500080.html",
+      "publisher": "Motley Fool",
+      "published": 1793295300
+    },
     {
       "title": "American Households Own More of the Stock Market Than at Any Time Since the Dot-Com Era",
       "url": "https://finance.yahoo.com/markets/stocks/articles/american-households-own-more-stock-180359452.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/us-stocks-retake-lead-international-011950170.html",
       "publisher": "etf.com",
       "published": 1791422390
-    },
-    {
-      "title": "A Guide to Low-Cost ETFs",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-130000918.html",
-      "publisher": "Zacks",
-      "published": 1791291600
     }
   ]
 }
