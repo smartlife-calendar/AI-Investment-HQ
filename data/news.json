@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-10-31T10:00:02+08:00",
+  "generated_at": "2026-11-03T13:25:54+08:00",
   "news": [
+    {
+      "title": "VOO vs. VTI: Which Vanguard Fund Is the Better Buy Right Now?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-vs-vti-vanguard-fund-134400510.html",
+      "publisher": "Motley Fool",
+      "published": 1793627040
+    },
     {
       "title": "Where Will VTI Be in 2046? Here's What 25 Years of History Suggests.",
       "url": "https://finance.yahoo.com/markets/stocks/articles/where-vti-2046-heres-25-173500080.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/68-780-000-live-dividends-203327791.html",
       "publisher": "24/7 Wall St.",
       "published": 1791491607
-    },
-    {
-      "title": "US Stocks Retake the Lead From International",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/us-stocks-retake-lead-international-011950170.html",
-      "publisher": "etf.com",
-      "published": 1791422390
     }
   ]
 }

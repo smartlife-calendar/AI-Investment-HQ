@@ -1,166 +1,166 @@
 {
-  "generated_at": "2026-10-31T10:00:02+08:00",
+  "generated_at": "2026-11-03T13:25:54+08:00",
   "gainers": [
     {
-      "symbol": "CDNA",
-      "name": "CareDx, Inc.",
-      "price": 87.41,
-      "change_pct": 22.22,
-      "volume": 3552531,
+      "symbol": "IDXX",
+      "name": "IDEXX Laboratories, Inc.",
+      "price": 671.64,
+      "change_pct": 21.85,
+      "volume": 1977294,
       "vr": ""
     },
     {
-      "symbol": "CPRI",
-      "name": "Capri Holdings Limited",
-      "price": 18.68,
-      "change_pct": 16.31,
-      "volume": 9807470,
+      "symbol": "NWL",
+      "name": "Newell Brands Inc.",
+      "price": 5.96,
+      "change_pct": 15.06,
+      "volume": 16044209,
       "vr": ""
     },
     {
-      "symbol": "FDXF",
-      "name": "FedEx Freight Holding Company, ",
-      "price": 126.04,
-      "change_pct": 14.91,
-      "volume": 3596222,
+      "symbol": "NXT",
+      "name": "Nextpower Inc.",
+      "price": 91.13,
+      "change_pct": 14.87,
+      "volume": 5509418,
       "vr": ""
     },
     {
-      "symbol": "MEOH",
-      "name": "Methanex Corporation",
-      "price": 71.57,
-      "change_pct": 14.04,
-      "volume": 2713909,
+      "symbol": "PHIN",
+      "name": "PHINIA Inc.",
+      "price": 70.79,
+      "change_pct": 12.51,
+      "volume": 616751,
       "vr": ""
     },
     {
-      "symbol": "REGN",
-      "name": "Regeneron Pharmaceuticals, Inc.",
-      "price": 927.89,
-      "change_pct": 13.33,
-      "volume": 2851725,
+      "symbol": "SFM",
+      "name": "Sprouts Farmers Market, Inc.",
+      "price": 55.23,
+      "change_pct": 11.13,
+      "volume": 8667725,
       "vr": ""
     },
     {
-      "symbol": "CVCO",
-      "name": "Cavco Industries, Inc.",
-      "price": 619.0,
-      "change_pct": 13.11,
-      "volume": 246977,
+      "symbol": "SAM",
+      "name": "Boston Beer Company, Inc. (The)",
+      "price": 221.37,
+      "change_pct": 9.96,
+      "volume": 346021,
       "vr": ""
     },
     {
-      "symbol": "GPN",
-      "name": "Global Payments Inc.",
-      "price": 96.84,
-      "change_pct": 12.97,
-      "volume": 16725396,
-      "vr": ""
-    },
-    {
-      "symbol": "BTSG",
-      "name": "BrightSpring Health Services, I",
-      "price": 66.89,
-      "change_pct": 11.08,
-      "volume": 5913908,
-      "vr": ""
-    },
-    {
-      "symbol": "GDDY",
-      "name": "GoDaddy Inc.",
-      "price": 117.24,
-      "change_pct": 10.72,
-      "volume": 3574679,
-      "vr": ""
-    },
-    {
-      "symbol": "OLN",
-      "name": "Olin Corporation",
-      "price": 17.6,
+      "symbol": "AIN",
+      "name": "Albany International Corporatio",
+      "price": 73.47,
       "change_pct": 9.66,
-      "volume": 6670997,
+      "volume": 584956,
+      "vr": ""
+    },
+    {
+      "symbol": "MGRC",
+      "name": "McGrath RentCorp",
+      "price": 129.44,
+      "change_pct": 9.44,
+      "volume": 1247058,
+      "vr": ""
+    },
+    {
+      "symbol": "ESAB",
+      "name": "ESAB Corporation",
+      "price": 76.3,
+      "change_pct": 9.38,
+      "volume": 1333204,
+      "vr": ""
+    },
+    {
+      "symbol": "LOAR",
+      "name": "Loar Holdings Inc.",
+      "price": 67.91,
+      "change_pct": 9.34,
+      "volume": 2302549,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "RDDT",
-      "name": "Reddit, Inc.",
-      "price": 91.73,
-      "change_pct": -29.22,
-      "volume": 33255690,
+      "symbol": "LITE",
+      "name": "Lumentum Holdings Inc.",
+      "price": 684.4,
+      "change_pct": -18.59,
+      "volume": 15329429,
       "vr": ""
     },
     {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 65.76,
-      "change_pct": -28.58,
-      "volume": 450884426,
+      "symbol": "TWST",
+      "name": "Twist Bioscience Corporation",
+      "price": 129.04,
+      "change_pct": -15.54,
+      "volume": 2674180,
       "vr": ""
     },
     {
-      "symbol": "CACC",
-      "name": "Credit Acceptance Corporation",
-      "price": 464.89,
-      "change_pct": -19.26,
-      "volume": 386250,
+      "symbol": "LBRT",
+      "name": "Liberty Energy Inc.",
+      "price": 14.68,
+      "change_pct": -13.03,
+      "volume": 4633146,
       "vr": ""
     },
     {
-      "symbol": "ILMN",
-      "name": "Illumina, Inc.",
-      "price": 235.99,
-      "change_pct": -18.64,
-      "volume": 5387505,
+      "symbol": "VG",
+      "name": "Venture Global, Inc.",
+      "price": 12.87,
+      "change_pct": -12.98,
+      "volume": 34677438,
       "vr": ""
     },
     {
-      "symbol": "RBLX",
-      "name": "Roblox Corporation",
-      "price": 42.99,
-      "change_pct": -18.05,
-      "volume": 29366664,
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 171.41,
+      "change_pct": -12.72,
+      "volume": 61448759,
       "vr": ""
     },
     {
-      "symbol": "BFAM",
-      "name": "Bright Horizons Family Solution",
-      "price": 54.98,
-      "change_pct": -17.92,
-      "volume": 7373548,
+      "symbol": "AXTI",
+      "name": "AXT Inc",
+      "price": 48.2,
+      "change_pct": -12.46,
+      "volume": 15380953,
       "vr": ""
     },
     {
-      "symbol": "TFII",
-      "name": "TFI International Inc.",
-      "price": 93.32,
-      "change_pct": -17.08,
-      "volume": 1110750,
+      "symbol": "TXG",
+      "name": "10x Genomics, Inc.",
+      "price": 61.63,
+      "change_pct": -12.1,
+      "volume": 5173946,
       "vr": ""
     },
     {
-      "symbol": "BLSH",
-      "name": "Bullish",
-      "price": 23.9,
-      "change_pct": -16.05,
-      "volume": 2531823,
+      "symbol": "PURR",
+      "name": "Hyperliquid Strategies Inc",
+      "price": 9.71,
+      "change_pct": -11.81,
+      "volume": 17137663,
       "vr": ""
     },
     {
-      "symbol": "AUGO",
-      "name": "Aura Minerals Inc.",
-      "price": 66.22,
-      "change_pct": -15.43,
-      "volume": 1666965,
+      "symbol": "CBRS",
+      "name": "Cerebras Systems Inc.",
+      "price": 96.36,
+      "change_pct": -11.74,
+      "volume": 13279006,
       "vr": ""
     },
     {
-      "symbol": "TWLO",
-      "name": "Twilio Inc.",
-      "price": 205.03,
-      "change_pct": -15.24,
-      "volume": 7339001,
+      "symbol": "PTEN",
+      "name": "Patterson-UTI Energy, Inc.",
+      "price": 11.78,
+      "change_pct": -11.55,
+      "volume": 11805917,
       "vr": ""
     }
   ],
@@ -168,65 +168,49 @@
     {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 65.76,
-      "change_pct": -28.58,
-      "volume": 450884426,
+      "price": 59.97,
+      "change_pct": -8.8,
+      "volume": 230485372,
       "vr": ""
     },
     {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
-      "price": 204.64,
-      "change_pct": -4.22,
-      "volume": 165923799,
+      "price": 202.06,
+      "change_pct": -1.26,
+      "volume": 119222246,
       "vr": ""
     },
     {
       "symbol": "SPCX",
       "name": "Space Exploration Technologies ",
-      "price": 134.72,
-      "change_pct": -6.37,
-      "volume": 121658895,
+      "price": 136.37,
+      "change_pct": 1.22,
+      "volume": 90965436,
+      "vr": ""
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "price": 13.08,
+      "change_pct": 3.81,
+      "volume": 84185003,
+      "vr": ""
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 2.86,
+      "change_pct": 5.54,
+      "volume": 69170486,
       "vr": ""
     },
     {
       "symbol": "NU",
       "name": "Nu Holdings Ltd.",
-      "price": 11.61,
-      "change_pct": -3.65,
-      "volume": 92844229,
-      "vr": ""
-    },
-    {
-      "symbol": "NOK",
-      "name": "Nokia Corporation Sponsored",
-      "price": 8.56,
-      "change_pct": -8.06,
-      "volume": 97678342,
-      "vr": ""
-    },
-    {
-      "symbol": "AMZN",
-      "name": "Amazon.com, Inc.",
-      "price": 240.35,
-      "change_pct": -1.41,
-      "volume": 104652185,
-      "vr": ""
-    },
-    {
-      "symbol": "AAPL",
-      "name": "Apple Inc.",
-      "price": 344.63,
-      "change_pct": -1.23,
-      "volume": 67842804,
-      "vr": ""
-    },
-    {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 2.55,
-      "change_pct": -3.04,
-      "volume": 66471221,
+      "price": 11.62,
+      "change_pct": 0.09,
+      "volume": 68991568,
       "vr": ""
     },
     {
@@ -238,51 +222,67 @@
       "vr": ""
     },
     {
-      "symbol": "SOFI",
-      "name": "SoFi Technologies, Inc.",
-      "price": 16.76,
-      "change_pct": -4.83,
-      "volume": 64103556,
-      "vr": ""
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 12.6,
-      "change_pct": -1.41,
-      "volume": 59951717,
-      "vr": ""
-    },
-    {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
-      "price": 12.16,
-      "change_pct": 6.2,
-      "volume": 62521646,
+      "price": 13.19,
+      "change_pct": 8.47,
+      "volume": 65299674,
+      "vr": ""
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 338.32,
+      "change_pct": -1.83,
+      "volume": 64689155,
+      "vr": ""
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 171.41,
+      "change_pct": -12.72,
+      "volume": 61448759,
+      "vr": ""
+    },
+    {
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 8.3,
+      "change_pct": -3.04,
+      "volume": 60465936,
+      "vr": ""
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle Corporation",
+      "price": 119.22,
+      "change_pct": -8.76,
+      "volume": 58710047,
+      "vr": ""
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "price": 245.63,
+      "change_pct": 2.2,
+      "volume": 58327853,
       "vr": ""
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Digital Inc.",
-      "price": 7.29,
-      "change_pct": -10.0,
-      "volume": 56471660,
+      "price": 6.86,
+      "change_pct": -5.9,
+      "volume": 55412573,
       "vr": ""
     },
     {
-      "symbol": "GOOGL",
-      "name": "Alphabet Inc.",
-      "price": 279.84,
-      "change_pct": -1.4,
-      "volume": 65326584,
-      "vr": ""
-    },
-    {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 2.71,
-      "change_pct": -1.81,
-      "volume": 54722273,
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 16.6,
+      "change_pct": -0.95,
+      "volume": 54593554,
       "vr": ""
     }
   ],
@@ -290,52 +290,36 @@
     {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
-      "price": 12.16,
-      "change_pct": 6.2,
-      "volume": 62521646,
-      "vr": 2.6
-    },
-    {
-      "symbol": "RKT",
-      "name": "Rocket Companies, Inc.",
-      "price": 12.8,
-      "change_pct": 7.38,
-      "volume": 54352038,
-      "vr": 1.7
-    },
-    {
-      "symbol": "CMCSA",
-      "name": "Comcast Corporation",
-      "price": 23.22,
-      "change_pct": 4.27,
-      "volume": 48912328,
-      "vr": 1.7
+      "price": 13.19,
+      "change_pct": 8.47,
+      "volume": 65299674,
+      "vr": 2.8
     }
   ],
   "strong_sell": [
     {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 65.76,
-      "change_pct": -28.58,
-      "volume": 450884426,
-      "vr": 4.2
+      "price": 59.97,
+      "change_pct": -8.8,
+      "volume": 230485372,
+      "vr": 2.1
     },
     {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 2.55,
-      "change_pct": -3.04,
-      "volume": 66471221,
-      "vr": 1.6
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 171.41,
+      "change_pct": -12.72,
+      "volume": 61448759,
+      "vr": 2.8
     },
     {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "price": 11.73,
-      "change_pct": -8.0,
-      "volume": 51271601,
-      "vr": 1.5
+      "symbol": "ORCL",
+      "name": "Oracle Corporation",
+      "price": 119.22,
+      "change_pct": -8.76,
+      "volume": 58710047,
+      "vr": 1.9
     }
   ]
 }
