@@ -2,8 +2,8 @@
   "initial_capital": 1000000,
   "currency": "TWD",
   "cash": 73,
-  "nav": 987737,
-  "pnl_pct": -1.23,
+  "nav": 968653,
+  "pnl_pct": -3.13,
   "positions": [
     {
       "code": "2027",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 50.6,
       "shares": 2100,
-      "current_price": 50.3,
+      "current_price": 48.95,
       "peak_price": 51.1,
-      "pnl_pct": -0.59,
-      "market_value": 105630.0,
+      "pnl_pct": -3.26,
+      "market_value": 102795.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 119.5,
       "shares": 900,
-      "current_price": 119.5,
+      "current_price": 115.5,
       "peak_price": 120.0,
-      "pnl_pct": 0.0,
-      "market_value": 107550.0,
+      "pnl_pct": -3.35,
+      "market_value": 103950.0,
       "t1_sold": false
     },
     {
@@ -35,10 +35,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 29.6,
       "shares": 3700,
-      "current_price": 28.7,
+      "current_price": 28.2,
       "peak_price": 29.5,
-      "pnl_pct": -3.04,
-      "market_value": 106190.0,
+      "pnl_pct": -4.73,
+      "market_value": 104340.0,
       "t1_sold": false
     },
     {
@@ -47,10 +47,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 38.95,
+      "current_price": 38.55,
       "peak_price": 40.15,
-      "pnl_pct": -2.62,
-      "market_value": 105165.0,
+      "pnl_pct": -3.63,
+      "market_value": 104085.0,
       "t1_sold": false
     },
     {
@@ -59,10 +59,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 101.5,
+      "current_price": 97.7,
       "peak_price": 103.0,
-      "pnl_pct": 1.0,
-      "market_value": 101500.0,
+      "pnl_pct": -2.79,
+      "market_value": 97700.0,
       "t1_sold": false
     },
     {
@@ -71,10 +71,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 48.2,
       "shares": 2200,
-      "current_price": 46.2,
+      "current_price": 45.65,
       "peak_price": 48.5,
-      "pnl_pct": -4.15,
-      "market_value": 101640.0,
+      "pnl_pct": -5.29,
+      "market_value": 100430.0,
       "t1_sold": false
     },
     {
@@ -83,10 +83,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 322.0,
       "shares": 300,
-      "current_price": 318.0,
+      "current_price": 311.5,
       "peak_price": 330.0,
-      "pnl_pct": -1.24,
-      "market_value": 95400.0,
+      "pnl_pct": -3.26,
+      "market_value": 93450.0,
       "t1_sold": false
     },
     {
@@ -95,10 +95,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 5300,
-      "current_price": 21.0,
+      "current_price": 20.95,
       "peak_price": 21.0,
-      "pnl_pct": 1.2,
-      "market_value": 111300.0,
+      "pnl_pct": 0.96,
+      "market_value": 111035.0,
       "t1_sold": false
     },
     {
@@ -107,10 +107,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 19.55,
       "shares": 5600,
-      "current_price": 19.4,
+      "current_price": 19.35,
       "peak_price": 19.75,
-      "pnl_pct": -0.77,
-      "market_value": 108640.0,
+      "pnl_pct": -1.02,
+      "market_value": 108360.0,
       "t1_sold": false
     },
     {
@@ -119,10 +119,10 @@
       "entry_date": "2026-10-30",
       "entry_price": 187.0,
       "shares": 246,
-      "current_price": 181.5,
+      "current_price": 172.5,
       "peak_price": 193.5,
-      "pnl_pct": -2.94,
-      "market_value": 44649.0,
+      "pnl_pct": -7.75,
+      "market_value": 42435.0,
       "t1_sold": false
     }
   ],
@@ -134,7 +134,7 @@
   "losses": 0,
   "best_trade": 0,
   "worst_trade": 0,
-  "updated_at": "2026-11-02T15:02:17+08:00",
+  "updated_at": "2026-11-03T15:02:31+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
