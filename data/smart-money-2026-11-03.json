@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-03",
+  "generated_at": "2026-11-03T13:28:54.907027+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "price": 13.19,
+      "change_pct": 8.47,
+      "vol_ratio": 2.8,
+      "volume": 65299674,
+      "avg_volume": 23321312
+    },
+    {
+      "symbol": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "price": 171.41,
+      "change_pct": -12.72,
+      "vol_ratio": 2.8,
+      "volume": 61448759,
+      "avg_volume": 21945985
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 59.97,
+      "change_pct": -8.8,
+      "vol_ratio": 2.1,
+      "volume": 230485372,
+      "avg_volume": 109754939
+    }
+  ]
+}
