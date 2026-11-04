@@ -1997,12 +1997,147 @@
       "price": 137.34,
       "regime": "CAUTION",
       "confidence": 33
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "DHR",
+      "action": "BUY",
+      "score": 7,
+      "price": 227.97,
+      "regime": "CAUTION",
+      "confidence": 75
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "BMY",
+      "action": "SCALE_IN",
+      "score": 9,
+      "price": 63.02,
+      "regime": "CAUTION",
+      "confidence": 72
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "MA",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 658.1,
+      "regime": "CAUTION",
+      "confidence": 61
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "HD",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 341.15,
+      "regime": "CAUTION",
+      "confidence": 55
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "ABBV",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 288.84,
+      "regime": "CAUTION",
+      "confidence": 53
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "HON",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 223.77,
+      "regime": "CAUTION",
+      "confidence": 53
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "MNST",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 48.02,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "V",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 425.51,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "AMGN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 465.45,
+      "regime": "CAUTION",
+      "confidence": 41
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "COST",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 1040.55,
+      "regime": "CAUTION",
+      "confidence": 39
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "ACN",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 260.94,
+      "regime": "CAUTION",
+      "confidence": 37
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "MCD",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 265.64,
+      "regime": "CAUTION",
+      "confidence": 35
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "SLB",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 52.31,
+      "regime": "CAUTION",
+      "confidence": 35
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "XLF",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 57.56,
+      "regime": "CAUTION",
+      "confidence": 35
+    },
+    {
+      "date": "2026-11-04",
+      "symbol": "SIRI",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 29.57,
+      "regime": "CAUTION",
+      "confidence": 31
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-10-31",
-    "total_entries": 222
+    "last_updated": "2026-11-04",
+    "total_entries": 237
   }
 }
