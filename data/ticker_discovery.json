@@ -1,13 +1,10 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-11-04",
   "current_tickers": 296,
   "history": {
     "DJT": {
       "first_seen": "2026-08-15",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-06",
         "2026-10-07",
         "2026-10-08",
@@ -23,10 +20,11 @@
         "2026-10-27",
         "2026-10-28",
         "2026-10-29",
-        "2026-10-30"
+        "2026-10-30",
+        "2026-11-04"
       ],
-      "sources_total": 106,
-      "last_seen": "2026-10-30"
+      "sources_total": 109,
+      "last_seen": "2026-11-04"
     },
     "NLST": {
       "first_seen": "2026-08-15",
@@ -40,7 +38,6 @@
     "HL": {
       "first_seen": "2026-08-15",
       "dates": [
-        "2026-09-30",
         "2026-10-06",
         "2026-10-08"
       ],
@@ -59,17 +56,16 @@
     "CDE": {
       "first_seen": "2026-08-15",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
         "2026-10-08",
         "2026-10-09",
         "2026-10-16",
         "2026-10-20",
         "2026-10-22",
-        "2026-10-28"
+        "2026-10-28",
+        "2026-11-04"
       ],
-      "sources_total": 26,
-      "last_seen": "2026-10-28"
+      "sources_total": 27,
+      "last_seen": "2026-11-04"
     },
     "USAR": {
       "first_seen": "2026-08-15",
@@ -84,10 +80,11 @@
     "FN": {
       "first_seen": "2026-08-18",
       "dates": [
-        "2026-10-07"
+        "2026-10-07",
+        "2026-11-04"
       ],
-      "sources_total": 4,
-      "last_seen": "2026-10-07"
+      "sources_total": 5,
+      "last_seen": "2026-11-04"
     },
     "CBRS": {
       "first_seen": "2026-08-18",
@@ -102,7 +99,6 @@
     "BBD": {
       "first_seen": "2026-08-18",
       "dates": [
-        "2026-10-02",
         "2026-10-06",
         "2026-10-07",
         "2026-10-08",
@@ -116,34 +112,23 @@
         "2026-10-27",
         "2026-10-28",
         "2026-10-29",
-        "2026-10-30"
+        "2026-10-30",
+        "2026-11-04"
       ],
-      "sources_total": 21,
-      "last_seen": "2026-10-30"
+      "sources_total": 22,
+      "last_seen": "2026-11-04"
     },
     "VICR": {
       "first_seen": "2026-08-18",
       "dates": [
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-27"
       ],
       "sources_total": 9,
       "last_seen": "2026-10-27"
     },
-    "PGEN": {
-      "first_seen": "2026-08-18",
-      "dates": [
-        "2026-10-01",
-        "2026-10-02"
-      ],
-      "sources_total": 4,
-      "last_seen": "2026-10-02"
-    },
     "LULU": {
       "first_seen": "2026-08-18",
       "dates": [
-        "2026-10-02",
         "2026-10-08",
         "2026-10-16",
         "2026-10-23"
@@ -151,18 +136,9 @@
       "sources_total": 10,
       "last_seen": "2026-10-23"
     },
-    "TLT": {
-      "first_seen": "2026-08-18",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 13,
-      "last_seen": "2026-10-01"
-    },
     "LEGN": {
       "first_seen": "2026-08-19",
       "dates": [
-        "2026-10-01",
         "2026-10-15"
       ],
       "sources_total": 5,
@@ -180,7 +156,6 @@
     "AUR": {
       "first_seen": "2026-08-19",
       "dates": [
-        "2026-10-01",
         "2026-10-09",
         "2026-10-30"
       ],
@@ -190,7 +165,6 @@
     "WULF": {
       "first_seen": "2026-08-19",
       "dates": [
-        "2026-10-01",
         "2026-10-09",
         "2026-10-13",
         "2026-10-14",
@@ -202,10 +176,11 @@
         "2026-10-23",
         "2026-10-27",
         "2026-10-28",
-        "2026-10-29"
+        "2026-10-29",
+        "2026-11-04"
       ],
-      "sources_total": 20,
-      "last_seen": "2026-10-29"
+      "sources_total": 21,
+      "last_seen": "2026-11-04"
     },
     "PBLS": {
       "first_seen": "2026-08-19",
@@ -237,21 +212,11 @@
     "GME": {
       "first_seen": "2026-08-19",
       "dates": [
-        "2026-09-30",
-        "2026-10-02",
         "2026-10-09",
         "2026-10-14"
       ],
       "sources_total": 16,
       "last_seen": "2026-10-14"
-    },
-    "ABCL": {
-      "first_seen": "2026-08-19",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 8,
-      "last_seen": "2026-09-30"
     },
     "PURR": {
       "first_seen": "2026-08-20",
@@ -270,18 +235,9 @@
       "sources_total": 6,
       "last_seen": "2026-10-07"
     },
-    "EXK": {
-      "first_seen": "2026-08-20",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-10-02"
-    },
     "SLS": {
       "first_seen": "2026-08-20",
       "dates": [
-        "2026-10-01",
         "2026-10-08",
         "2026-10-14",
         "2026-10-21",
@@ -303,8 +259,6 @@
     "PCG": {
       "first_seen": "2026-08-21",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
         "2026-10-09",
         "2026-10-14",
         "2026-10-16",
@@ -338,8 +292,6 @@
     "IBRX": {
       "first_seen": "2026-08-26",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
         "2026-10-15",
         "2026-10-28"
       ],
@@ -349,7 +301,6 @@
     "SMMT": {
       "first_seen": "2026-08-27",
       "dates": [
-        "2026-09-30",
         "2026-10-20"
       ],
       "sources_total": 8,
@@ -394,8 +345,6 @@
     "PSKY": {
       "first_seen": "2026-08-27",
       "dates": [
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-13"
       ],
       "sources_total": 10,
@@ -459,7 +408,6 @@
     "BWXT": {
       "first_seen": "2026-09-02",
       "dates": [
-        "2026-09-30",
         "2026-10-07"
       ],
       "sources_total": 4,
@@ -493,7 +441,6 @@
     "ZETA": {
       "first_seen": "2026-09-02",
       "dates": [
-        "2026-10-01",
         "2026-10-07"
       ],
       "sources_total": 4,
@@ -502,32 +449,14 @@
     "VG": {
       "first_seen": "2026-09-02",
       "dates": [
-        "2026-10-02",
         "2026-10-14"
       ],
       "sources_total": 3,
       "last_seen": "2026-10-14"
     },
-    "AI": {
-      "first_seen": "2026-09-03",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-10-01"
-    },
-    "MGNI": {
-      "first_seen": "2026-09-03",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 4,
-      "last_seen": "2026-09-30"
-    },
     "AGX": {
       "first_seen": "2026-09-03",
       "dates": [
-        "2026-09-30",
         "2026-10-07"
       ],
       "sources_total": 3,
@@ -554,28 +483,11 @@
     "XPEV": {
       "first_seen": "2026-09-03",
       "dates": [
-        "2026-10-02",
         "2026-10-21",
         "2026-10-22"
       ],
       "sources_total": 4,
       "last_seen": "2026-10-22"
-    },
-    "GWRE": {
-      "first_seen": "2026-09-04",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-10-02"
-    },
-    "AMC": {
-      "first_seen": "2026-09-08",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 5,
-      "last_seen": "2026-09-30"
     },
     "EQPT": {
       "first_seen": "2026-09-08",
@@ -594,18 +506,9 @@
       "sources_total": 2,
       "last_seen": "2026-10-07"
     },
-    "TRLV": {
-      "first_seen": "2026-09-08",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 4,
-      "last_seen": "2026-09-30"
-    },
     "TTAN": {
       "first_seen": "2026-09-09",
       "dates": [
-        "2026-09-30",
         "2026-10-08"
       ],
       "sources_total": 7,
@@ -618,14 +521,6 @@
       ],
       "sources_total": 4,
       "last_seen": "2026-10-06"
-    },
-    "BRVE": {
-      "first_seen": "2026-09-09",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-09-30"
     },
     "SSL": {
       "first_seen": "2026-09-09",
@@ -664,8 +559,6 @@
     "ITUB": {
       "first_seen": "2026-09-10",
       "dates": [
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-06",
         "2026-10-07",
         "2026-10-08",
@@ -691,9 +584,6 @@
     "FICO": {
       "first_seen": "2026-09-10",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-13"
       ],
       "sources_total": 12,
@@ -718,9 +608,6 @@
     "AGNC": {
       "first_seen": "2026-09-11",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-06",
         "2026-10-08",
         "2026-10-13",
@@ -733,7 +620,6 @@
     "VEON": {
       "first_seen": "2026-09-11",
       "dates": [
-        "2026-09-30",
         "2026-10-13"
       ],
       "sources_total": 4,
@@ -793,14 +679,6 @@
       "sources_total": 4,
       "last_seen": "2026-10-27"
     },
-    "TRMD": {
-      "first_seen": "2026-09-11",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-01"
-    },
     "LUMN": {
       "first_seen": "2026-09-11",
       "dates": [
@@ -812,7 +690,6 @@
     "APPN": {
       "first_seen": "2026-09-15",
       "dates": [
-        "2026-10-02",
         "2026-10-22"
       ],
       "sources_total": 3,
@@ -875,7 +752,6 @@
     "PBF": {
       "first_seen": "2026-09-16",
       "dates": [
-        "2026-10-02",
         "2026-10-09",
         "2026-10-14",
         "2026-10-16"
@@ -900,14 +776,6 @@
       "sources_total": 6,
       "last_seen": "2026-10-20"
     },
-    "RCL": {
-      "first_seen": "2026-09-16",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-09-30"
-    },
     "LEN": {
       "first_seen": "2026-09-17",
       "dates": [
@@ -928,18 +796,17 @@
     "RKT": {
       "first_seen": "2026-09-17",
       "dates": [
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-08",
         "2026-10-13",
         "2026-10-14",
         "2026-10-15",
         "2026-10-21",
         "2026-10-22",
-        "2026-10-23"
+        "2026-10-23",
+        "2026-11-04"
       ],
-      "sources_total": 18,
-      "last_seen": "2026-10-23"
+      "sources_total": 19,
+      "last_seen": "2026-11-04"
     },
     "ARQT": {
       "first_seen": "2026-09-17",
@@ -952,10 +819,11 @@
     "CORZ": {
       "first_seen": "2026-09-17",
       "dates": [
-        "2026-10-20"
+        "2026-10-20",
+        "2026-11-04"
       ],
-      "sources_total": 2,
-      "last_seen": "2026-10-20"
+      "sources_total": 3,
+      "last_seen": "2026-11-04"
     },
     "STRL": {
       "first_seen": "2026-09-17",
@@ -975,14 +843,6 @@
       ],
       "sources_total": 7,
       "last_seen": "2026-10-27"
-    },
-    "DKNG": {
-      "first_seen": "2026-09-18",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 4,
-      "last_seen": "2026-09-30"
     },
     "ALMR": {
       "first_seen": "2026-09-18",
@@ -1006,9 +866,6 @@
     "WBD": {
       "first_seen": "2026-09-22",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-02",
         "2026-10-06"
       ],
       "sources_total": 11,
@@ -1038,22 +895,6 @@
       "sources_total": 2,
       "last_seen": "2026-10-09"
     },
-    "AKAM": {
-      "first_seen": "2026-09-22",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 3,
-      "last_seen": "2026-10-02"
-    },
-    "CCXI": {
-      "first_seen": "2026-09-22",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-01"
-    },
     "FLY": {
       "first_seen": "2026-09-22",
       "dates": [
@@ -1065,7 +906,6 @@
     "INOD": {
       "first_seen": "2026-09-23",
       "dates": [
-        "2026-10-02",
         "2026-10-22",
         "2026-10-28"
       ],
@@ -1088,14 +928,6 @@
       "sources_total": 2,
       "last_seen": "2026-10-16"
     },
-    "CCL": {
-      "first_seen": "2026-09-23",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 5,
-      "last_seen": "2026-09-30"
-    },
     "SGRY": {
       "first_seen": "2026-09-23",
       "dates": [
@@ -1107,17 +939,15 @@
     "APP": {
       "first_seen": "2026-09-23",
       "dates": [
-        "2026-10-01",
-        "2026-10-02",
-        "2026-10-15"
+        "2026-10-15",
+        "2026-11-04"
       ],
-      "sources_total": 7,
-      "last_seen": "2026-10-15"
+      "sources_total": 8,
+      "last_seen": "2026-11-04"
     },
     "GOOG": {
       "first_seen": "2026-09-24",
       "dates": [
-        "2026-10-01",
         "2026-10-22",
         "2026-10-27",
         "2026-10-28",
@@ -1130,7 +960,6 @@
     "GIS": {
       "first_seen": "2026-09-24",
       "dates": [
-        "2026-10-01",
         "2026-10-23"
       ],
       "sources_total": 3,
@@ -1147,7 +976,6 @@
     "WRBY": {
       "first_seen": "2026-09-25",
       "dates": [
-        "2026-09-30",
         "2026-10-20"
       ],
       "sources_total": 4,
@@ -1188,7 +1016,6 @@
     "CLF": {
       "first_seen": "2026-09-29",
       "dates": [
-        "2026-09-30",
         "2026-10-20",
         "2026-10-21"
       ],
@@ -1198,7 +1025,6 @@
     "LQDA": {
       "first_seen": "2026-09-29",
       "dates": [
-        "2026-10-01",
         "2026-10-07",
         "2026-10-14",
         "2026-10-15"
@@ -1214,240 +1040,54 @@
       "sources_total": 2,
       "last_seen": "2026-10-06"
     },
-    "NKTR": {
-      "first_seen": "2026-09-29",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-02"
-    },
     "CAPR": {
       "first_seen": "2026-09-30",
       "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-22"
+        "2026-10-22",
+        "2026-11-04"
       ],
-      "sources_total": 4,
-      "last_seen": "2026-10-22"
-    },
-    "VNDA": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-09-30"
-    },
-    "MSOS": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-09-30"
-    },
-    "XRPN": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30",
-        "2026-10-01",
-        "2026-10-02"
-      ],
-      "sources_total": 4,
-      "last_seen": "2026-10-02"
+      "sources_total": 5,
+      "last_seen": "2026-11-04"
     },
     "SDEV": {
       "first_seen": "2026-09-30",
       "dates": [
-        "2026-09-30",
-        "2026-10-02",
         "2026-10-22"
       ],
       "sources_total": 3,
       "last_seen": "2026-10-22"
     },
-    "QURE": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
     "STLA": {
       "first_seen": "2026-09-30",
       "dates": [
-        "2026-09-30",
-        "2026-10-02",
         "2026-10-28",
-        "2026-10-29"
+        "2026-10-29",
+        "2026-11-04"
       ],
-      "sources_total": 5,
-      "last_seen": "2026-10-29"
-    },
-    "CAMT": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
-    "HAFN": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
-    "LIND": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30",
-        "2026-10-02"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-02"
+      "sources_total": 6,
+      "last_seen": "2026-11-04"
     },
     "CVNA": {
       "first_seen": "2026-09-30",
       "dates": [
-        "2026-09-30",
         "2026-10-29",
         "2026-10-30"
       ],
       "sources_total": 4,
       "last_seen": "2026-10-30"
     },
-    "PTON": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
-    "XERS": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
-    "PGY": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
-    "TMF": {
-      "first_seen": "2026-09-30",
-      "dates": [
-        "2026-09-30"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-09-30"
-    },
     "CEG": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-06",
         "2026-10-07"
       ],
       "sources_total": 5,
       "last_seen": "2026-10-07"
     },
-    "UTHR": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-01"
-    },
-    "ROG": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 2,
-      "last_seen": "2026-10-01"
-    },
-    "TGE": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "PRGS": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "JBL": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "CNTB": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "MULL": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "GOW": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "MNKD": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "NWCL": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
     "BRZE": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-08",
         "2026-10-21"
       ],
@@ -1457,7 +1097,6 @@
     "FROG": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-20"
       ],
       "sources_total": 2,
@@ -1466,50 +1105,23 @@
     "DOCS": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-09",
         "2026-10-16"
       ],
       "sources_total": 3,
       "last_seen": "2026-10-16"
     },
-    "IMOS": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
     "GEN": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-30"
       ],
       "sources_total": 2,
       "last_seen": "2026-10-30"
     },
-    "CBOE": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "BPYPP": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
     "SYRE": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-20",
         "2026-10-21"
       ],
@@ -1519,40 +1131,14 @@
     "STUB": {
       "first_seen": "2026-10-01",
       "dates": [
-        "2026-10-01",
         "2026-10-08"
       ],
       "sources_total": 2,
       "last_seen": "2026-10-08"
     },
-    "PHI": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "CSIQ": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
-    "ETH": {
-      "first_seen": "2026-10-01",
-      "dates": [
-        "2026-10-01"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-01"
-    },
     "CTVA": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-06",
         "2026-10-07",
         "2026-10-08"
@@ -1563,24 +1149,14 @@
     "MAT": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-06"
       ],
       "sources_total": 4,
       "last_seen": "2026-10-06"
     },
-    "SYNA": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
     "VLO": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-09",
         "2026-10-14",
         "2026-10-28"
@@ -1588,93 +1164,26 @@
       "sources_total": 4,
       "last_seen": "2026-10-28"
     },
-    "DIS": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
     "EFXT": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-14"
       ],
       "sources_total": 2,
       "last_seen": "2026-10-14"
     },
-    "KD": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
-    "UI": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
     "HURN": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-09",
         "2026-10-16"
       ],
       "sources_total": 3,
       "last_seen": "2026-10-16"
     },
-    "IPGP": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
-    "EXPO": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
-    "GPI": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
-    "NCNO": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
-    "KWEB": {
-      "first_seen": "2026-10-02",
-      "dates": [
-        "2026-10-02"
-      ],
-      "sources_total": 1,
-      "last_seen": "2026-10-02"
-    },
     "DECK": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-23"
       ],
       "sources_total": 3,
@@ -1683,7 +1192,6 @@
     "AXSM": {
       "first_seen": "2026-10-02",
       "dates": [
-        "2026-10-02",
         "2026-10-20"
       ],
       "sources_total": 2,
@@ -1871,10 +1379,11 @@
     "CVS": {
       "first_seen": "2026-10-06",
       "dates": [
-        "2026-10-06"
+        "2026-10-06",
+        "2026-11-04"
       ],
-      "sources_total": 1,
-      "last_seen": "2026-10-06"
+      "sources_total": 2,
+      "last_seen": "2026-11-04"
     },
     "CRSR": {
       "first_seen": "2026-10-06",
@@ -2206,10 +1715,11 @@
     "HUT": {
       "first_seen": "2026-10-09",
       "dates": [
-        "2026-10-09"
+        "2026-10-09",
+        "2026-11-04"
       ],
-      "sources_total": 1,
-      "last_seen": "2026-10-09"
+      "sources_total": 2,
+      "last_seen": "2026-11-04"
     },
     "AMT": {
       "first_seen": "2026-10-09",
@@ -3731,10 +3241,11 @@
     "DPC": {
       "first_seen": "2026-10-28",
       "dates": [
-        "2026-10-28"
+        "2026-10-28",
+        "2026-11-04"
       ],
-      "sources_total": 1,
-      "last_seen": "2026-10-28"
+      "sources_total": 2,
+      "last_seen": "2026-11-04"
     },
     "PPTA": {
       "first_seen": "2026-10-28",
@@ -3747,10 +3258,11 @@
     "CADL": {
       "first_seen": "2026-10-28",
       "dates": [
-        "2026-10-28"
+        "2026-10-28",
+        "2026-11-04"
       ],
-      "sources_total": 1,
-      "last_seen": "2026-10-28"
+      "sources_total": 2,
+      "last_seen": "2026-11-04"
     },
     "TGTX": {
       "first_seen": "2026-10-28",
@@ -4096,36 +3608,204 @@
       ],
       "sources_total": 1,
       "last_seen": "2026-10-30"
+    },
+    "ANET": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 3,
+      "last_seen": "2026-11-04"
+    },
+    "XYZ": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "BKNG": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "DOX": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "TOST": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "AMDL": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "KVUE": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "PFE": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "GPK": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "XMTR": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "PRIM": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "NBIX": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "BETA": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "PCOR": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "PTCT": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "MWH": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "RRX": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "FRVO": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "TBBB": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "SRAD": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
+    },
+    "IOND": {
+      "first_seen": "2026-11-04",
+      "dates": [
+        "2026-11-04"
+      ],
+      "sources_total": 1,
+      "last_seen": "2026-11-04"
     }
   },
   "qualified": [
     {
       "symbol": "DJT",
-      "days_seen": 19,
-      "sources_total": 106,
+      "days_seen": 17,
+      "sources_total": 109,
       "first_seen": "2026-08-15",
-      "last_seen": "2026-10-30",
+      "last_seen": "2026-11-04",
       "mcap_b": null
     },
     {
       "symbol": "BBD",
       "days_seen": 15,
-      "sources_total": 21,
+      "sources_total": 22,
       "first_seen": "2026-08-18",
-      "last_seen": "2026-10-30",
+      "last_seen": "2026-11-04",
       "mcap_b": null
     },
     {
       "symbol": "WULF",
       "days_seen": 13,
-      "sources_total": 20,
+      "sources_total": 21,
       "first_seen": "2026-08-19",
-      "last_seen": "2026-10-29",
+      "last_seen": "2026-11-04",
       "mcap_b": null
     },
     {
       "symbol": "ITUB",
-      "days_seen": 11,
+      "days_seen": 9,
       "sources_total": 14,
       "first_seen": "2026-09-10",
       "last_seen": "2026-10-30",
@@ -4133,34 +3813,18 @@
     },
     {
       "symbol": "RKT",
-      "days_seen": 9,
-      "sources_total": 18,
+      "days_seen": 8,
+      "sources_total": 19,
       "first_seen": "2026-09-17",
-      "last_seen": "2026-10-23",
+      "last_seen": "2026-11-04",
       "mcap_b": null
     },
     {
       "symbol": "CDE",
-      "days_seen": 8,
-      "sources_total": 26,
-      "first_seen": "2026-08-15",
-      "last_seen": "2026-10-28",
-      "mcap_b": null
-    },
-    {
-      "symbol": "AGNC",
-      "days_seen": 8,
-      "sources_total": 15,
-      "first_seen": "2026-09-11",
-      "last_seen": "2026-10-21",
-      "mcap_b": null
-    },
-    {
-      "symbol": "PCG",
       "days_seen": 7,
-      "sources_total": 23,
-      "first_seen": "2026-08-21",
-      "last_seen": "2026-10-23",
+      "sources_total": 27,
+      "first_seen": "2026-08-15",
+      "last_seen": "2026-11-04",
       "mcap_b": null
     },
     {
@@ -4188,14 +3852,6 @@
       "mcap_b": null
     },
     {
-      "symbol": "SLS",
-      "days_seen": 6,
-      "sources_total": 11,
-      "first_seen": "2026-08-20",
-      "last_seen": "2026-10-29",
-      "mcap_b": null
-    },
-    {
       "symbol": "VALE",
       "days_seen": 6,
       "sources_total": 12,
@@ -4204,35 +3860,35 @@
       "mcap_b": null
     },
     {
-      "symbol": "GOOG",
-      "days_seen": 6,
+      "symbol": "SLS",
+      "days_seen": 5,
       "sources_total": 11,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-10-30",
+      "first_seen": "2026-08-20",
+      "last_seen": "2026-10-29",
       "mcap_b": null
     },
     {
-      "symbol": "LULU",
-      "days_seen": 4,
-      "sources_total": 10,
-      "first_seen": "2026-08-18",
+      "symbol": "PCG",
+      "days_seen": 5,
+      "sources_total": 23,
+      "first_seen": "2026-08-21",
       "last_seen": "2026-10-23",
       "mcap_b": null
     },
     {
-      "symbol": "GME",
-      "days_seen": 4,
-      "sources_total": 16,
-      "first_seen": "2026-08-19",
-      "last_seen": "2026-10-14",
+      "symbol": "AGNC",
+      "days_seen": 5,
+      "sources_total": 15,
+      "first_seen": "2026-09-11",
+      "last_seen": "2026-10-21",
       "mcap_b": null
     },
     {
-      "symbol": "IBRX",
-      "days_seen": 4,
+      "symbol": "GOOG",
+      "days_seen": 5,
       "sources_total": 11,
-      "first_seen": "2026-08-26",
-      "last_seen": "2026-10-28",
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-30",
       "mcap_b": null
     },
     {
@@ -4244,19 +3900,43 @@
       "mcap_b": null
     },
     {
-      "symbol": "FICO",
+      "symbol": "VZ",
       "days_seen": 4,
-      "sources_total": 12,
-      "first_seen": "2026-09-10",
-      "last_seen": "2026-10-13",
+      "sources_total": 7,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-27",
       "mcap_b": null
     },
     {
-      "symbol": "PBF",
+      "symbol": "MANE",
+      "days_seen": 4,
+      "sources_total": 4,
+      "first_seen": "2026-10-09",
+      "last_seen": "2026-10-22",
+      "mcap_b": null
+    },
+    {
+      "symbol": "RGC",
       "days_seen": 4,
       "sources_total": 5,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-10-16",
+      "first_seen": "2026-10-09",
+      "last_seen": "2026-10-28",
+      "mcap_b": null
+    },
+    {
+      "symbol": "CCC",
+      "days_seen": 4,
+      "sources_total": 7,
+      "first_seen": "2026-10-13",
+      "last_seen": "2026-10-29",
+      "mcap_b": null
+    },
+    {
+      "symbol": "GLXY",
+      "days_seen": 4,
+      "sources_total": 4,
+      "first_seen": "2026-10-20",
+      "last_seen": "2026-10-29",
       "mcap_b": null
     }
   ],
