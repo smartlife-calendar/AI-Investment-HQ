@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04T10:02:59.348110+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "ORCL",
+      "name": "Oracle Corporation",
+      "price": 126.19,
+      "change_pct": 5.85,
+      "vol_ratio": 2.7,
+      "volume": 83790427,
+      "avg_volume": 31033491
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.12,
+      "change_pct": 9.09,
+      "vol_ratio": 2.6,
+      "volume": 153113906,
+      "avg_volume": 58889963
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "price": 14.02,
+      "change_pct": 18.41,
+      "vol_ratio": 2.1,
+      "volume": 39735087,
+      "avg_volume": 18921470
+    }
+  ]
+}
