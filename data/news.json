@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-04T10:00:02+08:00",
+  "generated_at": "2026-11-05T10:00:02+08:00",
   "news": [
+    {
+      "title": "Musk’s Election Bet Backfires on Tesla, and Your Index Fund Owns a Piece of It",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/musk-election-bet-backfires-tesla-163341296.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1793810021
+    },
     {
       "title": "VOO vs. VTI: Which Vanguard Fund Is the Better Buy Right Now?",
       "url": "https://finance.yahoo.com/markets/stocks/articles/voo-vs-vti-vanguard-fund-134400510.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/jack-bogle-said-just-buy-111552580.html",
       "publisher": "24/7 Wall St.",
       "published": 1791544552
-    },
-    {
-      "title": "At 68 With $780,000, Do You Live on the Dividends or Sell Shares? These 3 ETFs Let You Do Both",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/68-780-000-live-dividends-203327791.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1791491607
     }
   ]
 }
