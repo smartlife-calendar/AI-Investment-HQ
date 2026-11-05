@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05T10:02:53.615542+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 6,
+  "stocks": [
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "price": 15.37,
+      "change_pct": 9.63,
+      "vol_ratio": 4.4,
+      "volume": 83536958,
+      "avg_volume": 18985672
+    },
+    {
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 6.5,
+      "change_pct": -19.95,
+      "vol_ratio": 2.6,
+      "volume": 103235832,
+      "avg_volume": 39706089
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 349.51,
+      "change_pct": 5.31,
+      "vol_ratio": 2.1,
+      "volume": 88958176,
+      "avg_volume": 42361036
+    },
+    {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "price": 29.6,
+      "change_pct": -5.7,
+      "vol_ratio": 2.1,
+      "volume": 88067295,
+      "avg_volume": 41936807
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 11.7,
+      "change_pct": -6.62,
+      "vol_ratio": 2.1,
+      "volume": 72075591,
+      "avg_volume": 34321710
+    },
+    {
+      "symbol": "PLUG",
+      "name": "Plug Power, Inc.",
+      "price": 1.46,
+      "change_pct": 3.55,
+      "vol_ratio": 2.0,
+      "volume": 104781109,
+      "avg_volume": 52390554
+    }
+  ]
+}
