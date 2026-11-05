@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 73,
-  "nav": 963940,
-  "pnl_pct": -3.61,
+  "cash": 41155,
+  "nav": 953100,
+  "pnl_pct": -4.69,
   "positions": [
     {
       "code": "2027",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 50.6,
       "shares": 2100,
-      "current_price": 48.7,
+      "current_price": 47.75,
       "peak_price": 51.1,
-      "pnl_pct": -3.75,
-      "market_value": 102270.0,
+      "pnl_pct": -5.63,
+      "market_value": 100275.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 119.5,
       "shares": 900,
-      "current_price": 115.5,
+      "current_price": 113.0,
       "peak_price": 120.0,
-      "pnl_pct": -3.35,
-      "market_value": 103950.0,
+      "pnl_pct": -5.44,
+      "market_value": 101700.0,
       "t1_sold": false
     },
     {
@@ -35,10 +35,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 29.6,
       "shares": 3700,
-      "current_price": 27.85,
+      "current_price": 27.7,
       "peak_price": 29.5,
-      "pnl_pct": -5.91,
-      "market_value": 103045.0,
+      "pnl_pct": -6.42,
+      "market_value": 102490.0,
       "t1_sold": false
     },
     {
@@ -47,10 +47,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 38.25,
+      "current_price": 38.65,
       "peak_price": 40.15,
-      "pnl_pct": -4.38,
-      "market_value": 103275.0,
+      "pnl_pct": -3.38,
+      "market_value": 104355.0,
       "t1_sold": false
     },
     {
@@ -59,10 +59,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 98.9,
+      "current_price": 98.6,
       "peak_price": 103.0,
-      "pnl_pct": -1.59,
-      "market_value": 98900.0,
+      "pnl_pct": -1.89,
+      "market_value": 98600.0,
       "t1_sold": false
     },
     {
@@ -71,10 +71,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 48.2,
       "shares": 2200,
-      "current_price": 45.55,
+      "current_price": 44.5,
       "peak_price": 48.5,
-      "pnl_pct": -5.5,
-      "market_value": 100210.0,
+      "pnl_pct": -7.68,
+      "market_value": 97900.0,
       "t1_sold": false
     },
     {
@@ -83,10 +83,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 322.0,
       "shares": 300,
-      "current_price": 302.5,
+      "current_price": 300.0,
       "peak_price": 330.0,
-      "pnl_pct": -6.06,
-      "market_value": 90750.0,
+      "pnl_pct": -6.83,
+      "market_value": 90000.0,
       "t1_sold": false
     },
     {
@@ -95,10 +95,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 5300,
-      "current_price": 21.0,
+      "current_price": 20.85,
       "peak_price": 21.0,
-      "pnl_pct": 1.2,
-      "market_value": 111300.0,
+      "pnl_pct": 0.48,
+      "market_value": 110505.0,
       "t1_sold": false
     },
     {
@@ -107,34 +107,58 @@
       "entry_date": "2026-10-29",
       "entry_price": 19.55,
       "shares": 5600,
-      "current_price": 19.15,
+      "current_price": 18.95,
       "peak_price": 19.75,
-      "pnl_pct": -2.05,
-      "market_value": 107240.0,
+      "pnl_pct": -3.07,
+      "market_value": 106120.0,
       "t1_sold": false
-    },
+    }
+  ],
+  "closed_trades": [
     {
       "code": "4961",
       "name": "天鈺",
       "entry_date": "2026-10-30",
       "entry_price": 187.0,
+      "exit_date": "2026-11-05",
+      "exit_price": 167.0,
       "shares": 246,
-      "current_price": 174.5,
-      "peak_price": 193.5,
-      "pnl_pct": -6.68,
-      "market_value": 42927.0,
-      "t1_sold": false
+      "pnl_pct": -10.7,
+      "pnl_amount": -4920,
+      "reason": "停損 (-10.7%)",
+      "hold_days": 6
     }
   ],
-  "closed_trades": [],
-  "pending_orders": [],
-  "total_trades": 0,
-  "win_rate": 0,
+  "pending_orders": [
+    {
+      "code": "9802",
+      "name": "鈺齊-KY",
+      "limit_price": 64.3,
+      "shares": 600,
+      "score": 11,
+      "order_date": "2026-11-05",
+      "sector": "運動休閒",
+      "reasons": [
+        "法人買超",
+        "股價<淨值(PB=0.92)",
+        "高殖利率(8.2%)"
+      ],
+      "institutional": {
+        "foreign_net": 126000,
+        "trust_net": 0,
+        "total_net": 113000
+      },
+      "weekday": 3,
+      "weekday_mult": 0.9
+    }
+  ],
+  "total_trades": 1,
+  "win_rate": 0.0,
   "wins": 0,
-  "losses": 0,
-  "best_trade": 0,
-  "worst_trade": 0,
-  "updated_at": "2026-11-04T15:01:53+08:00",
+  "losses": 1,
+  "best_trade": -10.7,
+  "worst_trade": -10.7,
+  "updated_at": "2026-11-05T15:03:32+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -275,6 +299,19 @@
       "weekday": 4,
       "weekday_mult": 0.85,
       "reason": "限價單成交 (low=181.0 ≤ limit=187.0)"
+    },
+    {
+      "date": "2026-11-05",
+      "action": "SELL",
+      "code": "4961",
+      "name": "天鈺",
+      "shares": 246,
+      "price": 167.0,
+      "proceeds": 41082,
+      "pnl_pct": -10.7,
+      "cash_after": 41155,
+      "verify": "YF 4961 2026-11-05: O=171.5 H=174.5 L=167.0 C=167.0",
+      "reason": "停損 (-10.7%)"
     }
   ],
   "methodology": {
