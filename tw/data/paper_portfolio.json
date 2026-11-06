@@ -1,56 +1,20 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 41155,
-  "nav": 953100,
-  "pnl_pct": -4.69,
+  "cash": 475020,
+  "nav": 921410,
+  "pnl_pct": -7.86,
   "positions": [
-    {
-      "code": "2027",
-      "name": "大成鋼",
-      "entry_date": "2026-10-28",
-      "entry_price": 50.6,
-      "shares": 2100,
-      "current_price": 47.75,
-      "peak_price": 51.1,
-      "pnl_pct": -5.63,
-      "market_value": 100275.0,
-      "t1_sold": false
-    },
-    {
-      "code": "2615",
-      "name": "萬海",
-      "entry_date": "2026-10-28",
-      "entry_price": 119.5,
-      "shares": 900,
-      "current_price": 113.0,
-      "peak_price": 120.0,
-      "pnl_pct": -5.44,
-      "market_value": 101700.0,
-      "t1_sold": false
-    },
-    {
-      "code": "9945",
-      "name": "潤泰新",
-      "entry_date": "2026-10-28",
-      "entry_price": 29.6,
-      "shares": 3700,
-      "current_price": 27.7,
-      "peak_price": 29.5,
-      "pnl_pct": -6.42,
-      "market_value": 102490.0,
-      "t1_sold": false
-    },
     {
       "code": "2542",
       "name": "興富發",
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 38.65,
+      "current_price": 37.75,
       "peak_price": 40.15,
-      "pnl_pct": -3.38,
-      "market_value": 104355.0,
+      "pnl_pct": -5.62,
+      "market_value": 101925.0,
       "t1_sold": false
     },
     {
@@ -59,34 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 98.6,
+      "current_price": 94.4,
       "peak_price": 103.0,
-      "pnl_pct": -1.89,
-      "market_value": 98600.0,
-      "t1_sold": false
-    },
-    {
-      "code": "2031",
-      "name": "新光鋼",
-      "entry_date": "2026-10-28",
-      "entry_price": 48.2,
-      "shares": 2200,
-      "current_price": 44.5,
-      "peak_price": 48.5,
-      "pnl_pct": -7.68,
-      "market_value": 97900.0,
-      "t1_sold": false
-    },
-    {
-      "code": "2382",
-      "name": "廣達",
-      "entry_date": "2026-10-29",
-      "entry_price": 322.0,
-      "shares": 300,
-      "current_price": 300.0,
-      "peak_price": 330.0,
-      "pnl_pct": -6.83,
-      "market_value": 90000.0,
+      "pnl_pct": -6.07,
+      "market_value": 94400.0,
       "t1_sold": false
     },
     {
@@ -95,10 +35,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 5300,
-      "current_price": 20.85,
+      "current_price": 20.45,
       "peak_price": 21.0,
-      "pnl_pct": 0.48,
-      "market_value": 110505.0,
+      "pnl_pct": -1.45,
+      "market_value": 108385.0,
       "t1_sold": false
     },
     {
@@ -107,10 +47,22 @@
       "entry_date": "2026-10-29",
       "entry_price": 19.55,
       "shares": 5600,
-      "current_price": 18.95,
+      "current_price": 18.55,
       "peak_price": 19.75,
-      "pnl_pct": -3.07,
-      "market_value": 106120.0,
+      "pnl_pct": -5.12,
+      "market_value": 103880.0,
+      "t1_sold": false
+    },
+    {
+      "code": "9802",
+      "name": "鈺齊-KY",
+      "entry_date": "2026-11-06",
+      "entry_price": 64.3,
+      "shares": 600,
+      "current_price": 63.0,
+      "peak_price": 63.2,
+      "pnl_pct": -2.02,
+      "market_value": 37800,
       "t1_sold": false
     }
   ],
@@ -127,38 +79,166 @@
       "pnl_amount": -4920,
       "reason": "停損 (-10.7%)",
       "hold_days": 6
+    },
+    {
+      "code": "2027",
+      "name": "大成鋼",
+      "entry_date": "2026-10-28",
+      "entry_price": 50.6,
+      "exit_date": "2026-11-06",
+      "exit_price": 45.7,
+      "shares": 2100,
+      "pnl_pct": -9.68,
+      "pnl_amount": -10290,
+      "reason": "停損 (-9.7%)",
+      "hold_days": 9
+    },
+    {
+      "code": "2615",
+      "name": "萬海",
+      "entry_date": "2026-10-28",
+      "entry_price": 119.5,
+      "exit_date": "2026-11-06",
+      "exit_price": 107.5,
+      "shares": 900,
+      "pnl_pct": -10.04,
+      "pnl_amount": -10800,
+      "reason": "停損 (-10.0%)",
+      "hold_days": 9
+    },
+    {
+      "code": "9945",
+      "name": "潤泰新",
+      "entry_date": "2026-10-28",
+      "entry_price": 29.6,
+      "exit_date": "2026-11-06",
+      "exit_price": 26.45,
+      "shares": 3700,
+      "pnl_pct": -10.64,
+      "pnl_amount": -11655,
+      "reason": "停損 (-10.6%)",
+      "hold_days": 9
+    },
+    {
+      "code": "2031",
+      "name": "新光鋼",
+      "entry_date": "2026-10-28",
+      "entry_price": 48.2,
+      "exit_date": "2026-11-06",
+      "exit_price": 43.05,
+      "shares": 2200,
+      "pnl_pct": -10.68,
+      "pnl_amount": -11330,
+      "reason": "停損 (-10.7%)",
+      "hold_days": 9
+    },
+    {
+      "code": "2382",
+      "name": "廣達",
+      "entry_date": "2026-10-29",
+      "entry_price": 322.0,
+      "exit_date": "2026-11-06",
+      "exit_price": 290.5,
+      "shares": 300,
+      "pnl_pct": -9.78,
+      "pnl_amount": -9450,
+      "reason": "停損 (-9.8%)",
+      "hold_days": 8
     }
   ],
   "pending_orders": [
     {
-      "code": "9802",
-      "name": "鈺齊-KY",
-      "limit_price": 64.3,
-      "shares": 600,
-      "score": 11,
-      "order_date": "2026-11-05",
-      "sector": "運動休閒",
+      "code": "2610",
+      "name": "華航",
+      "limit_price": 21.2,
+      "shares": 3600,
+      "score": 7,
+      "order_date": "2026-11-06",
+      "sector": "航運業",
       "reasons": [
-        "法人買超",
-        "股價<淨值(PB=0.92)",
-        "高殖利率(8.2%)"
+        "法人大買(95%成交量)",
+        "外資+投信同買",
+        "外資連買6日"
       ],
       "institutional": {
-        "foreign_net": 126000,
-        "trust_net": 0,
-        "total_net": 113000
+        "foreign_net": 47825700,
+        "trust_net": 37415,
+        "total_net": 48646055
       },
-      "weekday": 3,
-      "weekday_mult": 0.9
+      "weekday": 4,
+      "weekday_mult": 0.85
+    },
+    {
+      "code": "2618",
+      "name": "長榮航",
+      "limit_price": 43.6,
+      "shares": 1700,
+      "score": 7,
+      "order_date": "2026-11-06",
+      "sector": "航運業",
+      "reasons": [
+        "法人大買(66%成交量)",
+        "外資+投信同買",
+        "低PE(9.5)"
+      ],
+      "institutional": {
+        "foreign_net": 16794517,
+        "trust_net": 350749,
+        "total_net": 18343429
+      },
+      "weekday": 4,
+      "weekday_mult": 0.85
+    },
+    {
+      "code": "4155",
+      "name": "訊映",
+      "limit_price": 17.9,
+      "shares": 4300,
+      "score": 7,
+      "order_date": "2026-11-06",
+      "sector": "生技醫療",
+      "reasons": [
+        "法人買超",
+        "低PE(9.5)",
+        "股價<淨值(PB=0.91)"
+      ],
+      "institutional": {
+        "foreign_net": 42495,
+        "trust_net": 0,
+        "total_net": 52495
+      },
+      "weekday": 4,
+      "weekday_mult": 0.85
+    },
+    {
+      "code": "1712",
+      "name": "興農",
+      "limit_price": 40.4,
+      "shares": 1900,
+      "score": 7,
+      "order_date": "2026-11-06",
+      "sector": "化學",
+      "reasons": [
+        "法人大買(15%成交量)",
+        "外資+投信同買",
+        "高殖利率(6.2%)"
+      ],
+      "institutional": {
+        "foreign_net": 206173,
+        "trust_net": 1000,
+        "total_net": 215173
+      },
+      "weekday": 4,
+      "weekday_mult": 0.85
     }
   ],
-  "total_trades": 1,
+  "total_trades": 6,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 1,
-  "best_trade": -10.7,
+  "losses": 6,
+  "best_trade": -9.68,
   "worst_trade": -10.7,
-  "updated_at": "2026-11-05T15:03:32+08:00",
+  "updated_at": "2026-11-06T15:02:11+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -312,6 +392,85 @@
       "cash_after": 41155,
       "verify": "YF 4961 2026-11-05: O=171.5 H=174.5 L=167.0 C=167.0",
       "reason": "停損 (-10.7%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "SELL",
+      "code": "2027",
+      "name": "大成鋼",
+      "shares": 2100,
+      "price": 45.7,
+      "proceeds": 95970,
+      "pnl_pct": -9.7,
+      "cash_after": 137125,
+      "verify": "YF 2027 2026-11-06: O=44.5 H=46.55 L=44.1 C=45.7",
+      "reason": "停損 (-9.7%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "SELL",
+      "code": "2615",
+      "name": "萬海",
+      "shares": 900,
+      "price": 107.5,
+      "proceeds": 96750,
+      "pnl_pct": -10.0,
+      "cash_after": 233875,
+      "verify": "YF 2615 2026-11-06: O=103.5 H=109.0 L=102.0 C=107.5",
+      "reason": "停損 (-10.0%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "SELL",
+      "code": "9945",
+      "name": "潤泰新",
+      "shares": 3700,
+      "price": 26.45,
+      "proceeds": 97865,
+      "pnl_pct": -10.6,
+      "cash_after": 331740,
+      "verify": "YF 9945 2026-11-06: O=26.0 H=26.8 L=25.35 C=26.45",
+      "reason": "停損 (-10.6%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "SELL",
+      "code": "2031",
+      "name": "新光鋼",
+      "shares": 2200,
+      "price": 43.05,
+      "proceeds": 94710,
+      "pnl_pct": -10.7,
+      "cash_after": 426450,
+      "verify": "YF 2031 2026-11-06: O=42.05 H=43.5 L=41.65 C=43.05",
+      "reason": "停損 (-10.7%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "SELL",
+      "code": "2382",
+      "name": "廣達",
+      "shares": 300,
+      "price": 290.5,
+      "proceeds": 87150,
+      "pnl_pct": -9.8,
+      "cash_after": 513600,
+      "verify": "YF 2382 2026-11-06: O=275.0 H=294.5 L=272.0 C=290.5",
+      "reason": "停損 (-9.8%)"
+    },
+    {
+      "date": "2026-11-06",
+      "action": "BUY",
+      "code": "9802",
+      "name": "鈺齊-KY",
+      "shares": 600,
+      "price": 64.3,
+      "cost": 38580,
+      "cash_after": 475020,
+      "verify": "YF 9802 2026-11-06: O=60.7 H=63.2 L=60.1 C=63.0",
+      "weekday": 4,
+      "weekday_mult": 0.85,
+      "reason": "限價單成交 (low=60.1 ≤ limit=64.3)"
     }
   ],
   "methodology": {
