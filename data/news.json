@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-05T10:00:02+08:00",
+  "generated_at": "2026-11-06T10:00:02+08:00",
   "news": [
+    {
+      "title": "Jack Bogle Was Fired in 1974 After a Merger He Championed Went Sour. The Company He Started Next Put an Index Fund in Millions of Retirement Accounts",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jack-bogle-fired-1974-merger-021857167.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1793845137
+    },
     {
       "title": "Musk’s Election Bet Backfires on Tesla, and Your Index Fund Owns a Piece of It",
       "url": "https://finance.yahoo.com/markets/stocks/articles/musk-election-bet-backfires-tesla-163341296.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/p-500s-safety-net-disappearing-123500407.html",
       "publisher": "Motley Fool",
       "published": 1791549300
-    },
-    {
-      "title": "Jack Bogle Said ‘Just Buy the Haystack.’ $200 a Month Starting at 30 Could Mean $668,000 by 65",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/jack-bogle-said-just-buy-111552580.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1791544552
     }
   ]
 }

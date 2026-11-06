@@ -1,373 +1,341 @@
 {
-  "generated_at": "2026-11-05T10:00:02+08:00",
+  "generated_at": "2026-11-06T10:00:02+08:00",
   "gainers": [
     {
-      "symbol": "KD",
-      "name": "Kyndryl Holdings, Inc.",
-      "price": 16.84,
-      "change_pct": 30.14,
-      "volume": 14951422,
+      "symbol": "APP",
+      "name": "Applovin Corporation",
+      "price": 356.1,
+      "change_pct": 31.04,
+      "volume": 22122914,
       "vr": ""
     },
     {
-      "symbol": "RYTM",
-      "name": "Rhythm Pharmaceuticals, Inc.",
-      "price": 110.68,
-      "change_pct": 28.04,
-      "volume": 5401040,
+      "symbol": "ECPG",
+      "name": "Encore Capital Group Inc",
+      "price": 126.17,
+      "change_pct": 26.26,
+      "volume": 707700,
       "vr": ""
     },
     {
-      "symbol": "DUOL",
-      "name": "Duolingo, Inc.",
-      "price": 161.27,
-      "change_pct": 25.99,
-      "volume": 9493982,
+      "symbol": "ADMA",
+      "name": "ADMA Biologics Inc",
+      "price": 13.21,
+      "change_pct": 26.05,
+      "volume": 14994184,
       "vr": ""
     },
     {
-      "symbol": "YOU",
-      "name": "Clear Secure, Inc.",
-      "price": 59.08,
-      "change_pct": 23.7,
-      "volume": 6742844,
+      "symbol": "XERS",
+      "name": "Xeris Biopharma Holdings, Inc.",
+      "price": 13.08,
+      "change_pct": 25.05,
+      "volume": 12300967,
       "vr": ""
     },
     {
-      "symbol": "PCOR",
-      "name": "Procore Technologies, Inc.",
-      "price": 75.6,
-      "change_pct": 19.68,
-      "volume": 9020069,
+      "symbol": "WRBY",
+      "name": "Warby Parker Inc.",
+      "price": 26.08,
+      "change_pct": 22.5,
+      "volume": 11257732,
       "vr": ""
     },
     {
-      "symbol": "MDLN",
-      "name": "Medline Inc.",
-      "price": 40.35,
-      "change_pct": 18.36,
-      "volume": 25463700,
+      "symbol": "ARDT",
+      "name": "Ardent Health, Inc.",
+      "price": 15.9,
+      "change_pct": 22.4,
+      "volume": 2470702,
       "vr": ""
     },
     {
-      "symbol": "LIVN",
-      "name": "LivaNova PLC",
-      "price": 94.19,
-      "change_pct": 17.88,
-      "volume": 3788870,
+      "symbol": "MGNI",
+      "name": "Magnite, Inc.",
+      "price": 27.52,
+      "change_pct": 20.75,
+      "volume": 9697636,
       "vr": ""
     },
     {
-      "symbol": "UFPT",
-      "name": "UFP Technologies, Inc.",
-      "price": 329.82,
-      "change_pct": 17.66,
-      "volume": 358590,
+      "symbol": "EPAM",
+      "name": "EPAM Systems, Inc.",
+      "price": 165.7,
+      "change_pct": 20.63,
+      "volume": 3672402,
       "vr": ""
     },
     {
-      "symbol": "MOS",
-      "name": "Mosaic Company (The)",
-      "price": 21.62,
-      "change_pct": 17.37,
-      "volume": 22221893,
+      "symbol": "U",
+      "name": "Unity Software Inc.",
+      "price": 48.8,
+      "change_pct": 14.93,
+      "volume": 49973128,
       "vr": ""
     },
     {
-      "symbol": "OUST",
-      "name": "Ouster, Inc.",
-      "price": 33.54,
-      "change_pct": 15.73,
-      "volume": 6181864,
+      "symbol": "PGNY",
+      "name": "Progyny, Inc.",
+      "price": 34.37,
+      "change_pct": 14.19,
+      "volume": 2786310,
       "vr": ""
     }
   ],
   "losers": [
     {
-      "symbol": "DOX",
-      "name": "Amdocs Limited",
-      "price": 43.66,
-      "change_pct": -30.07,
-      "volume": 9355706,
+      "symbol": "FSLY",
+      "name": "Fastly, Inc.",
+      "price": 15.38,
+      "change_pct": -26.88,
+      "volume": 18738202,
       "vr": ""
     },
     {
-      "symbol": "ECG",
-      "name": "Everus Construction Group, Inc.",
-      "price": 79.71,
-      "change_pct": -29.29,
-      "volume": 3454196,
+      "symbol": "AXTI",
+      "name": "AXT Inc",
+      "price": 36.72,
+      "change_pct": -22.76,
+      "volume": 20090392,
       "vr": ""
     },
     {
-      "symbol": "FIS",
-      "name": "Fidelity National Information S",
-      "price": 29.76,
-      "change_pct": -23.67,
-      "volume": 37059180,
+      "symbol": "SNDK",
+      "name": "Sandisk Corporation",
+      "price": 806.43,
+      "change_pct": -22.26,
+      "volume": 29899118,
       "vr": ""
     },
     {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "price": 48.94,
-      "change_pct": -23.23,
-      "volume": 13833529,
+      "symbol": "MXL",
+      "name": "MaxLinear, Inc",
+      "price": 44.31,
+      "change_pct": -22.06,
+      "volume": 7941491,
       "vr": ""
     },
     {
-      "symbol": "STRL",
-      "name": "Sterling Infrastructure, Inc.",
-      "price": 283.66,
-      "change_pct": -21.46,
-      "volume": 3213049,
+      "symbol": "ROAD",
+      "name": "Construction Partners, Inc.",
+      "price": 77.53,
+      "change_pct": -21.88,
+      "volume": 2394600,
       "vr": ""
     },
     {
-      "symbol": "MOD",
-      "name": "Modine Manufacturing Company",
-      "price": 98.56,
-      "change_pct": -21.43,
-      "volume": 9491114,
+      "symbol": "CAI",
+      "name": "Caris Life Sciences, Inc.",
+      "price": 26.03,
+      "change_pct": -21.64,
+      "volume": 7824567,
       "vr": ""
     },
     {
-      "symbol": "CIFR",
-      "name": "Cipher Digital Inc.",
-      "price": 6.5,
-      "change_pct": -19.95,
-      "volume": 103235832,
+      "symbol": "BROS",
+      "name": "Dutch Bros Inc.",
+      "price": 34.57,
+      "change_pct": -21.41,
+      "volume": 14770233,
       "vr": ""
     },
     {
-      "symbol": "INIO",
-      "name": "INNIO N.V.",
-      "price": 14.74,
-      "change_pct": -19.5,
-      "volume": 13091524,
+      "symbol": "AAOI",
+      "name": "Applied Optoelectronics, Inc.",
+      "price": 46.89,
+      "change_pct": -20.89,
+      "volume": 28224050,
       "vr": ""
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp.",
-      "price": 32.13,
-      "change_pct": -17.95,
-      "volume": 2902573,
+      "symbol": "ASX",
+      "name": "ASE Technology Holding Co., Ltd",
+      "price": 29.72,
+      "change_pct": -20.77,
+      "volume": 27680597,
       "vr": ""
     },
     {
-      "symbol": "UNM",
-      "name": "Unum Group",
-      "price": 74.79,
-      "change_pct": -17.84,
-      "volume": 10117153,
+      "symbol": "ARQT",
+      "name": "Arcutis Biotherapeutics, Inc.",
+      "price": 27.0,
+      "change_pct": -20.7,
+      "volume": 7600825,
       "vr": ""
     }
   ],
   "most_active": [
     {
-      "symbol": "INTC",
-      "name": "Intel Corporation",
-      "price": 58.27,
-      "change_pct": -3.77,
-      "volume": 188096167,
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 181.6,
+      "change_pct": -9.26,
+      "volume": 301617834,
       "vr": ""
     },
     {
-      "symbol": "NVDA",
-      "name": "NVIDIA Corporation",
-      "price": 200.13,
-      "change_pct": -3.17,
-      "volume": 147804408,
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 52.25,
+      "change_pct": -10.33,
+      "volume": 265687785,
       "vr": ""
     },
     {
       "symbol": "SPCX",
       "name": "Space Exploration Technologies ",
-      "price": 135.92,
-      "change_pct": -3.81,
-      "volume": 134637724,
+      "price": 123.62,
+      "change_pct": -9.05,
+      "volume": 168452598,
       "vr": ""
     },
     {
-      "symbol": "ORCL",
-      "name": "Oracle Corporation",
-      "price": 123.73,
-      "change_pct": -1.95,
-      "volume": 111473243,
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.48,
+      "change_pct": 3.57,
+      "volume": 146307334,
       "vr": ""
     },
     {
-      "symbol": "CIFR",
-      "name": "Cipher Digital Inc.",
-      "price": 6.5,
-      "change_pct": -19.95,
-      "volume": 103235832,
-      "vr": ""
-    },
-    {
-      "symbol": "PLUG",
-      "name": "Plug Power, Inc.",
-      "price": 1.46,
-      "change_pct": 3.55,
-      "volume": 104781109,
-      "vr": ""
-    },
-    {
-      "symbol": "AAPL",
-      "name": "Apple Inc.",
-      "price": 349.51,
-      "change_pct": 5.31,
-      "volume": 88958176,
-      "vr": ""
-    },
-    {
-      "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "price": 29.6,
-      "change_pct": -5.7,
-      "volume": 88067295,
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 18.03,
+      "change_pct": -16.95,
+      "volume": 124740207,
       "vr": ""
     },
     {
       "symbol": "NU",
       "name": "Nu Holdings Ltd.",
-      "price": 11.99,
-      "change_pct": 3.27,
-      "volume": 87488790,
+      "price": 11.74,
+      "change_pct": -2.09,
+      "volume": 99728165,
       "vr": ""
     },
     {
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "price": 3.36,
-      "change_pct": 7.69,
-      "volume": 96532446,
+      "symbol": "NOK",
+      "name": "Nokia Corporation Sponsored",
+      "price": 7.46,
+      "change_pct": -9.69,
+      "volume": 94763029,
       "vr": ""
     },
     {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "price": 15.37,
-      "change_pct": 9.63,
-      "volume": 83536958,
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 10.08,
+      "change_pct": -13.85,
+      "volume": 93943623,
       "vr": ""
     },
     {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 2.57,
-      "change_pct": 4.05,
-      "volume": 79276096,
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 43.66,
+      "change_pct": -9.83,
+      "volume": 84002282,
       "vr": ""
     },
     {
       "symbol": "AMZN",
       "name": "Amazon.com, Inc.",
-      "price": 266.03,
-      "change_pct": 6.12,
-      "volume": 92981289,
+      "price": 260.21,
+      "change_pct": -2.19,
+      "volume": 83761273,
       "vr": ""
     },
     {
-      "symbol": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "price": 13.63,
-      "change_pct": 6.32,
-      "volume": 75420524,
+      "symbol": "CIFR",
+      "name": "Cipher Digital Inc.",
+      "price": 5.55,
+      "change_pct": -14.62,
+      "volume": 81592707,
       "vr": ""
     },
     {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "price": 11.7,
-      "change_pct": -6.62,
-      "volume": 72075591,
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "price": 5.09,
+      "change_pct": -14.02,
+      "volume": 81336098,
+      "vr": ""
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "price": 16.04,
+      "change_pct": -7.71,
+      "volume": 77429858,
+      "vr": ""
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 344.17,
+      "change_pct": -1.53,
+      "volume": 74173346,
+      "vr": ""
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology, Inc.",
+      "price": 656.39,
+      "change_pct": -17.46,
+      "volume": 76138480,
       "vr": ""
     }
   ],
   "strong_buy": [
     {
-      "symbol": "PLUG",
-      "name": "Plug Power, Inc.",
-      "price": 1.46,
-      "change_pct": 3.55,
-      "volume": 104781109,
-      "vr": 2.0
-    },
-    {
-      "symbol": "AAPL",
-      "name": "Apple Inc.",
-      "price": 349.51,
-      "change_pct": 5.31,
-      "volume": 88958176,
-      "vr": 2.1
-    },
-    {
       "symbol": "GRAB",
       "name": "Grab Holdings Limited",
-      "price": 3.36,
-      "change_pct": 7.69,
-      "volume": 96532446,
-      "vr": 1.6
-    },
-    {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "price": 15.37,
-      "change_pct": 9.63,
-      "volume": 83536958,
-      "vr": 4.4
-    },
-    {
-      "symbol": "BBD",
-      "name": "Banco Bradesco Sa",
-      "price": 2.57,
-      "change_pct": 4.05,
-      "volume": 79276096,
-      "vr": 1.8
+      "price": 3.48,
+      "change_pct": 3.57,
+      "volume": 146307334,
+      "vr": 2.5
     }
   ],
   "strong_sell": [
     {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 181.6,
+      "change_pct": -9.26,
+      "volume": 301617834,
+      "vr": 2.7
+    },
+    {
       "symbol": "INTC",
       "name": "Intel Corporation",
-      "price": 58.27,
-      "change_pct": -3.77,
-      "volume": 188096167,
+      "price": 52.25,
+      "change_pct": -10.33,
+      "volume": 265687785,
+      "vr": 2.4
+    },
+    {
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies ",
+      "price": 123.62,
+      "change_pct": -9.05,
+      "volume": 168452598,
       "vr": 1.7
-    },
-    {
-      "symbol": "CIFR",
-      "name": "Cipher Digital Inc.",
-      "price": 6.5,
-      "change_pct": -19.95,
-      "volume": 103235832,
-      "vr": 2.6
-    },
-    {
-      "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "price": 29.6,
-      "change_pct": -5.7,
-      "volume": 88067295,
-      "vr": 2.1
-    },
-    {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "price": 11.7,
-      "change_pct": -6.62,
-      "volume": 72075591,
-      "vr": 2.1
     },
     {
       "symbol": "IREN",
       "name": "IREN LIMITED",
-      "price": 21.71,
-      "change_pct": -11.24,
-      "volume": 74502806,
-      "vr": 1.6
+      "price": 18.03,
+      "change_pct": -16.95,
+      "volume": 124740207,
+      "vr": 2.7
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 10.08,
+      "change_pct": -13.85,
+      "volume": 93943623,
+      "vr": 2.7
     }
   ]
 }

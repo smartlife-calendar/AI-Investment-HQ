@@ -1,85 +1,21 @@
 {
-  "generated_at": "2026-10-31T10:00:02+08:00",
+  "generated_at": "2026-11-06T10:00:02+08:00",
   "events": [
-    {
-      "sym": "AAPL",
-      "date": "2026-11-02",
-      "type": "earnings",
-      "note": "AAPL Q財報 盤後",
-      "eps_forecast": "$1.98",
-      "market_cap": "$5,092,055,400,000"
-    },
-    {
-      "sym": "PLTR",
-      "date": "2026-11-02",
-      "type": "earnings",
-      "note": "PLTR Q財報 盤後",
-      "eps_forecast": "$0.33",
-      "market_cap": "$471,811,359,000"
-    },
-    {
-      "sym": "AMD",
-      "date": "2026-11-03",
-      "type": "earnings",
-      "note": "AMD Q財報 盤後",
-      "eps_forecast": "$1.68",
-      "market_cap": "$924,666,490,000"
-    },
-    {
-      "sym": "SMCI",
-      "date": "2026-11-03",
-      "type": "earnings",
-      "note": "SMCI Q財報 盤後",
-      "eps_forecast": "$1.04",
-      "market_cap": "$22,619,318,300"
-    },
-    {
-      "sym": "ARM",
-      "date": "2026-11-04",
-      "type": "earnings",
-      "note": "ARM Q財報 盤後",
-      "eps_forecast": "$0.22",
-      "market_cap": "$243,423,920,000"
-    },
-    {
-      "sym": "QCOM",
-      "date": "2026-11-04",
-      "type": "earnings",
-      "note": "QCOM Q財報 盤後",
-      "eps_forecast": "$1.46",
-      "market_cap": "$194,723,873,000"
-    },
-    {
-      "sym": "DDOG",
-      "date": "2026-11-04",
-      "type": "earnings",
-      "note": "DDOG Q財報 盤前",
-      "eps_forecast": "$0.18",
-      "market_cap": "$95,456,502,000"
-    },
-    {
-      "sym": "NET",
-      "date": "2026-11-05",
-      "type": "earnings",
-      "note": "NET Q財報 盤後",
-      "eps_forecast": "$0.02",
-      "market_cap": "$110,491,533,000"
-    },
     {
       "sym": "NVDA",
       "date": "2026-11-17",
       "type": "earnings",
       "note": "NVDA Q財報 盤後",
       "eps_forecast": "$2.49",
-      "market_cap": "$5,149,206,000,000"
+      "market_cap": "$4,823,132,900,000"
     },
     {
       "sym": "PANW",
       "date": "2026-11-18",
       "type": "earnings",
-      "note": "PANW Q財報",
+      "note": "PANW Q財報 盤後",
       "eps_forecast": "$0.52",
-      "market_cap": "$311,474,881,000"
+      "market_cap": "$284,850,946,000"
     },
     {
       "sym": "ZS",
@@ -87,7 +23,7 @@
       "type": "earnings",
       "note": "ZS Q財報",
       "eps_forecast": "$0.12",
-      "market_cap": "$40,408,216,000"
+      "market_cap": "$36,595,995,000"
     },
     {
       "sym": "📌",
@@ -99,9 +35,9 @@
       "sym": "CRWD",
       "date": "2026-12-01",
       "type": "earnings",
-      "note": "CRWD Q財報",
+      "note": "CRWD Q財報 盤後",
       "eps_forecast": "$0",
-      "market_cap": "$267,400,577,000"
+      "market_cap": "$246,768,304,000"
     },
     {
       "sym": "CRM",
@@ -109,23 +45,23 @@
       "type": "earnings",
       "note": "CRM Q財報",
       "eps_forecast": "$2.41",
-      "market_cap": "$190,030,692,000"
+      "market_cap": "$186,911,523,000"
     },
     {
       "sym": "SNOW",
       "date": "2026-12-02",
       "type": "earnings",
-      "note": "SNOW Q財報",
+      "note": "SNOW Q財報 盤後",
       "eps_forecast": "($0.32)",
-      "market_cap": "$116,519,256,000"
+      "market_cap": "$102,523,683,000"
     },
     {
       "sym": "ORCL",
       "date": "2026-12-09",
       "type": "earnings",
       "note": "ORCL Q財報",
-      "eps_forecast": "$1.57",
-      "market_cap": "$421,992,595,000"
+      "eps_forecast": "$1.56",
+      "market_cap": "$374,126,871,000"
     },
     {
       "sym": "ADBE",
@@ -133,7 +69,7 @@
       "type": "earnings",
       "note": "ADBE Q財報",
       "eps_forecast": "$5.11",
-      "market_cap": "$96,568,304,000"
+      "market_cap": "$96,708,420,000"
     },
     {
       "sym": "AVGO",
@@ -141,7 +77,15 @@
       "type": "earnings",
       "note": "AVGO Q財報",
       "eps_forecast": "$3.45",
-      "market_cap": "$1,646,902,250,000"
+      "market_cap": "$1,585,465,660,000"
+    },
+    {
+      "sym": "MU",
+      "date": "2026-12-16",
+      "type": "earnings",
+      "note": "MU Q財報",
+      "eps_forecast": "$37.93",
+      "market_cap": "$899,741,710,000"
     },
     {
       "sym": "📌",
@@ -156,5 +100,5 @@
       "note": "聖誕節（休市）"
     }
   ],
-  "earnings_count": 17
+  "earnings_count": 10
 }
