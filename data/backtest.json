@@ -1,1 +1,240 @@
-{"generated_at": "2026-11-06T10:03:34+08:00", "algorithm": "v6_rolling_30d", "entry_criteria": "score>=7, direction=bullish", "signal_count": 12, "symbols_analyzed": 12, "targets": {"5d": {"avg_return": 0.5, "win_rate": 50}, "10d": {"avg_return": 1.0, "win_rate": 50}, "20d": {"avg_return": 1.5, "win_rate": 50}}, "results": {"5d": {"n": 12, "avg_return": -3.13, "median_return": -1.02, "win_rate": 33.3, "best": {"symbol": "QSI", "entry": "2026-10-07", "exit": "2026-10-14", "entry_price": 1.22, "exit_price": 1.3899999856948853, "return_pct": 13.93, "score": 7}, "worst": {"symbol": "PACB", "entry": "2026-10-07", "exit": "2026-10-14", "entry_price": 2.7, "exit_price": 1.9900000095367432, "return_pct": -26.3, "score": 7}}, "10d": {"n": 12, "avg_return": -4.62, "median_return": -3.36, "win_rate": 25.0, "best": {"symbol": "ASAN", "entry": "2026-10-07", "exit": "2026-10-21", "entry_price": 9.29, "exit_price": 11.069999694824219, "return_pct": 19.16, "score": 7}, "worst": {"symbol": "RXRX", "entry": "2026-10-07", "exit": "2026-10-21", "entry_price": 4.63, "exit_price": 3.640000104904175, "return_pct": -21.38, "score": 7}}, "20d": {"n": 12, "avg_return": -5.82, "median_return": -6.36, "win_rate": 16.7, "best": {"symbol": "ASAN", "entry": "2026-10-07", "exit": "2026-11-04", "entry_price": 9.29, "exit_price": 11.640000343322754, "return_pct": 25.3, "score": 7}, "worst": {"symbol": "TSM", "entry": "2026-10-07", "exit": "2026-11-04", "entry_price": 482.3, "exit_price": 395.75, "return_pct": -17.95, "score": 7}}}, "alerts": ["⚠️ 5d avg return -3.13% < target +0.5%", "⚠️ 5d win rate 33.3% < target 50%", "⚠️ 10d avg return -4.62% < target +1.0%", "⚠️ 10d win rate 25.0% < target 50%", "⚠️ 20d avg return -5.82% < target +1.5%", "⚠️ 20d win rate 16.7% < target 50%"], "status": "⚠️ BELOW TARGET"}
+{
+  "generated_at": "2026-11-06T10:06:36+08:00",
+  "algorithm": "v3_rolling_with_stoploss",
+  "entry_criteria": "BUY/SCALE_IN, mcap≥$2.0B, stop_loss=-8%",
+  "signal_count": 64,
+  "symbols_analyzed": 64,
+  "market_regime": "NEUTRAL",
+  "targets": {
+    "5d": {
+      "avg_return": 0.5,
+      "win_rate": 50
+    },
+    "10d": {
+      "avg_return": 1.0,
+      "win_rate": 50
+    },
+    "20d": {
+      "avg_return": 1.5,
+      "win_rate": 50
+    }
+  },
+  "results": {
+    "5d": {
+      "n": 40,
+      "avg_return": 1.66,
+      "median_return": 0.36,
+      "win_rate": 50.0,
+      "avg_win": 7.29,
+      "avg_loss": -3.97,
+      "stopped_out": 4,
+      "stop_rate": 10.0,
+      "best": {
+        "symbol": "QSI",
+        "entry": "2026-10-22",
+        "return_pct": 52.17,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "BA",
+        "entry": "2026-10-20",
+        "return_pct": -11.7,
+        "score": 8
+      }
+    },
+    "10d": {
+      "n": 27,
+      "avg_return": 1.38,
+      "median_return": 2.48,
+      "win_rate": 55.6,
+      "avg_win": 7.37,
+      "avg_loss": -6.11,
+      "stopped_out": 5,
+      "stop_rate": 18.5,
+      "best": {
+        "symbol": "NVAX",
+        "entry": "2026-09-15",
+        "return_pct": 17.23,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "BA",
+        "entry": "2026-10-20",
+        "return_pct": -11.7,
+        "score": 8
+      }
+    },
+    "20d": {
+      "n": 8,
+      "avg_return": 7.25,
+      "median_return": 7.57,
+      "win_rate": 62.5,
+      "avg_win": 14.91,
+      "avg_loss": -5.51,
+      "stopped_out": 1,
+      "stop_rate": 12.5,
+      "best": {
+        "symbol": "NVAX",
+        "entry": "2026-09-15",
+        "return_pct": 38.89,
+        "score": 8
+      },
+      "worst": {
+        "symbol": "RZLV",
+        "entry": "2026-09-01",
+        "return_pct": -8.79,
+        "score": 7
+      }
+    }
+  },
+  "score_breakdown": {
+    "5d": {
+      "7": {
+        "n": 24,
+        "avg": 0.41,
+        "win_rate": 50.0
+      },
+      "8": {
+        "n": 13,
+        "avg": 4.96,
+        "win_rate": 53.8
+      },
+      "9": {
+        "n": 3,
+        "avg": -2.67,
+        "win_rate": 33.3
+      }
+    },
+    "10d": {
+      "7": {
+        "n": 18,
+        "avg": 0.61,
+        "win_rate": 50.0
+      },
+      "8": {
+        "n": 8,
+        "avg": 3.95,
+        "win_rate": 75.0
+      },
+      "9": {
+        "n": 1,
+        "avg": -5.55,
+        "win_rate": 0.0
+      }
+    }
+  },
+  "recent_trades": [
+    {
+      "symbol": "DHR",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 230.5,
+      "exit_price": 227.97,
+      "return_pct": -1.1,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "XOM",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 183.21,
+      "exit_price": 179.67,
+      "return_pct": -1.93,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "MA",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 623.6,
+      "exit_price": 658.1,
+      "return_pct": 5.53,
+      "score": 9,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "SONY",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 26.08,
+      "exit_price": 25.51,
+      "return_pct": -2.19,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "AMGN",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 439.26,
+      "exit_price": 465.45,
+      "return_pct": 5.96,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "BMY",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 61.48,
+      "exit_price": 63.02,
+      "return_pct": 2.5,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "UNHG",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 21.8,
+      "exit_price": 19.88,
+      "return_pct": -8.81,
+      "score": 9,
+      "exit_reason": "stop_loss",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "SLB",
+      "entry_date": "2026-10-24",
+      "exit_date": "2026-11-02",
+      "entry_price": 53.06,
+      "exit_price": 52.31,
+      "return_pct": -1.41,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "HD",
+      "entry_date": "2026-10-22",
+      "exit_date": "2026-10-29",
+      "entry_price": 327.73,
+      "exit_price": 328.98,
+      "return_pct": 0.38,
+      "score": 7,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    },
+    {
+      "symbol": "QSI",
+      "entry_date": "2026-10-22",
+      "exit_date": "2026-10-29",
+      "entry_price": 1.15,
+      "exit_price": 1.75,
+      "return_pct": 52.17,
+      "score": 8,
+      "exit_reason": "hold",
+      "mcap_b": 999
+    }
+  ],
+  "alerts": [],
+  "status": "✅ OK"
+}
