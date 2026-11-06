@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-06",
+  "generated_at": "2026-11-06T10:04:13.895909+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 5,
+  "stocks": [
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 181.6,
+      "change_pct": -9.26,
+      "vol_ratio": 2.7,
+      "volume": 301617834,
+      "avg_volume": 111710308
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 18.03,
+      "change_pct": -16.95,
+      "vol_ratio": 2.7,
+      "volume": 124740207,
+      "avg_volume": 46200076
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 10.08,
+      "change_pct": -13.85,
+      "vol_ratio": 2.7,
+      "volume": 93943623,
+      "avg_volume": 34793934
+    },
+    {
+      "symbol": "GRAB",
+      "name": "Grab Holdings Limited",
+      "price": 3.48,
+      "change_pct": 3.57,
+      "vol_ratio": 2.5,
+      "volume": 146307334,
+      "avg_volume": 58522933
+    },
+    {
+      "symbol": "INTC",
+      "name": "Intel Corporation",
+      "price": 52.25,
+      "change_pct": -10.33,
+      "vol_ratio": 2.4,
+      "volume": 265687785,
+      "avg_volume": 110703243
+    }
+  ]
+}
