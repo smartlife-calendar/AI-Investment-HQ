@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-07",
+  "generated_at": "2026-11-07T10:03:03.349682+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "DKNG",
+      "name": "DraftKings Inc.",
+      "price": 18.51,
+      "change_pct": -21.3,
+      "vol_ratio": 5.4,
+      "volume": 69858379,
+      "avg_volume": 12936736
+    },
+    {
+      "symbol": "MCHP",
+      "name": "Microchip Technology Incorporat",
+      "price": 58.35,
+      "change_pct": -10.02,
+      "vol_ratio": 4.5,
+      "volume": 47389996,
+      "avg_volume": 10531110
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "price": 11.37,
+      "change_pct": 12.8,
+      "vol_ratio": 2.8,
+      "volume": 105704844,
+      "avg_volume": 37751730
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 21.64,
+      "change_pct": 20.02,
+      "vol_ratio": 2.3,
+      "volume": 112279554,
+      "avg_volume": 48817197
+    }
+  ]
+}
