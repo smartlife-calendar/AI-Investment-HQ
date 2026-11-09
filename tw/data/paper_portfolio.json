@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 475020,
-  "nav": 921410,
-  "pnl_pct": -7.86,
+  "cash": 170850,
+  "nav": 940685,
+  "pnl_pct": -5.93,
   "positions": [
     {
       "code": "2542",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 37.75,
+      "current_price": 37.85,
       "peak_price": 40.15,
-      "pnl_pct": -5.62,
-      "market_value": 101925.0,
+      "pnl_pct": -5.37,
+      "market_value": 102195.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 94.4,
+      "current_price": 98.4,
       "peak_price": 103.0,
-      "pnl_pct": -6.07,
-      "market_value": 94400.0,
+      "pnl_pct": -2.09,
+      "market_value": 98400.0,
       "t1_sold": false
     },
     {
@@ -35,10 +35,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 5300,
-      "current_price": 20.45,
-      "peak_price": 21.0,
-      "pnl_pct": -1.45,
-      "market_value": 108385.0,
+      "current_price": 22.45,
+      "peak_price": 22.45,
+      "pnl_pct": 8.19,
+      "market_value": 118985.0,
       "t1_sold": false
     },
     {
@@ -62,7 +62,55 @@
       "current_price": 63.0,
       "peak_price": 63.2,
       "pnl_pct": -2.02,
-      "market_value": 37800,
+      "market_value": 37800.0,
+      "t1_sold": false
+    },
+    {
+      "code": "2610",
+      "name": "華航",
+      "entry_date": "2026-11-09",
+      "entry_price": 21.2,
+      "shares": 3600,
+      "current_price": 21.75,
+      "peak_price": 21.9,
+      "pnl_pct": 2.59,
+      "market_value": 78300,
+      "t1_sold": false
+    },
+    {
+      "code": "2618",
+      "name": "長榮航",
+      "entry_date": "2026-11-09",
+      "entry_price": 43.6,
+      "shares": 1700,
+      "current_price": 43.9,
+      "peak_price": 44.35,
+      "pnl_pct": 0.69,
+      "market_value": 74630,
+      "t1_sold": false
+    },
+    {
+      "code": "4155",
+      "name": "訊映",
+      "entry_date": "2026-11-09",
+      "entry_price": 17.9,
+      "shares": 4300,
+      "current_price": 18.5,
+      "peak_price": 18.85,
+      "pnl_pct": 3.35,
+      "market_value": 79550,
+      "t1_sold": false
+    },
+    {
+      "code": "1712",
+      "name": "興農",
+      "entry_date": "2026-11-09",
+      "entry_price": 40.4,
+      "shares": 1900,
+      "current_price": 40.05,
+      "peak_price": 41.05,
+      "pnl_pct": -0.87,
+      "market_value": 76095,
       "t1_sold": false
     }
   ],
@@ -148,88 +196,25 @@
   ],
   "pending_orders": [
     {
-      "code": "2610",
-      "name": "華航",
-      "limit_price": 21.2,
-      "shares": 3600,
-      "score": 7,
-      "order_date": "2026-11-06",
-      "sector": "航運業",
-      "reasons": [
-        "法人大買(95%成交量)",
-        "外資+投信同買",
-        "外資連買6日"
-      ],
-      "institutional": {
-        "foreign_net": 47825700,
-        "trust_net": 37415,
-        "total_net": 48646055
-      },
-      "weekday": 4,
-      "weekday_mult": 0.85
-    },
-    {
-      "code": "2618",
-      "name": "長榮航",
-      "limit_price": 43.6,
-      "shares": 1700,
-      "score": 7,
-      "order_date": "2026-11-06",
-      "sector": "航運業",
-      "reasons": [
-        "法人大買(66%成交量)",
-        "外資+投信同買",
-        "低PE(9.5)"
-      ],
-      "institutional": {
-        "foreign_net": 16794517,
-        "trust_net": 350749,
-        "total_net": 18343429
-      },
-      "weekday": 4,
-      "weekday_mult": 0.85
-    },
-    {
-      "code": "4155",
-      "name": "訊映",
-      "limit_price": 17.9,
-      "shares": 4300,
-      "score": 7,
-      "order_date": "2026-11-06",
-      "sector": "生技醫療",
-      "reasons": [
-        "法人買超",
-        "低PE(9.5)",
-        "股價<淨值(PB=0.91)"
-      ],
-      "institutional": {
-        "foreign_net": 42495,
-        "trust_net": 0,
-        "total_net": 52495
-      },
-      "weekday": 4,
-      "weekday_mult": 0.85
-    },
-    {
-      "code": "1712",
-      "name": "興農",
-      "limit_price": 40.4,
-      "shares": 1900,
-      "score": 7,
-      "order_date": "2026-11-06",
-      "sector": "化學",
+      "code": "3006",
+      "name": "晶豪科",
+      "limit_price": 228.0,
+      "shares": 400,
+      "score": 9,
+      "order_date": "2026-11-09",
+      "sector": "半導體",
       "reasons": [
         "法人大買(15%成交量)",
         "外資+投信同買",
-        "高殖利率(6.2%)"
+        "低PE(2.9)"
       ],
       "institutional": {
-        "foreign_net": 206173,
-        "trust_net": 1000,
-        "total_net": 215173
+        "foreign_net": 1072458,
+        "trust_net": 21000,
+        "total_net": 988887
       },
-      "weekday": 4,
-      "weekday_mult": 0.85
+      "weekday": 0,
+      "weekday_mult": 1.0
     }
   ],
   "total_trades": 6,
@@ -238,7 +223,7 @@
   "losses": 6,
   "best_trade": -9.68,
   "worst_trade": -10.7,
-  "updated_at": "2026-11-06T15:02:11+08:00",
+  "updated_at": "2026-11-09T15:01:54+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -471,6 +456,62 @@
       "weekday": 4,
       "weekday_mult": 0.85,
       "reason": "限價單成交 (low=60.1 ≤ limit=64.3)"
+    },
+    {
+      "date": "2026-11-09",
+      "action": "BUY",
+      "code": "2610",
+      "name": "華航",
+      "shares": 3600,
+      "price": 21.2,
+      "cost": 76320,
+      "cash_after": 398700,
+      "verify": "YF 2610 2026-11-09: O=21.3 H=21.9 L=21.05 C=21.75",
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "reason": "限價單成交 (low=21.05 ≤ limit=21.2)"
+    },
+    {
+      "date": "2026-11-09",
+      "action": "BUY",
+      "code": "2618",
+      "name": "長榮航",
+      "shares": 1700,
+      "price": 43.6,
+      "cost": 74120,
+      "cash_after": 324580,
+      "verify": "YF 2618 2026-11-09: O=43.0 H=44.35 L=42.6 C=43.9",
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "reason": "限價單成交 (low=42.6 ≤ limit=43.6)"
+    },
+    {
+      "date": "2026-11-09",
+      "action": "BUY",
+      "code": "4155",
+      "name": "訊映",
+      "shares": 4300,
+      "price": 17.9,
+      "cost": 76970,
+      "cash_after": 247610,
+      "verify": "YF 4155 2026-11-09: O=18.5 H=18.85 L=17.65 C=18.5",
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "reason": "限價單成交 (low=17.65 ≤ limit=17.9)"
+    },
+    {
+      "date": "2026-11-09",
+      "action": "BUY",
+      "code": "1712",
+      "name": "興農",
+      "shares": 1900,
+      "price": 40.4,
+      "cost": 76760,
+      "cash_after": 170850,
+      "verify": "YF 1712 2026-11-09: O=40.5 H=41.05 L=39.95 C=40.05",
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "reason": "限價單成交 (low=39.95 ≤ limit=40.4)"
     }
   ],
   "methodology": {
