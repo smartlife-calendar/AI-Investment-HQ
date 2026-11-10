@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 170850,
-  "nav": 940685,
-  "pnl_pct": -5.93,
+  "cash": 143118,
+  "nav": 1013503,
+  "pnl_pct": 1.35,
   "positions": [
     {
       "code": "2542",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 37.85,
+      "current_price": 37.2,
       "peak_price": 40.15,
-      "pnl_pct": -5.37,
-      "market_value": 102195.0,
+      "pnl_pct": -7.0,
+      "market_value": 100440.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 98.4,
+      "current_price": 98.8,
       "peak_price": 103.0,
-      "pnl_pct": -2.09,
-      "market_value": 98400.0,
+      "pnl_pct": -1.69,
+      "market_value": 98800.0,
       "t1_sold": false
     },
     {
@@ -34,12 +34,13 @@
       "name": "欣陸",
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
-      "shares": 5300,
-      "current_price": 22.45,
-      "peak_price": 22.45,
-      "pnl_pct": 8.19,
-      "market_value": 118985.0,
-      "t1_sold": false
+      "shares": 2650,
+      "current_price": 23.95,
+      "peak_price": 23.95,
+      "pnl_pct": 15.42,
+      "market_value": 126935.0,
+      "t1_sold": true,
+      "t1_date": "2026-11-10"
     },
     {
       "code": "2002",
@@ -47,10 +48,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 19.55,
       "shares": 5600,
-      "current_price": 18.55,
+      "current_price": 18.65,
       "peak_price": 19.75,
-      "pnl_pct": -5.12,
-      "market_value": 103880.0,
+      "pnl_pct": -4.6,
+      "market_value": 104440.0,
       "t1_sold": false
     },
     {
@@ -59,10 +60,10 @@
       "entry_date": "2026-11-06",
       "entry_price": 64.3,
       "shares": 600,
-      "current_price": 63.0,
+      "current_price": 62.5,
       "peak_price": 63.2,
-      "pnl_pct": -2.02,
-      "market_value": 37800.0,
+      "pnl_pct": -2.8,
+      "market_value": 37500.0,
       "t1_sold": false
     },
     {
@@ -71,10 +72,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 21.75,
-      "peak_price": 21.9,
-      "pnl_pct": 2.59,
-      "market_value": 78300,
+      "current_price": 22.8,
+      "peak_price": 22.8,
+      "pnl_pct": 7.55,
+      "market_value": 82080.0,
       "t1_sold": false
     },
     {
@@ -83,10 +84,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 43.9,
-      "peak_price": 44.35,
-      "pnl_pct": 0.69,
-      "market_value": 74630,
+      "current_price": 46.15,
+      "peak_price": 46.15,
+      "pnl_pct": 5.85,
+      "market_value": 78455.0,
       "t1_sold": false
     },
     {
@@ -95,10 +96,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 17.9,
       "shares": 4300,
-      "current_price": 18.5,
+      "current_price": 17.5,
       "peak_price": 18.85,
-      "pnl_pct": 3.35,
-      "market_value": 79550,
+      "pnl_pct": -2.23,
+      "market_value": 75250.0,
       "t1_sold": false
     },
     {
@@ -107,10 +108,22 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 40.05,
+      "current_price": 40.15,
       "peak_price": 41.05,
-      "pnl_pct": -0.87,
-      "market_value": 76095,
+      "pnl_pct": -0.62,
+      "market_value": 76285.0,
+      "t1_sold": false
+    },
+    {
+      "code": "3006",
+      "name": "晶豪科",
+      "entry_date": "2026-11-10",
+      "entry_price": 228.0,
+      "shares": 400,
+      "current_price": 225.5,
+      "peak_price": 240.0,
+      "pnl_pct": -1.1,
+      "market_value": 90200,
       "t1_sold": false
     }
   ],
@@ -194,36 +207,14 @@
       "hold_days": 8
     }
   ],
-  "pending_orders": [
-    {
-      "code": "3006",
-      "name": "晶豪科",
-      "limit_price": 228.0,
-      "shares": 400,
-      "score": 9,
-      "order_date": "2026-11-09",
-      "sector": "半導體",
-      "reasons": [
-        "法人大買(15%成交量)",
-        "外資+投信同買",
-        "低PE(2.9)"
-      ],
-      "institutional": {
-        "foreign_net": 1072458,
-        "trust_net": 21000,
-        "total_net": 988887
-      },
-      "weekday": 0,
-      "weekday_mult": 1.0
-    }
-  ],
+  "pending_orders": [],
   "total_trades": 6,
   "win_rate": 0.0,
   "wins": 0,
   "losses": 6,
   "best_trade": -9.68,
   "worst_trade": -10.7,
-  "updated_at": "2026-11-09T15:01:54+08:00",
+  "updated_at": "2026-11-10T15:03:01+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -512,6 +503,33 @@
       "weekday": 0,
       "weekday_mult": 1.0,
       "reason": "限價單成交 (low=39.95 ≤ limit=40.4)"
+    },
+    {
+      "date": "2026-11-10",
+      "action": "T1_SELL",
+      "code": "3703",
+      "name": "欣陸",
+      "shares": 2650,
+      "price": 23.95,
+      "proceeds": 63468,
+      "pnl_pct": 15.4,
+      "cash_after": 234318,
+      "verify": "YF 3703 2026-11-10: O=23.2 H=24.4 L=22.85 C=23.95",
+      "reason": "T1 停利 (+15.4%)"
+    },
+    {
+      "date": "2026-11-10",
+      "action": "BUY",
+      "code": "3006",
+      "name": "晶豪科",
+      "shares": 400,
+      "price": 228.0,
+      "cost": 91200,
+      "cash_after": 143118,
+      "verify": "YF 3006 2026-11-10: O=236.5 H=240.0 L=222.5 C=225.5",
+      "weekday": 1,
+      "weekday_mult": 1.1,
+      "reason": "限價單成交 (low=222.5 ≤ limit=228.0)"
     }
   ],
   "methodology": {
