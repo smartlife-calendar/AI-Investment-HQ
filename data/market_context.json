@@ -1,18 +1,18 @@
 {
-  "vix": 25.64,
-  "vix_200sma": 18.4,
-  "vix_zone": "偏高(20-30)",
-  "vix_score": 31.799999999999997,
-  "cnn_fg_score": 22.1,
-  "cnn_fg_rating": "extreme fear",
-  "cnn_fg_prev_week": 26.3,
+  "vix": 19.92,
+  "vix_200sma": 18.41,
+  "vix_zone": "正常(15-20)",
+  "vix_score": 60.39999999999999,
+  "cnn_fg_score": 31.7,
+  "cnn_fg_rating": "fear",
+  "cnn_fg_prev_week": 19.4,
   "spy_vs_200sma": 0.67,
   "spy_from_52w_high": -5.62,
   "spy_score": 53.35,
   "high_score": 71.9,
   "mom_score": 22.49068313724321,
   "haven_score": 0,
-  "composite_score": 35.9,
-  "composite_label": "恐懼",
-  "generated_at": "2026-11-07T10:00:06+08:00"
+  "composite_score": 41.6,
+  "composite_label": "中性",
+  "generated_at": "2026-11-10T10:00:05+08:00"
 }

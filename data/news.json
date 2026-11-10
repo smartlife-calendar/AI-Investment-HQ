@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-07T10:00:02+08:00",
+  "generated_at": "2026-11-10T10:00:02+08:00",
   "news": [
+    {
+      "title": "His Pension Covers the Bills at 75. The IRS Will Still Order a $33,333 Withdrawal From His $820,000 Traditional 401(k)",
+      "url": "https://finance.yahoo.com/markets/options/articles/pension-covers-bills-75-irs-230240337.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1794092560
+    },
     {
       "title": "Jack Bogle Was Fired in 1974 After a Merger He Championed Went Sour. The Company He Started Next Put an Index Fund in Millions of Retirement Accounts",
       "url": "https://finance.yahoo.com/markets/stocks/articles/jack-bogle-fired-1974-merger-021857167.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-081900377.html",
       "publisher": "Zacks",
       "published": 1791620340
-    },
-    {
-      "title": "The S&P 500's Safety Net Is Disappearing. History Says Investors Shouldn't Ignore It.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/p-500s-safety-net-disappearing-123500407.html",
-      "publisher": "Motley Fool",
-      "published": 1791549300
     }
   ]
 }
