@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-10",
+  "generated_at": "2026-11-10T10:02:46.807448+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 6,
+  "stocks": [
+    {
+      "symbol": "HIMS",
+      "name": "Hims & Hers Health, Inc.",
+      "price": 22.94,
+      "change_pct": -11.77,
+      "vol_ratio": 4.5,
+      "volume": 48695597,
+      "avg_volume": 10821243
+    },
+    {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "price": 14.93,
+      "change_pct": 15.47,
+      "vol_ratio": 4.3,
+      "volume": 86907651,
+      "avg_volume": 20211081
+    },
+    {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "price": 7.11,
+      "change_pct": -17.66,
+      "vol_ratio": 4.0,
+      "volume": 44767080,
+      "avg_volume": 11191770
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 178.67,
+      "change_pct": -4.27,
+      "vol_ratio": 3.9,
+      "volume": 456756830,
+      "avg_volume": 117117135
+    },
+    {
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices, Inc.",
+      "price": 508.58,
+      "change_pct": 13.26,
+      "vol_ratio": 2.3,
+      "volume": 50860939,
+      "avg_volume": 22113451
+    },
+    {
+      "symbol": "QXO",
+      "name": "QXO, Inc.",
+      "price": 13.78,
+      "change_pct": 19.2,
+      "vol_ratio": 2.2,
+      "volume": 42132309,
+      "avg_volume": 19151049
+    }
+  ]
+}
