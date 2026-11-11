@@ -2393,12 +2393,210 @@
       "price": 3.88,
       "regime": "NEUTRAL",
       "confidence": 34
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "NOC",
+      "action": "BUY",
+      "score": 9,
+      "price": 548.61,
+      "regime": "CAUTION",
+      "confidence": 77
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "RTX",
+      "action": "BUY",
+      "score": 9,
+      "price": 200.27,
+      "regime": "CAUTION",
+      "confidence": 76
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "UNP",
+      "action": "BUY",
+      "score": 9,
+      "price": 300.62,
+      "regime": "CAUTION",
+      "confidence": 76
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "MS",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 187.56,
+      "regime": "CAUTION",
+      "confidence": 71
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "AMZN",
+      "action": "SCALE_IN",
+      "score": 9,
+      "price": 270.87,
+      "regime": "CAUTION",
+      "confidence": 70
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "VRTX",
+      "action": "SCALE_IN",
+      "score": 9,
+      "price": 547.89,
+      "regime": "CAUTION",
+      "confidence": 70
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "ABT",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 110.46,
+      "regime": "CAUTION",
+      "confidence": 64
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "MSFT",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 533.16,
+      "regime": "CAUTION",
+      "confidence": 63
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "SOFI",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 16.75,
+      "regime": "CAUTION",
+      "confidence": 58
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "KO",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 96.91,
+      "regime": "CAUTION",
+      "confidence": 51
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "VRSK",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 204.02,
+      "regime": "CAUTION",
+      "confidence": 46
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "QSI",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 1.37,
+      "regime": "CAUTION",
+      "confidence": 45
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "PG",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 168.66,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "TXN",
+      "action": "SCALE_IN",
+      "score": 9,
+      "price": 300.52,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "LMT",
+      "action": "SCALE_IN",
+      "score": 10,
+      "price": 603.12,
+      "regime": "CAUTION",
+      "confidence": 42
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "EBAY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 123.52,
+      "regime": "CAUTION",
+      "confidence": 38
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "PEP",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 143.61,
+      "regime": "CAUTION",
+      "confidence": 37
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "ABBV",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 293.3,
+      "regime": "CAUTION",
+      "confidence": 35
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "FAST",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 54.84,
+      "regime": "CAUTION",
+      "confidence": 34
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "SONY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 26.71,
+      "regime": "CAUTION",
+      "confidence": 32
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "COST",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 1066.14,
+      "regime": "CAUTION",
+      "confidence": 31
+    },
+    {
+      "date": "2026-11-11",
+      "symbol": "LLY",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 1432.29,
+      "regime": "CAUTION",
+      "confidence": 31
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-11-10",
-    "total_entries": 266
+    "last_updated": "2026-11-11",
+    "total_entries": 288
   }
 }
