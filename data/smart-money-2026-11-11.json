@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-11",
+  "generated_at": "2026-11-11T10:03:00.616692+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "HIMS",
+      "name": "Hims & Hers Health, Inc.",
+      "price": 19.13,
+      "change_pct": -16.61,
+      "vol_ratio": 5.1,
+      "volume": 58431549,
+      "avg_volume": 11457166
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 168.89,
+      "change_pct": -5.47,
+      "vol_ratio": 3.4,
+      "volume": 427096957,
+      "avg_volume": 125616752
+    },
+    {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "price": 15.42,
+      "change_pct": 3.28,
+      "vol_ratio": 3.1,
+      "volume": 64919399,
+      "avg_volume": 20941741
+    }
+  ]
+}
