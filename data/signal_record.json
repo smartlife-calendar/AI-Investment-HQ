@@ -2591,12 +2591,39 @@
       "price": 1432.29,
       "regime": "CAUTION",
       "confidence": 31
+    },
+    {
+      "date": "2026-11-12",
+      "symbol": "AAPL",
+      "action": "SCALE_IN",
+      "score": 9,
+      "price": 348.51,
+      "regime": "CAUTION",
+      "confidence": 48
+    },
+    {
+      "date": "2026-11-12",
+      "symbol": "V",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 423.0,
+      "regime": "CAUTION",
+      "confidence": 43
+    },
+    {
+      "date": "2026-11-12",
+      "symbol": "SIRI",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 32.24,
+      "regime": "CAUTION",
+      "confidence": 32
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-11-11",
-    "total_entries": 288
+    "last_updated": "2026-11-12",
+    "total_entries": 291
   }
 }
