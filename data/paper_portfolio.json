@@ -19,7 +19,7 @@
       "t2_hit": false,
       "current_price": 405.12,
       "current_return": 4.49,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "UNH",
         "date": "2026-10-14",
@@ -43,7 +43,7 @@
         "low": 397.32,
         "close": 405.12,
         "volume": 4454300,
-        "market_price": 405.12,
+        "market_price": 402.94,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -65,7 +65,7 @@
       "t2_hit": false,
       "current_price": 465.23,
       "current_return": 11.41,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "AMGN",
         "date": "2026-10-14",
@@ -89,7 +89,7 @@
         "low": 459.45,
         "close": 465.23,
         "volume": 2138900,
-        "market_price": 465.23,
+        "market_price": 468.11,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -112,7 +112,7 @@
       "t2_hit": false,
       "current_price": 1066.14,
       "current_return": 10.78,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "COST",
         "date": "2026-10-14",
@@ -136,7 +136,7 @@
         "low": 1057.38,
         "close": 1066.14,
         "volume": 1555400,
-        "market_price": 1066.14,
+        "market_price": 1087.61,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -158,7 +158,7 @@
       "t2_hit": false,
       "current_price": 236.11,
       "current_return": 7.44,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "DHR",
         "date": "2026-10-21",
@@ -182,7 +182,7 @@
         "low": 231.74,
         "close": 236.11,
         "volume": 3396000,
-        "market_price": 236.11,
+        "market_price": 235.31,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -204,7 +204,7 @@
       "t2_hit": false,
       "current_price": 168.66,
       "current_return": 3.93,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "PG",
         "date": "2026-10-22",
@@ -228,7 +228,7 @@
         "low": 167.19,
         "close": 168.66,
         "volume": 8422300,
-        "market_price": 168.66,
+        "market_price": 167.67,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -250,7 +250,7 @@
       "t2_hit": false,
       "current_price": 603.12,
       "current_return": 4.33,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "LMT",
         "date": "2026-10-22",
@@ -274,7 +274,7 @@
         "low": 587.11,
         "close": 603.12,
         "volume": 910100,
-        "market_price": 603.12,
+        "market_price": 610.05,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -296,7 +296,7 @@
       "t2_hit": false,
       "current_price": 258.51,
       "current_return": 5.78,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "ACN",
         "date": "2026-10-26",
@@ -320,7 +320,7 @@
         "low": 250.31,
         "close": 258.51,
         "volume": 4076200,
-        "market_price": 258.51,
+        "market_price": 253.66,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -342,7 +342,7 @@
       "t2_hit": false,
       "current_price": 547.89,
       "current_return": 1.83,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "VRTX",
         "date": "2026-11-04",
@@ -366,7 +366,7 @@
         "low": 543.44,
         "close": 547.89,
         "volume": 1239300,
-        "market_price": 547.89,
+        "market_price": 547.03,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -388,7 +388,7 @@
       "t2_hit": false,
       "current_price": 548.61,
       "current_return": 2.04,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "NOC",
         "date": "2026-11-10",
@@ -403,7 +403,21 @@
         "exchange": "NYQ",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "NOC",
+        "date": "2026-11-10",
+        "open": 537.58,
+        "high": 553.47,
+        "low": 534.16,
+        "close": 548.61,
+        "volume": 546600,
+        "market_price": 550.96,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
     },
     "RTX": {
       "entry_date": "2026-11-10",
@@ -420,7 +434,7 @@
       "t2_hit": false,
       "current_price": 200.27,
       "current_return": 2.04,
-      "last_updated": "2026-11-10",
+      "last_updated": "2026-11-11",
       "entry_ohlcv": {
         "symbol": "RTX",
         "date": "2026-11-10",
@@ -435,7 +449,21 @@
         "exchange": "NYQ",
         "market_state": ""
       },
-      "order_type": "LIMIT"
+      "order_type": "LIMIT",
+      "last_ohlcv": {
+        "symbol": "RTX",
+        "date": "2026-11-10",
+        "open": 196.16,
+        "high": 201.25,
+        "low": 195.87,
+        "close": 200.27,
+        "volume": 4736300,
+        "market_price": 201.29,
+        "previous_close": 0,
+        "currency": "USD",
+        "exchange": "NYQ",
+        "market_state": ""
+      }
     }
   },
   "pending_orders": {},
@@ -933,6 +961,14 @@
       "positions_value": 24708.13,
       "n_positions": 10,
       "return_pct": -1.22
+    },
+    {
+      "date": "2026-11-11",
+      "nav": 29634.04,
+      "cash": 4925.91,
+      "positions_value": 24708.13,
+      "n_positions": 10,
+      "return_pct": -1.22
     }
   ],
   "cooldown": {
@@ -952,7 +988,7 @@
     "cash": 4925.91,
     "positions_value": 24708.13,
     "regime": "CAUTION",
-    "last_updated": "2026-11-10"
+    "last_updated": "2026-11-11"
   },
   "audit_log": [
     {
