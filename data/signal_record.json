@@ -2618,12 +2618,57 @@
       "price": 32.24,
       "regime": "CAUTION",
       "confidence": 32
+    },
+    {
+      "date": "2026-11-13",
+      "symbol": "TSM",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 413.35,
+      "regime": "CAUTION",
+      "confidence": 66
+    },
+    {
+      "date": "2026-11-13",
+      "symbol": "TSLA",
+      "action": "SCALE_IN",
+      "score": 8,
+      "price": 390.84,
+      "regime": "CAUTION",
+      "confidence": 65
+    },
+    {
+      "date": "2026-11-13",
+      "symbol": "AMD",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 552.9,
+      "regime": "CAUTION",
+      "confidence": 58
+    },
+    {
+      "date": "2026-11-13",
+      "symbol": "DUOL",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 164.12,
+      "regime": "CAUTION",
+      "confidence": 48
+    },
+    {
+      "date": "2026-11-13",
+      "symbol": "MA",
+      "action": "SCALE_IN",
+      "score": 7,
+      "price": 660.73,
+      "regime": "CAUTION",
+      "confidence": 36
     }
   ],
   "metadata": {
     "created": "2026-09-04",
     "description": "每日訊號記錄（真實數據）",
-    "last_updated": "2026-11-12",
-    "total_entries": 291
+    "last_updated": "2026-11-13",
+    "total_entries": 296
   }
 }
