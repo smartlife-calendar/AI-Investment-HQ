@@ -19,7 +19,7 @@
       "t2_hit": false,
       "current_price": 407.46,
       "current_return": 5.09,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "UNH",
         "date": "2026-10-14",
@@ -65,7 +65,7 @@
       "t2_hit": false,
       "current_price": 465.67,
       "current_return": 11.51,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "AMGN",
         "date": "2026-10-14",
@@ -112,7 +112,7 @@
       "t2_hit": false,
       "current_price": 1106.21,
       "current_return": 14.95,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "COST",
         "date": "2026-10-14",
@@ -159,7 +159,7 @@
       "t2_hit": false,
       "current_price": 233.02,
       "current_return": 6.03,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "DHR",
         "date": "2026-10-21",
@@ -205,7 +205,7 @@
       "t2_hit": false,
       "current_price": 169.8,
       "current_return": 4.63,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "PG",
         "date": "2026-10-22",
@@ -251,7 +251,7 @@
       "t2_hit": false,
       "current_price": 596.04,
       "current_return": 3.1,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "LMT",
         "date": "2026-10-22",
@@ -297,7 +297,7 @@
       "t2_hit": false,
       "current_price": 250.49,
       "current_return": 2.5,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "ACN",
         "date": "2026-10-26",
@@ -343,7 +343,7 @@
       "t2_hit": false,
       "current_price": 538.6,
       "current_return": 0.1,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "VRTX",
         "date": "2026-11-04",
@@ -389,7 +389,7 @@
       "t2_hit": false,
       "current_price": 550.43,
       "current_return": 2.38,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "NOC",
         "date": "2026-11-10",
@@ -435,7 +435,7 @@
       "t2_hit": false,
       "current_price": 198.58,
       "current_return": 1.18,
-      "last_updated": "2026-11-13",
+      "last_updated": "2026-11-14",
       "entry_ohlcv": {
         "symbol": "RTX",
         "date": "2026-11-10",
@@ -1013,6 +1013,14 @@
       "positions_value": 23580.4,
       "n_positions": 10,
       "return_pct": -1.29
+    },
+    {
+      "date": "2026-11-14",
+      "nav": 29613.02,
+      "cash": 6032.62,
+      "positions_value": 23580.4,
+      "n_positions": 10,
+      "return_pct": -1.29
     }
   ],
   "cooldown": {
@@ -1031,7 +1039,7 @@
     "cash": 6032.62,
     "positions_value": 23580.4,
     "regime": "CAUTION",
-    "last_updated": "2026-11-13"
+    "last_updated": "2026-11-14"
   },
   "audit_log": [
     {
