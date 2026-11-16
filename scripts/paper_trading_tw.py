@@ -21,8 +21,10 @@ StockIQ 台股模擬操作 v1
 
 輸出：tw/data/paper_portfolio.json on gh-pages
 """
-import os, json, base64, urllib.request, math, time
+import os, json, base64, urllib.request, math, time, sys
 from datetime import datetime, timedelta, timezone
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from technical_signals import check_triple_signal, fetch_ohlcv_yahoo
 
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 REPO = "smartlife-calendar/AI-Investment-HQ"
@@ -379,6 +381,28 @@ def run():
         if consec_buy < MIN_INST_CONSEC and trust_consec_buy < MIN_INST_CONSEC:
             continue
 
+        # 三條件技術面加分：MACD翻正 + 布林開口 + 站上上揚20MA
+        tech_boost = 0
+        try:
+            yf_code = f"{code}.TW"
+            tc, th, tl, tv = fetch_ohlcv_yahoo(yf_code, days=60)
+            if len(tc) >= 35:
+                tsig = check_triple_signal(tc, th, tl)
+                tech_boost = tsig["score_boost"]
+                s["tech_signal"] = tsig
+                s["tech_boost"] = tech_boost
+                if tsig["triple_signal"]:
+                    print(f"  🔥 {code}: 三條件全達標! MACD翻正+布林開口+站上月線")
+                elif tech_boost > 0:
+                    parts = []
+                    if tsig["macd_cross"]: parts.append("MACD✅")
+                    if tsig["bb_expanding"]: parts.append("BB✅")
+                    if tsig["above_rising_ma"]: parts.append("MA✅")
+                    print(f"  📊 {code}: 技術面 {tech_boost}/3 ({' '.join(parts)})")
+            time.sleep(0.3)
+        except Exception:
+            pass
+
         candidates.append(s)
 
     # Sort by score descending, then by volume
@@ -423,9 +447,12 @@ def run():
                 "institutional": s.get("institutional", {}),
                 "weekday": weekday,
                 "weekday_mult": weekday_mult,
+                "tech_boost": s.get("tech_boost", 0),
+                "tech_signal": s.get("tech_signal", {}),
             }
             pending.append(order)
-            print(f"    📝 掛單: {code} {s.get('name','')} {shares}股 @{price} (score={s['score']}, {s.get('sector','')})")
+            tech_flag = " 🔥三條件" if s.get("tech_boost", 0) == 3 else (f" 📊技術{s.get('tech_boost',0)}/3" if s.get("tech_boost", 0) > 0 else "")
+            print(f"    📝 掛單: {code} {s.get('name','')} {shares}股 @{price} (score={s['score']}, {s.get('sector','')}){tech_flag}")
 
     # ── Step 4: Calculate NAV ──
     total_position_value = sum(p.get("market_value", p["entry_price"] * p["shares"]) for p in positions)

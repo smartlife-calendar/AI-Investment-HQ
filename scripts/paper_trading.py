@@ -22,8 +22,10 @@ Portfolio rules:
 
 Output: data/paper_portfolio.json on gh-pages
 """
-import os, json, base64, urllib.request, time
+import os, json, base64, urllib.request, time, sys
 from datetime import datetime, timedelta, timezone
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from technical_signals import check_triple_signal, fetch_ohlcv_yahoo
 
 GH_TOKEN = os.environ.get("GH_TOKEN", "")
 REPO = "smartlife-calendar/AI-Investment-HQ"
@@ -423,6 +425,31 @@ def run():
         if phase < 2:
             continue
         
+        # 三條件技術面加分：MACD翻正 + 布林開口 + 站上上揚20MA
+        tech_boost = 0
+        try:
+            tc, th, tl, tv = fetch_ohlcv_yahoo(sym, days=60)
+            if len(tc) >= 35:
+                tsig = check_triple_signal(tc, th, tl)
+                tech_boost = tsig["score_boost"]
+                s["tech_signal"] = tsig
+                if tsig["triple_signal"]:
+                    print(f"  🔥 {sym}: 三條件全達標! MACD翻正+布林開口+站上月線")
+                elif tech_boost > 0:
+                    parts = []
+                    if tsig["macd_cross"]: parts.append("MACD✅")
+                    if tsig["bb_expanding"]: parts.append("BB✅")
+                    if tsig["above_rising_ma"]: parts.append("MA✅")
+                    print(f"  📊 {sym}: 技術面 {tech_boost}/3 ({' '.join(parts)})")
+            time.sleep(0.3)
+        except Exception:
+            pass
+        
+        # Adjust score with tech boost (each condition = +0.5 to effective score)
+        effective_score = s.get("score", 0) + tech_boost * 0.5
+        s["effective_score"] = effective_score
+        s["tech_boost"] = tech_boost
+        
         # Weekday bias: SPY/QQQ data 2003-2026 shows Tue/Wed strongest, Thu/Fri weakest
         # Tue +155%, Wed +100%, Mon +52%, Fri +39%, Thu +20%
         # Adjust position sizing by weekday (1.0 = full, <1.0 = reduced)
@@ -511,10 +538,13 @@ def run():
                 "weekday_mult": weekday_mult,
                 "ohlcv": {"open": ohlcv["open"], "high": ohlcv["high"], "low": ohlcv["low"], "close": ohlcv["close"], "volume": ohlcv["volume"]},
                 "verifiable": f"YF {sym} {ohlcv['date']}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}",
+                "tech_boost": s.get("tech_boost", 0),
+                "tech_signal": s.get("tech_signal", {}),
             })
             
             new_entries_today += 1
-            print(f"  🟢 {sym}: 限價成交 {shares}股 @${entry_price:.2f} (${cost:,.0f})")
+            tech_flag = " 🔥三條件" if s.get("tech_boost", 0) == 3 else (f" 📊技術{s.get('tech_boost',0)}/3" if s.get("tech_boost", 0) > 0 else "")
+            print(f"  🟢 {sym}: 限價成交 {shares}股 @${entry_price:.2f} (${cost:,.0f}){tech_flag}")
             print(f"      限價${entry_price:.2f} ≥ 日低${day_low:.2f} ✅ 成交")
             print(f"      停損${stop_loss:.2f} 目標${target_1:.2f}/${target_2:.2f}")
             print(f"      驗證: YF {sym} {ohlcv['date']}: O={ohlcv['open']} H={ohlcv['high']} L={ohlcv['low']} C={ohlcv['close']}")
