@@ -385,7 +385,7 @@ def run():
         tech_boost = 0
         try:
             yf_code = f"{code}.TW"
-            tc, th, tl, tv = fetch_ohlcv_yahoo(yf_code, days=60)
+            tc, th, tl, tv = fetch_ohlcv_yahoo(yf_code, days=90)
             if len(tc) >= 35:
                 tsig = check_triple_signal(tc, th, tl)
                 tech_boost = tsig["score_boost"]

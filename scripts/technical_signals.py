@@ -136,7 +136,7 @@ def check_triple_signal(closes, highs=None, lows=None,
             - "ma_distance_pct": float (% distance from MA)
             - "score_boost": int (0-3, number of conditions met)
     """
-    if len(closes) < max(macd_slow + macd_signal, bb_period, ma_period + ma_up_bars) + 5:
+    if len(closes) < max(macd_slow + macd_signal, bb_period, ma_period + ma_up_bars) + 2:
         return {
             "triple_signal": False, "macd_cross": False,
             "bb_expanding": False, "above_rising_ma": False,
@@ -197,7 +197,7 @@ def check_triple_signal(closes, highs=None, lows=None,
     }
 
 
-def fetch_ohlcv_yahoo(symbol, days=60):
+def fetch_ohlcv_yahoo(symbol, days=90):
     """
     Fetch OHLCV from Yahoo Finance.
     Returns: (closes, highs, lows, volumes) lists, oldest first.

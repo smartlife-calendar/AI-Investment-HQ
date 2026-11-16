@@ -428,7 +428,7 @@ def run():
         # 三條件技術面加分：MACD翻正 + 布林開口 + 站上上揚20MA
         tech_boost = 0
         try:
-            tc, th, tl, tv = fetch_ohlcv_yahoo(sym, days=60)
+            tc, th, tl, tv = fetch_ohlcv_yahoo(sym, days=90)
             if len(tc) >= 35:
                 tsig = check_triple_signal(tc, th, tl)
                 tech_boost = tsig["score_boost"]
