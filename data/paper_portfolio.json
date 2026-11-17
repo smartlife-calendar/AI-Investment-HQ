@@ -19,7 +19,7 @@
       "t2_hit": false,
       "current_price": 407.46,
       "current_return": 5.09,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "UNH",
         "date": "2026-10-14",
@@ -43,7 +43,7 @@
         "low": 400.45,
         "close": 407.46,
         "volume": 3469100,
-        "market_price": 407.46,
+        "market_price": 412.02,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -65,7 +65,7 @@
       "t2_hit": false,
       "current_price": 465.67,
       "current_return": 11.51,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "AMGN",
         "date": "2026-10-14",
@@ -89,7 +89,7 @@
         "low": 462.22,
         "close": 465.67,
         "volume": 2122100,
-        "market_price": 465.67,
+        "market_price": 462.32,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -112,7 +112,7 @@
       "t2_hit": false,
       "current_price": 1106.21,
       "current_return": 14.95,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "COST",
         "date": "2026-10-14",
@@ -136,7 +136,7 @@
         "low": 1092.64,
         "close": 1106.21,
         "volume": 1874100,
-        "market_price": 1106.21,
+        "market_price": 1113.74,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -159,7 +159,7 @@
       "t2_hit": false,
       "current_price": 233.02,
       "current_return": 6.03,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "DHR",
         "date": "2026-10-21",
@@ -183,7 +183,7 @@
         "low": 229.92,
         "close": 233.02,
         "volume": 3359500,
-        "market_price": 233.02,
+        "market_price": 229.91,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -205,7 +205,7 @@
       "t2_hit": false,
       "current_price": 169.8,
       "current_return": 4.63,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "PG",
         "date": "2026-10-22",
@@ -229,7 +229,7 @@
         "low": 167.2,
         "close": 169.8,
         "volume": 6943100,
-        "market_price": 169.8,
+        "market_price": 173.02,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -251,7 +251,7 @@
       "t2_hit": false,
       "current_price": 596.04,
       "current_return": 3.1,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "LMT",
         "date": "2026-10-22",
@@ -275,7 +275,7 @@
         "low": 588.74,
         "close": 596.04,
         "volume": 913700,
-        "market_price": 596.04,
+        "market_price": 585.21,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -297,7 +297,7 @@
       "t2_hit": false,
       "current_price": 250.49,
       "current_return": 2.5,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "ACN",
         "date": "2026-10-26",
@@ -321,7 +321,7 @@
         "low": 249.0,
         "close": 250.49,
         "volume": 3400400,
-        "market_price": 250.49,
+        "market_price": 247.7,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -343,7 +343,7 @@
       "t2_hit": false,
       "current_price": 538.6,
       "current_return": 0.1,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "VRTX",
         "date": "2026-11-04",
@@ -367,7 +367,7 @@
         "low": 536.12,
         "close": 538.6,
         "volume": 755900,
-        "market_price": 538.6,
+        "market_price": 537.79,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NMS",
@@ -389,7 +389,7 @@
       "t2_hit": false,
       "current_price": 550.43,
       "current_return": 2.38,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "NOC",
         "date": "2026-11-10",
@@ -413,7 +413,7 @@
         "low": 542.61,
         "close": 550.43,
         "volume": 515600,
-        "market_price": 550.43,
+        "market_price": 545.65,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -435,7 +435,7 @@
       "t2_hit": false,
       "current_price": 198.58,
       "current_return": 1.18,
-      "last_updated": "2026-11-14",
+      "last_updated": "2026-11-16",
       "entry_ohlcv": {
         "symbol": "RTX",
         "date": "2026-11-10",
@@ -459,7 +459,7 @@
         "low": 196.37,
         "close": 198.58,
         "volume": 2886500,
-        "market_price": 198.58,
+        "market_price": 194.89,
         "previous_close": 0,
         "currency": "USD",
         "exchange": "NYQ",
@@ -1021,11 +1021,17 @@
       "positions_value": 23580.4,
       "n_positions": 10,
       "return_pct": -1.29
+    },
+    {
+      "date": "2026-11-16",
+      "nav": 29613.02,
+      "cash": 6032.62,
+      "positions_value": 23580.4,
+      "n_positions": 10,
+      "return_pct": -1.29
     }
   ],
-  "cooldown": {
-    "BMY": "2026-11-14"
-  },
+  "cooldown": {},
   "stats": {
     "total_trades": 13,
     "open_positions": 10,
@@ -1039,7 +1045,7 @@
     "cash": 6032.62,
     "positions_value": 23580.4,
     "regime": "CAUTION",
-    "last_updated": "2026-11-14"
+    "last_updated": "2026-11-16"
   },
   "audit_log": [
     {
