@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T10:03:27.933776+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "TU",
+      "name": "Telus Corporation",
+      "price": 9.57,
+      "change_pct": 12.19,
+      "vol_ratio": 7.3,
+      "volume": 46345206,
+      "avg_volume": 6348658
+    },
+    {
+      "symbol": "NIO",
+      "name": "NIO Inc.",
+      "price": 2.72,
+      "change_pct": -6.21,
+      "vol_ratio": 2.4,
+      "volume": 82860082,
+      "avg_volume": 34525034
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 156.14,
+      "change_pct": -4.12,
+      "vol_ratio": 2.3,
+      "volume": 329959344,
+      "avg_volume": 143460584
+    }
+  ]
+}
