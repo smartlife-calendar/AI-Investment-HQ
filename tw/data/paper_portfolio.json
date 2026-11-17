@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 143118,
-  "nav": 939523,
-  "pnl_pct": -6.05,
+  "cash": 243638,
+  "nav": 941771,
+  "pnl_pct": -5.82,
   "positions": [
     {
       "code": "2542",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 37.9,
+      "current_price": 38.05,
       "peak_price": 40.15,
-      "pnl_pct": -5.25,
-      "market_value": 102330.0,
+      "pnl_pct": -4.88,
+      "market_value": 102735.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 96.0,
+      "current_price": 94.2,
       "peak_price": 103.0,
-      "pnl_pct": -4.48,
-      "market_value": 96000.0,
+      "pnl_pct": -6.27,
+      "market_value": 94200.0,
       "t1_sold": false
     },
     {
@@ -35,24 +35,12 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 23.0,
+      "current_price": 22.75,
       "peak_price": 23.95,
-      "pnl_pct": 10.84,
-      "market_value": 60950.0,
+      "pnl_pct": 9.64,
+      "market_value": 60288.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
-    },
-    {
-      "code": "2002",
-      "name": "中鋼",
-      "entry_date": "2026-10-29",
-      "entry_price": 19.55,
-      "shares": 5600,
-      "current_price": 18.0,
-      "peak_price": 19.75,
-      "pnl_pct": -7.93,
-      "market_value": 100800.0,
-      "t1_sold": false
     },
     {
       "code": "9802",
@@ -60,10 +48,10 @@
       "entry_date": "2026-11-06",
       "entry_price": 64.3,
       "shares": 600,
-      "current_price": 60.9,
+      "current_price": 60.1,
       "peak_price": 63.2,
-      "pnl_pct": -5.29,
-      "market_value": 36540.0,
+      "pnl_pct": -6.53,
+      "market_value": 36060.0,
       "t1_sold": false
     },
     {
@@ -72,10 +60,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 22.7,
+      "current_price": 23.1,
       "peak_price": 23.5,
-      "pnl_pct": 7.08,
-      "market_value": 81720.0,
+      "pnl_pct": 8.96,
+      "market_value": 83160.0,
       "t1_sold": false
     },
     {
@@ -84,10 +72,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 47.4,
-      "peak_price": 47.75,
-      "pnl_pct": 8.72,
-      "market_value": 80580.0,
+      "current_price": 48.1,
+      "peak_price": 48.1,
+      "pnl_pct": 10.32,
+      "market_value": 81770.0,
       "t1_sold": false
     },
     {
@@ -96,10 +84,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 17.9,
       "shares": 4300,
-      "current_price": 17.55,
+      "current_price": 18.55,
       "peak_price": 18.85,
-      "pnl_pct": -1.96,
-      "market_value": 75465.0,
+      "pnl_pct": 3.63,
+      "market_value": 79765.0,
       "t1_sold": false
     },
     {
@@ -108,10 +96,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 39.8,
+      "current_price": 39.45,
       "peak_price": 41.05,
-      "pnl_pct": -1.49,
-      "market_value": 75620.0,
+      "pnl_pct": -2.35,
+      "market_value": 74955.0,
       "t1_sold": false
     },
     {
@@ -120,10 +108,10 @@
       "entry_date": "2026-11-10",
       "entry_price": 228.0,
       "shares": 400,
-      "current_price": 216.0,
+      "current_price": 213.0,
       "peak_price": 240.0,
-      "pnl_pct": -5.26,
-      "market_value": 86400.0,
+      "pnl_pct": -6.58,
+      "market_value": 85200.0,
       "t1_sold": false
     }
   ],
@@ -205,16 +193,62 @@
       "pnl_amount": -9450,
       "reason": "停損 (-9.8%)",
       "hold_days": 8
+    },
+    {
+      "code": "2002",
+      "name": "中鋼",
+      "entry_date": "2026-10-29",
+      "entry_price": 19.55,
+      "exit_date": "2026-11-17",
+      "exit_price": 17.95,
+      "shares": 5600,
+      "pnl_pct": -8.18,
+      "pnl_amount": -8960,
+      "reason": "停損 (-8.2%)",
+      "hold_days": 19
     }
   ],
-  "pending_orders": [],
-  "total_trades": 6,
+  "pending_orders": [
+    {
+      "code": "2636",
+      "name": "台驊控股",
+      "limit_price": 71.8,
+      "shares": 1400,
+      "score": 10,
+      "order_date": "2026-11-17",
+      "sector": "航運業",
+      "reasons": [
+        "法人大買(12%成交量)",
+        "低PE(7.3)",
+        "股價<淨值(PB=0.88)"
+      ],
+      "institutional": {
+        "foreign_net": 214000,
+        "trust_net": 0,
+        "total_net": 214587
+      },
+      "weekday": 1,
+      "weekday_mult": 1.1,
+      "tech_boost": 2,
+      "tech_signal": {
+        "triple_signal": false,
+        "macd_cross": false,
+        "bb_expanding": true,
+        "above_rising_ma": true,
+        "macd_hist": 0.2107,
+        "bb_width": 7.57,
+        "ma_distance_pct": 2.64,
+        "score_boost": 2
+      }
+    }
+  ],
+  "total_trades": 7,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 6,
-  "best_trade": -9.68,
+  "losses": 7,
+  "best_trade": -8.18,
   "worst_trade": -10.7,
-  "updated_at": "2026-11-16T15:02:19+08:00",
+  "updated_at": "2026-11-17T15:02:46+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -530,6 +564,19 @@
       "weekday": 1,
       "weekday_mult": 1.1,
       "reason": "限價單成交 (low=222.5 ≤ limit=228.0)"
+    },
+    {
+      "date": "2026-11-17",
+      "action": "SELL",
+      "code": "2002",
+      "name": "中鋼",
+      "shares": 5600,
+      "price": 17.95,
+      "proceeds": 100520,
+      "pnl_pct": -8.2,
+      "cash_after": 243638,
+      "verify": "YF 2002 2026-11-17: O=18.15 H=18.2 L=17.75 C=17.95",
+      "reason": "停損 (-8.2%)"
     }
   ],
   "methodology": {
