@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-17T10:00:01+08:00",
+  "generated_at": "2026-11-18T10:00:02+08:00",
   "news": [
+    {
+      "title": "If I Could Only Own 3 ETFs for the Rest of My Life, Here’s the Combination I’d Pick.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/could-only-own-3-etfs-123501219.html",
+      "publisher": "Motley Fool",
+      "published": 1794918901
+    },
     {
       "title": "His Pension Covers the Bills at 75. The IRS Will Still Order a $33,333 Withdrawal From His $820,000 Traditional 401(k)",
       "url": "https://finance.yahoo.com/markets/options/articles/pension-covers-bills-75-irs-230240337.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/4-vanguard-funds-worth-buying-112000651.html",
       "publisher": "Motley Fool",
       "published": 1791717600
-    },
-    {
-      "title": "A Guide to Low-Cost ETFs",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/guide-low-cost-etfs-081900377.html",
-      "publisher": "Zacks",
-      "published": 1791620340
     }
   ]
 }
