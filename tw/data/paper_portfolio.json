@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 243638,
-  "nav": 941771,
-  "pnl_pct": -5.82,
+  "cash": 178398,
+  "nav": 935363,
+  "pnl_pct": -6.46,
   "positions": [
     {
       "code": "2542",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 38.05,
+      "current_price": 37.75,
       "peak_price": 40.15,
-      "pnl_pct": -4.88,
-      "market_value": 102735.0,
+      "pnl_pct": -5.62,
+      "market_value": 101925.0,
       "t1_sold": false
     },
     {
@@ -23,10 +23,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 100.5,
       "shares": 1000,
-      "current_price": 94.2,
+      "current_price": 95.1,
       "peak_price": 103.0,
-      "pnl_pct": -6.27,
-      "market_value": 94200.0,
+      "pnl_pct": -5.37,
+      "market_value": 95100.0,
       "t1_sold": false
     },
     {
@@ -35,24 +35,12 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 22.75,
+      "current_price": 22.7,
       "peak_price": 23.95,
-      "pnl_pct": 9.64,
-      "market_value": 60288.0,
+      "pnl_pct": 9.4,
+      "market_value": 60155.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
-    },
-    {
-      "code": "9802",
-      "name": "鈺齊-KY",
-      "entry_date": "2026-11-06",
-      "entry_price": 64.3,
-      "shares": 600,
-      "current_price": 60.1,
-      "peak_price": 63.2,
-      "pnl_pct": -6.53,
-      "market_value": 36060.0,
-      "t1_sold": false
     },
     {
       "code": "2610",
@@ -60,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 23.1,
+      "current_price": 22.9,
       "peak_price": 23.5,
-      "pnl_pct": 8.96,
-      "market_value": 83160.0,
+      "pnl_pct": 8.02,
+      "market_value": 82440.0,
       "t1_sold": false
     },
     {
@@ -72,10 +60,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 48.1,
+      "current_price": 46.8,
       "peak_price": 48.1,
-      "pnl_pct": 10.32,
-      "market_value": 81770.0,
+      "pnl_pct": 7.34,
+      "market_value": 79560.0,
       "t1_sold": false
     },
     {
@@ -84,10 +72,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 17.9,
       "shares": 4300,
-      "current_price": 18.55,
+      "current_price": 17.95,
       "peak_price": 18.85,
-      "pnl_pct": 3.63,
-      "market_value": 79765.0,
+      "pnl_pct": 0.28,
+      "market_value": 77185.0,
       "t1_sold": false
     },
     {
@@ -96,10 +84,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 39.45,
+      "current_price": 39.4,
       "peak_price": 41.05,
-      "pnl_pct": -2.35,
-      "market_value": 74955.0,
+      "pnl_pct": -2.48,
+      "market_value": 74860.0,
       "t1_sold": false
     },
     {
@@ -108,10 +96,22 @@
       "entry_date": "2026-11-10",
       "entry_price": 228.0,
       "shares": 400,
-      "current_price": 213.0,
+      "current_price": 212.0,
       "peak_price": 240.0,
-      "pnl_pct": -6.58,
-      "market_value": 85200.0,
+      "pnl_pct": -7.02,
+      "market_value": 84800.0,
+      "t1_sold": false
+    },
+    {
+      "code": "2636",
+      "name": "台驊控股",
+      "entry_date": "2026-11-18",
+      "entry_price": 71.8,
+      "shares": 1400,
+      "current_price": 72.1,
+      "peak_price": 72.5,
+      "pnl_pct": 0.42,
+      "market_value": 100940,
       "t1_sold": false
     }
   ],
@@ -206,49 +206,62 @@
       "pnl_amount": -8960,
       "reason": "停損 (-8.2%)",
       "hold_days": 19
+    },
+    {
+      "code": "9802",
+      "name": "鈺齊-KY",
+      "entry_date": "2026-11-06",
+      "entry_price": 64.3,
+      "exit_date": "2026-11-18",
+      "exit_price": 58.8,
+      "shares": 600,
+      "pnl_pct": -8.55,
+      "pnl_amount": -3300,
+      "reason": "停損 (-8.6%)",
+      "hold_days": 12
     }
   ],
   "pending_orders": [
     {
-      "code": "2636",
-      "name": "台驊控股",
-      "limit_price": 71.8,
+      "code": "5388",
+      "name": "中磊",
+      "limit_price": 71.9,
       "shares": 1400,
-      "score": 10,
-      "order_date": "2026-11-17",
-      "sector": "航運業",
+      "score": 11,
+      "order_date": "2026-11-18",
+      "sector": "通信網路",
       "reasons": [
-        "法人大買(12%成交量)",
-        "低PE(7.3)",
-        "股價<淨值(PB=0.88)"
+        "法人大買(30%成交量)",
+        "外資+投信同買",
+        "營收成長48%"
       ],
       "institutional": {
-        "foreign_net": 214000,
-        "trust_net": 0,
-        "total_net": 214587
+        "foreign_net": 672501,
+        "trust_net": 149007,
+        "total_net": 827931
       },
-      "weekday": 1,
-      "weekday_mult": 1.1,
-      "tech_boost": 2,
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "tech_boost": 0,
       "tech_signal": {
         "triple_signal": false,
         "macd_cross": false,
-        "bb_expanding": true,
-        "above_rising_ma": true,
-        "macd_hist": 0.2107,
-        "bb_width": 7.57,
-        "ma_distance_pct": 2.64,
-        "score_boost": 2
+        "bb_expanding": false,
+        "above_rising_ma": false,
+        "macd_hist": 0.3462,
+        "bb_width": 17.25,
+        "ma_distance_pct": 1.96,
+        "score_boost": 0
       }
     }
   ],
-  "total_trades": 7,
+  "total_trades": 8,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 7,
+  "losses": 8,
   "best_trade": -8.18,
   "worst_trade": -10.7,
-  "updated_at": "2026-11-17T15:02:46+08:00",
+  "updated_at": "2026-11-18T15:02:28+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -577,6 +590,33 @@
       "cash_after": 243638,
       "verify": "YF 2002 2026-11-17: O=18.15 H=18.2 L=17.75 C=17.95",
       "reason": "停損 (-8.2%)"
+    },
+    {
+      "date": "2026-11-18",
+      "action": "SELL",
+      "code": "9802",
+      "name": "鈺齊-KY",
+      "shares": 600,
+      "price": 58.8,
+      "proceeds": 35280,
+      "pnl_pct": -8.6,
+      "cash_after": 278918,
+      "verify": "YF 9802 2026-11-18: O=60.5 H=60.5 L=58.7 C=58.8",
+      "reason": "停損 (-8.6%)"
+    },
+    {
+      "date": "2026-11-18",
+      "action": "BUY",
+      "code": "2636",
+      "name": "台驊控股",
+      "shares": 1400,
+      "price": 71.8,
+      "cost": 100520,
+      "cash_after": 178398,
+      "verify": "YF 2636 2026-11-18: O=71.3 H=72.5 L=71.3 C=72.1",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=71.3 ≤ limit=71.8)"
     }
   ],
   "methodology": {
