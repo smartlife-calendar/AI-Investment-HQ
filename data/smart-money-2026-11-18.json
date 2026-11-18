@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-18",
+  "generated_at": "2026-11-18T10:04:08.717903+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "SLS",
+      "name": "SELLAS Life Sciences Group, Inc",
+      "price": 19.15,
+      "change_pct": 156.36,
+      "vol_ratio": 17.1,
+      "volume": 119486326,
+      "avg_volume": 6987504
+    },
+    {
+      "symbol": "CHYM",
+      "name": "Chime Financial, Inc.",
+      "price": 32.97,
+      "change_pct": -3.85,
+      "vol_ratio": 6.7,
+      "volume": 40264466,
+      "avg_volume": 6009621
+    },
+    {
+      "symbol": "NKE",
+      "name": "Nike, Inc.",
+      "price": 35.85,
+      "change_pct": -6.3,
+      "vol_ratio": 2.1,
+      "volume": 66228090,
+      "avg_volume": 31537185
+    },
+    {
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "price": 5.5,
+      "change_pct": 8.06,
+      "vol_ratio": 2.0,
+      "volume": 74922732,
+      "avg_volume": 37461366
+    }
+  ]
+}
