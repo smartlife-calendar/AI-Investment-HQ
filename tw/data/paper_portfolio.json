@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 178398,
-  "nav": 935363,
-  "pnl_pct": -6.46,
+  "cash": 314898,
+  "nav": 907660,
+  "pnl_pct": -9.23,
   "positions": [
     {
       "code": "2542",
@@ -11,22 +11,10 @@
       "entry_date": "2026-10-28",
       "entry_price": 40.0,
       "shares": 2700,
-      "current_price": 37.75,
+      "current_price": 37.6,
       "peak_price": 40.15,
-      "pnl_pct": -5.62,
-      "market_value": 101925.0,
-      "t1_sold": false
-    },
-    {
-      "code": "2637",
-      "name": "慧洋-KY",
-      "entry_date": "2026-10-28",
-      "entry_price": 100.5,
-      "shares": 1000,
-      "current_price": 95.1,
-      "peak_price": 103.0,
-      "pnl_pct": -5.37,
-      "market_value": 95100.0,
+      "pnl_pct": -6.0,
+      "market_value": 101520.0,
       "t1_sold": false
     },
     {
@@ -35,10 +23,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 22.7,
+      "current_price": 22.15,
       "peak_price": 23.95,
-      "pnl_pct": 9.4,
-      "market_value": 60155.0,
+      "pnl_pct": 6.75,
+      "market_value": 58697.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -48,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 22.9,
+      "current_price": 22.5,
       "peak_price": 23.5,
-      "pnl_pct": 8.02,
-      "market_value": 82440.0,
+      "pnl_pct": 6.13,
+      "market_value": 81000.0,
       "t1_sold": false
     },
     {
@@ -60,22 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 46.8,
+      "current_price": 46.4,
       "peak_price": 48.1,
-      "pnl_pct": 7.34,
-      "market_value": 79560.0,
-      "t1_sold": false
-    },
-    {
-      "code": "4155",
-      "name": "訊映",
-      "entry_date": "2026-11-09",
-      "entry_price": 17.9,
-      "shares": 4300,
-      "current_price": 17.95,
-      "peak_price": 18.85,
-      "pnl_pct": 0.28,
-      "market_value": 77185.0,
+      "pnl_pct": 6.42,
+      "market_value": 78880.0,
       "t1_sold": false
     },
     {
@@ -84,22 +60,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 39.4,
+      "current_price": 38.95,
       "peak_price": 41.05,
-      "pnl_pct": -2.48,
-      "market_value": 74860.0,
-      "t1_sold": false
-    },
-    {
-      "code": "3006",
-      "name": "晶豪科",
-      "entry_date": "2026-11-10",
-      "entry_price": 228.0,
-      "shares": 400,
-      "current_price": 212.0,
-      "peak_price": 240.0,
-      "pnl_pct": -7.02,
-      "market_value": 84800.0,
+      "pnl_pct": -3.59,
+      "market_value": 74005.0,
       "t1_sold": false
     },
     {
@@ -108,10 +72,22 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 72.1,
+      "current_price": 70.3,
       "peak_price": 72.5,
-      "pnl_pct": 0.42,
-      "market_value": 100940,
+      "pnl_pct": -2.09,
+      "market_value": 98420.0,
+      "t1_sold": false
+    },
+    {
+      "code": "5388",
+      "name": "中磊",
+      "entry_date": "2026-11-19",
+      "entry_price": 71.9,
+      "shares": 1400,
+      "current_price": 71.6,
+      "peak_price": 73.4,
+      "pnl_pct": -0.42,
+      "market_value": 100240,
       "t1_sold": false
     }
   ],
@@ -219,49 +195,152 @@
       "pnl_amount": -3300,
       "reason": "停損 (-8.6%)",
       "hold_days": 12
+    },
+    {
+      "code": "2637",
+      "name": "慧洋-KY",
+      "entry_date": "2026-10-28",
+      "entry_price": 100.5,
+      "exit_date": "2026-11-19",
+      "exit_price": 90.3,
+      "shares": 1000,
+      "pnl_pct": -10.15,
+      "pnl_amount": -10200,
+      "reason": "停損 (-10.1%)",
+      "hold_days": 22
+    },
+    {
+      "code": "4155",
+      "name": "訊映",
+      "entry_date": "2026-11-09",
+      "entry_price": 17.9,
+      "exit_date": "2026-11-19",
+      "exit_price": 16.2,
+      "shares": 4300,
+      "pnl_pct": -9.5,
+      "pnl_amount": -7310,
+      "reason": "停損 (-9.5%)",
+      "hold_days": 10
+    },
+    {
+      "code": "3006",
+      "name": "晶豪科",
+      "entry_date": "2026-11-10",
+      "entry_price": 228.0,
+      "exit_date": "2026-11-19",
+      "exit_price": 193.0,
+      "shares": 400,
+      "pnl_pct": -15.35,
+      "pnl_amount": -14000,
+      "reason": "停損 (-15.4%)",
+      "hold_days": 9
     }
   ],
   "pending_orders": [
     {
-      "code": "5388",
-      "name": "中磊",
-      "limit_price": 71.9,
-      "shares": 1400,
-      "score": 11,
-      "order_date": "2026-11-18",
-      "sector": "通信網路",
+      "code": "2539",
+      "name": "櫻花建",
+      "limit_price": 30.4,
+      "shares": 2600,
+      "score": 9,
+      "order_date": "2026-11-19",
+      "sector": "建材營造",
       "reasons": [
-        "法人大買(30%成交量)",
+        "法人大買(22%成交量)",
         "外資+投信同買",
-        "營收成長48%"
+        "高殖利率(9.0%)"
       ],
       "institutional": {
-        "foreign_net": 672501,
-        "trust_net": 149007,
-        "total_net": 827931
+        "foreign_net": 180750,
+        "trust_net": 1000,
+        "total_net": 166750
       },
-      "weekday": 2,
-      "weekday_mult": 1.15,
+      "weekday": 3,
+      "weekday_mult": 0.9,
       "tech_boost": 0,
       "tech_signal": {
         "triple_signal": false,
         "macd_cross": false,
         "bb_expanding": false,
         "above_rising_ma": false,
-        "macd_hist": 0.3462,
-        "bb_width": 17.25,
-        "ma_distance_pct": 1.96,
+        "macd_hist": 0.1747,
+        "bb_width": 12.59,
+        "ma_distance_pct": -2.17,
+        "score_boost": 0
+      }
+    },
+    {
+      "code": "9933",
+      "name": "中鼎",
+      "limit_price": 56.6,
+      "shares": 1400,
+      "score": 8,
+      "order_date": "2026-11-19",
+      "sector": "其他",
+      "reasons": [
+        "法人大買(34%成交量)",
+        "低PE(8.6)",
+        "外資連買7日"
+      ],
+      "institutional": {
+        "foreign_net": 11995899,
+        "trust_net": -2245373,
+        "total_net": 9737526
+      },
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "tech_boost": 1,
+      "tech_signal": {
+        "triple_signal": false,
+        "macd_cross": false,
+        "bb_expanding": false,
+        "above_rising_ma": true,
+        "macd_hist": 0.9733,
+        "bb_width": 33.36,
+        "ma_distance_pct": 16.07,
+        "score_boost": 1
+      }
+    },
+    {
+      "code": "2609",
+      "name": "陽明",
+      "limit_price": 57.3,
+      "shares": 1400,
+      "score": 8,
+      "order_date": "2026-11-19",
+      "sector": "航運業",
+      "reasons": [
+        "法人大買(13%成交量)",
+        "低PE(7.5)",
+        "股價<淨值(PB=0.61)"
+      ],
+      "institutional": {
+        "foreign_net": 4815331,
+        "trust_net": -2294000,
+        "total_net": 2541697
+      },
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "tech_boost": 0,
+      "tech_signal": {
+        "triple_signal": false,
+        "macd_cross": false,
+        "bb_expanding": false,
+        "above_rising_ma": false,
+        "macd_hist": -0.1974,
+        "bb_width": 13.95,
+        "ma_distance_pct": -5.42,
         "score_boost": 0
       }
     }
   ],
-  "total_trades": 8,
+  "total_trades": 11,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 8,
+  "losses": 11,
   "best_trade": -8.18,
-  "worst_trade": -10.7,
-  "updated_at": "2026-11-18T15:02:28+08:00",
+  "worst_trade": -15.35,
+  "updated_at": "2026-11-19T15:02:05+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -617,6 +696,59 @@
       "weekday": 2,
       "weekday_mult": 1.15,
       "reason": "限價單成交 (low=71.3 ≤ limit=71.8)"
+    },
+    {
+      "date": "2026-11-19",
+      "action": "SELL",
+      "code": "2637",
+      "name": "慧洋-KY",
+      "shares": 1000,
+      "price": 90.3,
+      "proceeds": 90300,
+      "pnl_pct": -10.1,
+      "cash_after": 268698,
+      "verify": "YF 2637 2026-11-19: O=95.1 H=95.5 L=90.0 C=90.3",
+      "reason": "停損 (-10.1%)"
+    },
+    {
+      "date": "2026-11-19",
+      "action": "SELL",
+      "code": "4155",
+      "name": "訊映",
+      "shares": 4300,
+      "price": 16.2,
+      "proceeds": 69660,
+      "pnl_pct": -9.5,
+      "cash_after": 338358,
+      "verify": "YF 4155 2026-11-19: O=17.95 H=18.0 L=16.2 C=16.2",
+      "reason": "停損 (-9.5%)"
+    },
+    {
+      "date": "2026-11-19",
+      "action": "SELL",
+      "code": "3006",
+      "name": "晶豪科",
+      "shares": 400,
+      "price": 193.0,
+      "proceeds": 77200,
+      "pnl_pct": -15.4,
+      "cash_after": 415558,
+      "verify": "YF 3006 2026-11-19: O=210.0 H=212.0 L=191.0 C=193.0",
+      "reason": "停損 (-15.4%)"
+    },
+    {
+      "date": "2026-11-19",
+      "action": "BUY",
+      "code": "5388",
+      "name": "中磊",
+      "shares": 1400,
+      "price": 71.9,
+      "cost": 100660,
+      "cash_after": 314898,
+      "verify": "YF 5388 2026-11-19: O=72.3 H=73.4 L=70.8 C=71.6",
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "reason": "限價單成交 (low=70.8 ≤ limit=71.9)"
     }
   ],
   "methodology": {
