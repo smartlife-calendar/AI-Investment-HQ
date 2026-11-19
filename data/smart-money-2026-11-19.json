@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-19",
+  "generated_at": "2026-11-19T10:03:08.782026+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "MDLN",
+      "name": "Medline Inc.",
+      "price": 39.16,
+      "change_pct": 3.93,
+      "vol_ratio": 4.5,
+      "volume": 40687820,
+      "avg_volume": 9041737
+    },
+    {
+      "symbol": "SLS",
+      "name": "SELLAS Life Sciences Group, Inc",
+      "price": 17.95,
+      "change_pct": -6.27,
+      "vol_ratio": 4.0,
+      "volume": 35527834,
+      "avg_volume": 8881958
+    }
+  ]
+}
