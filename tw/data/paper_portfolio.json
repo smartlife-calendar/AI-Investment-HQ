@@ -1,32 +1,20 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 314898,
-  "nav": 907660,
-  "pnl_pct": -9.23,
+  "cash": 173868,
+  "nav": 860800,
+  "pnl_pct": -13.92,
   "positions": [
-    {
-      "code": "2542",
-      "name": "興富發",
-      "entry_date": "2026-10-28",
-      "entry_price": 40.0,
-      "shares": 2700,
-      "current_price": 37.6,
-      "peak_price": 40.15,
-      "pnl_pct": -6.0,
-      "market_value": 101520.0,
-      "t1_sold": false
-    },
     {
       "code": "3703",
       "name": "欣陸",
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 22.15,
+      "current_price": 20.65,
       "peak_price": 23.95,
-      "pnl_pct": 6.75,
-      "market_value": 58697.0,
+      "pnl_pct": -0.48,
+      "market_value": 54722.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -36,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 22.5,
+      "current_price": 21.3,
       "peak_price": 23.5,
-      "pnl_pct": 6.13,
-      "market_value": 81000.0,
+      "pnl_pct": 0.47,
+      "market_value": 76680.0,
       "t1_sold": false
     },
     {
@@ -48,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 46.4,
+      "current_price": 44.65,
       "peak_price": 48.1,
-      "pnl_pct": 6.42,
-      "market_value": 78880.0,
+      "pnl_pct": 2.41,
+      "market_value": 75905.0,
       "t1_sold": false
     },
     {
@@ -60,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 38.95,
+      "current_price": 38.05,
       "peak_price": 41.05,
-      "pnl_pct": -3.59,
-      "market_value": 74005.0,
+      "pnl_pct": -5.82,
+      "market_value": 72295.0,
       "t1_sold": false
     },
     {
@@ -72,10 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 70.3,
+      "current_price": 66.4,
       "peak_price": 72.5,
-      "pnl_pct": -2.09,
-      "market_value": 98420.0,
+      "pnl_pct": -7.52,
+      "market_value": 92960.0,
       "t1_sold": false
     },
     {
@@ -84,10 +72,46 @@
       "entry_date": "2026-11-19",
       "entry_price": 71.9,
       "shares": 1400,
-      "current_price": 71.6,
+      "current_price": 67.4,
       "peak_price": 73.4,
-      "pnl_pct": -0.42,
-      "market_value": 100240,
+      "pnl_pct": -6.26,
+      "market_value": 94360.0,
+      "t1_sold": false
+    },
+    {
+      "code": "2539",
+      "name": "櫻花建",
+      "entry_date": "2026-11-20",
+      "entry_price": 30.4,
+      "shares": 2600,
+      "current_price": 28.35,
+      "peak_price": 30.1,
+      "pnl_pct": -6.74,
+      "market_value": 73710,
+      "t1_sold": false
+    },
+    {
+      "code": "9933",
+      "name": "中鼎",
+      "entry_date": "2026-11-20",
+      "entry_price": 56.6,
+      "shares": 1400,
+      "current_price": 51.5,
+      "peak_price": 55.6,
+      "pnl_pct": -9.01,
+      "market_value": 72100,
+      "t1_sold": false
+    },
+    {
+      "code": "2609",
+      "name": "陽明",
+      "entry_date": "2026-11-20",
+      "entry_price": 57.3,
+      "shares": 1400,
+      "current_price": 53.0,
+      "peak_price": 56.4,
+      "pnl_pct": -7.5,
+      "market_value": 74200,
       "t1_sold": false
     }
   ],
@@ -234,113 +258,62 @@
       "pnl_amount": -14000,
       "reason": "停損 (-15.4%)",
       "hold_days": 9
+    },
+    {
+      "code": "2542",
+      "name": "興富發",
+      "entry_date": "2026-10-28",
+      "entry_price": 40.0,
+      "exit_date": "2026-11-20",
+      "exit_price": 36.1,
+      "shares": 2700,
+      "pnl_pct": -9.75,
+      "pnl_amount": -10530,
+      "reason": "停損 (-9.7%)",
+      "hold_days": 23
     }
   ],
   "pending_orders": [
     {
-      "code": "2539",
-      "name": "櫻花建",
-      "limit_price": 30.4,
+      "code": "8110",
+      "name": "華東",
+      "limit_price": 27.45,
       "shares": 2600,
-      "score": 9,
-      "order_date": "2026-11-19",
-      "sector": "建材營造",
-      "reasons": [
-        "法人大買(22%成交量)",
-        "外資+投信同買",
-        "高殖利率(9.0%)"
-      ],
-      "institutional": {
-        "foreign_net": 180750,
-        "trust_net": 1000,
-        "total_net": 166750
-      },
-      "weekday": 3,
-      "weekday_mult": 0.9,
-      "tech_boost": 0,
-      "tech_signal": {
-        "triple_signal": false,
-        "macd_cross": false,
-        "bb_expanding": false,
-        "above_rising_ma": false,
-        "macd_hist": 0.1747,
-        "bb_width": 12.59,
-        "ma_distance_pct": -2.17,
-        "score_boost": 0
-      }
-    },
-    {
-      "code": "9933",
-      "name": "中鼎",
-      "limit_price": 56.6,
-      "shares": 1400,
       "score": 8,
-      "order_date": "2026-11-19",
-      "sector": "其他",
+      "order_date": "2026-11-20",
+      "sector": "半導體",
       "reasons": [
-        "法人大買(34%成交量)",
-        "低PE(8.6)",
-        "外資連買7日"
+        "法人大買(13%成交量)",
+        "外資+投信同買",
+        "低PE(8.0)"
       ],
       "institutional": {
-        "foreign_net": 11995899,
-        "trust_net": -2245373,
-        "total_net": 9737526
+        "foreign_net": 694017,
+        "trust_net": 3000,
+        "total_net": 631801
       },
-      "weekday": 3,
-      "weekday_mult": 0.9,
+      "weekday": 4,
+      "weekday_mult": 0.85,
       "tech_boost": 1,
       "tech_signal": {
         "triple_signal": false,
         "macd_cross": false,
-        "bb_expanding": false,
-        "above_rising_ma": true,
-        "macd_hist": 0.9733,
-        "bb_width": 33.36,
-        "ma_distance_pct": 16.07,
-        "score_boost": 1
-      }
-    },
-    {
-      "code": "2609",
-      "name": "陽明",
-      "limit_price": 57.3,
-      "shares": 1400,
-      "score": 8,
-      "order_date": "2026-11-19",
-      "sector": "航運業",
-      "reasons": [
-        "法人大買(13%成交量)",
-        "低PE(7.5)",
-        "股價<淨值(PB=0.61)"
-      ],
-      "institutional": {
-        "foreign_net": 4815331,
-        "trust_net": -2294000,
-        "total_net": 2541697
-      },
-      "weekday": 3,
-      "weekday_mult": 0.9,
-      "tech_boost": 0,
-      "tech_signal": {
-        "triple_signal": false,
-        "macd_cross": false,
-        "bb_expanding": false,
+        "bb_expanding": true,
         "above_rising_ma": false,
-        "macd_hist": -0.1974,
-        "bb_width": 13.95,
-        "ma_distance_pct": -5.42,
-        "score_boost": 0
+        "macd_hist": -0.8437,
+        "bb_width": 52.59,
+        "ma_distance_pct": -28.05,
+        "score_boost": 1
       }
     }
   ],
-  "total_trades": 11,
+  "total_trades": 12,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 11,
+  "losses": 12,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-19T15:02:05+08:00",
+  "updated_at": "2026-11-20T15:01:48+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -749,6 +722,61 @@
       "weekday": 3,
       "weekday_mult": 0.9,
       "reason": "限價單成交 (low=70.8 ≤ limit=71.9)"
+    },
+    {
+      "date": "2026-11-20",
+      "action": "SELL",
+      "code": "2542",
+      "name": "興富發",
+      "shares": 2700,
+      "price": 36.1,
+      "proceeds": 97470,
+      "pnl_pct": -9.7,
+      "cash_after": 412368,
+      "verify": "YF 2542 2026-11-20: O=37.4 H=37.8 L=36.1 C=36.1",
+      "reason": "停損 (-9.7%)"
+    },
+    {
+      "date": "2026-11-20",
+      "action": "BUY",
+      "code": "2539",
+      "name": "櫻花建",
+      "shares": 2600,
+      "price": 30.4,
+      "cost": 79040,
+      "cash_after": 333328,
+      "verify": "YF 2539 2026-11-20: O=30.1 H=30.1 L=28.1 C=28.35",
+      "weekday": 4,
+      "weekday_mult": 0.85,
+      "reason": "限價單成交 (low=28.1 ≤ limit=30.4)"
+    },
+    {
+      "date": "2026-11-20",
+      "action": "BUY",
+      "code": "9933",
+      "name": "中鼎",
+      "shares": 1400,
+      "price": 56.6,
+      "cost": 79240,
+      "cash_after": 254088,
+      "verify": "YF 9933 2026-11-20: O=55.1 H=55.6 L=51.2 C=51.5",
+      "weekday": 4,
+      "weekday_mult": 0.85,
+      "reason": "限價單成交 (low=51.2 ≤ limit=56.6)"
+    },
+    {
+      "date": "2026-11-20",
+      "action": "BUY",
+      "code": "2609",
+      "name": "陽明",
+      "shares": 1400,
+      "price": 57.3,
+      "cost": 80220,
+      "cash_after": 173868,
+      "verify": "YF 2609 2026-11-20: O=56.4 H=56.4 L=52.7 C=53.0",
+      "weekday": 4,
+      "weekday_mult": 0.85,
+      "reason": "限價單成交 (low=52.7 ≤ limit=57.3)"
     }
   ],
   "methodology": {
