@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-20",
+  "generated_at": "2026-11-20T10:02:55.501262+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 4,
+  "stocks": [
+    {
+      "symbol": "ANT",
+      "name": "Anthropic, PBC Class A Common Stock",
+      "price": 97.17,
+      "change_pct": 17.07,
+      "vol_ratio": 851818130.0,
+      "volume": 851818130,
+      "avg_volume": 1
+    },
+    {
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices, Inc.",
+      "price": 489.19,
+      "change_pct": -7.72,
+      "vol_ratio": 2.8,
+      "volume": 70838807,
+      "avg_volume": 25299573
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 14.41,
+      "change_pct": -5.45,
+      "vol_ratio": 2.2,
+      "volume": 119125954,
+      "avg_volume": 54148160
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 145.98,
+      "change_pct": -3.3,
+      "vol_ratio": 2.0,
+      "volume": 315864587,
+      "avg_volume": 157932293
+    }
+  ]
+}
