@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-19T10:00:02+08:00",
+  "generated_at": "2026-11-20T10:00:02+08:00",
   "news": [
+    {
+      "title": "Vanguard ETFs vs Mutual Funds: Which Make for Better Investments?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-etfs-vs-mutual-funds-211137785.html",
+      "publisher": "Kiplinger",
+      "published": 1795052711
+    },
     {
       "title": "Rachel Cruze Says $200,000 in One Fund Could Grow to Nearly $1.8 Million by 62. Here’s What That Takes",
       "url": "https://finance.yahoo.com/markets/stocks/articles/rachel-cruze-says-200-000-230706905.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/options/articles/three-old-401-k-three-200332224.html",
       "publisher": "24/7 Wall St.",
       "published": 1791921812
-    },
-    {
-      "title": "Own Both VOO and QQQM? You May Be Buying the Same Stocks Twice.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/own-both-voo-qqqm-may-115500532.html",
-      "publisher": "Motley Fool",
-      "published": 1791806100
     }
   ]
 }
