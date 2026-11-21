@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-20T10:00:02+08:00",
+  "generated_at": "2026-11-21T10:00:02+08:00",
   "news": [
+    {
+      "title": "Anthropic and the History of Headline IPOs",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/anthropic-history-headline-ipos-195608186.html",
+      "publisher": "etf.com",
+      "published": 1795204568
+    },
     {
       "title": "Vanguard ETFs vs Mutual Funds: Which Make for Better Investments?",
       "url": "https://finance.yahoo.com/markets/stocks/articles/vanguard-etfs-vs-mutual-funds-211137785.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/26-million-trump-accounts-8-172506499.html",
       "publisher": "24/7 Wall St.",
       "published": 1791998706
-    },
-    {
-      "title": "You Have Three Old 401(k)s From Three Jobs and None of Them Talk to Each Other. These 4 ETFs Are the One Account They Roll Into",
-      "url": "https://finance.yahoo.com/markets/options/articles/three-old-401-k-three-200332224.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1791921812
     }
   ]
 }
