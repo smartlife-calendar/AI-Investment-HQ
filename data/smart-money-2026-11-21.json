@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-21",
+  "generated_at": "2026-11-21T10:02:50.833295+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "SNDK",
+      "name": "Sandisk Corporation",
+      "price": 79.24,
+      "change_pct": -16.05,
+      "vol_ratio": 12.0,
+      "volume": 127147042,
+      "avg_volume": 10595586
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 125.53,
+      "change_pct": -14.01,
+      "vol_ratio": 3.9,
+      "volume": 626274281,
+      "avg_volume": 160583148
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 11.82,
+      "change_pct": -17.97,
+      "vol_ratio": 2.4,
+      "volume": 131457012,
+      "avg_volume": 54773755
+    }
+  ]
+}
