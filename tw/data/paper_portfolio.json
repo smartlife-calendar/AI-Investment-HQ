@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 173868,
-  "nav": 860800,
-  "pnl_pct": -13.92,
+  "cash": 247568,
+  "nav": 865378,
+  "pnl_pct": -13.46,
   "positions": [
     {
       "code": "3703",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 20.65,
+      "current_price": 20.2,
       "peak_price": 23.95,
-      "pnl_pct": -0.48,
-      "market_value": 54722.0,
+      "pnl_pct": -2.65,
+      "market_value": 53530.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -24,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 21.3,
+      "current_price": 21.1,
       "peak_price": 23.5,
-      "pnl_pct": 0.47,
-      "market_value": 76680.0,
+      "pnl_pct": -0.47,
+      "market_value": 75960.0,
       "t1_sold": false
     },
     {
@@ -36,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 44.65,
+      "current_price": 44.2,
       "peak_price": 48.1,
-      "pnl_pct": 2.41,
-      "market_value": 75905.0,
+      "pnl_pct": 1.38,
+      "market_value": 75140.0,
       "t1_sold": false
     },
     {
@@ -48,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 38.05,
+      "current_price": 38.5,
       "peak_price": 41.05,
-      "pnl_pct": -5.82,
-      "market_value": 72295.0,
+      "pnl_pct": -4.7,
+      "market_value": 73150.0,
       "t1_sold": false
     },
     {
@@ -60,10 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 66.4,
+      "current_price": 67.3,
       "peak_price": 72.5,
-      "pnl_pct": -7.52,
-      "market_value": 92960.0,
+      "pnl_pct": -6.27,
+      "market_value": 94220.0,
       "t1_sold": false
     },
     {
@@ -72,34 +72,10 @@
       "entry_date": "2026-11-19",
       "entry_price": 71.9,
       "shares": 1400,
-      "current_price": 67.4,
+      "current_price": 67.5,
       "peak_price": 73.4,
-      "pnl_pct": -6.26,
-      "market_value": 94360.0,
-      "t1_sold": false
-    },
-    {
-      "code": "2539",
-      "name": "櫻花建",
-      "entry_date": "2026-11-20",
-      "entry_price": 30.4,
-      "shares": 2600,
-      "current_price": 28.35,
-      "peak_price": 30.1,
-      "pnl_pct": -6.74,
-      "market_value": 73710,
-      "t1_sold": false
-    },
-    {
-      "code": "9933",
-      "name": "中鼎",
-      "entry_date": "2026-11-20",
-      "entry_price": 56.6,
-      "shares": 1400,
-      "current_price": 51.5,
-      "peak_price": 55.6,
-      "pnl_pct": -9.01,
-      "market_value": 72100,
+      "pnl_pct": -6.12,
+      "market_value": 94500.0,
       "t1_sold": false
     },
     {
@@ -108,10 +84,22 @@
       "entry_date": "2026-11-20",
       "entry_price": 57.3,
       "shares": 1400,
-      "current_price": 53.0,
+      "current_price": 54.5,
       "peak_price": 56.4,
-      "pnl_pct": -7.5,
-      "market_value": 74200,
+      "pnl_pct": -4.89,
+      "market_value": 76300.0,
+      "t1_sold": false
+    },
+    {
+      "code": "8110",
+      "name": "華東",
+      "entry_date": "2026-11-23",
+      "entry_price": 27.45,
+      "shares": 2600,
+      "current_price": 28.85,
+      "peak_price": 29.15,
+      "pnl_pct": 5.1,
+      "market_value": 75010,
       "t1_sold": false
     }
   ],
@@ -271,49 +259,107 @@
       "pnl_amount": -10530,
       "reason": "停損 (-9.7%)",
       "hold_days": 23
+    },
+    {
+      "code": "2539",
+      "name": "櫻花建",
+      "entry_date": "2026-11-20",
+      "entry_price": 30.4,
+      "exit_date": "2026-11-23",
+      "exit_price": 27.85,
+      "shares": 2600,
+      "pnl_pct": -8.39,
+      "pnl_amount": -6630,
+      "reason": "停損 (-8.4%)",
+      "hold_days": 3
+    },
+    {
+      "code": "9933",
+      "name": "中鼎",
+      "entry_date": "2026-11-20",
+      "entry_price": 56.6,
+      "exit_date": "2026-11-23",
+      "exit_price": 51.9,
+      "shares": 1400,
+      "pnl_pct": -8.3,
+      "pnl_amount": -6580,
+      "reason": "停損 (-8.3%)",
+      "hold_days": 3
     }
   ],
   "pending_orders": [
     {
-      "code": "8110",
-      "name": "華東",
-      "limit_price": 27.45,
-      "shares": 2600,
+      "code": "6669",
+      "name": "緯穎",
+      "limit_price": 1375.0,
+      "shares": 100,
       "score": 8,
-      "order_date": "2026-11-20",
-      "sector": "半導體",
+      "order_date": "2026-11-23",
+      "sector": "電腦及週邊設備",
       "reasons": [
-        "法人大買(13%成交量)",
+        "法人大買(12%成交量)",
         "外資+投信同買",
-        "低PE(8.0)"
+        "高殖利率(12.4%)"
       ],
       "institutional": {
-        "foreign_net": 694017,
-        "trust_net": 3000,
-        "total_net": 631801
+        "foreign_net": 399649,
+        "trust_net": 278108,
+        "total_net": 649254
       },
-      "weekday": 4,
-      "weekday_mult": 0.85,
-      "tech_boost": 1,
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "tech_boost": 0,
       "tech_signal": {
         "triple_signal": false,
         "macd_cross": false,
-        "bb_expanding": true,
+        "bb_expanding": false,
         "above_rising_ma": false,
-        "macd_hist": -0.8437,
-        "bb_width": 52.59,
-        "ma_distance_pct": -28.05,
-        "score_boost": 1
+        "macd_hist": -17.7236,
+        "bb_width": 44.37,
+        "ma_distance_pct": -16.5,
+        "score_boost": 0
+      }
+    },
+    {
+      "code": "8422",
+      "name": "可寧衛*",
+      "limit_price": 21.0,
+      "shares": 4100,
+      "score": 8,
+      "order_date": "2026-11-23",
+      "sector": "綠能環保",
+      "reasons": [
+        "法人大買(42%成交量)",
+        "外資+投信同買",
+        "高殖利率(5.8%)"
+      ],
+      "institutional": {
+        "foreign_net": 1954100,
+        "trust_net": 2000,
+        "total_net": 1985100
+      },
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "tech_boost": 0,
+      "tech_signal": {
+        "triple_signal": false,
+        "macd_cross": false,
+        "bb_expanding": false,
+        "above_rising_ma": false,
+        "macd_hist": -0.2759,
+        "bb_width": 22.38,
+        "ma_distance_pct": -10.72,
+        "score_boost": 0
       }
     }
   ],
-  "total_trades": 12,
+  "total_trades": 14,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 12,
+  "losses": 14,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-20T15:01:48+08:00",
+  "updated_at": "2026-11-23T15:02:48+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -777,6 +823,46 @@
       "weekday": 4,
       "weekday_mult": 0.85,
       "reason": "限價單成交 (low=52.7 ≤ limit=57.3)"
+    },
+    {
+      "date": "2026-11-23",
+      "action": "SELL",
+      "code": "2539",
+      "name": "櫻花建",
+      "shares": 2600,
+      "price": 27.85,
+      "proceeds": 72410,
+      "pnl_pct": -8.4,
+      "cash_after": 246278,
+      "verify": "YF 2539 2026-11-23: O=28.45 H=28.6 L=27.7 C=27.85",
+      "reason": "停損 (-8.4%)"
+    },
+    {
+      "date": "2026-11-23",
+      "action": "SELL",
+      "code": "9933",
+      "name": "中鼎",
+      "shares": 1400,
+      "price": 51.9,
+      "proceeds": 72660,
+      "pnl_pct": -8.3,
+      "cash_after": 318938,
+      "verify": "YF 9933 2026-11-23: O=49.75 H=53.5 L=49.75 C=51.9",
+      "reason": "停損 (-8.3%)"
+    },
+    {
+      "date": "2026-11-23",
+      "action": "BUY",
+      "code": "8110",
+      "name": "華東",
+      "shares": 2600,
+      "price": 27.45,
+      "cost": 71370,
+      "cash_after": 247568,
+      "verify": "YF 8110 2026-11-23: O=25.25 H=29.15 L=25.25 C=28.85",
+      "weekday": 0,
+      "weekday_mult": 1.0,
+      "reason": "限價單成交 (low=25.25 ≤ limit=27.45)"
     }
   ],
   "methodology": {
