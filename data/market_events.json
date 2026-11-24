@@ -1,14 +1,6 @@
 {
-  "generated_at": "2026-11-18T10:00:02+08:00",
+  "generated_at": "2026-11-24T10:00:01+08:00",
   "events": [
-    {
-      "sym": "PANW",
-      "date": "2026-11-18",
-      "type": "earnings",
-      "note": "PANW Q財報 盤後",
-      "eps_forecast": "$0.52",
-      "market_cap": "$258,701,689,000"
-    },
     {
       "sym": "📌",
       "date": "2026-11-26",
@@ -21,7 +13,7 @@
       "type": "earnings",
       "note": "CRWD Q財報 盤後",
       "eps_forecast": "$0",
-      "market_cap": "$228,552,491,000"
+      "market_cap": "$234,931,618,000"
     },
     {
       "sym": "CRM",
@@ -29,7 +21,7 @@
       "type": "earnings",
       "note": "CRM Q財報 盤後",
       "eps_forecast": "$2.41",
-      "market_cap": "$176,805,085,000"
+      "market_cap": "$148,650,263,000"
     },
     {
       "sym": "SNOW",
@@ -37,7 +29,7 @@
       "type": "earnings",
       "note": "SNOW Q財報 盤後",
       "eps_forecast": "($0.32)",
-      "market_cap": "$98,974,515,000"
+      "market_cap": "$89,900,499,000"
     },
     {
       "sym": "ZS",
@@ -45,23 +37,15 @@
       "type": "earnings",
       "note": "ZS Q財報 盤後",
       "eps_forecast": "$0.12",
-      "market_cap": "$31,117,359,100"
+      "market_cap": "$31,766,317,100"
     },
     {
       "sym": "AVGO",
       "date": "2026-12-09",
       "type": "earnings",
       "note": "AVGO Q財報 盤後",
-      "eps_forecast": "$3.47",
-      "market_cap": "$1,591,528,260,000"
-    },
-    {
-      "sym": "ORCL",
-      "date": "2026-12-09",
-      "type": "earnings",
-      "note": "ORCL Q財報",
-      "eps_forecast": "$1.56",
-      "market_cap": "$360,096,727,000"
+      "eps_forecast": "$3.45",
+      "market_cap": "$1,453,140,610,000"
     },
     {
       "sym": "ADBE",
@@ -69,15 +53,23 @@
       "type": "earnings",
       "note": "ADBE Q財報 盤後",
       "eps_forecast": "$5.11",
-      "market_cap": "$95,743,197,000"
+      "market_cap": "$84,732,731,000"
+    },
+    {
+      "sym": "ORCL",
+      "date": "2026-12-14",
+      "type": "earnings",
+      "note": "ORCL Q財報 盤後",
+      "eps_forecast": "$1.56",
+      "market_cap": "$305,971,855,000"
     },
     {
       "sym": "MU",
-      "date": "2026-12-16",
+      "date": "2026-12-17",
       "type": "earnings",
-      "note": "MU Q財報",
+      "note": "MU Q財報 盤後",
       "eps_forecast": "$37.95",
-      "market_cap": "$813,515,930,000"
+      "market_cap": "$672,642,430,000"
     },
     {
       "sym": "📌",
@@ -92,5 +84,5 @@
       "note": "聖誕節（休市）"
     }
   ],
-  "earnings_count": 9
+  "earnings_count": 8
 }

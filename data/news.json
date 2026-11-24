@@ -1,6 +1,18 @@
 {
-  "generated_at": "2026-11-21T10:00:02+08:00",
+  "generated_at": "2026-11-24T10:00:01+08:00",
   "news": [
+    {
+      "title": "John Bogle’s Retirement Portfolio Was So Simple, Wall Street Hated It",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/john-bogle-retirement-portfolio-simple-133342787.html",
+      "publisher": "24/7 Wall St.",
+      "published": 1795268022
+    },
+    {
+      "title": "Anthropic and SpaceX have created 8,600 new millionaires, but Ryan Serhant says the real winner is in real estate",
+      "url": "https://finance.yahoo.com/real-estate/articles/anthropic-spacex-created-8-600-131500069.html",
+      "publisher": "Moneywise",
+      "published": 1795266900
+    },
     {
       "title": "Anthropic and the History of Headline IPOs",
       "url": "https://finance.yahoo.com/markets/stocks/articles/anthropic-history-headline-ipos-195608186.html",
@@ -78,18 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/25-000-front-250-more-123212635.html",
       "publisher": "24/7 Wall St.",
       "published": 1792240332
-    },
-    {
-      "title": "VOO, VTI, SPY, or IVV? How These 4 Index Funds Differ",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/voo-vti-spy-ivv-4-092000271.html",
-      "publisher": "Motley Fool",
-      "published": 1792142400
-    },
-    {
-      "title": "26 Million Trump Accounts and 8 Billion Dollars Later, Here Is What You Actually Get",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/26-million-trump-accounts-8-172506499.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1791998706
     }
   ]
 }
