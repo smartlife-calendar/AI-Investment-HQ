@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 247568,
-  "nav": 865378,
-  "pnl_pct": -13.46,
+  "cash": 288778,
+  "nav": 945216,
+  "pnl_pct": -5.48,
   "positions": [
     {
       "code": "3703",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 20.2,
+      "current_price": 21.55,
       "peak_price": 23.95,
-      "pnl_pct": -2.65,
-      "market_value": 53530.0,
+      "pnl_pct": 3.86,
+      "market_value": 57108.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -24,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 21.1,
+      "current_price": 22.5,
       "peak_price": 23.5,
-      "pnl_pct": -0.47,
-      "market_value": 75960.0,
+      "pnl_pct": 6.13,
+      "market_value": 81000.0,
       "t1_sold": false
     },
     {
@@ -36,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 44.2,
-      "peak_price": 48.1,
-      "pnl_pct": 1.38,
-      "market_value": 75140.0,
+      "current_price": 48.6,
+      "peak_price": 48.6,
+      "pnl_pct": 11.47,
+      "market_value": 82620.0,
       "t1_sold": false
     },
     {
@@ -48,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 38.5,
+      "current_price": 39.9,
       "peak_price": 41.05,
-      "pnl_pct": -4.7,
-      "market_value": 73150.0,
+      "pnl_pct": -1.24,
+      "market_value": 75810.0,
       "t1_sold": false
     },
     {
@@ -60,10 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 67.3,
+      "current_price": 70.5,
       "peak_price": 72.5,
-      "pnl_pct": -6.27,
-      "market_value": 94220.0,
+      "pnl_pct": -1.81,
+      "market_value": 98700.0,
       "t1_sold": false
     },
     {
@@ -72,10 +72,10 @@
       "entry_date": "2026-11-19",
       "entry_price": 71.9,
       "shares": 1400,
-      "current_price": 67.5,
+      "current_price": 71.4,
       "peak_price": 73.4,
-      "pnl_pct": -6.12,
-      "market_value": 94500.0,
+      "pnl_pct": -0.7,
+      "market_value": 99960.0,
       "t1_sold": false
     },
     {
@@ -84,10 +84,10 @@
       "entry_date": "2026-11-20",
       "entry_price": 57.3,
       "shares": 1400,
-      "current_price": 54.5,
+      "current_price": 56.3,
       "peak_price": 56.4,
-      "pnl_pct": -4.89,
-      "market_value": 76300.0,
+      "pnl_pct": -1.75,
+      "market_value": 78820.0,
       "t1_sold": false
     },
     {
@@ -95,12 +95,13 @@
       "name": "華東",
       "entry_date": "2026-11-23",
       "entry_price": 27.45,
-      "shares": 2600,
-      "current_price": 28.85,
-      "peak_price": 29.15,
-      "pnl_pct": 5.1,
-      "market_value": 75010,
-      "t1_sold": false
+      "shares": 1300,
+      "current_price": 31.7,
+      "peak_price": 31.7,
+      "pnl_pct": 15.48,
+      "market_value": 82420.0,
+      "t1_sold": true,
+      "t1_date": "2026-11-24"
     }
   ],
   "closed_trades": [
@@ -359,7 +360,7 @@
   "losses": 14,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-23T15:02:48+08:00",
+  "updated_at": "2026-11-24T15:01:59+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -863,6 +864,19 @@
       "weekday": 0,
       "weekday_mult": 1.0,
       "reason": "限價單成交 (low=25.25 ≤ limit=27.45)"
+    },
+    {
+      "date": "2026-11-24",
+      "action": "T1_SELL",
+      "code": "8110",
+      "name": "華東",
+      "shares": 1300,
+      "price": 31.7,
+      "proceeds": 41210,
+      "pnl_pct": 15.5,
+      "cash_after": 288778,
+      "verify": "YF 8110 2026-11-24: O=31.7 H=31.7 L=31.7 C=31.7",
+      "reason": "T1 停利 (+15.5%)"
     }
   ],
   "methodology": {
