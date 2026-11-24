@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-24",
+  "generated_at": "2026-11-24T10:04:04.374746+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 165.05,
+      "change_pct": 31.48,
+      "vol_ratio": 4.6,
+      "volume": 776225888,
+      "avg_volume": 168744758
+    },
+    {
+      "symbol": "IREN",
+      "name": "IREN LIMITED",
+      "price": 14.64,
+      "change_pct": 23.86,
+      "vol_ratio": 2.2,
+      "volume": 124604189,
+      "avg_volume": 56638267
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "price": 48.33,
+      "change_pct": 22.32,
+      "vol_ratio": 2.0,
+      "volume": 94607762,
+      "avg_volume": 47303881
+    }
+  ]
+}
