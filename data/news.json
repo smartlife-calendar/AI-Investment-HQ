@@ -1,6 +1,12 @@
 {
-  "generated_at": "2026-11-24T10:00:01+08:00",
+  "generated_at": "2026-11-25T10:00:02+08:00",
   "news": [
+    {
+      "title": "Mixing Bonds Into VTI Cost Over $1.2 Million",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/mixing-bonds-vti-cost-over-203921819.html",
+      "publisher": "Trefis",
+      "published": 1795552761
+    },
     {
       "title": "John Bogle’s Retirement Portfolio Was So Simple, Wall Street Hated It",
       "url": "https://finance.yahoo.com/markets/stocks/articles/john-bogle-retirement-portfolio-simple-133342787.html",
@@ -84,12 +90,6 @@
       "url": "https://finance.yahoo.com/markets/stocks/articles/where-vti-20-years-heres-214300311.html",
       "publisher": "Motley Fool",
       "published": 1792446180
-    },
-    {
-      "title": "$25,000 Up Front or $250 More a Month? The Shortcut to a VTI Million Most Savers Overlook",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/25-000-front-250-more-123212635.html",
-      "publisher": "24/7 Wall St.",
-      "published": 1792240332
     }
   ]
 }
