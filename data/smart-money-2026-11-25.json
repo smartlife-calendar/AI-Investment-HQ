@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-25",
+  "generated_at": "2026-11-25T10:03:06.486545+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 3,
+  "stocks": [
+    {
+      "symbol": "INSM",
+      "name": "Insmed Incorporated",
+      "price": 170.15,
+      "change_pct": 14.13,
+      "vol_ratio": 25.2,
+      "volume": 78939191,
+      "avg_volume": 3132507
+    },
+    {
+      "symbol": "VALE",
+      "name": "VALE S.A.",
+      "price": 9.37,
+      "change_pct": -4.39,
+      "vol_ratio": 2.2,
+      "volume": 73772844,
+      "avg_volume": 33533110
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "price": 155.38,
+      "change_pct": -5.86,
+      "vol_ratio": 2.1,
+      "volume": 382058256,
+      "avg_volume": 181932502
+    }
+  ]
+}
