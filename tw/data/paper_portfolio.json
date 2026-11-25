@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 288778,
-  "nav": 945216,
-  "pnl_pct": -5.48,
+  "cash": 157298,
+  "nav": 886888,
+  "pnl_pct": -11.31,
   "positions": [
     {
       "code": "3703",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 21.55,
+      "current_price": 21.0,
       "peak_price": 23.95,
-      "pnl_pct": 3.86,
-      "market_value": 57108.0,
+      "pnl_pct": 1.2,
+      "market_value": 55650.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -24,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 22.5,
+      "current_price": 22.0,
       "peak_price": 23.5,
-      "pnl_pct": 6.13,
-      "market_value": 81000.0,
+      "pnl_pct": 3.77,
+      "market_value": 79200.0,
       "t1_sold": false
     },
     {
@@ -36,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 48.6,
+      "current_price": 45.7,
       "peak_price": 48.6,
-      "pnl_pct": 11.47,
-      "market_value": 82620.0,
+      "pnl_pct": 4.82,
+      "market_value": 77690.0,
       "t1_sold": false
     },
     {
@@ -48,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 39.9,
+      "current_price": 39.1,
       "peak_price": 41.05,
-      "pnl_pct": -1.24,
-      "market_value": 75810.0,
+      "pnl_pct": -3.22,
+      "market_value": 74290.0,
       "t1_sold": false
     },
     {
@@ -60,22 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 70.5,
+      "current_price": 69.3,
       "peak_price": 72.5,
-      "pnl_pct": -1.81,
-      "market_value": 98700.0,
-      "t1_sold": false
-    },
-    {
-      "code": "5388",
-      "name": "中磊",
-      "entry_date": "2026-11-19",
-      "entry_price": 71.9,
-      "shares": 1400,
-      "current_price": 71.4,
-      "peak_price": 73.4,
-      "pnl_pct": -0.7,
-      "market_value": 99960.0,
+      "pnl_pct": -3.48,
+      "market_value": 97020.0,
       "t1_sold": false
     },
     {
@@ -84,10 +72,10 @@
       "entry_date": "2026-11-20",
       "entry_price": 57.3,
       "shares": 1400,
-      "current_price": 56.3,
+      "current_price": 55.8,
       "peak_price": 56.4,
-      "pnl_pct": -1.75,
-      "market_value": 78820.0,
+      "pnl_pct": -2.62,
+      "market_value": 78120.0,
       "t1_sold": false
     },
     {
@@ -96,12 +84,36 @@
       "entry_date": "2026-11-23",
       "entry_price": 27.45,
       "shares": 1300,
-      "current_price": 31.7,
+      "current_price": 29.0,
       "peak_price": 31.7,
-      "pnl_pct": 15.48,
-      "market_value": 82420.0,
+      "pnl_pct": 5.65,
+      "market_value": 37700.0,
       "t1_sold": true,
       "t1_date": "2026-11-24"
+    },
+    {
+      "code": "6669",
+      "name": "緯穎",
+      "entry_date": "2026-11-25",
+      "entry_price": 1375.0,
+      "shares": 100,
+      "current_price": 1430.0,
+      "peak_price": 1480.0,
+      "pnl_pct": 4.0,
+      "market_value": 143000,
+      "t1_sold": false
+    },
+    {
+      "code": "8422",
+      "name": "可寧衛*",
+      "entry_date": "2026-11-25",
+      "entry_price": 21.0,
+      "shares": 4100,
+      "current_price": 21.2,
+      "peak_price": 21.8,
+      "pnl_pct": 0.95,
+      "market_value": 86920,
+      "t1_sold": false
     }
   ],
   "closed_trades": [
@@ -286,81 +298,62 @@
       "pnl_amount": -6580,
       "reason": "停損 (-8.3%)",
       "hold_days": 3
+    },
+    {
+      "code": "5388",
+      "name": "中磊",
+      "entry_date": "2026-11-19",
+      "entry_price": 71.9,
+      "exit_date": "2026-11-25",
+      "exit_price": 65.8,
+      "shares": 1400,
+      "pnl_pct": -8.48,
+      "pnl_amount": -8540,
+      "reason": "停損 (-8.5%)",
+      "hold_days": 6
     }
   ],
   "pending_orders": [
     {
-      "code": "6669",
-      "name": "緯穎",
-      "limit_price": 1375.0,
-      "shares": 100,
-      "score": 8,
-      "order_date": "2026-11-23",
-      "sector": "電腦及週邊設備",
+      "code": "9945",
+      "name": "潤泰新",
+      "limit_price": 25.8,
+      "shares": 3900,
+      "score": 10,
+      "order_date": "2026-11-25",
+      "sector": "其他",
       "reasons": [
-        "法人大買(12%成交量)",
+        "法人大買(15%成交量)",
         "外資+投信同買",
-        "高殖利率(12.4%)"
+        "低PE(4.3)"
       ],
       "institutional": {
-        "foreign_net": 399649,
-        "trust_net": 278108,
-        "total_net": 649254
+        "foreign_net": 980304,
+        "trust_net": 62000,
+        "total_net": 1099950
       },
-      "weekday": 0,
-      "weekday_mult": 1.0,
+      "weekday": 2,
+      "weekday_mult": 1.15,
       "tech_boost": 0,
       "tech_signal": {
         "triple_signal": false,
         "macd_cross": false,
         "bb_expanding": false,
         "above_rising_ma": false,
-        "macd_hist": -17.7236,
-        "bb_width": 44.37,
-        "ma_distance_pct": -16.5,
-        "score_boost": 0
-      }
-    },
-    {
-      "code": "8422",
-      "name": "可寧衛*",
-      "limit_price": 21.0,
-      "shares": 4100,
-      "score": 8,
-      "order_date": "2026-11-23",
-      "sector": "綠能環保",
-      "reasons": [
-        "法人大買(42%成交量)",
-        "外資+投信同買",
-        "高殖利率(5.8%)"
-      ],
-      "institutional": {
-        "foreign_net": 1954100,
-        "trust_net": 2000,
-        "total_net": 1985100
-      },
-      "weekday": 0,
-      "weekday_mult": 1.0,
-      "tech_boost": 0,
-      "tech_signal": {
-        "triple_signal": false,
-        "macd_cross": false,
-        "bb_expanding": false,
-        "above_rising_ma": false,
-        "macd_hist": -0.2759,
-        "bb_width": 22.38,
-        "ma_distance_pct": -10.72,
+        "macd_hist": -0.1596,
+        "bb_width": 17.08,
+        "ma_distance_pct": -5.34,
         "score_boost": 0
       }
     }
   ],
-  "total_trades": 14,
+  "total_trades": 15,
   "win_rate": 0.0,
   "wins": 0,
-  "losses": 14,
+  "losses": 15,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-24T15:01:59+08:00",
+  "updated_at": "2026-11-25T15:02:11+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -877,6 +870,47 @@
       "cash_after": 288778,
       "verify": "YF 8110 2026-11-24: O=31.7 H=31.7 L=31.7 C=31.7",
       "reason": "T1 停利 (+15.5%)"
+    },
+    {
+      "date": "2026-11-25",
+      "action": "SELL",
+      "code": "5388",
+      "name": "中磊",
+      "shares": 1400,
+      "price": 65.8,
+      "proceeds": 92120,
+      "pnl_pct": -8.5,
+      "cash_after": 380898,
+      "verify": "YF 5388 2026-11-25: O=69.0 H=70.1 L=65.5 C=65.8",
+      "reason": "停損 (-8.5%)"
+    },
+    {
+      "date": "2026-11-25",
+      "action": "BUY",
+      "code": "6669",
+      "name": "緯穎",
+      "shares": 100,
+      "price": 1375.0,
+      "cost": 137500,
+      "cash_after": 243398,
+      "verify": "YF 6669 2026-11-25: O=1435.0 H=1480.0 L=1360.0 C=1430.0",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=1360.0 ≤ limit=1375.0)"
+    },
+    {
+      "date": "2026-11-25",
+      "action": "BUY",
+      "code": "8422",
+      "name": "可寧衛*",
+      "shares": 4100,
+      "price": 21.0,
+      "cost": 86100,
+      "cash_after": 157298,
+      "verify": "YF 8422 2026-11-25: O=21.8 H=21.8 L=20.65 C=21.2",
+      "weekday": 2,
+      "weekday_mult": 1.15,
+      "reason": "限價單成交 (low=20.65 ≤ limit=21.0)"
     }
   ],
   "methodology": {
