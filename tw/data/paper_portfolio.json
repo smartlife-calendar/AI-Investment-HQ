@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 157298,
-  "nav": 886888,
-  "pnl_pct": -11.31,
+  "cash": 56678,
+  "nav": 907123,
+  "pnl_pct": -9.29,
   "positions": [
     {
       "code": "3703",
@@ -24,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 22.0,
+      "current_price": 21.8,
       "peak_price": 23.5,
-      "pnl_pct": 3.77,
-      "market_value": 79200.0,
+      "pnl_pct": 2.83,
+      "market_value": 78480.0,
       "t1_sold": false
     },
     {
@@ -36,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 45.7,
+      "current_price": 46.05,
       "peak_price": 48.6,
-      "pnl_pct": 4.82,
-      "market_value": 77690.0,
+      "pnl_pct": 5.62,
+      "market_value": 78285.0,
       "t1_sold": false
     },
     {
@@ -48,10 +48,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 40.4,
       "shares": 1900,
-      "current_price": 39.1,
+      "current_price": 39.5,
       "peak_price": 41.05,
-      "pnl_pct": -3.22,
-      "market_value": 74290.0,
+      "pnl_pct": -2.23,
+      "market_value": 75050.0,
       "t1_sold": false
     },
     {
@@ -60,10 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 69.3,
+      "current_price": 69.8,
       "peak_price": 72.5,
-      "pnl_pct": -3.48,
-      "market_value": 97020.0,
+      "pnl_pct": -2.79,
+      "market_value": 97720.0,
       "t1_sold": false
     },
     {
@@ -72,10 +72,10 @@
       "entry_date": "2026-11-20",
       "entry_price": 57.3,
       "shares": 1400,
-      "current_price": 55.8,
+      "current_price": 56.3,
       "peak_price": 56.4,
-      "pnl_pct": -2.62,
-      "market_value": 78120.0,
+      "pnl_pct": -1.75,
+      "market_value": 78820.0,
       "t1_sold": false
     },
     {
@@ -84,10 +84,10 @@
       "entry_date": "2026-11-23",
       "entry_price": 27.45,
       "shares": 1300,
-      "current_price": 29.0,
+      "current_price": 30.85,
       "peak_price": 31.7,
-      "pnl_pct": 5.65,
-      "market_value": 37700.0,
+      "pnl_pct": 12.39,
+      "market_value": 40105.0,
       "t1_sold": true,
       "t1_date": "2026-11-24"
     },
@@ -97,10 +97,10 @@
       "entry_date": "2026-11-25",
       "entry_price": 1375.0,
       "shares": 100,
-      "current_price": 1430.0,
-      "peak_price": 1480.0,
-      "pnl_pct": 4.0,
-      "market_value": 143000,
+      "current_price": 1570.0,
+      "peak_price": 1570.0,
+      "pnl_pct": 14.18,
+      "market_value": 157000.0,
       "t1_sold": false
     },
     {
@@ -109,10 +109,22 @@
       "entry_date": "2026-11-25",
       "entry_price": 21.0,
       "shares": 4100,
-      "current_price": 21.2,
+      "current_price": 21.4,
       "peak_price": 21.8,
-      "pnl_pct": 0.95,
-      "market_value": 86920,
+      "pnl_pct": 1.9,
+      "market_value": 87740.0,
+      "t1_sold": false
+    },
+    {
+      "code": "9945",
+      "name": "潤泰新",
+      "entry_date": "2026-11-26",
+      "entry_price": 25.8,
+      "shares": 3900,
+      "current_price": 26.05,
+      "peak_price": 26.45,
+      "pnl_pct": 0.97,
+      "market_value": 101595,
       "t1_sold": false
     }
   ],
@@ -313,47 +325,14 @@
       "hold_days": 6
     }
   ],
-  "pending_orders": [
-    {
-      "code": "9945",
-      "name": "潤泰新",
-      "limit_price": 25.8,
-      "shares": 3900,
-      "score": 10,
-      "order_date": "2026-11-25",
-      "sector": "其他",
-      "reasons": [
-        "法人大買(15%成交量)",
-        "外資+投信同買",
-        "低PE(4.3)"
-      ],
-      "institutional": {
-        "foreign_net": 980304,
-        "trust_net": 62000,
-        "total_net": 1099950
-      },
-      "weekday": 2,
-      "weekday_mult": 1.15,
-      "tech_boost": 0,
-      "tech_signal": {
-        "triple_signal": false,
-        "macd_cross": false,
-        "bb_expanding": false,
-        "above_rising_ma": false,
-        "macd_hist": -0.1596,
-        "bb_width": 17.08,
-        "ma_distance_pct": -5.34,
-        "score_boost": 0
-      }
-    }
-  ],
+  "pending_orders": [],
   "total_trades": 15,
   "win_rate": 0.0,
   "wins": 0,
   "losses": 15,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-25T15:02:11+08:00",
+  "updated_at": "2026-11-26T15:02:17+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -911,6 +890,20 @@
       "weekday": 2,
       "weekday_mult": 1.15,
       "reason": "限價單成交 (low=20.65 ≤ limit=21.0)"
+    },
+    {
+      "date": "2026-11-26",
+      "action": "BUY",
+      "code": "9945",
+      "name": "潤泰新",
+      "shares": 3900,
+      "price": 25.8,
+      "cost": 100620,
+      "cash_after": 56678,
+      "verify": "YF 9945 2026-11-26: O=26.4 H=26.45 L=25.8 C=26.05",
+      "weekday": 3,
+      "weekday_mult": 0.9,
+      "reason": "限價單成交 (low=25.8 ≤ limit=25.8)"
     }
   ],
   "methodology": {
