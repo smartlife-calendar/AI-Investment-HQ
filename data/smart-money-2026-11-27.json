@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T10:02:46.941054+08:00",
+  "filter": "vol_ratio >= 2.0",
+  "count": 2,
+  "stocks": [
+    {
+      "symbol": "RIG",
+      "name": "Transocean Ltd (Switzerland)",
+      "price": 5.03,
+      "change_pct": 4.14,
+      "vol_ratio": 2.1,
+      "volume": 89371126,
+      "avg_volume": 42557679
+    },
+    {
+      "symbol": "STLA",
+      "name": "Stellantis N.V.",
+      "price": 3.66,
+      "change_pct": 6.4,
+      "vol_ratio": 2.0,
+      "volume": 66037205,
+      "avg_volume": 33018602
+    }
+  ]
+}
