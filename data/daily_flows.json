@@ -1,43 +1,53 @@
 {
-  "date": "2026-11-26",
-  "generated_at": "2026-11-26T10:00:02.456324+00:00",
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T10:00:02.233837+00:00",
   "sectors": [
     {
-      "etf": "XLV",
-      "name": "醫療 Health",
-      "price": 183.68,
-      "daily_chg": 2.95,
-      "vol_ratio": 0.96,
+      "etf": "XLB",
+      "name": "原材料 Materials",
+      "price": 51.21,
+      "daily_chg": 2.07,
+      "vol_ratio": 1.02,
       "flow": "🟢 流入",
-      "mcap_b": 195,
-      "dollar_flow_b": 2.8
-    },
-    {
-      "etf": "XLP",
-      "name": "必需消費 Staples",
-      "price": 92.3,
-      "daily_chg": 1.66,
-      "vol_ratio": 0.87,
-      "flow": "🟢 流入",
-      "mcap_b": 85,
-      "dollar_flow_b": 2.1
+      "mcap_b": 45,
+      "dollar_flow_b": 0.7
     },
     {
       "etf": "XLRE",
       "name": "房地產 RE",
       "price": 43.86,
-      "daily_chg": 1.31,
-      "vol_ratio": 0.91,
+      "daily_chg": 0.92,
+      "vol_ratio": 0.93,
       "flow": "🟢 流入",
       "mcap_b": 35,
       "dollar_flow_b": 0.4
     },
     {
+      "etf": "XLC",
+      "name": "通訊 Comm",
+      "price": 105.38,
+      "daily_chg": 0.89,
+      "vol_ratio": 0.67,
+      "flow": "🟢 流入",
+      "mcap_b": 130,
+      "dollar_flow_b": 0.6
+    },
+    {
+      "etf": "XLI",
+      "name": "工業 Industrial",
+      "price": 162.95,
+      "daily_chg": 0.83,
+      "vol_ratio": 1.16,
+      "flow": "🟢 流入",
+      "mcap_b": 145,
+      "dollar_flow_b": 2.1
+    },
+    {
       "etf": "XLE",
       "name": "能源 Energy",
       "price": 60.9,
-      "daily_chg": 0.97,
-      "vol_ratio": 0.77,
+      "daily_chg": 0.74,
+      "vol_ratio": 0.78,
       "flow": "🟢 流入",
       "mcap_b": 90,
       "dollar_flow_b": 1.6
@@ -46,74 +56,64 @@
       "etf": "XLF",
       "name": "金融 Finance",
       "price": 56.51,
-      "daily_chg": 0.83,
-      "vol_ratio": 0.69,
+      "daily_chg": 0.71,
+      "vol_ratio": 0.7,
       "flow": "🟢 流入",
       "mcap_b": 165,
       "dollar_flow_b": 2.2
     },
     {
-      "etf": "XLC",
-      "name": "通訊 Comm",
-      "price": 105.38,
-      "daily_chg": 0.82,
-      "vol_ratio": 0.67,
+      "etf": "XLU",
+      "name": "公用事業 Utilities",
+      "price": 43.61,
+      "daily_chg": 0.48,
+      "vol_ratio": 0.76,
       "flow": "🟢 流入",
-      "mcap_b": 130,
-      "dollar_flow_b": 0.6
+      "mcap_b": 65,
+      "dollar_flow_b": 0.9
+    },
+    {
+      "etf": "XLP",
+      "name": "必需消費 Staples",
+      "price": 92.3,
+      "daily_chg": 0.46,
+      "vol_ratio": 0.88,
+      "flow": "🟢 流入",
+      "mcap_b": 85,
+      "dollar_flow_b": 2.1
     },
     {
       "etf": "XLY",
       "name": "非必需消費 Cyclical",
       "price": 117.49,
-      "daily_chg": 0.68,
+      "daily_chg": -0.2,
       "vol_ratio": 0.82,
-      "flow": "🟢 流入",
-      "mcap_b": 185,
-      "dollar_flow_b": 1.0
-    },
-    {
-      "etf": "XLB",
-      "name": "原材料 Materials",
-      "price": 51.21,
-      "daily_chg": 0.54,
-      "vol_ratio": 1.0,
-      "flow": "🟢 流入",
-      "mcap_b": 45,
-      "dollar_flow_b": 0.7
-    },
-    {
-      "etf": "XLU",
-      "name": "公用事業 Utilities",
-      "price": 43.61,
-      "daily_chg": 0.18,
-      "vol_ratio": 0.75,
       "flow": "⚪ 持平",
-      "mcap_b": 65,
-      "dollar_flow_b": 0.9
+      "mcap_b": 185,
+      "dollar_flow_b": -1.0
     },
     {
-      "etf": "XLI",
-      "name": "工業 Industrial",
-      "price": 162.95,
-      "daily_chg": -0.53,
-      "vol_ratio": 1.16,
+      "etf": "XLV",
+      "name": "醫療 Health",
+      "price": 183.68,
+      "daily_chg": -0.56,
+      "vol_ratio": 0.98,
       "flow": "🔴 流出",
-      "mcap_b": 145,
-      "dollar_flow_b": -2.1
+      "mcap_b": 195,
+      "dollar_flow_b": -2.8
     },
     {
       "etf": "XLK",
       "name": "科技 Tech",
       "price": 155.79,
-      "daily_chg": -3.26,
+      "daily_chg": -0.83,
       "vol_ratio": 0.83,
       "flow": "🔴 流出",
       "mcap_b": 680,
       "dollar_flow_b": -3.1
     }
   ],
-  "net_flow_b": 7.1,
-  "total_in_b": 12.3,
-  "total_out_b": -5.2
+  "net_flow_b": 3.7,
+  "total_in_b": 10.6,
+  "total_out_b": -6.9
 }

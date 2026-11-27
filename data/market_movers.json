@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T10:00:02+08:00",
+  "generated_at": "2026-11-27T10:00:02+08:00",
   "gainers": [
     {
       "symbol": "BZ",
@@ -309,7 +309,7 @@
       "price": 15.3,
       "change_pct": 7.37,
       "volume": 59541943,
-      "vr": 1.7
+      "vr": 1.6
     }
   ],
   "strong_sell": [
@@ -320,14 +320,6 @@
       "change_pct": -3.91,
       "volume": 359527027,
       "vr": 1.9
-    },
-    {
-      "symbol": "AMZN",
-      "name": "Amazon.com, Inc.",
-      "price": 244.43,
-      "change_pct": -3.12,
-      "volume": 61713896,
-      "vr": 1.5
     },
     {
       "symbol": "MU",
