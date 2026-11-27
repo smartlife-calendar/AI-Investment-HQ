@@ -1,9 +1,9 @@
 {
   "initial_capital": 1000000,
   "currency": "TWD",
-  "cash": 56678,
-  "nav": 907123,
-  "pnl_pct": -9.29,
+  "cash": 140178,
+  "nav": 996113,
+  "pnl_pct": -0.39,
   "positions": [
     {
       "code": "3703",
@@ -11,10 +11,10 @@
       "entry_date": "2026-10-29",
       "entry_price": 20.75,
       "shares": 2650,
-      "current_price": 21.0,
+      "current_price": 21.2,
       "peak_price": 23.95,
-      "pnl_pct": 1.2,
-      "market_value": 55650.0,
+      "pnl_pct": 2.17,
+      "market_value": 56180.0,
       "t1_sold": true,
       "t1_date": "2026-11-10"
     },
@@ -24,10 +24,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 21.2,
       "shares": 3600,
-      "current_price": 21.8,
+      "current_price": 21.6,
       "peak_price": 23.5,
-      "pnl_pct": 2.83,
-      "market_value": 78480.0,
+      "pnl_pct": 1.89,
+      "market_value": 77760.0,
       "t1_sold": false
     },
     {
@@ -36,10 +36,10 @@
       "entry_date": "2026-11-09",
       "entry_price": 43.6,
       "shares": 1700,
-      "current_price": 46.05,
+      "current_price": 45.45,
       "peak_price": 48.6,
-      "pnl_pct": 5.62,
-      "market_value": 78285.0,
+      "pnl_pct": 4.24,
+      "market_value": 77265.0,
       "t1_sold": false
     },
     {
@@ -60,10 +60,10 @@
       "entry_date": "2026-11-18",
       "entry_price": 71.8,
       "shares": 1400,
-      "current_price": 69.8,
+      "current_price": 68.9,
       "peak_price": 72.5,
-      "pnl_pct": -2.79,
-      "market_value": 97720.0,
+      "pnl_pct": -4.04,
+      "market_value": 96460.0,
       "t1_sold": false
     },
     {
@@ -72,10 +72,10 @@
       "entry_date": "2026-11-20",
       "entry_price": 57.3,
       "shares": 1400,
-      "current_price": 56.3,
+      "current_price": 55.4,
       "peak_price": 56.4,
-      "pnl_pct": -1.75,
-      "market_value": 78820.0,
+      "pnl_pct": -3.32,
+      "market_value": 77560.0,
       "t1_sold": false
     },
     {
@@ -84,10 +84,10 @@
       "entry_date": "2026-11-23",
       "entry_price": 27.45,
       "shares": 1300,
-      "current_price": 30.85,
+      "current_price": 31.3,
       "peak_price": 31.7,
-      "pnl_pct": 12.39,
-      "market_value": 40105.0,
+      "pnl_pct": 14.03,
+      "market_value": 40690.0,
       "t1_sold": true,
       "t1_date": "2026-11-24"
     },
@@ -96,12 +96,13 @@
       "name": "緯穎",
       "entry_date": "2026-11-25",
       "entry_price": 1375.0,
-      "shares": 100,
-      "current_price": 1570.0,
-      "peak_price": 1570.0,
-      "pnl_pct": 14.18,
-      "market_value": 157000.0,
-      "t1_sold": false
+      "shares": 50,
+      "current_price": 1670.0,
+      "peak_price": 1670.0,
+      "pnl_pct": 21.45,
+      "market_value": 167000.0,
+      "t1_sold": true,
+      "t1_date": "2026-11-27"
     },
     {
       "code": "8422",
@@ -121,10 +122,10 @@
       "entry_date": "2026-11-26",
       "entry_price": 25.8,
       "shares": 3900,
-      "current_price": 26.05,
+      "current_price": 25.7,
       "peak_price": 26.45,
-      "pnl_pct": 0.97,
-      "market_value": 101595,
+      "pnl_pct": -0.39,
+      "market_value": 100230.0,
       "t1_sold": false
     }
   ],
@@ -332,7 +333,7 @@
   "losses": 15,
   "best_trade": -8.18,
   "worst_trade": -15.35,
-  "updated_at": "2026-11-26T15:02:17+08:00",
+  "updated_at": "2026-11-27T15:02:35+08:00",
   "audit_log": [
     {
       "date": "2026-10-28",
@@ -904,6 +905,19 @@
       "weekday": 3,
       "weekday_mult": 0.9,
       "reason": "限價單成交 (low=25.8 ≤ limit=25.8)"
+    },
+    {
+      "date": "2026-11-27",
+      "action": "T1_SELL",
+      "code": "6669",
+      "name": "緯穎",
+      "shares": 50,
+      "price": 1670.0,
+      "proceeds": 83500,
+      "pnl_pct": 21.5,
+      "cash_after": 140178,
+      "verify": "YF 6669 2026-11-27: O=1545.0 H=1720.0 L=1535.0 C=1670.0",
+      "reason": "T1 停利 (+21.5%)"
     }
   ],
   "methodology": {
